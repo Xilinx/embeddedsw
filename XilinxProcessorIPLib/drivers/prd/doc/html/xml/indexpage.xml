@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>prd</title>
+    <detaileddescription>
+<para>The Xilinx Partial Reconfiguration Decoupler driver can be used to provide a boundary between the static logic and a Reconfigurable Partition during Partial Reconfiguration.The PR Decoupler supports the following features:<itemizedlist>
+<listitem><para>All Interface types registered in the Vivado Design Suite are supported, including custom interfaces.</para></listitem><listitem><para>Non-Vivado Design Suite interfaces are supported.</para></listitem><listitem><para>The decoupling behaviour can be configured for each interface.</para></listitem><listitem><para>Each interface can have Clock Domain Crossing support.</para></listitem><listitem><para>Optional AXI4-Stream based control.</para></listitem><listitem><para>Optional AXI4-Stream based Status.</para></listitem><listitem><para>Optional AXI4-Lite based status and control.</para></listitem></itemizedlist>
+</para><para><bold> Initialization and Configuration </bold></para><para><itemizedlist>
+<listitem><para>XPrd_LookupConfig(BaseAddress) - Use the device BaseAddress to find the static configuration structure defined in xprd_g.c. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</para></listitem><listitem><para><ref refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" kindref="member">XPrd_CfgInitialize()</ref> is used for initialisation. The user needs to first call the <ref refid="group__prd_1ga980c446b57a2dd8bb4158762fe671e6b" kindref="member">XPrd_LookupConfig()</ref> which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" kindref="member">XPrd_CfgInitialize()</ref>.</para></listitem></itemizedlist>
+</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_prd" kindref="compound">XPrd</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date          Changes
+<hruler/>
+
+1.0   ms     07/14/16      First release
+1.1   ms     01/16/17      Updated the parameter naming from
+                           XPAR_PR_DECOUPLER_NUM_INSTANCES to
+                           XPAR_XPRD_NUM_INSTANCES to avoid compilation
+                           failure for XPAR_PR_DECOUPLER_NUM_INSTANCES as the
+                           tools are generating XPAR_XPRD_NUM_INSTANCES
+                           in the generated xprd_g.c for fixing MISRA-C
+                           files. This is a fix for CR-966099 based on the
+                           update in the tools.
+      ms     03/17/17      Added readme.txt file in examples folder for
+                           doxygen generation.
+      ms     04/05/2017    Modified comment lines notation in functions
+                           of prd examples to avoid unnecessary description
+                           which was displayed while generating doxygen.
+2.2   Nava   06/22/2023    Added support for system device-tree flow.
+2.4   bdk    12/08/2025    Updated comments to support SDT flow for Doxygen
+                           documentation.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,944 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdmapcie__common_8h" kind="file">
+    <compoundname>xdmapcie_common.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xdmapcie__hw_8h" local="yes">xdmapcie_hw.h</includes>
+    <includedby refid="xdmapcie_8c" local="yes">xdmapcie.c</includedby>
+    <includedby refid="xdmapcie__caps_8c" local="yes">xdmapcie_caps.c</includedby>
+    <incdepgraph>
+      <node id="51">
+        <label>xil_io.h</label>
+      </node>
+      <node id="50">
+        <label>xdmapcie_hw.h</label>
+        <link refid="xdmapcie__hw_8h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xil_types.h</label>
+      </node>
+      <node id="52">
+        <label>xparameters.h</label>
+      </node>
+      <node id="48">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="47">
+        <label>xdmapcie_common.h</label>
+        <link refid="xdmapcie_common.h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="54">
+        <label>xdmapcie.c</label>
+        <link refid="xdmapcie_8c"/>
+      </node>
+      <node id="53">
+        <label>xdmapcie_common.h</label>
+        <link refid="xdmapcie_common.h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xdmapcie_caps.c</label>
+        <link refid="xdmapcie__caps_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Bit and mask helpers</header>
+      <memberdef kind="define" id="group__xdmapcie_1gad27cc17b25bb93134368d5eb21126eae" prot="public" static="no">
+        <name>BIT</name>
+        <param><defname>x</defname></param>
+        <initializer>(1 &lt;&lt; (x))</initializer>
+        <briefdescription>
+<para>Builds a mask with bit x set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga82e8a8554eb90b5a969bbbd7ed73c5b9" prot="public" static="no">
+        <name>GET_MAX_BUS_NO</name>
+        <param><defname>ecam_sz</defname></param>
+        <initializer>(((ecam_sz) / (1024 * 1024)) - 1)</initializer>
+        <briefdescription>
+<para>Derives the highest bus number from the ECAM size, 1 MB per bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaa9b607a0ece709cf8506dd0ce4a1c3ac" prot="public" static="no">
+        <name>BITSPERLONG</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Width of the <ref refid="group__xdmapcie_1ga58530d20924859d16358c7400c37738d" kindref="member">GENMASK()</ref> operand. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga58530d20924859d16358c7400c37738d" prot="public" static="no">
+        <name>GENMASK</name>
+        <param><defname>h</defname></param>
+        <param><defname>l</defname></param>
+        <initializer>(((~0ULL) &lt;&lt; (l)) &amp; (~0ULL) &gt;&gt; (BITSPERLONG - 1 - (h)))</initializer>
+        <briefdescription>
+<para>Builds a contiguous mask with bits h down to l set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Configuration read error detection</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga324c8773bbd4d42eb28bafaba926040a" prot="public" static="no">
+        <name>XDMAPCIE_ERROR_RESPONSE</name>
+        <initializer>(~0ULL)</initializer>
+        <briefdescription>
+<para>Value returned on a failed config read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga28905f147083756a8613e2b86bb73beb" prot="public" static="no">
+        <name>XDMAPCIE_POSSIBLE_ERROR</name>
+        <param><defname>val</defname></param>
+        <initializer>((val) == ((typeof(val)) <ref refid="group__xdmapcie_1ga324c8773bbd4d42eb28bafaba926040a" kindref="member">XDMAPCIE_ERROR_RESPONSE</ref>))</initializer>
+        <briefdescription>
+<para>Evaluates to TRUE when a config read returned the all ones error response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gae57bb2cba7081138536771f21126a079" prot="public" static="no">
+        <name>XDMAPCIE_IS_BAR_UNIMPLEMENTED</name>
+        <param><defname>size</defname></param>
+        <initializer>(                                      \
+    (((size) &amp; ~0xFULL) == 0x00) ||      /* Size is zero or too small */     \
+    XDMAPCIE_POSSIBLE_ERROR(size)         /* All 1s, read failure or unimpl */ \
+)</initializer>
+        <briefdescription>
+<para>Evaluates to TRUE when a BAR is unimplemented, that is too small or all ones. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PCIe command register bit definitions</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga37da4c63ff84af1054c53bfa5979ea37" prot="public" static="no">
+        <name>XDMAPCIE_CFG_CMD_MEM_EN</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Memory access enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gab5815362f8f8277fdbfcb6fdc86cd460" prot="public" static="no">
+        <name>XDMAPCIE_CFG_CMD_BUSM_EN</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Bus master enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PCIe configuration space register offsets, in doublewords</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga140dbf6dcbc78e635e2ca2b141b415ed" prot="public" static="no">
+        <name>XDMAPCIE_CFG_ID_REG</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>Vendor ID and Device ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga5057433f4b81c9ee1e0d4c4d778645f0" prot="public" static="no">
+        <name>XDMAPCIE_CFG_CMD_STATUS_REG</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+<para>Command and Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga5cbab682cfdcfcdc1e4ba3b76fff7ed0" prot="public" static="no">
+        <name>XDMAPCIE_CFG_PRI_SEC_BUS_REG</name>
+        <initializer>0x0006</initializer>
+        <briefdescription>
+<para>Primary and Secondary Bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga13e864bba6533f9f4c09d59615c54979" prot="public" static="no">
+        <name>XDMAPCIE_CFG_CAH_LAT_HD_REG</name>
+        <initializer>0x0003</initializer>
+        <briefdescription>
+<para>Cache Line, Latency Timer, Header Type and BIST. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga65f144b3affa5b9c29e976bd613b085d" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_MEM_TYPE_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Memory or IO request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaf81aed1442c688866ab96dcf40f22e9b" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_MEM_AS_MASK</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+<para>32 bit or 64 bit address space </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga9cbb2cf43fb8d4d8ed8ac491e433d5bc" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_BASE_OFFSET</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>First Base Address Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga02ece52c9439ad0e3a37bde8afad7da8" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_0_REG</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>Base Address Register 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga186af69a6418ffca697b39ba587ab32a" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_1_REG</name>
+        <initializer>0x0005</initializer>
+        <briefdescription>
+<para>Base Address Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga40b246c0f2c26869d21f12de7d763e5f" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_2_REG</name>
+        <initializer>0x0006</initializer>
+        <briefdescription>
+<para>Base Address Register 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaba8b8ad988d2dfa56547b8ae7d099ae1" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_3_REG</name>
+        <initializer>0x0007</initializer>
+        <briefdescription>
+<para>Base Address Register 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga10759323d7f60e819931c99c672a71c3" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BAR_4_REG</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>Base Address Register 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Type 1 configuration header register offsets</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga6b87fb6c8f14c21f9ebd35d145de29eb" prot="public" static="no">
+        <name>XDMAPCIE_CFG_BUS_NUMS_T1_REG</name>
+        <initializer>0X0006</initializer>
+        <briefdescription>
+<para>Bus number register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga2b4774dd12701eacae07192f9f6b7f32" prot="public" static="no">
+        <name>XDMAPCIE_CFG_NP_MEM_T1_REG</name>
+        <initializer>0X0008</initializer>
+        <briefdescription>
+<para>Non prefetchable memory base and limit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga991630d9f2f5a2eb00fbf856cce5f926" prot="public" static="no">
+        <name>XDMAPCIE_CFG_P_MEM_T1_REG</name>
+        <initializer>0X0009</initializer>
+        <briefdescription>
+<para>Prefetchable memory base and limit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaa374ccd5a23577e61b6a9b3ad71987c8" prot="public" static="no">
+        <name>XDMAPCIE_CFG_P_UPPER_MEM_T1_REG</name>
+        <initializer>0X000A</initializer>
+        <briefdescription>
+<para>Prefetchable memory base, upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaed9e16bb3bede3d81837b661ea45ae6e" prot="public" static="no">
+        <name>XDMAPCIE_CFG_P_LIMIT_MEM_T1_REG</name>
+        <initializer>0X000B</initializer>
+        <briefdescription>
+<para>Prefetchable memory limit, upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Configuration header field masks</header>
+      <memberdef kind="define" id="group__xdmapcie_1gaddd8a68182edf4fd6f5e737dc188d823" prot="public" static="no">
+        <name>XDMAPCIE_CFG_FUN_NOT_IMP_MASK</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+<para>Marks a function that is not implemented. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga5be55760942601a23e3772e83cd6e9c9" prot="public" static="no">
+        <name>XDMAPCIE_CFG_HEADER_TYPE_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Bridge or endpoint header type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gac0dbee209fda9d696391113afbe63934" prot="public" static="no">
+        <name>XDMAPCIE_CFG_MUL_FUN_DEV_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>Multi function device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Enumeration limits</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga5e06f01b78d5f8fe0dd75cc76cee78a9" prot="public" static="no">
+        <name>XDMAPCIE_CFG_MAX_NUM_OF_BUS</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>Maximum number of buses. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga5d925db33d2d6f8dbaa1a35c62724666" prot="public" static="no">
+        <name>XDMAPCIE_CFG_MAX_NUM_OF_DEV</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Maximum number of devices per bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga47944786a8931dc345fc15eb2c6e6f3d" prot="public" static="no">
+        <name>XDMAPCIE_CFG_MAX_NUM_OF_FUN</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Maximum number of functions per device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BAR address and type encodings</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga93ce1d57a532c5ae8cb6712ce377b32d" prot="public" static="no">
+        <name>XDMAPCIE_BAR_IO_MEM</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>BAR maps IO space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaf6585649117d455abac790454984055d" prot="public" static="no">
+        <name>XDMAPCIE_BAR_ADDR_MEM</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>BAR maps memory space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga9bed3ff7c724656fc6639254a2f9912a" prot="public" static="no">
+        <name>XDMAPCIE_BAR_MEM_TYPE_64</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>64 bit BAR </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga494d867610067f1460f826ec78653d6b" prot="public" static="no">
+        <name>XDMAPCIE_BAR_MEM_TYPE_32</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>32 bit BAR </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Shift and nibble width helpers</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga2067bec8de1f4e6afe1e0267c1d7469b" prot="public" static="no">
+        <name>MB_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Shift for one megabyte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga6969b3bfa2c0c6ab0ff00af8725aa551" prot="public" static="no">
+        <name>HEX_NIBBLE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bits in one hex nibble. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaff25a05314ed7d54162bde2a735da4dc" prot="public" static="no">
+        <name>TWO_HEX_NIBBLES</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Bits in two hex nibbles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga133994e0b57fb789c358235bdfd13289" prot="public" static="no">
+        <name>FOUR_HEX_NIBBLES</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bits in four hex nibbles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga4f0b1b2189edcd9c29caf3b59ac00f0e" prot="public" static="no">
+        <name>EIGHT_HEX_NIBBLES</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Bits in eight hex nibbles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Capability pointer register and masks</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga90374d2c13553eb5f7770e3b9f44db4b" prot="public" static="no">
+        <name>XDMAPCIE_CFG_P_CAP_PTR_T1_REG</name>
+        <initializer>0X000D</initializer>
+        <briefdescription>
+<para>Capability pointer register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga183b500ed4d69a72c4b1b6e5c42b2155" prot="public" static="no">
+        <name>XDMAPCIE_CFG_CAP_ID_LOC</name>
+        <initializer><ref refid="group__xdmapcie_1ga58530d20924859d16358c7400c37738d" kindref="member">GENMASK</ref>(7, 0)</initializer>
+        <briefdescription>
+<para>Capability ID field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" compoundref="xdmapcie__caps_8c" startline="116" endline="140">XDmaPcie_GetCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" compoundref="xdmapcie__caps_8c" startline="77" endline="99">XDmaPcie_HasCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1a7106f923ba6532a0533e39afdf6728c2" compoundref="xdmapcie__caps_8c" startline="155" endline="171">XDmaPcie_PrintAllCapabilites</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaf5e15543e884455365753170dd698ce2" prot="public" static="no">
+        <name>XDMAPCIE_CAP_PTR_LOC</name>
+        <initializer><ref refid="group__xdmapcie_1ga58530d20924859d16358c7400c37738d" kindref="member">GENMASK</ref>(7, 0)</initializer>
+        <briefdescription>
+<para>Next capability pointer field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" compoundref="xdmapcie__caps_8c" startline="116" endline="140">XDmaPcie_GetCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" compoundref="xdmapcie__caps_8c" startline="77" endline="99">XDmaPcie_HasCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1a7106f923ba6532a0533e39afdf6728c2" compoundref="xdmapcie__caps_8c" startline="155" endline="171">XDmaPcie_PrintAllCapabilites</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gada9f742437f2f0e6330733b1a801c66a" prot="public" static="no">
+        <name>XDMAPCIE_CAP_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Shift to reach the next capability pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" compoundref="xdmapcie__caps_8c" startline="116" endline="140">XDmaPcie_GetCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" compoundref="xdmapcie__caps_8c" startline="77" endline="99">XDmaPcie_HasCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1a7106f923ba6532a0533e39afdf6728c2" compoundref="xdmapcie__caps_8c" startline="155" endline="171">XDmaPcie_PrintAllCapabilites</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga3fe28bf3f3ba24ea6f3f1db593d4341c" prot="public" static="no">
+        <name>XDMAPCIE_DOUBLEWORD</name>
+        <param><defname>x</defname></param>
+        <initializer>(x / 4)</initializer>
+        <briefdescription>
+<para>Converts a byte offset to a doubleword offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" compoundref="xdmapcie__caps_8c" startline="116" endline="140">XDmaPcie_GetCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" compoundref="xdmapcie__caps_8c" startline="77" endline="99">XDmaPcie_HasCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1a7106f923ba6532a0533e39afdf6728c2" compoundref="xdmapcie__caps_8c" startline="155" endline="171">XDmaPcie_PrintAllCapabilites</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga415ee0a473d47d6a14922b4ac0ecf732" prot="public" static="no">
+        <name>CAP_PRESENT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>The capability is present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" compoundref="xdmapcie__caps_8c" startline="77" endline="99">XDmaPcie_HasCapability</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga8346fb16fc3e00bb2fec31a73a7f3b1e" prot="public" static="no">
+        <name>CAP_NOT_PRESENT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>The capability is not present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" compoundref="xdmapcie__caps_8c" startline="116" endline="140">XDmaPcie_GetCapability</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" compoundref="xdmapcie__caps_8c" startline="77" endline="99">XDmaPcie_HasCapability</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Logging macros</header>
+      <memberdef kind="define" id="group__xdmapcie_1ga9853405f7b8676a0d4cedaf3c31932eb" prot="public" static="no">
+        <name>XDmaPcie_Print</name>
+        <param><defname>MSG</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>xil_printf(&quot;xdma_pcie: &quot;MSG,##__VA_ARGS__)</initializer>
+        <briefdescription>
+<para>Prints an informational message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga96d02bf332d69987c7b508be06c762f0" prot="public" static="no">
+        <name>XDmaPcie_Error</name>
+        <param><defname>MSG</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>xil_printf(&quot;xdma_pcie: &quot;MSG,##__VA_ARGS__)</initializer>
+        <briefdescription>
+<para>Prints an error message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga5d608c2b0533ae43450c2a9b4cf6b82a" prot="public" static="no">
+        <name>XDmaPcie_Err</name>
+        <param><defname>MSG</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>do { \
+			<ref refid="group__xdmapcie_1ga96d02bf332d69987c7b508be06c762f0" kindref="member">XDmaPcie_Error</ref>(MSG, ##__VA_ARGS__); \
+		} while (0)</initializer>
+        <briefdescription>
+<para>Prints an error message unconditionally. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaa053bee08c32cd92a838901e816f1146" prot="public" static="no">
+        <name>XDmaPcie_Dbg</name>
+        <param><defname>MSG</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>do { \
+			<ref refid="group__xdmapcie_1ga9853405f7b8676a0d4cedaf3c31932eb" kindref="member">XDmaPcie_Print</ref>(MSG, ##__VA_ARGS__); \
+		} while (0)</initializer>
+        <briefdescription>
+<para>Prints a debug message when DEBUG_MODE is defined. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xdmapcie_1gac80a3592e72fd96b772ee47a7d8e0d0a" prot="public" static="no">
+        <name>DEBUG_MODE</name>
+        <briefdescription>
+<para>Enables the <ref refid="group__xdmapcie_1gaa053bee08c32cd92a838901e816f1146" kindref="member">XDmaPcie_Dbg()</ref> prints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaff301a59ddcf02c138ed20f280c45a9b" prot="public" static="no">
+        <name>XDMAPCIE_CFG_HEADER_O_TYPE</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>Endpoint header type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gaa9de872390cb70dfb8238c55b2d4da21" prot="public" static="no">
+        <name>XDMAPCIE_PRIMARY_BUS</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Primary bus number register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1gadbf696e34d96a5e7cd7556aae69770c5" prot="public" static="no">
+        <name>XDMAPCIE_ECAM_MEMSIZE</name>
+        <initializer>16*1024*1024</initializer>
+        <briefdescription>
+<para>Default ECAM region size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xdmapcie_1ga557a92506060fd460154426bd8c4870c" compoundref="xdmapcie_8c" startline="128" endline="183">XDmaPcie_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga34f0a5de101597f7a82c3f6960341bf1" prot="public" static="no">
+        <name>XDMAPCIE_LINKUP_SUCCESS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>The PCIe link is up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga932db5531af654eecdcee784dcb3fb94" prot="public" static="no">
+        <name>XDMAPCIE_LINKUP_FAIL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>The PCIe link is down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xdmapcie_1ga5ef659e7349926fefde329eb30c9d6ae" prot="public" static="no">
+        <name>DATA_MASK_32</name>
+        <initializer>(0xFFFFFFFF)</initializer>
+        <briefdescription>
+<para>Mask for the lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XDMAPCIE_COMMON_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDMAPCIE_COMMON_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdmapcie__hw_8h" kindref="compound">xdmapcie_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(versal_2vp)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="group__xdmapcie_1gac80a3592e72fd96b772ee47a7d8e0d0a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="comment">/********************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/********************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__xdmapcie_1gad27cc17b25bb93134368d5eb21126eae" refkind="member"><highlight class="preprocessor">#define<sp/>BIT(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>(x))<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xdmapcie_1ga82e8a8554eb90b5a969bbbd7ed73c5b9" refkind="member"><highlight class="preprocessor">#define<sp/>GET_MAX_BUS_NO(ecam_sz)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((ecam_sz)<sp/>/<sp/>(1024<sp/>*<sp/>1024))<sp/>-<sp/>1)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__xdmapcie_1gaa9b607a0ece709cf8506dd0ce4a1c3ac" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BITSPERLONG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xdmapcie_1ga58530d20924859d16358c7400c37738d" refkind="member"><highlight class="preprocessor">#define<sp/>GENMASK(h,<sp/>l)<sp/>(((~0ULL)<sp/>&lt;&lt;<sp/>(l))<sp/>&amp;<sp/>(~0ULL)<sp/>&gt;&gt;<sp/>(BITSPERLONG<sp/>-<sp/>1<sp/>-<sp/>(h)))</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61" refid="group__xdmapcie_1ga324c8773bbd4d42eb28bafaba926040a" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_ERROR_RESPONSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~0ULL)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xdmapcie_1ga28905f147083756a8613e2b86bb73beb" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_POSSIBLE_ERROR(val)<sp/><sp/><sp/><sp/>((val)<sp/>==<sp/>((typeof(val))<sp/>XDMAPCIE_ERROR_RESPONSE))</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="group__xdmapcie_1gae57bb2cba7081138536771f21126a079" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_IS_BAR_UNIMPLEMENTED(size)<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(((size)<sp/>&amp;<sp/>~0xFULL)<sp/>==<sp/>0x00)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Size<sp/>is<sp/>zero<sp/>or<sp/>too<sp/>small<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>XDMAPCIE_POSSIBLE_ERROR(size)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>All<sp/>1s,<sp/>read<sp/>failure<sp/>or<sp/>unimpl<sp/>*/</highlight><highlight class="preprocessor"><sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76" refid="group__xdmapcie_1ga37da4c63ff84af1054c53bfa5979ea37" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_CMD_MEM_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xdmapcie_1gab5815362f8f8277fdbfcb6fdc86cd460" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_CMD_BUSM_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__xdmapcie_1ga140dbf6dcbc78e635e2ca2b141b415ed" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_ID_REG<sp/><sp/><sp/><sp/><sp/>0x0000<sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__xdmapcie_1ga5057433f4b81c9ee1e0d4c4d778645f0" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_CMD_STATUS_REG<sp/><sp/><sp/><sp/><sp/>0x0001<sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xdmapcie_1ga5cbab682cfdcfcdc1e4ba3b76fff7ed0" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_PRI_SEC_BUS_REG<sp/><sp/><sp/><sp/>0x0006<sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="group__xdmapcie_1ga13e864bba6533f9f4c09d59615c54979" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_CAH_LAT_HD_REG<sp/><sp/><sp/><sp/><sp/>0x0003<sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group__xdmapcie_1ga65f144b3affa5b9c29e976bd613b085d" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_MEM_TYPE_MASK<sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="group__xdmapcie_1gaf81aed1442c688866ab96dcf40f22e9b" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_MEM_AS_MASK<sp/><sp/><sp/><sp/>0x8<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__xdmapcie_1ga9cbb2cf43fb8d4d8ed8ac491e433d5bc" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_BASE_OFFSET<sp/><sp/><sp/><sp/>0x0004<sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__xdmapcie_1ga02ece52c9439ad0e3a37bde8afad7da8" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_0_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0004<sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xdmapcie_1ga186af69a6418ffca697b39ba587ab32a" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_1_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0005<sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group__xdmapcie_1ga40b246c0f2c26869d21f12de7d763e5f" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_2_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0006<sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xdmapcie_1gaba8b8ad988d2dfa56547b8ae7d099ae1" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_3_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0007<sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xdmapcie_1ga10759323d7f60e819931c99c672a71c3" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BAR_4_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008<sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="group__xdmapcie_1ga6b87fb6c8f14c21f9ebd35d145de29eb" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_BUS_NUMS_T1_REG<sp/><sp/><sp/><sp/>0X0006<sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="group__xdmapcie_1ga2b4774dd12701eacae07192f9f6b7f32" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_NP_MEM_T1_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X0008<sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="group__xdmapcie_1ga991630d9f2f5a2eb00fbf856cce5f926" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_P_MEM_T1_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X0009<sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="group__xdmapcie_1gaa374ccd5a23577e61b6a9b3ad71987c8" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_P_UPPER_MEM_T1_REG<sp/>0X000A<sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__xdmapcie_1gaed9e16bb3bede3d81837b661ea45ae6e" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_P_LIMIT_MEM_T1_REG<sp/>0X000B<sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__xdmapcie_1gaddd8a68182edf4fd6f5e737dc188d823" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_FUN_NOT_IMP_MASK<sp/><sp/><sp/>0xFFFF<sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="group__xdmapcie_1ga5be55760942601a23e3772e83cd6e9c9" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_HEADER_TYPE_MASK<sp/><sp/><sp/>0x00010000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group__xdmapcie_1gac0dbee209fda9d696391113afbe63934" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_MUL_FUN_DEV_MASK<sp/><sp/><sp/>0x00800000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="group__xdmapcie_1ga5e06f01b78d5f8fe0dd75cc76cee78a9" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_MAX_NUM_OF_BUS<sp/><sp/><sp/><sp/><sp/>256<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="group__xdmapcie_1ga5d925db33d2d6f8dbaa1a35c62724666" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_MAX_NUM_OF_DEV<sp/><sp/><sp/><sp/><sp/>32<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="group__xdmapcie_1ga47944786a8931dc345fc15eb2c6e6f3d" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_MAX_NUM_OF_FUN<sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="group__xdmapcie_1gaff301a59ddcf02c138ed20f280c45a9b" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_HEADER_O_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000<sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="group__xdmapcie_1ga93ce1d57a532c5ae8cb6712ce377b32d" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_BAR_IO_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="group__xdmapcie_1gaf6585649117d455abac790454984055d" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_BAR_ADDR_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="group__xdmapcie_1ga9bed3ff7c724656fc6639254a2f9912a" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_BAR_MEM_TYPE_64<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="group__xdmapcie_1ga494d867610067f1460f826ec78653d6b" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_BAR_MEM_TYPE_32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="group__xdmapcie_1gaa9de872390cb70dfb8238c55b2d4da21" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_PRIMARY_BUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="group__xdmapcie_1gadbf696e34d96a5e7cd7556aae69770c5" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_ECAM_MEMSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16*1024*1024<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="group__xdmapcie_1ga2067bec8de1f4e6afe1e0267c1d7469b" refkind="member"><highlight class="preprocessor">#define<sp/>MB_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="group__xdmapcie_1ga6969b3bfa2c0c6ab0ff00af8725aa551" refkind="member"><highlight class="preprocessor">#define<sp/>HEX_NIBBLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="group__xdmapcie_1gaff25a05314ed7d54162bde2a735da4dc" refkind="member"><highlight class="preprocessor">#define<sp/>TWO_HEX_NIBBLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="group__xdmapcie_1ga133994e0b57fb789c358235bdfd13289" refkind="member"><highlight class="preprocessor">#define<sp/>FOUR_HEX_NIBBLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="group__xdmapcie_1ga4f0b1b2189edcd9c29caf3b59ac00f0e" refkind="member"><highlight class="preprocessor">#define<sp/>EIGHT_HEX_NIBBLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="group__xdmapcie_1ga34f0a5de101597f7a82c3f6960341bf1" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_LINKUP_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="group__xdmapcie_1ga932db5531af654eecdcee784dcb3fb94" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_LINKUP_FAIL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__xdmapcie_1ga5ef659e7349926fefde329eb30c9d6ae" refkind="member"><highlight class="preprocessor">#define<sp/>DATA_MASK_32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFF)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="group__xdmapcie_1ga90374d2c13553eb5f7770e3b9f44db4b" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_P_CAP_PTR_T1_REG<sp/><sp/><sp/>0X000D<sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="group__xdmapcie_1ga183b500ed4d69a72c4b1b6e5c42b2155" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CFG_CAP_ID_LOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GENMASK(7,<sp/>0)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="group__xdmapcie_1gaf5e15543e884455365753170dd698ce2" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CAP_PTR_LOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GENMASK(7,<sp/>0)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__xdmapcie_1gada9f742437f2f0e6330733b1a801c66a" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_CAP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__xdmapcie_1ga3fe28bf3f3ba24ea6f3f1db593d4341c" refkind="member"><highlight class="preprocessor">#define<sp/>XDMAPCIE_DOUBLEWORD(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(x<sp/>/<sp/>4)<sp/></highlight></codeline>
+<codeline lineno="168" refid="group__xdmapcie_1ga415ee0a473d47d6a14922b4ac0ecf732" refkind="member"><highlight class="preprocessor">#define<sp/>CAP_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="group__xdmapcie_1ga8346fb16fc3e00bb2fec31a73a7f3b1e" refkind="member"><highlight class="preprocessor">#define<sp/>CAP_NOT_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__xdmapcie_1ga9853405f7b8676a0d4cedaf3c31932eb" refkind="member"><highlight class="preprocessor">#define<sp/>XDmaPcie_Print(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(&quot;xdma_pcie:<sp/>&quot;MSG,##__VA_ARGS__)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__xdmapcie_1ga96d02bf332d69987c7b508be06c762f0" refkind="member"><highlight class="preprocessor">#define<sp/>XDmaPcie_Error(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(&quot;xdma_pcie:<sp/>&quot;MSG,##__VA_ARGS__)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="group__xdmapcie_1ga5d608c2b0533ae43450c2a9b4cf6b82a" refkind="member"><highlight class="preprocessor">#define<sp/>XDmaPcie_Err(MSG,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDmaPcie_Error(MSG,<sp/>##__VA_ARGS__);<sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>while<sp/>(0)</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_MODE</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="187" refid="group__xdmapcie_1gaa053bee08c32cd92a838901e816f1146" refkind="member"><highlight class="preprocessor">#define<sp/>XDmaPcie_Dbg(MSG,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDmaPcie_Print(MSG,<sp/>##__VA_ARGS__);<sp/>\</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>while<sp/>(0)</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XDmaPcie_Dbg(MSG,<sp/>...)<sp/><sp/>{}</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="196"><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(versal_2vp)</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="212"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XDmaPcie_Cpm6GetController(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Compatible)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Controller<sp/>=<sp/>XDMAPCIE_CPM6_CONTROLLER_0;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Compatible<sp/>!=<sp/>NULL)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(strcmp(Compatible,<sp/>XDMAPCIE_CPM6_HOST1_COMPATIBLE)<sp/>==<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Controller<sp/>=<sp/>XDMAPCIE_CPM6_CONTROLLER_1;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Controller;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="239"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>UINTPTR<sp/>XDmaPcie_Cpm6CoreBase(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Compatible,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>CsrSlcrBase)</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Offset<sp/>=<sp/>XDMAPCIE_CPM6_CORE0_INTR_OFFSET;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDmaPcie_Cpm6GetController(Compatible)<sp/>==</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDMAPCIE_CPM6_CONTROLLER_1)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>XDMAPCIE_CPM6_CORE1_INTR_OFFSET;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CsrSlcrBase<sp/>+<sp/>Offset);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="264"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XDmaPcie_Cpm6GetPerstPin(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Compatible,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Ctrl0Pin,<sp/>u32<sp/>Ctrl1Pin)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Pin<sp/>=<sp/>Ctrl0Pin;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDmaPcie_Cpm6GetController(Compatible)<sp/>==</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDMAPCIE_CPM6_CONTROLLER_1)<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pin<sp/>=<sp/>Ctrl1Pin;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Pin;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>versal_2vp<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDMAPCIE_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_common.h"/>
+  </compounddef>
+</doxygen>

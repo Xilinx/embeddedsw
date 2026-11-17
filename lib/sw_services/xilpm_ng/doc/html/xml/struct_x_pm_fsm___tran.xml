@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_fsm___tran" kind="struct" prot="public">
+    <compoundname>XPmFsm_Tran</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_fsm___tran_1abd063c9c5dccc7346e8ba84a14b3b84b" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XPmFsm_Tran::Event</definition>
+        <argsstring></argsstring>
+        <name>Event</name>
+        <briefdescription>
+<para>Event that triggers the transition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fsm___tran_1a341d706f0c4487d219045b3c79494cbc" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPmFsm_Tran::FromState</definition>
+        <argsstring></argsstring>
+        <name>FromState</name>
+        <briefdescription>
+<para>From which state the transition is taken. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fsm___tran_1afb7aad04501becaf45e7492b858398ce" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPmFsm_Tran::ToState</definition>
+        <argsstring></argsstring>
+        <name>ToState</name>
+        <briefdescription>
+<para>To which state the transition is taken. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fsm___tran_1a207caabe992faadb66d13c91521cf2f8" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XPmFsm_Tran::Latency</definition>
+        <argsstring></argsstring>
+        <name>Latency</name>
+        <briefdescription>
+<para>Transition latency in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fsm___tran_1a451d48cdea95b23cd525223df7679f36" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPmFsm_Tran::Action)(XPm_Device *const Device)</definition>
+        <argsstring>)(XPm_Device *const Device)</argsstring>
+        <name>Action</name>
+        <briefdescription>
+<para>Action function for the transition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="25" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_fsm___tran_1a451d48cdea95b23cd525223df7679f36" prot="public" virt="non-virtual"><scope>XPmFsm_Tran</scope><name>Action</name></member>
+      <member refid="struct_x_pm_fsm___tran_1abd063c9c5dccc7346e8ba84a14b3b84b" prot="public" virt="non-virtual"><scope>XPmFsm_Tran</scope><name>Event</name></member>
+      <member refid="struct_x_pm_fsm___tran_1a341d706f0c4487d219045b3c79494cbc" prot="public" virt="non-virtual"><scope>XPmFsm_Tran</scope><name>FromState</name></member>
+      <member refid="struct_x_pm_fsm___tran_1a207caabe992faadb66d13c91521cf2f8" prot="public" virt="non-virtual"><scope>XPmFsm_Tran</scope><name>Latency</name></member>
+      <member refid="struct_x_pm_fsm___tran_1afb7aad04501becaf45e7492b858398ce" prot="public" virt="non-virtual"><scope>XPmFsm_Tran</scope><name>ToState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,659 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusb__poll__example_8c" kind="file">
+    <compoundname>xusb_poll_example.c</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes refid="xusb__ch9__storage_8h" local="yes">xusb_ch9_storage.h</includes>
+    <includes refid="xusb__class__storage_8h" local="yes">xusb_class_storage.h</includes>
+    <includes refid="xusb__wrapper_8h" local="yes">xusb_wrapper.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="852">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="858">
+        <label>xusb_class_storage.h</label>
+        <link refid="xusb__class__storage_8h"/>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="849" relation="include">
+        </childnode>
+      </node>
+      <node id="855">
+        <label>xil_io.h</label>
+      </node>
+      <node id="850">
+        <label>xusb_wrapper.h</label>
+        <link refid="xusb__wrapper_8h"/>
+        <childnode refid="851" relation="include">
+        </childnode>
+      </node>
+      <node id="844">
+        <label>sleep.h</label>
+      </node>
+      <node id="857">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="856">
+        <label>xil_util.h</label>
+      </node>
+      <node id="853">
+        <label>xusbpsu_hw.h</label>
+        <link refid="xusbpsu__hw_8h"/>
+      </node>
+      <node id="846">
+        <label>xusb_ch9_storage.h</label>
+        <link refid="xusb__ch9__storage_8h"/>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="849" relation="include">
+        </childnode>
+      </node>
+      <node id="851">
+        <label>xusbpsu.h</label>
+        <link refid="xusbpsu_8h"/>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="852" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="853" relation="include">
+        </childnode>
+        <childnode refid="854" relation="include">
+        </childnode>
+        <childnode refid="855" relation="include">
+        </childnode>
+        <childnode refid="856" relation="include">
+        </childnode>
+        <childnode refid="857" relation="include">
+        </childnode>
+      </node>
+      <node id="848">
+        <label>xstatus.h</label>
+      </node>
+      <node id="842">
+        <label>xusb_poll_example.c</label>
+        <link refid="xusb_poll_example.c"/>
+        <childnode refid="843" relation="include">
+        </childnode>
+        <childnode refid="844" relation="include">
+        </childnode>
+        <childnode refid="845" relation="include">
+        </childnode>
+        <childnode refid="846" relation="include">
+        </childnode>
+        <childnode refid="858" relation="include">
+        </childnode>
+        <childnode refid="850" relation="include">
+        </childnode>
+        <childnode refid="859" relation="include">
+        </childnode>
+      </node>
+      <node id="854">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu__endpoint_8h"/>
+      </node>
+      <node id="847">
+        <label>xil_types.h</label>
+      </node>
+      <node id="849">
+        <label>xusb_ch9.h</label>
+        <link refid="xusb__ch9_8h"/>
+        <childnode refid="850" relation="include">
+        </childnode>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="843" relation="include">
+        </childnode>
+      </node>
+      <node id="859">
+        <label>xparameters.h</label>
+      </node>
+      <node id="843">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="845">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" prot="public" static="no">
+        <name>MEMORY_SIZE</name>
+        <initializer>(64U * 1024U)</initializer>
+        <briefdescription>
+<para>Memory buffer size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="44" bodyend="-1"/>
+        <referencedby refid="xusb__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__poll__example_8c" startline="137" endline="216">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xusb__poll__example_8c_1a04ef3c909b33b067ace362d5504552ab" prot="public" static="no">
+        <name>XUSBPSU_BASEADDRESS</name>
+        <initializer>XPAR_XUSBPSU_0_BASEADDR</initializer>
+        <briefdescription>
+<para>USB base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="57" bodyend="-1"/>
+        <referencedby refid="xusb__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__poll__example_8c" startline="137" endline="216">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xusb__poll__example_8c_1a958a9e1a8dc436299c935c1243201112" prot="public" static="no" mutable="no">
+        <type>u8 Buffer[<ref refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>]</type>
+        <definition>USB_CSW CSW ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+<para>Alignment Cacheline. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__poll__example_8c_1a35b6a61151282f1695a33ba48778b541" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref></type>
+        <definition>struct Usb_DevData UsbInstance</definition>
+        <argsstring></argsstring>
+        <name>UsbInstance</name>
+        <briefdescription>
+<para>USB device data instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__poll__example_8c_1ad8a46af61df28d52dfa260f3e35387eb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__usbpsu__api_1ga1cfed736380199beddc59a5a00a53109" kindref="member">Usb_Config</ref> *</type>
+        <definition>Usb_Config* UsbConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>UsbConfigPtr</name>
+        <briefdescription>
+<para>Usb Config Ptr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__poll__example_8c_1a61bd56b191638bdedbe5a24715605e43" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Phase</definition>
+        <argsstring></argsstring>
+        <name>Phase</name>
+        <briefdescription>
+<para>Phase. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xusb__class__storage_8h_1a0bc2f904e6d177db430b985b347855ef" compoundref="xusb__class__storage_8c" startline="155" endline="323">ParseCBW</referencedby>
+        <referencedby refid="xusb__class__storage_8h_1af6b3731e43cb34b4079813eb05fdff26" compoundref="xusb__class__storage_8c" startline="330" endline="338">SendCSW</referencedby>
+        <referencedby refid="xusb__ch9__storage_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" compoundref="xusb__ch9__storage_8c" startline="541" endline="609">Usb_SetConfigurationApp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__poll__example_8c_1a8d8a1fc36ad117be276d3d479feb9b69" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 rxBytesLeft</definition>
+        <argsstring></argsstring>
+        <name>rxBytesLeft</name>
+        <briefdescription>
+<para>Rx Bytes Left. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__poll__example_8c_1aa25bbc00aa8ab0d6e5913617923b04a7" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* VirtFlashWritePointer</definition>
+        <argsstring></argsstring>
+        <name>VirtFlashWritePointer</name>
+        <initializer>= <ref refid="xusb__freertos__dfu__example_8c_1ae78e42683927b23c3ebdaae4a5d13879" kindref="member">VirtFlash</ref></initializer>
+        <briefdescription>
+<para>Virt Flash Write Pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__poll__example_8c_1a730ca1bf33977114136155b9453a42c4" prot="public" static="yes" mutable="no">
+        <type>USBCH9_DATA</type>
+        <definition>USBCH9_DATA storage_data</definition>
+        <argsstring></argsstring>
+        <name>storage_data</name>
+        <initializer>= {
+	.ch9_func = {
+
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref> =
+		<ref refid="xusb__freertos__ch9__storage_8h_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref> =
+		<ref refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref> =
+		<ref refid="xusb__freertos__ch9__storage_8h_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref> =
+		<ref refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref> =
+		<ref refid="xusb__freertos__ch9__storage_8h_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" kindref="member">Usb_SetConfigurationApp</ref> =
+		<ref refid="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" kindref="member">Usb_SetConfigurationApp</ref>,
+
+		.<ref refid="xusb__freertos__ch9__audio_8h_1a98999124de04efd07c811680f1052471" kindref="member">Usb_SetInterfaceHandler</ref> = NULL,
+
+		.<ref refid="xusb__freertos__class__composite_8h_1a32b6f95139e55ff73c71303408094577" kindref="member">Usb_ClassReq</ref> = <ref refid="xusb__freertos__class__storage_8h_1adabccc59f14f73295d6d3e8ab2a84ed3" kindref="member">ClassReq</ref>,
+		.<ref refid="xusb__freertos__ch9__keyboard_8h_1a5fcf44156be6999a0abbc2d4ace707c1" kindref="member">Usb_GetDescReply</ref> = NULL,
+	},
+	.data_ptr = (void *)NULL,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xusb__poll__example_8c_1a827731c39d2e383df605eccb5864d469" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void BulkOutHandler</definition>
+        <argsstring>(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)</argsstring>
+        <name>BulkOutHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BytesTxed</declname>
+        </param>
+        <briefdescription>
+<para>BulkOutHandler function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is Bulk Out Endpoint handler/Callback called by driver when data is received.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of bytes requested for reception. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BytesTxed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is actual number of bytes received from Host. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__poll__example_8c_1a5427b67da8571837c063db309a460d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void BulkInHandler</definition>
+        <argsstring>(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)</argsstring>
+        <name>BulkInHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BytesTxed</declname>
+        </param>
+        <briefdescription>
+<para>BulkInHandler function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is Bulk In Endpoint handler/Callback called by driver when data is sent.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of bytes requested to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BytesTxed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is actual number of bytes sent to Host. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function of the USB mass storage example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful,</para></listitem><listitem><para>XST_FAILURE if unsuccessful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c" bodystart="137" bodyend="216"/>
+        <references refid="struct_x_usb_psu___config_1a389cb184e06d5795b4239fe005e2290f" compoundref="xusbpsu_8h" startline="457">XUsbPsu_Config::BaseAddress</references>
+        <references refid="xusb__freertos__massstorage__example_8c_1a5427b67da8571837c063db309a460d37" compoundref="xusb__freertos__massstorage__example_8c" startline="337" endline="350">BulkInHandler</references>
+        <references refid="xusb__freertos__massstorage__example_8c_1a827731c39d2e383df605eccb5864d469" compoundref="xusb__freertos__massstorage__example_8c" startline="312" endline="325">BulkOutHandler</references>
+        <references refid="xusb__wrapper_8c_1a279ce5fef0ed4e1fcad45af04f34873b" compoundref="xusb__wrapper_8c" startline="70" endline="73">CacheInit</references>
+        <references refid="xusb__wrapper_8c_1a7409a4956ffb20a9407c497fd8f1c832" compoundref="xusb__wrapper_8c" startline="84" endline="92">CfgInitialize</references>
+        <references refid="xusb__ch9_8c_1a4a51f5e7948e7a27adcd66023d48876d" compoundref="xusb__ch9_8c" startline="58" endline="93">Ch9Handler</references>
+        <references refid="xusb__wrapper_8c_1a6f6b3711b08d9cbf8dc2f0781f470a50" compoundref="xusb__wrapper_8c" startline="154" endline="160">ConfigureDevice</references>
+        <references refid="xusb__wrapper_8c_1ad17a2824033e5c4bd2c8aa6ee66b9189" compoundref="xusb__wrapper_8c" startline="137" endline="143">EpConfigure</references>
+        <references refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" compoundref="xusb__wrapper_8c" startline="61" endline="64">LookupConfig</references>
+        <references refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" compoundref="xusb__poll__example_8c" startline="44">MEMORY_SIZE</references>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
+        <references refid="xusb__wrapper_8c_1aaa7a2c1cb275a983a77b517a964d05ea" compoundref="xusb__wrapper_8c" startline="100" endline="105">Set_Ch9Handler</references>
+        <references refid="xusb__wrapper_8c_1ae56a7dab4be473055d1f2c3de0dc0b41" compoundref="xusb__wrapper_8c" startline="206" endline="209">Set_DrvData</references>
+        <references refid="xusb__wrapper_8c_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" compoundref="xusb__wrapper_8c" startline="170" endline="174">SetEpHandler</references>
+        <references refid="xusb__wrapper_8h_1aa12c76241fcad981769d65754a5f5591" compoundref="xusb__wrapper_8h" startline="43">USB_DEVICE_ID</references>
+        <references refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" compoundref="xusb__wrapper_8h" startline="45">USB_EP_DIR_IN</references>
+        <references refid="xusb__wrapper_8h_1a0510b0a04d9cef144e4d9793310abccf" compoundref="xusb__wrapper_8h" startline="46">USB_EP_DIR_OUT</references>
+        <references refid="xusb__wrapper_8h_1a89eb27133e7e106c3637039f6f49d187" compoundref="xusb__wrapper_8h" startline="69">USB_EP_TYPE_BULK</references>
+        <references refid="xusb__wrapper_8c_1a8d32fd815ed7b6b1bae2bd649ac428f1" compoundref="xusb__wrapper_8c" startline="183" endline="186">Usb_Start</references>
+        <references refid="xusb__wrapper_8c_1af81f75ebda88cd593c5619754286e4ae" compoundref="xusb__wrapper_8c" startline="465" endline="468">UsbEnableEvent</references>
+        <references refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" compoundref="xusb__audio__dfu__example_8c" startline="53">UsbInstance</references>
+        <references refid="xusb__wrapper_8c_1a1c387f7a6cc0e39d1adaaff2d1fd1f00" compoundref="xusb__wrapper_8c" startline="452" endline="455">UsbPollHandler</references>
+        <references refid="xusb__poll__example_8c_1a04ef3c909b33b067ace362d5504552ab" compoundref="xusb__poll__example_8c" startline="57">XUSBPSU_BASEADDRESS</references>
+        <references refid="group__usbpsu__api_1gacff30d70dc978fce3f0bd863c90195fe" compoundref="xusbpsu__hw_8h" startline="263">XUSBPSU_DEVTEN_CONNECTDONEEN</references>
+        <references refid="group__usbpsu__api_1ga1ef571f8495a685e2128d3691afee75e" compoundref="xusbpsu__hw_8h" startline="265">XUSBPSU_DEVTEN_DISCONNEVTEN</references>
+        <references refid="group__usbpsu__api_1gad7b4e70ee47462229a243ba71ab98aa1" compoundref="xusbpsu__hw_8h" startline="255">XUSBPSU_DEVTEN_EVNTOVERFLOWEN</references>
+        <references refid="group__usbpsu__api_1gaf77de6ef99216d8d681032f133438d1d" compoundref="xusbpsu__hw_8h" startline="262">XUSBPSU_DEVTEN_ULSTCNGEN</references>
+        <references refid="group__usbpsu__api_1ga3b1344d907f7ae5c9194f79603a2e12f" compoundref="xusbpsu__hw_8h" startline="264">XUSBPSU_DEVTEN_USBRSTEN</references>
+        <references refid="group__usbpsu__api_1ga31f8bfbbcc6b7c06a7650c6e5562ad6b" compoundref="xusbpsu__hw_8h" startline="261">XUSBPSU_DEVTEN_WKUPEVTEN</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements the mass storage class poll example. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.5   vak  06/02/19 First release
+1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+1.8   pm  15/09/20 Fixed C++ Compilation error.
+1.14  pm   21/06/23 Added support for system device-tree flow.
+1.18  ka   21/08/25 Fixed GCC warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__ch9__storage_8h" kindref="compound">xusb_ch9_storage.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__class__storage_8h" kindref="compound">xusb_class_storage.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__wrapper_8h" kindref="compound">xusb_wrapper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_SIZE<sp/>(64U<sp/>*<sp/>1024U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(PLATFORM_ZYNQMP)<sp/>||<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>64U</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>32U</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>Buffer[<ref refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="53" refid="xusb__poll__example_8c_1a958a9e1a8dc436299c935c1243201112" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>Buffer[<ref refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>]<sp/><ref refid="xusb__freertos__audio__example_8c_1a958a9e1a8dc436299c935c1243201112" kindref="member">ALIGNMENT_CACHELINE</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="57" refid="xusb__poll__example_8c_1a04ef3c909b33b067ace362d5504552ab" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_BASEADDRESS<sp/><sp/><sp/><sp/><sp/>XPAR_XUSBPSU_0_BASEADDR<sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight></codeline>
+<codeline lineno="65"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__massstorage__example_8c_1a827731c39d2e383df605eccb5864d469" kindref="member">BulkOutHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>RequestedBytes,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesTxed);</highlight></codeline>
+<codeline lineno="68"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__massstorage__example_8c_1a5427b67da8571837c063db309a460d37" kindref="member">BulkInHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>RequestedBytes,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesTxed);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="xusb__poll__example_8c_1a35b6a61151282f1695a33ba48778b541" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/><ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>;<sp/></highlight></codeline>
+<codeline lineno="74" refid="xusb__poll__example_8c_1ad8a46af61df28d52dfa260f3e35387eb" refkind="member"><highlight class="normal"><ref refid="struct_x_usb_psu___config" kindref="compound">Usb_Config</ref><sp/>*<ref refid="xusb__intr__example_8c_1ad8a46af61df28d52dfa260f3e35387eb" kindref="member">UsbConfigPtr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="comment">/*<sp/>Buffer<sp/>for<sp/>virtual<sp/>flash<sp/>disk<sp/>space.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(PLATFORM_ZYNQMP)<sp/>||<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>64</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/><ref refid="xusb__audio__dfu__example_8c_1ac1e6226fb63d8dfb57aec3e2edde7351" kindref="member">VirtFlash</ref>[<ref refid="xusb__class__storage_8h_1a36867f9e62adaa01007902dd8ee19a88" kindref="member">VFLASH_SIZE</ref>];</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>64</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal">USB_CBW<sp/><ref refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48" kindref="member">CBW</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>64</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal">USB_CSW<sp/><ref refid="xusb__class__storage_8c_1acb0f9992b68a729a041fe26e4889d950" kindref="member">CSW</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>32</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/><ref refid="xusb__audio__dfu__example_8c_1ac1e6226fb63d8dfb57aec3e2edde7351" kindref="member">VirtFlash</ref>[<ref refid="xusb__class__storage_8h_1a36867f9e62adaa01007902dd8ee19a88" kindref="member">VFLASH_SIZE</ref>];</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>32</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal">USB_CBW<sp/><ref refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48" kindref="member">CBW</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>32</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal">USB_CSW<sp/><ref refid="xusb__class__storage_8c_1acb0f9992b68a729a041fe26e4889d950" kindref="member">CSW</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/><ref refid="xusb__audio__dfu__example_8c_1ac1e6226fb63d8dfb57aec3e2edde7351" kindref="member">VirtFlash</ref>[<ref refid="xusb__class__storage_8h_1a36867f9e62adaa01007902dd8ee19a88" kindref="member">VFLASH_SIZE</ref>]<sp/><ref refid="xusb__freertos__audio__example_8c_1a958a9e1a8dc436299c935c1243201112" kindref="member">ALIGNMENT_CACHELINE</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">USB_CBW<sp/><ref refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48" kindref="member">CBW</ref><sp/><ref refid="xusb__freertos__audio__example_8c_1a958a9e1a8dc436299c935c1243201112" kindref="member">ALIGNMENT_CACHELINE</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">USB_CSW<sp/><ref refid="xusb__class__storage_8c_1acb0f9992b68a729a041fe26e4889d950" kindref="member">CSW</ref><sp/><ref refid="xusb__freertos__audio__example_8c_1a958a9e1a8dc436299c935c1243201112" kindref="member">ALIGNMENT_CACHELINE</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="xusb__poll__example_8c_1a61bd56b191638bdedbe5a24715605e43" refkind="member"><highlight class="normal">u8<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="xusb__poll__example_8c_1a8d8a1fc36ad117be276d3d479feb9b69" refkind="member"><highlight class="normal">u32<sp/><sp/><sp/><sp/><sp/><ref refid="xusb__class__storage_8c_1a8d8a1fc36ad117be276d3d479feb9b69" kindref="member">rxBytesLeft</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="xusb__poll__example_8c_1aa25bbc00aa8ab0d6e5913617923b04a7" refkind="member"><highlight class="normal">u8<sp/><sp/><sp/><sp/><sp/><sp/>*<ref refid="xusb__class__storage_8c_1aa25bbc00aa8ab0d6e5913617923b04a7" kindref="member">VirtFlashWritePointer</ref><sp/>=<sp/><ref refid="xusb__audio__dfu__example_8c_1ac1e6226fb63d8dfb57aec3e2edde7351" kindref="member">VirtFlash</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="comment">/*<sp/>Initialize<sp/>a<sp/>DFU<sp/>data<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>USBCH9_DATA<sp/>storage_data<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ch9_func<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>chapter9<sp/>hooks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupDevDescReply<sp/>=</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__audio__dfu_8c_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref>,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupCfgDescReply<sp/>=</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__audio__dfu_8c_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref>,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupBosDescReply<sp/>=</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__audio__dfu_8c_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref>,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupStrDescReply<sp/>=</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__audio__dfu_8c_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref>,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_SetConfiguration<sp/>=</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__audio__dfu_8c_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref>,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_SetConfigurationApp<sp/>=</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__audio__dfu_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" kindref="member">Usb_SetConfigurationApp</ref>,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>hook<sp/>the<sp/>set<sp/>interface<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_SetInterfaceHandler<sp/>=<sp/>NULL,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>hook<sp/>up<sp/>storage<sp/>class<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_ClassReq<sp/>=<sp/><ref refid="xusb__class__composite_8h_1adabccc59f14f73295d6d3e8ab2a84ed3" kindref="member">ClassReq</ref>,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_GetDescReply<sp/>=<sp/>NULL,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.data_ptr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)NULL,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="137" refid="xusb__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xusb__audio__dfu__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Mass<sp/>Storage<sp/>Gadget<sp/>Poll<sp/>Example<sp/>Start...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>USB<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use,</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>specify<sp/>the<sp/>controller<sp/>ID<sp/>that<sp/>is<sp/>generated<sp/>in<sp/>xparameters.h</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr<sp/>=<sp/><ref refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" kindref="member">LookupConfig</ref>(<ref refid="xusb__wrapper_8h_1aa12c76241fcad981769d65754a5f5591" kindref="member">USB_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr<sp/>=<sp/><ref refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" kindref="member">LookupConfig</ref>(<ref refid="xusb__poll__example_8c_1a04ef3c909b33b067ace362d5504552ab" kindref="member">XUSBPSU_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>UsbConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a279ce5fef0ed4e1fcad45af04f34873b" kindref="member">CacheInit</ref>();</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>We<sp/>are<sp/>passing<sp/>the<sp/>physical<sp/>base<sp/>address<sp/>as<sp/>the<sp/>third<sp/>argument</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>because<sp/>the<sp/>physical<sp/>and<sp/>virtual<sp/>base<sp/>address<sp/>are<sp/>the<sp/>same<sp/>in<sp/>our</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>example.<sp/><sp/>For<sp/>systems<sp/>that<sp/>support<sp/>virtual<sp/>memory,<sp/>the<sp/>third</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>argument<sp/>needs<sp/>to<sp/>be<sp/>the<sp/>virtual<sp/>base<sp/>address.</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xusb__wrapper_8c_1a7409a4956ffb20a9407c497fd8f1c832" kindref="member">CfgInitialize</ref>(&amp;<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>,<sp/>UsbConfigPtr,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr-&gt;<ref refid="struct_x_usb_psu___config_1a389cb184e06d5795b4239fe005e2290f" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>hook<sp/>up<sp/>chapter9<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1aaa7a2c1cb275a983a77b517a964d05ea" kindref="member">Set_Ch9Handler</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/><ref refid="xusb__ch9_8c_1a4a51f5e7948e7a27adcd66023d48876d" kindref="member">Ch9Handler</ref>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>the<sp/>data<sp/>to<sp/>usb<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1ae56a7dab4be473055d1f2c3de0dc0b41" kindref="member">Set_DrvData</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>&amp;storage_data);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1ad17a2824033e5c4bd2c8aa6ee66b9189" kindref="member">EpConfigure</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1U,<sp/><ref refid="xusb__wrapper_8h_1a0510b0a04d9cef144e4d9793310abccf" kindref="member">USB_EP_DIR_OUT</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8h_1a89eb27133e7e106c3637039f6f49d187" kindref="member">USB_EP_TYPE_BULK</ref>);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1ad17a2824033e5c4bd2c8aa6ee66b9189" kindref="member">EpConfigure</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1U,<sp/><ref refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" kindref="member">USB_EP_DIR_IN</ref>,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8h_1a89eb27133e7e106c3637039f6f49d187" kindref="member">USB_EP_TYPE_BULK</ref>);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xusb__wrapper_8c_1a6f6b3711b08d9cbf8dc2f0781f470a50" kindref="member">ConfigureDevice</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Buffer[0U],<sp/><ref refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>set<sp/>endpoint<sp/>handlers</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>BulkOutHandler<sp/>-<sp/>to<sp/>be<sp/>called<sp/>when<sp/>data<sp/>is<sp/>received</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>BulkInHandler<sp/>-<sp/><sp/>to<sp/>be<sp/>called<sp/>when<sp/>data<sp/>is<sp/>sent</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" kindref="member">SetEpHandler</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1U,<sp/><ref refid="xusb__wrapper_8h_1a0510b0a04d9cef144e4d9793310abccf" kindref="member">USB_EP_DIR_OUT</ref>,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__freertos__massstorage__example_8c_1a827731c39d2e383df605eccb5864d469" kindref="member">BulkOutHandler</ref>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" kindref="member">SetEpHandler</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1U,<sp/><ref refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" kindref="member">USB_EP_DIR_IN</ref>,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__freertos__massstorage__example_8c_1a5427b67da8571837c063db309a460d37" kindref="member">BulkInHandler</ref>);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>events<sp/>for<sp/>Reset,<sp/>Disconnect,<sp/>ConnectionDone,<sp/>Link<sp/>State</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wakeup<sp/>and<sp/>Overflow<sp/>events.</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1af81f75ebda88cd593c5619754286e4ae" kindref="member">UsbEnableEvent</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gad7b4e70ee47462229a243ba71ab98aa1" kindref="member">XUSBPSU_DEVTEN_EVNTOVERFLOWEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga31f8bfbbcc6b7c06a7650c6e5562ad6b" kindref="member">XUSBPSU_DEVTEN_WKUPEVTEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gaf77de6ef99216d8d681032f133438d1d" kindref="member">XUSBPSU_DEVTEN_ULSTCNGEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gacff30d70dc978fce3f0bd863c90195fe" kindref="member">XUSBPSU_DEVTEN_CONNECTDONEEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga3b1344d907f7ae5c9194f79603a2e12f" kindref="member">XUSBPSU_DEVTEN_USBRSTEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga1ef571f8495a685e2128d3691afee75e" kindref="member">XUSBPSU_DEVTEN_DISCONNEVTEN</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>controller<sp/>so<sp/>that<sp/>Host<sp/>can<sp/>see<sp/>our<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a8d32fd815ed7b6b1bae2bd649ac428f1" kindref="member">Usb_Start</ref>(<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1U)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>Poll<sp/>Handler<sp/>for<sp/>any<sp/>valid<sp/>events<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a1c387f7a6cc0e39d1adaaff2d1fd1f00" kindref="member">UsbPollHandler</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>.<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="228"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__massstorage__example_8c_1a827731c39d2e383df605eccb5864d469" kindref="member">BulkOutHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>RequestedBytes,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesTxed)</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr<sp/>=<sp/>(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*)CallBackRef;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)RequestedBytes;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref><sp/>==<sp/><ref refid="xusb__class__composite_8h_1abcbcd024a52f656cbba34106b10a01ce" kindref="member">USB_EP_STATE_COMMAND</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__class__composite_8c_1a787b860ced36f781523ab445c3f0f1e9" kindref="member">ParseCBW</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref><sp/>==<sp/><ref refid="xusb__class__composite_8h_1a2dae14213e2f18ebc39ee85441cddd5a" kindref="member">USB_EP_STATE_DATA_OUT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>WRITE<sp/>command<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<ref refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48" kindref="member">CBW</ref>.CBWCB[0U])<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xusb__class__composite_8h_1ae8cc5f967ddc0a55466220d616b06354" kindref="member">USB_RBC_WRITE</ref>:</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__class__storage_8c_1aa25bbc00aa8ab0d6e5913617923b04a7" kindref="member">VirtFlashWritePointer</ref><sp/>+=<sp/>BytesTxed;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__class__storage_8c_1a8d8a1fc36ad117be276d3d479feb9b69" kindref="member">rxBytesLeft</ref><sp/>-=<sp/>BytesTxed;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__class__composite_8c_1a3b339129f8d97ba9e8fd4cde9bc8e756" kindref="member">SendCSW</ref>(InstancePtr,<sp/>0U);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="261"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__massstorage__example_8c_1a5427b67da8571837c063db309a460d37" kindref="member">BulkInHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>RequestedBytes,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesTxed)</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr<sp/>=<sp/>(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*)CallBackRef;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)RequestedBytes;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)BytesTxed;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref><sp/>==<sp/><ref refid="xusb__class__composite_8h_1aed1d7983bc5b354f75b39f84585db954" kindref="member">USB_EP_STATE_DATA_IN</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>the<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__class__composite_8c_1a3b339129f8d97ba9e8fd4cde9bc8e756" kindref="member">SendCSW</ref>(InstancePtr,<sp/>0U);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref><sp/>==<sp/><ref refid="xusb__class__composite_8h_1a9428396c3d325d9305a67c7fae00382f" kindref="member">USB_EP_STATE_STATUS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref><sp/>=<sp/><ref refid="xusb__class__composite_8h_1abcbcd024a52f656cbba34106b10a01ce" kindref="member">USB_EP_STATE_COMMAND</ref>;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Receive<sp/>next<sp/>CBW<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1ab01491c228aee667027315c8d539d8c5" kindref="member">EpBufferRecv</ref>(InstancePtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1U,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)&amp;<ref refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48" kindref="member">CBW</ref>,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="xusb__ch9__storage_8c_1a086271cdf5fe6afbcc215f2ee3ab4e48" kindref="member">CBW</ref>));</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_poll_example.c"/>
+  </compounddef>
+</doxygen>

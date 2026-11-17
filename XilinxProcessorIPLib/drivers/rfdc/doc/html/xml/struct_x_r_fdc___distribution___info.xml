@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___distribution___info" kind="struct" prot="public">
+    <compoundname>XRFdc_Distribution_Info</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1a5ee5a853e15476a1857d2c0ccfdabcfd" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_Distribution_Info::MaxDelay</definition>
+        <argsstring></argsstring>
+        <name>MaxDelay</name>
+        <briefdescription>
+<para>Maximum delay across the distribution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1a7afff75e7f5c6d25decaec28115d9397" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_Distribution_Info::MinDelay</definition>
+        <argsstring></argsstring>
+        <name>MinDelay</name>
+        <briefdescription>
+<para>Minimum delay across the distribution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="432" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1a44cbe175eec40565953e8a42ef8c1fb8" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_Distribution_Info::IsDelayBalanced</definition>
+        <argsstring></argsstring>
+        <name>IsDelayBalanced</name>
+        <briefdescription>
+<para>Indicates whether the delay is balanced. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1af22de0fd8250e7558c23935e1dc737c3" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_Distribution_Info::Source</definition>
+        <argsstring></argsstring>
+        <name>Source</name>
+        <briefdescription>
+<para>Distribution source tile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1a6d147eb85b6bc4f0f6bb7751a780cb32" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_Distribution_Info::UpperBound</definition>
+        <argsstring></argsstring>
+        <name>UpperBound</name>
+        <briefdescription>
+<para>Upper bound tile of the distribution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1a92c6f5d183d6ba7bd60b95345b422b84" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_Distribution_Info::LowerBound</definition>
+        <argsstring></argsstring>
+        <name>LowerBound</name>
+        <briefdescription>
+<para>Lower bound tile of the distribution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="436" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___info_1a7a13a8037843fa28917dd3122e9399bb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___tile___clock___settings" kindref="compound">XRFdc_Tile_Clock_Settings</ref></type>
+        <definition>XRFdc_Tile_Clock_Settings XRFdc_Distribution_Info::ClkSettings[2][4]</definition>
+        <argsstring>[2][4]</argsstring>
+        <name>ClkSettings</name>
+        <briefdescription>
+<para><verbatim>                                     [Type][Tile], for
+</verbatim> example ClkSettings[XRFDC_ADC_TILE][1] for ADC1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="437" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Clk Distribution Settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="86">
+        <label>XRFdc_Tile_Clock_Settings</label>
+        <link refid="struct_x_r_fdc___tile___clock___settings"/>
+      </node>
+      <node id="85">
+        <label>XRFdc_Distribution_Info</label>
+        <link refid="struct_x_r_fdc___distribution___info"/>
+        <childnode refid="86" relation="usage">
+          <edgelabel>ClkSettings</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="430" bodyend="439"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___distribution___info_1a7a13a8037843fa28917dd3122e9399bb" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>ClkSettings</name></member>
+      <member refid="struct_x_r_fdc___distribution___info_1a44cbe175eec40565953e8a42ef8c1fb8" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>IsDelayBalanced</name></member>
+      <member refid="struct_x_r_fdc___distribution___info_1a92c6f5d183d6ba7bd60b95345b422b84" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>LowerBound</name></member>
+      <member refid="struct_x_r_fdc___distribution___info_1a5ee5a853e15476a1857d2c0ccfdabcfd" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>MaxDelay</name></member>
+      <member refid="struct_x_r_fdc___distribution___info_1a7afff75e7f5c6d25decaec28115d9397" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>MinDelay</name></member>
+      <member refid="struct_x_r_fdc___distribution___info_1af22de0fd8250e7558c23935e1dc737c3" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>Source</name></member>
+      <member refid="struct_x_r_fdc___distribution___info_1a6d147eb85b6bc4f0f6bb7751a780cb32" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_Info</scope><name>UpperBound</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

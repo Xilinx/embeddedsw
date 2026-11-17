@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l" kind="struct" prot="public">
+    <compoundname>MODE_SENSE_REPLY_ALL</compoundname>
+    <includes local="no">xusb_storage.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a557291bbabe3be8910287230c61ade95" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_o_d_e_s_e_n_s_e___m_p_l" kindref="compound">MODESENSE_MPL</ref></type>
+        <definition>MODESENSE_MPL MODE_SENSE_REPLY_ALL::mpl</definition>
+        <argsstring></argsstring>
+        <name>mpl</name>
+        <briefdescription>
+<para>Mode parameter list header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="655" endline="863">ProcessRxCmd</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a3595d967ce4b7e283cf53d85e653b5df" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_o_d_e_s_e_n_s_e___r_w_e_r" kindref="compound">MODESENSE_RWER</ref></type>
+        <definition>MODESENSE_RWER MODE_SENSE_REPLY_ALL::rwer</definition>
+        <argsstring></argsstring>
+        <name>rwer</name>
+        <briefdescription>
+<para>Read/write error recovery page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a198fbe8f84c1937d2ee0bac3760116a3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_o_d_e_s_e_n_s_e___f_d" kindref="compound">MODESENSE_FD</ref></type>
+        <definition>MODESENSE_FD MODE_SENSE_REPLY_ALL::fd</definition>
+        <argsstring></argsstring>
+        <name>fd</name>
+        <briefdescription>
+<para>Flexible disk page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a06ba7be421c7d672ba9bb234d5f5cdbd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c" kindref="compound">MODESENSE_RBAC</ref></type>
+        <definition>MODESENSE_RBAC MODE_SENSE_REPLY_ALL::rbac</definition>
+        <argsstring></argsstring>
+        <name>rbac</name>
+        <briefdescription>
+<para>Removable block access capabilities page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a6ac0569f12e57c26582b93ae5be50687" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_o_d_e_s_e_n_s_e___t_p" kindref="compound">MODESENSE_TP</ref></type>
+        <definition>MODESENSE_TP MODE_SENSE_REPLY_ALL::tp</definition>
+        <argsstring></argsstring>
+        <name>tp</name>
+        <briefdescription>
+<para>Timer and protect page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>SCSI mode sense full reply structure with all supported pages. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="18">
+        <label>MODESENSE_FD</label>
+        <link refid="struct_m_o_d_e_s_e_n_s_e___f_d"/>
+      </node>
+      <node id="14">
+        <label>MODE_SENSE_REPLY_ALL</label>
+        <link refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>rbac</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>rwer</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>tp</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>fd</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>mpl</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>MODESENSE_RBAC</label>
+        <link refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c"/>
+      </node>
+      <node id="19">
+        <label>MODESENSE_MPL</label>
+        <link refid="struct_m_o_d_e_s_e_n_s_e___m_p_l"/>
+      </node>
+      <node id="17">
+        <label>MODESENSE_TP</label>
+        <link refid="struct_m_o_d_e_s_e_n_s_e___t_p"/>
+      </node>
+      <node id="16">
+        <label>MODESENSE_RWER</label>
+        <link refid="struct_m_o_d_e_s_e_n_s_e___r_w_e_r"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="302" bodyend="309"/>
+    <listofallmembers>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a198fbe8f84c1937d2ee0bac3760116a3" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_ALL</scope><name>fd</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a557291bbabe3be8910287230c61ade95" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_ALL</scope><name>mpl</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a06ba7be421c7d672ba9bb234d5f5cdbd" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_ALL</scope><name>rbac</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a3595d967ce4b7e283cf53d85e653b5df" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_ALL</scope><name>rwer</name></member>
+      <member refid="struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l_1a6ac0569f12e57c26582b93ae5be50687" prot="public" virt="non-virtual"><scope>MODE_SENSE_REPLY_ALL</scope><name>tp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

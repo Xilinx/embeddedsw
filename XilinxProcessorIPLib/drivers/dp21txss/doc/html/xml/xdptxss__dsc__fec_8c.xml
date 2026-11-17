@@ -1,0 +1,783 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__dsc__fec_8c" kind="file">
+    <compoundname>xdptxss_dsc_fec.c</compoundname>
+    <includes refid="xdptxss__dsc__fec_8h" local="yes">xdptxss_dsc_fec.h</includes>
+    <incdepgraph>
+      <node id="296">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="306">
+        <label>xdp21_dsc.h</label>
+      </node>
+      <node id="295">
+        <label>xil_io.h</label>
+      </node>
+      <node id="299">
+        <label>xdebug.h</label>
+      </node>
+      <node id="304">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="305" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+      </node>
+      <node id="293">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="296" relation="include">
+        </childnode>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
+        </childnode>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="302" relation="include">
+        </childnode>
+        <childnode refid="304" relation="include">
+        </childnode>
+      </node>
+      <node id="301">
+        <label>xdp.h</label>
+      </node>
+      <node id="300">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="301" relation="include">
+        </childnode>
+      </node>
+      <node id="294">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="295" relation="include">
+        </childnode>
+      </node>
+      <node id="297">
+        <label>xstatus.h</label>
+      </node>
+      <node id="298">
+        <label>xvidc.h</label>
+      </node>
+      <node id="307">
+        <label>xil_types.h</label>
+      </node>
+      <node id="303">
+        <label>xparameters.h</label>
+      </node>
+      <node id="302">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="303" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+      </node>
+      <node id="305">
+        <label>xvtc.h</label>
+      </node>
+      <node id="291">
+        <label>xdptxss_dsc_fec.c</label>
+        <link refid="xdptxss_dsc_fec.c"/>
+        <childnode refid="292" relation="include">
+        </childnode>
+      </node>
+      <node id="292">
+        <label>xdptxss_dsc_fec.h</label>
+        <link refid="xdptxss__dsc__fec_8h"/>
+        <childnode refid="293" relation="include">
+        </childnode>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="307" relation="include">
+        </childnode>
+        <childnode refid="297" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+<para>DP TX Subsystem DSC/FEC Support Implementation. </para>    </briefdescription>
+    <detaileddescription>
+<para>Implementation using static state and standard driver APIs. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdptxss__dsc__fec_8h" kindref="compound">xdptxss_dsc_fec.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDPTXSS_USE_DSC</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp21txss__hw_8h" kindref="compound">xdp21txss_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp21_dsc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp21_dsc_tu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DSC_PPS_SIZE<sp/>128</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPCD_DSC_SUPPORT_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00060U</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPCD_DSC_ENABLE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00160U</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPCD_FEC_CAPABILITY_ADDR<sp/><sp/><sp/><sp/><sp/>0x00090U</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPCD_FEC_ENABLE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00120U</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDpTxSs_GetCurrentPpc(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*Ppc)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>||<sp/>(Ppc<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XDp_ReadReg(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr,<sp/>XDP_TX_USER_PIXEL_WIDTH);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>HW<sp/>is<sp/>expected<sp/>to<sp/>expose<sp/>1/2/4<sp/>PPC.<sp/>Fall<sp/>back<sp/>to<sp/>1<sp/>to<sp/>avoid<sp/>divide-by-zero</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>platforms<sp/>that<sp/>do<sp/>not<sp/>initialize<sp/>this<sp/>register<sp/>before<sp/>DSC<sp/>is<sp/>configured.</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegVal<sp/>!=<sp/>1U)<sp/>&amp;&amp;<sp/>(RegVal<sp/>!=<sp/>2U)<sp/>&amp;&amp;<sp/>(RegVal<sp/>!=<sp/>4U))<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Ppc<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Ppc<sp/>=<sp/>(u8)RegVal;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDpTxSs_ValidatePpsForSstDsc(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PpsData,<sp/>u8<sp/>Ppc)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>XDp21_DscPps<sp/>PpsParsed;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>NumSlices;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Numerator;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Denominator;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PpsData<sp/>==<sp/>NULL)<sp/>||<sp/>(Ppc<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp21_DscParsePps(PpsData,<sp/>&amp;PpsParsed);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>PPS<sp/>parse<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PpsParsed.pic_width<sp/>==<sp/>0U)<sp/>||<sp/>(PpsParsed.slice_width<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PpsParsed.chunk_size<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Invalid<sp/>PPS<sp/>dimensions<sp/>for<sp/>DSC\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PpsParsed.pic_width<sp/>%<sp/>PpsParsed.slice_width)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Unsupported<sp/>PPS,<sp/>pic_width<sp/>not<sp/>divisible<sp/>by<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;slice_width\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>NumSlices<sp/>=<sp/>(u32)PpsParsed.pic_width<sp/>/<sp/>(u32)PpsParsed.slice_width;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>Numerator<sp/>=<sp/>(u32)PpsParsed.chunk_size<sp/>*<sp/>NumSlices;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>Denominator<sp/>=<sp/>3U<sp/>*<sp/>(u32)Ppc;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>(chunk_size<sp/>*<sp/>num_of_slices)<sp/>/<sp/>(3<sp/>*<sp/>PPC)<sp/>not<sp/>being<sp/>an<sp/>integer</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>(&quot;unaligned<sp/>with<sp/>PPC&quot;)<sp/>is<sp/>no<sp/>longer<sp/>treated<sp/>as<sp/>fatal:<sp/>the<sp/>TX</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>fabric<sp/>IP<sp/>already<sp/>carries<sp/>DSC_NUM_OF_SLICES-based<sp/>dummy/EOC<sp/>byte</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>padding<sp/>(see<sp/>TxDscNumSlices<sp/>in<sp/>XDpTxSs_WriteDscPps()<sp/>below,<sp/>and</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>XDp_TxCalcDscMsaTu()&apos;s<sp/>NumDummy/NumEoc<sp/>in<sp/>xdp21_dsc_tu.c)<sp/>that</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>absorbs<sp/>the<sp/>remainder,<sp/>so<sp/>this<sp/>duplicate<sp/>gate<sp/>only<sp/>needs<sp/>to<sp/>log</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>it,<sp/>matching<sp/>XDp_TxValidateDscPps()<sp/>in<sp/>xdp21_dsc_tu.c.</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Denominator<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Invalid<sp/>PPC<sp/>for<sp/>compressed<sp/>HACTIVE<sp/>check\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Numerator<sp/>%<sp/>Denominator)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>non-integer<sp/>compressed<sp/>HACTIVE<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;(chunk_size*num_slices)/(3*PPC)<sp/>--<sp/>accepted,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>dummy/EOC<sp/>padding<sp/>covers<sp/>the<sp/>remainder\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_SetDscStreamConfig(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PpsData)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetDscStreamEnable(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>0U);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpsData<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxSetDscStreamPps(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>PpsData);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetDscStreamEnable(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>1U);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_RefreshDscMsaTu(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Stream)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxCfgMsaRecalculate(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>Stream);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//xil_printf(&quot;L3<sp/>=<sp/>0x%x\r\n&quot;,<sp/>InstancePtr-&gt;DpPtr-&gt;TxInstance.MsaConfig[Stream<sp/>-<sp/>1]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxSetMsaValues(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>Stream);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_CalcDscTuValues(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*Pps,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>UncompPixelClockHz,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpTxSs_DscTuValues<sp/>*Out)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMainStreamAttributes<sp/>MsaTmp;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FracRaw;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Pps<sp/>==<sp/>NULL)<sp/>||<sp/>(Out<sp/>==<sp/>NULL)<sp/>||<sp/>(LaneCount<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UncompPixelClockHz<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaTmp.PixelClockHz<sp/>=<sp/>UncompPixelClockHz;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaTmp.Misc1<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxCalcDscMsaTu(&amp;MsaTmp,<sp/>Pps,<sp/>LinkRate,<sp/>LaneCount);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Out-&gt;UserDataCountPerLane<sp/>=<sp/>MsaTmp.DataPerLane;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Out-&gt;AvgBytesPerTu<sp/>=<sp/>MsaTmp.AvgBytesPerTU;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Out-&gt;InitWait<sp/>=<sp/>MsaTmp.InitWait;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Out-&gt;MinBytesPerTu<sp/>=<sp/>MsaTmp.AvgBytesPerTU<sp/>/<sp/>1000U;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FracRaw<sp/>=<sp/>MsaTmp.AvgBytesPerTU<sp/>%<sp/>1000U;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Out-&gt;FracBytesPerTu<sp/>=<sp/>(FracRaw<sp/>*<sp/>1024U)<sp/>/<sp/>1000U;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>lanes<sp/>=<sp/>(u32)LaneCount;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>dummy<sp/>=<sp/>((Pps-&gt;chunk_size<sp/>%<sp/>lanes)<sp/>==<sp/>0U)<sp/>?<sp/>0U<sp/>:</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(lanes<sp/>-<sp/>(Pps-&gt;chunk_size<sp/>%<sp/>lanes));</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>slices<sp/>=<sp/>((u32)Pps-&gt;pic_width<sp/>+<sp/>(u32)Pps-&gt;slice_width<sp/>-<sp/>1U)<sp/>/</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)Pps-&gt;slice_width;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Out-&gt;CompBytesPerLine<sp/>=<sp/>(Pps-&gt;chunk_size<sp/>+<sp/>dummy<sp/>+<sp/>lanes)<sp/>*<sp/>slices;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_ApplyDscTuValues(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDpTxSs_DscTuValues<sp/>*Values,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Stream)</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp<sp/>*DpPtr;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_Tx<sp/>*TxInst;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMainStreamAttributes<sp/>*MsaConfig;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MiscOneRd;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StreamOffset[4]<sp/>=<sp/>{<sp/>0U,<sp/>XDP_TX_STREAM2_MSA_START_OFFSET,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_STREAM3_MSA_START_OFFSET,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_STREAM4_MSA_START_OFFSET<sp/>};</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>||</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Values<sp/>==<sp/>NULL)<sp/>||<sp/>(Stream<sp/>==<sp/>0U)<sp/>||<sp/>(Stream<sp/>&gt;<sp/>4U))<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPtr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxInst<sp/>=<sp/>&amp;DpPtr-&gt;TxInstance;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig<sp/>=<sp/>&amp;TxInst-&gt;MsaConfig[Stream<sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>DpPtr-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig-&gt;DataPerLane<sp/>=<sp/>Values-&gt;UserDataCountPerLane;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig-&gt;AvgBytesPerTU<sp/>=<sp/>Values-&gt;AvgBytesPerTu;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig-&gt;InitWait<sp/>=<sp/>Values-&gt;InitWait;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig-&gt;TransferUnitSize<sp/>=<sp/>XDP_TX_MAX_NUM_OF_TIMESLOTS;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_USER_DATA_COUNT_PER_LANE<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U],</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Values-&gt;UserDataCountPerLane);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_MIN_BYTES_PER_TU<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U],</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Values-&gt;MinBytesPerTu);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_FRAC_BYTES_PER_TU<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U],</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Values-&gt;FracBytesPerTu);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_INIT_WAIT<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U],</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Values-&gt;InitWait);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_TU_SIZE<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U],</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_MAX_NUM_OF_TIMESLOTS);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>MISC1<sp/>bit<sp/>6<sp/>=<sp/>compressed<sp/>stream<sp/>marker<sp/>(DP<sp/>2.1).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MiscOneRd<sp/>=<sp/>XDp_ReadReg(BaseAddr,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_MAIN_STREAM_MISC1<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U]);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_TX_MAIN_STREAM_MISC1<sp/>+<sp/>StreamOffset[Stream<sp/>-<sp/>1U],</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MiscOneRd<sp/>|<sp/>(1U<sp/>&lt;&lt;<sp/>6));</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Static<sp/>Variables<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxDscEnabled<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxFecEnabled<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxDscPassthrough<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>TxDscEnableOffsetInUse<sp/>=<sp/><ref refid="xdp21txss__hw_8h_1a30380468e161c975b73789d4a8822ba0" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxDscDivisionFactor<sp/>=<sp/>1U;<sp/></highlight><highlight class="comment">/*<sp/>DSC_ENABLE[3:1]<sp/>at<sp/>0x0094<sp/>per<sp/>RAL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxDscNumSlices<sp/>=<sp/>0U;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DSC_NUM_OF_SLICES[12:8]<sp/>at<sp/>0x0094<sp/>=<sp/>ceil(pic_width/slice_width)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>-1<sp/>unknown,<sp/>0<sp/>unsupported,<sp/>1<sp/>supported<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TxPpsCtrlSupport<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxPpsCtrlFallbackMsgPrinted<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_DscFecInit(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>FecCap<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>DscCap<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscEnabled<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/>TxFecEnabled<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscPassthrough<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscDivisionFactor<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscNumSlices<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/>TxPpsCtrlSupport<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/>TxPpsCtrlFallbackMsgPrinted<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Probe<sp/>sink<sp/>FEC<sp/>capability<sp/>(DPCD<sp/>0x090)<sp/>—<sp/>non-fatal<sp/>if<sp/>sink<sp/>not<sp/>connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxAuxRead(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_FEC_CAPABILITY_ADDR,<sp/>1,<sp/>&amp;FecCap);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS<sp/>&amp;&amp;<sp/>(FecCap<sp/>&amp;<sp/>0x01))<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>FecEnable<sp/>=<sp/>0x01;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XDp_TxAuxWrite(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_FEC_ENABLE_ADDR,<sp/>1,<sp/>&amp;FecEnable);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFecEnabled<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Probe<sp/>sink<sp/>DSC<sp/>capability<sp/>(DPCD<sp/>0x060)<sp/>—<sp/>non-fatal<sp/>if<sp/>sink<sp/>not<sp/>connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxAuxRead(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_DSC_SUPPORT_ADDR,<sp/>1,<sp/>&amp;DscCap);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)Status;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscPassthrough<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC/FEC:<sp/>Init<sp/>done<sp/>(FEC=%s,<sp/>sink_DSC=%s,<sp/>passthrough=ready)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFecEnabled<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;ON&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;OFF&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DscCap<sp/>&amp;<sp/>0x01)<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;YES&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;NO&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_SetFecEnable(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>FecCap<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>sink<sp/>FEC<sp/>capability<sp/>(DPCD<sp/>0x090)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxAuxRead(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_FEC_CAPABILITY_ADDR,<sp/>1,<sp/>&amp;FecCap);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>FEC:<sp/>Failed<sp/>to<sp/>read<sp/>sink<sp/>capability\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable<sp/>&amp;&amp;<sp/>(FecCap<sp/>&amp;<sp/>0x01))<sp/>{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1.<sp/>Enable<sp/>FEC<sp/>in<sp/>sink<sp/>(DPCD<sp/>0x120)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>FecEnable<sp/>=<sp/>0x01;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxAuxWrite(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_FEC_ENABLE_ADDR,<sp/>1,<sp/>&amp;FecEnable);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>FEC:<sp/>Failed<sp/>to<sp/>enable<sp/>in<sp/>sink\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="349"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>2.<sp/>Enable<sp/>FEC<sp/>in<sp/>TX<sp/>AXI-Lite<sp/>register<sp/>0x008<sp/>(XDP_TX_ENHANCED_FRAME_EN).</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/>bit[0]<sp/>=<sp/>enhanced<sp/>framing<sp/>(required<sp/>for<sp/>all<sp/>DP<sp/>links)</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/>bit[8]<sp/>=<sp/>FEC<sp/>enable<sp/>(DP<sp/>2.1<sp/>TX<sp/>IP<sp/>extension<sp/>—<sp/>must<sp/>be<sp/>set<sp/>so<sp/>the<sp/>TX</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>actually<sp/>generates<sp/>FEC-protected<sp/>link<sp/>symbols<sp/>on<sp/>the<sp/>wire;</highlight></codeline>
+<codeline lineno="353"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>without<sp/>this<sp/>the<sp/>sink<sp/>reports<sp/>FEC=Disabled<sp/>and<sp/>CRC<sp/>fails).</highlight></codeline>
+<codeline lineno="354"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>NOTE:<sp/>toggling<sp/>bit[8]<sp/>can<sp/>cause<sp/>the<sp/>TX<sp/>IP<sp/>to<sp/>re-arm<sp/>its<sp/>internal</highlight></codeline>
+<codeline lineno="356"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>pipeline,<sp/>which<sp/>may<sp/>clear<sp/>XDP_TX_ENABLE<sp/>(0x080)<sp/>and</highlight></codeline>
+<codeline lineno="357"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XDP_TX_ENABLE_MAIN_STREAM<sp/>(0x084).<sp/><sp/>Re-assert<sp/>both<sp/>after<sp/>the<sp/>FEC</highlight></codeline>
+<codeline lineno="358"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>write<sp/>to<sp/>ensure<sp/>the<sp/>main<sp/>link<sp/>video<sp/>output<sp/>is<sp/>not<sp/>interrupted.</highlight></codeline>
+<codeline lineno="359"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>TxBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(TxBase,<sp/>XDP_TX_ENHANCED_FRAME_EN,</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/>|<sp/>(1U<sp/>&lt;&lt;<sp/>8));<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0x101:<sp/>enhanced_framing=1<sp/>+<sp/>fec_enable=1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Re-assert<sp/>main<sp/>link<sp/>enables<sp/>in<sp/>case<sp/>the<sp/>FEC<sp/>write<sp/>cleared<sp/>them<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(TxBase,<sp/>XDP_TX_ENABLE,<sp/>1U);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(TxBase,<sp/>XDP_TX_ENABLE_MAIN_STREAM,<sp/>1U);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFecEnabled<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>FEC:<sp/>ENABLED\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Enable)<sp/>{</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFecEnabled<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="377"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>FEC<sp/>in<sp/>TX<sp/>AXI:<sp/>clear<sp/>bit[8],<sp/>keep<sp/>enhanced<sp/>framing<sp/>(bit[0]).</highlight></codeline>
+<codeline lineno="378"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>DPCD<sp/>0x120<sp/>write<sp/>is<sp/>skipped<sp/>here<sp/>because<sp/>the<sp/>sink<sp/>resets<sp/>itself<sp/>on</highlight></codeline>
+<codeline lineno="379"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>link<sp/>loss;<sp/>we<sp/>just<sp/>make<sp/>sure<sp/>the<sp/>TX<sp/>IP<sp/>stops<sp/>generating<sp/>FEC.</highlight></codeline>
+<codeline lineno="380"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>TxBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(TxBase,<sp/>XDP_TX_ENHANCED_FRAME_EN,<sp/>1U);<sp/></highlight><highlight class="comment">/*<sp/>0x001:<sp/>fec_enable=0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>FEC:<sp/>DISABLED\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_DscNegotiateCapabilities(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="396"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>DscSupport<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>DSC<sp/>support<sp/>(DPCD<sp/>0x060)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxAuxRead(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_DSC_SUPPORT_ADDR,<sp/>1,<sp/>&amp;DscSupport);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS<sp/>||<sp/>!(DscSupport<sp/>&amp;<sp/>0x01))<sp/>{</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Sink<sp/>does<sp/>not<sp/>support<sp/>DSC\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="412"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Sink<sp/>supports<sp/>DSC\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="414"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_EnableDscPassthrough(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="421"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>PpsCtrl;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPpsCtrlSupport<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscPassthrough<sp/>=<sp/>Enable<sp/>?<sp/>1U<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/>PpsCtrl<sp/>=<sp/>XDp_ReadReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable)<sp/>{</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PpsCtrl<sp/>|=<sp/><ref refid="xdp21txss__hw_8h_1a0c0819f28ef4c19f5d5fc4cdc650c028" kindref="member">XDP21_TX_DSC_PASSTHROUGH</ref>;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PpsCtrl<sp/>&amp;=<sp/>~((u32)<ref refid="xdp21txss__hw_8h_1a0c0819f28ef4c19f5d5fc4cdc650c028" kindref="member">XDP21_TX_DSC_PASSTHROUGH</ref>);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>,<sp/>PpsCtrl);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/>PpsCtrl<sp/>=<sp/>XDp_ReadReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscPassthrough<sp/>=<sp/>Enable<sp/>?<sp/>1U<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_WriteDscPps(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*PpsData)</highlight></codeline>
+<codeline lineno="456"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegOffset;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>Ppc;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL<sp/>||<sp/>PpsData<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDpTxSs_GetCurrentPpc(InstancePtr,<sp/>&amp;Ppc);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Failed<sp/>to<sp/>read<sp/>PPC<sp/>configuration\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDpTxSs_ValidatePpsForSstDsc(PpsData,<sp/>Ppc);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/>TxDscDivisionFactor<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="483"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Compute<sp/>DSC_NUM_OF_SLICES<sp/>=<sp/>ceil(pic_width<sp/>/<sp/>slice_width)<sp/>for<sp/>0x094[12:8].</highlight></codeline>
+<codeline lineno="484"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>pic_width<sp/><sp/>=<sp/>{PPS8[7:0],<sp/>PPS9[7:0]}<sp/><sp/><sp/>(big-endian<sp/>in<sp/>PPS<sp/>packet)</highlight></codeline>
+<codeline lineno="485"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>slice_width<sp/>=<sp/>{PPS12[7:0],<sp/>PPS13[7:0]}</highlight></codeline>
+<codeline lineno="486"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>pps_pic_width<sp/><sp/><sp/>=<sp/>((u16)PpsData[8]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>(u16)PpsData[9];</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>pps_slice_width<sp/>=<sp/>((u16)PpsData[12]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>(u16)PpsData[13];</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pps_slice_width<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscNumSlices<sp/>=<sp/>(u8)((pps_pic_width<sp/>+<sp/>pps_slice_width<sp/>-<sp/>1U)<sp/>/</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pps_slice_width);</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscNumSlices<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="498"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>DSC_NUM_OF_SLICES=%u\r\n&quot;</highlight><highlight class="normal">,<sp/>(u32)TxDscNumSlices);</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="500"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>128-byte<sp/>PPS<sp/>to<sp/>DSC_PPS_DATA<sp/>(0x0710-0x078C)</highlight></codeline>
+<codeline lineno="505"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Per<sp/>RAL:<sp/>DSC_PPS_DATA[31:0]<sp/>at<sp/>0x0710,<sp/>[63:32]<sp/>at<sp/>0x0714,<sp/>...<sp/>[1023:992]<sp/>at<sp/>0x078C</highlight></codeline>
+<codeline lineno="506"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Byte<sp/>order:<sp/>BYTE_0<sp/>[7:0],<sp/>BYTE_1<sp/>[15:8],<sp/>BYTE_2<sp/>[23:16],<sp/>BYTE_3<sp/>[31:24]</highlight></codeline>
+<codeline lineno="507"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>DSC_PPS_SIZE;<sp/>i<sp/>+=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset<sp/>=<sp/><ref refid="xdp21txss__hw_8h_1ac61fe30c4ae80f258838dc3e4103b21b" kindref="member">XDP21_TX_DSC_PPS_DATA_BASE_OFFSET</ref><sp/>+<sp/>(u32)i;</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegOffset<sp/>&gt;<sp/><ref refid="xdp21txss__hw_8h_1a58e05d97d8ef8676ca75eed667c0f097" kindref="member">XDP21_TX_DSC_PPS_DATA_LAST_OFFSET</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>PPS<sp/>register<sp/>offset<sp/>overflow<sp/>(0x%03X)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)RegOffset);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>(u32)PpsData[i<sp/>+<sp/>0]<sp/>|</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)PpsData[i<sp/>+<sp/>1]<sp/>&lt;&lt;<sp/>8)<sp/>|</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)PpsData[i<sp/>+<sp/>2]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)PpsData[i<sp/>+<sp/>3]<sp/>&lt;&lt;<sp/>24);</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/>RegOffset,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="525"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>PPS<sp/>written\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="527"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="528"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"></highlight></codeline>
+<codeline lineno="533"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_SetDscEnable(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="534"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="536"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>DPCD<sp/>0x160<sp/>DSC_ENABLE<sp/>register<sp/>bit<sp/>fields:</highlight></codeline>
+<codeline lineno="537"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>bit[0]<sp/>=<sp/>DSC_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>=<sp/>enable<sp/>DSC<sp/>at<sp/>sink)</highlight></codeline>
+<codeline lineno="538"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>bit[1]<sp/>=<sp/>DSC_PASS_THROUGH_ENABLE<sp/>(1<sp/>=<sp/>DP<sp/>repeater<sp/>passes<sp/>DSC<sp/>stream</highlight></codeline>
+<codeline lineno="539"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>through<sp/>without<sp/>decoding<sp/>—<sp/>required<sp/>for<sp/>passthrough<sp/>topology)</highlight></codeline>
+<codeline lineno="540"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="541"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>a<sp/>DP<sp/>DSC<sp/>passthrough<sp/>repeater:<sp/>write<sp/>0x03<sp/>(both<sp/>bits<sp/>set).</highlight></codeline>
+<codeline lineno="542"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>0x01<sp/>alone<sp/>only<sp/>enables<sp/>DSC<sp/>decode<sp/>at<sp/>the<sp/>sink<sp/>but<sp/>does<sp/>not<sp/>tell<sp/>the</highlight></codeline>
+<codeline lineno="543"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>downstream<sp/>device<sp/>that<sp/>this<sp/>is<sp/>a<sp/>passthrough<sp/>path;<sp/>some<sp/>sinks<sp/>and</highlight></codeline>
+<codeline lineno="544"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>analyzers<sp/>(e.g.<sp/>UCD500)<sp/>expect<sp/>bit[1]=1<sp/>to<sp/>recognise<sp/>the<sp/>stream<sp/>as</highlight></codeline>
+<codeline lineno="545"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>a<sp/>DSC<sp/>pass-through<sp/>and<sp/>report<sp/>the<sp/>PPS<sp/>correctly.</highlight></codeline>
+<codeline lineno="546"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>DscEnable<sp/>=<sp/>Enable<sp/>?<sp/>0x03U<sp/>:<sp/>0x00U;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>SinkDscEnableRd<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ActiveDscOffset<sp/>=<sp/>TxDscEnableOffsetInUse;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>DscEnableRegVal;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TxDscEnableRd;</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TxDscEnableAltRd;</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>PpsCtrlRd;</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>PpsSendRd;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref><sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"></highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable)<sp/>{</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Safety<sp/>check<sp/>before<sp/>setting<sp/>sink<sp/>DSC_ENABLE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDpTxSs_DscNegotiateCapabilities(InstancePtr);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Sink<sp/>capability<sp/>check<sp/>failed<sp/>before<sp/>DSC<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;enable\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="575"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Guideline<sp/>programming<sp/>order:</highlight></codeline>
+<codeline lineno="576"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>1)<sp/>Program<sp/>DSC_NUM_OF_SLICES<sp/>in<sp/>0x0094[12:8]<sp/>(before<sp/>DSC_EN)</highlight></codeline>
+<codeline lineno="577"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>2)<sp/>Set<sp/>DSC_ENABLE<sp/>in<sp/>sink<sp/>from<sp/>TX<sp/>through<sp/>AUX<sp/>(DPCD<sp/>0x160)</highlight></codeline>
+<codeline lineno="578"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>3)<sp/>Set<sp/>DSC_ENABLE<sp/>of<sp/>TX<sp/>AXI-Lite<sp/>programmable<sp/>registers</highlight></codeline>
+<codeline lineno="579"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="582"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Step<sp/>1:<sp/>Pre-program<sp/>DSC_NUM_OF_SLICES<sp/>into<sp/>0x0094[12:8].</highlight></codeline>
+<codeline lineno="583"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="584"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>DSC_NUM_OF_SLICES<sp/>=<sp/>ceil(pic_width<sp/>/<sp/>slice_width)</highlight></codeline>
+<codeline lineno="585"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/>pic_width<sp/><sp/><sp/>from<sp/>PPS<sp/>{PPS8[7:0],<sp/>PPS9[7:0]}</highlight></codeline>
+<codeline lineno="586"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/>slice_width<sp/>from<sp/>PPS<sp/>{PPS12[7:0],<sp/>PPS13[7:0]}</highlight></codeline>
+<codeline lineno="587"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="588"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>ONLY<sp/>the<sp/>num_slices<sp/>+<sp/>div_factor<sp/>fields;<sp/>DSC_EN<sp/>bit[0]<sp/>is</highlight></codeline>
+<codeline lineno="589"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>NOT<sp/>set<sp/>yet<sp/>—<sp/>the<sp/>IP<sp/>must<sp/>see<sp/>the<sp/>slice<sp/>configuration<sp/>before</highlight></codeline>
+<codeline lineno="590"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>DSC<sp/>is<sp/>activated.</highlight></codeline>
+<codeline lineno="591"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumSlicesPreReg<sp/>=<sp/>((u32)TxDscNumSlices<sp/>&lt;&lt;<sp/><ref refid="xdp21txss__hw_8h_1aed5e001c6023f0278a7d25951cbbdfa3" kindref="member">XDP21_TX_DSC_NUM_SLICES_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdp21txss__hw_8h_1addaf9646082068e04dbc581ef0157119" kindref="member">XDP21_TX_DSC_NUM_SLICES_MASK</ref>;</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumSlicesPreReg<sp/>|=<sp/>((u32)TxDscDivisionFactor<sp/>&lt;&lt;<sp/>1);</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a0c0e1544c265184f8019775653d30216" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET_ALT</ref>,<sp/>NumSlicesPreReg);</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="598"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>0x094<sp/>pre-programmed<sp/>(NUM_SLICES=%u)\r\n&quot;</highlight><highlight class="normal">,<sp/>(u32)TxDscNumSlices);</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="600"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="603"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Step<sp/>2:<sp/>Set<sp/>DSC_ENABLE<sp/>in<sp/>sink<sp/>from<sp/>TX<sp/>through<sp/>AUX<sp/>(DPCD<sp/>0x160).</highlight></codeline>
+<codeline lineno="604"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDp_TxAuxWrite(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_DSC_ENABLE_ADDR,<sp/>1,<sp/>&amp;DscEnable);</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Failed<sp/>to<sp/>set<sp/>sink<sp/>DSC_ENABLE<sp/>(0x160)\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="613"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Step<sp/>3:<sp/>Set<sp/>DSC_ENABLE<sp/>of<sp/>TX<sp/>AXI-Lite<sp/>programmable<sp/>registers.</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="615"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Ensure<sp/>PPS<sp/>SDP<sp/>packets<sp/>are<sp/>emitted<sp/>on<sp/>TX<sp/>main<sp/>link.</highlight></codeline>
+<codeline lineno="616"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Program<sp/>PPS<sp/>SDP<sp/>control<sp/>before<sp/>asserting<sp/>TX<sp/>DSC<sp/>enable.</highlight></codeline>
+<codeline lineno="617"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPpsCtrlSupport<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdp21txss__hw_8h_1a9f75e8fce8b497d2d2e446c84d5cb111" kindref="member">XDP21_TX_PPS_SDP_ENABLE</ref><sp/>|<sp/><ref refid="xdp21txss__hw_8h_1a0c0819f28ef4c19f5d5fc4cdc650c028" kindref="member">XDP21_TX_DSC_PASSTHROUGH</ref>);</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1ab91059661d0d41f832564faa62fba5a2" kindref="member">XDP21_TX_PPS_SDP_SEND_OFFSET</ref>,<sp/>0x1U);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdp21txss__hw_8h_1a9f75e8fce8b497d2d2e446c84d5cb111" kindref="member">XDP21_TX_PPS_SDP_ENABLE</ref><sp/>|<sp/><ref refid="xdp21txss__hw_8h_1a8a6d2e5fc919a09dd7becf6acc385fab" kindref="member">XDP21_TX_PPS_SDP_TRIGGER</ref><sp/>|</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdp21txss__hw_8h_1a0c0819f28ef4c19f5d5fc4cdc650c028" kindref="member">XDP21_TX_DSC_PASSTHROUGH</ref>);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdp21txss__hw_8h_1a9f75e8fce8b497d2d2e446c84d5cb111" kindref="member">XDP21_TX_PPS_SDP_ENABLE</ref><sp/>|<sp/><ref refid="xdp21txss__hw_8h_1a0c0819f28ef4c19f5d5fc4cdc650c028" kindref="member">XDP21_TX_DSC_PASSTHROUGH</ref>);</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="630"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>DSC_ENABLE<sp/>to<sp/>both<sp/>register<sp/>locations:</highlight></codeline>
+<codeline lineno="631"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="632"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>-<sp/>0x0790:<sp/>bit[0]=DSC_EN,<sp/>bit[2:1]=DIV_FACTOR,<sp/>bit[2]=PASSTHROUGH</highlight></codeline>
+<codeline lineno="633"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>-<sp/>0x0094:<sp/>bit[0]=DSC_EN,<sp/>bit[2:1]=DIV_FACTOR,<sp/>bit[12:8]=NUM_SLICES</highlight></codeline>
+<codeline lineno="634"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DscEnableRegVal<sp/>=<sp/>(u32)0x1U<sp/>|<sp/>((u32)TxDscDivisionFactor<sp/>&lt;&lt;<sp/>1);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a30380468e161c975b73789d4a8822ba0" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DscEnableRegVal<sp/>|<sp/>(u32)<ref refid="xdp21txss__hw_8h_1a0c0819f28ef4c19f5d5fc4cdc650c028" kindref="member">XDP21_TX_DSC_PASSTHROUGH</ref>);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DscEnableRegVal<sp/>|=<sp/>((u32)TxDscNumSlices<sp/>&lt;&lt;<sp/><ref refid="xdp21txss__hw_8h_1aed5e001c6023f0278a7d25951cbbdfa3" kindref="member">XDP21_TX_DSC_NUM_SLICES_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdp21txss__hw_8h_1addaf9646082068e04dbc581ef0157119" kindref="member">XDP21_TX_DSC_NUM_SLICES_MASK</ref>;</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a0c0e1544c265184f8019775653d30216" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET_ALT</ref>,<sp/>DscEnableRegVal);</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="643"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>DSC_EN_ACTION<sp/>(0x0794):<sp/>write-to-trigger<sp/>register<sp/>that<sp/>arms<sp/>the<sp/>TX<sp/>IP</highlight></codeline>
+<codeline lineno="644"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>start<sp/>emitting<sp/>PPS<sp/>SDP<sp/>packets<sp/>from<sp/>the<sp/>stored<sp/>PPS<sp/>data<sp/>(0x0710-0x078C)</highlight></codeline>
+<codeline lineno="645"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>every<sp/>subsequent<sp/>VBlank.</highlight></codeline>
+<codeline lineno="646"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="647"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>In<sp/>this<sp/>RTL<sp/>the<sp/>PPS<sp/>SDP<sp/>control<sp/>path<sp/>via<sp/>0x0790<sp/>/<sp/>0x0804-0x0808<sp/>is<sp/>not</highlight></codeline>
+<codeline lineno="648"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>implemented<sp/>(both<sp/>always<sp/>read<sp/>back<sp/>0).<sp/><sp/>0x0794<sp/>is<sp/>the<sp/>only<sp/>register<sp/>in</highlight></codeline>
+<codeline lineno="649"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>DSC<sp/>block<sp/>that<sp/>triggers<sp/>PPS<sp/>SDP<sp/>output<sp/>onto<sp/>the<sp/>DP<sp/>main<sp/>link.</highlight></codeline>
+<codeline lineno="650"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>PPS<sp/>registers<sp/>MUST<sp/>be<sp/>valid<sp/>before<sp/>this<sp/>write<sp/>(guaranteed<sp/>by<sp/>call<sp/>order</highlight></codeline>
+<codeline lineno="651"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>DscFecPt_ConfigureTx:<sp/>WriteDscPps<sp/>→<sp/>EnableDscPassthrough<sp/>→<sp/>SetDscEnable).</highlight></codeline>
+<codeline lineno="652"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a51367804b7b43a35ac4d83a4160121f9" kindref="member">XDP21_TX_DSC_EN_ACTION_OFFSET</ref>,<sp/>0x1U);</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"></highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscEnabled<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XDp_TxAuxRead(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_DSC_ENABLE_ADDR,<sp/>1,<sp/>&amp;SinkDscEnableRd);</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscEnableRd<sp/>=<sp/>XDp_ReadReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a30380468e161c975b73789d4a8822ba0" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscEnableAltRd<sp/>=<sp/>XDp_ReadReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a0c0e1544c265184f8019775653d30216" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET_ALT</ref>);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PpsCtrlRd<sp/>=<sp/>XDp_ReadReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PpsSendRd<sp/>=<sp/>XDp_ReadReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1ab91059661d0d41f832564faa62fba5a2" kindref="member">XDP21_TX_PPS_SDP_SEND_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TxPpsCtrlSupport<sp/>==<sp/>-1)<sp/>&amp;&amp;<sp/>(PpsCtrlRd<sp/>==<sp/>0U)<sp/>&amp;&amp;<sp/>(PpsSendRd<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPpsCtrlSupport<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="665"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>PPS_SDP_CTRL/SEND<sp/>not<sp/>implemented<sp/>at<sp/>0x804/0x808<sp/>(0x800-0x8FF<sp/>payload<sp/>table<sp/>map)\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="667"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPpsCtrlFallbackMsgPrinted<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="669"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>Using<sp/>fallback<sp/>signaling<sp/>path:<sp/>sink<sp/>DPCD<sp/>0x160<sp/>+<sp/>TX<sp/>AXI-Lite<sp/>DSC_ENABLE<sp/>(0x094/0x790<sp/>auto-detect)\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="671"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPpsCtrlFallbackMsgPrinted<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPpsCtrlSupport<sp/>==<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPpsCtrlSupport<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="678"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Auto-detect<sp/>which<sp/>TX<sp/>DSC<sp/>enable<sp/>register<sp/>is<sp/>implemented<sp/>in<sp/>current<sp/>RTL.</highlight></codeline>
+<codeline lineno="679"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TxDscEnableRd<sp/>&amp;<sp/>0x1U)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveDscOffset<sp/>=<sp/>(u32)<ref refid="xdp21txss__hw_8h_1a30380468e161c975b73789d4a8822ba0" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TxDscEnableAltRd<sp/>&amp;<sp/>0x1U)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveDscOffset<sp/>=<sp/>(u32)<ref refid="xdp21txss__hw_8h_1a0c0e1544c265184f8019775653d30216" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET_ALT</ref>;</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscEnableOffsetInUse<sp/>=<sp/>ActiveDscOffset;</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="687"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>ENABLED\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="689"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>in<sp/>reverse-safe<sp/>order:<sp/>TX<sp/>first,<sp/>then<sp/>sink<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a30380468e161c975b73789d4a8822ba0" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET</ref>,<sp/>0x00U);</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a0c0e1544c265184f8019775653d30216" kindref="member">XDP21_TX_DSC_ENABLE_OFFSET_ALT</ref>,<sp/>0x00U);</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPpsCtrlSupport<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1ab91059661d0d41f832564faa62fba5a2" kindref="member">XDP21_TX_PPS_SDP_SEND_OFFSET</ref>,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(BaseAddr,<sp/><ref refid="xdp21txss__hw_8h_1a7931af6aef2b89ec9cebf8981142fb56" kindref="member">XDP21_TX_PPS_SDP_CTRL_OFFSET</ref>,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XDp_TxAuxWrite(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_DSC_ENABLE_ADDR,<sp/>1,<sp/>&amp;DscEnable);</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDscEnabled<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XDp_TxAuxRead(InstancePtr-&gt;<ref refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" kindref="member">DpPtr</ref>,<sp/>DPCD_DSC_ENABLE_ADDR,<sp/>1,<sp/>&amp;SinkDscEnableRd);</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"></highlight></codeline>
+<codeline lineno="701"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="702"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>DSC:<sp/>DISABLED\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="704"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"></highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="707"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight></codeline>
+<codeline lineno="709"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDPTXSS_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_dsc_fec.c"/>
+  </compounddef>
+</doxygen>

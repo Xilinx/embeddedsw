@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_dme_key_policy" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseDmeKeyPolicy</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_key_policy_1a4b8af043986da034fa0371eaed2a84b6" prot="public" static="no" mutable="no">
+        <type>const u32 *</type>
+        <definition>const u32* XNvm_EfuseDmeKeyPolicy::CacheOffsets</definition>
+        <argsstring></argsstring>
+        <name>CacheOffsets</name>
+        <briefdescription>
+<para>Per-key cache offsets to check empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_key_policy_1aeb29bbd6d242cbefef68cfeb8ad71bf3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDmeKeyPolicy::NumKeys</definition>
+        <argsstring></argsstring>
+        <name>NumKeys</name>
+        <briefdescription>
+<para>Number of DME keys in policy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_key_policy_1acc6347943f78dead250034f99a5e23ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDmeKeyPolicy::BlockIfDmeModeEn</definition>
+        <argsstring></argsstring>
+        <name>BlockIfDmeModeEn</name>
+        <briefdescription>
+<para>Non-zero when DME mode blocks programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines DME key validation policy. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="359" bodyend="363"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_dme_key_policy_1acc6347943f78dead250034f99a5e23ca" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeKeyPolicy</scope><name>BlockIfDmeModeEn</name></member>
+      <member refid="struct_x_nvm___efuse_dme_key_policy_1a4b8af043986da034fa0371eaed2a84b6" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeKeyPolicy</scope><name>CacheOffsets</name></member>
+      <member refid="struct_x_nvm___efuse_dme_key_policy_1aeb29bbd6d242cbefef68cfeb8ad71bf3" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeKeyPolicy</scope><name>NumKeys</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

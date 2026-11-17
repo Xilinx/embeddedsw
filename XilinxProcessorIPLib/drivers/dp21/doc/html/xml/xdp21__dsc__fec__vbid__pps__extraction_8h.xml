@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp21__dsc__fec__vbid__pps__extraction_8h" kind="file">
+    <compoundname>xdp21_dsc_fec_vbid_pps_extraction.h</compoundname>
+    <includes refid="xdp21__dsc_8h" local="yes">xdp21_dsc.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xdp21__dsc__fec__vbid__pps__extraction_8c" local="yes">xdp21_dsc_fec_vbid_pps_extraction.c</includedby>
+    <incdepgraph>
+      <node id="80">
+        <label>xstatus.h</label>
+      </node>
+      <node id="76">
+        <label>xdp21_dsc_fec_vbid_pps_extraction.h</label>
+        <link refid="xdp21_dsc_fec_vbid_pps_extraction.h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>xil_types.h</label>
+      </node>
+      <node id="78">
+        <label>xparameters.h</label>
+      </node>
+      <node id="77">
+        <label>xdp21_dsc.h</label>
+        <link refid="xdp21__dsc_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="82">
+        <label>xdp21_dsc_fec_vbid_pps_extraction.c</label>
+        <link refid="xdp21__dsc__fec__vbid__pps__extraction_8c"/>
+      </node>
+      <node id="81">
+        <label>xdp21_dsc_fec_vbid_pps_extraction.h</label>
+        <link refid="xdp21_dsc_fec_vbid_pps_extraction.h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>Header file for DSC VB-ID and PPS extraction APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para>This header defines the public APIs for DSC stream detection, VB-ID[6] monitoring, and PPS packet extraction/parsing. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#ifndef<sp/>XDP21_DSC_FEC_VBID_PPS_EXTRACTION_H_</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_DSC_FEC_VBID_PPS_EXTRACTION_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp21__dsc_8h" kindref="compound">xdp21_dsc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDP_USE_DSC</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>DscVersionMajor;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>DscVersionMinor;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>PpsIdentifier;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>PicWidth;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>PicHeight;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>SliceWidth;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>SliceHeight;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>ChunkSize;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>BitsPerPixel;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>BitsPerComponent;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>LinebufDepth;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>BlockPredEnable;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>ConvertRgb;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>ColorFormat;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>RcModelSize;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>RawPpsData[XDP21_DSC_PPS_SIZE];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}<sp/>XDp21_DscPpsConfig;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_CheckVbIdCompressionFlag(u32<sp/>BaseAddr,<sp/>u8<sp/>StreamId,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*VbIdValue,<sp/>u8<sp/>*CompressionFlag);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_MonitorVbIdCompressionChange(u32<sp/>BaseAddr,<sp/>u8<sp/>StreamId,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PreviousCompressionState,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*CurrentCompressionState);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_ExtractPpsFromHardware(u32<sp/>BaseAddr,<sp/>u8<sp/>StreamId,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*PpsData,<sp/>u8<sp/>*PpsValid);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscParsePpsPacket(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PpsData,<sp/>XDp21_DscPpsConfig<sp/>*PpsConfigPtr);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_CompleteDscStreamDetectionFlow(u32<sp/>BaseAddr,<sp/>u8<sp/>StreamId,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp21_DscPpsConfig<sp/>*PpsConfig);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_ExposeDscFecCapability(u32<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="comment">/**************************<sp/>API<sp/>Naming<sp/>Convention<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP21_DSC_FEC_VBID_PPS_EXTRACTION_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp21_dsc_fec_vbid_pps_extraction.h"/>
+  </compounddef>
+</doxygen>

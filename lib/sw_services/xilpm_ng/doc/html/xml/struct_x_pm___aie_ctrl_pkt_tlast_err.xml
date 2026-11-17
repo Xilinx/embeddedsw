@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_ctrl_pkt_tlast_err" kind="struct" prot="public">
+    <compoundname>XPm_AieCtrlPktTlastErr</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_ctrl_pkt_tlast_err_1a7e028574c50c9624277a9ee7ddb4c069" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieCtrlPktTlastErr::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_ctrl_pkt_tlast_err_1a4d1e0520de072317a0000d9e3be24bab" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieCtrlPktTlastErr::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_ctrl_pkt_tlast_err_1a024a10f307f3ccb24e7ca79f4da6c5b5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieCtrlPktTlastErr::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="82" bodyend="86"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_ctrl_pkt_tlast_err_1a4d1e0520de072317a0000d9e3be24bab" prot="public" virt="non-virtual"><scope>XPm_AieCtrlPktTlastErr</scope><name>Len</name></member>
+      <member refid="struct_x_pm___aie_ctrl_pkt_tlast_err_1a024a10f307f3ccb24e7ca79f4da6c5b5" prot="public" virt="non-virtual"><scope>XPm_AieCtrlPktTlastErr</scope><name>State</name></member>
+      <member refid="struct_x_pm___aie_ctrl_pkt_tlast_err_1a7e028574c50c9624277a9ee7ddb4c069" prot="public" virt="non-virtual"><scope>XPm_AieCtrlPktTlastErr</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

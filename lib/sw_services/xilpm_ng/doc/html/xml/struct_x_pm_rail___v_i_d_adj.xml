@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_rail___v_i_d_adj" kind="struct" prot="public">
+    <compoundname>XPmRail_VIDAdj</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_rail___v_i_d_adj_1aefe72607fb358d2d0121fd27de3a53ee" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmRail_VIDAdj::RailId</definition>
+        <argsstring></argsstring>
+        <name>RailId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___v_i_d_adj_1a1d7bee92c658a93ef27cd12cf0315017" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmRail_VIDAdj::Performance[MAX_MODES]</definition>
+        <argsstring>[MAX_MODES]</argsstring>
+        <name>Performance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___v_i_d_adj_1a69c5eb7c7078784799f64661d4f26e4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRail_VIDAdj::VIDAdjusted</definition>
+        <argsstring></argsstring>
+        <name>VIDAdjusted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___v_i_d_adj_1a14a3c91b041f4827a86a24d2ebbb5b55" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRail_VIDAdj::PowerState</definition>
+        <argsstring></argsstring>
+        <name>PowerState</name>
+        <briefdescription>
+<para>Rail mode VID picked, 0xFF if none. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="117" bodyend="122"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_rail___v_i_d_adj_1a1d7bee92c658a93ef27cd12cf0315017" prot="public" virt="non-virtual"><scope>XPmRail_VIDAdj</scope><name>Performance</name></member>
+      <member refid="struct_x_pm_rail___v_i_d_adj_1a14a3c91b041f4827a86a24d2ebbb5b55" prot="public" virt="non-virtual"><scope>XPmRail_VIDAdj</scope><name>PowerState</name></member>
+      <member refid="struct_x_pm_rail___v_i_d_adj_1aefe72607fb358d2d0121fd27de3a53ee" prot="public" virt="non-virtual"><scope>XPmRail_VIDAdj</scope><name>RailId</name></member>
+      <member refid="struct_x_pm_rail___v_i_d_adj_1a69c5eb7c7078784799f64661d4f26e4b" prot="public" virt="non-virtual"><scope>XPmRail_VIDAdj</scope><name>VIDAdjusted</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

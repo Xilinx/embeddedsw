@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_i_l_i9881_c___instr" kind="struct" prot="public">
+    <compoundname>ILI9881C_Instr</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_i_l_i9881_c___instr_1a52d5f542f9aad011b5c54e53aee7d05e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ILI9881C_Instr::is_page_switch</definition>
+        <argsstring></argsstring>
+        <name>is_page_switch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_l_i9881_c___instr_1a807eb4c02eb8fbc65a5e2952a964b0c5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ILI9881C_Instr::reg</definition>
+        <argsstring></argsstring>
+        <name>reg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_i_l_i9881_c___instr_1a92f1c26b9bcf004a2e66119ab1151704" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ILI9881C_Instr::val</definition>
+        <argsstring></argsstring>
+        <name>val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="105" bodyend="109"/>
+    <listofallmembers>
+      <member refid="struct_i_l_i9881_c___instr_1a52d5f542f9aad011b5c54e53aee7d05e" prot="public" virt="non-virtual"><scope>ILI9881C_Instr</scope><name>is_page_switch</name></member>
+      <member refid="struct_i_l_i9881_c___instr_1a807eb4c02eb8fbc65a5e2952a964b0c5" prot="public" virt="non-virtual"><scope>ILI9881C_Instr</scope><name>reg</name></member>
+      <member refid="struct_i_l_i9881_c___instr_1a92f1c26b9bcf004a2e66119ab1151704" prot="public" virt="non-virtual"><scope>ILI9881C_Instr</scope><name>val</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

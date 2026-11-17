@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_aie_ops_handlers" kind="struct" prot="public">
+    <compoundname>XPmAieOpsHandlers</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_aie_ops_handlers_1a7071547464217fa0d3c8acb38b4b61b1" prot="public" static="no" mutable="no">
+        <type>enum <ref refid="group__xpm__versal__apis_1gaf4a780bfc4bdb1260db108586f9629d9" kindref="member">XPmAieOperations</ref></type>
+        <definition>enum XPmAieOperations XPmAieOpsHandlers::Ops</definition>
+        <argsstring></argsstring>
+        <name>Ops</name>
+        <briefdescription>
+<para>AIE operation identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" line="1361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_aie_ops_handlers_1a58f22abe934c185f322cc167f16a4ae5" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPmAieOpsHandlers::Handler)(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)</definition>
+        <argsstring>)(const XPm_AieDomain *AieDomain, u32 StartCol, u32 EndCol, const void *Buffer)</argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Handler for the operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Maps an AIE operation to its handler function. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" bodystart="32" bodyend="36"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_aie_ops_handlers_1a58f22abe934c185f322cc167f16a4ae5" prot="public" virt="non-virtual"><scope>XPmAieOpsHandlers</scope><name>Handler</name></member>
+      <member refid="struct_x_pm_aie_ops_handlers_1a7071547464217fa0d3c8acb38b4b61b1" prot="public" virt="non-virtual"><scope>XPmAieOpsHandlers</scope><name>Ops</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

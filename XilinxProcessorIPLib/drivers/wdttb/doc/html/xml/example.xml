@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use wdttb driver.</para><sect1 id="example_1ex1">
+<title>xwdttb_selftest_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example performs the basic selftest using the driver.</para><para>For details, see <ref refid="xwdttb__selftest__example_8c" kindref="compound">xwdttb_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xwdttb_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the driver functions.</para><para>For details, see <ref refid="xwdttb__example_8c" kindref="compound">xwdttb_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xwdttb_intr_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the driver in interrupt mode.</para><para>For details, see <ref refid="xwdttb__intr__example_8c" kindref="compound">xwdttb_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xwdttb_low_level_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the low-level driver macros of the driver.</para><para>For details, see <ref refid="xwdttb__low__level__example_8c" kindref="compound">xwdttb_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xwdttb_winwdt_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the driver with window feature.</para><para>For details, see <ref refid="xwdttb__winwdt__example_8c" kindref="compound">xwdttb_winwdt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xwdttb_winwdt_intr_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the driver with window feature for interrupt mode.</para><para>For details, see <ref refid="xwdttb__winwdt__intr__example_8c" kindref="compound">xwdttb_winwdt_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xwdttb_gwdt_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the driver with Generic WDT feature.</para><para>For details, see <ref refid="xwdttb__gwdt__example_8c" kindref="compound">xwdttb_gwdt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xwdttb_gwdt_selftest_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example performs the basic selftest using the driver.</para><para>For details, see <ref refid="xwdttb__gwdt__selftest__example_8c" kindref="compound">xwdttb_gwdt_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex9">
+<title>xwdttb_gwdt_intr_selftest_example.c</title>
+<para>Contains an example on how to use the XWdttb driver directly. This example shows the usage of the driver with Generic WDT feature for interrupt mode.</para><para>For details, see <ref refid="xwdttb__gwdt__intr__example_8c" kindref="compound">xwdttb_gwdt_intr_example.c</ref></para><para>NOTE:- More information on examples for each IP. WWDT:- -xwdttb_gwdt_selftest_example.c -xwdttb_gwdt_example.c -xwdttb_gwdt_intr_example.c -xwdttb_selftest_example.c -xwdttb_winwdt_example.c -xwdttb_winwdt_intr_example.c -Above examples works for WWDT driver. AXI TIMEBASE:- Case 1:-(Timebase WDT) -xwdttb_selftest_example.c -xwdttb_example.c -xwdttb_intr_example.c Case 2:-(Window watchdog) -xwdttb_selftest_example.c -xwdttb_winwdt_example.c -xwdttb_winwdt_intr_example.c -Above examples works for AXI Timebase WDT. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

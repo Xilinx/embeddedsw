@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__feature__check_8c" kind="file">
+    <compoundname>xpm_feature_check.c</compoundname>
+    <includes refid="xpm__feature__check_8h" local="yes">xpm_feature_check.h</includes>
+    <includes local="yes">pm_api_version.h</includes>
+    <includes refid="xpm__err_8h" local="yes">xpm_err.h</includes>
+    <includes local="yes">xplmi_modules.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <incdepgraph>
+      <node id="1545">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1541">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1543">
+        <label>xplmi_modules.h</label>
+      </node>
+      <node id="1546">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1547">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1544">
+        <label>xpm_common.h</label>
+        <childnode refid="1540" relation="include">
+        </childnode>
+        <childnode refid="1545" relation="include">
+        </childnode>
+        <childnode refid="1546" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1547" relation="include">
+        </childnode>
+        <childnode refid="1548" relation="include">
+        </childnode>
+      </node>
+      <node id="1540">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1539">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1548">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1541" relation="include">
+        </childnode>
+      </node>
+      <node id="1537">
+        <label>xpm_feature_check.c</label>
+        <link refid="xpm_feature_check.c"/>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1541" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1544" relation="include">
+        </childnode>
+      </node>
+      <node id="1538">
+        <label>xpm_feature_check.h</label>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1540" relation="include">
+        </childnode>
+      </node>
+      <node id="1542">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1540" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__feature__check_8c_1a85a5809235d863341fe150bbe5819aa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_FeatureCheck</definition>
+        <argsstring>(u32 ApiId, u32 *Version)</argsstring>
+        <name>XPm_FeatureCheck</name>
+        <param>
+          <type>u32</type>
+          <declname>ApiId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>This function returns supported version of the given API. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ApiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>API ID to check </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to array of 4 words<itemizedlist>
+<listitem><para>version[0] - EEMI API version number</para></listitem><listitem><para>version[1] - lower 32-bit bitmask of IOCTL or QUERY ID</para></listitem><listitem><para>version[2] - upper 32-bit bitmask of IOCTL or Query ID</para></listitem><listitem><para>Only PM_FEATURE_CHECK version 2 supports 64-bit bitmask</para></listitem><listitem><para>i.e. version[1] and version[2] </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_NO_FEATURE.</para></simplesect>
+<simplesect kind="note"><para>Remove CDO-only commands from versioning as it is for internal use only, so no need to consider for versioning. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.c" bodystart="29" bodyend="149"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_feature_check.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pm_api_version.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__err_8h" kindref="compound">xpm_err.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_modules.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">XStatus<sp/>XPm_FeatureCheck(u32<sp/>ApiId,<sp/>u32<sp/>*Version)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Version)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a4abf18b51bb3eb05d643895cf7a0c955" kindref="member">XPM_ERR_VERSION</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_Module*<sp/>PmModule<sp/>=<sp/>XPlmi_GetModule(XPLMI_MODULE_XILPM_ID);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PmModule)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;PmModule<sp/>is<sp/>NULL\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PmModule-&gt;CmdCnt<sp/>&lt;=<sp/>ApiId)<sp/>||<sp/>(NULL<sp/>==<sp/>PmModule-&gt;AccessPermBufferPtr)<sp/>||</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_GET_ALL_IPI_MASK(XPLMI_NO_IPI_ACCESS)<sp/>==<sp/>PmModule-&gt;AccessPermBufferPtr[ApiId]))<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;API<sp/>0x%x<sp/>is<sp/>not<sp/>accessible!\n\r&quot;</highlight><highlight class="normal">,<sp/>ApiId);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1af72b3e679c1ee22fec9244b4917a1060" kindref="member">XPM_PM_NO_ACCESS</ref>;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(ApiId)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_GET_API_VERSION):</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_ABORT_SUSPEND):</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_REQUEST_WAKEUP):</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_SET_WAKEUP_SOURCE):</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_SYSTEM_SHUTDOWN):</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_SET_REQUIREMENT):</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_SET_MAX_LATENCY):</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_RESET_ASSERT):</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_RESET_GET_STATUS):</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_INIT_FINALIZE):</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_GET_CHIPID):</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_ENABLE):</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_DISABLE):</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_GETSTATE):</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_SETDIVIDER):</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_GETDIVIDER):</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_SETPARENT):</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_GETPARENT):</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PLL_SET_PARAMETER):</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PLL_GET_PARAMETER):</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PLL_SET_MODE):</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PLL_GET_MODE):</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PINCTRL_REQUEST):</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PINCTRL_RELEASE):</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PINCTRL_GET_FUNCTION):</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PINCTRL_SET_FUNCTION):</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PINCTRL_CONFIG_PARAM_GET):</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_PINCTRL_CONFIG_PARAM_SET):</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_GETRATE):</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">#ifdef<sp/>XILPM_NG_ENABLE_CLK_SCMI</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_DESCRIBERATE):</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_CLOCK_PROGRAM_RATE):</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILPM_NG_ENABLE_CLK_SCMI<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga5cf6994349d8c5d0066c04c4cc291b27" kindref="member">XST_API_BASE_VERSION</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_GET_NODE_STATUS):</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga7496f1ae08ebb893eb0d28e243c21cfe" kindref="member">XST_API_GET_NODE_STATUS_VERSION</ref>;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_FEATURE_CHECK):</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>XST_API_PM_FEATURE_CHECK_VERSION;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_REGISTER_NOTIFIER):</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1gaef53e27baa84f577792b04bf75a4c3d9" kindref="member">XST_API_REG_NOTIFIER_VERSION</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_EM_LINK_NODES_SUPPORT</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_GET_EVENT_STATUS_REGS):</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga5cf6994349d8c5d0066c04c4cc291b27" kindref="member">XST_API_BASE_VERSION</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_EM_LINK_NODES_SUPPORT<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_SELF_SUSPEND):</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>XST_API_SELF_SUSPEND_VERSION;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_FORCE_POWERDOWN):</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>XST_API_FORCE_POWERDOWN_VERSION;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_REQUEST_NODE):</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1gabf5c09953d55abac05b56cb52562d2e7" kindref="member">XST_API_REQUEST_NODE_VERSION</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_RELEASE_NODE):</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1gaf2e161223b7938ef52f15ae00dbd6381" kindref="member">XST_API_RELEASE_NODE_VERSION</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_QUERY_DATA):</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version[0]<sp/>=<sp/>XST_API_QUERY_DATA_VERSION;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version[1]<sp/>=<sp/>(u32)(PM_QUERY_FEATURE_BITMASK);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version[2]<sp/>=<sp/>(u32)(PM_QUERY_FEATURE_BITMASK<sp/>&gt;&gt;<sp/>32);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_BISR):</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>PM_API(PM_APPLY_TRIM):</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga5cf6994349d8c5d0066c04c4cc291b27" kindref="member">XST_API_BASE_VERSION</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>PM_API(PM_IOCTL):</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version[0]<sp/>=<sp/>XST_API_PM_IOCTL_VERSION;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version[1]<sp/>=<sp/>(u32)(PM_IOCTL_FEATURE_BITMASK);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version[2]<sp/>=<sp/>(u32)(PM_IOCTL_FEATURE_BITMASK<sp/>&gt;&gt;<sp/>32);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1acc533fb7c29b6dc214bb72b303a75d92" kindref="member">XPM_NO_FEATURE</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;0x%x\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,767 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2vp_2server_2xplmi__ssit_8h" kind="file">
+    <compoundname>2vp/server/xplmi_ssit.h</compoundname>
+    <includes refid="xplmi_8h" local="yes">xplmi.h</includes>
+    <includedby refid="2vp_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <incdepgraph>
+      <node id="2834">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2822">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="2823" relation="include">
+        </childnode>
+        <childnode refid="2820" relation="include">
+        </childnode>
+      </node>
+      <node id="2817">
+        <label>xplmi_generic.h</label>
+        <childnode refid="2818" relation="include">
+        </childnode>
+        <childnode refid="2841" relation="include">
+        </childnode>
+        <childnode refid="2822" relation="include">
+        </childnode>
+      </node>
+      <node id="2835">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="2832">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="2822" relation="include">
+        </childnode>
+        <childnode refid="2833" relation="include">
+        </childnode>
+        <childnode refid="2831" relation="include">
+        </childnode>
+        <childnode refid="2825" relation="include">
+        </childnode>
+      </node>
+      <node id="2840">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2839">
+        <label>list.h</label>
+        <childnode refid="2840" relation="include">
+        </childnode>
+      </node>
+      <node id="2816">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="2817" relation="include">
+        </childnode>
+        <childnode refid="2833" relation="include">
+        </childnode>
+      </node>
+      <node id="2818">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="2819" relation="include">
+        </childnode>
+        <childnode refid="2820" relation="include">
+        </childnode>
+        <childnode refid="2821" relation="include">
+        </childnode>
+        <childnode refid="2826" relation="include">
+        </childnode>
+      </node>
+      <node id="2830">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="2831" relation="include">
+        </childnode>
+        <childnode refid="2832" relation="include">
+        </childnode>
+        <childnode refid="2822" relation="include">
+        </childnode>
+        <childnode refid="2834" relation="include">
+        </childnode>
+        <childnode refid="2835" relation="include">
+        </childnode>
+      </node>
+      <node id="2829">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="2830" relation="include">
+        </childnode>
+        <childnode refid="2836" relation="include">
+        </childnode>
+      </node>
+      <node id="2826">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="2827" relation="include">
+        </childnode>
+        <childnode refid="2828" relation="include">
+        </childnode>
+        <childnode refid="2829" relation="include">
+        </childnode>
+        <childnode refid="2824" relation="include">
+        </childnode>
+        <childnode refid="2823" relation="include">
+        </childnode>
+      </node>
+      <node id="2837">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="2838">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2815">
+        <label>xplmi_ssit.h</label>
+        <link refid="2vp/server/xplmi_ssit.h"/>
+        <childnode refid="2816" relation="include">
+        </childnode>
+      </node>
+      <node id="2820">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="2828">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="2841">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="2842" relation="include">
+        </childnode>
+      </node>
+      <node id="2825">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2842">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="2836">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="2834" relation="include">
+        </childnode>
+        <childnode refid="2837" relation="include">
+        </childnode>
+        <childnode refid="2825" relation="include">
+        </childnode>
+        <childnode refid="2838" relation="include">
+        </childnode>
+        <childnode refid="2839" relation="include">
+        </childnode>
+      </node>
+      <node id="2831">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2819">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2827">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="2833">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="2823">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="2824">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="2825" relation="include">
+        </childnode>
+      </node>
+      <node id="2821">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="2822" relation="include">
+        </childnode>
+        <childnode refid="2824" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2844">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="2843">
+        <label>xplmi_ssit.h</label>
+        <link refid="2vp/server/xplmi_ssit.h"/>
+        <childnode refid="2844" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="2vp_2server_2xplmi__ssit_8h_1acda453ad5c6c0cfce1cd2d3ac1c73db3" prot="public" static="no">
+        <type>int(*</type>
+        <definition>typedef int(* XPlmi_EventHandler_t)(void *Data)</definition>
+        <argsstring>)(void *Data)</argsstring>
+        <name>XPlmi_EventHandler_t</name>
+        <briefdescription>
+<para>SSIT PLM-PLM communication related event handler definition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga0060d3f27c5c714f99941cd06d0142d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPlmi_GetSlrIndex</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetSlrIndex</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to get the local SLR index. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns Local SLR index </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1554" bodyend="1557"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga873411286b21b899a8a6782b9b0a6b1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPlmi_GetSlavesSlrMask</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetSlavesSlrMask</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to get the combined mask of all slave SLRs. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns combined mask of all slave SLRs </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1566" bodyend="1569"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaf7ceffb7348ed1c37af238f02df63905" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitRegisterEvent</definition>
+        <argsstring>(u32 EventIndex, XPlmi_EventHandler_t Handler, u8 EventOrigin)</argsstring>
+        <name>XPlmi_SsitRegisterEvent</name>
+        <param>
+          <type>u32</type>
+          <declname>EventIndex</declname>
+        </param>
+        <param>
+          <type>XPlmi_EventHandler_t</type>
+          <declname>Handler</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EventOrigin</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to register any event between Master and Slave SLRs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EventIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Index of the event to be registered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the handler to be executed when this Event occurs </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventOrigin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the SLR origin which can trigger the event</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1584" bodyend="1592"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae07fd84a364236b869b74f56a55a1f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent</definition>
+        <argsstring>(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize)</argsstring>
+        <name>XPlmi_SsitWriteEventBufferAndTriggerMsgEvent</name>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReqBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ReqBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to write the event buffer data and trigger the Message Event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of the SLR to which the event buffer need to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer from where the event buffer data to be written to Slave SLRs event buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the ReqBuf</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1609" bodyend="1617"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga5ef6b32fe8a4519644b90ca780397e4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitReadEventBuffer</definition>
+        <argsstring>(u32 *ReqBuf, u32 ReqBufSize)</argsstring>
+        <name>XPlmi_SsitReadEventBuffer</name>
+        <param>
+          <type>u32 *</type>
+          <declname>ReqBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ReqBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the event buffer of Master SLR in Slave SLRs where the message event is received. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ReqBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer to which the event buffer data to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the ReqBuf</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1631" bodyend="1637"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae5d1464d41ef967f174542299449cad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitTriggerEvent</definition>
+        <argsstring>(u8 SlrIndex, u32 EventIndex)</argsstring>
+        <name>XPlmi_SsitTriggerEvent</name>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EventIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to trigger the given event to the given SLR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of the SLR to which the event to be triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Index of the event to be triggered</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1650" bodyend="1656"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga510deac0c8054dc5352bcd297e48dac3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitWaitForEvent</definition>
+        <argsstring>(u8 SlrIndex, u32 EventIndex, u32 TimeOut)</argsstring>
+        <name>XPlmi_SsitWaitForEvent</name>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EventIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TimeOut</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to wait for the event to be acknowledged by the given SLR after triggering. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the SLR index where the event is triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Index of the event triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the timeout in us to wait for the acknowledgment</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1671" bodyend="1678"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gacadf5fc2d6cee12eac80dfec967c2c3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitReadResponse</definition>
+        <argsstring>(u8 SlrIndex, u32 *RespBuf, u32 RespBufSize)</argsstring>
+        <name>XPlmi_SsitReadResponse</name>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RespBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RespBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the response (if applicable) in Master SLR once the event is acknowledged by Slave SLR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the SLR index from the response need to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Response Buffer to where the response to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the response buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1693" bodyend="1700"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga2475d6e57ee465119b1bb88bd17c0588" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitWriteResponseAndAckMsgEvent</definition>
+        <argsstring>(u32 *RespBuf, u32 RespBufSize)</argsstring>
+        <name>XPlmi_SsitWriteResponseAndAckMsgEvent</name>
+        <param>
+          <type>u32 *</type>
+          <declname>RespBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RespBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to write the response (if applicable) in Slave SLR once the event is handled and acknowledge the message event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RespBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Response Buffer data to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the response buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1715" bodyend="1721"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga3e27e5bd43606860f63a38572f4821bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitAcknowledgeEvent</definition>
+        <argsstring>(u8 SlrIndex, u32 EventIndex)</argsstring>
+        <name>XPlmi_SsitAcknowledgeEvent</name>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EventIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to acknowledge the event after handling. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is index of the SLR for which the event was triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the event to acknowledge</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1734" bodyend="1740"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga2e76ea091646d92e7a0482e67602b86f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XPlmi_SsitGetSlrAddr</definition>
+        <argsstring>(u32 Address, u8 SlrIndex)</argsstring>
+        <name>XPlmi_SsitGetSlrAddr</name>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the global SLR address for the given local address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the local address for which the global SLR address need to be calculated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of the SLR for which the address need to be calculated</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns 0x0 for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1756" bodyend="1762"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gafd7eb4ca501aab712353daf78cfb4863" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SsitSendMsgEventAndGetResp</definition>
+        <argsstring>(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize, u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion)</argsstring>
+        <name>XPlmi_SsitSendMsgEventAndGetResp</name>
+        <param>
+          <type>u8</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReqBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ReqBufSize</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RespBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RespBufSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WaitForEventCompletion</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a message event with given request buffer to a slave SLR, waits for event completion, reads the response from the slave SLR and returns it to the caller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the SLR index from which the response need to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer to which the event buffer data to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the ReqBuf </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Response Buffer to where the response to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the response buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaitForEventCompletion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the maximum time to wait before the requested message event is handled by a slave SLR [in microseconds]</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns XST_SUCCESS for non-SSIT designs </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c" bodystart="1782" bodyend="1793"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XPLMI_SSIT_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SSIT_H</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi_8h" kindref="compound">xplmi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>int<sp/>(*XPlmi_EventHandler_t)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">u8<sp/><ref refid="group__xilplmi__server__apis_1ga0060d3f27c5c714f99941cd06d0142d0" kindref="member">XPlmi_GetSlrIndex</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1ga873411286b21b899a8a6782b9b0a6b1b" kindref="member">XPlmi_GetSlavesSlrMask</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaf7ceffb7348ed1c37af238f02df63905" kindref="member">XPlmi_SsitRegisterEvent</ref>(u32<sp/>EventIndex,<sp/>XPlmi_EventHandler_t<sp/>Handler,<sp/>u8<sp/>EventOrigin);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae07fd84a364236b869b74f56a55a1f1e" kindref="member">XPlmi_SsitWriteEventBufferAndTriggerMsgEvent</ref>(u8<sp/>SlrIndex,<sp/>u32*<sp/>ReqBuf,<sp/>u32<sp/>ReqBufSize);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga5ef6b32fe8a4519644b90ca780397e4a" kindref="member">XPlmi_SsitReadEventBuffer</ref>(u32*<sp/>ReqBuf,<sp/>u32<sp/>ReqBufSize);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae5d1464d41ef967f174542299449cad8" kindref="member">XPlmi_SsitTriggerEvent</ref>(u8<sp/>SlrIndex,<sp/>u32<sp/>EventIndex);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga510deac0c8054dc5352bcd297e48dac3" kindref="member">XPlmi_SsitWaitForEvent</ref>(u8<sp/>SlrIndex,<sp/>u32<sp/>EventIndex,<sp/>u32<sp/>TimeOut);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gacadf5fc2d6cee12eac80dfec967c2c3f" kindref="member">XPlmi_SsitReadResponse</ref>(u8<sp/>SlrIndex,<sp/>u32*<sp/>RespBuf,<sp/>u32<sp/>RespBufSize);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2475d6e57ee465119b1bb88bd17c0588" kindref="member">XPlmi_SsitWriteResponseAndAckMsgEvent</ref>(u32<sp/>*RespBuf,<sp/>u32<sp/>RespBufSize);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga3e27e5bd43606860f63a38572f4821bf" kindref="member">XPlmi_SsitAcknowledgeEvent</ref>(u8<sp/>SlrIndex,<sp/>u32<sp/>EventIndex);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">u64<sp/><ref refid="group__xilplmi__server__apis_1ga2e76ea091646d92e7a0482e67602b86f" kindref="member">XPlmi_SsitGetSlrAddr</ref>(u32<sp/>Address,<sp/>u8<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gafd7eb4ca501aab712353daf78cfb4863" kindref="member">XPlmi_SsitSendMsgEventAndGetResp</ref>(u8<sp/>SlrIndex,<sp/>u32<sp/>*ReqBuf,<sp/>u32<sp/>ReqBufSize,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RespBuf,<sp/>u32<sp/>RespBufSize,<sp/>u32<sp/>WaitForEventCompletion);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_SSIT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_ssit.h"/>
+  </compounddef>
+</doxygen>

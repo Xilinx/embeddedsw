@@ -1,0 +1,28 @@
+var xusb__cp9_8c =
+[
+    [ "Chapter9", "xusb__cp9_8c.html#ac4a19eadcf18a8eaae15eec7bd617c55", null ],
+    [ "EP0ProcessInToken", "xusb__cp9_8c.html#a33729d6b78e329bb598c6f06e9f80c11", null ],
+    [ "EP0ProcessOutToken", "xusb__cp9_8c.html#a27bfda5402c9f09018d88bf739cef6df", null ],
+    [ "ExecuteCommand", "xusb__cp9_8c.html#a22dde643b00944f660e12767557ad7e1", null ],
+    [ "GetConfiguration", "xusb__cp9_8c.html#a05b34453f563c02ff58a34f561ce0dd0", null ],
+    [ "GetDescriptor", "xusb__cp9_8c.html#ab8ca0ad29df636d913b014873634e94f", null ],
+    [ "GetInterface", "xusb__cp9_8c.html#a4a4a0285e230799d49ba9c155d478735", null ],
+    [ "GetStatus", "xusb__cp9_8c.html#a7586176b8d7887141ac9ca8e2cb54652", null ],
+    [ "LoadEP0", "xusb__cp9_8c.html#af8ce6abb665614a213d352a7dfe02697", null ],
+    [ "SetClearFeature", "xusb__cp9_8c.html#aecd8f2cb6543de9f51b92df0880add14", null ],
+    [ "SetConfiguration", "xusb__cp9_8c.html#aa8556bb31c18a1a79e669d398eb3d550", null ],
+    [ "SetDescriptor", "xusb__cp9_8c.html#a200f2b9a12625de5fe962edf82883b81", null ],
+    [ "SetInterface", "xusb__cp9_8c.html#a09af7a51b9335e930098d2453c35ee0e", null ],
+    [ "SetupControlWriteStatusStage", "xusb__cp9_8c.html#a0e70dcdbdf3db1095a5b1b4128041618", null ],
+    [ "Ch9_CmdBuf", "xusb__cp9_8c.html#a04e44d422ce05f3671ecc108f05052cc", null ],
+    [ "DeviceDescriptor", "xusb__cp9_8c.html#ac4bdafe0046dc17cfcdd12be1bb63625", null ],
+    [ "FsUsbConfig", "xusb__cp9_8c.html#afcecaf21775b5a46f61bfe7b3105a66a", null ],
+    [ "HsUsbConfig", "xusb__cp9_8c.html#a971ac86b08ae38fa87f7736e5204519c", null ],
+    [ "LangId", "xusb__cp9_8c.html#adbdbad4b579e8bd1364d4b693415e8d7", null ],
+    [ "Manufacturer", "xusb__cp9_8c.html#a58563e9bd150a409f7a2125d278193fd", null ],
+    [ "MaxControlSize", "xusb__cp9_8c.html#a0014b91940ed2f067400662f504bb379", null ],
+    [ "ProductString", "xusb__cp9_8c.html#a57b731f7097383c6437ca6f630531877", null ],
+    [ "QualifierDescriptor", "xusb__cp9_8c.html#ad12db18ccb5deaee6a65484d8b2d980a", null ],
+    [ "SerialNumber", "xusb__cp9_8c.html#a92be68d0e935e72e63cba78625bdc26a", null ],
+    [ "UsbMemData", "xusb__cp9_8c.html#aad134fa6705cabd23302ccfbd27b9c60", null ]
+];

@@ -1,0 +1,672 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__pldomain__plat_8c" kind="file">
+    <compoundname>net/server/xpm_pldomain_plat.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__pldomain_8h" local="yes">xpm_pldomain.h</includes>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <includes local="yes">xcframe.h</includes>
+    <includes refid="xpm__rail_8h" local="yes">xpm_rail.h</includes>
+    <includes refid="net_2server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__pmc_8h" local="yes">xpm_pmc.h</includes>
+    <incdepgraph>
+      <node id="5873">
+        <label>xpm_api.h</label>
+        <childnode refid="5844" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5866" relation="include">
+        </childnode>
+        <childnode refid="5849" relation="include">
+        </childnode>
+        <childnode refid="5874" relation="include">
+        </childnode>
+        <childnode refid="5875" relation="include">
+        </childnode>
+      </node>
+      <node id="5879">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="5844" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5880" relation="include">
+        </childnode>
+      </node>
+      <node id="5869">
+        <label>xpm_clock.h</label>
+        <childnode refid="5846" relation="include">
+        </childnode>
+        <childnode refid="5870" relation="include">
+        </childnode>
+        <childnode refid="5863" relation="include">
+        </childnode>
+        <childnode refid="5865" relation="include">
+        </childnode>
+      </node>
+      <node id="5870">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="5847">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5863">
+        <label>xpm_node.h</label>
+        <childnode refid="5844" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5864" relation="include">
+        </childnode>
+        <childnode refid="5846" relation="include">
+        </childnode>
+      </node>
+      <node id="5857">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="5860">
+        <label>xpm_core.h</label>
+        <childnode refid="5861" relation="include">
+        </childnode>
+        <childnode refid="5862" relation="include">
+        </childnode>
+        <childnode refid="5879" relation="include">
+        </childnode>
+      </node>
+      <node id="5849">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="5859">
+        <label>xpm_pmc.h</label>
+        <childnode refid="5860" relation="include">
+        </childnode>
+      </node>
+      <node id="5856">
+        <label>xpm_rail.h</label>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5857" relation="include">
+        </childnode>
+      </node>
+      <node id="5871">
+        <label>xpm_reset.h</label>
+        <childnode refid="5863" relation="include">
+        </childnode>
+        <childnode refid="5846" relation="include">
+        </childnode>
+        <childnode refid="5872" relation="include">
+        </childnode>
+        <childnode refid="5877" relation="include">
+        </childnode>
+      </node>
+      <node id="5880">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="5848">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5850">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5872">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="5873" relation="include">
+        </childnode>
+        <childnode refid="5866" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5876" relation="include">
+        </childnode>
+      </node>
+      <node id="5867">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="5866">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="5876">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="5878">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="5865">
+        <label>xpm_power.h</label>
+        <childnode refid="5866" relation="include">
+        </childnode>
+        <childnode refid="5863" relation="include">
+        </childnode>
+        <childnode refid="5867" relation="include">
+        </childnode>
+        <childnode refid="5868" relation="include">
+        </childnode>
+      </node>
+      <node id="5877">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="5861">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="5852">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="5853" relation="include">
+        </childnode>
+      </node>
+      <node id="5845">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5846">
+        <label>xpm_common.h</label>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5847" relation="include">
+        </childnode>
+        <childnode refid="5848" relation="include">
+        </childnode>
+        <childnode refid="5849" relation="include">
+        </childnode>
+        <childnode refid="5850" relation="include">
+        </childnode>
+        <childnode refid="5851" relation="include">
+        </childnode>
+      </node>
+      <node id="5864">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5874">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="5844">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5851">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="5855">
+        <label>xcframe.h</label>
+      </node>
+      <node id="5868">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="5853">
+        <label>xpm_pldomain_plat.h</label>
+      </node>
+      <node id="5843">
+        <label>xpm_pldomain_plat.c</label>
+        <link refid="net/server/xpm_pldomain_plat.c"/>
+        <childnode refid="5844" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5846" relation="include">
+        </childnode>
+        <childnode refid="5852" relation="include">
+        </childnode>
+        <childnode refid="5854" relation="include">
+        </childnode>
+        <childnode refid="5855" relation="include">
+        </childnode>
+        <childnode refid="5856" relation="include">
+        </childnode>
+        <childnode refid="5858" relation="include">
+        </childnode>
+        <childnode refid="5859" relation="include">
+        </childnode>
+      </node>
+      <node id="5875">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="5858">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="5862">
+        <label>xpm_device.h</label>
+        <childnode refid="5863" relation="include">
+        </childnode>
+        <childnode refid="5865" relation="include">
+        </childnode>
+        <childnode refid="5869" relation="include">
+        </childnode>
+        <childnode refid="5871" relation="include">
+        </childnode>
+        <childnode refid="5878" relation="include">
+        </childnode>
+      </node>
+      <node id="5854">
+        <label>xpm_debug.h</label>
+        <childnode refid="5846" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xpm__pldomain__plat_8c_1a22fac570ed68abf88ae9475941a653f1" prot="public" static="no">
+        <name>CRAM_TRIM_RW_READ_VOLTAGE</name>
+        <initializer>0x08000B80U</initializer>
+        <briefdescription>
+<para>If TRIM_CRAM[31:0]=0 (FUSE not programmed), Use Dynamic read voltage and 4 Legs setting for keeper Bias. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="net_2server_2xpm__pldomain__plat_8c_1abbe07d09c48a7dc1afa8d1cc3ddbaac5" prot="public" static="yes" mutable="no">
+        <type>XCframe</type>
+        <definition>XCframe CframeIns</definition>
+        <argsstring></argsstring>
+        <name>CframeIns</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="net_2server_2xpm__pldomain__plat_8c_1a72226f71a6431817c95082b0d411af41" prot="public" static="yes" mutable="no">
+        <type>struct <ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref></type>
+        <definition>struct XPm_PowerDomainOps PlDomainOps</definition>
+        <argsstring></argsstring>
+        <name>PlDomainOps</name>
+        <initializer>= {
+	.InitStart = PldInitStart,
+	.InitFinish = PldInitFinish,
+	.TrimAms = NULL
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__pldomain__plat_8c_1ad1bf6f92823069802afa1b26d6e3c534" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus PldInitStart</definition>
+        <argsstring>(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>PldInitStart</name>
+        <param>
+          <type>XPm_PowerDomain *</type>
+          <declname>PwrDomain</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOfArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="26" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__pldomain__plat_8c_1aaa0720ecdfc0cafad0cbbddc3d13b173" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus PldInitFinish</definition>
+        <argsstring>(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>PldInitFinish</name>
+        <param>
+          <type>const XPm_PowerDomain *</type>
+          <declname>PwrDomain</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOfArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="80" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__pldomain__plat_8c_1aad7be34f22c5dba04ec1430edd6e3f8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDomain_RetriggerPlHouseClean</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmPlDomain_RetriggerPlHouseClean</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>changed to support minimum boot time xilpm this service is not supported at boot time</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="106" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__pldomain__plat_8c_1a0189dc667ea450722df8b4a249202f70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDomain_Init</definition>
+        <argsstring>(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress, XPm_Power *Parent, const u32 *OtherBaseAddresses, u32 OtherBaseAddressCnt)</argsstring>
+        <name>XPmPlDomain_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref> *</type>
+          <declname>PlDomain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Parent</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>OtherBaseAddresses</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>OtherBaseAddressCnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="117" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__pldomain__plat_8c_1acda886494c9ff1bd7b16b0aaa6839ecf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus PldCframeInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>PldCframeInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Initialize the Cframe driver so that it&apos;s ready to use look up the configuration in the config table, then initialize it.</para><para>Performs the self-test to check hardware build.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="147" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__pldomain__plat_8c_1a52743183df4afa03859cd177d361fe06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PldApplyTrim</definition>
+        <argsstring>(u32 TrimType)</argsstring>
+        <name>XPm_PldApplyTrim</name>
+        <param>
+          <type>u32</type>
+          <declname>TrimType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>if eFUSE is not programmed, then set rw_read_voltages to 0.61V + 0.625V by writing</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c" bodystart="194" bodyend="254"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pldomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcframe.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_rail.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CFRAME<sp/>Driver<sp/>Instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XCframe<sp/>CframeIns<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#define<sp/>CRAM_TRIM_RW_READ_VOLTAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000B80U</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>PldInitStart(XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfArgs)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>RamRailPwrSts<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>AuxRailPwrSts<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>SocRailPwrSts<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Rail<sp/>*VccintRail<sp/>=<sp/>(XPm_Rail<sp/>*)XPmPower_GetById(PM_POWER_VCCINT_PL);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Rail<sp/>*VccRamRail<sp/>=<sp/>(XPm_Rail<sp/>*)XPmPower_GetById(PM_POWER_VCCINT_RAM);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Rail<sp/>*VccauxRail<sp/>=<sp/>(XPm_Rail<sp/>*)XPmPower_GetById(PM_POWER_VCCAUX);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Rail<sp/>*VccSocRail<sp/>=<sp/>(XPm_Rail<sp/>*)XPmPower_GetById(PM_POWER_VCCINT_SOC);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PwrDomain;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Args;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)NumOfArgs;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RamRailPwrSts<sp/>=<sp/>XPmPower_CheckPower(VccRamRail,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AuxRailPwrSts<sp/>=<sp/>XPmPower_CheckPower(VccauxRail,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SocRailPwrSts<sp/>=<sp/><sp/>XPmPower_CheckPower(VccSocRail,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XST_SUCCESS<sp/>!=<sp/>RamRailPwrSts)<sp/>||<sp/>(XST_SUCCESS<sp/>!=<sp/>AuxRailPwrSts)<sp/>||(XST_SUCCESS<sp/>!=<sp/>SocRailPwrSts))<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_POWER_SUPPLY;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*Pmc<sp/>=<sp/>(<ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*)XPmDevice_GetById(PM_DEV_PMC_PROC);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Pmc)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_DEVICE;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Skip<sp/>PL<sp/>release<sp/>delay<sp/>if<sp/>using<sp/>sysmon<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>!=<sp/>VccintRail)<sp/>&amp;&amp;<sp/>(XPM_PGOOD_SYSMON<sp/>==<sp/>VccintRail-&gt;Source))<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(Pmc-&gt;<ref refid="struct_x_pm___pmc_1a09742eb2d1ef280b11eb674c72283d04" kindref="member">PmcAnalogBaseAddr</ref><sp/>+<sp/>PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET,<sp/>1U);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Perform<sp/>VID<sp/>adjustment<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmRail_AdjustVID((XPm_Rail<sp/>*)VccintRail);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_VID_ADJUST;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>ReduceCfuClkFreq();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>PldInitFinish(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfArgs)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PwrDomain;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Args;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)NumOfArgs;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>RestoreCfuClkFreq();</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status){</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref><sp/>PlDomainOps<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.InitStart<sp/>=<sp/>PldInitStart,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.InitFinish<sp/>=<sp/>PldInitFinish,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.TrimAms<sp/>=<sp/>NULL</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">XStatus<sp/>XPmPlDomain_RetriggerPlHouseClean(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;unsupported<sp/>service\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">XStatus<sp/>XPmPlDomain_Init(<ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref><sp/>*PlDomain,<sp/>u32<sp/>Id,<sp/>u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Parent,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*OtherBaseAddresses,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OtherBaseAddressCnt)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmPowerDomain_Init(&amp;PlDomain-&gt;<ref refid="struct_x_pm___pl_domain_1ae85add6bc9f0a6e37b19c80091e9898c" kindref="member">Domain</ref>,<sp/>Id,<sp/>BaseAddress,<sp/>Parent,<sp/>&amp;PlDomainOps);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_POWER_DOMAIN_INIT;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Make<sp/>sure<sp/>enough<sp/>base<sp/>addresses<sp/>are<sp/>being<sp/>passed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(2U<sp/>&lt;=<sp/>OtherBaseAddressCnt)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PlDomain-&gt;<ref refid="struct_x_pm___pl_domain_1ad4cf6aab91d14a16c1e3176209979f7f" kindref="member">CfuApbBaseAddr</ref><sp/>=<sp/>OtherBaseAddresses[0];</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PlDomain-&gt;<ref refid="struct_x_pm___pl_domain_1ac93e8b12b5bc235445117520b4e595ae" kindref="member">Cframe0RegBaseAddr</ref><sp/>=<sp/>OtherBaseAddresses[1];</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_BASEADDR;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*TBD:<sp/>Clear<sp/>PLD<sp/>section<sp/>of<sp/>PMC<sp/>RAM<sp/>register<sp/>reserved<sp/>for<sp/>houseclean<sp/>disable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>PldCframeInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_Config<sp/>*Config;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>CframeIns.IsReady)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XCframe_LookupConfig((u16)XPAR_XCFRAME_0_BASEADDR);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Config)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_DEVICE_LOOKUP;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCframe_CfgInitialize(&amp;CframeIns,<sp/>Config,<sp/>Config-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_CFG_INIT;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCframe_SelfTest(&amp;CframeIns);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_SELF_TEST;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal">XStatus<sp/>XPm_PldApplyTrim(u32<sp/>TrimType)</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TrimVal;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xuint128<sp/>VggTrim={0};</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Platform;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>This<sp/>cframe<sp/>init<sp/>should<sp/>be<sp/>called<sp/>at<sp/>init<sp/>start<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PldCframeInit();</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>corresponding<sp/>efuse<sp/>registers<sp/>for<sp/>TRIM<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(TrimType){</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>VGG<sp/>trim<sp/>efuse<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XPM_PL_TRIM_VGG:</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EFUSE_CACHE_BASEADDR<sp/>+<sp/>EFUSE_CACHE_TRIM_CFRM_VGG_0_OFFSET,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VggTrim.Word0);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EFUSE_CACHE_BASEADDR<sp/>+<sp/>EFUSE_CACHE_TRIM_CFRM_VGG_1_OFFSET,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VggTrim.Word1);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EFUSE_CACHE_BASEADDR<sp/>+<sp/>EFUSE_CACHE_TRIM_CFRM_VGG_2_OFFSET,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VggTrim.Word2);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_VggTrim(&amp;CframeIns,<sp/>&amp;VggTrim);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>CRAM<sp/>trim<sp/>efuse<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XPM_PL_TRIM_CRAM:</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EFUSE_CACHE_BASEADDR<sp/>+<sp/>EFUSE_CACHE_TRIM_CRAM_OFFSET,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Platform<sp/>=<sp/>XPm_GetPlatform();</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((0U<sp/>==<sp/>TrimVal)<sp/>&amp;&amp;<sp/>((u32)PLATFORM_VERSION_SILICON<sp/>==<sp/>Platform))<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal<sp/>=<sp/>CRAM_TRIM_RW_READ_VOLTAGE;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_CramTrim(&amp;CframeIns,<sp/>TrimVal);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>BRAM<sp/>trim<sp/>efuse<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XPM_PL_TRIM_BRAM:</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EFUSE_CACHE_BASEADDR<sp/>+<sp/>EFUSE_CACHE_TRIM_BRAM_OFFSET,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_BramTrim(&amp;CframeIns,<sp/>TrimVal);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>URAM<sp/>trim<sp/>efuse<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XPM_PL_TRIM_URAM:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EFUSE_CACHE_BASEADDR<sp/>+<sp/>EFUSE_CACHE_TRIM_URAM_OFFSET,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrimVal);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCframe_UramTrim(&amp;CframeIns,<sp/>TrimVal);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_TRIM_TYPE;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pldomain_plat.c"/>
+  </compounddef>
+</doxygen>

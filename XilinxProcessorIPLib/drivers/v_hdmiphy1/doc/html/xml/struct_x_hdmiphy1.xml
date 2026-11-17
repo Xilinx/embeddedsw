@@ -1,0 +1,1275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1" kind="struct" prot="public">
+    <compoundname>XHdmiphy1</compoundname>
+    <includes local="no">xhdmiphy1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a2410c544d217821ce4e85e391b1c676a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="722" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="722" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gac17db2af38544c85cb299d147fcdac16" compoundref="xhdmiphy1_8c" startline="71" endline="142">XHdmiphy1_CfgInitialize</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" compoundref="xhdmiphy1__hdmi_8c" startline="85" endline="304">XHdmiphy1_Hdmi_CfgInitialize</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabe478d42590c0365f3e2feb3933321ec" compoundref="xhdmiphy1_8c" startline="242" endline="261">XHdmiphy1_WaitUs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ae19e95b6e84e21a988ba6910ceb3f35a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___config" kindref="compound">XHdmiphy1_Config</ref></type>
+        <definition>XHdmiphy1_Config XHdmiphy1::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para><verbatim>      Configuration structure for
+</verbatim> the Video PHY core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="723" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="723" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gac17db2af38544c85cb299d147fcdac16" compoundref="xhdmiphy1_8c" startline="71" endline="142">XHdmiphy1_CfgInitialize</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga70ecb3c5614ea8c97c0bc56bd395ac2c" compoundref="xhdmiphy1__i_8c" startline="63" endline="117">XHdmiphy1_Ch2Ids</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa113dd9ce96c346ef9b757947eb340fe" compoundref="xhdmiphy1__hdmi_8c" startline="637" endline="653">XHdmiphy1_ClkDetAccuracyRange</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafaece55136a95db26cf37edcd53c96f8" compoundref="xhdmiphy1__hdmi_8c" startline="667" endline="689">XHdmiphy1_ClkDetCheckFreqZero</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gab2369998b0e4635bced93881e51cc8fe" compoundref="xhdmiphy1__hdmi_8c" startline="502" endline="519">XHdmiphy1_ClkDetEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gac39e0926826a1e127514c8350ddcde21" compoundref="xhdmiphy1__hdmi_8c" startline="571" endline="593">XHdmiphy1_ClkDetFreqReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabb75647ab6dfd99febccba18593e86d8" compoundref="xhdmiphy1__hdmi_8c" startline="755" endline="786">XHdmiphy1_ClkDetGetRefClkFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2984b81a237e26e9a7ab08eecf4ed621" compoundref="xhdmiphy1__hdmi_8c" startline="805" endline="818">XHdmiphy1_ClkDetGetRefClkFreqHzRaw</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a055146c6b3aa1da1991a0041dc11f7" compoundref="xhdmiphy1__hdmi_8c" startline="607" endline="623">XHdmiphy1_ClkDetSetFreqLockThreshold</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga46cb7e8a6cc10a61bbfb7126f85e8cec" compoundref="xhdmiphy1__hdmi_8c" startline="704" endline="708">XHdmiphy1_ClkDetSetFreqTimeout</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gac2f877b2581399c3344d1555d05df2df" compoundref="xhdmiphy1__hdmi_8c" startline="534" endline="556">XHdmiphy1_ClkDetTimerClear</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gacbffa1bd1304f2f69a32aa1a22573052" compoundref="xhdmiphy1__hdmi_8c" startline="724" endline="740">XHdmiphy1_ClkDetTimerLoad</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gab511031505e9679f2bd243d68eb725f4" compoundref="xhdmiphy1_8c" startline="1180" endline="1204">XHdmiphy1_Clkout1OBufTdsEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga4c7a948926fede8a6548c6cffe5fc830" compoundref="xhdmiphy1__hdmi_8c" startline="1084" endline="1132">XHdmiphy1_DruCalcCenterFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7b7a69d580eaac17960b977851aead25" compoundref="xhdmiphy1__hdmi_8c" startline="983" endline="1008">XHdmiphy1_DruEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gae2d190888890d12b1524b5d5065e5e57" compoundref="xhdmiphy1__hdmi_8c" startline="834" endline="905">XHdmiphy1_DruGetRefClkFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga3f13a8c7fcc0cd49b7fa44e90b6509e5" compoundref="xhdmiphy1__hdmi_8c" startline="923" endline="930">XHdmiphy1_DruGetRefClkFreqHzRaw</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gab5da59924fa5189f7141d950e6d31a50" compoundref="xhdmiphy1__hdmi_8c" startline="1019" endline="1029">XHdmiphy1_DruGetVersion</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5ccf265013fcb1e013775dc9a8563c87" compoundref="xhdmiphy1__hdmi_8c" startline="944" endline="969">XHdmiphy1_DruReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga02899710d93b44ffa5d6f87637d67809" compoundref="xhdmiphy1__hdmi_8c" startline="1042" endline="1066">XHdmiphy1_DruSetCenterFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga3564e4c5d1fec367b92240bf54d7233b" compoundref="xhdmiphy1__i_8c" startline="814" endline="837">XHdmiphy1_GetGpo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gad395cc29c8834fdf90b63d5fc1758e3a" compoundref="xhdmiphy1__i_8c" startline="706" endline="746">XHdmiphy1_GetGtLineRateCfg</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga97e1d4070dafe5a73d9bf60621382c98" compoundref="xhdmiphy1_8c" startline="327" endline="375">XHdmiphy1_GetPllType</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga22de3338657208e2ee991d68f0248195" compoundref="xhdmiphy1__i_8c" startline="1599" endline="1656">XHdmiphy1_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa91560e5b99db9d90042b548a76da7a6" compoundref="xhdmiphy1__i_8c" startline="487" endline="516">XHdmiphy1_GetSysClkDataSel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabf0e7c8a542401ba275640fabee19940" compoundref="xhdmiphy1__i_8c" startline="532" endline="561">XHdmiphy1_GetSysClkOutSel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaf6a4e05c5b6141f00bdfa2ae1f30b15a" compoundref="xhdmiphy1_8c" startline="274" endline="278">XHdmiphy1_GetVersion</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa7e1f1d8d20f17c34f32d7a026081696" compoundref="xhdmiphy1__gthe4_8c" startline="1583" endline="1624">XHdmiphy1_Gthe4CfgCpllCalPeriodandTol</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1a33a45c7fbabcd4bd071a09e616e7cba0" compoundref="xhdmiphy1__gthe4_8c" startline="471" endline="547">XHdmiphy1_Gthe4ClkChReconfig</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga31253d0211a9d1746507e2e498d049da" compoundref="xhdmiphy1__i_8c" startline="854" endline="892">XHdmiphy1_GtMstReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaff834a7a15854c09af35144299a4f980" compoundref="xhdmiphy1__i_8c" startline="580" endline="623">XHdmiphy1_GtUserRdyEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga97c464a7ee31e018574dc69b97ff06da" compoundref="xhdmiphy1__gtye4_8c" startline="1751" endline="1791">XHdmiphy1_Gtye4CfgCpllCalPeriodandTol</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1a5915f9ff27b8e0183268a410d46a6ada" compoundref="xhdmiphy1__gtye4_8c" startline="489" endline="617">XHdmiphy1_Gtye4ClkChReconfig</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" compoundref="xhdmiphy1__hdmi_8c" startline="2909" endline="2966">XHdmiphy1_Hdmi20Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="3013" endline="3145">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" compoundref="xhdmiphy1__hdmi_8c" startline="85" endline="304">XHdmiphy1_Hdmi_CfgInitialize</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="3160" endline="3483">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gae9070f7158ccb8538edf80a5ec4c8da6" compoundref="xhdmiphy1__hdmi_8c" startline="1144" endline="1172">XHdmiphy1_HdmiGtDruModeEnable</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0c603299dc1bafabcf0ecfe920bd412b" compoundref="xhdmiphy1__hdmi__intr_8c" startline="651" endline="677">XHdmiphy1_HdmiGtRxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="575" endline="638">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="779" endline="870">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a2e60f02fb9e0e5819c4d208250ff9e02" compoundref="xhdmiphy1__hdmi__intr_8c" startline="242" endline="279">XHdmiphy1_HdmiRxGpoRisingEdgeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a0a82f90d7a0f1c4c8180cfb465de0a" compoundref="xhdmiphy1__hdmi__intr_8c" startline="985" endline="1103">XHdmiphy1_HdmiRxTimerTimeoutHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="691" endline="765">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a645cef786ba09f2c0ac31d76212a6b18" compoundref="xhdmiphy1__hdmi__intr_8c" startline="188" endline="229">XHdmiphy1_HdmiTxGpoRisingEdgeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gada0844e8a6a828bb7d512259aca11498" compoundref="xhdmiphy1__hdmi__intr_8c" startline="883" endline="972">XHdmiphy1_HdmiTxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1d8702f582054727e5bafc4e6cf32739" compoundref="xhdmiphy1__hdmi_8c" startline="379" endline="404">XHdmiphy1_HdmiUpdateClockSelection</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga57aac6b723825d9999dc5419d067bda3" compoundref="xhdmiphy1_8c" startline="1095" endline="1166">XHdmiphy1_IBufDsEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabb09df5f9b1e2f799160dd944d8ae935" compoundref="xhdmiphy1__intr_8c" startline="72" endline="82">XHdmiphy1_IntrDisable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaf1923a89392fcc152f571818d2ad564f" compoundref="xhdmiphy1__intr_8c" startline="47" endline="57">XHdmiphy1_IntrEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gab75f3892f884d01f855d607291eba269" compoundref="xhdmiphy1__i_8c" startline="1832" endline="1847">XHdmiphy1_IsHDMI</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gac05b90ab984e726f1ddde5cf265915d9" compoundref="xhdmiphy1__i_8c" startline="377" endline="442">XHdmiphy1_IsPllLocked</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7a2d1ddf3e20d013d77568020866475b" compoundref="xhdmiphy1__mmcme4_8c" startline="463" endline="553">XHdmiphy1_Mmcme4WriteParameters</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga0b46b7c2c9c6d5fbe7e7c2a6d226b985" compoundref="xhdmiphy1__i_8c" startline="1044" endline="1065">XHdmiphy1_MmcmLocked</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga6d652ca1a4650bc5a2762d381a110f6b" compoundref="xhdmiphy1__i_8c" startline="1000" endline="1027">XHdmiphy1_MmcmLockedMaskEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga13859cf616b98f6d37336128b9f3f21a" compoundref="xhdmiphy1_8c" startline="940" endline="967">XHdmiphy1_MmcmPowerDown</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga47707c2203c7788afdfb22fe1ae438db" compoundref="xhdmiphy1__i_8c" startline="956" endline="983">XHdmiphy1_MmcmReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2b93ca125219d62f19817168267ddfc5" compoundref="xhdmiphy1__i_8c" startline="1083" endline="1111">XHdmiphy1_MmcmSetClkinsel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="982" endline="1080">XHdmiphy1_MmcmStart</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafe6529e3429c7199f87f7f8fc7f43fe0" compoundref="xhdmiphy1__hdmi_8c" startline="2836" endline="2855">XHdmiphy1_PatgenEnable</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga51d10d93fa76ebe0c031600b61955d4d" compoundref="xhdmiphy1__hdmi_8c" startline="2869" endline="2892">XHdmiphy1_PatgenSetRatio</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaf1fbb7de9d26abab7332a62932be9d85" compoundref="xhdmiphy1__i_8c" startline="1175" endline="1222">XHdmiphy1_PowerDownGtPll</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga8dc19df05e15d413e62ff62d2c22c023" compoundref="xhdmiphy1_8c" startline="1371" endline="1431">XHdmiphy1_RegisterDebug</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7f1f22be7f2029c396c015e322475790" compoundref="xhdmiphy1_8c" startline="425" endline="460">XHdmiphy1_ResetGtPll</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga117b1b06a6044a0574731e960e8e304a" compoundref="xhdmiphy1_8c" startline="479" endline="514">XHdmiphy1_ResetGtTxRx</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga08947cfedb541b7f95242c82ee60a8c5" compoundref="xhdmiphy1__selftest_8c" startline="62" endline="79">XHdmiphy1_SelfTest</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafb115f999643adac66932d6c4a44de1c" compoundref="xhdmiphy1__i_8c" startline="1124" endline="1157">XHdmiphy1_SetBufgGtDiv</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gae76c7ba7cb194a5f57f8e8445186ca59" compoundref="xhdmiphy1__i_8c" startline="763" endline="798">XHdmiphy1_SetGpi</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga4682e1b831b70f5a8186ebca5cdac08b" compoundref="xhdmiphy1__i_8c" startline="640" endline="689">XHdmiphy1_SetGtLineRateCfg</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2bf27809a22eecc5194a8bad16261280" compoundref="xhdmiphy1__hdmi_8c" startline="2776" endline="2822">XHdmiphy1_SetHdmiRxParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga69e679f0c4444350910817be69cde77c" compoundref="xhdmiphy1__hdmi_8c" startline="2680" endline="2759">XHdmiphy1_SetHdmiTxParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga615fe597062a12b286153f2ee8007e91" compoundref="xhdmiphy1_8c" startline="532" endline="573">XHdmiphy1_SetPolarity</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga041ec28c400f1b4cb662d9670e0feff3" compoundref="xhdmiphy1_8c" startline="591" endline="641">XHdmiphy1_SetPrbsSel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga704b9c7161c4ac92beaa07113caaa36c" compoundref="xhdmiphy1_8c" startline="831" endline="859">XHdmiphy1_SetRxLpm</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga755a209f0abe848a3508017f83ad4c62" compoundref="xhdmiphy1_8c" startline="791" endline="814">XHdmiphy1_SetTxPostCursor</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gad9dd0d271c9be7416e55adc535257cea" compoundref="xhdmiphy1_8c" startline="752" endline="775">XHdmiphy1_SetTxPreEmphasis</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa01b2c0214336ba205fcac3c8fd7675d" compoundref="xhdmiphy1_8c" startline="704" endline="736">XHdmiphy1_SetTxVoltageSwing</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga355efb9fbbf8e3d0102738e912971bca" compoundref="xhdmiphy1__hdmi_8c" startline="420" endline="445">XHdmiphy1_TxAlignReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga579cfbb41fbd51477dd902f9a1758826" compoundref="xhdmiphy1__hdmi_8c" startline="461" endline="487">XHdmiphy1_TxAlignStart</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gae474ac8f1f2997229ec25e7584a4b827" compoundref="xhdmiphy1_8c" startline="658" endline="688">XHdmiphy1_TxPrbsForceError</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="178" endline="228">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1abd6d56dc9af7caa4475dda710d081a6a" prot="public" static="no" mutable="no">
+        <type>struct XHdmiphy1_GtConfigS *</type>
+        <definition>struct XHdmiphy1_GtConfigS* XHdmiphy1::GtAdaptor</definition>
+        <argsstring></argsstring>
+        <name>GtAdaptor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="725" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="725" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a55611128c68a9548afe47eae8d761788" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___log" kindref="compound">XHdmiphy1_Log</ref></type>
+        <definition>XHdmiphy1_Log XHdmiphy1::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+<para>A log of events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="727" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="727" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga9569d5080ff8e2396239ecfb7d1de91d" compoundref="xhdmiphy1__log_8c" startline="184" endline="537">XHdmiphy1_LogDisplay</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafef83d134d6ba3cf7ed6ff58c5aa76c0" compoundref="xhdmiphy1__log_8c" startline="143" endline="171">XHdmiphy1_LogRead</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga67dcfc543f278ca875c99f6dada92520" compoundref="xhdmiphy1__log_8c" startline="61" endline="70">XHdmiphy1_LogReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a0204ec609474b091ff494d61ebd2aa80" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___quad" kindref="compound">XHdmiphy1_Quad</ref></type>
+        <definition>XHdmiphy1_Quad XHdmiphy1::Quads[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Quads</name>
+        <briefdescription>
+<para><verbatim>       The quads available to the
+</verbatim> Video PHY core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="729" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="729" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga71a574c5aedf401c9b7c59a173822f8f" compoundref="xhdmiphy1_8c" startline="297" endline="311">XHdmiphy1_CfgLineRate</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaf3cb368774462d22b085a8e34d2c7a00" compoundref="xhdmiphy1__i_8c" startline="245" endline="255">XHdmiphy1_CfgPllRefClkSel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga4e6b72ef1579950b4c8c83e35e7ad4b0" compoundref="xhdmiphy1__i_8c" startline="273" endline="286">XHdmiphy1_CfgSysClkDataSel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga738210e1c11e69176f1cd733ff0bae6c" compoundref="xhdmiphy1__i_8c" startline="304" endline="317">XHdmiphy1_CfgSysClkOutSel</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga3de202fbdba62f4b3edd7bd0e9c329d2" compoundref="xhdmiphy1__i_8c" startline="911" endline="938">XHdmiphy1_CheckLineRateCfg</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" compoundref="xhdmiphy1__dplle5_8c" startline="74" endline="162">XHdmiphy1_DpllWriteParameters</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga4c7a948926fede8a6548c6cffe5fc830" compoundref="xhdmiphy1__hdmi_8c" startline="1084" endline="1132">XHdmiphy1_DruCalcCenterFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga31263f99c22623f852ea864fba080232" compoundref="xhdmiphy1_8c" startline="390" endline="406">XHdmiphy1_GetLineRateHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7cd4d4f88631190ea51009300a15b783" compoundref="xhdmiphy1__i_8c" startline="1541" endline="1585">XHdmiphy1_GetPllVcoFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaaa8cf29813f43a1066492adea335bf48" compoundref="xhdmiphy1__i_8c" startline="460" endline="471">XHdmiphy1_GetQuadRefClkFreq</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1a8995efc4116877ab5ce5a473a614ab20" compoundref="xhdmiphy1__gthe4_8c" startline="332" endline="363">XHdmiphy1_Gthe4CfgSetCdr</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1a141a02f2f009a559f151667b0f333d12" compoundref="xhdmiphy1__gthe4_8c" startline="564" endline="711">XHdmiphy1_Gthe4ClkCmnReconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1ac5178dd25f80435558a1d57a623f969c" compoundref="xhdmiphy1__gthe4_8c" startline="728" endline="955">XHdmiphy1_Gthe4RxChReconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1ae9adb4e8b04ce590215a9e6bd2aabd89" compoundref="xhdmiphy1__gthe4_8c" startline="1198" endline="1223">XHdmiphy1_Gthe4RxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1ad66c428a45d39b510565161bead5350b" compoundref="xhdmiphy1__gthe4_8c" startline="972" endline="1139">XHdmiphy1_Gthe4TxChReconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1a813c86ed499d6d5d4f10a6ca1592ccfe" compoundref="xhdmiphy1__gthe4_8c" startline="1156" endline="1181">XHdmiphy1_Gthe4TxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1afa024a6d7df6cc801eaa00bdb503c422" compoundref="xhdmiphy1__gtye4_8c" startline="343" endline="381">XHdmiphy1_Gtye4CfgSetCdr</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1a77cc5b174e73fe6bed3d3d0a208832f4" compoundref="xhdmiphy1__gtye4_8c" startline="634" endline="883">XHdmiphy1_Gtye4ClkCmnReconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1a3243c88d37a60dc005b8db9bd36239ea" compoundref="xhdmiphy1__gtye4_8c" startline="900" endline="1112">XHdmiphy1_Gtye4RxChReconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1abc20bc03ff4b99355255ee719552ea18" compoundref="xhdmiphy1__gtye4_8c" startline="1363" endline="1388">XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1a8eb1353647eaaae99b3549cefba088ff" compoundref="xhdmiphy1__gtye4_8c" startline="1129" endline="1304">XHdmiphy1_Gtye4TxChReconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1a158e5a059539c81b1ad21eab4e722c50" compoundref="xhdmiphy1__gtye4_8c" startline="1321" endline="1346">XHdmiphy1_Gtye4TxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" compoundref="xhdmiphy1__hdmi_8c" startline="85" endline="304">XHdmiphy1_Hdmi_CfgInitialize</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1acc32a98d0cf6cf638c3fe4e3fe057226" compoundref="xhdmiphy1__hdmi__intr_8c" startline="471" endline="533">XHdmiphy1_HdmiCpllLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="3160" endline="3483">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0c603299dc1bafabcf0ecfe920bd412b" compoundref="xhdmiphy1__hdmi__intr_8c" startline="651" endline="677">XHdmiphy1_HdmiGtRxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1aa2c97194ee284139b2959025092cc122" compoundref="xhdmiphy1__hdmi__intr_8c" startline="546" endline="562">XHdmiphy1_HdmiGtTxAlignDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="575" endline="638">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc655a7d483d6d4c98a98f3c27c7d7ea" compoundref="xhdmiphy1__hdmi__intr_8c" startline="292" endline="328">XHdmiphy1_HdmiLcpllLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0dadbdee261d92500f5c3a5f55b76218" compoundref="xhdmiphy1__hdmi__intr_8c" startline="390" endline="458">XHdmiphy1_HdmiQpllLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ab0e620fca2edf327ee59efe6a39628fa" compoundref="xhdmiphy1__hdmi__intr_8c" startline="341" endline="377">XHdmiphy1_HdmiRpllLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="779" endline="870">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a2e60f02fb9e0e5819c4d208250ff9e02" compoundref="xhdmiphy1__hdmi__intr_8c" startline="242" endline="279">XHdmiphy1_HdmiRxGpoRisingEdgeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a0a82f90d7a0f1c4c8180cfb465de0a" compoundref="xhdmiphy1__hdmi__intr_8c" startline="985" endline="1103">XHdmiphy1_HdmiRxTimerTimeoutHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="691" endline="765">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a645cef786ba09f2c0ac31d76212a6b18" compoundref="xhdmiphy1__hdmi__intr_8c" startline="188" endline="229">XHdmiphy1_HdmiTxGpoRisingEdgeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gada0844e8a6a828bb7d512259aca11498" compoundref="xhdmiphy1__hdmi__intr_8c" startline="883" endline="972">XHdmiphy1_HdmiTxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1d8702f582054727e5bafc4e6cf32739" compoundref="xhdmiphy1__hdmi_8c" startline="379" endline="404">XHdmiphy1_HdmiUpdateClockSelection</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7a2d1ddf3e20d013d77568020866475b" compoundref="xhdmiphy1__mmcme4_8c" startline="463" endline="553">XHdmiphy1_Mmcme4WriteParameters</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga522476df58d41cf648464479c92fbe17" compoundref="xhdmiphy1__mmcme5_8c" startline="537" endline="627">XHdmiphy1_Mmcme5WriteParameters</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="982" endline="1080">XHdmiphy1_MmcmStart</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga87f9523a81f1b648cfae0172bdd96f0b" compoundref="xhdmiphy1__i_8c" startline="1445" endline="1525">XHdmiphy1_PllCalculator</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga4682e1b831b70f5a8186ebca5cdac08b" compoundref="xhdmiphy1__i_8c" startline="640" endline="689">XHdmiphy1_SetGtLineRateCfg</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga0fa2836b8aac17e187bf1e01a462001a" compoundref="xhdmiphy1__i_8c" startline="178" endline="228">XHdmiphy1_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a9ba8d9489de84bdfb6acc4d33c7957ea" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1::HdmiRxRefClkHz</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxRefClkHz</name>
+        <briefdescription>
+<para>HDMI RX refclk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="731" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga7cd4d4f88631190ea51009300a15b783" compoundref="xhdmiphy1__i_8c" startline="1541" endline="1585">XHdmiphy1_GetPllVcoFreqHz</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1ae9adb4e8b04ce590215a9e6bd2aabd89" compoundref="xhdmiphy1__gthe4_8c" startline="1198" endline="1223">XHdmiphy1_Gthe4RxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1abc20bc03ff4b99355255ee719552ea18" compoundref="xhdmiphy1__gtye4_8c" startline="1363" endline="1388">XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="3013" endline="3145">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="779" endline="870">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a834eecec514b7571575a3bf47cfa63e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1::HdmiTxRefClkHz</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxRefClkHz</name>
+        <briefdescription>
+<para>HDMI TX refclk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="732" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="732" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga7cd4d4f88631190ea51009300a15b783" compoundref="xhdmiphy1__i_8c" startline="1541" endline="1585">XHdmiphy1_GetPllVcoFreqHz</referencedby>
+        <referencedby refid="xhdmiphy1__gthe4_8c_1a813c86ed499d6d5d4f10a6ca1592ccfe" compoundref="xhdmiphy1__gthe4_8c" startline="1156" endline="1181">XHdmiphy1_Gthe4TxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="xhdmiphy1__gtye4_8c_1a158e5a059539c81b1ad21eab4e722c50" compoundref="xhdmiphy1__gtye4_8c" startline="1321" endline="1346">XHdmiphy1_Gtye4TxPllRefClkDiv1Reconfig</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="3013" endline="3145">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a74efe69af6760d2c3cf8d4d471f5591d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1::HdmiRxTmdsClockRatio</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxTmdsClockRatio</name>
+        <briefdescription>
+<para>HDMI TMDS clock ratio. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="733" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="733" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aa0e3e6f1c5e328af0628bc58d19e915a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1::HdmiTxSampleRate</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxSampleRate</name>
+        <briefdescription>
+<para>HDMI TX sample rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="734" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="734" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga51d10d93fa76ebe0c031600b61955d4d" compoundref="xhdmiphy1__hdmi_8c" startline="2869" endline="2892">XHdmiphy1_PatgenSetRatio</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a247ba8ff835a604c754d34ab3ba0450c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1::HdmiRxDruIsEnabled</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxDruIsEnabled</name>
+        <briefdescription>
+<para>The DRU is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="735" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="735" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga7cd4d4f88631190ea51009300a15b783" compoundref="xhdmiphy1__i_8c" startline="1541" endline="1585">XHdmiphy1_GetPllVcoFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="3160" endline="3483">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0c603299dc1bafabcf0ecfe920bd412b" compoundref="xhdmiphy1__hdmi__intr_8c" startline="651" endline="677">XHdmiphy1_HdmiGtRxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a0a82f90d7a0f1c4c8180cfb465de0a" compoundref="xhdmiphy1__hdmi__intr_8c" startline="985" endline="1103">XHdmiphy1_HdmiRxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2bf27809a22eecc5194a8bad16261280" compoundref="xhdmiphy1__hdmi_8c" startline="2776" endline="2822">XHdmiphy1_SetHdmiRxParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a7db1a3f7a4d313d9d8d279036680a7bb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1::HdmiIsQpllPresent</definition>
+        <argsstring></argsstring>
+        <name>HdmiIsQpllPresent</name>
+        <briefdescription>
+<para>QPLL is present in HW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="736" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="736" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gaeb31d823a71bad5b0bb6250b016577d7" compoundref="xhdmiphy1__i_8c" startline="1328" endline="1371">XHdmiphy1_ClkReconfig</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" compoundref="xhdmiphy1__hdmi_8c" startline="85" endline="304">XHdmiphy1_Hdmi_CfgInitialize</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga8dc19df05e15d413e62ff62d2c22c023" compoundref="xhdmiphy1_8c" startline="1371" endline="1431">XHdmiphy1_RegisterDebug</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a834817daba49b8bd130bd52fbb911f41" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1::versal_2ve_2vm</definition>
+        <argsstring></argsstring>
+        <name>versal_2ve_2vm</name>
+        <briefdescription>
+<para>only for for VEK385 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="737" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="737" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gae2d190888890d12b1524b5d5065e5e57" compoundref="xhdmiphy1__hdmi_8c" startline="834" endline="905">XHdmiphy1_DruGetRefClkFreqHz</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ac60ed4c71a5adcb71a99edad2997e24c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___hdmi21_cfg" kindref="compound">XHdmiphy1_Hdmi21Cfg</ref></type>
+        <definition>XHdmiphy1_Hdmi21Cfg XHdmiphy1::TxHdmi21Cfg</definition>
+        <argsstring></argsstring>
+        <name>TxHdmi21Cfg</name>
+        <briefdescription>
+<para>TX HDMI Config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="738" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gabb75647ab6dfd99febccba18593e86d8" compoundref="xhdmiphy1__hdmi_8c" startline="755" endline="786">XHdmiphy1_ClkDetGetRefClkFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" compoundref="xhdmiphy1__hdmi_8c" startline="2909" endline="2966">XHdmiphy1_Hdmi20Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="3013" endline="3145">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="575" endline="638">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="691" endline="765">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gada0844e8a6a828bb7d512259aca11498" compoundref="xhdmiphy1__hdmi__intr_8c" startline="883" endline="972">XHdmiphy1_HdmiTxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga69e679f0c4444350910817be69cde77c" compoundref="xhdmiphy1__hdmi_8c" startline="2680" endline="2759">XHdmiphy1_SetHdmiTxParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a44a9b24f205fee3e03f3724a89abf2bb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmiphy1___hdmi21_cfg" kindref="compound">XHdmiphy1_Hdmi21Cfg</ref></type>
+        <definition>XHdmiphy1_Hdmi21Cfg XHdmiphy1::RxHdmi21Cfg</definition>
+        <argsstring></argsstring>
+        <name>RxHdmi21Cfg</name>
+        <briefdescription>
+<para>TX HDMI Config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="739" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="739" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gabb75647ab6dfd99febccba18593e86d8" compoundref="xhdmiphy1__hdmi_8c" startline="755" endline="786">XHdmiphy1_ClkDetGetRefClkFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" compoundref="xhdmiphy1__hdmi_8c" startline="2909" endline="2966">XHdmiphy1_Hdmi20Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="3013" endline="3145">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2160" endline="2376">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1864" endline="2141">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="779" endline="870">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a0a82f90d7a0f1c4c8180cfb465de0a" compoundref="xhdmiphy1__hdmi__intr_8c" startline="985" endline="1103">XHdmiphy1_HdmiRxTimerTimeoutHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a299ed2990b28d0561a635f11b647cbd8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrCpllLockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrCpllLockHandler</name>
+        <briefdescription>
+<para><verbatim>                    Callback function for CPLL
+</verbatim> lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="740" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="740" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a1209c27b73680d5f924509cb1717ba11" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrCpllLockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrCpllLockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the CPLL lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="742" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="742" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aba5d02fffa55f5c2ae38f24f3e48655d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrQpllLockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrQpllLockHandler</name>
+        <briefdescription>
+<para><verbatim>                    Callback function for QPLL
+</verbatim> lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="745" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="745" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a3eb39abdf0e0de2bc7b2780116dad1fc" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrQpllLockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrQpllLockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the QPLL lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="747" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="747" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1af643b54434ad0e79c7059c26f77a29e7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrQpll1LockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrQpll1LockHandler</name>
+        <briefdescription>
+<para><verbatim>                     Callback function for QPLL
+</verbatim> lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="750" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="750" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ae2ebcf179c7a4c5122606264c1313254" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrQpll1LockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrQpll1LockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the QPLL lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="752" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="752" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a9f4e3631341fe886a566a1c615109296" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrTxAlignDoneHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTxAlignDoneHandler</name>
+        <briefdescription>
+<para><verbatim>                       Callback function for TX
+</verbatim> align done lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="755" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="755" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1acb9f1f5c38f678dfe435d1872d93c409" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrTxAlignDoneCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTxAlignDoneCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the TX align done lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="758" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="758" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ae70568fb8b840ea7376d699385cd539b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrLcpllLockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrLcpllLockHandler</name>
+        <briefdescription>
+<para><verbatim>                     Callback function for
+</verbatim> LCPLL lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="762" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ae97c0c799895ac6d6941ae0e20b11d3e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrLcpllLockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrLcpllLockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>             A pointer to the user data
+</verbatim> passed to the LCPLL lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="764" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="764" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a169e6a8769169e11aa64ac9abc88ac0c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrRpllLockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrRpllLockHandler</name>
+        <briefdescription>
+<para><verbatim>                      Callback function for
+</verbatim> RPLL lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="766" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="766" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a19780e3a38d27e0ead24570e6613dd55" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrRpllLockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrRpllLockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the RPLL lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="768" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="768" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aed8eb044838fd5828650671ce7c7f675" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrTxGpoRisingEdgeHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTxGpoRisingEdgeHandler</name>
+        <briefdescription>
+<para><verbatim>         Callback function
+</verbatim> for TX GPO [3:0] Rising Edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="770" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="770" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a786992aa81fe60d7abf87f1fe47708ce" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrTxGpoRisingEdgeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTxGpoRisingEdgeCallbackRef</name>
+        <briefdescription>
+<para><verbatim>                   A pointer to the user data
+</verbatim> passed to the TX GPO [3:0] Rising Edge callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="772" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="772" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a9fa23c83fa1e8799b82b479ce71bfd7b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrRxGpoRisingEdgeHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrRxGpoRisingEdgeHandler</name>
+        <briefdescription>
+<para><verbatim>         Callback function
+</verbatim> for RX GPO [7:4] Rising Edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="775" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="775" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a5662fe2b31b0bdbfd676b139772238f7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrRxGpoRisingEdgeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrRxGpoRisingEdgeCallbackRef</name>
+        <briefdescription>
+<para><verbatim>                   A pointer to the user data
+</verbatim> passed to the RX GPO [7:4] Rising Edge callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="777" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="777" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a4f9c49683a90aa9841be70039e7dea31" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrTxResetDoneHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTxResetDoneHandler</name>
+        <briefdescription>
+<para><verbatim>                       Callback function for TX
+</verbatim> reset done lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="780" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a6ecd9f63b374c8c8def7c8894f6340ec" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrTxResetDoneCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTxResetDoneCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the TX reset done lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="783" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1afbd86b5dc2ea02eca5f779558c23faaf" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrRxResetDoneHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrRxResetDoneHandler</name>
+        <briefdescription>
+<para><verbatim>                       Callback function for RX
+</verbatim> reset done lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="787" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ab108631f101eacc52db3574aca37ff1d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrRxResetDoneCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrRxResetDoneCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the RX reset done lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="790" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="790" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a9e829bc4a1ba14c7973ee6d805a95de6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrTxClkDetFreqChangeHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTxClkDetFreqChangeHandler</name>
+        <briefdescription>
+<para><verbatim>                              Callback function
+</verbatim> for TX clock detector frequency change interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="794" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="794" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ae5127143c4688998c92ed8eafb2ba7b2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrTxClkDetFreqChangeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTxClkDetFreqChangeCallbackRef</name>
+        <briefdescription>
+<para><verbatim>                 A pointer to the user data
+</verbatim> passed to the TX clock detector frequency change callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="798" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="798" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aed8c859489a13cf7b883b4ed6d121420" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrRxClkDetFreqChangeHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrRxClkDetFreqChangeHandler</name>
+        <briefdescription>
+<para><verbatim>                              Callback function
+</verbatim> for RX clock detector frequency change interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="803" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ade70699e9fbb982482a8038c06f2b151" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrRxClkDetFreqChangeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrRxClkDetFreqChangeCallbackRef</name>
+        <briefdescription>
+<para><verbatim>                 A pointer to the user data
+</verbatim> passed to the RX clock detector frequency change callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="807" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a87976bb014b2a6f2e84e47ca3ded5cb3" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrTxMmcmLockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTxMmcmLockHandler</name>
+        <briefdescription>
+<para><verbatim>                      Callback function
+</verbatim> for TX MMCM lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="812" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="812" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a843def0eed56f4054c7f361715558b7c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrTxMmcmLockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTxMmcmLockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>         A pointer to the user data
+</verbatim> passed to the TX MMCM lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="815" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="815" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aba4ae1632f45de25ef1f548ecceb7a16" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrRxMmcmLockHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrRxMmcmLockHandler</name>
+        <briefdescription>
+<para><verbatim>                      Callback function
+</verbatim> for RX MMCM lock interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="818" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="818" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a236a6934b0578e57f77cc55e90e70326" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrRxMmcmLockCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrRxMmcmLockCallbackRef</name>
+        <briefdescription>
+<para><verbatim>         A pointer to the user data
+</verbatim> passed to the RX MMCM lock callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="821" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="821" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a65c3d295faeab03e349abbdce936ebad" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrTxTmrTimeoutHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTxTmrTimeoutHandler</name>
+        <briefdescription>
+<para><verbatim>                        Callback function for
+</verbatim> TX timer timeout interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="824" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="824" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a2ea3d02859ef83099982ca7a91a16ca7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrTxTmrTimeoutCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTxTmrTimeoutCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the TX timer timeout callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="826" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="826" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1acdae64b5744677ee58564afda2116bda" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga5ff00002844b75068ea21b03514fcf04" kindref="member">XHdmiphy1_IntrHandler</ref></type>
+        <definition>XHdmiphy1_IntrHandler XHdmiphy1::IntrRxTmrTimeoutHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrRxTmrTimeoutHandler</name>
+        <briefdescription>
+<para><verbatim>                        Callback function for
+</verbatim> RX timer timeout interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="830" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="830" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aa84057e2d584f28c2a571976f936296a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::IntrRxTmrTimeoutCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrRxTmrTimeoutCallbackRef</name>
+        <briefdescription>
+<para><verbatim>            A pointer to the user data
+</verbatim> passed to the RX timer timeout callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="832" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="832" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gacb93fcb29ad3045d260d3fbbaa0be81e" compoundref="xhdmiphy1__intr_8c" startline="218" endline="299">XHdmiphy1_InterruptHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gaed8eb9b3c3f96343f4358c9d54296af0" compoundref="xhdmiphy1__intr_8c" startline="100" endline="203">XHdmiphy1_SetIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a9a1e64dac33e66a6aa4f174f91b8e399" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gadcff193d2a45fbd03c48f595fe8fdf55" kindref="member">XHdmiphy1_ErrorCallback</ref></type>
+        <definition>XHdmiphy1_ErrorCallback XHdmiphy1::ErrorCallback</definition>
+        <argsstring></argsstring>
+        <name>ErrorCallback</name>
+        <briefdescription>
+<para>Callback for Error Condition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="836" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="836" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga3fc9cb2326efad44689d4af163343b7f" compoundref="xhdmiphy1__i_8c" startline="1860" endline="1865">XHdmiphy1_ErrorHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga90147f575dee01a888964ba10cdf4f73" compoundref="xhdmiphy1_8c" startline="1321" endline="1331">XHdmiphy1_SetErrorCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a43d930ddd0de54af43270cac39e01ee6" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+<para>To be passed to the Error condition callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="837" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="837" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga3fc9cb2326efad44689d4af163343b7f" compoundref="xhdmiphy1__i_8c" startline="1860" endline="1865">XHdmiphy1_ErrorHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga90147f575dee01a888964ba10cdf4f73" compoundref="xhdmiphy1_8c" startline="1321" endline="1331">XHdmiphy1_SetErrorCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a0739038c4800b9de1755c11ff1a2d835" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1gadcff193d2a45fbd03c48f595fe8fdf55" kindref="member">XHdmiphy1_ErrorCallback</ref></type>
+        <definition>XHdmiphy1_ErrorCallback XHdmiphy1::PllLayoutErrorCallback</definition>
+        <argsstring></argsstring>
+        <name>PllLayoutErrorCallback</name>
+        <briefdescription>
+<para><verbatim>                          Callback for Error
+</verbatim> Condition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="839" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="839" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a3530e3415430f3babfdc7182b721425f" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::PllLayoutErrorRef</definition>
+        <argsstring></argsstring>
+        <name>PllLayoutErrorRef</name>
+        <briefdescription>
+<para>To be passed to the Error condition callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="841" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="841" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a16c66793a6e7e041fc3a945aec7be90d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga14ce1c0f480526922f42b9e7ff8dee8f" kindref="member">XHdmiphy1_Callback</ref></type>
+        <definition>XHdmiphy1_Callback XHdmiphy1::HdmiTxInitCallback</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxInitCallback</name>
+        <briefdescription>
+<para>Callback for TX init. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="844" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="844" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="691" endline="765">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a972876ed3eaec1defefa3f6c2d620b73" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::HdmiTxInitRef</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxInitRef</name>
+        <briefdescription>
+<para><verbatim>        To be passed to the TX init
+</verbatim> callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="845" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="845" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="691" endline="765">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a6935afe96ca7e4bc731a4cc68be0c3c6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga14ce1c0f480526922f42b9e7ff8dee8f" kindref="member">XHdmiphy1_Callback</ref></type>
+        <definition>XHdmiphy1_Callback XHdmiphy1::HdmiTxReadyCallback</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxReadyCallback</name>
+        <briefdescription>
+<para>Callback for TX ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="847" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="847" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1aa2c97194ee284139b2959025092cc122" compoundref="xhdmiphy1__hdmi__intr_8c" startline="546" endline="562">XHdmiphy1_HdmiGtTxAlignDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="575" endline="638">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a6c024d30eed9502ce115cb9d356d6e7a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::HdmiTxReadyRef</definition>
+        <argsstring></argsstring>
+        <name>HdmiTxReadyRef</name>
+        <briefdescription>
+<para><verbatim>        To be passed to the TX
+</verbatim> ready callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="848" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="848" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1aa2c97194ee284139b2959025092cc122" compoundref="xhdmiphy1__hdmi__intr_8c" startline="546" endline="562">XHdmiphy1_HdmiGtTxAlignDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="575" endline="638">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aaa13d6af8f3fe8a2c65e72c04b90ac9a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga14ce1c0f480526922f42b9e7ff8dee8f" kindref="member">XHdmiphy1_Callback</ref></type>
+        <definition>XHdmiphy1_Callback XHdmiphy1::HdmiRxInitCallback</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxInitCallback</name>
+        <briefdescription>
+<para>Callback for RX init. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="850" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="850" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="779" endline="870">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a8ec4992b8e52da29e3ac98481076046d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::HdmiRxInitRef</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxInitRef</name>
+        <briefdescription>
+<para><verbatim>        To be passed to the RX
+</verbatim> init callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="851" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="851" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="779" endline="870">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a72c70f721f4e3d31f49afdc2d03aaa0b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga14ce1c0f480526922f42b9e7ff8dee8f" kindref="member">XHdmiphy1_Callback</ref></type>
+        <definition>XHdmiphy1_Callback XHdmiphy1::HdmiRxReadyCallback</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxReadyCallback</name>
+        <briefdescription>
+<para>Callback for RX ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="853" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="853" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0c603299dc1bafabcf0ecfe920bd412b" compoundref="xhdmiphy1__hdmi__intr_8c" startline="651" endline="677">XHdmiphy1_HdmiGtRxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1aca4f8069578f878456f2b1c3e892280c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::HdmiRxReadyRef</definition>
+        <argsstring></argsstring>
+        <name>HdmiRxReadyRef</name>
+        <briefdescription>
+<para><verbatim>        To be passed to the RX
+</verbatim> ready callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="854" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="854" bodyend="-1"/>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a0c603299dc1bafabcf0ecfe920bd412b" compoundref="xhdmiphy1__hdmi__intr_8c" startline="651" endline="677">XHdmiphy1_HdmiGtRxResetDoneLockHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="66" endline="103">XHdmiphy1_SetHdmiCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ae496b497afcb2b9faa866238d7cc2f11" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga503c2ff79c8d1c28506c02d3be634763" kindref="member">XHdmiphy1_LogCallback</ref></type>
+        <definition>XHdmiphy1_LogCallback XHdmiphy1::LogWriteCallback</definition>
+        <argsstring></argsstring>
+        <name>LogWriteCallback</name>
+        <briefdescription>
+<para>Callback for log write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="856" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="856" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga9569d5080ff8e2396239ecfb7d1de91d" compoundref="xhdmiphy1__log_8c" startline="184" endline="537">XHdmiphy1_LogDisplay</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7efb70724bc3a6fa0d3bd6c9d7d22de4" compoundref="xhdmiphy1_8c" startline="1347" endline="1357">XHdmiphy1_SetLogCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1ad0bd5b3366de6fd019ba397cabdc37f2" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XHdmiphy1::LogWriteRef</definition>
+        <argsstring></argsstring>
+        <name>LogWriteRef</name>
+        <briefdescription>
+<para>To be passed to the log write callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="857" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7efb70724bc3a6fa0d3bd6c9d7d22de4" compoundref="xhdmiphy1_8c" startline="1347" endline="1357">XHdmiphy1_SetLogCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1af1e1e9687cea9cf0c57b24e69891d2bb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xhdmiphy1_1ga7c61707222943633f7df3de4acf2d51a" kindref="member">XHdmiphy1_TimerHandler</ref></type>
+        <definition>XHdmiphy1_TimerHandler XHdmiphy1::UserTimerWaitUs</definition>
+        <argsstring></argsstring>
+        <name>UserTimerWaitUs</name>
+        <briefdescription>
+<para><verbatim>                  Custom user function for
+</verbatim> delay/sleep. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="858" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="858" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gabe478d42590c0365f3e2feb3933321ec" compoundref="xhdmiphy1_8c" startline="242" endline="261">XHdmiphy1_WaitUs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1_1a9324811f0f5b67211f3db8a1a12b4447" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdmiphy1::UserTimerPtr</definition>
+        <argsstring></argsstring>
+        <name>UserTimerPtr</name>
+        <briefdescription>
+<para><verbatim>    Pointer to a timer instance
+</verbatim> used by the custom user delay/sleep function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="860" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="860" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XHdmiphy1</label>
+        <link refid="struct_x_hdmiphy1"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>RxHdmi21Cfg</edgelabel>
+          <edgelabel>TxHdmi21Cfg</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Quads</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Log</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XHdmiphy1_Mmcm</label>
+        <link refid="struct_x_hdmiphy1___mmcm"/>
+      </node>
+      <node id="3">
+        <label>XHdmiphy1_Hdmi21Cfg</label>
+        <link refid="struct_x_hdmiphy1___hdmi21_cfg"/>
+      </node>
+      <node id="6">
+        <label>XHdmiphy1_PllParam</label>
+        <link refid="struct_x_hdmiphy1___pll_param"/>
+      </node>
+      <node id="8">
+        <label>XHdmiphy1_Log</label>
+        <link refid="struct_x_hdmiphy1___log"/>
+      </node>
+      <node id="4">
+        <label>XHdmiphy1_Quad</label>
+        <link refid="struct_x_hdmiphy1___quad"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Plls</edgelabel>
+          <edgelabel>Lcpll</edgelabel>
+          <edgelabel>Ch1</edgelabel>
+          <edgelabel>Rpll</edgelabel>
+          <edgelabel>Ch2</edgelabel>
+          <edgelabel>Cmn0</edgelabel>
+          <edgelabel>Ch3</edgelabel>
+          <edgelabel>Cmn1</edgelabel>
+          <edgelabel>Ch4</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Mmcm</edgelabel>
+          <edgelabel>TxMmcm</edgelabel>
+          <edgelabel>RxMmcm</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XHdmiphy1_Config</label>
+        <link refid="struct_x_hdmiphy1___config"/>
+      </node>
+      <node id="5">
+        <label>XHdmiphy1_Channel</label>
+        <link refid="struct_x_hdmiphy1___channel"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>CpllParams</edgelabel>
+          <edgelabel>PllParams</edgelabel>
+          <edgelabel>QpllParams</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="721" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="721" bodyend="863"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1_1ae19e95b6e84e21a988ba6910ceb3f35a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>Config</name></member>
+      <member refid="struct_x_hdmiphy1_1a9a1e64dac33e66a6aa4f174f91b8e399" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>ErrorCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1a43d930ddd0de54af43270cac39e01ee6" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_hdmiphy1_1abd6d56dc9af7caa4475dda710d081a6a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>GtAdaptor</name></member>
+      <member refid="struct_x_hdmiphy1_1a7db1a3f7a4d313d9d8d279036680a7bb" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiIsQpllPresent</name></member>
+      <member refid="struct_x_hdmiphy1_1a247ba8ff835a604c754d34ab3ba0450c" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxDruIsEnabled</name></member>
+      <member refid="struct_x_hdmiphy1_1aaa13d6af8f3fe8a2c65e72c04b90ac9a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxInitCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1a8ec4992b8e52da29e3ac98481076046d" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxInitRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a72c70f721f4e3d31f49afdc2d03aaa0b" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxReadyCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1aca4f8069578f878456f2b1c3e892280c" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxReadyRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a9ba8d9489de84bdfb6acc4d33c7957ea" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxRefClkHz</name></member>
+      <member refid="struct_x_hdmiphy1_1a74efe69af6760d2c3cf8d4d471f5591d" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiRxTmdsClockRatio</name></member>
+      <member refid="struct_x_hdmiphy1_1a16c66793a6e7e041fc3a945aec7be90d" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiTxInitCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1a972876ed3eaec1defefa3f6c2d620b73" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiTxInitRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a6935afe96ca7e4bc731a4cc68be0c3c6" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiTxReadyCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1a6c024d30eed9502ce115cb9d356d6e7a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiTxReadyRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a834eecec514b7571575a3bf47cfa63e0" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiTxRefClkHz</name></member>
+      <member refid="struct_x_hdmiphy1_1aa0e3e6f1c5e328af0628bc58d19e915a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>HdmiTxSampleRate</name></member>
+      <member refid="struct_x_hdmiphy1_1a1209c27b73680d5f924509cb1717ba11" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrCpllLockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a299ed2990b28d0561a635f11b647cbd8" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrCpllLockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1ae97c0c799895ac6d6941ae0e20b11d3e" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrLcpllLockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1ae70568fb8b840ea7376d699385cd539b" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrLcpllLockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1ae2ebcf179c7a4c5122606264c1313254" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrQpll1LockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1af643b54434ad0e79c7059c26f77a29e7" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrQpll1LockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a3eb39abdf0e0de2bc7b2780116dad1fc" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrQpllLockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1aba5d02fffa55f5c2ae38f24f3e48655d" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrQpllLockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a19780e3a38d27e0ead24570e6613dd55" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRpllLockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a169e6a8769169e11aa64ac9abc88ac0c" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRpllLockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1ade70699e9fbb982482a8038c06f2b151" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxClkDetFreqChangeCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1aed8c859489a13cf7b883b4ed6d121420" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxClkDetFreqChangeHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a5662fe2b31b0bdbfd676b139772238f7" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxGpoRisingEdgeCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a9fa23c83fa1e8799b82b479ce71bfd7b" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxGpoRisingEdgeHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a236a6934b0578e57f77cc55e90e70326" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxMmcmLockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1aba4ae1632f45de25ef1f548ecceb7a16" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxMmcmLockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1ab108631f101eacc52db3574aca37ff1d" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxResetDoneCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1afbd86b5dc2ea02eca5f779558c23faaf" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxResetDoneHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1aa84057e2d584f28c2a571976f936296a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxTmrTimeoutCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1acdae64b5744677ee58564afda2116bda" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrRxTmrTimeoutHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1acb9f1f5c38f678dfe435d1872d93c409" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxAlignDoneCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a9f4e3631341fe886a566a1c615109296" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxAlignDoneHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1ae5127143c4688998c92ed8eafb2ba7b2" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxClkDetFreqChangeCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a9e829bc4a1ba14c7973ee6d805a95de6" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxClkDetFreqChangeHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a786992aa81fe60d7abf87f1fe47708ce" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxGpoRisingEdgeCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1aed8eb044838fd5828650671ce7c7f675" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxGpoRisingEdgeHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a843def0eed56f4054c7f361715558b7c" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxMmcmLockCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a87976bb014b2a6f2e84e47ca3ded5cb3" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxMmcmLockHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a6ecd9f63b374c8c8def7c8894f6340ec" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxResetDoneCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a4f9c49683a90aa9841be70039e7dea31" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxResetDoneHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a2ea3d02859ef83099982ca7a91a16ca7" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxTmrTimeoutCallbackRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a65c3d295faeab03e349abbdce936ebad" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IntrTxTmrTimeoutHandler</name></member>
+      <member refid="struct_x_hdmiphy1_1a2410c544d217821ce4e85e391b1c676a" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>IsReady</name></member>
+      <member refid="struct_x_hdmiphy1_1a55611128c68a9548afe47eae8d761788" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>Log</name></member>
+      <member refid="struct_x_hdmiphy1_1ae496b497afcb2b9faa866238d7cc2f11" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>LogWriteCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1ad0bd5b3366de6fd019ba397cabdc37f2" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>LogWriteRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a0739038c4800b9de1755c11ff1a2d835" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>PllLayoutErrorCallback</name></member>
+      <member refid="struct_x_hdmiphy1_1a3530e3415430f3babfdc7182b721425f" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>PllLayoutErrorRef</name></member>
+      <member refid="struct_x_hdmiphy1_1a0204ec609474b091ff494d61ebd2aa80" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>Quads</name></member>
+      <member refid="struct_x_hdmiphy1_1a44a9b24f205fee3e03f3724a89abf2bb" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>RxHdmi21Cfg</name></member>
+      <member refid="struct_x_hdmiphy1_1ac60ed4c71a5adcb71a99edad2997e24c" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>TxHdmi21Cfg</name></member>
+      <member refid="struct_x_hdmiphy1_1a9324811f0f5b67211f3db8a1a12b4447" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>UserTimerPtr</name></member>
+      <member refid="struct_x_hdmiphy1_1af1e1e9687cea9cf0c57b24e69891d2bb" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>UserTimerWaitUs</name></member>
+      <member refid="struct_x_hdmiphy1_1a834817daba49b8bd130bd52fbb911f41" prot="public" virt="non-virtual"><scope>XHdmiphy1</scope><name>versal_2ve_2vm</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

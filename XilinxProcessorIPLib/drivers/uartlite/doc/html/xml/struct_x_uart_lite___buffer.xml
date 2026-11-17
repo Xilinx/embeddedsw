@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_lite___buffer" kind="struct" prot="public">
+    <compoundname>XUartLite_Buffer</compoundname>
+    <includes local="no">xuartlite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_lite___buffer_1a5b91bd91cf707bdc8f1ffdb9e82509fc" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XUartLite_Buffer::NextBytePtr</definition>
+        <argsstring></argsstring>
+        <name>NextBytePtr</name>
+        <briefdescription>
+<para>Pointer to the next byte to send or receive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="561" endline="628">XUartLite_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" compoundref="xuartlite_8c" startline="286" endline="335">XUartLite_Recv</referencedby>
+        <referencedby refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" compoundref="xuartlite_8c" startline="200" endline="249">XUartLite_Send</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="462" endline="528">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___buffer_1ab27923a6614c5a60548b08c6d5bc469e" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartLite_Buffer::RequestedBytes</definition>
+        <argsstring></argsstring>
+        <name>RequestedBytes</name>
+        <briefdescription>
+<para>Total number of bytes requested. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" compoundref="xuartlite__intr_8c" startline="141" endline="162">XUartLite_InterruptHandler</referencedby>
+        <referencedby refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" compoundref="xuartlite_8c" startline="286" endline="335">XUartLite_Recv</referencedby>
+        <referencedby refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" compoundref="xuartlite_8c" startline="200" endline="249">XUartLite_Send</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___buffer_1a7317923470ca4dd5619123985b7f3b03" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartLite_Buffer::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+<para>Number of bytes still to be processed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="561" endline="628">XUartLite_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" compoundref="xuartlite_8c" startline="286" endline="335">XUartLite_Recv</referencedby>
+        <referencedby refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" compoundref="xuartlite_8c" startline="200" endline="249">XUartLite_Send</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="462" endline="528">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Buffer descriptor for send and receive operations. </para>    </briefdescription>
+    <detaileddescription>
+<para>The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode. It is intended for internal use only. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="189" bodyend="195"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_lite___buffer_1a5b91bd91cf707bdc8f1ffdb9e82509fc" prot="public" virt="non-virtual"><scope>XUartLite_Buffer</scope><name>NextBytePtr</name></member>
+      <member refid="struct_x_uart_lite___buffer_1a7317923470ca4dd5619123985b7f3b03" prot="public" virt="non-virtual"><scope>XUartLite_Buffer</scope><name>RemainingBytes</name></member>
+      <member refid="struct_x_uart_lite___buffer_1ab27923a6614c5a60548b08c6d5bc469e" prot="public" virt="non-virtual"><scope>XUartLite_Buffer</scope><name>RequestedBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

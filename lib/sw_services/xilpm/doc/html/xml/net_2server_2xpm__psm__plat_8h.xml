@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__psm__plat_8h" kind="file">
+    <compoundname>net/server/xpm_psm_plat.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xpm__psm_8h" local="yes">xpm_psm.h</includedby>
+    <incdepgraph>
+      <node id="7758">
+        <label>xpm_psm_plat.h</label>
+        <link refid="net/server/xpm_psm_plat.h"/>
+        <childnode refid="7759" relation="include">
+        </childnode>
+        <childnode refid="7760" relation="include">
+        </childnode>
+      </node>
+      <node id="7760">
+        <label>xstatus.h</label>
+      </node>
+      <node id="7759">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7768">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="7772">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="7787">
+        <label>xpm_psm_plat.c</label>
+      </node>
+      <node id="7761">
+        <label>xpm_psm_plat.h</label>
+        <link refid="net/server/xpm_psm_plat.h"/>
+        <childnode refid="7762" relation="include">
+        </childnode>
+      </node>
+      <node id="7778">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="7773">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="7774">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="7783">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="7781">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="7777">
+        <label>xpm_psm.c</label>
+      </node>
+      <node id="7762">
+        <label>xpm_psm.h</label>
+        <childnode refid="7763" relation="include">
+        </childnode>
+        <childnode refid="7764" relation="include">
+        </childnode>
+        <childnode refid="7765" relation="include">
+        </childnode>
+        <childnode refid="7766" relation="include">
+        </childnode>
+        <childnode refid="7767" relation="include">
+        </childnode>
+        <childnode refid="7768" relation="include">
+        </childnode>
+        <childnode refid="7769" relation="include">
+        </childnode>
+        <childnode refid="7770" relation="include">
+        </childnode>
+        <childnode refid="7771" relation="include">
+        </childnode>
+        <childnode refid="7772" relation="include">
+        </childnode>
+        <childnode refid="7773" relation="include">
+        </childnode>
+        <childnode refid="7774" relation="include">
+        </childnode>
+        <childnode refid="7775" relation="include">
+        </childnode>
+        <childnode refid="7776" relation="include">
+        </childnode>
+        <childnode refid="7777" relation="include">
+        </childnode>
+        <childnode refid="7778" relation="include">
+        </childnode>
+        <childnode refid="7779" relation="include">
+        </childnode>
+        <childnode refid="7780" relation="include">
+        </childnode>
+        <childnode refid="7781" relation="include">
+        </childnode>
+        <childnode refid="7782" relation="include">
+        </childnode>
+        <childnode refid="7783" relation="include">
+        </childnode>
+        <childnode refid="7784" relation="include">
+        </childnode>
+        <childnode refid="7785" relation="include">
+        </childnode>
+        <childnode refid="7786" relation="include">
+        </childnode>
+        <childnode refid="7787" relation="include">
+        </childnode>
+        <childnode refid="7788" relation="include">
+        </childnode>
+        <childnode refid="7789" relation="include">
+        </childnode>
+      </node>
+      <node id="7763">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="7769">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="7782">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="7789">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="7776">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="7767">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="7766">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="7764">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="7786">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="7765">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="7784">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="7770">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="7771">
+        <label>xpm_psm_plat.c</label>
+      </node>
+      <node id="7785">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="7779">
+        <label>xpm_rpucore.c</label>
+      </node>
+      <node id="7780">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="7788">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="7775">
+        <label>xpm_pll.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a22271589ae139aaf59d941baf582a298" prot="public" static="no">
+        <name>GLOBAL_CNTRL</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSMX_GLOBAL_CNTRL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a30981e65fcfeaa95753471d8534adbd0" prot="public" static="no">
+        <name>PROC_LOCATION_ADDRESS</name>
+        <initializer>(0xEBC26000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1aeb67e7941c44c946da85fede2c3c8e43" prot="public" static="no">
+        <name>PROC_LOCATION_LENGTH</name>
+        <initializer>(0x2000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a9ff1a7d8426384cd178d2c1b3179dc67" prot="public" static="no">
+        <name>PSMX_GLOBAL_CNTRL</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a35dbad6425fda03b665998f0fc9dd22b" prot="public" static="no">
+        <name>PSMX_GLOBAL_REQ_PWRDWN0_EN_OFFSET</name>
+        <initializer>(0x00000218U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1ad27bc62d2bf30e8e2a400207ff3e1e50" prot="public" static="no">
+        <name>PSMX_GLOBAL_REQ_PWRUP0_EN_OFFSET</name>
+        <initializer>(0x00000118U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a39abf85dcc565676c15ef0ea3d6ac48c" prot="public" static="no">
+        <name>PSMX_GLOBAL_REQ_PWRDWN1_EN_OFFSET</name>
+        <initializer>(0x0000022CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a3f84bfa8912fa96dcbf0448a999d3654" prot="public" static="no">
+        <name>PSMX_GLOBAL_REQ_PWRUP1_EN_OFFSET</name>
+        <initializer>(0x0000012CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a35dbad6425fda03b665998f0fc9dd22b" prot="public" static="no">
+        <name>PSMX_GLOBAL_REQ_PWRDWN0_EN_OFFSET</name>
+        <initializer>(0x00000218U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1ade524b7a13fe58f45e97565879dad2a8" prot="public" static="no">
+        <name>PSMX_GLOBAL_PWR_STATE0_OFFSET</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1aab0de0feac560305fd0f3ce1b594b461" prot="public" static="no">
+        <name>PSMX_GLOBAL_PWR_STATE1_OFFSET</name>
+        <initializer>(0x00000104U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1ac7dfcaac56c520643511f29970db3aeb" prot="public" static="no">
+        <name>REQ_PWRUP_INT_TRIG_OFFSET</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a48307f522e591215a782fd3114888ff5" prot="public" static="no">
+        <name>REQ_PWRDWN_INT_TRIG_OFFSET</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a0880023fa19c17f160611990cd71ef1e" prot="public" static="no">
+        <name>XPM_MAX_POLL_TIMEOUT</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a3884b2d699f42fbd853f60c15815c7b0" prot="public" static="no">
+        <name>PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a79c3785ff6ad0b6f45a2d32afee0a30f" prot="public" static="no">
+        <name>XPM_PSM_WAKEUP_MASK</name>
+        <initializer>BIT(2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a138828f64ab6c0ed586e42bdc6fbaa08" prot="public" static="no">
+        <name>XPM_DOMAIN_INIT_STATUS_REG</name>
+        <initializer>PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1adfb91af18ff12321b0972f3f320c7458" prot="public" static="no">
+        <name>PSMX_GLOBAL_PWR_CTRL1_IRQ_STATUS</name>
+        <initializer>(0x00000714U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a54de5e3c45f5525c45b6e4287d3b7993" prot="public" static="no">
+        <name>PSMX_GLOBAL_PWR_CTRL1_IRQ_EN</name>
+        <initializer>(0x0000071CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a249a7fdfabc9445f0276722c2f28c0b6" prot="public" static="no">
+        <name>PSMX_GLOBAL_PWR_CTRL1_IRQ_DIS</name>
+        <initializer>(0x00000720U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a3ee4044233dcde5797bdefe5961d5b96" prot="public" static="no">
+        <name>PSMX_GLOBAL_WAKEUP0_IRQ_EN</name>
+        <initializer>(0x00000608U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a4b735f69ad7f154f50f8c00212d34c68" prot="public" static="no">
+        <name>PSMX_GLOBAL_WAKEUP0_IRQ_DIS</name>
+        <initializer>(0x0000060CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a1e9220e693b8da8aba5f520e12eab9cc" prot="public" static="no">
+        <name>PSMX_GLOBAL_WAKEUP1_IRQ_EN</name>
+        <initializer>(0x0000061CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a241ecf6fa99dbf6cd0016c24701b91d7" prot="public" static="no">
+        <name>PSMX_GLOBAL_WAKEUP1_IRQ_DIS</name>
+        <initializer>(0x00000620U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1af353c68a2aedc620871faf6430884593" prot="public" static="no">
+        <name>ENABLE_WFI</name>
+        <param><defname>mask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_EN, mask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1ad46243a621a3e85dda1163275eeb907f" prot="public" static="no">
+        <name>DISABLE_WFI</name>
+        <param><defname>BitMask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_DIS, BitMask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1aca97e046e198478facd1897265db4d35" prot="public" static="no">
+        <name>CLEAR_PWRCTRL1</name>
+        <param><defname>BitMask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_STATUS, BitMask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a041d59399804b9e74ee99edb3f6c14be" prot="public" static="no">
+        <name>ENABLE_WAKE0</name>
+        <param><defname>BitMask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP0_IRQ_EN, BitMask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a11ccc41369ad333240cc6f1ae738ca25" prot="public" static="no">
+        <name>DISABLE_WAKE0</name>
+        <param><defname>BitMask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP0_IRQ_DIS, BitMask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1ae74f7ba9abdcc9d594964a46c5e66a16" prot="public" static="no">
+        <name>ENABLE_WAKE1</name>
+        <param><defname>BitMask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP1_IRQ_EN, BitMask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a58b639774ecce11d6ce5098411eae98f" prot="public" static="no">
+        <name>DISABLE_WAKE1</name>
+        <param><defname>BitMask</defname></param>
+        <initializer>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP1_IRQ_DIS, BitMask)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1abd3fbf13079c4245c6842fd9696bb45c" prot="public" static="no">
+        <name>XPM_SET_PROC_LIST_PLAT</name>
+        <initializer>XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a353efe8af075ada6d33a14640ee1dc4c" prot="public" static="no">
+        <name>XPM_PSM_COUNTER_DS_ID</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__psm__plat_8h_1a51a5badfe59722ff2c71e3755a2ad21a" prot="public" static="no">
+        <name>XPM_PSM_KEEP_ALIVE_STS_DS_ID</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__psm__plat_8h_1a5d673d474251af3e6107814c444568de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPsm_SendPowerUpReq</definition>
+        <argsstring>(XPm_Power *Power)</argsstring>
+        <name>XPmPsm_SendPowerUpReq</name>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Power</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.c" bodystart="26" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__psm__plat_8h_1ad425b3c517033594261836368e0f1041" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPsm_SendPowerDownReq</definition>
+        <argsstring>(XPm_Power *Power)</argsstring>
+        <name>XPmPsm_SendPowerDownReq</name>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Power</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.c" bodystart="59" bodyend="89"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PSM_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PSM_PLAT_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GLOBAL_CNTRL(BASE)<sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSMX_GLOBAL_CNTRL)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PROC_LOCATION_ADDRESS<sp/><sp/><sp/>(0xEBC26000U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PROC_LOCATION_LENGTH<sp/><sp/><sp/><sp/>(0x2000U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PSM<sp/>Global<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_CNTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_REQ_PWRDWN0_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000218U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_REQ_PWRUP0_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000118U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_REQ_PWRDWN1_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000022CU)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_REQ_PWRUP1_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000012CU)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_REQ_PWRDWN0_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000218U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_PWR_STATE0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_PWR_STATE1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000104U)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REQ_PWRUP_INT_TRIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REQ_PWRDWN_INT_TRIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_MAX_POLL_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10000000U)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK<sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PSM_WAKEUP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(2)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_DOMAIN_INIT_STATUS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_PWR_CTRL1_IRQ_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000714U)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_PWR_CTRL1_IRQ_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000071CU)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_PWR_CTRL1_IRQ_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000720U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_WAKEUP0_IRQ_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000608U)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_WAKEUP0_IRQ_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000060CU)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_WAKEUP1_IRQ_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000061CU)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSMX_GLOBAL_WAKEUP1_IRQ_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000620U)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enable<sp/>PSM<sp/>power<sp/>control<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_WFI(mask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_EN,<sp/>mask)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DISABLE_WFI(BitMask)<sp/><sp/><sp/><sp/>XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_DIS,<sp/>BitMask)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLEAR_PWRCTRL1(BitMask)<sp/>XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_STATUS,<sp/>BitMask)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_WAKE0(BitMask)<sp/><sp/><sp/>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP0_IRQ_EN,<sp/>BitMask)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DISABLE_WAKE0(BitMask)<sp/><sp/>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP0_IRQ_DIS,<sp/>BitMask)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_WAKE1(BitMask)<sp/><sp/><sp/>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP1_IRQ_EN,<sp/>BitMask)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DISABLE_WAKE1(BitMask)<sp/><sp/>XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP1_IRQ_DIS,<sp/>BitMask)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_SET_PROC_LIST_PLAT<sp/><sp/>XPlmi_SetBufferList(PROC_LOCATION_ADDRESS,<sp/>PROC_LOCATION_LENGTH)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">XStatus<sp/>XPmPsm_SendPowerUpReq(<ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Power);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">XStatus<sp/>XPmPsm_SendPowerDownReq(<ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Power);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PSM<sp/>MODULE<sp/>Data<sp/>Structures<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PSM_COUNTER_DS_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PSM_KEEP_ALIVE_STS_DS_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PSM_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.h"/>
+  </compounddef>
+</doxygen>

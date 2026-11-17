@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi3cpsx__hw_8c" kind="file">
+    <compoundname>xi3cpsx_hw.c</compoundname>
+    <includes refid="xi3cpsx_8h" local="yes">xi3cpsx.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <incdepgraph>
+      <node id="54">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="57">
+        <label>xil_io.h</label>
+      </node>
+      <node id="62">
+        <label>sleep.h</label>
+      </node>
+      <node id="60">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="61">
+        <label>xil_util.h</label>
+      </node>
+      <node id="51">
+        <label>xi3cpsx_hw.c</label>
+        <link refid="xi3cpsx_hw.c"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xi3cpsx_hw.h</label>
+        <link refid="xi3cpsx__hw_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xi3cpsx.h</label>
+        <link refid="xi3cpsx_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xstatus.h</label>
+      </node>
+      <node id="53">
+        <label>xil_types.h</label>
+      </node>
+      <node id="58">
+        <label>xparameters.h</label>
+      </node>
+      <node id="59">
+        <label>xi3cpsx_pr.h</label>
+        <link refid="xi3cpsx__pr_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i3cpsx__api_1ga72475e850e3677acf4a32c3a6ba58141" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_Reset</definition>
+        <argsstring>(XI3cPsx *InstancePtr)</argsstring>
+        <name>XI3cPsx_Reset</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the I3C controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reset must only be called after the driver has been initialized. The configuration of the device after reset is the same as its configuration after initialization. Any data transfer that is in progress is aborted.</para><para>The upper layer software is responsible for re-configuring (if necessary) and reenabling interrupts for the I3C device after the reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c" bodystart="51" bodyend="58"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="group__i3cpsx__api_1ga0d838749a16d897069d89e41f64c02d2" compoundref="xi3cpsx__hw_8h" startline="747">XI3CPSX_RESET_CTRL</references>
+        <references refid="group__i3cpsx__api_1gaf74f12787936b1122936a5819df92bb8" compoundref="xi3cpsx__hw_8h" startline="837">XI3CPSX_RESET_CTRL_SOFT_RST_VAL</references>
+        <references refid="group__i3cpsx_1ga0de53bcde172fe65ee38294ae1127970" compoundref="xi3cpsx_8h" startline="152">XI3CPSX_TIMEOUT_COUNTER</references>
+        <references refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" compoundref="xi3cpsx__hw_8h" startline="94">XI3cPsx_WriteReg</references>
+        <referencedby refid="group__i3cpsx_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="66" endline="191">XI3cPsx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1ga5f5337ebb6a45588fd6c72aeaa87ecc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_ResetFifos</definition>
+        <argsstring>(XI3cPsx *InstancePtr)</argsstring>
+        <name>XI3cPsx_ResetFifos</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the I3C FIFOs. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reset must only be called after the driver has been initialized. The configuration of the device after reset is the same as its configuration after initialization. Any data transfer that is in progress is aborted.</para><para>The upper layer software is responsible for re-configuring (if necessary) and reenabling interrupts for the I3C device after the reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c" bodystart="74" bodyend="88"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="group__i3cpsx__api_1ga0d838749a16d897069d89e41f64c02d2" compoundref="xi3cpsx__hw_8h" startline="747">XI3CPSX_RESET_CTRL</references>
+        <references refid="group__i3cpsx__api_1ga4afd82420ee7e585f04453c4777fa727" compoundref="xi3cpsx__hw_8h" startline="805">XI3CPSX_RESET_CTRL_ALL_FIFOS_RST_VAL</references>
+        <references refid="group__i3cpsx_1ga0de53bcde172fe65ee38294ae1127970" compoundref="xi3cpsx_8h" startline="152">XI3CPSX_TIMEOUT_COUNTER</references>
+        <references refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" compoundref="xi3cpsx__hw_8h" startline="94">XI3cPsx_WriteReg</references>
+        <referencedby refid="xi3cpsx__intr__example_8c_1a813e5bbca8357e45e0b2f412727f8b96" compoundref="xi3cpsx__intr__example_8c" startline="160" endline="381">I3cPsxMasterIntrExample</referencedby>
+        <referencedby refid="xi3cpsx__polled__example_8c_1a5419de39e4f4fb073bb44ad6c07d657a" compoundref="xi3cpsx__polled__example_8c" startline="135" endline="321">I3cPsxMasterPolledExample</referencedby>
+        <referencedby refid="xi3cpsx__slave__loopback_8c_1ab9d0cb3ac9cd03f7d09a187b988688c4" compoundref="xi3cpsx__slave__loopback_8c" startline="147" endline="216">I3cPsxSlaveLoopbackExample</referencedby>
+        <referencedby refid="group__i3cpsx_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="66" endline="191">XI3cPsx_CfgInitialize</referencedby>
+        <referencedby refid="group__i3cpsx__api_1gabd02b8629475df4910710b6f3ab6c73b" compoundref="xi3cpsx__hw_8c" startline="110" endline="120">XI3cPsx_RecoverFromError</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1gabd02b8629475df4910710b6f3ab6c73b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_RecoverFromError</definition>
+        <argsstring>(XI3cPsx *InstancePtr)</argsstring>
+        <name>XI3cPsx_RecoverFromError</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Brings the controller back to a usable state after a transfer error. </para>        </briefdescription>
+        <detaileddescription>
+<para>An error response such as a receive buffer overflow leaves the core halted, and it stays halted until RESUME is written. The FIFOs are cleared after that because a transfer aborted part way through can leave untransmitted data behind in the TX FIFO.</para><para>This does not restore a target that has latched an error into its CCC_DEVICE_STATUS; that register is read only and needs the controller to read it with GETSTATUS.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>RESUME must be written before the FIFOs are reset. Resetting the FIFOs of a halted core leaves it halted. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c" bodystart="110" bodyend="120"/>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" compoundref="xi3cpsx_8h" startline="307">XI3cPsx::RecvByteCount</references>
+        <references refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" compoundref="xi3cpsx_8h" startline="306">XI3cPsx::SendByteCount</references>
+        <references refid="group__i3cpsx_1ga5f5337ebb6a45588fd6c72aeaa87ecc0" compoundref="xi3cpsx__hw_8c" startline="74" endline="88">XI3cPsx_ResetFifos</references>
+        <referencedby refid="group__i3cpsx__api_1ga804fd6fec118ef2902d1a3cf8893a3b2" compoundref="xi3cpsx__master_8c" startline="780" endline="903">XI3cPsx_MasterInterruptHandler</referencedby>
+        <referencedby refid="group__i3cpsx__api_1ga759bdfcbba7cff4248e1a490f9b2b8c2" compoundref="xi3cpsx__master_8c" startline="622" endline="735">XI3cPsx_MasterRecvPolled</referencedby>
+        <referencedby refid="group__i3cpsx__api_1gaaaf31be44492b9baf96f0fc8659af975" compoundref="xi3cpsx__master_8c" startline="498" endline="598">XI3cPsx_MasterSendPolled</referencedby>
+        <referencedby refid="group__i3cpsx__api_1gac618b456af832c82d2969c38fea94598" compoundref="xi3cpsx__slave_8c" startline="426" endline="548">XI3cPsx_SlaveInterruptHandler</referencedby>
+        <referencedby refid="group__i3cpsx__api_1ga1d604f37a4c41d005558d9ba8124875c" compoundref="xi3cpsx__slave_8c" startline="323" endline="389">XI3cPsx_SlaveRecvPolled</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements I3C reset and FIFO reset helpers. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains low level access functions using the base address directly without an instance.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+--<mdash/> <mdash/> -----<mdash/> --------------------------------------------<mdash/>.
+1.00  sd  06/10/22 First release
+1.8   vn  07/30/26 Fix Doxygen warnings
+1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3cpsx_8h" kindref="compound">xi3cpsx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="51" refid="group__i3cpsx__api_1ga72475e850e3677acf4a32c3a6ba58141" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1ga72475e850e3677acf4a32c3a6ba58141" kindref="member">XI3cPsx_Reset</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga0d838749a16d897069d89e41f64c02d2" kindref="member">XI3CPSX_RESET_CTRL</ref>,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf74f12787936b1122936a5819df92bb8" kindref="member">XI3CPSX_RESET_CTRL_SOFT_RST_VAL</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Xil_WaitForEvent(((InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>)<sp/>+<sp/><ref refid="group__i3cpsx__api_1ga0d838749a16d897069d89e41f64c02d2" kindref="member">XI3CPSX_RESET_CTRL</ref>),</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf74f12787936b1122936a5819df92bb8" kindref="member">XI3CPSX_RESET_CTRL_SOFT_RST_VAL</ref>,<sp/>0,<sp/><ref refid="group__i3cpsx_1ga0de53bcde172fe65ee38294ae1127970" kindref="member">XI3CPSX_TIMEOUT_COUNTER</ref>);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="group__i3cpsx__api_1ga5f5337ebb6a45588fd6c72aeaa87ecc0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1ga5f5337ebb6a45588fd6c72aeaa87ecc0" kindref="member">XI3cPsx_ResetFifos</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>any<sp/>values<sp/>so<sp/>the<sp/>software<sp/>state<sp/>matches<sp/>the<sp/>hardware<sp/>device.</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga0d838749a16d897069d89e41f64c02d2" kindref="member">XI3CPSX_RESET_CTRL</ref>,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga4afd82420ee7e585f04453c4777fa727" kindref="member">XI3CPSX_RESET_CTRL_ALL_FIFOS_RST_VAL</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Xil_WaitForEvent(((InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>)<sp/>+<sp/><ref refid="group__i3cpsx__api_1ga0d838749a16d897069d89e41f64c02d2" kindref="member">XI3CPSX_RESET_CTRL</ref>),</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga4afd82420ee7e585f04453c4777fa727" kindref="member">XI3CPSX_RESET_CTRL_ALL_FIFOS_RST_VAL</ref>,<sp/>0,<sp/><ref refid="group__i3cpsx_1ga0de53bcde172fe65ee38294ae1127970" kindref="member">XI3CPSX_TIMEOUT_COUNTER</ref>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="110" refid="group__i3cpsx__api_1gabd02b8629475df4910710b6f3ab6c73b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1gabd02b8629475df4910710b6f3ab6c73b" kindref="member">XI3cPsx_RecoverFromError</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI3cPsx_Resume(InstancePtr);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1ga5f5337ebb6a45588fd6c72aeaa87ecc0" kindref="member">XI3cPsx_ResetFifos</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_hw.c"/>
+  </compounddef>
+</doxygen>

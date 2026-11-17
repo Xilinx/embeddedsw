@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock_ps___config" kind="struct" prot="public">
+    <compoundname>XClockPs_Config</compoundname>
+    <includes local="no">xclockps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock_ps___config_1aec5cdf3f15b9de7a3405fd8ac4604bc9" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XClockPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__clockps__api_1gaaf64099292484b2eb2d6b8c1d5926585" compoundref="xclockps__sinit_8c" startline="97" endline="110">XClock_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock_ps___config_1a6f4314283223a2eded9e79568bac131e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XClockPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="group__clockps_1ga27a346cef56805f43f1bd2251402189c" compoundref="xclockps_8c" startline="115" endline="132">XClock_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds CLOCKPS device configuration data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="280" bodyend="288"/>
+    <listofallmembers>
+      <member refid="struct_x_clock_ps___config_1a6f4314283223a2eded9e79568bac131e" prot="public" virt="non-virtual"><scope>XClockPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_clock_ps___config_1aec5cdf3f15b9de7a3405fd8ac4604bc9" prot="public" virt="non-virtual"><scope>XClockPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

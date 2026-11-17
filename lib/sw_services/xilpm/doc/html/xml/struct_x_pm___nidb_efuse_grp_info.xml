@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___nidb_efuse_grp_info" kind="struct" prot="public">
+    <compoundname>XPm_NidbEfuseGrpInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___nidb_efuse_grp_info_1afb667cc38c4cfd511b78e045d024521e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_NidbEfuseGrpInfo::RdnCntl</definition>
+        <argsstring></argsstring>
+        <name>RdnCntl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___nidb_efuse_grp_info_1a9470f3d3c91206ea929836c897fd17f3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_NidbEfuseGrpInfo::NpiBase</definition>
+        <argsstring></argsstring>
+        <name>NpiBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___nidb_efuse_grp_info_1a174adb238a523f5f9d8e866347a1a1a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_NidbEfuseGrpInfo::NpiOffset</definition>
+        <argsstring></argsstring>
+        <name>NpiOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.c" bodystart="117" bodyend="121"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___nidb_efuse_grp_info_1a9470f3d3c91206ea929836c897fd17f3" prot="public" virt="non-virtual"><scope>XPm_NidbEfuseGrpInfo</scope><name>NpiBase</name></member>
+      <member refid="struct_x_pm___nidb_efuse_grp_info_1a174adb238a523f5f9d8e866347a1a1a9" prot="public" virt="non-virtual"><scope>XPm_NidbEfuseGrpInfo</scope><name>NpiOffset</name></member>
+      <member refid="struct_x_pm___nidb_efuse_grp_info_1afb667cc38c4cfd511b78e045d024521e" prot="public" virt="non-virtual"><scope>XPm_NidbEfuseGrpInfo</scope><name>RdnCntl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbps__endpoint_8h" kind="file">
+    <compoundname>xusbps_endpoint.h</compoundname>
+    <includes local="yes">xil_cache.h</includes>
+    <includes refid="xusbps_8h" local="yes">xusbps.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xusbps__endpoint_8c" local="yes">xusbps_endpoint.c</includedby>
+    <includedby refid="xusbps__intr_8c" local="yes">xusbps_intr.c</includedby>
+    <incdepgraph>
+      <node id="208">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="205">
+        <label>xusbps.h</label>
+        <link refid="xusbps_8h"/>
+        <childnode refid="206" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="210" relation="include">
+        </childnode>
+      </node>
+      <node id="209">
+        <label>xil_io.h</label>
+      </node>
+      <node id="204">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="203">
+        <label>xusbps_endpoint.h</label>
+        <link refid="xusbps_endpoint.h"/>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+      </node>
+      <node id="210">
+        <label>xstatus.h</label>
+      </node>
+      <node id="206">
+        <label>xusbps_hw.h</label>
+        <link refid="xusbps__hw_8h"/>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="208" relation="include">
+        </childnode>
+        <childnode refid="209" relation="include">
+        </childnode>
+      </node>
+      <node id="207">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="212">
+        <label>xusbps_endpoint.c</label>
+        <link refid="xusbps__endpoint_8c"/>
+      </node>
+      <node id="211">
+        <label>xusbps_endpoint.h</label>
+        <link refid="xusbps_endpoint.h"/>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+      </node>
+      <node id="213">
+        <label>xusbps_intr.c</label>
+        <link refid="xusbps__intr_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>dTD Next Link Pointer (dTDNLP) bit positions.</header>
+      <memberdef kind="define" id="group__usbps_1gabf5360d3750ba2dd97268829f1a3c34d" prot="public" static="no">
+        <name>XUSBPS_dTDNLP_T_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>USB dTD Next Link Pointer Terminate Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaba6835e9dc72c10c677e68be76e0c0d6" prot="public" static="no">
+        <name>XUSBPS_dTDNLP_ADDR_MASK</name>
+        <initializer>0xFFFFFFE0</initializer>
+        <briefdescription>
+<para>USB dTD Next Link Pointer Address [31:5]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>dTD Token (dTDTOKEN) bit positions.</header>
+      <memberdef kind="define" id="group__usbps_1ga233e424e29efeaac5f0336fff454c10a" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_XERR_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>dTD Transaction Error </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga7bc5a6c4293c2877587f30173a4d0629" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_BUFERR_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>dTD Data Buffer Error </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gad7a9ea369a462c6c667cce07639191a6" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_HALT_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>dTD Halted Flag </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga5e3ba25e78a33f9f7676109281cbad59" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_ACTIVE_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>dTD Active Bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga79336f2e95c4eeb4a5c01ca58439a5f0" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_MULTO_MASK</name>
+        <initializer>0x00000C00</initializer>
+        <briefdescription>
+<para>Multiplier Override Field [1:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaccc682692ac8a2864433eb6ae897683f" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_IOC_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>Interrupt on Complete Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga878b80a1e7e85f4f9a3360eb17812ace" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN_LEN_MASK</name>
+        <initializer>0x7FFF0000</initializer>
+        <briefdescription>
+<para>Transfer Length Field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>dQH Configuration (dQHCFG) bit positions.</header>
+      <memberdef kind="define" id="group__usbps_1gad5a24bb56460eb7694a22c569daf2c7f" prot="public" static="no">
+        <name>XUSBPS_dQHCFG_IOS_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>USB dQH Interrupt on Setup Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="363" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga1a92ed1ac65951cb831a7a4700c57b29" prot="public" static="no">
+        <name>XUSBPS_dQHCFG_MPL_MASK</name>
+        <initializer>0x07FF0000</initializer>
+        <briefdescription>
+<para>USB dQH Maximum Packet Length Field [10:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaa9faf8c7f6d63c5e298fe2da1bbe5729" prot="public" static="no">
+        <name>XUSBPS_dQHCFG_MPL_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit shift for MPL field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="368" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga06c22710a2c09b6df434da907fb54400" prot="public" static="no">
+        <name>XUSBPS_dQHCFG_ZLT_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>USB dQH Zero Length Termination Select Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="369" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gacfb4d5151d1fb61f53020b058692bb6d" prot="public" static="no">
+        <name>XUSBPS_dQHCFG_MULT_MASK</name>
+        <initializer>0xC0000000</initializer>
+        <briefdescription>
+<para>USB dQH Number of Transactions Field [1:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga4f882a6f45cea8eb958c73a07b791b5b" prot="public" static="no">
+        <name>XUSBPS_dQHCFG_MULT_SHIFT</name>
+        <initializer>30</initializer>
+        <briefdescription>
+<para>Bit shift for MULT field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="373" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" prot="public" static="no">
+        <name>XUSBPS_dTDNLP</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Endpoint Device Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para>The dTD describes to the device controller the location and quantity of data to be sent/received for given transfer. The driver does not attempt to modify any field in an active dTD except the Next Link Pointer.Pointer to the next descriptor </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" prot="public" static="no">
+        <name>XUSBPS_dTDTOKEN</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Descriptor Token. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gae1f55dd3ec1b871e8e969505420aba2d" prot="public" static="no">
+        <name>XUSBPS_dTDBPTR0</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Buffer Pointer 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga798410783179a1d9a2e5dbe5a79528b9" prot="public" static="no">
+        <name>XUSBPS_dTDBPTR1</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Buffer Pointer 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gab0c5f7403130fc99d7ae54e159bbd3e0" prot="public" static="no">
+        <name>XUSBPS_dTDBPTR2</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Buffer Pointer 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaa7b2ffafdee0197dffe87a70bb67ebd6" prot="public" static="no">
+        <name>XUSBPS_dTDBPTR3</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Buffer Pointer 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga304262729ed4884ed8be53898ecace41" prot="public" static="no">
+        <name>XUSBPS_dTDBPTR4</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Buffer Pointer 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gad25adb916e56f4f93664e668daaa03d5" prot="public" static="no">
+        <name>XUSBPS_dTDBPTR</name>
+        <param><defname>n</defname></param>
+        <initializer>(<ref refid="group__usbps_1gae1f55dd3ec1b871e8e969505420aba2d" kindref="member">XUSBPS_dTDBPTR0</ref> + (n) * 0x04)</initializer>
+        <briefdescription>
+<para>Buffer Pointer n (0-4). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga304ffb51a9138fa0195b284096c1463e" prot="public" static="no">
+        <name>XUSBPS_dTDRSRVD</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Reserved field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaa0000a3e99579f8bdfcd74d39afaa41f" prot="public" static="no">
+        <name>XUSBPS_dTDUSERDATA</name>
+        <initializer><ref refid="group__usbps_1ga304ffb51a9138fa0195b284096c1463e" kindref="member">XUSBPS_dTDRSRVD</ref></initializer>
+        <briefdescription>
+<para>Reserved field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaa260e9aba369da9638b783b6954f6661" prot="public" static="no">
+        <name>XUsbPs_dTDInvalidateCache</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer>Xil_DCacheInvalidateRange((unsigned int)dTDPtr, sizeof(<ref refid="group__usbps_1ga7c5399f5d7978baf54eed460d1099d48" kindref="member">XUsbPs_dTD</ref>))</initializer>
+        <briefdescription>
+<para>Invalidates cache for a Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1gaa01a009151d133f07249d7f932e22f11" compoundref="xusbps__endpoint_8c" startline="574" endline="594">XUsbPs_EpBufferRelease</referencedby>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga4ce48c87871c14330f8ccc06d2a2786e" prot="public" static="no">
+        <name>XUsbPs_dTDFlushCache</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer>Xil_DCacheFlushRange((unsigned int)dTDPtr, sizeof(<ref refid="group__usbps_1ga7c5399f5d7978baf54eed460d1099d48" kindref="member">XUsbPs_dTD</ref>))</initializer>
+        <briefdescription>
+<para>Flushes cache for a Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1gaa01a009151d133f07249d7f932e22f11" compoundref="xusbps__endpoint_8c" startline="574" endline="594">XUsbPs_EpBufferRelease</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaa4e77904e0ef91f173006f30273977ad" prot="public" static="no">
+        <name>XUsbPs_dQHInvalidateCache</name>
+        <param><defname>dQHPtr</defname></param>
+        <initializer>Xil_DCacheInvalidateRange((unsigned int)dQHPtr, sizeof(<ref refid="group__usbps_1ga5c6f9d3b7850e3256d48c037bdd713fd" kindref="member">XUsbPs_dQH</ref>))</initializer>
+        <briefdescription>
+<para>Invalidates cache for a Queue Head structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="805" endline="885">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga84c965a1c114037ca67780c54a4353f0" prot="public" static="no">
+        <name>XUsbPs_dQHFlushCache</name>
+        <param><defname>dQHPtr</defname></param>
+        <initializer>Xil_DCacheFlushRange((unsigned int)dQHPtr, sizeof(<ref refid="group__usbps_1ga5c6f9d3b7850e3256d48c037bdd713fd" kindref="member">XUsbPs_dQH</ref>))</initializer>
+        <briefdescription>
+<para>Flushes cache for a Queue Head structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga53e16e680fe49e56c3267e4d9d81078a" prot="public" static="no">
+        <name>XUsbPs_dTDSetTransferLen</name>
+        <param><defname>dTDPtr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>, 		\
+			(<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>) &amp;	\
+			 ~<ref refid="group__usbps_1ga878b80a1e7e85f4f9a3360eb17812ace" kindref="member">XUSBPS_dTDTOKEN_LEN_MASK</ref>) | ((Len) &lt;&lt; 16))</initializer>
+        <briefdescription>
+<para>This macro sets the Transfer Length for the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the dTD element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length to be set. Range: 0..16384</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga53e16e680fe49e56c3267e4d9d81078a" kindref="member">XUsbPs_dTDSetTransferLen(u32 dTDPtr, u32 Len)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaff561ce4d02aeaca741b9344cf71c439" prot="public" static="no">
+        <name>XUsbPs_dTDGetNLP</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer>(<ref refid="group__usbps_1ga7c5399f5d7978baf54eed460d1099d48" kindref="member">XUsbPs_dTD</ref> *) ((<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>)\
+			 &amp; <ref refid="group__usbps_1gaba6835e9dc72c10c677e68be76e0c0d6" kindref="member">XUSBPS_dTDNLP_ADDR_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro gets the Next Link pointer of the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Next Link Pointer of the descriptor.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__usbps_1gaff561ce4d02aeaca741b9344cf71c439" kindref="member">XUsbPs_dTDGetNLP(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga8d5cfe0e60b6d415d793c2a7ae59fff3" prot="public" static="no">
+        <name>XUsbPs_dTDSetNLP</name>
+        <param><defname>dTDPtr</defname></param>
+        <param><defname>NLP</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>, 		\
+			(<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>) &amp;	\
+			 ~<ref refid="group__usbps_1gaba6835e9dc72c10c677e68be76e0c0d6" kindref="member">XUSBPS_dTDNLP_ADDR_MASK</ref>) |		\
+			((NLP) &amp; <ref refid="group__usbps_1gaba6835e9dc72c10c677e68be76e0c0d6" kindref="member">XUSBPS_dTDNLP_ADDR_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro sets the Next Link pointer of the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NLP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Next Link Pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga8d5cfe0e60b6d415d793c2a7ae59fff3" kindref="member">XUsbPs_dTDSetNLP(u32 dTDPtr, u32 NLP)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga711b9e3ec5886510d1647017b171b7a7" prot="public" static="no">
+        <name>XUsbPs_dTDGetTransferLen</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer>(u32) ((<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>) 	\
+		&amp; <ref refid="group__usbps_1ga878b80a1e7e85f4f9a3360eb17812ace" kindref="member">XUSBPS_dTDTOKEN_LEN_MASK</ref>) &gt;&gt; 16)</initializer>
+        <briefdescription>
+<para>This macro gets the Transfer Length for the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TransferLength field of the descriptor.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__usbps_1ga711b9e3ec5886510d1647017b171b7a7" kindref="member">XUsbPs_dTDGetTransferLen(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gabd3140e00ef6e8680e34ee234d0ea416" prot="public" static="no">
+        <name>XUsbPs_dTDSetIOC</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>, 		\
+			<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>) |	\
+			<ref refid="group__usbps_1gaccc682692ac8a2864433eb6ae897683f" kindref="member">XUSBPS_dTDTOKEN_IOC_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro sets the Interrupt On Complete (IOC) bit for the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1gabd3140e00ef6e8680e34ee234d0ea416" kindref="member">XUsbPs_dTDSetIOC(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gaa01a009151d133f07249d7f932e22f11" compoundref="xusbps__endpoint_8c" startline="574" endline="594">XUsbPs_EpBufferRelease</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga90d5c9b287b9f052eaacd2134bfe144a" prot="public" static="no">
+        <name>XUsbPs_dTDSetTerminate</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>, 		\
+			<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>) |	\
+			<ref refid="group__usbps_1gabf5360d3750ba2dd97268829f1a3c34d" kindref="member">XUSBPS_dTDNLP_T_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro sets the Terminate bit for the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga90d5c9b287b9f052eaacd2134bfe144a" kindref="member">XUsbPs_dTDSetTerminate(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga0790e61992c08a5957fd76b0872e229f" prot="public" static="no">
+        <name>XUsbPs_dTDClrTerminate</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>, 		\
+			<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" kindref="member">XUSBPS_dTDNLP</ref>) &amp;	\
+			~<ref refid="group__usbps_1gabf5360d3750ba2dd97268829f1a3c34d" kindref="member">XUSBPS_dTDNLP_T_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro clears the Terminate bit for the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga0790e61992c08a5957fd76b0872e229f" kindref="member">XUsbPs_dTDClrTerminate(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gaa01a009151d133f07249d7f932e22f11" compoundref="xusbps__endpoint_8c" startline="574" endline="594">XUsbPs_EpBufferRelease</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga0eac82eeedb77e35d21c352b3aaabd17" prot="public" static="no">
+        <name>XUsbPs_dTDIsActive</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer>((<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>) &amp;		\
+	  <ref refid="group__usbps_1ga5e3ba25e78a33f9f7676109281cbad59" kindref="member">XUSBPS_dTDTOKEN_ACTIVE_MASK</ref>) ? TRUE : FALSE)</initializer>
+        <briefdescription>
+<para>This macro checks if the given descriptor is active. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE: The buffer is active.</para></listitem><listitem><para>FALSE: The buffer is not active.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__usbps_1ga0eac82eeedb77e35d21c352b3aaabd17" kindref="member">XUsbPs_dTDIsActive(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga391b6782385021bb6ea588f85e81655d" prot="public" static="no">
+        <name>XUsbPs_dTDSetActive</name>
+        <param><defname>dTDPtr</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>, 		\
+			<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>) |	\
+			<ref refid="group__usbps_1ga5e3ba25e78a33f9f7676109281cbad59" kindref="member">XUSBPS_dTDTOKEN_ACTIVE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro sets the Active bit for the given Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga391b6782385021bb6ea588f85e81655d" kindref="member">XUsbPs_dTDSetActive(u32 dTDPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gaa01a009151d133f07249d7f932e22f11" compoundref="xusbps__endpoint_8c" startline="574" endline="594">XUsbPs_EpBufferRelease</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga3a1bc5acb0e193094a4d98ff052cf934" prot="public" static="no">
+        <name>XUsbPs_dTDSetMultO</name>
+        <param><defname>dTDPtr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer><ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>, 		\
+			(<ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD</ref>(dTDPtr, <ref refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" kindref="member">XUSBPS_dTDTOKEN</ref>) &amp;	\
+			 (~<ref refid="group__usbps_1ga79336f2e95c4eeb4a5c01ca58439a5f0" kindref="member">XUSBPS_dTDTOKEN_MULTO_MASK</ref>)) | val)</initializer>
+        <briefdescription>
+<para>This macro sets the multiplier bit for the Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the multiplier value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga3a1bc5acb0e193094a4d98ff052cf934" kindref="member">XUsbPs_dTDSetMultO(u32 dTDPtr, u32 val)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" prot="public" static="no">
+        <name>XUsbPs_ReaddTD</name>
+        <param><defname>dTDPtr</defname></param>
+        <param><defname>Id</defname></param>
+        <initializer>(*(u32 *)((u32)(dTDPtr) + (u32)(Id)))</initializer>
+        <briefdescription>
+<para>This macro reads the content of a field in a Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dTD element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the field ID inside the dTD element to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" kindref="member">XUsbPs_ReaddTD(u32 dTDPtr, u32 Id)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" prot="public" static="no">
+        <name>XUsbPs_WritedTD</name>
+        <param><defname>dTDPtr</defname></param>
+        <param><defname>Id</defname></param>
+        <param><defname>Val</defname></param>
+        <initializer>(*(u32 *) ((u32)(dTDPtr) + (u32)(Id)) = (u32)(Val))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a field in a Transfer Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dTDPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the dTD element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the field ID inside the dTD element to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to the field.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" kindref="member">XUsbPs_WritedTD(u32 dTDPtr, u32 Id, u32 Val)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="321" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" prot="public" static="no">
+        <name>XUSBPS_dQHCFG</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Endpoint Device Queue Head. </para>        </briefdescription>
+        <detaileddescription>
+<para>Device queue heads are arranged in an array in a continuous area of memory pointed to by the ENDPOINTLISTADDR pointer. The device controller will index into this array based upon the endpoint number received from the USB bus. All information necessary to respond to transactions for all primed transfers is contained in this list so the Device Controller can readily respond to incoming requests without having to traverse a linked list.</para><para>The device Endpoint Queue Head (dQH) is where all transfers are managed. The dQH is a 48-byte data structure, but must be aligned on a 64-byte boundary. During priming of an endpoint, the dTD (device transfer descriptor) is copied into the overlay area of the dQH, which starts at the nextTD pointer DWord and continues through the end of the buffer pointers DWords. After a transfer is complete, the dTD status DWord is updated in the dTD pointed to by the currentTD pointer. While a packet is in progress, the overlay area of the dQH is used as a staging area for the dTD so that the Device Controller can access needed information with little minimal latency.</para><para><simplesect kind="note"><para>Software must ensure that no interface data structure reachable by the Device Controller spans a 4K-page boundary. The first element of the Endpoint Queue Head List must be aligned on a 4K boundary.dQH Configuration </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="351" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga5ebb95d2a416b4da0fe787e7a73f81c9" prot="public" static="no">
+        <name>XUSBPS_dQHCPTR</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>dQH Current dTD Pointer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="352" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gae62a13c7c27ae6831f352e3f76689374" prot="public" static="no">
+        <name>XUSBPS_dQHdTDNLP</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>dTD Next Link Ptr in dQH overlay </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gab1a2ab2dceacbfc6262ea3053bc0c4ba" prot="public" static="no">
+        <name>XUSBPS_dQHdTDTOKEN</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>dTD Token in dQH overlay </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga578231f86cf92fd3a737403139877114" prot="public" static="no">
+        <name>XUSBPS_dQHSUB0</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>USB dQH Setup Buffer 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="805" endline="885">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga8bf765db8dc35c110ea1fce23e0f8004" prot="public" static="no">
+        <name>XUSBPS_dQHSUB1</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+<para>USB dQH Setup Buffer 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="357" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="805" endline="885">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga4bdef8ae36dd906e45f9f8cd0db05386" prot="public" static="no">
+        <name>XUsbPs_dQHSetMaxPacketLen</name>
+        <param><defname>dQHPtr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer><ref refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" kindref="member">XUsbPs_WritedQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>, 		\
+			(<ref refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" kindref="member">XUsbPs_ReaddQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>) &amp;	\
+			 ~<ref refid="group__usbps_1ga1a92ed1ac65951cb831a7a4700c57b29" kindref="member">XUSBPS_dQHCFG_MPL_MASK</ref>) | ((Len) &lt;&lt; 16))</initializer>
+        <briefdescription>
+<para>This macro sets the Maximum Packet Length field of the give Queue Head. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga4bdef8ae36dd906e45f9f8cd0db05386" kindref="member">XUsbPs_dQHSetMaxPacketLen(u32 dQHPtr, u32 Len)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="389" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaae119765b6e580df20735ce89de133ae" prot="public" static="no">
+        <name>XUsbPs_dQHSetIOS</name>
+        <param><defname>dQHPtr</defname></param>
+        <initializer><ref refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" kindref="member">XUsbPs_WritedQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>, 		\
+			<ref refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" kindref="member">XUsbPs_ReaddQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>) |	\
+			<ref refid="group__usbps_1gad5a24bb56460eb7694a22c569daf2c7f" kindref="member">XUSBPS_dQHCFG_IOS_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro sets the Interrupt On Setup (IOS) bit for an endpoint. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1gaae119765b6e580df20735ce89de133ae" kindref="member">XUsbPs_dQHSetIOS(u32 dQHPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="405" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga429409da5135163e2a708eac0eac561c" prot="public" static="no">
+        <name>XUsbPs_dQHClrIOS</name>
+        <param><defname>dQHPtr</defname></param>
+        <initializer><ref refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" kindref="member">XUsbPs_WritedQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>, 		\
+			<ref refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" kindref="member">XUsbPs_ReaddQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>) &amp;	\
+			~<ref refid="group__usbps_1gad5a24bb56460eb7694a22c569daf2c7f" kindref="member">XUSBPS_dQHCFG_IOS_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro clears the Interrupt On Setup (IOS) bit for an endpoint. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga429409da5135163e2a708eac0eac561c" kindref="member">XUsbPs_dQHClrIOS(u32 dQHPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="421" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gaad62bf32e8122d6645586a924255298a" prot="public" static="no">
+        <name>XUsbPs_dQHEnableZLT</name>
+        <param><defname>dQHPtr</defname></param>
+        <initializer><ref refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" kindref="member">XUsbPs_WritedQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>, 		\
+			<ref refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" kindref="member">XUsbPs_ReaddQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>) &amp;	\
+			~<ref refid="group__usbps_1ga06c22710a2c09b6df434da907fb54400" kindref="member">XUSBPS_dQHCFG_ZLT_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro enables Zero Length Termination for the endpoint. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1gaad62bf32e8122d6645586a924255298a" kindref="member">XUsbPs_dQHEnableZLT(u32 dQHPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="437" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga536734fa778d3c92acee8f924ed14368" prot="public" static="no">
+        <name>XUsbPs_dQHDisableZLT</name>
+        <param><defname>dQHPtr</defname></param>
+        <initializer><ref refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" kindref="member">XUsbPs_WritedQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>, 		\
+			<ref refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" kindref="member">XUsbPs_ReaddQH</ref>(dQHPtr, <ref refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" kindref="member">XUSBPS_dQHCFG</ref>) |	\
+			<ref refid="group__usbps_1ga06c22710a2c09b6df434da907fb54400" kindref="member">XUSBPS_dQHCFG_ZLT_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro disables Zero Length Termination for the endpoint. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__usbps_1ga536734fa778d3c92acee8f924ed14368" kindref="member">XUsbPs_dQHDisableZLT(u32 dQHPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="454" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" prot="public" static="no">
+        <name>XUsbPs_ReaddQH</name>
+        <param><defname>dQHPtr</defname></param>
+        <param><defname>Id</defname></param>
+        <initializer>(*(u32 *)((u32)(dQHPtr) + (u32) (Id)))</initializer>
+        <briefdescription>
+<para>This macro reads the content of a field in a Queue Head. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Field ID inside the dQH element to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" kindref="member">XUsbPs_ReaddQH(u32 dQHPtr, u32 Id)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="471" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="472" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="805" endline="885">XUsbPs_EpGetSetupData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__usbps_1gac4e6554153ee40366d383af1292c04ab" prot="public" static="no">
+        <name>XUsbPs_WritedQH</name>
+        <param><defname>dQHPtr</defname></param>
+        <param><defname>Id</defname></param>
+        <param><defname>Val</defname></param>
+        <initializer>(*(u32 *) ((u32)(dQHPtr) + (u32)(Id)) = (u32)(Val))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a field in a Queue Head. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dQHPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the dQH element. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Field ID inside the dQH element to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Value to write to the field.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" kindref="member">XUsbPs_WritedQH(u32 dQHPtr, u32 Id, u32 Val)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" line="486" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XUSBPS_ENDPOINT_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPS_ENDPOINT_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbps_8h" kindref="compound">xusbps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="group__usbps_1ga1918f73069d71fa135b2eab488e821dd" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDNLP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__usbps_1gab3adbbd5bdcb702adc34f1c9e2e19f82" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN<sp/>0x04<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__usbps_1gae1f55dd3ec1b871e8e969505420aba2d" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDBPTR0<sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__usbps_1ga798410783179a1d9a2e5dbe5a79528b9" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDBPTR1<sp/>0x0C<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__usbps_1gab0c5f7403130fc99d7ae54e159bbd3e0" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDBPTR2<sp/>0x10<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__usbps_1gaa7b2ffafdee0197dffe87a70bb67ebd6" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDBPTR3<sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__usbps_1ga304262729ed4884ed8be53898ecace41" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDBPTR4<sp/>0x18<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__usbps_1gad25adb916e56f4f93664e668daaa03d5" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDBPTR(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUSBPS_dTDBPTR0<sp/>+<sp/>(n)<sp/>*<sp/>0x04)<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__usbps_1ga304ffb51a9138fa0195b284096c1463e" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDRSRVD<sp/>0x1C<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>We<sp/>use<sp/>the<sp/>reserved<sp/>field<sp/>in<sp/>the<sp/>dTD<sp/>to<sp/>store<sp/>user<sp/>data.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="group__usbps_1gaa0000a3e99579f8bdfcd74d39afaa41f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPS_dTDUSERDATA<sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dTDRSRVD<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__usbps_1gabf5360d3750ba2dd97268829f1a3c34d" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDNLP_T_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73" refid="group__usbps_1gaba6835e9dc72c10c677e68be76e0c0d6" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDNLP_ADDR_MASK<sp/>0xFFFFFFE0</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__usbps_1ga233e424e29efeaac5f0336fff454c10a" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_XERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__usbps_1ga7bc5a6c4293c2877587f30173a4d0629" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_BUFERR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="83" refid="group__usbps_1gad7a9ea369a462c6c667cce07639191a6" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_HALT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="84" refid="group__usbps_1ga5e3ba25e78a33f9f7676109281cbad59" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="85" refid="group__usbps_1ga79336f2e95c4eeb4a5c01ca58439a5f0" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_MULTO_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000C00<sp/></highlight></codeline>
+<codeline lineno="86" refid="group__usbps_1gaccc682692ac8a2864433eb6ae897683f" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_IOC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000<sp/></highlight></codeline>
+<codeline lineno="87" refid="group__usbps_1ga878b80a1e7e85f4f9a3360eb17812ace" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dTDTOKEN_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FFF0000<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*<sp/>IMPORTANT<sp/>NOTE:<sp/>Many<sp/>of<sp/>the<sp/>following<sp/>macros<sp/>modify<sp/>dQH/dTD<sp/>structures</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>that<sp/>may<sp/>reside<sp/>in<sp/>cached<sp/>memory.<sp/>Callers<sp/>must<sp/>ensure<sp/>cache<sp/>coherency</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>using<sp/>the<sp/>cache<sp/>invalidate/flush<sp/>macros<sp/>provided<sp/>below.</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="group__usbps_1gaa260e9aba369da9638b783b6954f6661" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDInvalidateCache(dTDPtr)<sp/>\</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((unsigned<sp/>int)dTDPtr,<sp/>sizeof(XUsbPs_dTD))</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="group__usbps_1ga4ce48c87871c14330f8ccc06d2a2786e" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDFlushCache(dTDPtr)<sp/>\</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((unsigned<sp/>int)dTDPtr,<sp/>sizeof(XUsbPs_dTD))</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="group__usbps_1gaa4e77904e0ef91f173006f30273977ad" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHInvalidateCache(dQHPtr)<sp/>\</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((unsigned<sp/>int)dQHPtr,<sp/>sizeof(XUsbPs_dQH))</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112" refid="group__usbps_1ga84c965a1c114037ca67780c54a4353f0" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHFlushCache(dQHPtr)<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((unsigned<sp/>int)dQHPtr,<sp/>sizeof(XUsbPs_dQH))</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="127" refid="group__usbps_1ga53e16e680fe49e56c3267e4d9d81078a" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDSetTransferLen(dTDPtr,<sp/>Len)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XUSBPS_dTDTOKEN_LEN_MASK)<sp/>|<sp/>((Len)<sp/>&lt;&lt;<sp/>16))</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="146" refid="group__usbps_1gaff561ce4d02aeaca741b9344cf71c439" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDGetNLP(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUsbPs_dTD<sp/>*)<sp/>((XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDNLP)\</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XUSBPS_dTDNLP_ADDR_MASK))</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__usbps_1ga8d5cfe0e60b6d415d793c2a7ae59fff3" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDSetNLP(dTDPtr,<sp/>NLP)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDNLP,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDNLP)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XUSBPS_dTDNLP_ADDR_MASK)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((NLP)<sp/>&amp;<sp/>XUSBPS_dTDNLP_ADDR_MASK))</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="183" refid="group__usbps_1ga711b9e3ec5886510d1647017b171b7a7" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDGetTransferLen(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<sp/>((XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XUSBPS_dTDTOKEN_LEN_MASK)<sp/>&gt;&gt;<sp/>16)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="200" refid="group__usbps_1gabd3140e00ef6e8680e34ee234d0ea416" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDSetIOC(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dTDTOKEN_IOC_MASK)</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="217" refid="group__usbps_1ga90d5c9b287b9f052eaacd2134bfe144a" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDSetTerminate(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDNLP,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDNLP)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dTDNLP_T_MASK)</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="234" refid="group__usbps_1ga0790e61992c08a5957fd76b0872e229f" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDClrTerminate(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDNLP,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDNLP)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XUSBPS_dTDNLP_T_MASK)</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="255" refid="group__usbps_1ga0eac82eeedb77e35d21c352b3aaabd17" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDIsActive(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dTDTOKEN_ACTIVE_MASK)<sp/>?<sp/>TRUE<sp/>:<sp/>FALSE)</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="271" refid="group__usbps_1ga391b6782385021bb6ea588f85e81655d" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDSetActive(dTDPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dTDTOKEN_ACTIVE_MASK)</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="288" refid="group__usbps_1ga3a1bc5acb0e193094a4d98ff052cf934" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_dTDSetMultO(dTDPtr,<sp/>val)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUsbPs_ReaddTD(dTDPtr,<sp/>XUSBPS_dTDTOKEN)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~XUSBPS_dTDTOKEN_MULTO_MASK))<sp/>|<sp/>val)</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="306" refid="group__usbps_1ga8fb175f0a451903f999c9ddf2454eaa6" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_ReaddTD(dTDPtr,<sp/>Id)<sp/><sp/><sp/><sp/><sp/><sp/>(*(u32<sp/>*)((u32)(dTDPtr)<sp/>+<sp/>(u32)(Id)))</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="321" refid="group__usbps_1ga46b39addcef0c64d911bcb4fef09995f" refkind="member"><highlight class="preprocessor">#define<sp/>XUsbPs_WritedTD(dTDPtr,<sp/>Id,<sp/>Val)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(u32<sp/>*)<sp/>((u32)(dTDPtr)<sp/>+<sp/>(u32)(Id))<sp/>=<sp/>(u32)(Val))</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="351" refid="group__usbps_1ga35a9eff7ab1ce1b0d0ce40905a240be6" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="352" refid="group__usbps_1ga5ebb95d2a416b4da0fe787e7a73f81c9" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCPTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/></highlight></codeline>
+<codeline lineno="353" refid="group__usbps_1gae62a13c7c27ae6831f352e3f76689374" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHdTDNLP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHdTDTOKEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0C<sp/></highlight></codeline>
+<codeline lineno="356" refid="group__usbps_1gab1a2ab2dceacbfc6262ea3053bc0c4ba" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHSUB0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28<sp/></highlight></codeline>
+<codeline lineno="357" refid="group__usbps_1ga578231f86cf92fd3a737403139877114" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHSUB1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2C<sp/></highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG_IOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000</highlight></codeline>
+<codeline lineno="364" refid="group__usbps_1gad5a24bb56460eb7694a22c569daf2c7f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG_MPL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07FF0000</highlight></codeline>
+<codeline lineno="366" refid="group__usbps_1ga1a92ed1ac65951cb831a7a4700c57b29" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG_MPL_SHIFT<sp/><sp/><sp/><sp/>16<sp/></highlight></codeline>
+<codeline lineno="369" refid="group__usbps_1gaa9faf8c7f6d63c5e298fe2da1bbe5729" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG_ZLT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000000</highlight></codeline>
+<codeline lineno="370" refid="group__usbps_1ga06c22710a2c09b6df434da907fb54400" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG_MULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0000000</highlight></codeline>
+<codeline lineno="372" refid="group__usbps_1gacfb4d5151d1fb61f53020b058692bb6d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor">#define<sp/>XUSBPS_dQHCFG_MULT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>30<sp/></highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="378"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="389"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHSetMaxPacketLen(dQHPtr,<sp/>Len)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="390" refid="group__usbps_1ga4bdef8ae36dd906e45f9f8cd0db05386" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedQH(dQHPtr,<sp/>XUSBPS_dQHCFG,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUsbPs_ReaddQH(dQHPtr,<sp/>XUSBPS_dQHCFG)<sp/>&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XUSBPS_dQHCFG_MPL_MASK)<sp/>|<sp/>((Len)<sp/>&lt;&lt;<sp/>16))</highlight></codeline>
+<codeline lineno="393"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="405"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHSetIOS(dQHPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="406" refid="group__usbps_1gaae119765b6e580df20735ce89de133ae" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedQH(dQHPtr,<sp/>XUSBPS_dQHCFG,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="407"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddQH(dQHPtr,<sp/>XUSBPS_dQHCFG)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dQHCFG_IOS_MASK)</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="421"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHClrIOS(dQHPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="422" refid="group__usbps_1ga429409da5135163e2a708eac0eac561c" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedQH(dQHPtr,<sp/>XUSBPS_dQHCFG,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="423"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddQH(dQHPtr,<sp/>XUSBPS_dQHCFG)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XUSBPS_dQHCFG_IOS_MASK)</highlight></codeline>
+<codeline lineno="425"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="437"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHEnableZLT(dQHPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="438" refid="group__usbps_1gaad62bf32e8122d6645586a924255298a" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedQH(dQHPtr,<sp/>XUSBPS_dQHCFG,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="439"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddQH(dQHPtr,<sp/>XUSBPS_dQHCFG)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="440"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XUSBPS_dQHCFG_ZLT_MASK)</highlight></codeline>
+<codeline lineno="441"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="454"><highlight class="preprocessor">#define<sp/>XUsbPs_dQHDisableZLT(dQHPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="455" refid="group__usbps_1ga536734fa778d3c92acee8f924ed14368" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_WritedQH(dQHPtr,<sp/>XUSBPS_dQHCFG,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPs_ReaddQH(dQHPtr,<sp/>XUSBPS_dQHCFG)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="457"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPS_dQHCFG_ZLT_MASK)</highlight></codeline>
+<codeline lineno="458"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="459"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="471"><highlight class="preprocessor">#define<sp/>XUsbPs_ReaddQH(dQHPtr,<sp/>Id)<sp/><sp/><sp/><sp/><sp/><sp/>(*(u32<sp/>*)((u32)(dQHPtr)<sp/>+<sp/>(u32)<sp/>(Id)))</highlight></codeline>
+<codeline lineno="472" refid="group__usbps_1ga839c21d9f38839e4feb1c9e65a8c1737" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="486"><highlight class="preprocessor">#define<sp/>XUsbPs_WritedQH(dQHPtr,<sp/>Id,<sp/>Val)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="487" refid="group__usbps_1gac4e6554153ee40366d383af1292c04ab" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(u32<sp/>*)<sp/>((u32)(dQHPtr)<sp/>+<sp/>(u32)(Id))<sp/>=<sp/>(u32)(Val))</highlight></codeline>
+<codeline lineno="488"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="492"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="494"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSBPS_ENDPOINT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="496"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_endpoint.h"/>
+  </compounddef>
+</doxygen>

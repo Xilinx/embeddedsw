@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use rtcpsu driver.</para><sect1 id="example_1ex1">
+<title>xrtcpsu_alarm_interrupt_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This is the alarm example using the driver in interrupt mode.</para><para>For details, see <ref refid="xrtcpsu__alarm__interrupt__example_8c" kindref="compound">xrtcpsu_alarm_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xrtcpsu_alarm_polled_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This is the alarm example using the driver in polled mode.</para><para>For details, see <ref refid="xrtcpsu__alarm__polled__example_8c" kindref="compound">xrtcpsu_alarm_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xrtcpsu_periodic_alarm_interrupt_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This is the periodic alarm example using the driver in interrupt mode.</para><para>For details, see <ref refid="xrtcpsu__periodic__alarm__interrupt__example_8c" kindref="compound">xrtcpsu_periodic_alarm_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xrtcpsu_seconds_interrupt_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This is the seconds example using the driver in interrupt mode.</para><para>For details, see <ref refid="xrtcpsu__seconds__interrupt__example_8c" kindref="compound">xrtcpsu_seconds_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xrtcpsu_seconds_polled_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This is the seconds example using the driver in polled mode.</para><para>For details, see <ref refid="xrtcpsu__seconds__polled__example_8c" kindref="compound">xrtcpsu_seconds_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xrtcpsu_set_calibration_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This example contains the functions which updates the calibration register value.</para><para>For details, see <ref refid="xrtcpsu__set__calibration__example_8c" kindref="compound">xrtcpsu_set_calibration_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xrtcpsu_set_time_example.c</title>
+<para>Contains an example on how to use the XRtcpsu driver directly. This example contains the functions which updates the current time.</para><para>For details, see <ref refid="xrtcpsu__set__time__example_8c" kindref="compound">xrtcpsu_set_time_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

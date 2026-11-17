@@ -1,0 +1,587 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pin_8h" kind="file">
+    <compoundname>xpm_pin.h</compoundname>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__api_8h" local="yes">xpm_api.h</includes>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__pin_8c" local="yes">xpm_pin.c</includedby>
+    <includedby refid="xpm__pin__groups_8c" local="yes">xpm_pin_groups.c</includedby>
+    <includedby refid="xpm__runtime__pin_8h" local="yes">xpm_runtime_pin.h</includedby>
+    <includedby refid="xpm__runtime__pin_8c" local="yes">xpm_runtime_pin.c</includedby>
+    <incdepgraph>
+      <node id="2472">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2477">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="2466">
+        <label>xpm_pin.h</label>
+        <link refid="xpm_pin.h"/>
+        <childnode refid="2467" relation="include">
+        </childnode>
+        <childnode refid="2478" relation="include">
+        </childnode>
+        <childnode refid="2482" relation="include">
+        </childnode>
+      </node>
+      <node id="2473">
+        <label>xil_util.h</label>
+      </node>
+      <node id="2475">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="2482">
+        <label>xpm_api.h</label>
+        <childnode refid="2468" relation="include">
+        </childnode>
+        <childnode refid="2469" relation="include">
+        </childnode>
+        <childnode refid="2476" relation="include">
+        </childnode>
+        <childnode refid="2474" relation="include">
+        </childnode>
+        <childnode refid="2483" relation="include">
+        </childnode>
+        <childnode refid="2484" relation="include">
+        </childnode>
+      </node>
+      <node id="2470">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="2480">
+        <label>xpm_clock.h</label>
+        <childnode refid="2471" relation="include">
+        </childnode>
+        <childnode refid="2467" relation="include">
+        </childnode>
+        <childnode refid="2479" relation="include">
+        </childnode>
+      </node>
+      <node id="2479">
+        <label>xpm_power.h</label>
+        <childnode refid="2476" relation="include">
+        </childnode>
+        <childnode refid="2467" relation="include">
+        </childnode>
+      </node>
+      <node id="2471">
+        <label>xpm_common.h</label>
+        <childnode refid="2469" relation="include">
+        </childnode>
+        <childnode refid="2472" relation="include">
+        </childnode>
+        <childnode refid="2473" relation="include">
+        </childnode>
+        <childnode refid="2474" relation="include">
+        </childnode>
+        <childnode refid="2475" relation="include">
+        </childnode>
+        <childnode refid="2476" relation="include">
+        </childnode>
+      </node>
+      <node id="2484">
+        <label>xpm_mem.h</label>
+        <childnode refid="2478" relation="include">
+        </childnode>
+      </node>
+      <node id="2467">
+        <label>xpm_node.h</label>
+        <childnode refid="2468" relation="include">
+        </childnode>
+        <childnode refid="2469" relation="include">
+        </childnode>
+        <childnode refid="2470" relation="include">
+        </childnode>
+        <childnode refid="2471" relation="include">
+        </childnode>
+      </node>
+      <node id="2469">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2468">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2476">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="2468" relation="include">
+        </childnode>
+        <childnode refid="2477" relation="include">
+        </childnode>
+      </node>
+      <node id="2478">
+        <label>xpm_device.h</label>
+        <childnode refid="2467" relation="include">
+        </childnode>
+        <childnode refid="2479" relation="include">
+        </childnode>
+        <childnode refid="2480" relation="include">
+        </childnode>
+        <childnode refid="2481" relation="include">
+        </childnode>
+      </node>
+      <node id="2481">
+        <label>xpm_reset.h</label>
+        <childnode refid="2467" relation="include">
+        </childnode>
+        <childnode refid="2471" relation="include">
+        </childnode>
+      </node>
+      <node id="2483">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="2474">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="2469" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2487">
+        <label>xpm_pin.c</label>
+      </node>
+      <node id="2485">
+        <label>xpm_pin.h</label>
+        <link refid="xpm_pin.h"/>
+        <childnode refid="2486" relation="include">
+        </childnode>
+        <childnode refid="2487" relation="include">
+        </childnode>
+        <childnode refid="2488" relation="include">
+        </childnode>
+        <childnode refid="2489" relation="include">
+        </childnode>
+        <childnode refid="2493" relation="include">
+        </childnode>
+      </node>
+      <node id="2486">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="2488">
+        <label>xpm_pin_groups.c</label>
+      </node>
+      <node id="2491">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="2490">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="2492">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="2493">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="2489">
+        <label>xpm_runtime_pin.h</label>
+        <childnode refid="2490" relation="include">
+        </childnode>
+        <childnode refid="2488" relation="include">
+        </childnode>
+        <childnode refid="2491" relation="include">
+        </childnode>
+        <childnode refid="2492" relation="include">
+        </childnode>
+        <childnode refid="2493" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___pin_node" prot="public">XPm_PinNode</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__pin_8h_1a8a2bf93ddee38b8982459c6ccbb0d032" prot="public" static="no">
+        <name>BITS_IN_REG</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a4d76261fbca4b94a5f166ac735649377" prot="public" static="no">
+        <name>PINS_PER_BANK</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a5ebe957e34d43c64c1e0592a53addb95" prot="public" static="no">
+        <name>BNK_OFFSET</name>
+        <initializer>(0x200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a4728d54cbafd87ebb78ae3aa80aeddf5" prot="public" static="no">
+        <name>PINNUM</name>
+        <param><defname>Id</defname></param>
+        <initializer>((NODEINDEX(Id) - (u32)XPM_NODEIDX_STMIC_LMIO_0) % PINS_PER_BANK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a84a4fb6727ebe3f742de300f558337e2" prot="public" static="no">
+        <name>ABS_PINNUM</name>
+        <param><defname>Id</defname></param>
+        <param><defname>Bank</defname></param>
+        <initializer>(PINNUM(Id) + ((Bank) * PINS_PER_BANK))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a638d010d6e6aa5f5bff8d7cc7d8abf05" prot="public" static="no">
+        <name>SEL_SLEW</name>
+        <initializer>(0x00000120U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a8e958b0b64383cb96d1fa95535bd499c" prot="public" static="no">
+        <name>EN_WK_PD</name>
+        <initializer>(0x00000110U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a375cf641972e90d467cab7f986c77f7b" prot="public" static="no">
+        <name>EN_WK_PU</name>
+        <initializer>(0x00000114U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a203c2a89487e51c978800a2bab08366d" prot="public" static="no">
+        <name>EN_RX_SCHMITT_HYST</name>
+        <initializer>(0x0000010CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1accca0a439a4c4032bcf64fb914e0d870" prot="public" static="no">
+        <name>SEL_DRV0</name>
+        <initializer>(0x00000118U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a6f60d5cac1c73ec8028f2e86f4b5050d" prot="public" static="no">
+        <name>SEL_DRV1</name>
+        <initializer>(0x0000011CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1abd5f4dc13025a2ffe7303cc314470925" prot="public" static="no">
+        <name>SEL_DRV_WIDTH</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1abc38fea3cb36f0b7a92d1b30efdcab52" prot="public" static="no">
+        <name>SEL_DRV0_MASK</name>
+        <param><defname>PinIdx</defname></param>
+        <initializer>((u32)0x3U &lt;&lt; (PINNUM(PinIdx)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1ae73fafd579cf0d7ad7945a51c405265c" prot="public" static="no">
+        <name>SEL_DRV1_MASK</name>
+        <param><defname>PinIdx</defname></param>
+        <initializer>((u32)0x3U &lt;&lt; (PINNUM(PinIdx) - (BITS_IN_REG / SEL_DRV_WIDTH)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a28797745870942836b85b823af8fa518" prot="public" static="no">
+        <name>VMODE</name>
+        <initializer>(0x0000015CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1a7425c33f7edab41eb01bfdc0185f24f1" prot="public" static="no">
+        <name>VMODE_MASK</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pin_8h_1af23611bd9cda14c245ac3c456397460d" prot="public" static="no">
+        <name>TRI_STATE</name>
+        <initializer>(0x200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__pin_8h_1a61dadd085c1777f559549e05962b2c9e" prot="public" static="no">
+        <name>@5</name>
+        <enumvalue id="xpm__pin_8h_1a61dadd085c1777f559549e05962b2c9eae234e581c7ff1977469d594d3e7bd3de" prot="public">
+          <name>XPM_PINSTATE_UNUSED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pin_8h_1a61dadd085c1777f559549e05962b2c9eabf1fa0a25b1aec43ce009a383b74f8b4" prot="public">
+          <name>XPM_PINSTATE_ASSIGNED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="37" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__pin_8h_1abf8ac67b24db8a042ea6b01860a8a501" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref></type>
+        <definition>typedef struct XPm_PinNode XPm_PinNode</definition>
+        <argsstring></argsstring>
+        <name>XPm_PinNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__pin_8h_1aefa8dff880e921d4b62d74cef821658d" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm_runtime___pin_ops" kindref="compound">XPmRuntime_PinOps</ref></type>
+        <definition>typedef struct XPmRuntime_PinOps XPmRuntime_PinOps</definition>
+        <argsstring></argsstring>
+        <name>XPmRuntime_PinOps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pin_8h_1aa5fedb67df3a246fb0eef30473b08f8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPin_Init</definition>
+        <argsstring>(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)</argsstring>
+        <name>XPmPin_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> *</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PinId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pin_8h_1a7677e6a70111cd90e61d97c3e1bac626" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> *</type>
+        <definition>XPm_PinNode* XPmPin_GetById</definition>
+        <argsstring>(u32 PinId)</argsstring>
+        <name>XPmPin_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>PinId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns instance to <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> based on PinId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PinId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PinNode ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Instance of <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> if successful else NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" bodystart="52" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pin_8h_1a76302a28fae1d102e9a644abba05b5e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> *</type>
+        <definition>XPm_PinNode* XPmPin_GetByIndex</definition>
+        <argsstring>(const u32 PinIndex)</argsstring>
+        <name>XPmPin_GetByIndex</name>
+        <param>
+          <type>const u32</type>
+          <declname>PinIndex</declname>
+        </param>
+        <briefdescription>
+<para>Get requested pin node by node index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PinIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin Index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to requested <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref>, NULL otherwise</para></simplesect>
+<simplesect kind="note"><para>Requires only node index </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" bodystart="86" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PIN_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PIN_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>IOU_SLCR<sp/>register<sp/>related<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BITS_IN_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PINS_PER_BANK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(26U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BNK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x200U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PINNUM(Id)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((NODEINDEX(Id)<sp/>-<sp/>(u32)XPM_NODEIDX_STMIC_LMIO_0)<sp/>%<sp/>PINS_PER_BANK)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ABS_PINNUM(Id,<sp/>Bank)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PINNUM(Id)<sp/>+<sp/>((Bank)<sp/>*<sp/>PINS_PER_BANK))</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEL_SLEW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000120U)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EN_WK_PD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000110U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EN_WK_PU<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000114U)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EN_RX_SCHMITT_HYST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000010CU)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEL_DRV0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000118U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEL_DRV1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000011CU)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEL_DRV_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEL_DRV0_MASK(PinIdx)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x3U<sp/>&lt;&lt;<sp/>(PINNUM(PinIdx)))</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEL_DRV1_MASK(PinIdx)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x3U<sp/>&lt;&lt;<sp/>(PINNUM(PinIdx)<sp/>-<sp/>(BITS_IN_REG<sp/>/<sp/>SEL_DRV_WIDTH)))</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VMODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000015CU)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRI_STATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x200U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Pin<sp/>states<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PINSTATE_UNUSED,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PINSTATE_ASSIGNED,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm_runtime___pin_ops" kindref="compound">XPmRuntime_PinOps</ref><sp/><ref refid="struct_x_pm_runtime___pin_ops" kindref="compound">XPmRuntime_PinOps</ref>;</highlight></codeline>
+<codeline lineno="47" refid="struct_x_pm___pin_node" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>{</highlight></codeline>
+<codeline lineno="48" refid="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/><ref refid="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" kindref="member">Node</ref>;<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm_runtime___pin_ops" kindref="compound">XPmRuntime_PinOps</ref>*<sp/>RuntimeOps;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">XStatus<sp/>XPmPin_Init(<ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*Pin,<sp/>u32<sp/>PinId,<sp/>u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*XPmPin_GetById(u32<sp/>PinId);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*XPmPin_GetByIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>PinIndex);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PIN_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h"/>
+  </compounddef>
+</doxygen>

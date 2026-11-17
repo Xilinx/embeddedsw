@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['xi2s_5frx_5fcfginitialize',['XI2s_Rx_CfgInitialize',['../group__i2srx.html#ga4d444eaa5a0dd7d980c0d216b3382260',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fclraeschstatregs',['XI2s_Rx_ClrAesChStatRegs',['../group__i2srx.html#ga700662592a50d2f7ee92aff8304706f3',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fenable',['XI2s_Rx_Enable',['../group__i2srx.html#ga3a853463222fc023817337626e04ea1a',1,'xi2srx.c']]],
+  ['xi2s_5frx_5finitialize',['XI2s_Rx_Initialize',['../group__i2srx.html#ga164f49a595611f6092889fbc157982f4',1,'xi2srx_sinit.c']]],
+  ['xi2s_5frx_5fintrdisable',['XI2s_Rx_IntrDisable',['../group__i2srx.html#ga80556a73ef85dd5a4731afab9ad10f22',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fintrenable',['XI2s_Rx_IntrEnable',['../group__i2srx.html#ga595ca2872d1b5b59f05a229b3a28fd86',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fintrhandler',['XI2s_Rx_IntrHandler',['../group__i2srx.html#gaca17a3387ef6bb0acdcfd20b94c0b7b1',1,'xi2srx_intr.c']]],
+  ['xi2s_5frx_5fjustify',['XI2s_Rx_Justify',['../group__i2srx.html#ga68a5ca9532a69737b7d8788edd9f822d',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fjustifyenable',['XI2s_Rx_JustifyEnable',['../group__i2srx.html#ga4407276f62220e4983d6ec7251ad98d6',1,'xi2srx.c']]],
+  ['xi2s_5frx_5flatchaeschannelstatus',['XI2s_Rx_LatchAesChannelStatus',['../group__i2srx.html#gae745a449c173356fad2c4f4d3f19d9e0',1,'xi2srx.c']]],
+  ['xi2s_5frx_5flogdisplay',['XI2s_Rx_LogDisplay',['../group__i2srx.html#gad30090fdf63b203192a837ca5860992b',1,'xi2srx_debug.c']]],
+  ['xi2s_5frx_5flogread',['XI2s_Rx_LogRead',['../group__i2srx.html#gace02e57eaf489fffb38e0f3d4f69c8d3',1,'xi2srx_debug.c']]],
+  ['xi2s_5frx_5flogreset',['XI2s_Rx_LogReset',['../group__i2srx.html#ga8525e3230b25c045bd85afa33346e624',1,'xi2srx_debug.c']]],
+  ['xi2s_5frx_5flogwrite',['XI2s_Rx_LogWrite',['../group__i2srx.html#gad797c77106bcc4da0a72e65e5620fa02',1,'xi2srx_debug.c']]],
+  ['xi2s_5frx_5flookupconfig',['XI2s_Rx_LookupConfig',['../group__i2srx.html#ga4f02fd72ba309f414bffa4b0a5ce6e72',1,'xi2srx_sinit.c']]],
+  ['xi2s_5frx_5fselftest',['XI2s_Rx_SelfTest',['../group__i2srx.html#ga8be6ac54842b054fb0f5b047669a794c',1,'xi2srx_selftest.c']]],
+  ['xi2s_5frx_5fsetaeschstat',['XI2s_Rx_SetAesChStat',['../group__i2srx.html#ga43cf5550c0ab230211f2fec6a77f46d5',1,'xi2srx_chsts.c']]],
+  ['xi2s_5frx_5fsetaeschstatus',['XI2s_Rx_SetAesChStatus',['../group__i2srx.html#ga0732ac9b13399678fe408cf55eeab264',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fsetchmux',['XI2s_Rx_SetChMux',['../group__i2srx.html#ga522d6260d91826f18572844fb0fbf39d',1,'xi2srx.c']]],
+  ['xi2s_5frx_5fsethandler',['XI2s_Rx_SetHandler',['../group__i2srx.html#gac365d1ba8ad9aca6ed6ebde4be5da1be',1,'xi2srx_intr.c']]],
+  ['xi2s_5frx_5fsetsclkoutdiv',['XI2s_Rx_SetSclkOutDiv',['../group__i2srx.html#ga6b26d3fc18f6a8a65f2a55eb94300aac',1,'xi2srx.c']]]
+];

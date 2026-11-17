@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_runtime___pin_ops" kind="struct" prot="public">
+    <compoundname>XPmRuntime_PinOps</compoundname>
+    <includes local="no">xpm_runtime_pin.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1a57845ef63e5b5d84ead192c09e61a5d5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_PinOps::NumGroups</definition>
+        <argsstring></argsstring>
+        <name>NumGroups</name>
+        <briefdescription>
+<para>Number of function groups allocated to this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1a3786c06346adf54d2992e2ada1650bf0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPmRuntime_PinOps::SubsysIdx</definition>
+        <argsstring></argsstring>
+        <name>SubsysIdx</name>
+        <briefdescription>
+<para>Subsystem Idx of the owner who is using this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1aad94388ed266f8314157b6dd96bc866f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_PinOps::Bank</definition>
+        <argsstring></argsstring>
+        <name>Bank</name>
+        <bitfield>PIN_NODE_BANK_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Specifies the bank number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1a1279d23fffa4df5163bd0ae20151fb20" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_PinOps::BiasStatus</definition>
+        <argsstring></argsstring>
+        <name>BiasStatus</name>
+        <bitfield>PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>BiasStatus: 0 – Disable; 1 – Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1accf6c4b5a217a76c8b57a02c56cacbda" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_PinOps::PullCtrl</definition>
+        <argsstring></argsstring>
+        <name>PullCtrl</name>
+        <bitfield>PIN_NODE_PULLCTRL_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>PullCtrl: 0 – Pull Down; 1 – Pull Up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1ab962cc7877f09db4e4104154b5122beb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_PinOps::TriState</definition>
+        <argsstring></argsstring>
+        <name>TriState</name>
+        <bitfield>PIN_NODE_TRISTATE_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>TriState: 0 – Disable; 1 – Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1a8e1be1b3d280c55a0df134fee1e7e85f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_PinOps::FuncId</definition>
+        <argsstring></argsstring>
+        <name>FuncId</name>
+        <briefdescription>
+<para>Function unique ID of the pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___pin_ops_1aecb4f933eb639f2acf9941cc040d6248" prot="public" static="no" mutable="no">
+        <type>u16 *</type>
+        <definition>u16* XPmRuntime_PinOps::Groups</definition>
+        <argsstring></argsstring>
+        <name>Groups</name>
+        <briefdescription>
+<para>Array of group identifier supported by this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Pin class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="33" bodyend="42"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_runtime___pin_ops_1aad94388ed266f8314157b6dd96bc866f" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>Bank</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1a1279d23fffa4df5163bd0ae20151fb20" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>BiasStatus</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1a8e1be1b3d280c55a0df134fee1e7e85f" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>FuncId</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1aecb4f933eb639f2acf9941cc040d6248" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>Groups</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1a57845ef63e5b5d84ead192c09e61a5d5" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>NumGroups</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1accf6c4b5a217a76c8b57a02c56cacbda" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>PullCtrl</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1a3786c06346adf54d2992e2ada1650bf0" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>SubsysIdx</name></member>
+      <member refid="struct_x_pm_runtime___pin_ops_1ab962cc7877f09db4e4104154b5122beb" prot="public" virt="non-virtual"><scope>XPmRuntime_PinOps</scope><name>TriState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

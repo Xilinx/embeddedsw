@@ -1,0 +1,496 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__ioctl_8h" kind="file">
+    <compoundname>xpm_ioctl.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xpm_defs.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes local="yes">xpm_ioctl_plat.h</includes>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="xpm__ioctl__plat_8c" local="yes">xpm_ioctl_plat.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__periph_8c" local="yes">xpm_periph.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <incdepgraph>
+      <node id="4134">
+        <label>xpm_api.h</label>
+        <childnode refid="4130" relation="include">
+        </childnode>
+        <childnode refid="4131" relation="include">
+        </childnode>
+        <childnode refid="4132" relation="include">
+        </childnode>
+        <childnode refid="4135" relation="include">
+        </childnode>
+        <childnode refid="4136" relation="include">
+        </childnode>
+        <childnode refid="4137" relation="include">
+        </childnode>
+      </node>
+      <node id="4135">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="4129">
+        <label>xpm_ioctl.h</label>
+        <link refid="xpm_ioctl.h"/>
+        <childnode refid="4130" relation="include">
+        </childnode>
+        <childnode refid="4131" relation="include">
+        </childnode>
+        <childnode refid="4132" relation="include">
+        </childnode>
+        <childnode refid="4133" relation="include">
+        </childnode>
+        <childnode refid="4139" relation="include">
+        </childnode>
+      </node>
+      <node id="4133">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4134" relation="include">
+        </childnode>
+        <childnode refid="4132" relation="include">
+        </childnode>
+        <childnode refid="4131" relation="include">
+        </childnode>
+        <childnode refid="4138" relation="include">
+        </childnode>
+      </node>
+      <node id="4132">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="4138">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="4131">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4136">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="4130">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4139">
+        <label>xpm_ioctl_plat.h</label>
+      </node>
+      <node id="4137">
+        <label>xplmi_ipi.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4143">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="4144">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="4140">
+        <label>xpm_ioctl.h</label>
+        <link refid="xpm_ioctl.h"/>
+        <childnode refid="4141" relation="include">
+        </childnode>
+        <childnode refid="4142" relation="include">
+        </childnode>
+        <childnode refid="4143" relation="include">
+        </childnode>
+        <childnode refid="4144" relation="include">
+        </childnode>
+        <childnode refid="4145" relation="include">
+        </childnode>
+        <childnode refid="4146" relation="include">
+        </childnode>
+      </node>
+      <node id="4142">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="4141">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="4145">
+        <label>xpm_periph.c</label>
+      </node>
+      <node id="4146">
+        <label>xpm_api_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__ioctl_8h_1a26e2d25d4ed8a8b44dd4458181cf2fc4" prot="public" static="no">
+        <name>GGS_REGS</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a3dd6e5d35721184fc1b3c3715d2baf93" prot="public" static="no">
+        <name>PMC_PGGS_REGS</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1aa23deba3174ca848fe8143309b10ab10" prot="public" static="no">
+        <name>TAPDLY_BYPASS_OFFSET</name>
+        <initializer>(0x0000003CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1ac3f0606ad4a1a862d14526325927160f" prot="public" static="no">
+        <name>XPM_TAP_DELAY_MASK</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a185a0b06b1517e33864690f453d1a7c1" prot="public" static="no">
+        <name>SD0_DLL_CTRL_OFFSET</name>
+        <initializer>(0x00000448U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a912b0c66508ca9179e718848ee161f27" prot="public" static="no">
+        <name>SD1_DLL_CTRL_OFFSET</name>
+        <initializer>(0x000004C8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1ad55248191830c469a7e39a4560b50a72" prot="public" static="no">
+        <name>XPM_SD_DLL_RST_MASK</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a64f80c19481dbd8027132ee1891b602f" prot="public" static="no">
+        <name>ITAPDLY_OFFSET</name>
+        <initializer>(0x0000F0F8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a1f9ddc06732994974c0d2a81c0f58aec" prot="public" static="no">
+        <name>XPM_SD_ITAPCHGWIN_MASK</name>
+        <initializer>(0x200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1af0149bcd70ea90b23d8088c35bc59aed" prot="public" static="no">
+        <name>XPM_SD_ITAPDLYENA_MASK</name>
+        <initializer>(0x100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a73938e20065089ec164c5d166f86aaa5" prot="public" static="no">
+        <name>XPM_SD_ITAPDLYSEL_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a6515895f4b3cce584ffe610dbbef760a" prot="public" static="no">
+        <name>OTAPDLY_OFFSET</name>
+        <initializer>(0x0000F0FCU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1aaa9fd3e56cd4196f1c571d1883687847" prot="public" static="no">
+        <name>XPM_SD_OTAPDLYENA_MASK</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a3cc2746348c3e25ac835cd4a5d7ef68b" prot="public" static="no">
+        <name>XPM_SD_OTAPDLYSEL_MASK</name>
+        <initializer>(0x3FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1ab9589a9c7c6bffd65bf94444a8c3f767" prot="public" static="no">
+        <name>IOCTL_PERM_READ_SHIFT_NS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a92772158efa269ac7291d2baea68a047" prot="public" static="no">
+        <name>IOCTL_PERM_WRITE_SHIFT_NS</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1abba5a6cd4f47e80cf11a3ae4a5f55ad2" prot="public" static="no">
+        <name>IOCTL_PERM_READ_IDX</name>
+        <initializer>(IOCTL_PERM_READ_SHIFT_NS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a198d08e6a77f422ad6e54889af514c88" prot="public" static="no">
+        <name>IOCTL_PERM_WRITE_IDX</name>
+        <initializer>(IOCTL_PERM_WRITE_SHIFT_NS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1ab52d11d83e76a94538f2046aba603f4d" prot="public" static="no">
+        <name>IOCTL_PERM_READ_SHIFT_S</name>
+        <initializer>(IOCTL_PERM_READ_SHIFT_NS + MAX_NUM_SUBSYSTEMS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a526d8137531e81000799ab402a0a68e5" prot="public" static="no">
+        <name>IOCTL_PERM_WRITE_SHIFT_S</name>
+        <initializer>(IOCTL_PERM_WRITE_SHIFT_NS + MAX_NUM_SUBSYSTEMS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ioctl_8h_1a35d1beab64c024e72f9bfe9c647bfeae" prot="public" static="no">
+        <name>GGS_MAX</name>
+        <initializer>(XPM_NODEIDX_DEV_GGS_3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__ioctl_8h_1a546b64cf463d9b35d5d2eb4188ba651a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_Ioctl</definition>
+        <argsstring>(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId, const u32 Arg1, const u32 Arg2, const u32 Arg3, u32 *const Response, const u32 CmdType)</argsstring>
+        <name>XPm_Ioctl</name>
+        <param>
+          <type>const u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Arg1</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Arg2</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Arg3</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Response</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.c" bodystart="627" bodyend="757"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__ioctl_8h_1ab817d076fd04929858dfe1a172740910" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmIoctl_AddRegPermission</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem, u32 DeviceId, u32 Operations)</argsstring>
+        <name>XPmIoctl_AddRegPermission</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Operations</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.c" bodystart="759" bodyend="831"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_IOCTL_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_IOCTL_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_ioctl_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GGS_REGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_PGGS_REGS<sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Tap<sp/>delay<sp/>bypass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TAPDLY_BYPASS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000003CU)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_TAP_DELAY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SD<sp/>DLL<sp/>control<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SD0_DLL_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000448U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_DLL_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000004C8U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SD_DLL_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SD<sp/>ITAPDLY<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ITAPDLY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000F0F8U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SD_ITAPCHGWIN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x200U)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SD_ITAPDLYENA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100U)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SD_ITAPDLYSEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SD<sp/>OTAPDLY<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OTAPDLY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000F0FCU)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SD_OTAPDLYENA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SD_OTAPDLYSEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FU)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Permissions<sp/>related<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IOCTL_PERM_READ_SHIFT_NS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOCTL_PERM_WRITE_SHIFT_NS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOCTL_PERM_READ_IDX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IOCTL_PERM_READ_SHIFT_NS)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOCTL_PERM_WRITE_IDX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IOCTL_PERM_WRITE_SHIFT_NS)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IOCTL_PERM_READ_SHIFT_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IOCTL_PERM_READ_SHIFT_NS<sp/>+<sp/>MAX_NUM_SUBSYSTEMS)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOCTL_PERM_WRITE_SHIFT_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IOCTL_PERM_WRITE_SHIFT_NS<sp/>+<sp/>MAX_NUM_SUBSYSTEMS)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GGS_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_NODEIDX_DEV_GGS_3)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">XStatus<sp/>XPm_Ioctl(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>SubsystemId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Arg1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Arg2,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Arg3,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Response,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">XStatus<sp/>XPmIoctl_AddRegPermission(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>DeviceId,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Operations);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_IOCTL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h"/>
+  </compounddef>
+</doxygen>

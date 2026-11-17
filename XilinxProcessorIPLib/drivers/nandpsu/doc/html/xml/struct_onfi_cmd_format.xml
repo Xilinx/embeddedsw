@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_onfi_cmd_format" kind="struct" prot="public">
+    <compoundname>OnfiCmdFormat</compoundname>
+    <includes local="no">xnandpsu_onfi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_onfi_cmd_format_1a2b5b598043350f3b71d46cb6af79e71c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiCmdFormat::Command1</definition>
+        <argsstring></argsstring>
+        <name>Command1</name>
+        <briefdescription>
+<para>Command Cycle 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_cmd_format_1a6f069b46b1609b97e783ca73965e987f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiCmdFormat::Command2</definition>
+        <argsstring></argsstring>
+        <name>Command2</name>
+        <briefdescription>
+<para>Command Cycle 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes the ONFI command format. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="341" bodyend="344"/>
+    <listofallmembers>
+      <member refid="struct_onfi_cmd_format_1a2b5b598043350f3b71d46cb6af79e71c" prot="public" virt="non-virtual"><scope>OnfiCmdFormat</scope><name>Command1</name></member>
+      <member refid="struct_onfi_cmd_format_1a6f069b46b1609b97e783ca73965e987f" prot="public" virt="non-virtual"><scope>OnfiCmdFormat</scope><name>Command2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

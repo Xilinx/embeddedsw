@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___gpio_proc_cfg" kind="struct" prot="public">
+    <compoundname>XPm_GpioProcCfg</compoundname>
+    <includes local="no">xpm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___gpio_proc_cfg_1a90720b829278df9e86b894ab88250ded" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_GpioProcCfg::SlrId</definition>
+        <argsstring></argsstring>
+        <name>SlrId</name>
+        <briefdescription>
+<para>SLR ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gpio_proc_cfg_1af2371d1cf5e240d4a4e8310334fe3cc9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_GpioProcCfg::PinId</definition>
+        <argsstring></argsstring>
+        <name>PinId</name>
+        <briefdescription>
+<para>MIO pin node ID (PM_STMIC_LMIO_x / PM_STMIC_PMIO_x) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gpio_proc_cfg_1ae7834590544cbbd027764eabbd0e5b5a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_GpioProcCfg::Bank</definition>
+        <argsstring></argsstring>
+        <name>Bank</name>
+        <briefdescription>
+<para>GPIO bank number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gpio_proc_cfg_1a09259c100651ab15508e6cfe28e7de60" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_GpioProcCfg::ProcId</definition>
+        <argsstring></argsstring>
+        <name>ProcId</name>
+        <briefdescription>
+<para>CDO Proc ID to execute on reset event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gpio_proc_cfg_1a869e3a6e0abac5d502a604d184e16311" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_GpioProcCfg::GicId</definition>
+        <argsstring></argsstring>
+        <name>GicId</name>
+        <briefdescription>
+<para>GIC proxy index for re-enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gpio_proc_cfg_1a4bb10e70be3f699b940cacefdd2e56be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_GpioProcCfg::GicSrc</definition>
+        <argsstring></argsstring>
+        <name>GicSrc</name>
+        <briefdescription>
+<para>GIC source bit for re-enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Per-pin configuration for GPIO-triggered interrupt configuration. </para>    </briefdescription>
+    <detaileddescription>
+<para>Cached by XPm_GpioProcHandlerInit(). The shared XPm_GpioProcHandler() iterates the global <ref refid="struct_x_pm___gpio_proc_cfg" kindref="compound">XPm_GpioProcCfg</ref>[] array, checks each pin&apos;s INT_STAT to identify which pin triggered, and executes the correct CDO PROC. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h" bodystart="148" bodyend="155"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___gpio_proc_cfg_1ae7834590544cbbd027764eabbd0e5b5a" prot="public" virt="non-virtual"><scope>XPm_GpioProcCfg</scope><name>Bank</name></member>
+      <member refid="struct_x_pm___gpio_proc_cfg_1a869e3a6e0abac5d502a604d184e16311" prot="public" virt="non-virtual"><scope>XPm_GpioProcCfg</scope><name>GicId</name></member>
+      <member refid="struct_x_pm___gpio_proc_cfg_1a4bb10e70be3f699b940cacefdd2e56be" prot="public" virt="non-virtual"><scope>XPm_GpioProcCfg</scope><name>GicSrc</name></member>
+      <member refid="struct_x_pm___gpio_proc_cfg_1af2371d1cf5e240d4a4e8310334fe3cc9" prot="public" virt="non-virtual"><scope>XPm_GpioProcCfg</scope><name>PinId</name></member>
+      <member refid="struct_x_pm___gpio_proc_cfg_1a09259c100651ab15508e6cfe28e7de60" prot="public" virt="non-virtual"><scope>XPm_GpioProcCfg</scope><name>ProcId</name></member>
+      <member refid="struct_x_pm___gpio_proc_cfg_1a90720b829278df9e86b894ab88250ded" prot="public" virt="non-virtual"><scope>XPm_GpioProcCfg</scope><name>SlrId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

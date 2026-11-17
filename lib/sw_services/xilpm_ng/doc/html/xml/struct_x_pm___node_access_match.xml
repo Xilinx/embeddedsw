@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___node_access_match" kind="struct" prot="public">
+    <compoundname>XPm_NodeAccessMatch</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___node_access_match_1a3d2830c67969d91a7a1003ddfc3bb446" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref> *</type>
+        <definition>XPm_NodeAccess* XPm_NodeAccessMatch::Entry</definition>
+        <argsstring></argsstring>
+        <name>Entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_access_match_1ac46fd23a93e55b50c945b28ff6357cf4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref> *</type>
+        <definition>XPm_NodeAper* XPm_NodeAccessMatch::Aper</definition>
+        <argsstring></argsstring>
+        <name>Aper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="167">
+        <label>XPm_NodeAccess</label>
+        <link refid="struct_x_pm___node_access"/>
+        <childnode refid="166" relation="usage">
+          <edgelabel>Aperture</edgelabel>
+        </childnode>
+        <childnode refid="167" relation="usage">
+          <edgelabel>NextNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="165">
+        <label>XPm_NodeAccessMatch</label>
+        <childnode refid="166" relation="usage">
+          <edgelabel>Aper</edgelabel>
+        </childnode>
+        <childnode refid="167" relation="usage">
+          <edgelabel>Entry</edgelabel>
+        </childnode>
+      </node>
+      <node id="166">
+        <label>XPm_NodeAper</label>
+        <link refid="struct_x_pm___node_aper"/>
+        <childnode refid="166" relation="usage">
+          <edgelabel>NextAper</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="23" bodyend="26"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___node_access_match_1ac46fd23a93e55b50c945b28ff6357cf4" prot="public" virt="non-virtual"><scope>XPm_NodeAccessMatch</scope><name>Aper</name></member>
+      <member refid="struct_x_pm___node_access_match_1a3d2830c67969d91a7a1003ddfc3bb446" prot="public" virt="non-virtual"><scope>XPm_NodeAccessMatch</scope><name>Entry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

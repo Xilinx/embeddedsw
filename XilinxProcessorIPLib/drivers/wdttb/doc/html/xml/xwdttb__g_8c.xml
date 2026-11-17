@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xwdttb__g_8c" kind="file">
+    <compoundname>xwdttb_g.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xwdttb_8h" local="yes">xwdttb.h</includes>
+    <incdepgraph>
+      <node id="74">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="78">
+        <label>xil_io.h</label>
+      </node>
+      <node id="77">
+        <label>xwdttb_hw.h</label>
+        <link refid="xwdttb__hw_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xstatus.h</label>
+      </node>
+      <node id="72">
+        <label>xwdttb.h</label>
+        <link refid="xwdttb_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xwdttb_l.h</label>
+        <link refid="xwdttb__l_8h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xil_types.h</label>
+      </node>
+      <node id="71">
+        <label>xparameters.h</label>
+      </node>
+      <node id="70">
+        <label>xwdttb_g.c</label>
+        <link refid="xwdttb_g.c"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__wdttb__api_1ga063bf798221700733fe7126926daa3b1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_wdt_tb___config" kindref="compound">XWdtTb_Config</ref></type>
+        <definition>XWdtTb_Config XWdtTb_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XWdtTb_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_WDTTB_0_DEVICE_ID,
+		XPAR_WDTTB_0_BASEADDR,
+		XPAR_WDTTB_0_ENABLE_WINDOW_WDT,
+		XPAR_WDTTB_0_MAX_COUNT_WIDTH,
+		XPAR_WDTTB_0_SST_COUNT_WIDTH,
+		XPAR_WDTTB_0_IS_PL
+	}
+}</initializer>
+        <briefdescription>
+<para>Defines the configuration table for devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configuration table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_g.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_g.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gad27ab5404921a0500231b02220f0dee4" compoundref="xwdttb__sinit_8c" startline="103" endline="117">XWdtTb_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the configuration table of the <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="xwdttb__g_8c" kindref="compound">xwdttb_g.c</ref> file contains the required functions of the <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> driver. See <ref refid="xwdttb_8h" kindref="compound">xwdttb.h</ref> for a description of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a ecm  08/16/01 First release
+4.3   srm  01/30/18 Added doxygen tags
+4.4   sne  03/04/19 Added support for versal
+4.5     sne  09/27/19 Added common configuration structure for
+              AXI Timebase WDT and WWWDT.
+5.13  vn   09/30/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xwdttb_8h" kindref="compound">xwdttb.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="49" refid="group__wdttb__api_1ga063bf798221700733fe7126926daa3b1" refkind="member"><highlight class="normal"><ref refid="struct_x_wdt_tb___config" kindref="compound">XWdtTb_Config</ref><sp/><ref refid="group__wdttb__api_1ga063bf798221700733fe7126926daa3b1" kindref="member">XWdtTb_ConfigTable</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_DEVICE_ID,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_BASEADDR,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_ENABLE_WINDOW_WDT,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_MAX_COUNT_WIDTH,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_SST_COUNT_WIDTH,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_WDTTB_0_IS_PL</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_g.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="visp__common_8c" kind="file">
+    <compoundname>visp_common.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes refid="visp__common_8h" local="yes">visp_common.h</includes>
+    <incdepgraph>
+      <node id="8628">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="8632">
+        <label>stdbool.h</label>
+      </node>
+      <node id="8622">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8621">
+        <label>sleep.h</label>
+      </node>
+      <node id="8633">
+        <label>stdint.h</label>
+      </node>
+      <node id="8626">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8641">
+        <label>vlog.h</label>
+        <childnode refid="8620" relation="include">
+        </childnode>
+        <childnode refid="8626" relation="include">
+        </childnode>
+        <childnode refid="8642" relation="include">
+        </childnode>
+      </node>
+      <node id="8634">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="8632" relation="include">
+        </childnode>
+        <childnode refid="8635" relation="include">
+        </childnode>
+      </node>
+      <node id="8629">
+        <label>fcntl.h</label>
+      </node>
+      <node id="8636">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="8638">
+        <label>sensor_cmd.h</label>
+        <childnode refid="8631" relation="include">
+        </childnode>
+        <childnode refid="8639" relation="include">
+        </childnode>
+      </node>
+      <node id="8631">
+        <label>mbox_api.h</label>
+        <childnode refid="8632" relation="include">
+        </childnode>
+        <childnode refid="8633" relation="include">
+        </childnode>
+        <childnode refid="8634" relation="include">
+        </childnode>
+      </node>
+      <node id="8647">
+        <label>stddef.h</label>
+      </node>
+      <node id="8646">
+        <label>limits.h</label>
+      </node>
+      <node id="8627">
+        <label>sys/types.h</label>
+      </node>
+      <node id="8618">
+        <label>string.h</label>
+      </node>
+      <node id="8637">
+        <label>mbox_hardware.h</label>
+        <childnode refid="8634" relation="include">
+        </childnode>
+      </node>
+      <node id="8643">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="8644" relation="include">
+        </childnode>
+        <childnode refid="8618" relation="include">
+        </childnode>
+      </node>
+      <node id="8640">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8630">
+        <label>signal.h</label>
+      </node>
+      <node id="8624">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="8617">
+        <label>visp_common.c</label>
+        <link refid="visp_common.c"/>
+        <childnode refid="8618" relation="include">
+        </childnode>
+        <childnode refid="8619" relation="include">
+        </childnode>
+      </node>
+      <node id="8619">
+        <label>visp_common.h</label>
+        <childnode refid="8620" relation="include">
+        </childnode>
+        <childnode refid="8621" relation="include">
+        </childnode>
+        <childnode refid="8622" relation="include">
+        </childnode>
+        <childnode refid="8623" relation="include">
+        </childnode>
+        <childnode refid="8624" relation="include">
+        </childnode>
+        <childnode refid="8625" relation="include">
+        </childnode>
+        <childnode refid="8638" relation="include">
+        </childnode>
+        <childnode refid="8641" relation="include">
+        </childnode>
+      </node>
+      <node id="8644">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8645" relation="include">
+        </childnode>
+        <childnode refid="8646" relation="include">
+        </childnode>
+        <childnode refid="8647" relation="include">
+        </childnode>
+      </node>
+      <node id="8625">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="8620" relation="include">
+        </childnode>
+        <childnode refid="8626" relation="include">
+        </childnode>
+        <childnode refid="8627" relation="include">
+        </childnode>
+        <childnode refid="8628" relation="include">
+        </childnode>
+        <childnode refid="8629" relation="include">
+        </childnode>
+        <childnode refid="8630" relation="include">
+        </childnode>
+        <childnode refid="8623" relation="include">
+        </childnode>
+        <childnode refid="8631" relation="include">
+        </childnode>
+        <childnode refid="8636" relation="include">
+        </childnode>
+        <childnode refid="8634" relation="include">
+        </childnode>
+        <childnode refid="8637" relation="include">
+        </childnode>
+        <childnode refid="8638" relation="include">
+        </childnode>
+        <childnode refid="8640" relation="include">
+        </childnode>
+      </node>
+      <node id="8635">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="8623">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8648">
+        <label>ff.h</label>
+      </node>
+      <node id="8642">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8643" relation="include">
+        </childnode>
+        <childnode refid="8648" relation="include">
+        </childnode>
+      </node>
+      <node id="8645">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8620" relation="include">
+        </childnode>
+        <childnode refid="8626" relation="include">
+        </childnode>
+      </node>
+      <node id="8620">
+        <label>stdio.h</label>
+      </node>
+      <node id="8639">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="visp__common_8c_1a4884f2d8d196c6f72c2100baa59fe63d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SetATM</definition>
+        <argsstring>(uint32_t high_mem, uint32_t is_64bit)</argsstring>
+        <name>SetATM</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>high_mem</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>is_64bit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.c" line="4" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.c" bodystart="4" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="visp__common_8c_1a6d7800b54582f58e90395f5095ee8d2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SetIspInputSplit</definition>
+        <argsstring>(uint32_t enable)</argsstring>
+        <name>SetIspInputSplit</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.c" bodystart="47" bodyend="77"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;visp_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetATM(uint32_t<sp/>high_mem,<sp/>uint32_t<sp/>is_64bit)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//LOGI(&quot;<sp/>ATMenable<sp/>=<sp/>%d\n&quot;,ATM_ENABLE);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>packet;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;packet,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.cookie<sp/>=<sp/>0xABCD;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.type<sp/>=<sp/>CMD;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*p_data<sp/>=<sp/>packet.payload_data;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>instanceId<sp/>(0<sp/>for<sp/>now)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>instanceId<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;instanceId,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t));</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>high_mem<sp/>prefix<sp/>(0x0<sp/>=<sp/>32-bit/low,<sp/>0x8<sp/>=<sp/>DDR_LOW_1,<sp/>0x500<sp/>=<sp/>DDR_CH_1)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;high_mem,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t));</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>is_64bit<sp/>flag<sp/>(0<sp/>=<sp/>32-bit<sp/>addressing,<sp/>1<sp/>=<sp/>64-bit<sp/>/<sp/>high<sp/>memory)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;is_64bit,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t));</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(packet.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>Send_Command(APU_2_RPU_MB_CMD_SET_ATM,<sp/>&amp;packet,<sp/>packet.payload_size<sp/>+<sp/>payload_extra_size,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref><sp/>!=<sp/>result)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" kindref="member">RET_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>apu_wait_for_ACK(packet.cookie,<sp/>packet.payload_data);;<sp/></highlight><highlight class="comment">//replace<sp/>with<sp/>wait_response();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetIspInputSplit(uint32_t<sp/>enable)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>packet;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;packet,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.cookie<sp/>=<sp/>0xABCE;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.type<sp/>=<sp/>CMD;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*p_data<sp/>=<sp/>packet.payload_data;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>enable<sp/>flag<sp/>(1<sp/>=<sp/>2x2<sp/>split-input<sp/>tile<sp/>mode,<sp/>0<sp/>=<sp/>full<sp/>frame).</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Single<sp/>global<sp/>mode:<sp/>it<sp/>is<sp/>not<sp/>per-instance,<sp/>so<sp/>no<sp/>instanceId<sp/>is<sp/>sent.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;enable,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(packet.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>Send_Command(APU_2_RPU_MB_CMD_SET_ISP_INPUT_SPLIT,<sp/>&amp;packet,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+<sp/>payload_extra_size,<sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref><sp/>!=<sp/>result)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" kindref="member">RET_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>apu_wait_for_ACK(packet.cookie,<sp/>packet.payload_data);;<sp/></highlight><highlight class="comment">//replace<sp/>with<sp/>wait_response();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/visp_common.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1094 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2ve__2vm_2server_2xplmi__err_8h" kind="file">
+    <compoundname>2ve_2vm/server/xplmi_err.h</compoundname>
+    <includes refid="2ve__2vm_2server_2xplmi__error__node_8h" local="yes">xplmi_error_node.h</includes>
+    <includes refid="2ve__2vm_2server_2xplmi__hw_8h" local="yes">xplmi_hw.h</includes>
+    <includes refid="xplmi__err__common_8h" local="yes">xplmi_err_common.h</includes>
+    <includedby refid="2ve__2vm_2server_2xplmi__err_8c" local="yes">xplmi_err.c</includedby>
+    <includedby refid="2ve__2vm_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <incdepgraph>
+      <node id="1122">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="1101">
+        <label>xplmi_config.h</label>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1103" relation="include">
+        </childnode>
+      </node>
+      <node id="1113">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="1114" relation="include">
+        </childnode>
+        <childnode refid="1111" relation="include">
+        </childnode>
+      </node>
+      <node id="1105">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="1104">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1129">
+        <label>xplmi_error_node.h</label>
+      </node>
+      <node id="1120">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="1113" relation="include">
+        </childnode>
+        <childnode refid="1121" relation="include">
+        </childnode>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1107" relation="include">
+        </childnode>
+      </node>
+      <node id="1100">
+        <label>xplmi_hw.h</label>
+        <childnode refid="1101" relation="include">
+        </childnode>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1104" relation="include">
+        </childnode>
+        <childnode refid="1105" relation="include">
+        </childnode>
+        <childnode refid="1106" relation="include">
+        </childnode>
+      </node>
+      <node id="1127">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1126">
+        <label>list.h</label>
+        <childnode refid="1127" relation="include">
+        </childnode>
+      </node>
+      <node id="1098">
+        <label>xplmi_err.h</label>
+        <link refid="2ve_2vm/server/xplmi_err.h"/>
+        <childnode refid="1099" relation="include">
+        </childnode>
+        <childnode refid="1100" relation="include">
+        </childnode>
+        <childnode refid="1108" relation="include">
+        </childnode>
+      </node>
+      <node id="1099">
+        <label>xplmi_error_node.h</label>
+      </node>
+      <node id="1109">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="1110" relation="include">
+        </childnode>
+        <childnode refid="1111" relation="include">
+        </childnode>
+        <childnode refid="1112" relation="include">
+        </childnode>
+        <childnode refid="1115" relation="include">
+        </childnode>
+      </node>
+      <node id="1119">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1120" relation="include">
+        </childnode>
+        <childnode refid="1113" relation="include">
+        </childnode>
+        <childnode refid="1122" relation="include">
+        </childnode>
+        <childnode refid="1105" relation="include">
+        </childnode>
+      </node>
+      <node id="1118">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="1119" relation="include">
+        </childnode>
+        <childnode refid="1123" relation="include">
+        </childnode>
+      </node>
+      <node id="1103">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="1115">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="1116" relation="include">
+        </childnode>
+        <childnode refid="1117" relation="include">
+        </childnode>
+        <childnode refid="1118" relation="include">
+        </childnode>
+        <childnode refid="1106" relation="include">
+        </childnode>
+        <childnode refid="1114" relation="include">
+        </childnode>
+      </node>
+      <node id="1124">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="1125">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1111">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1108">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="1109" relation="include">
+        </childnode>
+        <childnode refid="1128" relation="include">
+        </childnode>
+        <childnode refid="1129" relation="include">
+        </childnode>
+        <childnode refid="1130" relation="include">
+        </childnode>
+        <childnode refid="1105" relation="include">
+        </childnode>
+        <childnode refid="1113" relation="include">
+        </childnode>
+      </node>
+      <node id="1117">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="1128">
+        <label>xil_error_node.h</label>
+      </node>
+      <node id="1107">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1123">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="1122" relation="include">
+        </childnode>
+        <childnode refid="1124" relation="include">
+        </childnode>
+        <childnode refid="1107" relation="include">
+        </childnode>
+        <childnode refid="1125" relation="include">
+        </childnode>
+        <childnode refid="1126" relation="include">
+        </childnode>
+      </node>
+      <node id="1102">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1110">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1130">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="1116">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="1121">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="1114">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="1106">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="1107" relation="include">
+        </childnode>
+      </node>
+      <node id="1112">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="1113" relation="include">
+        </childnode>
+        <childnode refid="1106" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1132">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="1131">
+        <label>xplmi_err.h</label>
+        <link refid="2ve_2vm/server/xplmi_err.h"/>
+        <childnode refid="1132" relation="include">
+        </childnode>
+        <childnode refid="1133" relation="include">
+        </childnode>
+      </node>
+      <node id="1133">
+        <label>xplmi_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a164b12537e7558a54904f31d254f296d" prot="public" static="no">
+        <name>GET_PMC_ERR_ACTION_OFFSET</name>
+        <param><defname>Index</defname></param>
+        <initializer>(((Index) == 2U) ? \
+			(0xFU * XPLMI_PMC_PSM_ERR2_REG_OFFSET) : \
+			((Index) * XPLMI_PMC_PSM_ERR2_REG_OFFSET))</initializer>
+        <briefdescription>
+<para>PMC error action offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a0afaef409ef495c6931f84dd30ba2b6f" prot="public" static="no">
+        <name>GET_PMC_ERR_ACTION_ADDR</name>
+        <param><defname>PmcMask</defname></param>
+        <param><defname>Index</defname></param>
+        <initializer>(((Index) == 2U) ? \
+			((PmcMask) + ((0xFU * XPLMI_PMC_PSM_ERR2_REG_OFFSET) - \
+			 (((PmcMask) - PMC_GLOBAL_PMC_ERR_OUT1_MASK) / 2U))) :\
+			((PmcMask) + ((Index) * XPLMI_PMC_PSM_ERR2_REG_OFFSET)))</initializer>
+        <briefdescription>
+<para>PMC error action address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a886a5c410cc2c3d8e1c7dd4c2ee65417" prot="public" static="no">
+        <name>GET_PMC_ERR_OUT_MASK</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_ERR_OUT3_MASK) :\
+					(PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset)</initializer>
+        <briefdescription>
+<para>PMC error out mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a58d6a8f749c7b202a027d3abf2ac092f" prot="public" static="no">
+        <name>GET_PMC_POR_MASK</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_POR3_MASK) :\
+					(PMC_GLOBAL_PMC_POR1_MASK + RegOffset)</initializer>
+        <briefdescription>
+<para>PMC POR mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1aceb6ea90f6058732d9c8b84df33ec916" prot="public" static="no">
+        <name>XPLMI_EM_LINK_NODES_EVENTID_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>EventNodeId offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a40fe0c1cab2bc48f20b697f094888ed0" prot="public" static="no">
+        <name>XPLMI_EM_LINK_NODES_MASK_OFFSET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Mask offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a935ba82798ad0c54e69078f24f2475cd" prot="public" static="no">
+        <name>XPLMI_EM_LINK_NODES_NODEID_OFFSET</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>First node-id offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a21e3bbf1169ce87efcc915ed8c9ac99c" prot="public" static="no">
+        <name>XPLMI_EM_LINK_NODE_INDEX_MASK</name>
+        <initializer>(0x3FFFU)</initializer>
+        <briefdescription>
+<para>Node index bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a76bcd23644e7eb3d0af5054b7413afc4" prot="public" static="no">
+        <name>XPLMI_EM_LINK_NODE_ALL_14</name>
+        <initializer>(0x3FFFU)</initializer>
+        <briefdescription>
+<para>NODE_ALL (14-bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a92912ea58014c2250767a8c42c695bb0" prot="public" static="no">
+        <name>XPLMI_EM_LINK_NODE_ALL_10</name>
+        <initializer>(0x3FFU)</initializer>
+        <briefdescription>
+<para>NODE_ALL (10-bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a94468a0b4b431fa985ff14ebe4a3202a" prot="public" static="no">
+        <name>GET_PMC_IRQ_MASK</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_IRQ3_MASK) :\
+					(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset)</initializer>
+        <briefdescription>
+<para>PMC IRQ mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2server_2xplmi__err_8h_1a6a6938cf9a38375db7f8985ad06298bd" prot="public" static="no">
+        <name>GET_PMC_SRST_MASK</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_SRST3_MASK) :\
+					(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset)</initializer>
+        <briefdescription>
+<para>PMC SRST mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="2ve__2vm_2server_2xplmi__err_8h_1aa18a813a39490f21f998adf6afcbe062" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPlmi_SysmonClkSetIro</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_SysmonClkSetIro</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets the sysmon clock to IRO for ES1 silicon. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="2ve__2vm_2server_2xplmi__err_8h_1a4d1940df14b3277dc72fe7fa31c11c31" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPlmi_ClearSsitErrors</definition>
+        <argsstring>(u32 *PmcErrStatus, u32 Index)</argsstring>
+        <name>XPlmi_ClearSsitErrors</name>
+        <param>
+          <type>u32 *</type>
+          <declname>PmcErrStatus</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Index</declname>
+        </param>
+        <briefdescription>
+<para>This function clears Ssit errors for ES1 silicon. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PmcErrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the error status array </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PMC Error register Index</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" bodystart="132" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga5318b3d7b02f3f620c32002dd295426f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPlmi_Error_t *</type>
+        <definition>XPlmi_Error_t* XPlmi_GetErrorTable</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetErrorTable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides error table pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to Error Table</para><simplesectsep/><para><itemizedlist>
+<listitem><para>Pointer to Error Table </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="412" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaf94908f3a2143476cc7e8729844b2da4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPlmi_ErrLink *</type>
+        <definition>XPlmi_ErrLink* XPlmi_GetErrLinkTable</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetErrLinkTable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the link_nodes error-link table pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table is keyed by the same ErrorId space as ErrorTable[] and holds an index handle (PoolIdx) into the node-id pool for each linked error. It is marked persistent via EXPORT_GENERIC_DS so that boot-time links survive an In-Place PLM Update; because the handles are indices (not pointers) the data survives the update in-place with no fix-up needed.</para><para><simplesect kind="return"><para>Pointer to the error link table </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="607" bodyend="616"/>
+        <references refid="xplmi__update_8h_1a91fd0d84ee97680391784c1de290b21e" compoundref="xplmi__update_8h" startline="171">EXPORT_GENERIC_DS</references>
+        <references refid="group__xilplmi__server__apis_1ga3f6b2dc29e1ec5c1d7d63774cda04e87" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="63">XPLMI_ERRLINK_TABLE_DS_VER</references>
+        <references refid="group__xilplmi__server__apis_1ga620dc8c1a1514298837a33d6cb2340c6" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="64">XPLMI_ERRLINK_TABLE_DS_LCVER</references>
+        <referencedby refid="group__xilplmi__server__apis_1gaa66c2ffef089af0bee59383d4c03e9c8" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="665" endline="795">XPlmi_LinkNodes</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga626c88edc1596863fec21d49a9f311d0" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="819" endline="860">XPlmi_GetLinkedNodes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gafbd32dda25e76814d70f118312de4301" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32 *</type>
+        <definition>u32* XPlmi_GetErrLinkPool</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetErrLinkPool</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the link_nodes node-id pool pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para>The pool is a flat static store of node IDs, referenced by index handles from ErrLinkTable[]. Node IDs are stored verbatim, in CDO order (no dedup, no reorder). It is marked persistent via EXPORT_GENERIC_DS alongside the table.</para><para><simplesect kind="return"><para>Pointer to the node-id pool </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="629" bodyend="638"/>
+        <references refid="xplmi__update_8h_1a91fd0d84ee97680391784c1de290b21e" compoundref="xplmi__update_8h" startline="171">EXPORT_GENERIC_DS</references>
+        <references refid="group__xilplmi__server__apis_1ga44eaf6aca6cff68c8c65e9d36d07d661" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="65">XPLMI_ERRLINK_POOL_DS_VER</references>
+        <references refid="group__xilplmi__server__apis_1ga5c35f6d263c1f982fd0c91eab78c0169" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="66">XPLMI_ERRLINK_POOL_DS_LCVER</references>
+        <referencedby refid="group__xilplmi__server__apis_1gaa66c2ffef089af0bee59383d4c03e9c8" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="665" endline="795">XPlmi_LinkNodes</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga626c88edc1596863fec21d49a9f311d0" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="819" endline="860">XPlmi_GetLinkedNodes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gafbcb3756137ef2f51a8774b3759f676e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPlmi_GetEventIndex</definition>
+        <argsstring>(XPlmi_EventType ErrorNodeType)</argsstring>
+        <name>XPlmi_GetEventIndex</name>
+        <param>
+          <type>XPlmi_EventType</type>
+          <declname>ErrorNodeType</declname>
+        </param>
+        <briefdescription>
+<para>This function provides event index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ErrorNodeType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Node Type of the EAM register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Event Index</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ErrorNodeType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Node Type of the EAM register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Event Index. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="440" bodyend="462"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga4f1da57b82a161d66fd9dddfa3cd1a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_RestrictErrActions</definition>
+        <argsstring>(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction)</argsstring>
+        <name>XPlmi_RestrictErrActions</name>
+        <param>
+          <type>XPlmi_EventType</type>
+          <declname>NodeType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ErrorAction</declname>
+        </param>
+        <briefdescription>
+<para>This function restricts error actions. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of Error </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of Error </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorAction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the the Error</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success and error code on failure</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of Error </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of Error </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorAction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the the Error</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_INVALID_ERROR_ACTION on invalid error action.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of Error. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of Error. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorAction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the the Error.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>For HBM Cattrip, only support actions are:<itemizedlist>
+<listitem><para>XPLMI_EM_ACTION_INVALID</para></listitem><listitem><para>XPLMI_EM_ACTION_POR</para></listitem><listitem><para>XPLMI_EM_ACTION_SRST</para></listitem><listitem><para>XPLMI_EM_ACTION_CUSTOM</para></listitem><listitem><para>XPLMI_EM_ACTION_ERROUT</para></listitem></itemizedlist>
+</para><para>For HBM Cattrip, only support actions are:<itemizedlist>
+<listitem><para>XPLMI_EM_ACTION_INVALID</para></listitem><listitem><para>XPLMI_EM_ACTION_POR</para></listitem><listitem><para>XPLMI_EM_ACTION_SRST</para></listitem><listitem><para>XPLMI_EM_ACTION_CUSTOM</para></listitem><listitem><para>XPLMI_EM_ACTION_ERROUT</para></listitem></itemizedlist>
+</para><para>For HBM Cattrip, only support actions are:<itemizedlist>
+<listitem><para>XPLMI_EM_ACTION_INVALID</para></listitem><listitem><para>XPLMI_EM_ACTION_POR</para></listitem><listitem><para>XPLMI_EM_ACTION_SRST</para></listitem><listitem><para>XPLMI_EM_ACTION_CUSTOM</para></listitem><listitem><para>XPLMI_EM_ACTION_ERROUT</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="768" bodyend="792"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga9b561130b1c156c819ca49c26b2c144c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_DumpErrNGicStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_DumpErrNGicStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function dumps EAM Error status registers and Gic Status registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="706" bodyend="723"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga714bd9052c2b7075eebbe7dfbad3c4c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_ReconfigErrActions</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_ReconfigErrActions</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reconfigures error actions after the update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="953" bodyend="986"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaa2ead960523910ab6716f6b944826fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32 *</type>
+        <definition>u32* XPlmi_GetNumErrOuts</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetNumErrOuts</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides pointer to NumErrOuts. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to NumErrOuts</para><simplesectsep/><para><itemizedlist>
+<listitem><para>Pointer to NumErrOuts. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="750" bodyend="755"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae90cde1a7630004519a10ca06dccc2e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32 *</type>
+        <definition>u32* XPlmi_GetPsmCrState</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetPsmCrState</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides IsPsmChanged variable. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to IsPsmCrChanged</para><simplesectsep/><para><itemizedlist>
+<listitem><para>Pointer to IsPsmCrChanged. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="424" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gabbe778fcdba9267e9a02ece17cd6eb28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_HandleLinkUpEvent</definition>
+        <argsstring>(u32 Cpm5NPcieCdxIrStatusReg, u32 Cpm5NCdxPcieBReg, u32 ProcId)</argsstring>
+        <name>XPlmi_HandleLinkUpEvent</name>
+        <param>
+          <type>u32</type>
+          <declname>Cpm5NPcieCdxIrStatusReg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cpm5NCdxPcieBReg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ProcId</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the CPM_NCR PCIE link up event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cpm5NPcieCdxIrStatusReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIE0/1/2/3 IR status register address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cpm5NCdxPcieBReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Pcie Bridge Misc Status register address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ProcId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ProcId for PCIE0/1/2/3 link up event </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_err.c" bodystart="604" bodyend="655"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga39731288ebdb48e9ad35613335d2e772" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_ErrPrintToLog</definition>
+        <argsstring>(u32 ErrorNodeId, u32 RegMask)</argsstring>
+        <name>XPlmi_ErrPrintToLog</name>
+        <param>
+          <type>u32</type>
+          <declname>ErrorNodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegMask</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for Error action &quot;Print
+          to Log&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function prints detailed information if the error is due to XMPU/XPPU protection units.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ErrorNodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the node ID for the error event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register mask of the error received</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function prints detailed information if the error is due to XMPU/XPPU protection units.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ErrorNodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the node ID for the error event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register mask of the error received. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="659" bodyend="697"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga07fc38f44ecaf9b9ae1af6e4043e321d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_EmDisableLpdSlcrErrors</definition>
+        <argsstring>(u32 RegMaskAddr, u32 RegMask)</argsstring>
+        <name>XPlmi_EmDisableLpdSlcrErrors</name>
+        <param>
+          <type>u32</type>
+          <declname>RegMaskAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegMask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the LPD SCLR error actions for the given mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegMaskAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset for the PMC ERR, POR ,IRQ mask,SRST mask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register mask of the error to be disabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERROR_ACTION_NOT_DISABLED if error action is not disabled. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Disable LPD SLCR error actions.</para></listitem><listitem><para>Check if the error action is disabled.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="1495" bodyend="1513"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga366702831fa35fe6b4f462d0ac261188" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1763" endline="1827">XPlmi_LpdSlcrEmInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga5b1ebbf8a9a571e76eec11e8e3d7fd63" compoundref="xplmi__err__common_8c" startline="862" endline="923">XPlmi_EmDisable</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga28fde859706469ef44c0306015c5460c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int EmEnableLpdSlcrErrAction</definition>
+        <argsstring>(u32 ErrMaskRegAddr, u32 RegMask)</argsstring>
+        <name>EmEnableLpdSlcrErrAction</name>
+        <param>
+          <type>u32</type>
+          <declname>ErrMaskRegAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegMask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the error action for the given error mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ErrMaskRegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the error action mask register address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register mask of the error to be disabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERROR_ACTION_NOT_ENABLED if error action is not enabled. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="1470" bodyend="1482"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga366702831fa35fe6b4f462d0ac261188" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_LpdSlcrEmInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_LpdSlcrEmInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the error actions in LPD Slcr Disables all the LPD SLCR error actions and registers default action. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS always. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Disable all the Error Actions</para></listitem><listitem><para>Clear the error status registers.</para></listitem><listitem><para>Set the default actions as defined in the Error table.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="1763" bodyend="1827"/>
+        <references refid="group__xilplmi__server__apis_1ga5318b3d7b02f3f620c32002dd295426f" compoundref="server_2xplmi__err_8c" startline="412" endline="415">XPlmi_GetErrorTable</references>
+        <references refid="group__xilplmi__server__apis_1ga07fc38f44ecaf9b9ae1af6e4043e321d" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1495" endline="1513">XPlmi_EmDisableLpdSlcrErrors</references>
+        <references refid="group__xilplmi__server__apis_1ga46e363e358a8e759968bd22d9d73748e" compoundref="xplmi__err__common_8c" startline="1132" endline="1210">XPlmi_EmSetAction</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" compoundref="xplmi_8c" startline="268" endline="313">XPlmi_LpdInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gacaa277fc559293e696db806a7a22c852" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_Versal2Ve2VmSetAction</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPlmi_Versal2Ve2VmSetAction</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the error action as prescribed by the command. </para>        </briefdescription>
+        <detaileddescription>
+<para>Command payload parameters are:<itemizedlist>
+<listitem><para>Error Node ID</para></listitem><listitem><para>Error Action:<itemizedlist>
+<listitem><para>0 - Invalid</para></listitem><listitem><para>1 - POR</para></listitem><listitem><para>2 - SRST</para></listitem><listitem><para>3 - Custom(Not supported)</para></listitem><listitem><para>4 - ErrOut</para></listitem><listitem><para>5 - Subsystem Shutdown</para></listitem><listitem><para>6 - Subsystem Restart</para></listitem><listitem><para>7 - Print to log</para></listitem><listitem><para>8 - SLD</para></listitem><listitem><para>9 - SLD with TRI</para></listitem><listitem><para>10 - None</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Error ID Mask</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_INVALID_NODE_ID on invalid node ID.</para></listitem><listitem><para>XPLMI_INVALID_ERROR_ACTION on invalid error action.</para></listitem><listitem><para>XPLMI_CANNOT_CHANGE_ACTION if failed to change error action.</para></listitem><listitem><para>XPLMI_LPD_UNINITIALIZED if LPD failed to initialize. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="1861" bodyend="1971"/>
+        <references refid="group__xilplmi__server__apis_1ga7b561b8635934f43862dafd99e244396" compoundref="xplmi__err__common_8c" startline="1461" endline="1464">XPlmi_GetEmSubsystemId</references>
+        <references refid="group__xilplmi__server__apis_1gafbcb3756137ef2f51a8774b3759f676e" compoundref="server_2xplmi__err_8c" startline="440" endline="462">XPlmi_GetEventIndex</references>
+        <references refid="group__xilplmi__server__apis_1ga4f1da57b82a161d66fd9dddfa3cd1a09" compoundref="server_2xplmi__err_8c" startline="768" endline="792">XPlmi_RestrictErrActions</references>
+        <references refid="group__xilplmi__server__apis_1ga46e363e358a8e759968bd22d9d73748e" compoundref="xplmi__err__common_8c" startline="1132" endline="1210">XPlmi_EmSetAction</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaec772692d1810620b36df9cd06c3f238" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_Versal2Ve2VmLinkNodes</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XPlmi_Versal2Ve2VmLinkNodes</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>link_nodes command handler body for Versal 2VE/2VM devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>Parses the CDO payload and links a verbatim, CDO-ordered list of node IDs to an error event. CDO-only (IPI callers are rejected).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success, or when skipped during an In-Place PLM Update.</para></listitem><listitem><para>XPLMI_INVALID_NODE_ID on invalid node ID or NODE_ALL sentinel.</para></listitem><listitem><para>XST_INVALID_PARAM on invalid parameters / IPI caller.</para></listitem><listitem><para>Error code from XPlmi_LinkNodes on storage failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Reject IPI callers: link_nodes is CDO-only.</para></listitem><listitem><para>Skip during In-Place PLM Update: the linkage is restored from the persistent ErrLinkTable/ErrLinkPool DS, and the replayed PMC CDO would otherwise re-append it. The restored table is authoritative, as for the xilpm_ng topology commands that also skip on update.</para></listitem><listitem><para>Need at least EventNodeId + Mask + one node id.</para></listitem><listitem><para>Reject a zero mask: it would leak pool space with no linkage.</para></listitem><listitem><para>Reject NODE_ALL sentinel: link_nodes requires concrete node IDs.</para></listitem><listitem><para>Store the linkage keyed by ErrorId. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.c" bodystart="878" bodyend="946"/>
+        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="269" endline="273">XPlmi_IsPlmUpdateDone</references>
+        <references refid="group__xilplmi__server__apis_1gaa66c2ffef089af0bee59383d4c03e9c8" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="665" endline="795">XPlmi_LinkNodes</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#ifndef<sp/>XPLMI_ERR_H</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ERR_H</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Include<sp/>Files<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_error_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__err__common_8h" kindref="compound">xplmi_err_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GET_PMC_ERR_ACTION_OFFSET(Index)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Index)<sp/>==<sp/>2U)<sp/>?<sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU<sp/>*<sp/>XPLMI_PMC_PSM_ERR2_REG_OFFSET)<sp/>:<sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Index)<sp/>*<sp/>XPLMI_PMC_PSM_ERR2_REG_OFFSET))<sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>GET_PMC_ERR_ACTION_ADDR(PmcMask,<sp/>Index)<sp/>(((Index)<sp/>==<sp/>2U)<sp/>?<sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PmcMask)<sp/>+<sp/>((0xFU<sp/>*<sp/>XPLMI_PMC_PSM_ERR2_REG_OFFSET)<sp/>-<sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((PmcMask)<sp/>-<sp/>PMC_GLOBAL_PMC_ERR_OUT1_MASK)<sp/>/<sp/>2U)))<sp/>:\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PmcMask)<sp/>+<sp/>((Index)<sp/>*<sp/>XPLMI_PMC_PSM_ERR2_REG_OFFSET)))<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>GET_PMC_ERR_OUT_MASK(RegOffset)<sp/>(RegOffset<sp/>==<sp/>0xF0U)<sp/>?<sp/>(PMC_GLOBAL_PMC_ERR_OUT3_MASK)<sp/>:\</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PMC_GLOBAL_PMC_ERR_OUT1_MASK<sp/>+<sp/>RegOffset)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>GET_PMC_POR_MASK(RegOffset)<sp/>(RegOffset<sp/>==<sp/>0xF0U)<sp/>?<sp/>(PMC_GLOBAL_PMC_POR3_MASK)<sp/>:\</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PMC_GLOBAL_PMC_POR1_MASK<sp/>+<sp/>RegOffset)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>link_nodes<sp/>payload<sp/>fixed<sp/>word<sp/>offsets.<sp/>Word<sp/>0<sp/>=<sp/>EventNodeId,<sp/>word<sp/>1<sp/>=<sp/>Mask,</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/>words<sp/>2..N<sp/>=<sp/>node<sp/>IDs<sp/>(&gt;=<sp/>1).<sp/>Minimum<sp/>payload<sp/>=<sp/>3<sp/>words.</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EM_LINK_NODES_EVENTID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XPLMI_EM_LINK_NODES_MASK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XPLMI_EM_LINK_NODES_NODEID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*<sp/>NODE_ALL<sp/>sentinel<sp/>reject<sp/>for<sp/>link_nodes.<sp/>The<sp/>node<sp/>index<sp/>field<sp/>is<sp/>the<sp/>low</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/>*<sp/>14<sp/>bits<sp/>of<sp/>a<sp/>PM<sp/>node<sp/>id.<sp/>We<sp/>reject<sp/>an<sp/>all-ones<sp/>index<sp/>because<sp/>link_nodes</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*<sp/>stores<sp/>node<sp/>IDs<sp/>verbatim<sp/>(no<sp/>NODE_ALL<sp/>expansion),<sp/>so<sp/>a<sp/>NODE_ALL<sp/>sentinel</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/>*<sp/>would<sp/>resolve<sp/>to<sp/>nothing.<sp/>Both<sp/>the<sp/>14-bit<sp/>(0x3FFF)<sp/>and<sp/>10-bit<sp/>(0x3FF)</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/>*<sp/>all-ones<sp/>patterns<sp/>are<sp/>rejected<sp/>so<sp/>either<sp/>sentinel<sp/>encoding<sp/>is<sp/>refused.</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EM_LINK_NODE_INDEX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FFFU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XPLMI_EM_LINK_NODE_ALL_14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FFFU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XPLMI_EM_LINK_NODE_ALL_10<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FFU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>GET_PMC_IRQ_MASK(RegOffset)<sp/>(RegOffset<sp/>==<sp/>0xF0U)<sp/>?<sp/>(PMC_GLOBAL_PMC_IRQ3_MASK)<sp/>:\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PMC_GLOBAL_PMC_IRQ1_MASK<sp/>+<sp/>RegOffset)<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>GET_PMC_SRST_MASK(RegOffset)<sp/>(RegOffset<sp/>==<sp/>0xF0U)<sp/>?<sp/>(PMC_GLOBAL_PMC_SRST3_MASK)<sp/>:\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PMC_GLOBAL_PMC_SRST1_MASK<sp/>+<sp/>RegOffset)<sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga63d49076d6d6b4d9386d82d7cd1fb0d6" kindref="member">XPlmi_SysmonClkSetIro</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>workaround<sp/>is<sp/>not<sp/>applicable<sp/>for<sp/>versal<sp/>net<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="123"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga7707e2ec838141c955e440eee532a868" kindref="member">XPlmi_ClearSsitErrors</ref>(u32<sp/>*PmcErrStatus,<sp/>u32<sp/>Index)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PmcErrStatus;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Index;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Not<sp/>applicable<sp/>for<sp/>versal<sp/>net<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal">XPlmi_Error_t<sp/>*<ref refid="group__xilplmi__server__apis_1ga5318b3d7b02f3f620c32002dd295426f" kindref="member">XPlmi_GetErrorTable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">XPlmi_ErrLink<sp/>*<ref refid="group__xilplmi__server__apis_1gaf94908f3a2143476cc7e8729844b2da4" kindref="member">XPlmi_GetErrLinkTable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">u32<sp/>*<ref refid="group__xilplmi__server__apis_1gafbd32dda25e76814d70f118312de4301" kindref="member">XPlmi_GetErrLinkPool</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">u8<sp/><ref refid="group__xilplmi__server__apis_1gafbcb3756137ef2f51a8774b3759f676e" kindref="member">XPlmi_GetEventIndex</ref>(XPlmi_EventType<sp/>ErrorNodeType);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga4f1da57b82a161d66fd9dddfa3cd1a09" kindref="member">XPlmi_RestrictErrActions</ref>(XPlmi_EventType<sp/>NodeType,<sp/>u32<sp/>RegMask,<sp/>u32<sp/>ErrorAction);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga9b561130b1c156c819ca49c26b2c144c" kindref="member">XPlmi_DumpErrNGicStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga714bd9052c2b7075eebbe7dfbad3c4c0" kindref="member">XPlmi_ReconfigErrActions</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">u32<sp/>*<ref refid="group__xilplmi__server__apis_1gaa2ead960523910ab6716f6b944826fc5" kindref="member">XPlmi_GetNumErrOuts</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">u32<sp/>*<ref refid="group__xilplmi__server__apis_1gae90cde1a7630004519a10ca06dccc2e6" kindref="member">XPlmi_GetPsmCrState</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabbe778fcdba9267e9a02ece17cd6eb28" kindref="member">XPlmi_HandleLinkUpEvent</ref>(u32<sp/>Cpm5NPcieCdxIrStatusReg,<sp/>u32<sp/>Cpm5NCdxPcieBReg,<sp/>u32<sp/>ProcId);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga39731288ebdb48e9ad35613335d2e772" kindref="member">XPlmi_ErrPrintToLog</ref>(u32<sp/>ErrorNodeId,<sp/>u32<sp/>RegMask);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga07fc38f44ecaf9b9ae1af6e4043e321d" kindref="member">XPlmi_EmDisableLpdSlcrErrors</ref>(u32<sp/>RegMaskAddr,<sp/>u32<sp/>RegMask);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga28fde859706469ef44c0306015c5460c" kindref="member">EmEnableLpdSlcrErrAction</ref>(u32<sp/>ErrMaskRegAddr,<sp/>u32<sp/>RegMask);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga366702831fa35fe6b4f462d0ac261188" kindref="member">XPlmi_LpdSlcrEmInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gacaa277fc559293e696db806a7a22c852" kindref="member">XPlmi_Versal2Ve2VmSetAction</ref>(XPlmi_Cmd<sp/>*<sp/>Cmd);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaec772692d1810620b36df9cd06c3f238" kindref="member">XPlmi_Versal2Ve2VmLinkNodes</ref>(XPlmi_Cmd<sp/>*<sp/>Cmd);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_ERR_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_err.h"/>
+  </compounddef>
+</doxygen>

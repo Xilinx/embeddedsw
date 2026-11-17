@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_vdma___frame_counter" kind="struct" prot="public">
+    <compoundname>XAxiVdma_FrameCounter</compoundname>
+    <includes local="no">xaxivdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_vdma___frame_counter_1aa60c173f1c6d7314821ae2c24e2ff7af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiVdma_FrameCounter::ReadFrameCount</definition>
+        <argsstring></argsstring>
+        <name>ReadFrameCount</name>
+        <briefdescription>
+<para>Interrupt threshold for Receive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="462" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" compoundref="vdma__api_8c" startline="94" endline="232">run_triple_frame_buffer</referencedby>
+        <referencedby refid="group__axivdma_1gabb2cecf1628ce8f7b42ffca3608bdf70" compoundref="xaxivdma_8c" startline="1107" endline="1146">XAxiVdma_GetFrameCounter</referencedby>
+        <referencedby refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" compoundref="xaxivdma_8c" startline="1046" endline="1095">XAxiVdma_SetFrameCounter</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___frame_counter_1a03ffbe1551620b7f0f72b905006dcf88" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiVdma_FrameCounter::ReadDelayTimerCount</definition>
+        <argsstring></argsstring>
+        <name>ReadDelayTimerCount</name>
+        <briefdescription>
+<para>Delay timer threshold for receive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="463" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" compoundref="vdma__api_8c" startline="94" endline="232">run_triple_frame_buffer</referencedby>
+        <referencedby refid="group__axivdma_1gabb2cecf1628ce8f7b42ffca3608bdf70" compoundref="xaxivdma_8c" startline="1107" endline="1146">XAxiVdma_GetFrameCounter</referencedby>
+        <referencedby refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" compoundref="xaxivdma_8c" startline="1046" endline="1095">XAxiVdma_SetFrameCounter</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___frame_counter_1ab43078f5f7fdd17728ac6ecfb97aea27" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiVdma_FrameCounter::WriteFrameCount</definition>
+        <argsstring></argsstring>
+        <name>WriteFrameCount</name>
+        <briefdescription>
+<para>Interrupt threshold for transmit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="464" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" compoundref="vdma__api_8c" startline="94" endline="232">run_triple_frame_buffer</referencedby>
+        <referencedby refid="group__axivdma_1gabb2cecf1628ce8f7b42ffca3608bdf70" compoundref="xaxivdma_8c" startline="1107" endline="1146">XAxiVdma_GetFrameCounter</referencedby>
+        <referencedby refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" compoundref="xaxivdma_8c" startline="1046" endline="1095">XAxiVdma_SetFrameCounter</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma___frame_counter_1ad55f207b3d4bfab082a90ea7a43f044c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiVdma_FrameCounter::WriteDelayTimerCount</definition>
+        <argsstring></argsstring>
+        <name>WriteDelayTimerCount</name>
+        <briefdescription>
+<para>Delay timer threshold for transmit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="465" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" compoundref="vdma__api_8c" startline="94" endline="232">run_triple_frame_buffer</referencedby>
+        <referencedby refid="group__axivdma_1gabb2cecf1628ce8f7b42ffca3608bdf70" compoundref="xaxivdma_8c" startline="1107" endline="1146">XAxiVdma_GetFrameCounter</referencedby>
+        <referencedby refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" compoundref="xaxivdma_8c" startline="1046" endline="1095">XAxiVdma_SetFrameCounter</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds frame counter interrupt threshold settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="461" bodyend="466"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_vdma___frame_counter_1a03ffbe1551620b7f0f72b905006dcf88" prot="public" virt="non-virtual"><scope>XAxiVdma_FrameCounter</scope><name>ReadDelayTimerCount</name></member>
+      <member refid="struct_x_axi_vdma___frame_counter_1aa60c173f1c6d7314821ae2c24e2ff7af" prot="public" virt="non-virtual"><scope>XAxiVdma_FrameCounter</scope><name>ReadFrameCount</name></member>
+      <member refid="struct_x_axi_vdma___frame_counter_1ad55f207b3d4bfab082a90ea7a43f044c" prot="public" virt="non-virtual"><scope>XAxiVdma_FrameCounter</scope><name>WriteDelayTimerCount</name></member>
+      <member refid="struct_x_axi_vdma___frame_counter_1ab43078f5f7fdd17728ac6ecfb97aea27" prot="public" virt="non-virtual"><scope>XAxiVdma_FrameCounter</scope><name>WriteFrameCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

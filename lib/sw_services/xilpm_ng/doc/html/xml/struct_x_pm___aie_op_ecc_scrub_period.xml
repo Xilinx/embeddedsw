@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_op_ecc_scrub_period" kind="struct" prot="public">
+    <compoundname>XPm_AieOpEccScrubPeriod</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_op_ecc_scrub_period_1a598619f5e56566686b2b09d98f1b7e95" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpEccScrubPeriod::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_ecc_scrub_period_1a3979ca3bdb0f902dd238ed288d030281" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpEccScrubPeriod::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_ecc_scrub_period_1ac9618daf220018c3790c619f805024d9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpEccScrubPeriod::ScrubPeriod</definition>
+        <argsstring></argsstring>
+        <name>ScrubPeriod</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="76" bodyend="80"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_op_ecc_scrub_period_1a3979ca3bdb0f902dd238ed288d030281" prot="public" virt="non-virtual"><scope>XPm_AieOpEccScrubPeriod</scope><name>Len</name></member>
+      <member refid="struct_x_pm___aie_op_ecc_scrub_period_1ac9618daf220018c3790c619f805024d9" prot="public" virt="non-virtual"><scope>XPm_AieOpEccScrubPeriod</scope><name>ScrubPeriod</name></member>
+      <member refid="struct_x_pm___aie_op_ecc_scrub_period_1a598619f5e56566686b2b09d98f1b7e95" prot="public" virt="non-virtual"><scope>XPm_AieOpEccScrubPeriod</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

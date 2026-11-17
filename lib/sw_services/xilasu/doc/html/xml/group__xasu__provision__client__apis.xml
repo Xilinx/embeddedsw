@@ -1,0 +1,857 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__provision__client__apis" kind="group">
+    <compoundname>xasu_provision_client_apis</compoundname>
+    <title>Provisioning Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga7cca2fe00b81c25421b117951547e313" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ProvisionEncodeRecordHeader</definition>
+        <argsstring>(u8 *BufPtr, u32 BufSize, u8 CmdId, u16 PayloadSize)</argsstring>
+        <name>XAsu_ProvisionEncodeRecordHeader</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufSize</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CmdId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>PayloadSize</declname>
+        </param>
+        <briefdescription>
+<para>Initialize one provisioning instruction record header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Capacity of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provisioning instruction command ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Record payload size in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the zeroed header is initialized.</para></listitem><listitem><para>XST_FAILURE, if the buffer is invalid or cannot be cleared. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="81" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ProvisionEncodeCreateKeyVault</definition>
+        <argsstring>(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u64 BufAddr, u32 BufSize, u32 *RecordLenPtr)</argsstring>
+        <name>XAsu_ProvisionEncodeCreateKeyVault</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___key_manager_sub_vault_params" kindref="compound">XAsu_KeyManagerSubVaultParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>BufAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufSize</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RecordLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>Encode one CREATE_KEY_VAULT provisioning instruction record. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the key-vault parameters. VaultId must explicitly select a user-owned vault and VaultIdAddr must be zero. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Capacity of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RecordLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer that receives the encoded record length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the complete record is encoded.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if an argument or field value is invalid, or an input/output range aliases the encoded record.</para></listitem><listitem><para>XST_FAILURE, if the output buffer cannot be initialized. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="123" bodyend="223"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__generic__apis_1gaed278deb4237e6e31cee0677b657aa12" compoundref="xasu__generic_8c" startline="91" endline="104">XAsu_IsRangeOverlap</references>
+        <references refid="group__xasu__common__defs_1gac0624ac2023b316ce02a22c039284605" compoundref="xasu__keymanagerinfo_8h" startline="50">XASU_KM_CREATE_KEYVAULT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gae4ba4a0ef45307f2269b951af23bbc31" compoundref="xasu__provisioninfo_8h" startline="146">XASU_PROVISION_CREATE_ACCESS_OFFSET</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011aca56ecdbf84134cf8bcde92b0e672a50" compoundref="xasu__provisioninfo_8h" startline="172">XASU_PROVISION_CREATE_CAP_IDX_AES</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011add0ddcf5c6232fd38a01c25133349040" compoundref="xasu__provisioninfo_8h" startline="178">XASU_PROVISION_CREATE_CAP_IDX_ECC_PUB</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1b016982269fab09012a3ce907c0982a" compoundref="xasu__provisioninfo_8h" startline="177">XASU_PROVISION_CREATE_CAP_IDX_ECC_PVT</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a4dfebf8912e99430ef9ec27313ac6139" compoundref="xasu__provisioninfo_8h" startline="173">XASU_PROVISION_CREATE_CAP_IDX_IV</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a85cc0ec4cf2ae8f0a7a2456a42f39d63" compoundref="xasu__provisioninfo_8h" startline="174">XASU_PROVISION_CREATE_CAP_IDX_KDF_HMAC</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a655edc256867e0c3bc668b21f41946ad" compoundref="xasu__provisioninfo_8h" startline="179">XASU_PROVISION_CREATE_CAP_IDX_LMS</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af68bc5ebd82d208143778538fe8241fb" compoundref="xasu__provisioninfo_8h" startline="184">XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PUB</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af46535a627781b775d18ce67bb85ec93" compoundref="xasu__provisioninfo_8h" startline="183">XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PVT</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011ac9bacd0f21d1c60d8dbb37f80fd04af2" compoundref="xasu__provisioninfo_8h" startline="186">XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PUB</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a580d9424cf6ae479e0b3ad09f04540f4" compoundref="xasu__provisioninfo_8h" startline="185">XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PVT</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a8b95f638cae3ac6423bb3cbed4c13db6" compoundref="xasu__provisioninfo_8h" startline="176">XASU_PROVISION_CREATE_CAP_IDX_RSA_PUB</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a2ae4ca634e860795dc326e753b2e832c" compoundref="xasu__provisioninfo_8h" startline="175">XASU_PROVISION_CREATE_CAP_IDX_RSA_PVT</references>
+        <references refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a9b8e57bed3ef9dbe27c9034c6bd349f3" compoundref="xasu__provisioninfo_8h" startline="187">XASU_PROVISION_CREATE_CAP_IDX_X509</references>
+        <references refid="group__xasu__common__defs_1gaa1bcccc2928022825591c29149faba8b" compoundref="xasu__provisioninfo_8h" startline="141">XASU_PROVISION_CREATE_CAP_OFFSET</references>
+        <references refid="group__xasu__common__defs_1ga77299799e02fbba9f010817921bb71df" compoundref="xasu__provisioninfo_8h" startline="149">XASU_PROVISION_CREATE_RESTRICTIONS_OFFSET</references>
+        <references refid="group__xasu__common__defs_1ga6e21b2dc4b9924cfb7242164a1538df2" compoundref="xasu__provisioninfo_8h" startline="136">XASU_PROVISION_CREATE_VAULT_ID_OFFSET</references>
+        <references refid="group__xasu__common__defs_1gab91dbb8b6b10788f91eeeef05794144f" compoundref="xasu__provisioninfo_8h" startline="152">XASU_PROVISION_CREATE_VAULT_PAYLOAD_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" compoundref="xasu__provisioninfo_8h" startline="107">XASU_PROVISION_RECORD_HEADER_SIZE</references>
+        <references refid="group__xasu__provision__common__apis_1gaf923237ff8cde695d69997cef9e5e752" compoundref="xasu__provision__common_8c" startline="335" endline="350">XAsu_ProvisionValidateCreateKeyVaultParams</references>
+        <references refid="group__xasu__provision__common__apis_1ga7182ce5292395537e684f7e06761a118" compoundref="xasu__provision__common_8c" startline="502" endline="506">XAsu_ProvisionWriteU16Le</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ProvisionEncodeStoreKey</definition>
+        <argsstring>(const XAsu_KeyManagerParams *ParamsPtr, u64 BufAddr, u32 BufSize, u32 *RecordLenPtr)</argsstring>
+        <name>XAsu_ProvisionEncodeStoreKey</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>BufAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufSize</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RecordLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>Encode one STORE_KEY provisioning instruction record. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the KeyManager store-key parameters. KeyObjectAddr and KeyMetadata are encoded. KeyObjectLen must cover the encoded key object. KeyIdAddr and WrappedInputLen must be zero. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Capacity of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RecordLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer that receives the encoded record length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the record is encoded.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if an argument, length or metadata field is invalid, or an input/output range aliases the encoded record.</para></listitem><listitem><para>XST_FAILURE, if the record header or key bytes cannot be copied. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>The encode copies DataLen bytes, so the caller buffer must cover that object. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="243" bodyend="320"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" compoundref="xasu__keymanagerinfo_8h" startline="321">XAsu_KeyManagerParams::KeyObjectAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1ab434c6fe4301663ed0221d47bb2cd0e7" compoundref="xasu__keymanagerinfo_8h" startline="332">XAsu_KeyManagerParams::KeyObjectLen</references>
+        <references refid="struct_x_asu___key_manager_params_1a9a45b82fce6b349db3f7efaaa74c4533" compoundref="xasu__keymanagerinfo_8h" startline="329">XAsu_KeyManagerParams::WrappedInputLen</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__generic__apis_1gaed278deb4237e6e31cee0677b657aa12" compoundref="xasu__generic_8c" startline="91" endline="104">XAsu_IsRangeOverlap</references>
+        <references refid="group__xasu__common__defs_1ga87c4a31a395449a4bf7d53a8c026153f" compoundref="xasu__keymanagerinfo_8h" startline="58">XASU_KM_STORE_KEY_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" compoundref="xasu__provisioninfo_8h" startline="107">XASU_PROVISION_RECORD_HEADER_SIZE</references>
+        <references refid="group__xasu__provision__client__apis_1ga7d08229d0e43def27884384aa172c563" compoundref="xasu__provision_8c" startline="41">XASU_PROVISION_RECORD_PAYLOAD_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1gaf44280bef3d4598b44333aaa4518c910" compoundref="xasu__provision_8c" startline="43">XASU_PROVISION_STORE_ATTRIBUTES_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga1bd08fd030918db26804aeb0ff567b16" compoundref="xasu__provision_8c" startline="47">XASU_PROVISION_STORE_DATA_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga5658bdbc96d34e0ba669bd0378140b31" compoundref="xasu__provision_8c" startline="45">XASU_PROVISION_STORE_EPOCH_OFFSET</references>
+        <references refid="group__xasu__common__defs_1ga3529dd58fc1d1e52cda381d7af95b9d1" compoundref="xasu__provisioninfo_8h" startline="108">XASU_PROVISION_STORE_KEY_METADATA_SIZE</references>
+        <references refid="group__xasu__provision__client__apis_1gae831d5d3fd2dcc32ee67159238f3cb02" compoundref="xasu__provision_8c" startline="44">XASU_PROVISION_STORE_LENGTH_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga03fe2b54b29e8924759c2e1d3393c27a" compoundref="xasu__provision_8c" startline="46">XASU_PROVISION_STORE_USAGE_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga724b9a9a6cfb8902771b9c6b185fb257" compoundref="xasu__provision_8c" startline="42">XASU_PROVISION_STORE_USE_CASE_OFFSET</references>
+        <references refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</references>
+        <references refid="group__xasu__provision__common__apis_1ga7182ce5292395537e684f7e06761a118" compoundref="xasu__provision__common_8c" startline="502" endline="506">XAsu_ProvisionWriteU16Le</references>
+        <references refid="group__xasu__provision__common__apis_1gaae92d0017f2b91fefa805972b76147d1" compoundref="xasu__provision__common_8c" startline="516" endline="522">XAsu_ProvisionWriteU32Le</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ProvisionEncodeXorKeys</definition>
+        <argsstring>(u64 BufAddr, u32 BufSize, const XAsu_KmXorKeyParams *ParamsPtr, u32 *RecordLenPtr)</argsstring>
+        <name>XAsu_ProvisionEncodeXorKeys</name>
+        <param>
+          <type>u64</type>
+          <declname>BufAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufSize</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_asu___km_xor_key_params" kindref="compound">XAsu_KmXorKeyParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RecordLenPtr</declname>
+        </param>
+        <briefdescription>
+<para>Encode one XOR provisioning instruction record. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Capacity of the output record buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the input key IDs and output-key metadata. OutKeyIdAddr must be zero because the output slot is explicit. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RecordLenPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer that receives the encoded record length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the 32-byte record is encoded.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if an argument, AES output-key length or output buffer is invalid, or an input/output range aliases the encoded record.</para></listitem><listitem><para>XST_FAILURE, if the record header cannot be initialized. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="339" bodyend="390"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__generic__apis_1gaed278deb4237e6e31cee0677b657aa12" compoundref="xasu__generic_8c" startline="91" endline="104">XAsu_IsRangeOverlap</references>
+        <references refid="group__xasu__common__defs_1gae39f4b672b506d647f80bf03876ba8fc" compoundref="xasu__keymanagerinfo_8h" startline="68">XASU_KM_XOR_KEY_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" compoundref="xasu__provisioninfo_8h" startline="107">XASU_PROVISION_RECORD_HEADER_SIZE</references>
+        <references refid="group__xasu__provision__client__apis_1ga835fd8562faee003c3e185a3a4d148d9" compoundref="xasu__provision_8c" startline="52">XASU_PROVISION_XOR_ATTRIBUTES_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga095b2f19ec5d605064ac1a315d51b9b5" compoundref="xasu__provision_8c" startline="54">XASU_PROVISION_XOR_EPOCH_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga8295029c0a16e9e93d920e15c72df028" compoundref="xasu__provision_8c" startline="53">XASU_PROVISION_XOR_LENGTH_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1gaf29623102436ef18d1d6df819b5c019c" compoundref="xasu__provision_8c" startline="50">XASU_PROVISION_XOR_OUTPUT_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1gabced85fe305417e9c06746292298ee3b" compoundref="xasu__provision_8c" startline="37">XASU_PROVISION_XOR_PAYLOAD_SIZE</references>
+        <references refid="group__xasu__provision__client__apis_1gae03f5ce451ff47643b3a553acf2e11a7" compoundref="xasu__provision_8c" startline="48">XASU_PROVISION_XOR_SPLIT1_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga70049b0863d5a2f26ea8831ec302e285" compoundref="xasu__provision_8c" startline="49">XASU_PROVISION_XOR_SPLIT2_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1ga78bb8dc5a5911f3e4b23d989eed1de7b" compoundref="xasu__provision_8c" startline="55">XASU_PROVISION_XOR_USAGE_OFFSET</references>
+        <references refid="group__xasu__provision__client__apis_1gaa648c2130de8d66adc727df996e643e9" compoundref="xasu__provision_8c" startline="51">XASU_PROVISION_XOR_USE_CASE_OFFSET</references>
+        <references refid="group__xasu__provision__common__apis_1gabc12756dda306cfd187eaf77638c255b" compoundref="xasu__provision__common_8c" startline="441" endline="460">XAsu_ProvisionValidateXorParams</references>
+        <references refid="group__xasu__provision__common__apis_1ga7182ce5292395537e684f7e06761a118" compoundref="xasu__provision__common_8c" startline="502" endline="506">XAsu_ProvisionWriteU16Le</references>
+        <references refid="group__xasu__provision__common__apis_1gaae92d0017f2b91fefa805972b76147d1" compoundref="xasu__provision__common_8c" startline="516" endline="522">XAsu_ProvisionWriteU32Le</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga78b5aec1dc445c75f73ddad7fd215c0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ProvisionUserEfuse</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUserEfuseParams *ParamsPtr)</argsstring>
+        <name>XAsu_ProvisionUserEfuse</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___provision_user_efuse_params" kindref="compound">XAsu_ProvisionUserEfuseParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to program a USER eFUSE key. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The key to be programmed can be sourced from the AKV, generated internally by the
+    ASU using the TRNG (benign provisioning), or supplied directly by the user.
+    USER_EFUSE_KEY_0 is always stored in black (PUF KEK encrypted) form.
+    USER_EFUSE_KEY_1 is stored in the form selected by ParamsPtr-&gt;KeyForm (black or
+    red). Red USER key 1 can be used by both PLM and ASU. Black USER key 1 is
+    subsystem-exclusive; use black provisioning with the intended end use case in mind.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___provision_user_efuse_params" kindref="compound">XAsu_ProvisionUserEfuseParams</ref> structure which holds the USER eFUSE key provisioning input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate the provisioning input parameter pointer.</para><para>Validate client parameters.</para><para>Validate the USER eFUSE provisioning input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="415" bodyend="461"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2cf706ce2959eeecb8923767895c4f98" compoundref="xasu__def_8h" startline="66">XASU_MODULE_PROVISION_ID</references>
+        <references refid="group__xasu__common__defs_1gafb73d68e9209938633c991b05a84c612" compoundref="xasu__provisioninfo_8h" startline="54">XASU_PROVISION_USER_EFUSE_CMD_ID</references>
+        <references refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga0a67b6effa75ba432c9cfbb4985ad6f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ProvisionUde</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_ProvisionUdeParams *ParamsPtr)</argsstring>
+        <name>XAsu_ProvisionUde</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___provision_ude_params" kindref="compound">XAsu_ProvisionUdeParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to provision a Unique Device Endorsement (UDE) key pair. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The UDE key pair (ECC NIST P-384) is generated inside the ASU so the private key is
+    never exposed outside the ASU. The private key is encrypted with the PUF KEK and
+    programmed into the requested eFUSE slot by the ASU (via the PLM), and a self-signed
+    X.509 certificate over the generated public key is returned to the caller at
+    ParamsPtr-&gt;CertBufAddr with its actual size at ParamsPtr-&gt;CertActualSizeAddr.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___provision_ude_params" kindref="compound">XAsu_ProvisionUdeParams</ref> structure which holds the UDE key provisioning input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate the provisioning input parameter pointer.</para><para>Validate client parameters.</para><para>Validate the UDE provisioning input parameters.</para><para>Generate a unique ID and register the callback function, providing the caller&apos;s CertActualSizeAddr as the response buffer so the certificate size returned by the server is copied there during the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="486" bodyend="537"/>
+        <references refid="struct_x_asu___provision_ude_params_1a445dd925fb2e1ea985e119a4a6182693" compoundref="xasu__provisioninfo_8h" startline="232">XAsu_ProvisionUdeParams::CertActualSizeAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2cf706ce2959eeecb8923767895c4f98" compoundref="xasu__def_8h" startline="66">XASU_MODULE_PROVISION_ID</references>
+        <references refid="group__xasu__common__defs_1gaae7fb5b2d99e9dba0f46a74c73891c24" compoundref="xasu__provisioninfo_8h" startline="87">XASU_PROVISION_UDE_CERT_ACTUAL_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gac885d342c1283d7d4062b87f0bc0ac81" compoundref="xasu__provisioninfo_8h" startline="57">XASU_PROVISION_UDE_CMD_ID</references>
+        <references refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga06f49683a7784e2b17fcb814a18b090d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_WrapProvisionInstructions</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_WrapProvisionInstructionsParams *ParamsPtr)</argsstring>
+        <name>XAsu_WrapProvisionInstructions</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___wrap_provision_instructions_params" kindref="compound">XAsu_WrapProvisionInstructionsParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends one atomic command to ASUFW to build an authenticated encrypted provisioning image from a plaintext instruction-record stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the record-stream and output-buffer parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the request is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if an argument is invalid or the output buffer is too small.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the generated unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate client and wrap-command parameters before allocating a queue entry.</para><para>Generate a unique ID and register the status-only callback.</para><para>Create the command header and submit the single atomic wrap request. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="554" bodyend="591"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2cf706ce2959eeecb8923767895c4f98" compoundref="xasu__def_8h" startline="66">XASU_MODULE_PROVISION_ID</references>
+        <references refid="group__xasu__common__defs_1gaf65d87d5dd15a14912de0de68742a37a" compoundref="xasu__provisioninfo_8h" startline="66">XASU_PROVISION_WRAP_INSTR_CMD_ID</references>
+        <references refid="group__xasu__provision__common__apis_1gaf0d491ff698f8db75edeebd613219b5b" compoundref="xasu__provision__common_8c" startline="269" endline="290">XAsu_ProvisionValidateWrapParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga002a33dfe410a66337fa5e724ba40eae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_UnwrapProvisionInstructions</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_UnwrapProvisionInstructionsParams *ParamsPtr)</argsstring>
+        <name>XAsu_UnwrapProvisionInstructions</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>XAsu_UnwrapProvisionInstructionsParams *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to process a wrapped provisioning image header. </para>        </briefdescription>
+        <detaileddescription>
+<para>The ASU validates the header, resolves the subsystem&apos;s authentication public key internally, verifies the signature, ECIES-decrypts and CMAC-KDF-derives the chunk key, then executes the recovered provisioning instructions.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_UnwrapProvisionInstructionsParams structure holding the provisioning image base and length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the generated unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validation of inputs.</para><para>Validate the complete unwrap command before allocating a queue entry.</para><para>Generate a unique ID and register the callback function. Only a status is returned.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="612" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="612" bodyend="651"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2cf706ce2959eeecb8923767895c4f98" compoundref="xasu__def_8h" startline="66">XASU_MODULE_PROVISION_ID</references>
+        <references refid="group__xasu__common__defs_1ga701bb63301e2c836767006fd86c5b060" compoundref="xasu__provisioninfo_8h" startline="69">XASU_PROVISION_UNWRAP_INSTR_CMD_ID</references>
+        <references refid="group__xasu__provision__common__apis_1ga3fee9e75c7602d9b9b520a3072f42bc7" compoundref="xasu__provision__common_8c" startline="304" endline="321">XAsu_ProvisionValidateUnwrapParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1ga7ebdaac74b923c5bf29414940c9f0606" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_GetDevProvisionCert</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_DevProvisionCertParams *ParamsPtr)</argsstring>
+        <name>XAsu_GetDevProvisionCert</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___dev_provision_cert_params" kindref="compound">XAsu_DevProvisionCertParams</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to generate and return the Device Provisioning Certificate (DPC) for the calling subsystem (SAS section 12.16.2). </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The ASU checks the internal exportable key vault for the subsystem&apos;s provisioning
+    authentication key pair (ECC NIST P-384) and provisioning wrapping key pair (ECIES
+    over NIST P-384). Any pair that is missing is generated with the TRNG and stored in
+    the exportable vault. A UDE-signed X.509 certificate is generated over each public
+    key, the DPC container (Device DNA, both certificates and a UDE signature over them)
+    is assembled and returned to the caller at ParamsPtr-&gt;DpcBufAddr with its actual size
+    at ParamsPtr-&gt;DpcActualSizeAddr.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___dev_provision_cert_params" kindref="compound">XAsu_DevProvisionCertParams</ref> structure which holds the DPC generation input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate the provisioning input parameter pointer.</para><para>Validate client parameters.</para><para>Validate the DPC generation input parameters.</para><para>Generate a unique ID and register the callback function, providing the caller&apos;s DpcActualSizeAddr as the response buffer so the DPC size returned by the server is copied there during the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="677" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="677" bodyend="730"/>
+        <references refid="struct_x_asu___dev_provision_cert_params_1a2c646e432555b95f7b938e62708d0e54" compoundref="xasu__provisioninfo_8h" startline="256">XAsu_DevProvisionCertParams::DpcActualSizeAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2cf706ce2959eeecb8923767895c4f98" compoundref="xasu__def_8h" startline="66">XASU_MODULE_PROVISION_ID</references>
+        <references refid="group__xasu__common__defs_1ga230384c5301e2a463389c453ef40e366" compoundref="xasu__provisioninfo_8h" startline="100">XASU_PROVISION_DPC_ACTUAL_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga48f2fc2ca5a0337e365aa123628fd1e6" compoundref="xasu__provisioninfo_8h" startline="60">XASU_PROVISION_GET_DPC_CMD_ID</references>
+        <references refid="group__xasu__provision__common__apis_1gafed2d44df8f1c6f4557eb6a0710d3e0c" compoundref="xasu__provision__common_8c" startline="197" endline="219">XAsu_ProvisionValidateDpcParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__provision__client__apis_1gacfec07d893daef0df0e1b18ac0ba77b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_DeleteDevProvisionCert</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_DeleteDevProvisionCert</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to delete the calling subsystem&apos;s provisioning key pairs backing the Device Provisioning Certificate (SAS section 12.16.3). </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The provisioning authentication and wrapping key pairs are removed from the internal
+    exportable key vault so that the next XAsu_GetDevProvisionCert call regenerates them.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate client parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="749" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="749" bodyend="778"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2cf706ce2959eeecb8923767895c4f98" compoundref="xasu__def_8h" startline="66">XASU_MODULE_PROVISION_ID</references>
+        <references refid="group__xasu__common__defs_1ga0de2ef90e5d739b017703af4810e821a" compoundref="xasu__provisioninfo_8h" startline="63">XASU_PROVISION_DELETE_DPC_CMD_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gabced85fe305417e9c06746292298ee3b" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_PAYLOAD_SIZE</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>XOR payload size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="37" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gafd643249402576ef21e530ddb40edd52" prot="public" static="no">
+        <name>XASU_PROVISION_RECORD_MODULE_OFFSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Module ID byte offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gaebb8a5f9aae0a26da2d7e806223ba759" prot="public" static="no">
+        <name>XASU_PROVISION_RECORD_CMD_OFFSET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID byte offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga5b2c584ce2a25fe604afe40459dcd9f5" prot="public" static="no">
+        <name>XASU_PROVISION_RECORD_SIZE_OFFSET</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Payload-size field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga7d08229d0e43def27884384aa172c563" prot="public" static="no">
+        <name>XASU_PROVISION_RECORD_PAYLOAD_OFFSET</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Payload byte offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga724b9a9a6cfb8902771b9c6b185fb257" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_USE_CASE_OFFSET</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>STORE_KEY use-case offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gaf44280bef3d4598b44333aaa4518c910" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_ATTRIBUTES_OFFSET</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>STORE_KEY attributes offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gae831d5d3fd2dcc32ee67159238f3cb02" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_LENGTH_OFFSET</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>STORE_KEY length offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga5658bdbc96d34e0ba669bd0378140b31" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_EPOCH_OFFSET</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>STORE_KEY epoch offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga03fe2b54b29e8924759c2e1d3393c27a" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_USAGE_OFFSET</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>STORE_KEY usage-count offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga1bd08fd030918db26804aeb0ff567b16" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_DATA_OFFSET</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>STORE_KEY data offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gae03f5ce451ff47643b3a553acf2e11a7" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_SPLIT1_OFFSET</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>First split-key ID offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga70049b0863d5a2f26ea8831ec302e285" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_SPLIT2_OFFSET</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Second split-key ID offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gaf29623102436ef18d1d6df819b5c019c" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_OUTPUT_OFFSET</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Output-key ID offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1gaa648c2130de8d66adc727df996e643e9" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_USE_CASE_OFFSET</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>Output use-case offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga835fd8562faee003c3e185a3a4d148d9" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_ATTRIBUTES_OFFSET</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>Output attributes offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga8295029c0a16e9e93d920e15c72df028" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_LENGTH_OFFSET</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>Output key-length offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga095b2f19ec5d605064ac1a315d51b9b5" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_EPOCH_OFFSET</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Output epoch offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__provision__client__apis_1ga78bb8dc5a5911f3e4b23d989eed1de7b" prot="public" static="no">
+        <name>XASU_PROVISION_XOR_USAGE_OFFSET</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>Output usage-count offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_provision.c" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

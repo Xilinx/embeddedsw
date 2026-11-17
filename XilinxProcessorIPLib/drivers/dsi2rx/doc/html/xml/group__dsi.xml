@@ -1,0 +1,1536 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__dsi" kind="group">
+    <compoundname>dsi</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_dsi2_rx___config" prot="public">XDsi2Rx_Config</innerclass>
+    <innerclass refid="struct_x_dsi2_rx___config_parameters" prot="public">XDsi2Rx_ConfigParameters</innerclass>
+    <innerclass refid="struct_x_dsi2_rx" prot="public">XDsi2Rx</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dsi_1ga13229afb87f7998a0e454fbc7e95668a" prot="public" static="no">
+        <name>XDsi2Rx_Selection</name>
+        <enumvalue id="group__dsi_1gga13229afb87f7998a0e454fbc7e95668aa3310d6ea3ae641e7f67d8aa67b0fb01f" prot="public">
+          <name>XDSI2RX_DISABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dsi_1gga13229afb87f7998a0e454fbc7e95668aa569c9679b52335e0e8aca342c6bf9c22" prot="public">
+          <name>XDSI2RX_ENABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="76" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__dsi_1ga682db3444587540df26e7d626afcca98" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDsi2Rx_Callback)(void *CallbackRef, u32 Mask)</definition>
+        <argsstring>)(void *CallbackRef, u32 Mask)</argsstring>
+        <name>XDsi2Rx_Callback</name>
+        <briefdescription>
+<para>Callback type for all interrupts defined. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating the cause of the event. For current core version, this parameter is &quot;OR&quot; of 0 or more XDSI2RX_ISR_*_MASK constants defined in xdsi_hw.h.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dsi_1ga8a2385ad83fe5ebe8707039ebf820be2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_BitSet</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask)</argsstring>
+        <name>XDsi2Rx_BitSet</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set bit in a register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the part of the bitname before _MASK</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="212" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga803f59ea847e1f33b0278e75aec2ce0f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_BitReset</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask)</argsstring>
+        <name>XDsi2Rx_BitReset</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to reset bit in a register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the part of the bitname before _MASK</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="232" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga1a58600a26c3a829988c11452345c885" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_GetBitField</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask, u32 BitShift)</argsstring>
+        <name>XDsi2Rx_GetBitField</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitShift</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the value of bitfield from register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the part of the bitname before _MASK </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitShift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the part of the bitname before _SHIFT </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bit Field Value in u32 format</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="253" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga7a3c1d456a79cc6805c8a167cd81062a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_SetBitField</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegisterOffset, u32 BitMask, u32 BitShift, u32 Value)</argsstring>
+        <name>XDsi2Rx_SetBitField</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitShift</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set the value of bitfield from register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a base address of IP </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is offset where the register is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the part of the bitname before _MASK </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitShift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the part of the bitname before _SHIFT </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to be set. Passed in u32 format.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="276" bodyend="282"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gada853ec0f864b910ca59b9332d903918" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_SetSoftReset</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_SetSoftReset</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to start the soft reset process by setting the soft reset bit in the Core Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI2 instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="298" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad134146460a6bb285dbd4f968fdeb446" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_IsControllerReady</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_IsControllerReady</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to check if a controller is ready or still in reset stage. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE or FALSE</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="318" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gaa224bc822cc4d515c10be381b9895420" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_ClearSoftReset</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_ClearSoftReset</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to stop the soft reset process by resetting the soft reset bit in the Core Configuration Register.This is done usually after Reset in Progress is 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="339" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga36579b177f1137c5f75a6d305e4c053c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_Disable</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_Disable</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to stop the packet processing by resetting Enable core bit in the Core Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="359" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga50ff8f87ca475274cfeadaaafa398c90" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_Enable</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_Enable</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to start the packet processing by setting Enable core bit in the Core Configuration Register.This is done after the configuration of active lanes, interrupt masks, etc. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="380" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga55e0a29dad04a110ac7bad9fa909759f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_IsEnabled</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_IsEnabled</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to check if the Core is enabled by checking the core enable bit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>SET or RESET in u32 format</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="400" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gae74df4ac35b043d0c9420858209465b4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_SetGlobalInterrupt</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_SetGlobalInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to enable the global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is used after setting the interrupts mask before enabling the core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="420" bodyend="424"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga759c65a0556fac31c5a6abc144e84140" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_ResetGlobalInterrupt</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_ResetGlobalInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to disable the global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is done after disabling the core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="440" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad08793c90d909c3797efab2a999b891d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_GetIntrEnableStatus</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_GetIntrEnableStatus</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to find out which interrupts are registered for. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bit Mask in u32 format</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="459" bodyend="462"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga5a83a872eefc2437f61a17c8c0a5ddeb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_GetIntrStatus</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_GetIntrStatus</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to find out which events have triggered the interrupt source, presently DSI supporting Undefined data type and pixel under flow error, the ISR register bits will set when respective interrupt triggers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bit Mask in u32 format</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="479" bodyend="482"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gadc513d8de2ee5f6b464d3d8628e7846f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_IntrClear</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 Value)</argsstring>
+        <name>XDsi2Rx_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to acknowledge/clear the events. </para>        </briefdescription>
+        <detaileddescription>
+<para>Once the interrupt occur the same value need to write in ISR register</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Bit Mask for ack of interrupts</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="500" bodyend="504"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad4a26d28248c3d6a242aee0440d2a819" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_GetPixelFormat</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_GetPixelFormat</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get pixel format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0x0E â?" Packed RGB565 0x1E- packed RGB666 0x2E â?" Loosely packed RGB666 0x3E- Packed RGB888 0x0B- Compressed Pixel Stream</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="524" bodyend="528"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga1d26da07fa42668e445f9c46897a7322" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_IntrEnable</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi2Rx_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set interrupt mask to enable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is done before enabling the core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupts to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="545" bodyend="549"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga923689017a91bcc98b46f29e75ac47a5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_IntrDisable</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi2Rx_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to disable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DSI Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupts to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="565" bodyend="569"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gaf686ea1f82f4921fad094c881f42468f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_dsi2_rx___config" kindref="compound">XDsi2Rx_Config</ref> *</type>
+        <definition>XDsi2Rx_Config * XDsi2Rx_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDsi2Rx_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Look up the hardware configuration for a device instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device to lookup for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The reference to the configuration record in the configuration table (in xdsi2rx_g.c) corresponding to the BaseAddress or if not found, a NULL pointer is returned.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_sinit.c" bodystart="45" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad952dd5db0493731abdc7745487c129c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_CfgInitialize</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, XDsi2Rx_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XDsi2Rx_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx___config" kindref="compound">XDsi2Rx_Config</ref> *</type>
+          <declname>Config</declname>
+          <defname>CfgPtr</defname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific DSI. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE Initialization was unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="73" bodyend="112"/>
+        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_Config::BaseAddr</references>
+        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="126">XDsi2Rx::Config</references>
+        <references refid="struct_x_dsi2_rx_1a6742caa96bdac8c5f1dec6f9b0d27ce4" compoundref="xdsi2rx_8h" startline="177">XDsi2Rx::IncorrectLaneConfigCallback</references>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" compoundref="xdsi2rx_8h" startline="131">XDsi2Rx::UnSupportedDataTypeCallback</references>
+        <references refid="struct_x_dsi2_rx_1a9a0e70ea3c19401527a9a819b963f830" compoundref="xdsi2rx_8h" startline="184">XDsi2Rx::WCCorruptionCallback</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga19af397133295c990ad132a86b515819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_Activate</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, XDsi2Rx_Selection Flag)</argsstring>
+        <name>XDsi2Rx_Activate</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDsi2Rx_Selection</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function will enable/disable the IP Core to start processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will be used to indicate Enable or Disable action.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On enabling/disabling the core.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_INVALID_PARAM if user passes invalid parameter.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="183" bodyend="200"/>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga65a43a81fab8a3ad7fcef5f03ad53585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi2Rx_Reset</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_Reset</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will do a reset of the IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>Register ISR gets reset. Internal FIFO(command queue) gets flushed. FSM stops processing further packets. Controller gracefully ends by waiting for the current sub-block in operation to complete its task and mark next byte as LP byte to end the transfer. Once soft reset is released, controller start from VSS packet. (that is new video frame)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="130" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_DefaultConfigure</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_DefaultConfigure</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure protocol reg with video mode, Blank packet mode, Blank packet Type, End of Transmisstion packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On enabling the core.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="153" bodyend="166"/>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="struct_x_dsi2_rx_1a1f65ac6290f33a82b8d943158c570aa6" compoundref="xdsi2rx_8h" startline="128">XDsi2Rx::PixelMode</references>
+        <references refid="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" compoundref="xdsi2rx__hw_8h" startline="45">XDSI2RX_PCR_OFFSET</references>
+        <references refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" compoundref="xdsi2rx__hw_8h" startline="104">XDSI2RX_PCR_PIXELMODE_MASK</references>
+        <references refid="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" compoundref="xdsi2rx__hw_8h" startline="115">XDSI2RX_PCR_PIXELMODE_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga9633779add7d621518de100c3361bb41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_SelfTest</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test checks if the Pixel mode has been set.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful</para></listitem><listitem><para>XST_FAILURE if the read value was not equal to GUI parameter</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c" bodystart="62" bodyend="80"/>
+        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_Config::BaseAddr</references>
+        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="126">XDsi2Rx::Config</references>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="group__dsi2rx_1ga16cf3380173e61542d797f0b9c4a883a" compoundref="xdsi2rx__hw_8h" startline="73">XDSI2RX_CCR_COREENB_MASK</references>
+        <references refid="group__dsi2rx_1ga1aa2477d51817223016084e383df9a27" compoundref="xdsi2rx__hw_8h" startline="84">XDSI2RX_CCR_COREENB_SHIFT</references>
+        <references refid="group__dsi2rx_1ga414878c04061bbb96896259e36fb1334" compoundref="xdsi2rx__hw_8h" startline="42">XDSI2RX_CCR_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga732edd1bd3354efe3715f684a341f873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi2Rx_GetConfigParams</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, XDsi2Rx_ConfigParameters *ConfigInfo)</argsstring>
+        <name>XDsi2Rx_GetConfigParams</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx___config_parameters" kindref="compound">XDsi2Rx_ConfigParameters</ref> *</type>
+          <declname>ConfigInfo</declname>
+        </param>
+        <briefdescription>
+<para>this function will get the information from the gui settings and other protocol control register values like pixel mode, pixel format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>instanceptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the xdsi2rx instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>configinfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is going to be filled up by this function and returned to the caller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none.</para></simplesect>
+<simplesect kind="note"><para>none. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.c" bodystart="216" bodyend="230"/>
+        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_Config::BaseAddr</references>
+        <references refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" compoundref="xdsi2rx_8h" startline="98">XDsi2Rx_ConfigParameters::Config</references>
+        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="126">XDsi2Rx::Config</references>
+        <references refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" compoundref="xdsi2rx_8h" startline="99">XDsi2Rx_ConfigParameters::PixelMode</references>
+        <references refid="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" compoundref="xdsi2rx__hw_8h" startline="45">XDSI2RX_PCR_OFFSET</references>
+        <references refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" compoundref="xdsi2rx__hw_8h" startline="104">XDSI2RX_PCR_PIXELMODE_MASK</references>
+        <references refid="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" compoundref="xdsi2rx__hw_8h" startline="115">XDSI2RX_PCR_PIXELMODE_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDsi2Rx_SetCallback</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 HandleType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDsi2Rx_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandleType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>HandlerType                     Invoked by this driver when:
+-----------------------  --------------------------------------------------
+XDSI2RX_HANDLER_UNSUPPORT_DATATYPE      Unsupported data type
+XDSI2RX_HANDLER_CRC_ERROR               CRC error
+XDSI2RX_HANDLER_ECC1_BIT_ERROR  ECC 1 bit error
+XDSI2RX_HANDLER_ECC2_BIT_ERROR  ECC 2 bit error
+XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE1      SOT sync error on line 1
+XDSI2RX_HANDLER_SOT_ERR_LANE1           SOT error on line 1
+XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE2      SOT sync error on line 2
+XDSI2RX_HANDLER_SOT_ERR_LANE2           SOT error on line 2
+XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE3      SOT sync error on line 3
+XDSI2RX_HANDLER_SOT_ERR_LANE3           SOT error on line 3
+XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE4      SOT sync error on line 4
+XDSI2RX_HANDLER_SOT_ERR_LANE4           SOT error on line 4
+XDSI2RX_HANDLER_STOP_STATE              STOP state
+XDSI2RX_HANDLER_LM_ASYNC_FIFO_FULL      Long msg asyn fifo full.
+XDSI2RX_HANDLER_STREAM_ASYNC_FIFO_FULL stream async fifo full
+XDSI2RX_HANDLER_GSP_FIFO_NE             generic short packet fifo not empty
+XDSI2RX_HANDLER_GSP_FIFO_FULL           generic short packet fifo full
+XDSI2RX_HANDLER_FRAME_STARTED           frame started
+XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG   incorrect lane configuration
+XDSI2RX_HANDLER_WC_CORRUPTION           word count corruption</preformatted></para><para><preformatted></preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XDsi instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandleType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of call back to be registered. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to a call back function which is called when a particular event occurs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a void pointer to data to be referenced to by the CallbackFunc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="214" bodyend="329"/>
+        <references refid="struct_x_dsi2_rx_1a6742caa96bdac8c5f1dec6f9b0d27ce4" compoundref="xdsi2rx_8h" startline="177">XDsi2Rx::IncorrectLaneConfigCallback</references>
+        <references refid="struct_x_dsi2_rx_1ab42c5120620fe509ac9f50924b7b26b6" compoundref="xdsi2rx_8h" startline="180">XDsi2Rx::IncorrectLaneConfigRef</references>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="struct_x_dsi2_rx_1aed3bbcc1f3132eaec0fbfd8b696b3b7c" compoundref="xdsi2rx_8h" startline="133">XDsi2Rx::UnsupportDataTypeRef</references>
+        <references refid="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" compoundref="xdsi2rx_8h" startline="131">XDsi2Rx::UnSupportedDataTypeCallback</references>
+        <references refid="struct_x_dsi2_rx_1a9a0e70ea3c19401527a9a819b963f830" compoundref="xdsi2rx_8h" startline="184">XDsi2Rx::WCCorruptionCallback</references>
+        <references refid="struct_x_dsi2_rx_1ad74890f31f0c951885253c76f066cdb0" compoundref="xdsi2rx_8h" startline="186">XDsi2Rx::WCCorruptionRef</references>
+        <references refid="group__dsi_1ga1776fdd230eb1a5e1794315f97ff3eea" compoundref="xdsi2rx_8h" startline="65">XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG</references>
+        <references refid="group__dsi_1ga25cd902e38887951ff189907e0a08620" compoundref="xdsi2rx_8h" startline="70">XDSI2RX_HANDLER_WC_CORRUPTION</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gaffaee65e23167d38fd3ae1107126a334" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi2Rx_InterruptEnable</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi2Rx_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enable the interrupts in Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will enable the interrupts present in the interrupt mask passed onto the function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="59" bodyend="69"/>
+        <references refid="group__dsi2rx_1ga9d5f6ca0c9340a9ad4841f67ba468c32" compoundref="xdsi2rx__hw_8h" startline="303">XDSI2RX_IER_ALLINTR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga6b1fdbb4e464f81ccdf0e823d44293ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi2Rx_InterruptDisable</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi2Rx_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable the interrupts in Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will disable the interrupts present in the interrupt mask passed onto the function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XDsi instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="82" bodyend="91"/>
+        <references refid="group__dsi2rx_1ga9d5f6ca0c9340a9ad4841f67ba468c32" compoundref="xdsi2rx__hw_8h" startline="303">XDSI2RX_IER_ALLINTR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga436fb30a622a80c5d57a6aa34bf8de86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_InterruptGetEnabled</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the interrupts enabled in the core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will get the interrupt mask set (enabled) in the DSI core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XDsi instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt enable register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="105" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_InterruptGetStatus</definition>
+        <argsstring>(XDsi2Rx *InstancePtr)</argsstring>
+        <name>XDsi2Rx_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the active interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will get the list of interrupts Invoked in the Interrupt Status Register of the DSI core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XDsi instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt Status register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="594" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="130" bodyend="140"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga6bca141c9dba1cc9f3fa86f05d049486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi2Rx_InterruptClear</definition>
+        <argsstring>(XDsi2Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XDsi2Rx_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clear the interrupts in Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will clear the interrupts set in the Interrupt Status Register of the DSI core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Interrupt Mask with bits set for corresponding interrupt to be cleared in the Interrupt Status register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="154" bodyend="164"/>
+        <references refid="group__dsi2rx_1ga9d5f6ca0c9340a9ad4841f67ba468c32" compoundref="xdsi2rx__hw_8h" startline="303">XDSI2RX_IER_ALLINTR_MASK</references>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi2Rx_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XDsi2Rx_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Dispatch a core interrupt to the registered callbacks. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the DSI core.</para><para>This handler reads the Invoked interrupt from the Interrupt Status register determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in Interrupt Enable register and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" kindref="member">XDsi2Rx_SetCallback()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi2_rx" kindref="compound">XDsi2Rx</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_intr.c" bodystart="351" bodyend="520"/>
+        <references refid="struct_x_dsi2_rx_1a6742caa96bdac8c5f1dec6f9b0d27ce4" compoundref="xdsi2rx_8h" startline="177">XDsi2Rx::IncorrectLaneConfigCallback</references>
+        <references refid="struct_x_dsi2_rx_1ab42c5120620fe509ac9f50924b7b26b6" compoundref="xdsi2rx_8h" startline="180">XDsi2Rx::IncorrectLaneConfigRef</references>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="struct_x_dsi2_rx_1aed3bbcc1f3132eaec0fbfd8b696b3b7c" compoundref="xdsi2rx_8h" startline="133">XDsi2Rx::UnsupportDataTypeRef</references>
+        <references refid="struct_x_dsi2_rx_1a2b6cd6b63c8fe1358aea1340a9b49029" compoundref="xdsi2rx_8h" startline="131">XDsi2Rx::UnSupportedDataTypeCallback</references>
+        <references refid="struct_x_dsi2_rx_1a9a0e70ea3c19401527a9a819b963f830" compoundref="xdsi2rx_8h" startline="184">XDsi2Rx::WCCorruptionCallback</references>
+        <references refid="struct_x_dsi2_rx_1ad74890f31f0c951885253c76f066cdb0" compoundref="xdsi2rx_8h" startline="186">XDsi2Rx::WCCorruptionRef</references>
+        <references refid="group__dsi2rx_1ga948a8546d784b2b4ff00b898986959d7" compoundref="xdsi2rx__hw_8h" startline="296">XDSI2RX_IER_CRC_ERR_MASK</references>
+        <references refid="group__dsi2rx_1ga2aad504ea3c4d8490ecc4eeff7304223" compoundref="xdsi2rx__hw_8h" startline="293">XDSI2RX_IER_ECC1_BIT_MASK</references>
+        <references refid="group__dsi2rx_1ga22621de5ddd6b00f6bf2c0573feec1c3" compoundref="xdsi2rx__hw_8h" startline="290">XDSI2RX_IER_ECC2_BIT_MASK</references>
+        <references refid="group__dsi2rx_1ga0d40720c2f182cac22e34e89391d0adf" compoundref="xdsi2rx__hw_8h" startline="244">XDSI2RX_IER_FRAME_START_MASK</references>
+        <references refid="group__dsi2rx_1ga355484ed4c1eaa6be6979e280dbf997e" compoundref="xdsi2rx__hw_8h" startline="251">XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK</references>
+        <references refid="group__dsi2rx_1ga8c8556f6983ad2b68aba77e4c035642e" compoundref="xdsi2rx__hw_8h" startline="254">XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK</references>
+        <references refid="group__dsi2rx_1gaac5349a838fdca09c8212a247a9c39c9" compoundref="xdsi2rx__hw_8h" startline="248">XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK</references>
+        <references refid="group__dsi2rx_1gad1ea138d5e3a76fef5ac73fda6e31d61" compoundref="xdsi2rx__hw_8h" startline="260">XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK</references>
+        <references refid="group__dsi2rx_1ga19da08b4e2af79e98193311133df77cf" compoundref="xdsi2rx__hw_8h" startline="284">XDSI2RX_IER_SOT_ERR_LANE1_MASK</references>
+        <references refid="group__dsi2rx_1gafe4108c56b1bcabb030373000603b354" compoundref="xdsi2rx__hw_8h" startline="278">XDSI2RX_IER_SOT_ERR_LANE2_MASK</references>
+        <references refid="group__dsi2rx_1gacca32dab9742b885249685de14eb3d33" compoundref="xdsi2rx__hw_8h" startline="272">XDSI2RX_IER_SOT_ERR_LANE3_MASK</references>
+        <references refid="group__dsi2rx_1ga62e8b52d38696cc55161cbaede8fc1c4" compoundref="xdsi2rx__hw_8h" startline="266">XDSI2RX_IER_SOT_ERR_LANE4_MASK</references>
+        <references refid="group__dsi2rx_1ga3687fc6548880588287f3f71b4e88cbf" compoundref="xdsi2rx__hw_8h" startline="287">XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK</references>
+        <references refid="group__dsi2rx_1ga9a641714fd0be79108406b5f45449a39" compoundref="xdsi2rx__hw_8h" startline="281">XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK</references>
+        <references refid="group__dsi2rx_1ga29bc9bf2b3daa916b0c5097159dd6b84" compoundref="xdsi2rx__hw_8h" startline="275">XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK</references>
+        <references refid="group__dsi2rx_1ga2f5affb2e4109fe9d72b0e38c467fed2" compoundref="xdsi2rx__hw_8h" startline="269">XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK</references>
+        <references refid="group__dsi2rx_1ga3d3dcb5de43bc52613d5cfd7bd6f9ffc" compoundref="xdsi2rx__hw_8h" startline="263">XDSI2RX_IER_STOP_STATE_MASK</references>
+        <references refid="group__dsi2rx_1gaabe767966d898c6c4527b4292d4fa3a5" compoundref="xdsi2rx__hw_8h" startline="257">XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK</references>
+        <references refid="group__dsi2rx_1gaf3ed5d37971744d0b9e56dade2692459" compoundref="xdsi2rx__hw_8h" startline="299">XDSI2RX_IER_UN_DATA_TYPE_MASK</references>
+        <references refid="group__dsi2rx_1ga27929ebcc8db90dbbe3b58f08a1ddbe1" compoundref="xdsi2rx__hw_8h" startline="245">XDSI2RX_IER_WC_CORRUPTION_MASK</references>
+        <references refid="group__dsi_1ga6bca141c9dba1cc9f3fa86f05d049486" compoundref="xdsi2rx__intr_8c" startline="154" endline="164">XDsi2Rx_InterruptClear</references>
+        <references refid="group__dsi_1ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45" compoundref="xdsi2rx__intr_8c" startline="130" endline="140">XDsi2Rx_InterruptGetStatus</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dsi_1ga22f99ec82a43e7ae8844b2d13a9d79e3" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_UNSUPPORT_DATATYPE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga3f5f3735f5715839c407efe84ea37bd9" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_CRC_ERROR</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga320758a05c4f01c2ca274df3bd26310d" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_ECC1_BIT_ERROR</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga8790d5e7ea09239fcd3fea3c437ae56f" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_ECC2_BIT_ERROR</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1gab99ba87cd550048389af804ab8667f56" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE1</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga428641780116f3ed2e1ca4c3e2fbc57e" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_ERR_LANE1</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1gae61510594f412b2f0aac4e56b8ef5524" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE2</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga9ee1da49608976acf989a0af54f6b030" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_ERR_LANE2</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga6733eea1e92cd33235f6b8a543471348" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE3</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga081940f44ed0842d908a3e9dd4cc4c01" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_ERR_LANE3</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1gaf7e424b7ca0d86714ea77fac0d67bba7" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_SYNC_ERR_LANE4</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga7926f3096e81bef3bed1fcf06ebbe3a1" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_SOT_ERR_LANE4</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga52ff967bfb2a923c1ac2fa1aa8719375" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_STOP_STATE</name>
+        <initializer>13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga2ead27e9f29d084ebf8f7e2f9b3ed9f1" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_LM_ASYNC_FIFO_FULL</name>
+        <initializer>14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1gaa3460ff7249caf69c6fccd0d8ffaa070" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_STREAM_ASYNC_FIFO_FULL</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga78ee7fc3266ec93cf1315a8af10ce146" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_GSP_FIFO_NE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga77223f53a04b46c36abd39d0dc18abad" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_GSP_FIFO_FULL</name>
+        <initializer>17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga546d0ea7449efa71bdde5e9e3e7929d3" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_FRAME_STARTED</name>
+        <initializer>18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga1776fdd230eb1a5e1794315f97ff3eea" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Incorrect lane configuration handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" compoundref="xdsi2rx__intr_8c" startline="214" endline="329">XDsi2Rx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi_1ga25cd902e38887951ff189907e0a08620" prot="public" static="no">
+        <name>XDSI2RX_HANDLER_WC_CORRUPTION</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Word count corruption handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7572f62d7760d6b34e5711cff0e52c0d" compoundref="xdsi2rx__intr_8c" startline="214" endline="329">XDsi2Rx_SetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>Look up the hardware settings using Base Address.</para><para>This file implements the functions which handle the interrupts in the DSI TX Controller.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 Kuna 18/4/24 First release
+</preformatted></para><para>The hardware setting is inside the configuration table in xdsi2rx_g.c, generated by yaml and DT or manually by the user.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who   Date     Changes
+<hruler/>
+
+1.0  Kunal 18/04/24 First release
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,3272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xpm__apis" kind="group">
+    <compoundname>xpm_apis</compoundname>
+    <title>XilPM APIs</title>
+    <innerclass refid="structpm__init__suspend" prot="public">pm_init_suspend</innerclass>
+    <innerclass refid="structpm__acknowledge" prot="public">pm_acknowledge</innerclass>
+    <innerclass refid="struct_x_pm___ntfier" prot="public">XPm_Ntfier</innerclass>
+    <innerclass refid="struct_x_pm___nd_status" prot="public">XPm_NdStatus</innerclass>
+    <innergroup refid="group__pmstatmacro">Pmstatmacro</innergroup>
+      <sectiondef kind="user-defined">
+      <header>Payload Packets</header>
+      <memberdef kind="variable" id="group__xpm__apis_1gaa90545635a14effffa7517163f2945a3" prot="public" static="no" mutable="no">
+        <type>struct pm_init_suspend</type>
+        <definition>struct pm_init_suspend pm_susp</definition>
+        <argsstring></argsstring>
+        <name>pm_susp</name>
+        <initializer>= {
+	.received = false,
+
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1030" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xpm__apis_1gabb44c3ec55bf963118a511bb4b63e734" prot="public" static="no" mutable="no">
+        <type>struct pm_acknowledge</type>
+        <definition>struct pm_acknowledge pm_ack</definition>
+        <argsstring></argsstring>
+        <name>pm_ack</name>
+        <initializer>= {
+	.received = false,
+
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1035" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga761866174dfa00efd16b1dbe70fabda8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_InitXilpm</definition>
+        <argsstring>(XIpiPsu *IpiInst)</argsstring>
+        <name>XPm_InitXilpm</name>
+        <param>
+          <type>XIpiPsu *</type>
+          <declname>IpiInst</declname>
+        </param>
+        <briefdescription>
+<para>Initialize xilpm library. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IpiInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to IPI driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="67" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaf07fa8f48178fc514bf32ae7ff92083d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="group__xpm__versal__apis_1ga47fef02b092b4323635421a97a594583" kindref="member">XPmBootStatus</ref></type>
+        <definition>enum XPmBootStatus XPm_GetBootStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_GetBootStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This Function returns information about the boot reason. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the boot is not a system startup but a resume, power down request bitfield for this processor will be cleared.</para><para><simplesect kind="return"><para>Returns processor boot status<itemizedlist>
+<listitem><para>PM_RESUME : If the boot reason is because of system resume.</para></listitem><listitem><para>PM_INITIAL_BOOT : If this boot is the initial system startup.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="100" bodyend="125"/>
+        <references refid="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583af981dd988c5d764e7577e22eca6462bd" compoundref="common_2xpm__defs_8h" startline="65">PM_BOOT_ERROR</references>
+        <references refid="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ac784387567e3da25e67a3143ca70a3f5" compoundref="common_2xpm__defs_8h" startline="63">PM_INITIAL_BOOT</references>
+        <references refid="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ab39c2f94409cc7e5027c4a3ee9e0e10d" compoundref="common_2xpm__defs_8h" startline="64">PM_RESUME</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gafeb8c5fbb199715e708aa6955230e562" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_SuspendFinalize</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_SuspendFinalize</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This Function waits for PMU to finish all previous API requests sent by the PU and performs client specific actions to finish suspend procedure (e.g. </para>        </briefdescription>
+        <detaileddescription>
+<para>execution of wfi instruction on A53 and R5 processors).</para><para><simplesect kind="note"><para>This function should not return if the suspend procedure is successful. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="137" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga9d474dfe3533e0b3421a9750032babae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SelfSuspend</definition>
+        <argsstring>(const enum XPmNodeId nid, const u32 latency, const u8 state, const u64 address)</argsstring>
+        <name>XPm_SelfSuspend</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>nid</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>latency</declname>
+        </param>
+        <param>
+          <type>const u8</type>
+          <declname>state</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>address</declname>
+        </param>
+        <briefdescription>
+<para>This function is used by a CPU to declare that it is about to suspend itself. </para>        </briefdescription>
+        <detaileddescription>
+<para>After the PMU processes this call it will wait for the requesting CPU to complete the suspend procedure and become ready to be put into a sleep state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the CPU node to be suspended. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>latency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum wake-up latency requirement in us(microsecs) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instead of specifying a maximum latency, a CPU can also explicitly request a certain power state. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address from which to resume when woken up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>This is a blocking call, it will return only once PMU has responded </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="421" bodyend="461"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga410ca3f0d0a534f1b1800d15b00a53e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SetConfiguration</definition>
+        <argsstring>(const u32 address)</argsstring>
+        <name>XPm_SetConfiguration</name>
+        <param>
+          <type>const u32</type>
+          <declname>address</declname>
+        </param>
+        <briefdescription>
+<para>This function is called to configure the power management framework. </para>        </briefdescription>
+        <detaileddescription>
+<para>The call triggers power management controller to load the configuration object and configure itself according to the content of the object.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start address of the configuration object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise an error code</para></simplesect>
+<simplesect kind="note"><para>The provided address must be in 32-bit address space which is accessible by the PMU. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="478" bodyend="498"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaa5e846fd13baac7bf65d0e658256582f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_InitFinalize</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_InitFinalize</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is called to notify the power management controller about the completed power management initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise an error code</para></simplesect>
+<simplesect kind="note"><para>It is assumed that all used nodes are requested when this call is made. The power management controller may power down the nodes which are not requested after this call is processed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="512" bodyend="532"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga78384e991ed7c2f45a1d4b715afac1ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RequestSuspend</definition>
+        <argsstring>(const enum XPmNodeId target, const enum XPmRequestAck ack, const u32 latency, const u8 state)</argsstring>
+        <name>XPm_RequestSuspend</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga1a6e4433f0187e432e1d8895fd81a6c9" kindref="member">XPmRequestAck</ref></type>
+          <declname>ack</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>latency</declname>
+        </param>
+        <param>
+          <type>const u8</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>This function is used by a PU to request suspend of another PU. </para>        </briefdescription>
+        <detaileddescription>
+<para>This call triggers the power management controller to notify the PU identified by &apos;nodeID&apos; that a suspend has been requested. This will allow said PU to gracefully suspend itself by calling XPm_SelfSuspend for each of its CPU nodes, or else call XPm_AbortSuspend with its PU node as argument and specify the reason.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the PU node to be suspended </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested acknowledge type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>latency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum wake-up latency requirement in us(micro sec) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instead of specifying a maximum latency, a PU can also explicitly request a certain power state.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>If &apos;ack&apos; is set to PM_ACK_NON_BLOCKING, the requesting PU will be notified upon completion of suspend or if an error occurred, such as an abort. REQUEST_ACK_BLOCKING is not supported for this command. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="557" bodyend="575"/>
+        <references refid="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" compoundref="common_2xpm__defs_8h" startline="73">REQUEST_ACK_BLOCKING</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gae0a85783d0d1376b9f17f0ec4121a6ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RequestWakeUp</definition>
+        <argsstring>(const enum XPmNodeId target, const bool setAddress, const u64 address, const enum XPmRequestAck ack)</argsstring>
+        <name>XPm_RequestWakeUp</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>setAddress</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>address</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga1a6e4433f0187e432e1d8895fd81a6c9" kindref="member">XPmRequestAck</ref></type>
+          <declname>ack</declname>
+        </param>
+        <briefdescription>
+<para>This function can be used to request power up of a CPU node within the same PU, or to power up another PU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the CPU or PU to be powered/woken up. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>setAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies whether the start address argument is being passed.<itemizedlist>
+<listitem><para>0 : do not set start address</para></listitem><listitem><para>1 : set start address </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address from which to resume when woken up. Will only be used if set_address is 1. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested acknowledge type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>If acknowledge is requested, the calling PU will be notified by the power management controller once the wake-up is completed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="597" bodyend="624"/>
+        <references refid="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" compoundref="common_2xpm__defs_8h" startline="73">REQUEST_ACK_BLOCKING</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga3028c1bd04d23fbca0f6bb2ae34fb3d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ForcePowerDown</definition>
+        <argsstring>(const enum XPmNodeId target, const enum XPmRequestAck ack)</argsstring>
+        <name>XPm_ForcePowerDown</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga1a6e4433f0187e432e1d8895fd81a6c9" kindref="member">XPmRequestAck</ref></type>
+          <declname>ack</declname>
+        </param>
+        <briefdescription>
+<para>One PU can request a forced poweroff of another PU or its power island or power domain. </para>        </briefdescription>
+        <detaileddescription>
+<para>This can be used for killing an unresponsive PU, in which case all resources of that PU will be automatically released.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the PU node or power island/domain to be powered down. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested acknowledge type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>Force power down may not be requested by a PU for itself. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="642" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="642" bodyend="658"/>
+        <references refid="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" compoundref="common_2xpm__defs_8h" startline="73">REQUEST_ACK_BLOCKING</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gac1b5e481c76b9c2c00c109e2682b72ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_AbortSuspend</definition>
+        <argsstring>(const enum XPmAbortReason reason)</argsstring>
+        <name>XPm_AbortSuspend</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga62d108e7f9779e01c255c08ed78fed48" kindref="member">XPmAbortReason</ref></type>
+          <declname>reason</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by a CPU after a XPm_SelfSuspend call to notify the power management controller that CPU has aborted suspend or in response to an init suspend request when the PU refuses to suspend. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reason</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reason code why the suspend can not be performed or completed<itemizedlist>
+<listitem><para>ABORT_REASON_WKUP_EVENT : local wakeup-event received</para></listitem><listitem><para>ABORT_REASON_PU_BUSY : PU is busy</para></listitem><listitem><para>ABORT_REASON_NO_PWRDN : no external powerdown supported</para></listitem><listitem><para>ABORT_REASON_UNKNOWN : unknown error during suspend procedure</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>Calling PU expects the PMU to abort the initiated suspend procedure. This is a non-blocking call without any acknowledge. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="679" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="679" bodyend="710"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga3c508bbc82ccf58de20a14f34f7fbfb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SetWakeUpSource</definition>
+        <argsstring>(const enum XPmNodeId target, const enum XPmNodeId wkup_node, const u8 enable)</argsstring>
+        <name>XPm_SetWakeUpSource</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>wkup_node</declname>
+        </param>
+        <param>
+          <type>const u8</type>
+          <declname>enable</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by a PU to add or remove a wake-up source prior to going to suspend. </para>        </briefdescription>
+        <detaileddescription>
+<para>The list of wake sources for a PU is automatically cleared whenever the PU is woken up or when one of its CPUs aborts the suspend procedure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the target to be woken up. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>wkup_node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the wakeup device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enable flag:<itemizedlist>
+<listitem><para>1 : the wakeup source is added to the list</para></listitem><listitem><para>0 : the wakeup source is removed from the list</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>Declaring a node as a wakeup source will ensure that the node will not be powered off. It also will cause the PMU to configure the GIC Proxy accordingly if the FPD is powered off. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="733" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="733" bodyend="755"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga7e0c2715b7d78760c48c0f7d398ae05b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SystemShutdown</definition>
+        <argsstring>(u32 type, u32 subtype)</argsstring>
+        <name>XPm_SystemShutdown</name>
+        <param>
+          <type>u32</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>subtype</declname>
+        </param>
+        <briefdescription>
+<para>This function can be used by a privileged PU to shut down or restart the complete device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Should the system be restarted automatically?<itemizedlist>
+<listitem><para>PM_SHUTDOWN : no restart requested, system will be powered off permanently</para></listitem><listitem><para>PM_RESTART : restart is requested, system will go through a full reset </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>subtype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Restart subtype (SYSTEM or PS_ONLY or SUBSYSTEM)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>In either case the PMU will call XPm_InitSuspendCb for each of the other PUs, allowing them to gracefully shut down. If a PU is asleep it will be woken up by the PMU. The PU making the XPm_SystemShutdown should perform its own suspend procedure after calling this API. It will not receive an init suspend callback. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="777" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="777" bodyend="797"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga3be1d34ce961703884834f4452645f69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RequestNode</definition>
+        <argsstring>(const enum XPmNodeId node, const u32 capabilities, const u32 qos, const enum XPmRequestAck ack)</argsstring>
+        <name>XPm_RequestNode</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>capabilities</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>qos</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga1a6e4433f0187e432e1d8895fd81a6c9" kindref="member">XPmRequestAck</ref></type>
+          <declname>ack</declname>
+        </param>
+        <briefdescription>
+<para>Used to request the usage of a PM-slave. </para>        </briefdescription>
+        <detaileddescription>
+<para>Using this API call a PU requests access to a slave device and asserts its requirements on that device. Provided the PU is sufficiently privileged, the PMU will enable access to the memory mapped region containing the control registers of that device. For devices that can only be serving a single PU, any other privileged PU will now be blocked from accessing this device until the node is released.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the PM slave requested </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>capabilities</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave-specific capabilities required, can be combined<itemizedlist>
+<listitem><para>PM_CAP_ACCESS : full access / functionality</para></listitem><listitem><para>PM_CAP_CONTEXT : preserve context</para></listitem><listitem><para>PM_CAP_WAKEUP : emit wake interrupts </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Quality of Service (0-100) required </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested acknowledge type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="825" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="825" bodyend="842"/>
+        <references refid="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" compoundref="common_2xpm__defs_8h" startline="73">REQUEST_ACK_BLOCKING</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga1d08391966920c6b1084b117ebd1a737" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SetRequirement</definition>
+        <argsstring>(const enum XPmNodeId nid, const u32 capabilities, const u32 qos, const enum XPmRequestAck ack)</argsstring>
+        <name>XPm_SetRequirement</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>nid</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>capabilities</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>qos</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga1a6e4433f0187e432e1d8895fd81a6c9" kindref="member">XPmRequestAck</ref></type>
+          <declname>ack</declname>
+        </param>
+        <briefdescription>
+<para>This function is used by a PU to announce a change in requirements for a specific slave node which is currently in use. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the PM slave. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>capabilities</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave-specific capabilities required. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Quality of Service (0-100) required. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested acknowledge type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>If this function is called after the last awake CPU within the PU calls SelfSuspend, the requirement change shall be performed after the CPU signals the end of suspend to the power management controller, (e.g. WFI interrupt). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="863" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="863" bodyend="880"/>
+        <references refid="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" compoundref="common_2xpm__defs_8h" startline="73">REQUEST_ACK_BLOCKING</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga216e198dd268f7f4a0bedc4065481f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ReleaseNode</definition>
+        <argsstring>(const enum XPmNodeId node)</argsstring>
+        <name>XPm_ReleaseNode</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+<para>This function is used by a PU to release the usage of a PM slave. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will tell the power management controller that the node is no longer needed by that PU, potentially allowing the node to be placed into an inactive state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the PM slave.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="897" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="897" bodyend="917"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga583190d6462fe3cfad2be7b2e1eae714" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SetMaxLatency</definition>
+        <argsstring>(const enum XPmNodeId node, const u32 latency)</argsstring>
+        <name>XPm_SetMaxLatency</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>latency</declname>
+        </param>
+        <briefdescription>
+<para>This function is used by a PU to announce a change in the maximum wake-up latency requirements for a specific slave node currently used by that PU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the PM slave. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>latency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum wake-up latency required.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>Setting maximum wake-up latency can constrain the set of possible power states a resource can be put into. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="935" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="935" bodyend="956"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga521454a13f7c2b8e6284ddfca181eeed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_FeatureCheck</definition>
+        <argsstring>(const XPm_ApiId featureId, u32 *version)</argsstring>
+        <name>XPm_FeatureCheck</name>
+        <param>
+          <type>const XPm_ApiId</type>
+          <declname>featureId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+<para>This function queries information about the version of API ID and queries information about supported IOCTL IDs and supported QUERY IDs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>featureId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>API ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store API version.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>Returns non zero value in version if API is supported or returns 0U in version if API is not supported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="974" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="974" bodyend="987"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga411f3446546f28eb24d1c740b189d403" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_IsFunctionSupported</definition>
+        <argsstring>(const XPm_ApiId apiId, const u32 functionId)</argsstring>
+        <name>XPm_IsFunctionSupported</name>
+        <param>
+          <type>const XPm_ApiId</type>
+          <declname>apiId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>functionId</declname>
+        </param>
+        <briefdescription>
+<para>This function queries information about the IOCTL/QUERY function ID is supported or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>apiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>API ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>functionId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOCTL/QUERY ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if IOCTL ID/QUERY ID supported else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1001" bodyend="1027"/>
+        <references refid="group__xpm__apis_1gaee2da6150eb00afe6c90117a41690f9c" compoundref="zynqmp_2client_2common_2pm__defs_8h" startline="119">BIT_MASK_SUPPORT_FUNC_ID_LEN</references>
+        <references refid="group__xpm__versal__apis_1gaef099ae64333029aad91402e384a0a2b" compoundref="versal__common_2client_2pm__api__sys_8c" startline="2180" endline="2198">XPm_FeatureCheck</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga40639f230aa11f0dc4a8d94586469879" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_InitSuspendCb</definition>
+        <argsstring>(const enum XPmSuspendReason reason, const u32 latency, const u32 state, const u32 timeout)</argsstring>
+        <name>XPm_InitSuspendCb</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1gaa81d4506684eb977e60c84981bdbc385" kindref="member">XPmSuspendReason</ref></type>
+          <declname>reason</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>latency</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>state</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+<para>Callback function to be implemented in each PU, allowing the power management controller to request that the PU suspend itself. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reason</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Suspend reason:<itemizedlist>
+<listitem><para>SUSPEND_REASON_PU_REQ : Request by another PU</para></listitem><listitem><para>SUSPEND_REASON_ALERT : Unrecoverable SysMon alert</para></listitem><listitem><para>SUSPEND_REASON_SHUTDOWN : System shutdown</para></listitem><listitem><para>SUSPEND_REASON_RESTART : System restart </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>latency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum wake-up latency in us(micro secs). This information can be used by the PU to decide what level of context saving may be required. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Targeted sleep/suspend state. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout in ms, specifying how much time a PU has to initiate its suspend procedure before it&apos;s being considered unresponsive.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If the PU fails to act on this request the power management controller or the requesting PU may choose to employ the forceful power down option. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1064" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1064" bodyend="1081"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga7695a8d3ec23a15f8f5d3891e55a3d9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_AcknowledgeCb</definition>
+        <argsstring>(const enum XPmNodeId node, const XStatus status, const u32 oppoint)</argsstring>
+        <name>XPm_AcknowledgeCb</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const XStatus</type>
+          <declname>status</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>oppoint</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by the power management controller in response to any request where an acknowledge callback was requested, i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>where the &apos;ack&apos; argument passed by the PU was REQUEST_ACK_NON_BLOCKING.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the component or sub-system in question. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the operation:<itemizedlist>
+<listitem><para>OK: the operation completed successfully</para></listitem><listitem><para>ERR: the requested operation failed </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oppoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operating point of the node in question</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1100" bodyend="1115"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaee52330c0b0bfb2f7e97d23d4ff0ff5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_NotifyCb</definition>
+        <argsstring>(const enum XPmNodeId node, const enum XPmNotifyEvent event, const u32 oppoint)</argsstring>
+        <name>XPm_NotifyCb</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga808f1f36491beec6b7155dcca2420d76" kindref="member">XPmNotifyEvent</ref></type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>oppoint</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by the power management controller if an event the PU was registered for has occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>It will populate the notifier data structure passed when calling XPm_RegisterNotifier.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the node the event notification is related to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oppoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current operating state of the node.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1132" bodyend="1138"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga46c3980b6b69420e909486a241d706c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetApiVersion</definition>
+        <argsstring>(u32 *version)</argsstring>
+        <name>XPm_GetApiVersion</name>
+        <param>
+          <type>u32 *</type>
+          <declname>version</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to request the version number of the API running on the power management controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is used to request the version number of the API running on the platform management controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returns the API 32-bit version number. Returns 0 if no PM firmware present.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1156" bodyend="1175"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga8cea3942219fd7b99d764043ecce1300" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetNodeStatus</definition>
+        <argsstring>(const enum XPmNodeId node, XPm_NodeStatus *const nodestatus)</argsstring>
+        <name>XPm_GetNodeStatus</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1gaf89530725d431b10bb84efbc3e5e3739" kindref="member">XPm_NodeStatus</ref> *const</type>
+          <declname>nodestatus</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to obtain information about the current state of a component. </para>        </briefdescription>
+        <detaileddescription>
+<para>The caller must pass a pointer to an XPm_NodeStatus structure, which must be pre-allocated by the caller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the component or sub-system in question. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nodestatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to return the complete status of the node.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<itemizedlist>
+<listitem><para>status - The current power state of the requested node.<itemizedlist>
+<listitem><para>For CPU nodes:<itemizedlist>
+<listitem><para>0 : if CPU is off (powered down),</para></listitem><listitem><para>1 : if CPU is active (powered up),</para></listitem><listitem><para>2 : if CPU is in sleep (powered down),</para></listitem><listitem><para>3 : if CPU is suspending (powered up)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>For power islands and power domains:<itemizedlist>
+<listitem><para>0 : if island is powered down,</para></listitem><listitem><para>1 : if island is powered up</para></listitem></itemizedlist>
+</para></listitem><listitem><para>For PM slaves:<itemizedlist>
+<listitem><para>0 : if slave is powered down,</para></listitem><listitem><para>1 : if slave is powered up,</para></listitem><listitem><para>2 : if slave is in retention</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem><listitem><para>requirement - Slave nodes only: Returns current requirements the requesting PU has requested of the node.</para></listitem><listitem><para>usage - Slave nodes only: Returns current usage status of the node:<itemizedlist>
+<listitem><para>0 : node is not used by any PU,</para></listitem><listitem><para>1 : node is used by caller exclusively,</para></listitem><listitem><para>2 : node is used by other PU(s) only,</para></listitem><listitem><para>3 : node is used by caller and by other PU(s)</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1215" bodyend="1237"/>
+        <references refid="struct_x_pm___nd_status_1aa13b96dc5ddf8932f13027b1064f7a21" compoundref="versal__common_2client_2pm__api__sys_8h" startline="51">XPm_NdStatus::requirements</references>
+        <references refid="struct_x_pm___nd_status_1a96d0e0d63073874227c401955531911d" compoundref="versal__common_2client_2pm__api__sys_8h" startline="50">XPm_NdStatus::status</references>
+        <references refid="struct_x_pm___nd_status_1aae3dabd6cb32e8cf0751edbe91e18d83" compoundref="versal__common_2client_2pm__api__sys_8h" startline="52">XPm_NdStatus::usage</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gac22cc0087c9343a0a2ba36589ff30356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetOpCharacteristic</definition>
+        <argsstring>(const enum XPmNodeId node, const enum XPmOpCharType type, u32 *const result)</argsstring>
+        <name>XPm_GetOpCharacteristic</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1gaff5ed517572e7e625103d250e1df8a7d" kindref="member">XPmOpCharType</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to request the power management controller to return information about an operating characteristic of a component. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the component or sub-system in question. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of operating characteristic requested:<itemizedlist>
+<listitem><para>power (current power consumption),</para></listitem><listitem><para>latency (current latency in micro seconds to return to active state),</para></listitem><listitem><para>temperature (current temperature), </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to return the requested operating characteristic.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>Power value is not actual power consumption of device. It is default dummy power value which is fixed in PMUFW. Temperature type is not supported for ZynqMP. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1259" bodyend="1281"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga5267e9e669c12e32ca07dcd2b59e56dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ResetAssert</definition>
+        <argsstring>(const enum XPmReset reset, const enum XPmResetAction resetaction)</argsstring>
+        <name>XPm_ResetAssert</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga4ef40921de68bce2c0be43c241b40450" kindref="member">XPmReset</ref></type>
+          <declname>reset</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1gaee462106fb1c81c8a04be66eb37a2966" kindref="member">XPmResetAction</ref></type>
+          <declname>resetaction</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to assert or release reset for a particular reset line. </para>        </briefdescription>
+        <detaileddescription>
+<para>Alternatively a reset pulse can be requested as well.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the reset line </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>resetaction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifies action:<itemizedlist>
+<listitem><para>PM_RESET_ACTION_RELEASE : release reset,</para></listitem><listitem><para>PM_RESET_ACTION_ASSERT : assert reset,</para></listitem><listitem><para>PM_RESET_ACTION_PULSE : pulse reset,</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1300" bodyend="1321"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaaa3ebba3fc70c8694dcfb951ac6c25f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ResetGetStatus</definition>
+        <argsstring>(const enum XPmReset reset, u32 *status)</argsstring>
+        <name>XPm_ResetGetStatus</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga4ef40921de68bce2c0be43c241b40450" kindref="member">XPmReset</ref></type>
+          <declname>reset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>status</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get the current status of the selected reset line. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reset line </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of specified reset (true - asserted, false - released)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1/XST_FAILURE for &apos;asserted&apos; or 0/XST_SUCCESS for &apos;released&apos;.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1337" bodyend="1357"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga90562848c536fff0c7b4a997a8e987b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RegisterNotifier</definition>
+        <argsstring>(XPm_Notifier *const notifier)</argsstring>
+        <name>XPm_RegisterNotifier</name>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1ga077df2030c9fb4399ac01b81b06f24d3" kindref="member">XPm_Notifier</ref> *const</type>
+          <declname>notifier</declname>
+        </param>
+        <briefdescription>
+<para>A PU can call this function to request that the power management controller call its notify callback whenever a qualifying event occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para>One can request to be notified for a specific or any event related to a specific node.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>notifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the notifier object to be associated with the requested notification. The notifier object contains the following data related to the notification:</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<itemizedlist>
+<listitem><para>nodeID : ID of the node to be notified about,</para></listitem><listitem><para>eventID : ID of the event in question, &apos;-1&apos; denotes all events ( - EVENT_STATE_CHANGE, EVENT_ZERO_USERS),</para></listitem><listitem><para>wake : true: wake up on event, false: do not wake up (only notify if awake), no buffering/queueing</para></listitem><listitem><para>callback : Pointer to the custom callback function to be called when the notification is available. The callback executes from interrupt context, so the user must take special care when implementing the callback. Callback is optional, may be set to NULL.</para></listitem><listitem><para>received : Variable indicating how many times the notification has been received since the notifier is registered.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>The caller shall initialize the notifier object before invoking the XPm_RegisteredNotifier function. While notifier is registered, the notifier object shall not be modified by the caller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1394" bodyend="1427"/>
+        <references refid="struct_x_pm___ntfier_1a4572274e8b2e20ea652159a3c1003029" compoundref="versal__common_2client_2pm__api__sys_8h" startline="67">XPm_Ntfier::event</references>
+        <references refid="struct_x_pm___ntfier_1a65f5ba30fa8df1bdbcd1bafadc051dad" compoundref="versal__common_2client_2pm__api__sys_8h" startline="69">XPm_Ntfier::flags</references>
+        <references refid="struct_x_pm___ntfier_1a8098de9cdc342946a2ffaaec08e00d9b" compoundref="versal__common_2client_2pm__api__sys_8h" startline="66">XPm_Ntfier::node</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaeb362fc0ef1729018585f8ff3fab7463" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_UnregisterNotifier</definition>
+        <argsstring>(XPm_Notifier *const notifier)</argsstring>
+        <name>XPm_UnregisterNotifier</name>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1ga077df2030c9fb4399ac01b81b06f24d3" kindref="member">XPm_Notifier</ref> *const</type>
+          <declname>notifier</declname>
+        </param>
+        <briefdescription>
+<para>A PU calls this function to unregister for the previously requested notifications. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>notifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the notifier object associated with the previously requested notification</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1443" bodyend="1481"/>
+        <references refid="struct_x_pm___ntfier_1a4572274e8b2e20ea652159a3c1003029" compoundref="versal__common_2client_2pm__api__sys_8h" startline="67">XPm_Ntfier::event</references>
+        <references refid="struct_x_pm___ntfier_1a8098de9cdc342946a2ffaaec08e00d9b" compoundref="versal__common_2client_2pm__api__sys_8h" startline="66">XPm_Ntfier::node</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga3338a2dfa081ee7422d811d3d7cb7088" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_MmioWrite</definition>
+        <argsstring>(const u32 address, const u32 mask, const u32 value)</argsstring>
+        <name>XPm_MmioWrite</name>
+        <param>
+          <type>const u32</type>
+          <declname>address</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>mask</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to write a value directly into a register that isn&apos;t accessible directly, such as registers in the clock control unit. </para>        </briefdescription>
+        <detaileddescription>
+<para>This call is bypassing the power management logic. The permitted addresses are subject to restrictions as defined in the PCW configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Physical 32-bit address of memory mapped register to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value used to limit write to specific bits in the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write to the register bits specified by the mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1503" bodyend="1523"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga5b8d582b55c3f6828bcaca451e9dca91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_MmioRead</definition>
+        <argsstring>(const u32 address, u32 *const value)</argsstring>
+        <name>XPm_MmioRead</name>
+        <param>
+          <type>const u32</type>
+          <declname>address</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to read a value from a register that isn&apos;t accessible directly. </para>        </briefdescription>
+        <detaileddescription>
+<para>The permitted addresses are subject to restrictions as defined in the PCW configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Physical 32-bit address of memory mapped register to read from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returns the 32-bit value read from the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1541" bodyend="1561"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga82c2ac174067afdbcbba4d31622412ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockEnable</definition>
+        <argsstring>(const enum XPmClock clk)</argsstring>
+        <name>XPm_ClockEnable</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to enable (activate) a clock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock to be enabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1574" bodyend="1594"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaa56da3641beec87634022d4ea12f1b90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockDisable</definition>
+        <argsstring>(const enum XPmClock clk)</argsstring>
+        <name>XPm_ClockDisable</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to disable (gate) a clock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock to be disabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1607" bodyend="1627"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga553e151ea46c11e41fe87f7bd31a9a35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockGetStatus</definition>
+        <argsstring>(const enum XPmClock clk, u32 *const status)</argsstring>
+        <name>XPm_ClockGetStatus</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>status</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get status of a clock gate state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store clock gate state (1=enabled, 0=disabled)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1639" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1639" bodyend="1659"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga28f35b47492c75d31adb8bf9887f4833" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockSetDivider</definition>
+        <argsstring>(const enum XPmClock clk, const u32 divider)</argsstring>
+        <name>XPm_ClockSetDivider</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>divider</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to set divider for a clock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>divider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Divider value to be set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_INVALID_PARAM or status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1674" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1674" bodyend="1699"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga5f3676c36b89a710274d66780d652d2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockGetDivider</definition>
+        <argsstring>(const enum XPmClock clk, u32 *const divider)</argsstring>
+        <name>XPm_ClockGetDivider</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>divider</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get divider of a clock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>divider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store the divider value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_INVALID_PARAM or status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1712" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1712" bodyend="1741"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaef6feda7a43acbb13067b42b61fc0e4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockSetParent</definition>
+        <argsstring>(const enum XPmClock clk, const enum XPmClock parent)</argsstring>
+        <name>XPm_ClockSetParent</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to set parent for a clock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target parent clock</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_INVALID_PARAM or status of performing the operation as returned by the PMU-FW.</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1756" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1756" bodyend="1782"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga8b4598cd0c241a6e27f4b4754e1441c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ClockGetParent</definition>
+        <argsstring>(const enum XPmClock clk, enum XPmClock *const parent)</argsstring>
+        <name>XPm_ClockGetParent</name>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref></type>
+          <declname>clk</declname>
+        </param>
+        <param>
+          <type>enum <ref refid="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" kindref="member">XPmClock</ref> *const</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get parent of a clock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the target clock </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store clock parent ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_INVALID_PARAM or status of performing the operation as returned by the PMU-FW. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1795" bodyend="1821"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gab49230f67a536b93dea8c5284778b7db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PllSetParameter</definition>
+        <argsstring>(const enum XPmNodeId node, const enum XPmPllParam parameter, const u32 value)</argsstring>
+        <name>XPm_PllSetParameter</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga430d6202f460cbf398ad39d641318f66" kindref="member">XPmPllParam</ref></type>
+          <declname>parameter</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to set a PLL parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL node identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL parameter identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of the PLL parameter</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1836" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1836" bodyend="1858"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga8decb2c6d59b504c09b81dddbddde489" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PllGetParameter</definition>
+        <argsstring>(const enum XPmNodeId node, const enum XPmPllParam parameter, u32 *const value)</argsstring>
+        <name>XPm_PllGetParameter</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga430d6202f460cbf398ad39d641318f66" kindref="member">XPmPllParam</ref></type>
+          <declname>parameter</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get a PLL parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL node identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>parameter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL parameter identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store value of the PLL parameter</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1871" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1871" bodyend="1893"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaceaa135299fa06a761e887f324e4fdad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PllSetMode</definition>
+        <argsstring>(const enum XPmNodeId node, const enum XPmPllMode mode)</argsstring>
+        <name>XPm_PllSetMode</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__xpm__versal__apis_1ga2f5384860b765e60bd215326870fc548" kindref="member">XPmPllMode</ref></type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to set a PLL mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL node identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL mode to be set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1907" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1907" bodyend="1927"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga5bf8b0952051826f9aa96f178f7f2ec0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PllGetMode</definition>
+        <argsstring>(const enum XPmNodeId node, enum XPmPllMode *const mode)</argsstring>
+        <name>XPm_PllGetMode</name>
+        <param>
+          <type>const enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+          <declname>node</declname>
+        </param>
+        <param>
+          <type>enum <ref refid="group__xpm__versal__apis_1ga2f5384860b765e60bd215326870fc548" kindref="member">XPmPllMode</ref> *const</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get a PLL mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL node identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store the PLL mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1939" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1939" bodyend="1961"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga1f3acf04aec81dda340eab7a0dea5e37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PinCtrlRequest</definition>
+        <argsstring>(const u32 pin)</argsstring>
+        <name>XPm_PinCtrlRequest</name>
+        <param>
+          <type>const u32</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to request a pin control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PIN identifier (index from range 0-77)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1972" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1972" bodyend="1975"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga56eeff0278f907c282c9804c87fe16eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PinCtrlRelease</definition>
+        <argsstring>(const u32 pin)</argsstring>
+        <name>XPm_PinCtrlRelease</name>
+        <param>
+          <type>const u32</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to release a pin control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PIN identifier (index from range 0-77)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="1986" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="1986" bodyend="1989"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1gaaafe2eb1026aa20a767d7a007c52f3ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PinCtrlSetFunction</definition>
+        <argsstring>(const u32 pin, const enum XPmPinFn fn)</argsstring>
+        <name>XPm_PinCtrlSetFunction</name>
+        <param>
+          <type>const u32</type>
+          <declname>pin</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1gaef150387836882fd43fa286a5ad7c617" kindref="member">XPmPinFn</ref></type>
+          <declname>fn</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to set a pin function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin function to be set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="2003" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="2003" bodyend="2023"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga7649eb21874d307999df5c9abe67dd57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PinCtrlGetFunction</definition>
+        <argsstring>(const u32 pin, enum XPmPinFn *const fn)</argsstring>
+        <name>XPm_PinCtrlGetFunction</name>
+        <param>
+          <type>const u32</type>
+          <declname>pin</declname>
+        </param>
+        <param>
+          <type>enum <ref refid="group__pmstatmacro_1gaef150387836882fd43fa286a5ad7c617" kindref="member">XPmPinFn</ref> *const</type>
+          <declname>fn</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get currently configured pin function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PLL node identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store the pin function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="2035" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="2035" bodyend="2057"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga28b138d1d11029dcf9cb1dbcda109825" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PinCtrlSetParameter</definition>
+        <argsstring>(const u32 pin, const enum XPmPinParam param, const u32 value)</argsstring>
+        <name>XPm_PinCtrlSetParameter</name>
+        <param>
+          <type>const u32</type>
+          <declname>pin</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga8f3fba595dd4298a4eb4f4501c7e09d1" kindref="member">XPmPinParam</ref></type>
+          <declname>param</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to set a pin parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin parameter identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of the pin parameter to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW</para></simplesect>
+<simplesect kind="note"><para>If the access isn&apos;t permitted this function returns an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="2072" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="2072" bodyend="2094"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga507a0aec0a06c6b874e988b83c38cdb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PinCtrlGetParameter</definition>
+        <argsstring>(const u32 pin, const enum XPmPinParam param, u32 *const value)</argsstring>
+        <name>XPm_PinCtrlGetParameter</name>
+        <param>
+          <type>const u32</type>
+          <declname>pin</declname>
+        </param>
+        <param>
+          <type>const enum <ref refid="group__pmstatmacro_1ga8f3fba595dd4298a4eb4f4501c7e09d1" kindref="member">XPmPinParam</ref></type>
+          <declname>param</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Call this function to get currently configured value of pin parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin parameter identifier </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location to store value of the pin parameter</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of performing the operation as returned by the PMU-FW </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="2107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="2107" bodyend="2129"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpm__apis_1ga9a1c065bbbc3fe7c520a07c385a433ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_DevIoctl</definition>
+        <argsstring>(const u32 deviceId, const pm_ioctl_id ioctlId, const u32 arg1, const u32 arg2, u32 *const response)</argsstring>
+        <name>XPm_DevIoctl</name>
+        <param>
+          <type>const u32</type>
+          <declname>deviceId</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>ioctlId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>arg1</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>arg2</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>response</declname>
+        </param>
+        <briefdescription>
+<para>This function performs driver-like IOCTL functions on shared system devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>deviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ioctlId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOCTL function ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arg1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument 1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arg2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument 2 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>response</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ioctl response</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" line="2146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.c" bodystart="2146" bodyend="2168"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PM Version Number macros</header>
+      <memberdef kind="define" id="group__xpm__apis_1ga7816a8b88aa132629d20dc49c42c8bb9" prot="public" static="no">
+        <name>PM_VERSION_MAJOR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>PM Version Number macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga6430e7cdc9627bfabf1fbbb33e46d95f" prot="public" static="no">
+        <name>PM_VERSION_MINOR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gadebd2c0916108af5645e3f41aa8c2b3a" prot="public" static="no">
+        <name>PM_VERSION</name>
+        <initializer>((<ref refid="group__xpm__apis_1ga7816a8b88aa132629d20dc49c42c8bb9" kindref="member">PM_VERSION_MAJOR</ref> &lt;&lt; 16) | PM_VERSION_MINOR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PM API versions</header>
+      <memberdef kind="define" id="group__xpm__apis_1ga4712d7ef3792f94dc15124f41272416e" prot="public" static="no">
+        <name>PM_API_BASE_VERSION</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>PM API versions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gae4ef50a35536f04cd2e9c4d31f83211f" prot="public" static="no">
+        <name>PM_API_VERSION_2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Capabilities for RAM</header>
+      <memberdef kind="define" id="group__xpm__apis_1gaaa16814d9c56615affe68d30478a0755" prot="public" static="no">
+        <name>PM_CAP_ACCESS</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Capabilities for RAM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gaafc1b3a62bc1d5fbbf86ba6b573ac0f5" prot="public" static="no">
+        <name>PM_CAP_CONTEXT</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga9c5092dbbc6d84c862ae822a0de3a5a1" prot="public" static="no">
+        <name>PM_CAP_WAKEUP</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Node default states macros</header>
+      <memberdef kind="define" id="group__xpm__apis_1ga7051250c5e7955c82be4f2e2bd77de02" prot="public" static="no">
+        <name>NODE_STATE_OFF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Node State. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gae0ff0e638773ff8b757ba8fa89b3b32f" prot="public" static="no">
+        <name>NODE_STATE_ON</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Processor&apos;s states macros</header>
+      <memberdef kind="define" id="group__xpm__apis_1ga6148d6ec72ddde2671cd77ac3cbe35de" prot="public" static="no">
+        <name>PROC_STATE_FORCEDOFF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Processor&apos;s state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gadd502cc29c0d8134e5ea7f89d5df9ff0" prot="public" static="no">
+        <name>PROC_STATE_ACTIVE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga633d048ac477d24edbc979e90c1f7ce8" prot="public" static="no">
+        <name>PROC_STATE_SLEEP</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga6dcbcfa8595930e0127533b55387f2ad" prot="public" static="no">
+        <name>PROC_STATE_SUSPENDING</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Maximum Latency/QOS macros</header>
+      <memberdef kind="define" id="group__xpm__apis_1gacf2a3e78a81a438b64c85b877212820b" prot="public" static="no">
+        <name>MAX_LATENCY</name>
+        <initializer>(~0U)</initializer>
+        <briefdescription>
+<para>Maximum Latency/QOS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga4e1f8dc7e80ee458ac7c26f34ec2e5ae" prot="public" static="no">
+        <name>MAX_QOS</name>
+        <initializer>100U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>System shutdown/Restart macros</header>
+      <memberdef kind="define" id="group__xpm__apis_1gad75794a127f7366c8d196c66a636bc3a" prot="public" static="no">
+        <name>PMF_SHUTDOWN_TYPE_SHUTDOWN</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>System shutdown/Restart. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga9aa8856fb41afe026b323f165180d4e0" prot="public" static="no">
+        <name>PMF_SHUTDOWN_TYPE_RESET</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga96fe2a710df6fb56d2f139de39e9d6e6" prot="public" static="no">
+        <name>PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1ga91577ded0abf65c5d6a1be014aa4f575" prot="public" static="no">
+        <name>PMF_SHUTDOWN_SUBTYPE_PS_ONLY</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gaa917d8a098c714a8677f877f4096907c" prot="public" static="no">
+        <name>PMF_SHUTDOWN_SUBTYPE_SYSTEM</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Feature Check bit mask macros</header>
+      <memberdef kind="define" id="group__xpm__apis_1gaee2da6150eb00afe6c90117a41690f9c" prot="public" static="no">
+        <name>BIT_MASK_SUPPORT_FUNC_ID_LEN</name>
+        <initializer>64U</initializer>
+        <briefdescription>
+<para>Feature Check bit mask functionality. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__xpm__apis_1ga411f3446546f28eb24d1c740b189d403" compoundref="zynqmp_2client_2common_2pm__api__sys_8c" startline="1001" endline="1027">XPm_IsFunctionSupported</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xpm__apis_1gae0f75f80e47df501403bb54061b4809a" prot="public" static="no">
+        <name>BIT_MASK_SUPPORT_BUF_LEN</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xpm__apis_1ga086c32e14d72765b5e1063f255cd7fee" prot="public" static="no">
+        <name>XPmApiCbId</name>
+        <enumvalue id="group__xpm__apis_1gga086c32e14d72765b5e1063f255cd7feea7aba2a71e6f2155151b110e9831c3db7" prot="public">
+          <name>PM_INIT_SUSPEND_CB</name>
+          <initializer>= 30</initializer>
+          <briefdescription>
+<para>Suspend callback. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga086c32e14d72765b5e1063f255cd7feea87d7923dc3982269f6040a79e00ae5e0" prot="public">
+          <name>PM_ACKNOWLEDGE_CB</name>
+          <briefdescription>
+<para>Acknowledge callback. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga086c32e14d72765b5e1063f255cd7feea642a1e463ef35ae5ee049c7c2ffa8553" prot="public">
+          <name>PM_NOTIFY_CB</name>
+          <briefdescription>
+<para>Notify callback. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga086c32e14d72765b5e1063f255cd7feea5546aada6bcf419983feb3f349d72aaa" prot="public">
+          <name>PM_NOTIFY_STL_NO_OP</name>
+          <briefdescription>
+<para>Notify STL No OP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM API Callback ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="131" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" prot="public" static="no">
+        <name>XPmNodeId</name>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522af61b72eeff33bbe0201392e0261c5df1" prot="public">
+          <name>NODE_UNKNOWN</name>
+          <briefdescription>
+<para>0x0 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a889381c721c5dce39f35c6e67d36e3e8" prot="public">
+          <name>NODE_APU</name>
+          <briefdescription>
+<para>0x1 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a4a986e70fbc2ad77ae0b0e4104a92b76" prot="public">
+          <name>NODE_APU_0</name>
+          <briefdescription>
+<para>0x2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a7bb88d6c3028bc53dade18fc8af2a741" prot="public">
+          <name>NODE_APU_1</name>
+          <briefdescription>
+<para>0x3 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a73a6aef334e561044780c3701c8785c5" prot="public">
+          <name>NODE_APU_2</name>
+          <briefdescription>
+<para>0x4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a97bc2f74c03270d80e643c9806419ae5" prot="public">
+          <name>NODE_APU_3</name>
+          <briefdescription>
+<para>0x5 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a13a471dd63828c5c82cf06b45a51ef50" prot="public">
+          <name>NODE_RPU</name>
+          <briefdescription>
+<para>0x6 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a40b2ca429bf2701bfd4e02627989fc15" prot="public">
+          <name>NODE_RPU_0</name>
+          <briefdescription>
+<para>0x7 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ab2178e65985430a2d0cd979deab230de" prot="public">
+          <name>NODE_RPU_1</name>
+          <briefdescription>
+<para>0x8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ae4fa32fad24e33ed5f73e75b0901bfaa" prot="public">
+          <name>NODE_PLD</name>
+          <briefdescription>
+<para>0x9 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522add71ad415d9d8d1f4f224283bcd96c2b" prot="public">
+          <name>NODE_FPD</name>
+          <briefdescription>
+<para>0xA </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522af136b4243dfd114da3abab22a24d2aa5" prot="public">
+          <name>NODE_OCM_BANK_0</name>
+          <briefdescription>
+<para>0xB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a16520446f3d85dfa771efd39ad5699ec" prot="public">
+          <name>NODE_OCM_BANK_1</name>
+          <briefdescription>
+<para>0xC </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a9b1b1ec87d9117223541ce1198cbb4dd" prot="public">
+          <name>NODE_OCM_BANK_2</name>
+          <briefdescription>
+<para>0xD </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522abad4f45448bf41273ebc074e4db6c708" prot="public">
+          <name>NODE_OCM_BANK_3</name>
+          <briefdescription>
+<para>0xE </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a90f123c1cd0879bffeddaa28234995ab" prot="public">
+          <name>NODE_TCM_0_A</name>
+          <briefdescription>
+<para>0xF </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a2498a281f6288e5f80f8ba2f172df522" prot="public">
+          <name>NODE_TCM_0_B</name>
+          <briefdescription>
+<para>0x10 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522afcf9223df0f67c1f2319fbdc861bf180" prot="public">
+          <name>NODE_TCM_1_A</name>
+          <briefdescription>
+<para>0x11 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ac37f03eb80f50267449dc38afd2393a2" prot="public">
+          <name>NODE_TCM_1_B</name>
+          <briefdescription>
+<para>0x12 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a62b86f40e5a191e480ce11ff4b637469" prot="public">
+          <name>NODE_L2</name>
+          <briefdescription>
+<para>0x13 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a5f7f0e9eba2f8cac9ec2110f9b071e68" prot="public">
+          <name>NODE_GPU_PP_0</name>
+          <briefdescription>
+<para>0x14 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a060907ce75d820af8ef7a44fda2de52e" prot="public">
+          <name>NODE_GPU_PP_1</name>
+          <briefdescription>
+<para>0x15 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a108bb004ea6c35dbb1daf983f35e15e7" prot="public">
+          <name>NODE_USB_0</name>
+          <briefdescription>
+<para>0x16 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a528b0cf552d98e9e871d6e556e163657" prot="public">
+          <name>NODE_USB_1</name>
+          <briefdescription>
+<para>0x17 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a0dcd7d8a13f941ec447a6f0d7bd0d627" prot="public">
+          <name>NODE_TTC_0</name>
+          <briefdescription>
+<para>0x18 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a51b689e51f8a8eecfee5db1f3469dab9" prot="public">
+          <name>NODE_TTC_1</name>
+          <briefdescription>
+<para>0x19 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ad2c68ee6b0deb8adc3817a22c8287f86" prot="public">
+          <name>NODE_TTC_2</name>
+          <briefdescription>
+<para>0x1A </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a3b2f1f28c64088418fb6f004139caccf" prot="public">
+          <name>NODE_TTC_3</name>
+          <briefdescription>
+<para>0x1B </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ac8ce575335b95c88389d4a27e72ddb68" prot="public">
+          <name>NODE_SATA</name>
+          <briefdescription>
+<para>0x1C </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a34b383e620adcef0425fef95fab080d4" prot="public">
+          <name>NODE_ETH_0</name>
+          <briefdescription>
+<para>0x1D </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a2ff364ce66427f5038001fab99325af5" prot="public">
+          <name>NODE_ETH_1</name>
+          <briefdescription>
+<para>0x1E </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522af9ca4fafad6f9ccae1a42e5b1ac17799" prot="public">
+          <name>NODE_ETH_2</name>
+          <briefdescription>
+<para>0x1F </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522aeb2bae119ec4ca1acc096c14dab34623" prot="public">
+          <name>NODE_ETH_3</name>
+          <briefdescription>
+<para>0x20 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a302ec335b97c97334fb263433d48bd10" prot="public">
+          <name>NODE_UART_0</name>
+          <briefdescription>
+<para>0x21 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ad205d429c4a7ab6fb9194784c6fd9fa2" prot="public">
+          <name>NODE_UART_1</name>
+          <briefdescription>
+<para>0x22 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a0280af54f9a71e5d432461ac500fae02" prot="public">
+          <name>NODE_SPI_0</name>
+          <briefdescription>
+<para>0x23 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522aab19e642ad0201643a756836d2c9ced0" prot="public">
+          <name>NODE_SPI_1</name>
+          <briefdescription>
+<para>0x24 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a4e7c112e89ae799cdbc2977ca7ee13e9" prot="public">
+          <name>NODE_I2C_0</name>
+          <briefdescription>
+<para>0x25 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ab524478f58f32232b36321ab7d15ec31" prot="public">
+          <name>NODE_I2C_1</name>
+          <briefdescription>
+<para>0x26 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a0635addf57b3e705b90d0e41a0583abb" prot="public">
+          <name>NODE_SD_0</name>
+          <briefdescription>
+<para>0x27 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522aeac1c4d4ce8daefaa68d21a66a577004" prot="public">
+          <name>NODE_SD_1</name>
+          <briefdescription>
+<para>0x28 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522af69432c246683421428e45a9244b8f71" prot="public">
+          <name>NODE_DP</name>
+          <briefdescription>
+<para>0x29 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a688c3f77247529fd8f155095bef93a6e" prot="public">
+          <name>NODE_GDMA</name>
+          <briefdescription>
+<para>0x2A </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a33a5c81fb88916494ea0071c5c6706fa" prot="public">
+          <name>NODE_ADMA</name>
+          <briefdescription>
+<para>0x2B </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ae1a36deec099154b1ddd8198454249ea" prot="public">
+          <name>NODE_NAND</name>
+          <briefdescription>
+<para>0x2C </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a87ff7223dac604d07a5bae7eb372291e" prot="public">
+          <name>NODE_QSPI</name>
+          <briefdescription>
+<para>0x2D </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a67856f67b91a85af31f53c50b887f342" prot="public">
+          <name>NODE_GPIO</name>
+          <briefdescription>
+<para>0x2E </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ae93a79be11282509a51edb27d74b1c84" prot="public">
+          <name>NODE_CAN_0</name>
+          <briefdescription>
+<para>0x2F </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522af649751ae348f2b9d7b69c268d5de7ec" prot="public">
+          <name>NODE_CAN_1</name>
+          <briefdescription>
+<para>0x30 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a3e5a576a290f2b91de806061ddf001a7" prot="public">
+          <name>NODE_EXTERN</name>
+          <briefdescription>
+<para>0x31 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a6959243f99494516e116df7dab0d9d6d" prot="public">
+          <name>NODE_APLL</name>
+          <briefdescription>
+<para>0x32 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522afa16c75b86e2eeb56bc48b4f3ce11202" prot="public">
+          <name>NODE_VPLL</name>
+          <briefdescription>
+<para>0x33 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a1225fa38f6523753269fbd03a92d0f87" prot="public">
+          <name>NODE_DPLL</name>
+          <briefdescription>
+<para>0x34 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a0d57e5a0f57b6fd732d15fb3f97710af" prot="public">
+          <name>NODE_RPLL</name>
+          <briefdescription>
+<para>0x35 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a55df34eae69bab513ba59129f7715ed6" prot="public">
+          <name>NODE_IOPLL</name>
+          <briefdescription>
+<para>0x36 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a336d949a74deee0f7d6cc9025147ceb2" prot="public">
+          <name>NODE_DDR</name>
+          <briefdescription>
+<para>0x37 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a27a4f9dd2813bac8833b6b2c9be6647e" prot="public">
+          <name>NODE_IPI_APU</name>
+          <briefdescription>
+<para>0x38 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522aa61e2cb67f276d81fc6f3c00c3fb42d0" prot="public">
+          <name>NODE_IPI_RPU_0</name>
+          <briefdescription>
+<para>0x39 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522afd480d661a252e73365581cf0161612a" prot="public">
+          <name>NODE_GPU</name>
+          <briefdescription>
+<para>0x3A </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a8fc364e26244a95f1a0434d2ea2fec13" prot="public">
+          <name>NODE_PCIE</name>
+          <briefdescription>
+<para>0x3B </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a069c9b576815ff5a0951904df75ddb39" prot="public">
+          <name>NODE_PCAP</name>
+          <briefdescription>
+<para>0x3C </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ae246e094b2d08902c20f3fcf4d3ee14b" prot="public">
+          <name>NODE_RTC</name>
+          <briefdescription>
+<para>0x3D </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a64a82fe0124bfc681b244e2604edda9d" prot="public">
+          <name>NODE_LPD</name>
+          <briefdescription>
+<para>0x3E </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522aa0911a830ad54b1bfd23e3f58f94b410" prot="public">
+          <name>NODE_VCU</name>
+          <briefdescription>
+<para>0x3F </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522adadaf9b8cb6819d465b1c0fb4e06d728" prot="public">
+          <name>NODE_IPI_RPU_1</name>
+          <briefdescription>
+<para>0x40 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a0ef038d383742dcec172da48a6ad9621" prot="public">
+          <name>NODE_IPI_PL_0</name>
+          <briefdescription>
+<para>0x41 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a5b77d086e1f40eddddaaaf1afd633cf7" prot="public">
+          <name>NODE_IPI_PL_1</name>
+          <briefdescription>
+<para>0x42 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a4b3890addf3b78bac0593ac502133bdb" prot="public">
+          <name>NODE_IPI_PL_2</name>
+          <briefdescription>
+<para>0x43 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ae818996cda4ab9c67cdf485d8081a720" prot="public">
+          <name>NODE_IPI_PL_3</name>
+          <briefdescription>
+<para>0x44 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522a6969d62d232c637bbba2ffc62cd06c38" prot="public">
+          <name>NODE_PL</name>
+          <briefdescription>
+<para>0x45 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga48a4baeaeb4ccf182359a230b0262522ab924e0c39397f597d6baedfdcf0a484a" prot="public">
+          <name>NODE_ID_MAX</name>
+          <briefdescription>
+<para>0x46 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Node ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="141" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xpm__apis_1ga1a6e4433f0187e432e1d8895fd81a6c9" prot="public" static="no">
+        <name>XPmRequestAck</name>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a74f99da8a0c8dcaedf08ea4f9fd31b35" prot="public">
+          <name>REQUEST_ACK_NO</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>No Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" prot="public">
+          <name>REQUEST_ACK_BLOCKING</name>
+          <briefdescription>
+<para>Blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a3b9796c0c037bd00cae5f99895a42be8" prot="public">
+          <name>REQUEST_ACK_NON_BLOCKING</name>
+          <briefdescription>
+<para>Non blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9aa26d57fca2cb18346169c2f8fa3608a9" prot="public">
+          <name>REQUEST_ACK_CB_CERROR</name>
+          <briefdescription>
+<para>Callback Error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a74f99da8a0c8dcaedf08ea4f9fd31b35" prot="public">
+          <name>REQUEST_ACK_NO</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>No Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" prot="public">
+          <name>REQUEST_ACK_BLOCKING</name>
+          <briefdescription>
+<para>Blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a3b9796c0c037bd00cae5f99895a42be8" prot="public">
+          <name>REQUEST_ACK_NON_BLOCKING</name>
+          <briefdescription>
+<para>Non blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9aa26d57fca2cb18346169c2f8fa3608a9" prot="public">
+          <name>REQUEST_ACK_CB_CERROR</name>
+          <briefdescription>
+<para>Callback Error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a74f99da8a0c8dcaedf08ea4f9fd31b35" prot="public">
+          <name>REQUEST_ACK_NO</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>No Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" prot="public">
+          <name>REQUEST_ACK_BLOCKING</name>
+          <briefdescription>
+<para>Blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a3b9796c0c037bd00cae5f99895a42be8" prot="public">
+          <name>REQUEST_ACK_NON_BLOCKING</name>
+          <briefdescription>
+<para>Non blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9aa26d57fca2cb18346169c2f8fa3608a9" prot="public">
+          <name>REQUEST_ACK_CB_CERROR</name>
+          <briefdescription>
+<para>Callback Error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a74f99da8a0c8dcaedf08ea4f9fd31b35" prot="public">
+          <name>REQUEST_ACK_NO</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>No Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a445618a9498706a1b08456282b93bb16" prot="public">
+          <name>REQUEST_ACK_BLOCKING</name>
+          <briefdescription>
+<para>Blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9a3b9796c0c037bd00cae5f99895a42be8" prot="public">
+          <name>REQUEST_ACK_NON_BLOCKING</name>
+          <briefdescription>
+<para>Non blocking Ack. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga1a6e4433f0187e432e1d8895fd81a6c9aa26d57fca2cb18346169c2f8fa3608a9" prot="public">
+          <name>REQUEST_ACK_CB_CERROR</name>
+          <briefdescription>
+<para>Callback Error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Acknowledge Request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="218" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xpm__apis_1ga62d108e7f9779e01c255c08ed78fed48" prot="public" static="no">
+        <name>XPmAbortReason</name>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a9164d8a59aa07172d2fb279300a3f80e" prot="public">
+          <name>ABORT_REASON_WKUP_EVENT</name>
+          <initializer>= 100</initializer>
+          <briefdescription>
+<para>Wakeup Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a5a0ef7931c9ee7df46c933dc4c04e338" prot="public">
+          <name>ABORT_REASON_PU_BUSY</name>
+          <briefdescription>
+<para>Processor Busy. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a8df5b5141bbaf73ef6ae54c3c11596d5" prot="public">
+          <name>ABORT_REASON_NO_PWRDN</name>
+          <briefdescription>
+<para>No Powerdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a65d0933fc683bf13a6590bb716316a80" prot="public">
+          <name>ABORT_REASON_UNKNOWN</name>
+          <briefdescription>
+<para>Unknown Reason. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a9164d8a59aa07172d2fb279300a3f80e" prot="public">
+          <name>ABORT_REASON_WKUP_EVENT</name>
+          <initializer>= 100</initializer>
+          <briefdescription>
+<para>Wakeup Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a5a0ef7931c9ee7df46c933dc4c04e338" prot="public">
+          <name>ABORT_REASON_PU_BUSY</name>
+          <briefdescription>
+<para>Processor Busy. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a8df5b5141bbaf73ef6ae54c3c11596d5" prot="public">
+          <name>ABORT_REASON_NO_PWRDN</name>
+          <briefdescription>
+<para>No Powerdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a65d0933fc683bf13a6590bb716316a80" prot="public">
+          <name>ABORT_REASON_UNKNOWN</name>
+          <briefdescription>
+<para>Unknown Reason. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a9164d8a59aa07172d2fb279300a3f80e" prot="public">
+          <name>ABORT_REASON_WKUP_EVENT</name>
+          <initializer>= 100</initializer>
+          <briefdescription>
+<para>Wakeup Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a5a0ef7931c9ee7df46c933dc4c04e338" prot="public">
+          <name>ABORT_REASON_PU_BUSY</name>
+          <briefdescription>
+<para>Processor Busy. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a8df5b5141bbaf73ef6ae54c3c11596d5" prot="public">
+          <name>ABORT_REASON_NO_PWRDN</name>
+          <briefdescription>
+<para>No Powerdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a65d0933fc683bf13a6590bb716316a80" prot="public">
+          <name>ABORT_REASON_UNKNOWN</name>
+          <briefdescription>
+<para>Unknown Reason. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a9164d8a59aa07172d2fb279300a3f80e" prot="public">
+          <name>ABORT_REASON_WKUP_EVENT</name>
+          <initializer>= 100</initializer>
+          <briefdescription>
+<para>Wakeup Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a5a0ef7931c9ee7df46c933dc4c04e338" prot="public">
+          <name>ABORT_REASON_PU_BUSY</name>
+          <briefdescription>
+<para>Processor Busy. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a8df5b5141bbaf73ef6ae54c3c11596d5" prot="public">
+          <name>ABORT_REASON_NO_PWRDN</name>
+          <briefdescription>
+<para>No Powerdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga62d108e7f9779e01c255c08ed78fed48a65d0933fc683bf13a6590bb716316a80" prot="public">
+          <name>ABORT_REASON_UNKNOWN</name>
+          <briefdescription>
+<para>Unknown Reason. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Abort Reasons. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="228" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xpm__apis_1gaa81d4506684eb977e60c84981bdbc385" prot="public" static="no">
+        <name>XPmSuspendReason</name>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385a36e074740ae09713653e4d2c2332b5e7" prot="public">
+          <name>SUSPEND_REASON_PU_REQ</name>
+          <initializer>= (201U)</initializer>
+          <briefdescription>
+<para>Processor request. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae52435e6f10e7874244311253e4d09fa" prot="public">
+          <name>SUSPEND_REASON_ALERT</name>
+          <initializer>= (202U)</initializer>
+          <briefdescription>
+<para>Alert. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae31aa891d1ef59e5aa3071ad9c76d3ae" prot="public">
+          <name>SUSPEND_REASON_SYS_SHUTDOWN</name>
+          <initializer>= (203U)</initializer>
+          <briefdescription>
+<para>System shutdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385a36e074740ae09713653e4d2c2332b5e7" prot="public">
+          <name>SUSPEND_REASON_PU_REQ</name>
+          <initializer>= (201U)</initializer>
+          <briefdescription>
+<para>Processor request. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae52435e6f10e7874244311253e4d09fa" prot="public">
+          <name>SUSPEND_REASON_ALERT</name>
+          <initializer>= (202U)</initializer>
+          <briefdescription>
+<para>Alert. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae31aa891d1ef59e5aa3071ad9c76d3ae" prot="public">
+          <name>SUSPEND_REASON_SYS_SHUTDOWN</name>
+          <initializer>= (203U)</initializer>
+          <briefdescription>
+<para>System shutdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385a36e074740ae09713653e4d2c2332b5e7" prot="public">
+          <name>SUSPEND_REASON_PU_REQ</name>
+          <initializer>= (201U)</initializer>
+          <briefdescription>
+<para>Processor request. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae52435e6f10e7874244311253e4d09fa" prot="public">
+          <name>SUSPEND_REASON_ALERT</name>
+          <initializer>= (202U)</initializer>
+          <briefdescription>
+<para>Alert. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae31aa891d1ef59e5aa3071ad9c76d3ae" prot="public">
+          <name>SUSPEND_REASON_SYS_SHUTDOWN</name>
+          <initializer>= (203U)</initializer>
+          <briefdescription>
+<para>System shutdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385a36e074740ae09713653e4d2c2332b5e7" prot="public">
+          <name>SUSPEND_REASON_PU_REQ</name>
+          <initializer>= 201</initializer>
+          <briefdescription>
+<para>Processor request. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae52435e6f10e7874244311253e4d09fa" prot="public">
+          <name>SUSPEND_REASON_ALERT</name>
+          <briefdescription>
+<para>Alert. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1ggaa81d4506684eb977e60c84981bdbc385ae31aa891d1ef59e5aa3071ad9c76d3ae" prot="public">
+          <name>SUSPEND_REASON_SYS_SHUTDOWN</name>
+          <briefdescription>
+<para>System shutdown. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Suspend Reasons. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="238" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xpm__apis_1ga64dfcbd71beb833cc62f1c2a0292adbe" prot="public" static="no">
+        <name>XPmRamState</name>
+        <enumvalue id="group__xpm__apis_1gga64dfcbd71beb833cc62f1c2a0292adbeaf54e3a7580d4975d98236636c5a79eea" prot="public">
+          <name>PM_RAM_STATE_OFF</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Off. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga64dfcbd71beb833cc62f1c2a0292adbea11f2a19333551095a104d82a40994e7a" prot="public">
+          <name>PM_RAM_STATE_RETENTION</name>
+          <briefdescription>
+<para>Retention. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xpm__apis_1gga64dfcbd71beb833cc62f1c2a0292adbea08a2ebc450b9412a14a6eaf653170c19" prot="public">
+          <name>PM_RAM_STATE_ON</name>
+          <briefdescription>
+<para>On. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM RAM States. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="247" bodyend="251"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xpm__apis_1ga077df2030c9fb4399ac01b81b06f24d3" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___ntfier" kindref="compound">XPm_Ntfier</ref></type>
+        <definition>typedef struct XPm_Ntfier  XPm_Notifier</definition>
+        <argsstring></argsstring>
+        <name>XPm_Notifier</name>
+        <briefdescription>
+<para>XPm_Notifier - Notifier structure registered with a callback by app. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xpm__apis_1gaf89530725d431b10bb84efbc3e5e3739" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___nd_status" kindref="compound">XPm_NdStatus</ref></type>
+        <definition>typedef struct XPm_NdStatus  XPm_NodeStatus</definition>
+        <argsstring></argsstring>
+        <name>XPm_NodeStatus</name>
+        <briefdescription>
+<para>XPm_NodeStatus - struct containing node status information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="132" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xpm__apis_1gaa90545635a14effffa7517163f2945a3" prot="public" static="no" mutable="no">
+        <type>struct pm_init_suspend</type>
+        <definition>struct pm_init_suspend pm_susp</definition>
+        <argsstring></argsstring>
+        <name>pm_susp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.c" bodystart="1953" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xpm__apis_1gabb44c3ec55bf963118a511bb4b63e734" prot="public" static="no" mutable="no">
+        <type>struct pm_acknowledge</type>
+        <definition>struct pm_acknowledge pm_ack</definition>
+        <argsstring></argsstring>
+        <name>pm_ack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.c" bodystart="1958" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="">
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

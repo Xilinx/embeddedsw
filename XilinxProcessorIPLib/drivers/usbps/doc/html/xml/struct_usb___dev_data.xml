@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_usb___dev_data" kind="struct" prot="public">
+    <compoundname>Usb_DevData</compoundname>
+    <includes local="no">xusbps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_usb___dev_data_1ab54eee2cc1c6a5d178c976f187a2ea47" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Usb_DevData::Speed</definition>
+        <argsstring></argsstring>
+        <name>Speed</name>
+        <briefdescription>
+<para>Current connection speed (XUSBPS_SPEED_*). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_usb___dev_data_1ae6b25681fad0c3686de251a7e611f00f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Usb_DevData::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>Current device state (XUSBPS_STATE_*). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="566" bodyend="-1"/>
+        <referencedby refid="xusbps__ch9__storage_8h_1a72238ee80cba8facd72277ab2ec271de" compoundref="xusbps__ch9__audio_8c" startline="811" endline="835">XUsbPs_SetConfiguration</referencedby>
+        <referencedby refid="group__usbps_1ga8c700bcf9ba08271914145803776d265" compoundref="xusbps_8c" startline="304" endline="336">XUsbPs_SetDeviceAddress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* Usb_DevData::PrivateData</definition>
+        <argsstring></argsstring>
+        <name>PrivateData</name>
+        <briefdescription>
+<para>Pointer to driver-private instance data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="568" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="xusbps__audio__example_8c_1a151422305b638ea9418bbd8d0639f93d" compoundref="xusbps__audio__example_8c" startline="604" endline="612">XUsbPs_CfgInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>USB device runtime data maintained by the common USB framework. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="564" bodyend="569"/>
+    <listofallmembers>
+      <member refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" prot="public" virt="non-virtual"><scope>Usb_DevData</scope><name>PrivateData</name></member>
+      <member refid="struct_usb___dev_data_1ab54eee2cc1c6a5d178c976f187a2ea47" prot="public" virt="non-virtual"><scope>Usb_DevData</scope><name>Speed</name></member>
+      <member refid="struct_usb___dev_data_1ae6b25681fad0c3686de251a7e611f00f" prot="public" virt="non-virtual"><scope>Usb_DevData</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

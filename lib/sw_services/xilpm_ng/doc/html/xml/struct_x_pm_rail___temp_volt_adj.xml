@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_rail___temp_volt_adj" kind="struct" prot="public">
+    <compoundname>XPmRail_TempVoltAdj</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_rail___temp_volt_adj_1a43d2489a85b3915efcc1a7f689de9110" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmRail_TempVoltAdj::UpperTempThresh</definition>
+        <argsstring></argsstring>
+        <name>UpperTempThresh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___temp_volt_adj_1a0792c478d906e841af7f8bafbd144abf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmRail_TempVoltAdj::LowerTempThresh</definition>
+        <argsstring></argsstring>
+        <name>LowerTempThresh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___temp_volt_adj_1a8fc101bd34b0ed7e100db19f661361ee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRail_TempVoltAdj::UpperVoltMode</definition>
+        <argsstring></argsstring>
+        <name>UpperVoltMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___temp_volt_adj_1a4e6b03535a8f994aa67077994482ca65" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRail_TempVoltAdj::LowerVoltMode</definition>
+        <argsstring></argsstring>
+        <name>LowerVoltMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_rail___temp_volt_adj_1a26b1fd31e88d14bb6abdfdc42ce41625" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRail_TempVoltAdj::CurrentVoltMode</definition>
+        <argsstring></argsstring>
+        <name>CurrentVoltMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="109" bodyend="115"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_rail___temp_volt_adj_1a26b1fd31e88d14bb6abdfdc42ce41625" prot="public" virt="non-virtual"><scope>XPmRail_TempVoltAdj</scope><name>CurrentVoltMode</name></member>
+      <member refid="struct_x_pm_rail___temp_volt_adj_1a0792c478d906e841af7f8bafbd144abf" prot="public" virt="non-virtual"><scope>XPmRail_TempVoltAdj</scope><name>LowerTempThresh</name></member>
+      <member refid="struct_x_pm_rail___temp_volt_adj_1a4e6b03535a8f994aa67077994482ca65" prot="public" virt="non-virtual"><scope>XPmRail_TempVoltAdj</scope><name>LowerVoltMode</name></member>
+      <member refid="struct_x_pm_rail___temp_volt_adj_1a43d2489a85b3915efcc1a7f689de9110" prot="public" virt="non-virtual"><scope>XPmRail_TempVoltAdj</scope><name>UpperTempThresh</name></member>
+      <member refid="struct_x_pm_rail___temp_volt_adj_1a8fc101bd34b0ed7e100db19f661361ee" prot="public" virt="non-virtual"><scope>XPmRail_TempVoltAdj</scope><name>UpperVoltMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

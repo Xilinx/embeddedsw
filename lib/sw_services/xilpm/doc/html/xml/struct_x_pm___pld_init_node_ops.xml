@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pld_init_node_ops" kind="struct" prot="public">
+    <compoundname>XPm_PldInitNodeOps</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pld_init_node_ops_1a8f623e9291c3dbe189351cc38304aaef" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PldInitNodeOps::InitStart)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</definition>
+        <argsstring>)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>InitStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pld_init_node_ops_1a7210d5295752c9c5bdd26cfdd9f35f3a" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PldInitNodeOps::InitFinish)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</definition>
+        <argsstring>)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>InitFinish</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pld_init_node_ops_1a81b6d76e98a62e7dc4052b2ed2a75652" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PldInitNodeOps::MemCtrlrMap)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</definition>
+        <argsstring>)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>MemCtrlrMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.h" bodystart="25" bodyend="29"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pld_init_node_ops_1a7210d5295752c9c5bdd26cfdd9f35f3a" prot="public" virt="non-virtual"><scope>XPm_PldInitNodeOps</scope><name>InitFinish</name></member>
+      <member refid="struct_x_pm___pld_init_node_ops_1a8f623e9291c3dbe189351cc38304aaef" prot="public" virt="non-virtual"><scope>XPm_PldInitNodeOps</scope><name>InitStart</name></member>
+      <member refid="struct_x_pm___pld_init_node_ops_1a81b6d76e98a62e7dc4052b2ed2a75652" prot="public" virt="non-virtual"><scope>XPm_PldInitNodeOps</scope><name>MemCtrlrMap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___xfer___prdt" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_Xfer_Prdt</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1ac41f0cc63095080fad9b5c364771f25e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::BufAddr_Lower</definition>
+        <argsstring></argsstring>
+        <name>BufAddr_Lower</name>
+        <briefdescription>
+<para>Data buffer physical address lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="243" endline="309">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="324" endline="381">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1a0e7b82f740ecc0dd68be3a8552b85eb0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::BufAddr_Upper</definition>
+        <argsstring></argsstring>
+        <name>BufAddr_Upper</name>
+        <briefdescription>
+<para>Data buffer physical address upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="243" endline="309">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="324" endline="381">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1a47e9c81bda17175381717c037ffb5154" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1aae045485fa6094164fa0b04fba24eec9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::DataByteCount</definition>
+        <argsstring></argsstring>
+        <name>DataByteCount</name>
+        <briefdescription>
+<para>[17:0] Byte count, DWORD granularity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="243" endline="309">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="324" endline="381">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds a physical region descriptor table entry. </para>    </briefdescription>
+    <detaileddescription>
+<para>Physical Region Descriptor Table - 8-byte aligned </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="206" bodyend="213"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1ac41f0cc63095080fad9b5c364771f25e" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>BufAddr_Lower</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1a0e7b82f740ecc0dd68be3a8552b85eb0" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>BufAddr_Upper</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1aae045485fa6094164fa0b04fba24eec9" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>DataByteCount</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1a47e9c81bda17175381717c037ffb5154" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

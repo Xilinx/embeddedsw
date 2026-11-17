@@ -1,0 +1,2185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__keymanager__client__example" kind="group">
+    <compoundname>xasu_keymanager_client_example</compoundname>
+    <title>ASU KeyManager API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga33384d7a58164618d8fee1eb11c3f908" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmEccPvtKey[XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES]</argsstring>
+        <name>KmEccPvtKey</name>
+        <initializer>= {
+	0xC9U, 0xAFU, 0xA9U, 0xD8U, 0x45U, 0xBAU, 0x75U, 0x16U,
+	0x6BU, 0x5CU, 0x21U, 0x57U, 0x67U, 0xB1U, 0xD6U, 0x93U,
+	0x4EU, 0x50U, 0xC3U, 0xDBU, 0x36U, 0xE8U, 0x9BU, 0x12U,
+	0x7BU, 0x8AU, 0x62U, 0x2BU, 0x12U, 0x0FU, 0x67U, 0x21U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga40b4cca9d782fa3eb5174ff58b422c17" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmVaultId</definition>
+        <argsstring></argsstring>
+        <name>KmVaultId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga4aba18461cd754acfbbc5dd01e11f7ef" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmEccPvtKeyId</definition>
+        <argsstring></argsstring>
+        <name>KmEccPvtKeyId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga9e904ce787fa6a6b676a54de9f7bf539" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmGenAesKeyId</definition>
+        <argsstring></argsstring>
+        <name>KmGenAesKeyId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga89e0ec4f2ff3108b761112530a89fce6" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmGenAesIvId</definition>
+        <argsstring></argsstring>
+        <name>KmGenAesIvId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gafe20304f3cd0c1f43f026691473fe62c" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmPlaintext[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmPlaintext</name>
+        <initializer>= {
+	0x00U, 0x11U, 0x22U, 0x33U, 0x44U, 0x55U, 0x66U, 0x77U,
+	0x88U, 0x99U, 0xAAU, 0xBBU, 0xCCU, 0xDDU, 0xEEU, 0xFFU,
+	0x0FU, 0x1EU, 0x2DU, 0x3CU, 0x4BU, 0x5AU, 0x69U, 0x78U,
+	0x87U, 0x96U, 0xA5U, 0xB4U, 0xC3U, 0xD2U, 0xE1U, 0xF0U,
+	0x13U, 0x57U, 0x9BU, 0xDFU, 0x24U, 0x68U, 0xACU, 0xE0U,
+	0xFEU, 0xDCU, 0xBAU, 0x98U, 0x76U, 0x54U, 0x32U, 0x10U,
+	0xA1U, 0xB2U, 0xC3U, 0xD4U, 0xE5U, 0xF6U, 0x07U, 0x18U,
+	0x29U, 0x3AU, 0x4BU, 0x5CU, 0x6DU, 0x7EU, 0x8FU, 0x90U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga5cf159204403e0ba3ce0afa17454cc9d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmCiphertext[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmCiphertext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga2c8ed2bd475b91bbac27e7026a1d155c" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmDecrypted[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmDecrypted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaa46a7141952cea2ef435715d96ed5420" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KmAesAad[XASU_KM_EXAMPLE_AES_AAD_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_AAD_LEN_IN_BYTES]</argsstring>
+        <name>KmAesAad</name>
+        <initializer>= {
+	0xA5U, 0x5AU, 0xC3U, 0x3CU, 0x0FU, 0xF0U, 0x12U, 0x21U,
+	0x34U, 0x43U, 0x56U, 0x65U, 0x78U, 0x87U, 0x9AU, 0xA9U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaf6a60f6e107cfb05ba684ea3dafa9814" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmAesTag[XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>KmAesTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaf94a345724bb95706587b028cd1cf163" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmGenRawKeyId</definition>
+        <argsstring></argsstring>
+        <name>KmGenRawKeyId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="430" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga771045ca94298b35125e132ffae76b08" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmHmacMessage[XASU_KM_EXAMPLE_HMAC_MSG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_HMAC_MSG_LEN_IN_BYTES]</argsstring>
+        <name>KmHmacMessage</name>
+        <initializer>= {
+	0x54U, 0x68U, 0x65U, 0x20U, 0x71U, 0x75U, 0x69U, 0x63U,
+	0x6BU, 0x20U, 0x62U, 0x72U, 0x6FU, 0x77U, 0x6EU, 0x20U,
+	0x66U, 0x6FU, 0x78U, 0x20U, 0x41U, 0x53U, 0x55U, 0x20U,
+	0x48U, 0x4DU, 0x41U, 0x43U, 0x20U, 0x6DU, 0x73U, 0x67U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga2852a2444cb9be4a0fb5f1a537439d46" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmHmac_Output1[XASU_KM_EXAMPLE_HMAC_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_HMAC_LEN_IN_BYTES]</argsstring>
+        <name>KmHmac_Output1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gacf6e15539b589fec1892050d027e49e3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmHmac_Output2[XASU_KM_EXAMPLE_HMAC_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_HMAC_LEN_IN_BYTES]</argsstring>
+        <name>KmHmac_Output2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gae2d50e0572129650a44951b4322e34a0" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmKdfContext[XASU_KM_EXAMPLE_KDF_CONTEXT_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_KDF_CONTEXT_LEN_IN_BYTES]</argsstring>
+        <name>KmKdfContext</name>
+        <initializer>= {
+	0x4BU, 0x44U, 0x46U, 0x20U, 0x63U, 0x6FU, 0x6EU, 0x74U,
+	0x65U, 0x78U, 0x74U, 0x20U, 0x66U, 0x6FU, 0x72U, 0x20U,
+	0x41U, 0x53U, 0x55U, 0x20U, 0x6BU, 0x65U, 0x79U, 0x6DU,
+	0x67U, 0x72U, 0x20U, 0x65U, 0x78U, 0x61U, 0x6DU, 0x70U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaacf39ec65ee0b08ce37fa9a84e879fe3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmKdf1[XASU_KM_EXAMPLE_KDF_OUT_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_KDF_OUT_LEN_IN_BYTES]</argsstring>
+        <name>KmKdf1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gac370f341586665879836511a44e3f8c4" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmKdf2[XASU_KM_EXAMPLE_KDF_OUT_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_KDF_OUT_LEN_IN_BYTES]</argsstring>
+        <name>KmKdf2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga5a1f249f6ad99fdd54933859e98dd581" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmEccAliceIds[XASU_KM_EXAMPLE_ECC_NUM_KEY_IDS]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_NUM_KEY_IDS]</argsstring>
+        <name>KmEccAliceIds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga94c8be730ac98f06f8607370beb7b0da" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmEccBobIds[XASU_KM_EXAMPLE_ECC_NUM_KEY_IDS]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_NUM_KEY_IDS]</argsstring>
+        <name>KmEccBobIds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gad95b2fa0f91dd18a2e86d18e8d34817f" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmDekId</definition>
+        <argsstring></argsstring>
+        <name>KmDekId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gab4a2c7aae22f065b4ead35f0f721d19f" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KmRsaModulus[XASU_KM_EXAMPLE_RSA_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_RSA_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>KmRsaModulus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaac80a9481b47c4a2d2a5a657eade9c82" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref></type>
+        <definition>XAsu_RsaPubKeyComp KmRsaPubKeyComp</definition>
+        <argsstring></argsstring>
+        <name>KmRsaPubKeyComp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gad13651016ff9092f445e25605bcc2150" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmRsaPubKeyId</definition>
+        <argsstring></argsstring>
+        <name>KmRsaPubKeyId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="531" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga901371da3bb40f9d9e8701d0e31d0dc3" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KmDek[XASU_KM_EXAMPLE_DEK_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_DEK_LEN_IN_BYTES]</argsstring>
+        <name>KmDek</name>
+        <initializer>= {
+	0x60U, 0x3DU, 0xEBU, 0x10U, 0x15U, 0xCAU, 0x71U, 0xBEU,
+	0x2BU, 0x73U, 0xAEU, 0xF0U, 0x85U, 0x7DU, 0x77U, 0x81U,
+	0x1FU, 0x35U, 0x2CU, 0x07U, 0x3BU, 0x61U, 0x08U, 0xD7U,
+	0x2DU, 0x98U, 0x10U, 0xA3U, 0x09U, 0x14U, 0xDFU, 0xF4U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="537" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga2b68810d654540571e7a58d87bf4bc69" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KmOaepLabel[XASU_KM_EXAMPLE_OAEP_LABEL_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_OAEP_LABEL_SIZE_IN_BYTES]</argsstring>
+        <name>KmOaepLabel</name>
+        <initializer>= &quot;ASU KeyManager OAEP label sample&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="548" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaf0fbf91502c74fba1068db16f7f34a70" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmDekCiphertext[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmDekCiphertext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga6bda6f5ec06e4d3f7e87b01a1bc97252" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmDekDecrypted[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmDekDecrypted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga9d28f94b7dc80b01333570d89ac8d23d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmDecrypted_ImportVerif[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmDecrypted_ImportVerif</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga19e4959373e0a967afd4ecc08e6d6042" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmCiphertext_ReVerif[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES]</argsstring>
+        <name>KmCiphertext_ReVerif</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga07184bf07e37839d0df4cf452894dc2d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmDekTag[XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>KmDekTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="575" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga77d3a7033b02fe09f64b6b008a73cb63" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmDek_ReVerifGCMTag[XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>KmDek_ReVerifGCMTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="580" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gae9fe302deba229a9812a29fba9182b10" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmWrappedBlob[XASU_KM_EXAMPLE_WRAPPED_BLOB_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_WRAPPED_BLOB_SIZE_IN_BYTES]</argsstring>
+        <name>KmWrappedBlob</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="591" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga707444c3de57b0407b7148a626b3a16f" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmWrapOutLen</definition>
+        <argsstring></argsstring>
+        <name>KmWrapOutLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga0fc98b71695209ffe6c25bcfe723cc15" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmExportBuffer[XASU_KM_EXAMPLE_EXPORT_BUF_SIZE]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_EXPORT_BUF_SIZE]</argsstring>
+        <name>KmExportBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga4ce40066644afe59f9d4659772d3090f" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 KmExportSize</definition>
+        <argsstring></argsstring>
+        <name>KmExportSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaaa4306b8da1bb4b813a86bd8695959ec" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_asu___key_vault_export_result" kindref="compound">XAsu_KeyVaultExportResult</ref></type>
+        <definition>XAsu_KeyVaultExportResult KmExportResult</definition>
+        <argsstring></argsstring>
+        <name>KmExportResult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="606" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga085b208238fccaf54f33b09277794796" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KmExportContext[XASU_KM_KV_CONTEXT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_KV_CONTEXT_SIZE_IN_BYTES]</argsstring>
+        <name>KmExportContext</name>
+        <initializer>= {
+	0x4BU, 0x4DU, 0x5FU, 0x45U, 0x58U, 0x41U, 0x4DU, 0x50U,
+	0x4CU, 0x45U, 0x5FU, 0x56U, 0x41U, 0x55U, 0x4CU, 0x54U,
+	0x5FU, 0x43U, 0x4FU, 0x4EU, 0x54U, 0x45U, 0x58U, 0x54U,
+	0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga4089a35f9f94133fd191d539b89b69cd" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmEccDigest[XASU_KM_EXAMPLE_ECC_DIGEST_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_DIGEST_LEN_IN_BYTES]</argsstring>
+        <name>KmEccDigest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="620" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaef44b46539f9d0442946579cb1611baf" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmEccSignature[XASU_KM_EXAMPLE_ECC_SIG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_SIG_LEN_IN_BYTES]</argsstring>
+        <name>KmEccSignature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1gaef273c0da124b733cf3ecbafcdef1c0c" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmEcdhSecretA[XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES]</argsstring>
+        <name>KmEcdhSecretA</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="628" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="629" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga140028bd26d6c9581653f8247901d1dd" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KmEcdhSecretB[XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES]</argsstring>
+        <name>KmEcdhSecretB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+<para>To notify the call back from the client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keymanager__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Holds the status returned by the server and gets updated during the callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="634" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="634" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gae7834fd27fa317f49d16c8dfef57e0ba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KeyManagerExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KeyManagerExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function orchestrates the KeyManager example lifecycle by invoking the individual per-operation step functions: it creates a key vault, stores a raw ECC P-256 private key into its ECC private sub-vault, generates an AES-256 key, an IV and a raw KDF/HMAC key directly inside the vault, uses the generated key/IV for an AES-GCM encrypt/decrypt round-trip and the raw key for both an HMAC and a KDF derivation, generates two ECC P-256 key pairs and uses them for a sign/verify round-trip and an ECDH shared-secret exchange, stores an RSA-4096 public key and runs a key-wrap workflow (AES-GCM-encrypt a plaintext with a data key, RSA-wrap that data key with the vaulted RSA public key using the vaulted AES key as the KEK, StoreKey to resolve that KEK by KeyId and AES-KWP-unwrap the data key, then AES-GCM-decrypt by the stored data key&apos;s KeyId and verify), exports the whole vault to an encrypted blob and imports it back (with a content self-check that decrypts the step-13 ciphertext by the imported DEK&apos;s KeyId), and then tears everything down (DeleteKey followed by DeleteKeyVault). </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the create, store, generate, use and delete operations all succeed.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The delete operations run as best-effort cleanup: the key/vault are deleted even if an earlier step fails, provided they were created. The generated keys and IV are not deleted explicitly; deleting the vault frees them along with any other keys it holds.//! [KeyManager example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Step 1: Create a key vault for this subsystem.</para><para>Step 2: Store a raw ECC P-256 private key into the vault.</para><para>Step 3: Generate an AES-256 key directly inside the vault.</para><para>Step 4: Generate an AES IV directly inside the vault.</para><para>Step 5: Use the generated AES key + IV (by ID) to AES-GCM encrypt then decrypt.</para><para>Step 6: Generate a raw (KDF/HMAC) key directly inside the vault.</para><para>Step 7: Use the generated raw key (by ID) to compute and verify an HMAC.</para><para>Step 8: Use the same raw key (by ID) to derive and verify keying material with the KDF.</para><para>Step 9: Generate the &quot;Alice&quot; and &quot;Bob&quot; ECC key pairs backing the two ECC use cases (sign/verify and key agreement) exercised by the next two steps.</para><para>Step 10: Use Alice&apos;s key pair (by ID) to sign a digest and verify the signature.</para><para>Step 11: Derive the ECDH shared secret from both sides and verify they match.</para><para>Step 12: Store the RSA-4096 public key into the vault&apos;s RSA public sub-vault; the key-wrap workflow below uses it to wrap the vaulted AES key-encryption key (KEK).</para><para>Step 13: Key-wrap workflow: AES-GCM encrypt with the raw DEK -&gt; RSA-wrap the DEK with the vaulted AES KEK -&gt; StoreKey (AES-KWP unwrap by resolving the KEK from the vault) -&gt; AES-GCM decrypt by the stored DEK&apos;s KeyId, verifying the tag and that the recovered plaintext matches.</para><para>Step 14: Export the whole populated vault into a single encrypted, authenticated blob.</para><para>Step 15: Import the vault back from that blob, restoring its keys, then decrypt the step-13 ciphertext with the imported DEK by KeyId to confirm the key bytes survived.</para><para>Step 16: Delete the stored ECC key (best-effort), only if it was created. DeleteKey is demonstrated on the stored key; the generated keys, IV, ECC key pairs, stored RSA public key and the stored DEK are reclaimed by the vault deletion below. A cleanup failure can only downgrade the overall status.</para><para>Step 17: Delete the key vault (best-effort), only if it was created. This also frees any keys still resident in the vault, including the generated keys, IV, ECC key pairs, stored RSA public key and DEK.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="719" bodyend="871"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga7d2bec1a3950c7e79204a4dc3c23ace8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_CreateVault</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_CreateVault</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>//! [KeyManager example] </para>        </briefdescription>
+        <detaileddescription>
+<para>Creates a key vault for this subsystem and captures the assigned VaultId in KmVaultId. The AES, IV, KDF/HMAC, ECC (private/public) and RSA (private/public) sub-vault capacities are requested; other sub-vault capacities remain 0. The vault is marked exportable so the later ExportKeyVault/ImportKeyVault steps can operate on it.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the vault is created successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="886" bodyend="937"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gaeb825ec78515b514689daa94552d6bf2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_StoreEccKey</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_StoreEccKey</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Stores a raw ECC P-256 private key into the ECC private sub-vault of the created vault and captures the assigned composite KeyId in KmEccPvtKeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    KeyObjectAddr : input buffer holding the raw private scalar (curve-length bytes).
+    KeyIdAddr     : output buffer where the server writes the composite KeyId.
+    KeyMetadata   : describes the key (vault/sub-vault, use case, curve, length, etc.).
+
+    KeyType selects the ECC private sub-vault and KeyAttributes carries the curve type;
+    the server copies the raw key bytes into the vault as-is. This demonstrates storing an
+    asymmetric key (vs. generating one in-vault), mirroring the lifecycle shown for AES.
+    EpochTime is left 0 (no expiry); UsageCount limits how many times the key may be used.
+    Use XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE for a key that never depletes.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the key is stored successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="959" bodyend="1011"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gad399da29de0ee86a218a7936bab5e794" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_StoreRsaPubKey</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_StoreRsaPubKey</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Stores the RSA-4096 test public key into the vault&apos;s RSA public sub-vault, capturing its composite KeyId in KmRsaPubKeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para>The key-wrap workflow uses this public key to wrap the key-encryption key (KEK) during XAsu_KeyWrap, so it is provisioned with the key-transport use case. No private key is stored - StoreKey recovers the (vaulted) KEK by KeyId, so the workflow needs no client-side RSA-OAEP peel.</para><para>KeyObjectAddr points to an <ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref> (Keysize, Modulus, PubExp). The server stores only the modulus; the public exponent is fixed by the vault to XASU_KM_EXAMPLE_RSA_PUB_EXP, so PubExp is set to match. Length carries the RSA key size (512 bytes); the key is provisioned non-depleting as long-lived key-transport material.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the public key is stored successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Build the RSA public key component (modulus + fixed public exponent).</para><para>Store the RSA public key into the RSA public sub-vault. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1031" bodyend="1100"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga4c90b76257516b05cbd13d1c380b2727" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_GenerateAesKey</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_GenerateAesKey</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Generates a fresh AES-256 key directly inside the vault and captures the assigned composite KeyId in KmGenAesKeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Unlike StoreKey, no raw key bytes are supplied: the ASU generates the key internally
+    (from its TRNG) and returns only a composite KeyId via KeyIdAddr. KeyObjectAddr is left
+    0 so the key is kept in the vault; a non-zero KeyObjectAddr would instead make the
+    server DMA the generated key out to that buffer, bypassing vault storage.
+
+    This key serves two roles later: the data key for the AES-GCM round-trip (step 5) and
+    the key-encryption key (KEK) for the key-wrap workflow (step 13). It is therefore
+    provisioned with all four AES use cases (ENC/DEC for the round-trip, KEY_WRAP/KEY_UNWRAP
+    for the KEK) and a usage count covering all four resolutions.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the key is generated successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1122" bodyend="1173"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga7d9c7982280aeac2854d344c3d7a60bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_GenerateAesIv</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_GenerateAesIv</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Generates a fresh AES IV directly inside the vault and captures the assigned composite KeyId in KmGenAesIvId. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Like GenerateAesKey, no raw bytes are supplied: the ASU generates the IV internally
+    (from its TRNG) and returns only a composite KeyId via KeyIdAddr. KeyObjectAddr is left
+    0 so the IV is kept in the IV sub-vault; a non-zero KeyObjectAddr would instead make the
+    server DMA the generated IV out to that buffer, bypassing vault storage.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the IV is generated successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1190" bodyend="1240"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga45a71a23623d65faa99d7e2121271fdf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_GenerateRawKey</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_GenerateRawKey</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Generates a fresh raw (KDF/HMAC) key directly inside the vault and captures the assigned composite KeyId in KmGenRawKeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    A raw key is generic random key material stored in the KDF/HMAC sub-vault; it is not
+    intrinsically an HMAC or a KDF key. Its permitted purpose is set by KeyUseCase: here it
+    is provisioned for both HMAC and KDF use, so the same key backs the HMAC recompute and
+    the KDF derivation steps. KeyObjectAddr is left 0 so the key stays in the vault.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the raw key is generated successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1257" bodyend="1308"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga5689ce328c707664bd440b34fde6173f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_UseAesKey</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_UseAesKey</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Uses the generated AES key and IV (referenced by their vault IDs) to AES-GCM encrypt a plaintext and then decrypt the resulting ciphertext, verifying the GCM tag and that the decrypted output matches the original plaintext. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    This demonstrates &quot;using&quot; a vaulted key: the key/IV bytes never leave the ASU; the
+    client only references them by KeyId/IvId. The encrypt produces an authentication tag
+    over the ciphertext + AAD; the decrypt re-resolves the same IvId and verifies that tag,
+    so the round-trip fails loudly on any tampering. The key and IV are provisioned with
+    both ENC and DEC use cases, since the server resolves each once per operation (encrypt +
+    decrypt).
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the encrypt/decrypt round-trip matches the plaintext.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1460" bodyend="1512"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga980ed4673c0596777e25eb15aa890c6e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_UseRawKeyHmac</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_UseRawKeyHmac</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Uses the generated raw key (referenced by its vault KeyId) to compute an HMAC over a message, and verifies correctness by recomputing the HMAC and checking the two MACs are identical. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The raw key is TRNG-generated, so its bytes are unknown to the client and a fixed
+    known-answer is not possible; instead, correctness is shown via determinism: the same
+    vaulted key + message must yield the same MAC on both computes. The server resolves the
+    key once per compute (two resolves here), out of the four uses it is provisioned for
+    (the remaining two are consumed by the KDF step).
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if both HMACs are computed and match.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1598" bodyend="1639"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga2fad0fd6782a77aeb627ea4f5c6c03ce" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_UseRawKeyKdf</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_UseRawKeyKdf</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Uses the generated raw key (referenced by its vault KeyId) to derive keying material with the KDF, and verifies correctness by repeating the derivation and checking the two outputs are identical. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    As with the HMAC step, the raw key is TRNG-generated so a fixed known-answer is not
+    possible; correctness is shown via determinism: the same vaulted key + context must
+    yield the same derived key on both derivations. The server resolves the key once per
+    derivation (two resolves here), consuming the remaining two of the key&apos;s four uses.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if both derivations complete and match.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1725" bodyend="1768"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga00503d1ccd4b59a2897317b2ad7760a4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_GenerateEccKeyPair</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_GenerateEccKeyPair</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Generates the two ECC key pairs that back the two ECC use cases this example demonstrates - signing/verification and key agreement (ECDH) - directly inside the vault, in a single step. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Each GenerateEccKeyPair call returns two composite KeyIds via KeyIdAddr: element [0] is
+    the public key ID and element [1] is the private key ID, so every destination buffer
+    holds XASU_KM_EXAMPLE_ECC_NUM_KEY_IDS IDs. KeyObjectAddr is left 0 so both keys of a
+    pair stay in the vault. The curve type is carried in KeyAttributes and the curve length
+    in Length. The KeyUseCase bitmask is applied to both keys of a pair; each key interprets
+    the bits per its own type.
+
+    Two pairs are generated by two successive GenerateEccKeyPair calls:
+    - &quot;Alice&quot; is provisioned for both sign/verify and key agreement
+      (XASU_KM_EXAMPLE_ECC_SIGN_AGREE_USE_CASE). Her pair backs the sign/verify round-trip
+      (use case 1) and acts as one side of the ECDH exchange (use case 2).
+    - &quot;Bob&quot; is provisioned for key agreement only
+      (XASU_KM_EXAMPLE_ECC_KEY_AGREE_USE_CASE) and serves as the ECDH peer, providing the
+      other side of the shared-secret derivation (use case 2).
+
+    The two use cases themselves are exercised by the subsequent steps
+    (XAsu_KmDemo_UseEccSignVerify and XAsu_KmDemo_UseEcdh) using the IDs captured here.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if both key pairs are generated successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1799" bodyend="1891"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga1e8be4ee488951a8a0cb132ddfee9f74" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_UseEccSignVerify</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_UseEccSignVerify</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Uses Alice&apos;s vaulted ECC key pair (referenced by their KeyIds) to sign a digest and then verify the resulting signature, demonstrating a self-checking sign-then-verify round-trip. </para>        </briefdescription>
+        <detaileddescription>
+<para>The private and public key bytes never leave the ASU. <verbatim>   Alice&apos;s keys are provisioned with UsageCount = 2 because each is resolved once here
+   (sign for the private key, verify for the public key) and once more during ECDH.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the signature is generated and verifies.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2019" bodyend="2062"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga84ed2bb4e370a8d1f69956ca37d26239" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_UseEcdh</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_UseEcdh</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Derives the ECDH shared secret from both sides of the exchange using the vaulted ECC key pairs, and verifies correctness via ECDH&apos;s symmetry property: the secret computed from Alice&apos;s private + Bob&apos;s public key must equal the secret computed from Bob&apos;s private + Alice&apos;s public key. </para>        </briefdescription>
+        <detaileddescription>
+<para>All key bytes stay inside the ASU. <verbatim>   This needs no known-answer vector: the two independently derived secrets are expected to
+   be byte-identical. Each participating key is resolved once per ECDH call.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if both shared secrets are derived and match.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2147" bodyend="2192"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gadc8badf421c83ab99c2fda5ab361665c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_KeyWrapWorkflow</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_KeyWrapWorkflow</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Executes the complete key-wrap workflow in six steps: (1) the client-held DEK AES-GCM-encrypts the plaintext; (2) the DEK is wrapped with the vaulted RSA public key, using the vaulted AES key as the key-encryption key (KEK); (3) StoreKey resolves that KEK from the vault by its KeyId, AES-KWP-unwraps the DEK and stores it in the vault; (4) the stored key is proven to be the DEK by re-encrypting the plaintext with the vaulted DEK (by KeyId) and confirming the ciphertext is byte-for-byte identical to the one the raw DEK produced; (5) the ciphertext is AES-GCM-decrypted with the now-vaulted DEK, referenced only by its KeyId; and (6) the recovered plaintext is compared against the original. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    This function illustrates secure key transport: the DEK exists in the clear on the
+    client only until it is wrapped, after which it resides in the vault and is used
+    exclusively by KeyId. The workflow is self-checking on three levels - the re-encrypt
+    ciphertext must match the raw-DEK ciphertext (proving the stored key equals the
+    DEK), the AES-GCM tag must verify on decrypt, and the recovered plaintext must equal
+    the original.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the round-trip succeeds and the recovered plaintext matches.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><orderedlist>
+<listitem><para>AES-GCM-encrypt the plaintext with the client-held DEK (raw key bytes, KeyId = 0).</para></listitem><listitem><para>Wrap the DEK with the vaulted RSA public key + vaulted AES KEK (RSA-OAEP + AES-KWP).</para></listitem><listitem><para>Hand the AES-KWP portion to StoreKey, which resolves the KEK by KeyId, unwraps and vaults the DEK</para></listitem><listitem><para>Prove the stored key is the DEK before trusting the decrypt: AES-GCM-encrypt the same plaintext again, this time with the now-vaulted DEK referenced only by its KeyId (KmDekId, produced by StoreKey in step 3), and check the ciphertext is byte-for-byte identical to KmDekCiphertext (produced with the raw DEK). The two encrypts share the same key candidate, IV (KmGenAesIvId), AAD and plaintext, so an identical ciphertext can only mean the wrapped/stored key equals the DEK.</para></listitem><listitem><para>AES-GCM-decrypt the ciphertext with the now-vaulted DEK referenced only by its KeyId (KmDekId); the GCM tag verifies the vaulted DEK matches the raw DEK that produced the ciphertext.</para></listitem><listitem><para>The workflow is correct only if the recovered plaintext matches the original. </para></listitem></orderedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2422" bodyend="2518"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gae569da136a3807ad275a5c8ddbb95f68" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_ExportKeyVault</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_ExportKeyVault</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Exports the calling subsystem&apos;s key vault into a single encrypted, authenticated blob. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    ExportKeyVault serialises the whole user-vault region (its registry and every key it
+    holds) and protects it with AES-GCM: the server emits a 16-byte IV, the encrypted vault
+    image and a 16-byte GCM tag into the client-supplied buffer, and reports the actual blob
+    size. The blob can then be persisted off-chip and restored later with ImportKeyVault. The
+    key bytes never leave the ASU in the clear; export does not consume any key usage counts.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the vault is exported and the reported size is within range.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2535" bodyend="2622"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga401805c9d526241a3c362d0c1872f557" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_ImportKeyVault</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_ImportKeyVault</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Imports a key vault from a previously exported blob, then verifies the round-trip. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    ImportKeyVault verifies and decrypts the blob produced by ExportKeyVault and
+    rebuilds the vault(s) it contains - preserving VaultIds and KeyIds - so the keys
+    provisioned earlier remain usable under their original IDs (the teardown deletes
+    the stored ECC key and the vault by those same IDs after this step).
+
+    Import restores into an empty region and never discards a key vault on the
+    caller&apos;s behalf, so the vault this example created is deleted first. Importing
+    over it would be refused with XASUFW_KEYMANAGER_AEKV_VAULT_PRESENT.
+
+    The round-trip is self-checked on content: a vaulted key is exercised through its preserved
+    KeyId - KmDekCiphertext (produced in step 13) is decrypted with the imported DEK (KmDekId)
+    and the recovered plaintext is compared against KmPlaintext. The AES-GCM tag check plus a
+    byte-for-byte match proves import restored the actual key BYTES (not merely the vault
+    layout) and that the key is usable under its original KeyId.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the vault is imported and the imported DEK still decrypts the ciphertext to the original plaintext.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Content-integrity check: import succeeding proves the blob authenticated and the vault was rebuilt, but not that the key BYTES are correct. Exercise the actual content through a preserved KeyId - decrypt KmDekCiphertext (produced back in step 13 by the raw DEK) with the imported DEK (KmDekId) and confirm the recovered plaintext equals KmPlaintext. The AES-GCM tag check (against KmDekTag) plus a byte-for-byte match proves the imported DEK is identical to the one stored before export, i.e. import faithfully restored the key material, not just the vault layout.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2649" bodyend="2744"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga791b3eecd22de99eb32418feaf96ee02" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_DeleteKey</definition>
+        <argsstring>(u32 KeyId)</argsstring>
+        <name>XAsu_KmDemo_DeleteKey</name>
+        <param>
+          <type>u32</type>
+          <declname>KeyId</declname>
+        </param>
+        <briefdescription>
+<para>Deletes a single key from the vault by its composite KeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite KeyId of the key to delete.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the key is deleted successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2777" bodyend="2799"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga64cf0c3c2404cdada92ec5f6343f6a6a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_DeleteVault</definition>
+        <argsstring>(u32 VaultId)</argsstring>
+        <name>XAsu_KmDemo_DeleteVault</name>
+        <param>
+          <type>u32</type>
+          <declname>VaultId</declname>
+        </param>
+        <briefdescription>
+<para>Deletes a key vault by its VaultId, releasing the DDR space it occupied and freeing any keys still resident in it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>VaultId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>VaultId of the vault to delete.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the vault is deleted successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2813" bodyend="2835"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gaf6b9a6741d489af03c140535ae1b2762" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KmDemo_InitClientParams</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_KmDemo_InitClientParams</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the common client parameters used for the KeyManager requests in this example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client parameters structure to initialize. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2845" bodyend="2852"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga82b0e1f604e3473c2912d2566434e589" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KmDemo_ResetResponseState</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_ResetResponseState</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Clears the asynchronous completion state (the notify flag and the server status) before a request is submitted, so a stale value left by a previous request cannot be mistaken for this request&apos;s response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2861" bodyend="2865"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga55094fa92cd3080038be4a470f5236f8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KmDemo_WaitForResponse</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_WaitForResponse</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Blocks until the client library signals (via the callback) that the server has responded, then clears the notify flag for the next request. </para>        </briefdescription>
+        <detaileddescription>
+<para>The server-side outcome is left in ErrorStatus for the caller to validate. Must be called only after a request has been submitted successfully, otherwise no callback will arrive. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2875" bodyend="2879"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga49d1ebb1f1cc66a78619a123afaea022" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_AesGcmOp</definition>
+        <argsstring>(u8 OperationType, u64 KeyAddr, u32 KeyId, u64 InAddr, u64 OutAddr, u32 Len, u64 TagAddr)</argsstring>
+        <name>XAsu_KmDemo_AesGcmOp</name>
+        <param>
+          <type>u8</type>
+          <declname>OperationType</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyId</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>InAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>OutAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>TagAddr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a single AES-GCM operation, resolving the IV from the vault by IvId and taking the key either by raw bytes (KeyAddr) or by vault KeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para>The same fixed AAD (KmAesAad) is authenticated on every call.</para><para>Exactly one of KeyAddr / KeyId must be non-zero: KeyAddr supplies raw key bytes (KeyId = 0), used when encrypting with a client-held data key; KeyId resolves a vaulted key (KeyAddr = 0), used when decrypting with a key that lives in the vault. The IV is always referenced by the generated IvId (IvAddr = 0). The key object is rebuilt on every call so the KeyAddress/IvAddr the server fills in for one operation never leaks into the next request&apos;s &quot;exactly one of address/ID&quot; validation.</para><para>On encrypt the server writes the authentication tag to TagAddr; on decrypt it reads the tag from TagAddr and verifies it, so a wrong key, IV, AAD or ciphertext makes the call fail rather than silently returning garbage - this is what gives the round-trips their strong correctness proof.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OperationType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>XASU_AES_ENCRYPT_OPERATION or XASU_AES_DECRYPT_OPERATION. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the raw AES-256 key bytes, or 0 to resolve by KeyId. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite KeyId of the vaulted key, or 0 to use KeyAddr. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the input buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the input/output data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the GCM tag buffer (written on encrypt, read on decrypt).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the operation completes successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1341" bodyend="1440"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gab4bae30d90a442a008aec27604f4ac8a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_RsaWrapDek</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_RsaWrapDek</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Wraps the client-held DEK with the vaulted RSA public key using XAsu_KeyWrap, using the vaulted generated AES key as the key-encryption key (KEK). </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The wrap service RSA-OAEP-encodes the KEK with the RSA public key resolved by RsaKeyId and
+    AES-KWP-wraps the DEK with that KEK. The output is the hybrid blob RSA-OAEP(KEK) ||
+    AES-KWP(DEK). AesKeyId selects the vaulted KEK (resolved with the KEY_WRAP use case)
+    instead of an ephemeral key; KeyCompAddr = 0 so the RSA key is taken from the vault by
+    RsaKeyId. Because the KEK lives in the vault, StoreKey can later recover it by KeyId to
+    AES-KWP-unwrap the DEK, so no client-side RSA-OAEP peel is needed.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the DEK is wrapped successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2211" bodyend="2300"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga61ba4868d28271a192996371362fd5b1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_StoreWrappedDek</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KmDemo_StoreWrappedDek</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Stores the wrapped DEK into the AES sub-vault via StoreKey, capturing the assigned KeyId in KmDekId. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    StoreKey AES-KWP-unwraps the DEK, so KeyObjectAddr points past the RSA-OAEP prefix to the
+    AES-KWP portion of the blob, and the KEK is supplied by KeyId (AesKeyObj.KeyId, with
+    KeyAddress = 0) so the server resolves it from the vault with the KEY_UNWRAP use case.
+    The wrapped-key bit in KeyType tells the server to AES-KWP-unwrap
+    the input with that KEK and store the recovered DEK; the unwrapped length must equal
+    KeyMetadata.Length. The DEK is provisioned for ENC/DEC use so it can be referenced by KeyId
+    for both the verify re-encrypt and the decrypt below.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the DEK is unwrapped and stored successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2320" bodyend="2393"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga104ffb34d3233dbf48202fc87651fa88" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_HmacOp</definition>
+        <argsstring>(u64 OutAddr)</argsstring>
+        <name>XAsu_KmDemo_HmacOp</name>
+        <param>
+          <type>u64</type>
+          <declname>OutAddr</declname>
+        </param>
+        <briefdescription>
+<para>Computes an HMAC (SHA2-256) over the example message using the generated raw key referenced from the vault by its KeyId, writing the MAC to the given output buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The key object sets KeyId (with KeyInAddr/KeyInLen = 0), so the ASU server resolves the
+    raw key from the KDF/HMAC sub-vault; the key bytes never leave the ASU.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer that receives the computed HMAC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the HMAC is computed successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1529" bodyend="1579"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gac57272c6fcde82bd365eae403acbd2f5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_KdfOp</definition>
+        <argsstring>(u64 OutAddr)</argsstring>
+        <name>XAsu_KmDemo_KdfOp</name>
+        <param>
+          <type>u64</type>
+          <declname>OutAddr</declname>
+        </param>
+        <briefdescription>
+<para>Derives keying material with the KDF (SP800-108 counter mode, SHA2-256) over the fixed context using the generated raw key referenced from the vault by its KeyId, writing the derived key to the given output buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The key object sets KeyId (with KeyInAddr/KeyInLen = 0), so the ASU server resolves the
+    raw key from the KDF/HMAC sub-vault with the KDF use case; the key bytes never leave the
+    ASU.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer that receives the derived keying material.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the KDF derivation completes successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1658" bodyend="1707"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga524057250b9f5b3c47bc57116dfedad1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_EccSignOp</definition>
+        <argsstring>(u32 PvtKeyId)</argsstring>
+        <name>XAsu_KmDemo_EccSignOp</name>
+        <param>
+          <type>u32</type>
+          <declname>PvtKeyId</declname>
+        </param>
+        <briefdescription>
+<para>Signs the example digest using the vaulted ECC private key referenced by its KeyId, writing the signature (r||s) to KmEccSignature. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Key.KeyAddr = 0 with a non-zero Key.KeyId selects vault resolution, so the private key
+    bytes never leave the ASU.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PvtKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite KeyId of the vaulted ECC private key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the signature is generated successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1908" bodyend="1952"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gae5ce275bc2983a51c7125111451afa10" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_EccVerifyOp</definition>
+        <argsstring>(u32 PubKeyId)</argsstring>
+        <name>XAsu_KmDemo_EccVerifyOp</name>
+        <param>
+          <type>u32</type>
+          <declname>PubKeyId</declname>
+        </param>
+        <briefdescription>
+<para>Verifies the signature in KmEccSignature over the example digest using the vaulted ECC public key referenced by its KeyId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PubKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite KeyId of the vaulted ECC public key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the signature verifies successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="1966" bodyend="2003"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gad48efbf3db69595768f2c28d38e2aef8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_KmDemo_EcdhOp</definition>
+        <argsstring>(u32 PvtKeyId, u32 PeerPubKeyId, u64 SharedSecretAddr)</argsstring>
+        <name>XAsu_KmDemo_EcdhOp</name>
+        <param>
+          <type>u32</type>
+          <declname>PvtKeyId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PeerPubKeyId</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SharedSecretAddr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a single ECDH operation that references the local private key and the peer&apos;s public key from the vault by their IDs, writing the shared secret to the given buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Both PvtKey and PubKey set KeyAddr = 0 with a non-zero KeyId, so the ASU server
+    resolves both keys from the vault; no key bytes are supplied by the client.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PvtKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite KeyId of the local vaulted ECC private key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PeerPubKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Composite KeyId of the peer&apos;s vaulted ECC public key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SharedSecretAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer that receives the shared secret.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the shared secret is derived successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2081" bodyend="2130"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gacf91a77bae54fbdd443e977ded929e76" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KmDemo_PrintBuffer</definition>
+        <argsstring>(const char *Label, const u8 *Buf, u32 Len)</argsstring>
+        <name>XAsu_KmDemo_PrintBuffer</name>
+        <param>
+          <type>const char *</type>
+          <declname>Label</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>Prints a byte buffer as hex over UART, for visual inspection of the AES round-trip. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Label</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Short label printed before the bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to print. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to print. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2755" bodyend="2764"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1gad6a33fcf5089429a1ab5ac872e8801cb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KmDemo_CallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_KmDemo_CallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with the library to notify the completion of the request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during the callback<itemizedlist>
+<listitem><para>0 upon success</para></listitem><listitem><para>Error code from the ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="2892" bodyend="2900"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function that initializes the mailbox and ASU client and then calls XAsu_KeyManagerExample, which exercises the KeyManager lifecycle: it creates a key vault, stores a raw ECC P-256 private key, generates an AES-256 key, an AES IV and a raw KDF/HMAC key directly inside the vault, uses the generated AES key/IV for an AES-GCM encrypt/decrypt round-trip and the raw key for both an HMAC and a KDF derivation, generates two ECC P-256 key pairs and uses them for a sign/verify round-trip and an ECDH shared-secret exchange, stores an RSA-4096 public key and runs a key-wrap workflow, exports the whole vault to an encrypted blob and imports it back, and finally deletes the stored key and the vault. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the KeyManager example completes successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Initialize the client instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="656" bodyend="691"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga678e0b4ef43df135f949cf4c14199f89" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Generated AES-256 key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaef73e18a4bad4efcfcf380329cc1a3bb" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_IV_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Generated AES IV length (128-bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga57f21f88c42458de5457fe9dff919e2c" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_DATA_LEN_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Round-trip plaintext/ciphertext bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga7fa06e71b9a4cd352f64711d544e74c1" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_AAD_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES-GCM additional authenticated data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaecbb84581341b1c2e7c956d3a742e90e" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_TAG_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES-GCM authentication tag length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga0081f3508276779137bc3259e627e45b" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RAW_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Generated KDF/HMAC raw key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga51664957a61e258af563d68957300531" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_HMAC_MSG_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Message length for the HMAC operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga24e7ea6c290d3ca0f8bc605be7b8849b" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_HMAC_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>HMAC output length (SHA2-256) in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga1f35300280287b2497e8db91e94b23b9" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_VAULT_CAPACITY</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Number of AES keys the vault can hold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga87a6a05ea24f2def2ee0296a6fa78ef9" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_IV_VAULT_CAPACITY</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Number of IVs the vault can hold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga9a7d6e72d273c46b3018496cd764f914" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_KDF_HMAC_VAULT_CAPACITY</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>KDF/HMAC keys the vault can hold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga63ad9f89c673195c7e478bb4074cea04" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ACCESS_RIGHTS</name>
+        <initializer>(0xFFFFU)</initializer>
+        <briefdescription>
+<para>Vault access rights (all channels) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaffdfc85658910d344b798b2e1ef76941" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_USAGE_COUNT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Times the stored key may be used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga78639882f633dad6f04220d1af3d84c6" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_GEN_USAGE_COUNT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Uses for keys resolved twice. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga1ae4d869ed4bc76d68f9b94a5b98e734" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_IV_USAGE_COUNT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Total IV resolutions in the example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaf95c45d2fa7d0abf4cf5fae9e2a0a125" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_USE_CASE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga7393a3427e1e972df7acd0576c1bd649" kindref="member">XASU_KEYMANAGER_AES_ENC_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gac2450cb742aec9c71f89aadd3e2aa091" kindref="member">XASU_KEYMANAGER_AES_DEC_USE_CASE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga28a4bfd890cf8ccea82cd0633a8d1ea9" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_KEK_USE_CASE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga7393a3427e1e972df7acd0576c1bd649" kindref="member">XASU_KEYMANAGER_AES_ENC_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gac2450cb742aec9c71f89aadd3e2aa091" kindref="member">XASU_KEYMANAGER_AES_DEC_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1ga77075e3530fe97b7a76aee7c78bb6e6a" kindref="member">XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gadd23b544335e96fd28d65d12f2ae2270" kindref="member">XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gacd3ed3d91f56a451747aa5040348b168" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_KEK_USAGE_COUNT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>GCM enc+dec (2) + wrap (1) + unwrap (1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gae8f76ec69a345edcb5c89ab239440b92" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_CURVE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" kindref="member">XASU_ECC_NIST_P256</ref>)</initializer>
+        <briefdescription>
+<para>Curve used for the ECC demo. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaef074a80402009e46853482764e7e319" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="group__xasufw__ecdh__client__example_1ga166c1c1d215da0a56a5c4e042d78b4d5" kindref="member">XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gacc7e3048ea14929af8414113637a822a" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_SIG_LEN_IN_BYTES</name>
+        <initializer>(2U * XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga477b462f79d567cb9f19d4aa9eea0224" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_DIGEST_LEN_IN_BYTES</name>
+        <initializer>(XASU_KM_EXAMPLE_ECC_KEY_LEN_IN_BYTES)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gacdb366bcc5b66bf39882a53943dd499a" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_NUM_KEY_IDS</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Key pair generation returns two IDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga3d8bf612028d2afcf89ae7162ea981cf" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_VAULT_CAPACITY</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>ECC keys the vault can hold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga15de81e634684cf01b6dad69204a6dcf" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_SIGN_AGREE_USE_CASE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gadb9be24795313ab67b0a8e0860cd67fb" kindref="member">XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gaa33ce58d8f55ceb04ee894dfe53b9c0e" kindref="member">XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1ga0f7e1346960b6d85ec688d5ef7e616d4" kindref="member">XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gaa9bfc0a55dc404466ffc803387e513be" kindref="member">XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga1f25cbd70cd0d0fe3d9da0cf26cacfa6" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_KEY_AGREE_USE_CASE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga0f7e1346960b6d85ec688d5ef7e616d4" kindref="member">XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gaa9bfc0a55dc404466ffc803387e513be" kindref="member">XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaa88b91b03d8cef48230f77a7a682599a" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_ECC_PEER_USAGE_COUNT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Uses per Bob (ECDH peer) key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga53d7d2318fd025b4a1b3284737c4ffcd" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RAW_KEY_USE_CASE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga560c7fb77fb00e84b68f6294ca27088a" kindref="member">XASU_KEYMANAGER_KDF_HMAC_KDF_USE_CASE</ref> | \
+						<ref refid="group__xasu__common__defs_1gac5bdb496c30403c440f63dedebed380c" kindref="member">XASU_KEYMANAGER_KDF_HMAC_HMAC_USE_CASE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="232" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gac788d90331a86532f5e0e381658dd338" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RAW_USAGE_COUNT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Raw key uses: 2 HMAC + 2 KDF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga3f9f127ad8be29877c06bd0dc5474340" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RSA_KEY_SIZE_IN_BYTES</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>RSA-4096 modulus/exponent bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga2f2787381b6bb34f810b88e1effc8874" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RSA_PUB_EXP</name>
+        <initializer>(0x1000100U)</initializer>
+        <briefdescription>
+<para>Fixed RSA public exponent enforced by the vault (byte-swapped 0x00010001, i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>65537) for stored RSA keys </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gad35988548d07bf9aa03b90ebffe08ff1" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RSA_VAULT_CAPACITY</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>RSA public keys the vault can hold (one public key is stored) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gab62d2cb8181fad18590ee4b6e6e78afa" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RSA_PUB_USE_CASE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gadc8443ec54e80555696a3e1bb34c8366" kindref="member">XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga68c0f7923d3e234c3dd2211f2688d6d1" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_RSA_USAGE_COUNT</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga7e51a879abae15a0eca7382bb543de9d" kindref="member">XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gacc1b7d909bcd35a1aa253580b29d8667" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_DEK_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Data-encryption key (AES-256) bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gada93a765a8e0aa24c4fa6d2d2b4d86bf" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_DEK_USAGE_COUNT</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Total stored-DEK uses in the example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga307e6e9dc54c7d2d651a96b7558459c0" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_OAEP_LABEL_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>RSA-OAEP optional label bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga13594d5bb767c9ea1d96312706ba0d11" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_KWP_SEMIBLOCK_IN_BYTES</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>AES-KWP semi-block in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gab686af2bfbc29dab5d946f7c7ec009b6" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AES_KWP_BLOB_SIZE_IN_BYTES</name>
+        <initializer>(<ref refid="group__xasu__keymanager__client__example_1gacc1b7d909bcd35a1aa253580b29d8667" kindref="member">XASU_KM_EXAMPLE_DEK_LEN_IN_BYTES</ref> + \
+							<ref refid="group__xasu__keymanager__client__example_1ga13594d5bb767c9ea1d96312706ba0d11" kindref="member">XASU_KM_EXAMPLE_AES_KWP_SEMIBLOCK_IN_BYTES</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga5eb0674de9788f6348a1dc83b9d5b172" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_WRAPPED_BLOB_SIZE_IN_BYTES</name>
+        <initializer>(<ref refid="group__xasu__keymanager__client__example_1ga3f9f127ad8be29877c06bd0dc5474340" kindref="member">XASU_KM_EXAMPLE_RSA_KEY_SIZE_IN_BYTES</ref> + \
+							XASU_KM_EXAMPLE_AES_KWP_BLOB_SIZE_IN_BYTES)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga70dc8ee2e85d53e97358925bd5697e23" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_KDF_CONTEXT_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>KDF fixed-input/context length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gae23aa817ea5de94714d8295c28726d96" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_KDF_OUT_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>KDF derived keying-material length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga94ca312a3c9ae08236d906bc66bb08fd" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AEKV_HDR_SIZE</name>
+        <initializer>(704U)</initializer>
+        <briefdescription>
+<para>AEKV V1 header size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gaab1b7943dd46a5803ac0dc0772611bf4" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_AEKV_CHUNK_SIZE</name>
+        <initializer>(8496U)</initializer>
+        <briefdescription>
+<para>Chunk size on the wire. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga169d6213fd330150562241fbf961aea4" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_EXPORT_BUF_SIZE</name>
+        <initializer>(<ref refid="group__xasu__keymanager__client__example_1ga94ca312a3c9ae08236d906bc66bb08fd" kindref="member">XASU_KM_EXAMPLE_AEKV_HDR_SIZE</ref> + \
+						(2U * XASU_KM_EXAMPLE_AEKV_CHUNK_SIZE))</initializer>
+        <briefdescription>
+<para>Export/import scratch-buffer capacity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1gac9a38f5f0dcd8dc9a0995f8b4dca7ce4" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_EXPORT_MIN_SIZE</name>
+        <initializer>(<ref refid="group__xasu__keymanager__client__example_1ga94ca312a3c9ae08236d906bc66bb08fd" kindref="member">XASU_KM_EXAMPLE_AEKV_HDR_SIZE</ref> + \
+						<ref refid="group__xasu__keymanager__client__example_1gaab1b7943dd46a5803ac0dc0772611bf4" kindref="member">XASU_KM_EXAMPLE_AEKV_CHUNK_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Header plus the one chunk every blob carries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga2adb3fe544aaeb07c3bd3bc99ed97b27" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_EXPORT_PREVIEW_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Blob bytes logged for inspection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keymanager__client__example_1ga261a0ffa97b9f444524eafbe3c566a81" prot="public" static="no">
+        <name>XASU_KM_EXAMPLE_REVOKE_EFUSE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Off-chip revocation eFuse the blob is bound to. </para>        </briefdescription>
+        <detaileddescription>
+<para>Blowing it is what retires the blob. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_keymanager_example.c" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the usage of the ASU KeyManager client APIs to: </para>    </briefdescription>
+    <detaileddescription>
+<para><verbatim> 1. Create a key vault for the calling subsystem.
+ 2. Store a raw ECC P-256 private key into the ECC private sub-vault of that vault,
+    retrieving the server-assigned composite KeyId. This shows storing an asymmetric key;
+    StoreKey selects the sub-vault via KeyType and copies the raw key bytes as-is.
+ 3. Generate a fresh AES-256 key directly inside the vault (GenerateAesKey), where the
+    ASU produces the key internally and returns only its composite KeyId.
+ 4. Generate a fresh AES IV directly inside the vault (GenerateAesIv), where the ASU
+    produces the IV internally and returns only its composite KeyId.
+ 5. Use the generated AES key and IV (referenced by their vault IDs) to AES-GCM encrypt a
+    plaintext and then decrypt the ciphertext, verifying the GCM tag and that the decrypted
+    data matches the original plaintext. The key/IV bytes never leave the ASU.
+ 6. Generate a fresh raw (KDF/HMAC) key directly inside the vault (GenerateRawKey),
+    provisioned for both HMAC and KDF use, returning only its composite KeyId.
+ 7. Use the generated raw key (referenced by its vault ID) to compute an HMAC over a
+    message, recompute it, and verify both MACs match. The key bytes never leave the ASU.
+ 8. Use the same raw key (referenced by its vault ID) to derive keying material with the
+    KDF, re-derive it, and verify both outputs match. The key bytes never leave the ASU.
+ 9. Generate the &quot;Alice&quot; and &quot;Bob&quot; ECC P-256 key pairs directly inside the vault, backing the
+    two ECC use cases demonstrated below: Alice is provisioned for both sign/verify and key
+    agreement, while Bob is provisioned for key agreement only to act as the ECDH peer. Each
+    GenerateEccKeyPair returns a public and a private composite KeyId.
+10. Use Alice&apos;s key pair (referenced by their vault IDs) to sign a digest and verify the
+    signature, a self-checking sign-then-verify round-trip. Key bytes never leave the ASU.
+11. Derive the ECDH shared secret from both sides (Alice priv + Bob pub, and Bob priv +
+    Alice pub) and verify the two secrets match (ECDH symmetry). The key bytes never leave
+    the ASU.
+12. Store a raw RSA-4096 public key into the vault&apos;s RSA public sub-vault, returning a
+    composite KeyId. It backs the key-wrap workflow below (the public key wraps the KEK).
+13. Run a key-wrap workflow: a plaintext is AES-GCM-encrypted with a client-held data-
+    encryption key (DEK); XAsu_KeyWrap wraps it with the vaulted RSA public key, using the
+    vaulted generated AES key as the key-encryption key (KEK), yielding the hybrid blob
+    RSA-OAEP(KEK) || AES-KWP(DEK); StoreKey then resolves that KEK from the vault by KeyId,
+    AES-KWP-unwraps the DEK and stores it in the AES sub-vault (no client RSA-OAEP peel);
+    the ciphertext is AES-GCM-decrypted with the stored DEK referenced by its KeyId and
+    the result is compared against the original plaintext (the GCM tag also verifies the
+    vaulted DEK is byte-identical to the original). The DEK plaintext never reaches long-term
+    storage - only its wrapped form does - which is the reason key wrapping exists.
+14. Export the whole populated vault into a single signed and encrypted AEKV blob
+    (ExportKeyVault), reporting the blob size the server produced and whether the vault
+    changed since the previous export. The blob is built as chunks of encrypted blocks
+    chained by their digests and signed with the device UDE key, its keys are derived from
+    a context the caller supplies, and it is bound to an off-chip revocation eFuse, so
+    blowing that eFuse is what retires it. This is the secure off-chip backup of the vault;
+    the key bytes never leave the ASU in the clear.
+15. Import the vault back from that blob (ImportKeyVault), handing back the same context the
+    export used. Import restores into an empty region and never discards a key vault on the
+    caller&apos;s behalf, so the vault is deleted first; the blob then rebuilds it - preserving
+    VaultIds and KeyIds. The round-trip is then self-checked on content: the step-13
+    ciphertext is decrypted with the imported DEK by KeyId and the plaintext is confirmed to
+    match (the GCM tag check plus the byte-for-byte compare prove the actual key bytes
+    survived, not just the vault layout). The signature and chunk digest checks import
+    performs already guarantee the blob was restored intact; this check is an extra
+    end-to-end confirmation that the key is usable under its original KeyId.
+16. Delete the stored ECC key (DeleteKey).
+17. Delete the key vault (DeleteKeyVault), releasing the DDR space it occupied. Deleting
+    the vault also frees the generated keys, IV, ECC key pairs, the stored RSA public key and
+    the stored DEK still resident in it.
+</verbatim></para><para>Key material held in the vault is never exposed to the client: each store/generate operation returns only an opaque composite KeyId (or, for an IV, an IvId), and every subsequent crypto operation references that KeyId/IvId via KeyObject.KeyId / IvId so the ASU resolves the raw bytes internally. This is exercised by the AES-GCM round-trip (step 5), HMAC (step 7), KDF (step 8), ECC sign/verify (step 10), ECDH (step 11), RSA wrap (step 13, which references the vaulted RSA public key and the vaulted AES KEK by KeyId) and the key-wrap workflow&apos;s decrypt (step 13). The only raw key bytes the client ever supplies are the ones it must own itself: the stored ECC private key (step 2), the stored RSA public key (step 12) and the workflow&apos;s client-held data-encryption key (step 13).</para><para>Steps 16 and 17 (DeleteKey and DeleteKeyVault) run as best-effort cleanup from a common teardown path: they execute even if an earlier step fails - provided the key/vault were created - so the example never leaks vault resources, and a cleanup failure can only downgrade the final status.</para><para>To build this application, the xilmailbox library must be included in the BSP and xilasu must be in client mode.</para><para><heading level="2">Procedure to link and compile the example for the default DDR-less designs </heading>
+</para><para>The default linker settings place a software stack, heap and data in DDR memory. For this example to work, any data shared between the client (running on A78/R52/PL) and the server (running on ASU) must be placed in a memory region accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by the server. <verbatim> 1. Open the example linker script(lscript.ld) in the Vitis project and the section to
+    memory mapping should be updated to point all the required sections to shared
+    memory(OCM or TCM) using a memory region drop down selection.
+
+                                 OR
+
+ 1. In the linker script(lscript.ld) the user can add a new memory section in the source tab
+    as shown below
+         .sharedmemory : {
+                 . = ALIGN(4);
+                 __sharedmemory_start = .;
+                 *(.sharedmemory)
+                 *(.sharedmemory.*)
+                 *(.gnu.linkonce.d.*)
+                 __sharedmemory_end = .;
+         } &gt; Shared_memory_area
+
+ 2. In this example, the &quot;.data&quot; section elements that are passed by reference to the
+    server-side should be stored in the above shared memory section. To make it happen in the
+    below example, replace &quot;.data&quot; in the attribute section with &quot;.sharedmemory&quot;.
+</verbatim></para><para>To keep things simple, by default the cache is disabled for this example.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   pks  07/22/26 Initial release
+      kp   08/22/26 Used composite key ID in key metadata.
+      vm   09/15/26 Updated key vault export and import steps for the AEKV blob format</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___x509_cert_info" kind="struct" prot="public">
+    <compoundname>XCert_X509CertInfo</compoundname>
+    <includes local="no">xcert_createfield.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___x509_cert_info_1a3bd7c31c7a0a51bf1cddc4c54199b9a3" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_X509CertInfo::Buff</definition>
+        <argsstring></argsstring>
+        <name>Buff</name>
+        <briefdescription>
+<para>Buffer to store X509 certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___x509_cert_info_1a8dad13d50b7fde8ce15cf7a01afa19b2" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_X509CertInfo::CurrOffset</definition>
+        <argsstring></argsstring>
+        <name>CurrOffset</name>
+        <briefdescription>
+<para>Offset of Current buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___x509_cert_info_1a77c131b5e8540bbbed931137989863dc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_X509CertInfo::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+<para>Remaining Byte in buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains enumeration of the fields of X.509 certificate which are configured by user. </para>    </briefdescription>
+    <detaileddescription>
+<para>X.509 Certificate Information Structure </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="130" bodyend="134"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___x509_cert_info_1a3bd7c31c7a0a51bf1cddc4c54199b9a3" prot="public" virt="non-virtual"><scope>XCert_X509CertInfo</scope><name>Buff</name></member>
+      <member refid="struct_x_cert___x509_cert_info_1a8dad13d50b7fde8ce15cf7a01afa19b2" prot="public" virt="non-virtual"><scope>XCert_X509CertInfo</scope><name>CurrOffset</name></member>
+      <member refid="struct_x_cert___x509_cert_info_1a77c131b5e8540bbbed931137989863dc" prot="public" virt="non-virtual"><scope>XCert_X509CertInfo</scope><name>RemainingBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

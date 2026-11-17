@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__swerr" kind="group">
+    <compoundname>swerr</compoundname>
+    <title>Error Event Mask for Software error events</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__swerr_1ga9533611a8018dc9850d96224cafdfde2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_0</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for Software error events. </para>        </briefdescription>
+        <detaileddescription>
+<para>Health Boot Monitoring errors Error event mask for hbmon_0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="708" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="708" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1gaceb63cd2eddd7318902672d8b1e44855" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_1</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for hbmon_1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="710" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="710" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1gacb9954132036b469519acf060b0fa01d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_2</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for hbmon_2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="712" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1ga265c29a9825a742bcbdf293ce5658688" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_3</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for hbmon_3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="714" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="714" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1ga9533611a8018dc9850d96224cafdfde2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_0</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for Software error events. </para>        </briefdescription>
+        <detaileddescription>
+<para>Health Boot Monitoring errors Error event mask for hbmon_0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="710" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="710" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1gaceb63cd2eddd7318902672d8b1e44855" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_1</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for hbmon_1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="712" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1gacb9954132036b469519acf060b0fa01d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_2</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for hbmon_2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="714" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="714" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__swerr_1ga265c29a9825a742bcbdf293ce5658688" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_HB_MON_3</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for hbmon_3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="716" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="716" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to SW ERR Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

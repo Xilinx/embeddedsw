@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xwdttb__l_8h" kind="file">
+    <compoundname>xwdttb_l.h</compoundname>
+    <includes refid="xwdttb__hw_8h" local="yes">xwdttb_hw.h</includes>
+    <includedby refid="xwdttb_8h" local="yes">xwdttb.h</includedby>
+    <includedby refid="xwdttb__low__level__example_8c" local="yes">xwdttb_low_level_example.c</includedby>
+    <incdepgraph>
+      <node id="149">
+        <label>xil_io.h</label>
+      </node>
+      <node id="148">
+        <label>xwdttb_hw.h</label>
+        <link refid="xwdttb__hw_8h"/>
+        <childnode refid="149" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>xwdttb_l.h</label>
+        <link refid="xwdttb_l.h"/>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="163">
+        <label>xwdttb_selftest_example.c</label>
+        <link refid="xwdttb__selftest__example_8c"/>
+      </node>
+      <node id="161">
+        <label>xwdttb_gwdt_selftest_example.c</label>
+        <link refid="xwdttb__gwdt__selftest__example_8c"/>
+      </node>
+      <node id="165">
+        <label>xwdttb_winwdt_intr_example.c</label>
+        <link refid="xwdttb__winwdt__intr__example_8c"/>
+      </node>
+      <node id="160">
+        <label>xwdttb_gwdt_intr_example.c</label>
+        <link refid="xwdttb__gwdt__intr__example_8c"/>
+      </node>
+      <node id="159">
+        <label>xwdttb_gwdt_example.c</label>
+        <link refid="xwdttb__gwdt__example_8c"/>
+      </node>
+      <node id="154">
+        <label>xwdttb_config.c</label>
+        <link refid="xwdttb__config_8c"/>
+      </node>
+      <node id="153">
+        <label>xwdttb_config.h</label>
+        <link refid="xwdttb__config_8h"/>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+      </node>
+      <node id="157">
+        <label>xwdttb_sinit.c</label>
+        <link refid="xwdttb__sinit_8c"/>
+      </node>
+      <node id="152">
+        <label>xwdttb.c</label>
+        <link refid="xwdttb_8c"/>
+      </node>
+      <node id="151">
+        <label>xwdttb.h</label>
+        <link refid="xwdttb_8h"/>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>xwdttb_l.h</label>
+        <link refid="xwdttb_l.h"/>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>xwdttb_selftest.c</label>
+        <link refid="xwdttb__selftest_8c"/>
+      </node>
+      <node id="158">
+        <label>xwdttb_example.c</label>
+        <link refid="xwdttb__example_8c"/>
+      </node>
+      <node id="162">
+        <label>xwdttb_intr_example.c</label>
+        <link refid="xwdttb__intr__example_8c"/>
+      </node>
+      <node id="164">
+        <label>xwdttb_winwdt_example.c</label>
+        <link refid="xwdttb__winwdt__example_8c"/>
+      </node>
+      <node id="155">
+        <label>xwdttb_g.c</label>
+        <link refid="xwdttb__g_8c"/>
+      </node>
+      <node id="167">
+        <label>xwdttb_low_level_example.c</label>
+        <link refid="xwdttb__low__level__example_8c"/>
+      </node>
+      <node id="166">
+        <label>xwdttb_winwdt_qamode_example.c</label>
+        <link refid="xwdttb__winwdt__qamode__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>Provides the low-level identifiers and functions of the <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="xwdttb__l_8h" kindref="compound">xwdttb_l.h</ref> header file contains identifiers and basic driver functions (or macros) that can be used to access the device.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b rpm  04/26/02 First release
+1.10b mta  03/23/07 Updated to new coding style
+2.00a ktn  22/10/09 The following macros defined in this file have been
+              removed -
+              XWdtTb_mEnableWdt, XWdtTb_mDisbleWdt, XWdtTb_mRestartWdt
+              XWdtTb_mGetTimebaseReg and XWdtTb_mHasReset.
+              Added the XWdtTb_ReadReg and XWdtTb_WriteReg
+              macros. User should XWdtTb_ReadReg/XWdtTb_WriteReg to
+              achieve the desired functionality of the macros that
+              were removed.
+4.0   sha  12/17/15 Added Window WDT feature with basic mode.
+                    Removed extra include files.
+                    Moved constant and macro definitions to <ref refid="xwdttb__hw_8h" kindref="compound">xwdttb_hw.h</ref> file.
+4.3   srm  01/30/18 Added doxygen tags
+5.13  vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XWDTTB_L_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XWDTTB_L_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xwdttb__hw_8h" kindref="compound">xwdttb_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_l.h"/>
+  </compounddef>
+</doxygen>

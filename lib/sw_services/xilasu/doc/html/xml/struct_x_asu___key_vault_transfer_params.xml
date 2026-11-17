@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___key_vault_transfer_params" kind="struct" prot="public">
+    <compoundname>XAsu_KeyVaultTransferParams</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyVaultTransferParams::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address for vault data (export destination or import source). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="417" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="923" endline="971">XAsu_KmExportKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" compoundref="xasu__keymanager_8c" startline="989" endline="1034">XAsu_KmImportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_vault_transfer_params_1abdf7864bb83e40fa9a892b95edde15dd" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyVaultTransferParams::ExportResultAddr</definition>
+        <argsstring></argsstring>
+        <name>ExportResultAddr</name>
+        <briefdescription>
+<para>Address of the export result block (export only). </para>        </briefdescription>
+        <detaileddescription>
+<para>Must point to an <ref refid="struct_x_asu___key_vault_export_result" kindref="compound">XAsu_KeyVaultExportResult</ref>, which the client library fills from the command response with the blob size and the modified flag. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="418" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="923" endline="971">XAsu_KmExportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyVaultTransferParams::BufSize</definition>
+        <argsstring></argsstring>
+        <name>BufSize</name>
+        <briefdescription>
+<para>Buffer size for export or actual data size for import. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="422" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="923" endline="971">XAsu_KmExportKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" compoundref="xasu__keymanager_8c" startline="989" endline="1034">XAsu_KmImportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_vault_transfer_params_1a4e3ce7ca8c8a63fb91799ba6c1524462" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyVaultTransferParams::RevokeEfuseNum</definition>
+        <argsstring></argsstring>
+        <name>RevokeEfuseNum</name>
+        <briefdescription>
+<para>Off-chip revocation eFuse number the blob is bound to (export only). </para>        </briefdescription>
+        <detaileddescription>
+<para>Blowing that eFuse is what retires the blob, and an import refuses a blob whose eFuse is blown. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="423" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="923" endline="971">XAsu_KmExportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_vault_transfer_params_1abdfc2a8a9cc26ef7f41130111d1a4a87" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyVaultTransferParams::Context[XASU_KM_KV_CONTEXT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_KV_CONTEXT_SIZE_IN_BYTES]</argsstring>
+        <name>Context</name>
+        <briefdescription>
+<para>Context the key vault keys are derived from. </para>        </briefdescription>
+        <detaileddescription>
+<para>An import only recovers a blob when given the same context the export used. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="427" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="923" endline="971">XAsu_KmExportKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" compoundref="xasu__keymanager_8c" startline="989" endline="1034">XAsu_KmImportKeyVault</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains info for exporting and importing key vault. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="416" bodyend="431"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultTransferParams</scope><name>BufSize</name></member>
+      <member refid="struct_x_asu___key_vault_transfer_params_1abdfc2a8a9cc26ef7f41130111d1a4a87" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultTransferParams</scope><name>Context</name></member>
+      <member refid="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultTransferParams</scope><name>DataAddr</name></member>
+      <member refid="struct_x_asu___key_vault_transfer_params_1abdf7864bb83e40fa9a892b95edde15dd" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultTransferParams</scope><name>ExportResultAddr</name></member>
+      <member refid="struct_x_asu___key_vault_transfer_params_1a4e3ce7ca8c8a63fb91799ba6c1524462" prot="public" virt="non-virtual"><scope>XAsu_KeyVaultTransferParams</scope><name>RevokeEfuseNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__psmerr4" kind="group">
+    <compoundname>psmerr4</compoundname>
+    <title>Error Event Mask for PSM ERR4</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__psmerr4_1ga3f3a959b671943ba23e72b68a6384248" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_RST_MON</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD Reset Monitor ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="667" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="667" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1gabe3233b43aa9fb64aedffdda79064796" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPD_RST_CLK_MON</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPD reset and Clock Monitor Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="670" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="670" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga09b8782f87de6e81574f249bb6b137b7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FATAL_AFI_FM</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for Fatal Error from all AFI FM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="673" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="673" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga43b1fad275b07b747b6ffdd76f1f2627" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM_LPX</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM in LPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="676" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="676" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga475b5bfc8cb520879f23f6d5720a06bf" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM0_FPX</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM0 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="679" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="679" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga349d81766580b54ab9ea33d7e7c22710" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM1_FPX</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM1 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="682" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="682" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga44afe4e9288aee2cc1c6547c7d9913be" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM2_FPX</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM2 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="685" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="685" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1gafd19a36ca50bc7a0551cd737d9ba8e8c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM3_FPX</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM3 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="688" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="688" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1gada5576922e4726b494b2c602c71e5669" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPU_CLUSTERA</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for Errors from RPU cluster A. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="691" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="691" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga6f7c72114a5fb2da399132c5b10c58c3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPU_CLUSTERB</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for Errors from RPU cluster B. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="694" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="694" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga3f3a959b671943ba23e72b68a6384248" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_RST_MON</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD Reset Monitor ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="669" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="669" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1gabe3233b43aa9fb64aedffdda79064796" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPD_RST_CLK_MON</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPD reset and Clock Monitor Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="672" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="672" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga09b8782f87de6e81574f249bb6b137b7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FATAL_AFI_FM</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for Fatal Error from all AFI FM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="675" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="675" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga43b1fad275b07b747b6ffdd76f1f2627" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM_LPX</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM in LPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="678" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="678" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga475b5bfc8cb520879f23f6d5720a06bf" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM0_FPX</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM0 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="681" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="681" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga349d81766580b54ab9ea33d7e7c22710" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM1_FPX</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM1 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="684" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="684" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga44afe4e9288aee2cc1c6547c7d9913be" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM2_FPX</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM2 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="687" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="687" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1gafd19a36ca50bc7a0551cd737d9ba8e8c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM3_FPX</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for Non Fatal Error from AFI FM3 in FPX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="690" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="690" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1gada5576922e4726b494b2c602c71e5669" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPU_CLUSTERA</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for Errors from RPU cluster A. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="693" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="693" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr4_1ga6f7c72114a5fb2da399132c5b10c58c3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPU_CLUSTERB</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for Errors from RPU cluster B. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="696" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="696" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to PSM ERR4 Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

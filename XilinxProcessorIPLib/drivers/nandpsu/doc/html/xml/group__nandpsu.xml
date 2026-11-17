@@ -1,0 +1,1868 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__nandpsu" kind="group">
+    <compoundname>nandpsu</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_nand_psu___config" prot="public">XNandPsu_Config</innerclass>
+    <innerclass refid="struct_x_nand_psu___bbt_desc" prot="public">XNandPsu_BbtDesc</innerclass>
+    <innerclass refid="struct_x_nand_psu___bad_block_pattern" prot="public">XNandPsu_BadBlockPattern</innerclass>
+    <innerclass refid="struct_x_nand_psu___geometry" prot="public">XNandPsu_Geometry</innerclass>
+    <innerclass refid="struct_x_nand_psu___features" prot="public">XNandPsu_Features</innerclass>
+    <innerclass refid="struct_x_nand_psu___ecc_matrix" prot="public">XNandPsu_EccMatrix</innerclass>
+    <innerclass refid="struct_x_nand_psu___ecc_cfg" prot="public">XNandPsu_EccCfg</innerclass>
+    <innerclass refid="struct_x_nand_psu" prot="public">XNandPsu</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__nandpsu_1gad3bf507eb42aeef24d208ad336af2354" prot="public" static="no">
+        <name>XNandPsu_DataInterface</name>
+        <enumvalue id="group__nandpsu_1ggad3bf507eb42aeef24d208ad336af2354a93958477d9cccb30ca163194cd149129" prot="public">
+          <name>XNANDPSU_SDR</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>Single Data Rate. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1ggad3bf507eb42aeef24d208ad336af2354acc4e25c296abb500483efc1237b5a357" prot="public">
+          <name>XNANDPSU_NVDDR</name>
+          <briefdescription>
+<para>Double Data Rate. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Lists the flash data interface (operating) modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="250" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__nandpsu_1ga9703b0526518be68242c0ed0d6752e57" prot="public" static="no">
+        <name>XNandPsu_TimingMode</name>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a2ecc7fa597a806725c840ce35c34cb8d" prot="public">
+          <name>XNANDPSU_SDR0</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>SDR timing mode 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a5cea7bd502253c96d1461d086f94f5e2" prot="public">
+          <name>XNANDPSU_SDR1</name>
+          <briefdescription>
+<para>SDR timing mode 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a04b20f036db0d5af1b541147f15d6191" prot="public">
+          <name>XNANDPSU_SDR2</name>
+          <briefdescription>
+<para>SDR timing mode 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57aa1b6bae0756498e60c6f1651e6c5ecc0" prot="public">
+          <name>XNANDPSU_SDR3</name>
+          <briefdescription>
+<para>SDR timing mode 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57ac40f86dfe6a87ff176a4a7e3ef086caf" prot="public">
+          <name>XNANDPSU_SDR4</name>
+          <briefdescription>
+<para>SDR timing mode 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57ab27f77aba3fb91ce44e00bf6389c26d1" prot="public">
+          <name>XNANDPSU_SDR5</name>
+          <briefdescription>
+<para>SDR timing mode 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a98707b51448071da72be67a3c286c2c4" prot="public">
+          <name>XNANDPSU_NVDDR0</name>
+          <briefdescription>
+<para>NVDDR timing mode 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a0061c9bab90982718cb93b82eb00a065" prot="public">
+          <name>XNANDPSU_NVDDR1</name>
+          <briefdescription>
+<para>NVDDR timing mode 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a6406e24c201899887160f2fca8903c26" prot="public">
+          <name>XNANDPSU_NVDDR2</name>
+          <briefdescription>
+<para>NVDDR timing mode 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57aa4cc6e32aa73b2f7a67d2a8dfed21a27" prot="public">
+          <name>XNANDPSU_NVDDR3</name>
+          <briefdescription>
+<para>NVDDR timing mode 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57aa82f5fb31b5d7e881bcf74e1133bdb40" prot="public">
+          <name>XNANDPSU_NVDDR4</name>
+          <briefdescription>
+<para>NVDDR timing mode 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a63f0f934d570ae527030670ef2880e0f" prot="public">
+          <name>XNANDPSU_NVDDR5</name>
+          <briefdescription>
+<para>NVDDR timing mode 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Lists the flash timing modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="258" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__nandpsu_1ga1cd5e9dd87632b8d7e505a3453e1b60d" prot="public" static="no">
+        <name>XNandPsu_SWMode</name>
+        <enumvalue id="group__nandpsu_1gga1cd5e9dd87632b8d7e505a3453e1b60da5345cd378efad32554b36da87b3aba80" prot="public">
+          <name>XNANDPSU_POLLING</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Polling. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga1cd5e9dd87632b8d7e505a3453e1b60da9343a1cc4c75a2c071588349d8f40f19" prot="public">
+          <name>XNANDPSU_INTERRUPT</name>
+          <briefdescription>
+<para>Interrupt. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Lists the driver operating modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="276" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__nandpsu_1ga39a6c72f07b7c94b4bc7efc53ac773b0" prot="public" static="no">
+        <name>XNandPsu_DmaMode</name>
+        <enumvalue id="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a0946609c88db24ae434b1ca54b26104d" prot="public">
+          <name>XNANDPSU_PIO</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>PIO Mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a775bc8e520ecc947a1cb2ebd70d147e8" prot="public">
+          <name>XNANDPSU_SDMA</name>
+          <briefdescription>
+<para>SDMA Mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c" prot="public">
+          <name>XNANDPSU_MDMA</name>
+          <briefdescription>
+<para>MDMA Mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Lists the controller DMA modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="284" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__nandpsu_1ga9382565edcb944d473966aac464a58b9" prot="public" static="no">
+        <name>XNandPsu_EccMode</name>
+        <enumvalue id="group__nandpsu_1gga9382565edcb944d473966aac464a58b9adbd5450576bef401f38fb16dca8a2cd9" prot="public">
+          <name>XNANDPSU_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>No ECC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9382565edcb944d473966aac464a58b9aefc4ae80a0f88d083e99b9cda39da1b5" prot="public">
+          <name>XNANDPSU_HWECC</name>
+          <briefdescription>
+<para>Controller hardware ECC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9382565edcb944d473966aac464a58b9a5f98922aece7a590aa5f3c5b857d9569" prot="public">
+          <name>XNANDPSU_EZNAND</name>
+          <briefdescription>
+<para>EZ-NAND ECC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu_1gga9382565edcb944d473966aac464a58b9a12932c7f36f3d368d3bc00e6d7125db0" prot="public">
+          <name>XNANDPSU_ONDIE</name>
+          <briefdescription>
+<para>On-die ECC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Lists the ECC modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="293" bodyend="298"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__nandpsu_1ga8268e05a9d1a0339dc2ec672d7dd8c79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_CfgInitialize</definition>
+        <argsstring>(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr, u32 EffectiveAddr)</argsstring>
+        <name>XNandPsu_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nand_psu___config" kindref="compound">XNandPsu_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call this function before using the NAND flash device to read or write any data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the NAND flash controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the flash initialization or the bad block table scan fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>First call the <ref refid="group__nandpsu_1gaefb793caab4620348cf6043032d3af05" kindref="member">XNandPsu_LookupConfig()</ref> API, which returns the configuration structure pointer passed as a parameter to the <ref refid="group__nandpsu__api_1ga8268e05a9d1a0339dc2ec672d7dd8c79" kindref="member">XNandPsu_CfgInitialize()</ref> API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="245" bodyend="305"/>
+        <references refid="struct_x_nand_psu___config_1a3075f3fe58b40e695dd829d3feb0a278" compoundref="xnandpsu_8h" startline="240">XNandPsu_Config::BaseAddress</references>
+        <references refid="struct_x_nand_psu_1a128fcdf6fe0c9cc953233b083b90d865" compoundref="xnandpsu_8h" startline="399">XNandPsu::Config</references>
+        <references refid="struct_x_nand_psu_1af689f2570d31f1f28f7916ecb120ce93" compoundref="xnandpsu_8h" startline="405">XNandPsu::DmaMode</references>
+        <references refid="struct_x_nand_psu_1afb788ff2f3130f758e96050e316c8679" compoundref="xnandpsu_8h" startline="400">XNandPsu::Ecc_Stat_PerPage_flips</references>
+        <references refid="struct_x_nand_psu_1a7978379e8cd9d3c8b71e10e56c7ee447" compoundref="xnandpsu_8h" startline="401">XNandPsu::Ecc_Stats_total_flips</references>
+        <references refid="struct_x_nand_psu_1a1f2a85d38c0202fe76fed5e328d51ed7" compoundref="xnandpsu_8h" startline="406">XNandPsu::EccMode</references>
+        <references refid="struct_x_nand_psu___features_1a7984e002c8717a26d50a36728a0a1fcf" compoundref="xnandpsu_8h" startline="358">XNandPsu_Features::EzNand</references>
+        <references refid="struct_x_nand_psu_1a2e48a39dfea41cfad0208cffd72b2737" compoundref="xnandpsu_8h" startline="409">XNandPsu::Features</references>
+        <references refid="struct_x_nand_psu___config_1a860b3b4c0c735750f0092bbb36385803" compoundref="xnandpsu_8h" startline="241">XNandPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu_1a37972d089e9998402fa4f788e0972a5a" compoundref="xnandpsu_8h" startline="404">XNandPsu::Mode</references>
+        <references refid="struct_x_nand_psu___features_1adad347c7947d04431e7e943834522db6" compoundref="xnandpsu_8h" startline="359">XNandPsu_Features::OnDie</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9a5f98922aece7a590aa5f3c5b857d9569" compoundref="xnandpsu_8h" startline="296">XNANDPSU_EZNAND</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9aefc4ae80a0f88d083e99b9cda39da1b5" compoundref="xnandpsu_8h" startline="295">XNANDPSU_HWECC</references>
+        <references refid="group__nandpsu__api_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="88" endline="166">XNandPsu_InitBbtDesc</references>
+        <references refid="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c" compoundref="xnandpsu_8h" startline="287">XNANDPSU_MDMA</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9a12932c7f36f3d368d3bc00e6d7125db0" compoundref="xnandpsu_8h" startline="297">XNANDPSU_ONDIE</references>
+        <references refid="group__nandpsu_1gga1cd5e9dd87632b8d7e505a3453e1b60da5345cd378efad32554b36da87b3aba80" compoundref="xnandpsu_8h" startline="277">XNANDPSU_POLLING</references>
+        <references refid="group__nandpsu_1ga834baaa423d26638d10ad7195ba097fa" compoundref="xnandpsu__bbm_8c" startline="261" endline="316">XNandPsu_ScanBbt</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga7fb413a5f75317e698fe97ba12fc7d44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_Erase</definition>
+        <argsstring>(XNandPsu *InstancePtr, u64 Offset, u64 Length)</argsstring>
+        <name>XNandPsu_Erase</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>Erases the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>Skips the bad blocks while erasing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting offset of the flash to erase. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to erase.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the erase exceeds the flash size when bad blocks are skipped, or a block erase fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Align the Offset and Length to the block size boundary to get better results. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="1611" bodyend="1691"/>
+        <references refid="struct_x_nand_psu___geometry_1a7a931d5c8554b4bfa678f7b435526cff" compoundref="xnandpsu_8h" startline="343">XNandPsu_Geometry::BlockSize</references>
+        <references refid="struct_x_nand_psu___geometry_1a64dbdabcd40797abaedc65e04ae873bf" compoundref="xnandpsu_8h" startline="350">XNandPsu_Geometry::DeviceSize</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1abd5bd50be9d37835e78e1adb37815679" compoundref="xnandpsu_8h" startline="345">XNandPsu_Geometry::NumTargetBlocks</references>
+        <references refid="group__nandpsu__api_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2128" endline="2167">XNandPsu_EraseBlock</references>
+        <references refid="group__nandpsu__api_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="779" endline="803">XNandPsu_IsBlockBad</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1gaf276d363e46822efd9ff8ee7b55b906c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_Write</definition>
+        <argsstring>(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)</argsstring>
+        <name>XNandPsu_Write</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SrcBuf</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>Skips the bad blocks while writing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting offset of the flash to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SrcBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source data buffer to write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the write exceeds the flash size when bad blocks are skipped, or a page program fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="1376" bodyend="1472"/>
+        <references refid="struct_x_nand_psu___geometry_1a7a931d5c8554b4bfa678f7b435526cff" compoundref="xnandpsu_8h" startline="343">XNandPsu_Geometry::BlockSize</references>
+        <references refid="struct_x_nand_psu___geometry_1ad856c11878859904836081ecc3a632cc" compoundref="xnandpsu_8h" startline="333">XNandPsu_Geometry::BytesPerPage</references>
+        <references refid="struct_x_nand_psu___geometry_1a64dbdabcd40797abaedc65e04ae873bf" compoundref="xnandpsu_8h" startline="350">XNandPsu_Geometry::DeviceSize</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1a0ff8d025d33c76d816e1a09fc1a97556" compoundref="xnandpsu_8h" startline="344">XNandPsu_Geometry::NumTargetPages</references>
+        <references refid="struct_x_nand_psu_1a9fc1efc23b6faee1fdcd3ab8ad563e6a" compoundref="xnandpsu_8h" startline="415">XNandPsu::PartialDataBuf</references>
+        <references refid="struct_x_nand_psu___geometry_1a93e29a770cc95cd76576a2184ff4ec29" compoundref="xnandpsu_8h" startline="346">XNandPsu_Geometry::TargetSize</references>
+        <references refid="group__nandpsu__api_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="779" endline="803">XNandPsu_IsBlockBad</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1gad7e291db556ad9d33fbd06aa6ab79cb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_Read</definition>
+        <argsstring>(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)</argsstring>
+        <name>XNandPsu_Read</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DestBuf</declname>
+        </param>
+        <briefdescription>
+<para>Reads from the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>Skips the bad blocks while reading.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting offset of the flash to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DestBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination data buffer to fill in.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the read exceeds the flash size when bad blocks are skipped, or a page read fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="1492" bodyend="1588"/>
+        <references refid="struct_x_nand_psu___geometry_1a7a931d5c8554b4bfa678f7b435526cff" compoundref="xnandpsu_8h" startline="343">XNandPsu_Geometry::BlockSize</references>
+        <references refid="struct_x_nand_psu___geometry_1ad856c11878859904836081ecc3a632cc" compoundref="xnandpsu_8h" startline="333">XNandPsu_Geometry::BytesPerPage</references>
+        <references refid="struct_x_nand_psu_1a128fcdf6fe0c9cc953233b083b90d865" compoundref="xnandpsu_8h" startline="399">XNandPsu::Config</references>
+        <references refid="struct_x_nand_psu___geometry_1a64dbdabcd40797abaedc65e04ae873bf" compoundref="xnandpsu_8h" startline="350">XNandPsu_Geometry::DeviceSize</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu___config_1a860b3b4c0c735750f0092bbb36385803" compoundref="xnandpsu_8h" startline="241">XNandPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1a0ff8d025d33c76d816e1a09fc1a97556" compoundref="xnandpsu_8h" startline="344">XNandPsu_Geometry::NumTargetPages</references>
+        <references refid="struct_x_nand_psu_1a9fc1efc23b6faee1fdcd3ab8ad563e6a" compoundref="xnandpsu_8h" startline="415">XNandPsu::PartialDataBuf</references>
+        <references refid="struct_x_nand_psu___geometry_1a93e29a770cc95cd76576a2184ff4ec29" compoundref="xnandpsu_8h" startline="346">XNandPsu_Geometry::TargetSize</references>
+        <references refid="group__nandpsu__api_1ga0696c149568a16f2d804da9bf0b16047" compoundref="xnandpsu__bbm_8c" startline="779" endline="803">XNandPsu_IsBlockBad</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga59942044a415eacf3399b77b70fe3a20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_EraseBlock</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Target, u32 Block)</argsstring>
+        <name>XNandPsu_EraseBlock</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Target</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Block</declname>
+        </param>
+        <briefdescription>
+<para>Sends the ONFI Block Erase command to the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Chip select value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block to erase.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the transfer complete event times out. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="2128" bodyend="2167"/>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu__api_1ga1ff2f5361a5afcca1ac79a1c5bbd5f64" compoundref="xnandpsu__onfi_8h" startline="51">ONFI_CMD_BLK_ERASE1</references>
+        <references refid="group__nandpsu__api_1ga6f7414a02d236c632060d2c27d712c43" compoundref="xnandpsu__onfi_8h" startline="52">ONFI_CMD_BLK_ERASE2</references>
+        <references refid="struct_x_nand_psu___geometry_1a512d6752bf36aed2a5cfe231d9526d72" compoundref="xnandpsu_8h" startline="335">XNandPsu_Geometry::PagesPerBlock</references>
+        <references refid="struct_x_nand_psu___geometry_1af5f01ae266913af7054de33c91ff8e9d" compoundref="xnandpsu_8h" startline="338">XNandPsu_Geometry::RowAddrCycles</references>
+        <references refid="group__nandpsu__api_1gaf3b3c15277fa67d8d1dd55492fa3173a" compoundref="xnandpsu__hw_8h" startline="62">XNANDPSU_INTR_STS_EN_OFFSET</references>
+        <references refid="group__nandpsu__api_1gad19965121768bf4ada7285e14ad831a0" compoundref="xnandpsu__hw_8h" startline="275">XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK</references>
+        <references refid="group__nandpsu__api_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2632" endline="2657">XNandPsu_Prepare_Cmd</references>
+        <references refid="group__nandpsu__api_1ga438b57de344713f8444fcd11496d1098" compoundref="xnandpsu__hw_8h" startline="199">XNANDPSU_PROG_BLK_ERASE_MASK</references>
+        <references refid="group__nandpsu__api_1gadd02fc694047f74abeeec4f52bfd384d" compoundref="xnandpsu__hw_8h" startline="61">XNANDPSU_PROG_OFFSET</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+        <referencedby refid="group__nandpsu_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1611" endline="1691">XNandPsu_Erase</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_WriteSpareBytes</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Page, u8 *Buf)</argsstring>
+        <name>XNandPsu_WriteSpareBytes</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Page</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <briefdescription>
+<para>Writes the spare bytes of a page. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sends the ONFI Program Page command for the spare area. In HW ECC mode, writes only the free spare bytes before and after the ECC code.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Page</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Page address value to program. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data buffer to program.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if no free spare bytes are available in HW ECC mode or the data transfer fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="1787" bodyend="1912"/>
+        <references refid="struct_x_nand_psu___geometry_1ad856c11878859904836081ecc3a632cc" compoundref="xnandpsu_8h" startline="333">XNandPsu_Geometry::BytesPerPage</references>
+        <references refid="struct_x_nand_psu___geometry_1a92993e9d034d83f9fe75057c2bc745b9" compoundref="xnandpsu_8h" startline="339">XNandPsu_Geometry::ColAddrCycles</references>
+        <references refid="struct_onfi_cmd_format_1a2b5b598043350f3b71d46cb6af79e71c" compoundref="xnandpsu__onfi_8h" startline="342">OnfiCmdFormat::Command1</references>
+        <references refid="struct_onfi_cmd_format_1a6f069b46b1609b97e783ca73965e987f" compoundref="xnandpsu__onfi_8h" startline="343">OnfiCmdFormat::Command2</references>
+        <references refid="struct_x_nand_psu_1a128fcdf6fe0c9cc953233b083b90d865" compoundref="xnandpsu_8h" startline="399">XNandPsu::Config</references>
+        <references refid="struct_x_nand_psu_1af689f2570d31f1f28f7916ecb120ce93" compoundref="xnandpsu_8h" startline="405">XNandPsu::DmaMode</references>
+        <references refid="struct_x_nand_psu___ecc_cfg_1a1a744c48af8a35100a99ca3cc5786af3" compoundref="xnandpsu_8h" startline="379">XNandPsu_EccCfg::EccAddr</references>
+        <references refid="struct_x_nand_psu_1a42fcfeb64ff08cd45cbc8ed86a129211" compoundref="xnandpsu_8h" startline="407">XNandPsu::EccCfg</references>
+        <references refid="struct_x_nand_psu_1a1f2a85d38c0202fe76fed5e328d51ed7" compoundref="xnandpsu_8h" startline="406">XNandPsu::EccMode</references>
+        <references refid="struct_x_nand_psu___ecc_cfg_1ac3aba93d35655ce65a4239fa2c01b94d" compoundref="xnandpsu_8h" startline="380">XNandPsu_EccCfg::EccSize</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu___config_1a860b3b4c0c735750f0092bbb36385803" compoundref="xnandpsu_8h" startline="241">XNandPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1a0ff8d025d33c76d816e1a09fc1a97556" compoundref="xnandpsu_8h" startline="344">XNandPsu_Geometry::NumTargetPages</references>
+        <references refid="group__nandpsu__api_1ga0d2b66ac14eb5e67c578e633647a7bdb" compoundref="xnandpsu__onfi_8h" startline="54">ONFI_CMD_PG_PROG1</references>
+        <references refid="group__nandpsu__api_1gaca1d174aee44b4db6b12be18f7e3d7af" compoundref="xnandpsu__onfi_8h" startline="55">ONFI_CMD_PG_PROG2</references>
+        <references refid="struct_x_nand_psu___geometry_1af5f01ae266913af7054de33c91ff8e9d" compoundref="xnandpsu_8h" startline="338">XNandPsu_Geometry::RowAddrCycles</references>
+        <references refid="struct_x_nand_psu___geometry_1acb31c921090928f5403eb4d4a656be7a" compoundref="xnandpsu_8h" startline="334">XNandPsu_Geometry::SpareBytesPerPage</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9aefc4ae80a0f88d083e99b9cda39da1b5" compoundref="xnandpsu_8h" startline="295">XNANDPSU_HWECC</references>
+        <references refid="group__nandpsu__api_1gafb9c672287fcc76bbb63e86e04c596ac" compoundref="xnandpsu__hw_8h" startline="261">XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK</references>
+        <references refid="group__nandpsu__api_1gaf3b3c15277fa67d8d1dd55492fa3173a" compoundref="xnandpsu__hw_8h" startline="62">XNANDPSU_INTR_STS_EN_OFFSET</references>
+        <references refid="group__nandpsu__api_1gad19965121768bf4ada7285e14ad831a0" compoundref="xnandpsu__hw_8h" startline="275">XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK</references>
+        <references refid="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c" compoundref="xnandpsu_8h" startline="287">XNANDPSU_MDMA</references>
+        <references refid="group__nandpsu__api_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2632" endline="2657">XNandPsu_Prepare_Cmd</references>
+        <references refid="group__nandpsu__api_1gaf52a34b9e6851425cef6986b01daf7d7" compoundref="xnandpsu__hw_8h" startline="242">XNANDPSU_PROG_CHNG_ROW_ADDR_MASK</references>
+        <references refid="group__nandpsu__api_1gadd02fc694047f74abeeec4f52bfd384d" compoundref="xnandpsu__hw_8h" startline="61">XNANDPSU_PROG_OFFSET</references>
+        <references refid="group__nandpsu__api_1ga8283bf247a2fdc39f13634b42da12938" compoundref="xnandpsu__hw_8h" startline="201">XNANDPSU_PROG_PG_PROG_MASK</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_ReadSpareBytes</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Page, u8 *Buf)</argsstring>
+        <name>XNandPsu_ReadSpareBytes</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Page</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <briefdescription>
+<para>Reads the spare bytes of a page from the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Page</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Page address value to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data buffer to fill in.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the data transfer times out. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="2059" bodyend="2112"/>
+        <references refid="struct_x_nand_psu___geometry_1ad856c11878859904836081ecc3a632cc" compoundref="xnandpsu_8h" startline="333">XNandPsu_Geometry::BytesPerPage</references>
+        <references refid="struct_x_nand_psu___geometry_1a92993e9d034d83f9fe75057c2bc745b9" compoundref="xnandpsu_8h" startline="339">XNandPsu_Geometry::ColAddrCycles</references>
+        <references refid="struct_x_nand_psu_1a128fcdf6fe0c9cc953233b083b90d865" compoundref="xnandpsu_8h" startline="399">XNandPsu::Config</references>
+        <references refid="struct_x_nand_psu_1af689f2570d31f1f28f7916ecb120ce93" compoundref="xnandpsu_8h" startline="405">XNandPsu::DmaMode</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu___config_1a860b3b4c0c735750f0092bbb36385803" compoundref="xnandpsu_8h" startline="241">XNandPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1a0ff8d025d33c76d816e1a09fc1a97556" compoundref="xnandpsu_8h" startline="344">XNandPsu_Geometry::NumTargetPages</references>
+        <references refid="group__nandpsu__api_1ga882d3dbf73690c171ccd6350170efbf3" compoundref="xnandpsu__onfi_8h" startline="43">ONFI_CMD_RD1</references>
+        <references refid="group__nandpsu__api_1ga5f5f42939c183b9460e4e67de68940d5" compoundref="xnandpsu__onfi_8h" startline="44">ONFI_CMD_RD2</references>
+        <references refid="struct_x_nand_psu___geometry_1af5f01ae266913af7054de33c91ff8e9d" compoundref="xnandpsu_8h" startline="338">XNandPsu_Geometry::RowAddrCycles</references>
+        <references refid="struct_x_nand_psu___geometry_1acb31c921090928f5403eb4d4a656be7a" compoundref="xnandpsu_8h" startline="334">XNandPsu_Geometry::SpareBytesPerPage</references>
+        <references refid="group__nandpsu__api_1ga145b9b3fbd465190f747e8fb3ff1935a" compoundref="xnandpsu__hw_8h" startline="268">XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK</references>
+        <references refid="group__nandpsu__api_1gaf3b3c15277fa67d8d1dd55492fa3173a" compoundref="xnandpsu__hw_8h" startline="62">XNANDPSU_INTR_STS_EN_OFFSET</references>
+        <references refid="group__nandpsu__api_1gad19965121768bf4ada7285e14ad831a0" compoundref="xnandpsu__hw_8h" startline="275">XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK</references>
+        <references refid="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c" compoundref="xnandpsu_8h" startline="287">XNANDPSU_MDMA</references>
+        <references refid="group__nandpsu__api_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2632" endline="2657">XNandPsu_Prepare_Cmd</references>
+        <references refid="group__nandpsu__api_1gadd02fc694047f74abeeec4f52bfd384d" compoundref="xnandpsu__hw_8h" startline="61">XNANDPSU_PROG_OFFSET</references>
+        <references refid="group__nandpsu__api_1ga3c38a395e56cd70c7c6bb4cba7b31d43" compoundref="xnandpsu__hw_8h" startline="197">XNANDPSU_PROG_RD_MASK</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga22080a2813ff692c0b64e0bbd9715f91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_ChangeTimingMode</definition>
+        <argsstring>(XNandPsu *InstancePtr, XNandPsu_DataInterface NewIntf, XNandPsu_TimingMode NewMode)</argsstring>
+        <name>XNandPsu_ChangeTimingMode</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__nandpsu_1gad3bf507eb42aeef24d208ad336af2354" kindref="member">XNandPsu_DataInterface</ref></type>
+          <declname>NewIntf</declname>
+        </param>
+        <param>
+          <type><ref refid="group__nandpsu_1ga9703b0526518be68242c0ed0d6752e57" kindref="member">XNandPsu_TimingMode</ref></type>
+          <declname>NewMode</declname>
+        </param>
+        <briefdescription>
+<para>Changes the data interface and timing mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NewIntf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New data interface. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NewMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New timing mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful or if the flash is already in the requested mode.</para></listitem><listitem><para>XST_FAILURE if the interface or timing mode is not valid, a flash command fails, or the timing mode read back from the flash does not match. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="2321" bodyend="2448"/>
+        <references refid="struct_x_nand_psu___config_1a3075f3fe58b40e695dd829d3feb0a278" compoundref="xnandpsu_8h" startline="240">XNandPsu_Config::BaseAddress</references>
+        <references refid="struct_x_nand_psu_1a128fcdf6fe0c9cc953233b083b90d865" compoundref="xnandpsu_8h" startline="399">XNandPsu::Config</references>
+        <references refid="struct_x_nand_psu_1a171807ab43dd28f95ef053c540717698" compoundref="xnandpsu_8h" startline="402">XNandPsu::DataInterface</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1aa77b389be09efc2cfe215604aa1f8c18" compoundref="xnandpsu_8h" startline="347">XNandPsu_Geometry::NumTargets</references>
+        <references refid="struct_x_nand_psu_1a94635e5fc25c1f188d797cbc917ae9fe" compoundref="xnandpsu_8h" startline="403">XNandPsu::TimingMode</references>
+        <references refid="group__nandpsu__api_1ga44655d50665d8b4ae9064abcc3dd125b" compoundref="xnandpsu__hw_8h" startline="535">XNANDPSU_DATA_INTF_DATA_INTF_SHIFT</references>
+        <references refid="group__nandpsu__api_1ga5efd1c0220097175784dd8da2cddd526" compoundref="xnandpsu__hw_8h" startline="111">XNANDPSU_DATA_INTF_OFFSET</references>
+        <references refid="group__nandpsu__api_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2184" endline="2224">XNandPsu_GetFeature</references>
+        <references refid="group__nandpsu_1ggad3bf507eb42aeef24d208ad336af2354acc4e25c296abb500483efc1237b5a357" compoundref="xnandpsu_8h" startline="252">XNANDPSU_NVDDR</references>
+        <references refid="group__nandpsu_1ggad3bf507eb42aeef24d208ad336af2354a93958477d9cccb30ca163194cd149129" compoundref="xnandpsu_8h" startline="251">XNANDPSU_SDR</references>
+        <references refid="group__nandpsu_1gga9703b0526518be68242c0ed0d6752e57a2ecc7fa597a806725c840ce35c34cb8d" compoundref="xnandpsu_8h" startline="259">XNANDPSU_SDR0</references>
+        <references refid="group__nandpsu_1gaa90bfcef8812587941faa8606d440c29" compoundref="xnandpsu_8h" startline="216">XNANDPSU_SDR_CLK</references>
+        <references refid="group__nandpsu__api_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2241" endline="2284">XNandPsu_SetFeature</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1gaa6725c5aa761078a438094bad802045e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_GetFeature</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Target, u8 Feature, u8 *Buf)</argsstring>
+        <name>XNandPsu_GetFeature</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Target</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Feature</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <briefdescription>
+<para>Sends the ONFI Get Feature command to the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Chip select value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Feature</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature selector. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to fill with the feature value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the data transfer times out. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="2184" bodyend="2224"/>
+        <references refid="struct_x_nand_psu_1a171807ab43dd28f95ef053c540717698" compoundref="xnandpsu_8h" startline="402">XNandPsu::DataInterface</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu__api_1gadbf8afcdec47ffb5e24a9e2f580bc9e4" compoundref="xnandpsu__onfi_8h" startline="131">ONFI_CMD_GET_FEATURES</references>
+        <references refid="group__nandpsu__api_1gaa1515e541e1f6e5bd5408cf7de0f98c2" compoundref="xnandpsu__onfi_8h" startline="154">ONFI_CMD_INVALID</references>
+        <references refid="group__nandpsu__api_1ga145b9b3fbd465190f747e8fb3ff1935a" compoundref="xnandpsu__hw_8h" startline="268">XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK</references>
+        <references refid="group__nandpsu__api_1gaf3b3c15277fa67d8d1dd55492fa3173a" compoundref="xnandpsu__hw_8h" startline="62">XNANDPSU_INTR_STS_EN_OFFSET</references>
+        <references refid="group__nandpsu_1ggad3bf507eb42aeef24d208ad336af2354acc4e25c296abb500483efc1237b5a357" compoundref="xnandpsu_8h" startline="252">XNANDPSU_NVDDR</references>
+        <references refid="group__nandpsu__api_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2632" endline="2657">XNandPsu_Prepare_Cmd</references>
+        <references refid="group__nandpsu__api_1ga6db393ae018d58368f3fff85591c84fe" compoundref="xnandpsu__hw_8h" startline="208">XNANDPSU_PROG_GET_FEATURES_MASK</references>
+        <references refid="group__nandpsu__api_1gadd02fc694047f74abeeec4f52bfd384d" compoundref="xnandpsu__hw_8h" startline="61">XNANDPSU_PROG_OFFSET</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+        <referencedby refid="group__nandpsu_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2321" endline="2448">XNandPsu_ChangeTimingMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga785eaf418c8f7e7c3fb6098ba327b720" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_SetFeature</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Target, u8 Feature, u8 *Buf)</argsstring>
+        <name>XNandPsu_SetFeature</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Target</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Feature</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <briefdescription>
+<para>Sends the ONFI Set Feature command to the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Chip select value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Feature</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature selector. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature value to send.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the data transfer times out. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="2241" bodyend="2284"/>
+        <references refid="struct_x_nand_psu_1a171807ab43dd28f95ef053c540717698" compoundref="xnandpsu_8h" startline="402">XNandPsu::DataInterface</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu__api_1gaa1515e541e1f6e5bd5408cf7de0f98c2" compoundref="xnandpsu__onfi_8h" startline="154">ONFI_CMD_INVALID</references>
+        <references refid="group__nandpsu__api_1ga09a77a047f11adfcb8b2b226bd674adf" compoundref="xnandpsu__onfi_8h" startline="132">ONFI_CMD_SET_FEATURES</references>
+        <references refid="group__nandpsu__api_1gafb9c672287fcc76bbb63e86e04c596ac" compoundref="xnandpsu__hw_8h" startline="261">XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK</references>
+        <references refid="group__nandpsu__api_1gaf3b3c15277fa67d8d1dd55492fa3173a" compoundref="xnandpsu__hw_8h" startline="62">XNANDPSU_INTR_STS_EN_OFFSET</references>
+        <references refid="group__nandpsu_1ggad3bf507eb42aeef24d208ad336af2354acc4e25c296abb500483efc1237b5a357" compoundref="xnandpsu_8h" startline="252">XNANDPSU_NVDDR</references>
+        <references refid="group__nandpsu__api_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2632" endline="2657">XNandPsu_Prepare_Cmd</references>
+        <references refid="group__nandpsu__api_1gadd02fc694047f74abeeec4f52bfd384d" compoundref="xnandpsu__hw_8h" startline="61">XNANDPSU_PROG_OFFSET</references>
+        <references refid="group__nandpsu__api_1gadf472233e7c587746e007d035d5c6807" compoundref="xnandpsu__hw_8h" startline="209">XNANDPSU_PROG_SET_FEATURES_MASK</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+        <referencedby refid="group__nandpsu_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2321" endline="2448">XNandPsu_ChangeTimingMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga834baaa423d26638d10ad7195ba097fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_ScanBbt</definition>
+        <argsstring>(XNandPsu *InstancePtr)</argsstring>
+        <name>XNandPsu_ScanBbt</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the Bad Block Table (BBT) or creates it when absent. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads the BBT of each target if present in flash. If not, scans the flash for factory marked bad blocks, creates a BBT, writes the primary and mirror BBT into the flash and marks the BBT blocks as reserved.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="591" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.c" bodystart="261" bodyend="316"/>
+        <references refid="struct_x_nand_psu_1a8e9b7e25e9dda30d9ffdeb593ee7c20f" compoundref="xnandpsu_8h" startline="421">XNandPsu::Bbt</references>
+        <references refid="struct_x_nand_psu_1abb9684a89e0df8445094681e7aab1107" compoundref="xnandpsu_8h" startline="417">XNandPsu::BbtDesc</references>
+        <references refid="struct_x_nand_psu_1a9a45e41bc9a06dc2c6cdc2c04d7b025c" compoundref="xnandpsu_8h" startline="418">XNandPsu::BbtMirrorDesc</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1aa2d2b47cd4c8425d89a24d3401fcc9ad" compoundref="xnandpsu_8h" startline="349">XNandPsu_Geometry::NumBlocks</references>
+        <references refid="struct_x_nand_psu___geometry_1aa77b389be09efc2cfe215604aa1f8c18" compoundref="xnandpsu_8h" startline="347">XNandPsu_Geometry::NumTargets</references>
+        <references refid="group__nandpsu__api_1gad347e168120f24a56851f8c5620c131f" compoundref="xnandpsu__bbm_8h" startline="137">XNANDPSU_BBT_BLOCK_SHIFT</references>
+        <referencedby refid="group__nandpsu_1ga8268e05a9d1a0339dc2ec672d7dd8c79" compoundref="xnandpsu_8c" startline="245" endline="305">XNandPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga8d3500cacdc26941b76db6a74f8e2b0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XNandPsu_MarkBlockBad</definition>
+        <argsstring>(XNandPsu *InstancePtr, u32 Block)</argsstring>
+        <name>XNandPsu_MarkBlockBad</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Block</declname>
+        </param>
+        <briefdescription>
+<para>Marks a block as bad in the RAM based Bad Block Table (BBT). </para>        </briefdescription>
+        <detaileddescription>
+<para>Also updates the Bad Block Table (BBT) in the flash.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Block</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="593" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_bbm.c" bodystart="819" bodyend="857"/>
+        <references refid="struct_x_nand_psu_1a8e9b7e25e9dda30d9ffdeb593ee7c20f" compoundref="xnandpsu_8h" startline="421">XNandPsu::Bbt</references>
+        <references refid="struct_x_nand_psu_1ada90fdee8e87d8880eb6766d76e3ad2d" compoundref="xnandpsu_8h" startline="408">XNandPsu::Geometry</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="struct_x_nand_psu___geometry_1abd5bd50be9d37835e78e1adb37815679" compoundref="xnandpsu_8h" startline="345">XNandPsu_Geometry::NumTargetBlocks</references>
+        <references refid="group__nandpsu__api_1gad347e168120f24a56851f8c5620c131f" compoundref="xnandpsu__bbm_8h" startline="137">XNANDPSU_BBT_BLOCK_SHIFT</references>
+        <references refid="group__nandpsu__api_1gaff73343551dffb555cf517e534367dba" compoundref="xnandpsu__bbm_8h" startline="201">XNandPsu_BbtBlockShift</references>
+        <references refid="group__nandpsu__api_1gac47b1d1d15d7a802c9e1df6fdeef077e" compoundref="xnandpsu__bbm_8h" startline="89">XNANDPSU_BLOCK_BAD</references>
+        <references refid="group__nandpsu__api_1ga32360ae4d4d3035b35a3f825d6afa3cf" compoundref="xnandpsu__bbm_8h" startline="162">XNANDPSU_BLOCK_TYPE_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga37ffc74066c48716b787438f19b70684" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNandPsu_EnableDmaMode</definition>
+        <argsstring>(XNandPsu *InstancePtr)</argsstring>
+        <name>XNandPsu_EnableDmaMode</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables the DMA mode of controller operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="752" bodyend="759"/>
+        <references refid="struct_x_nand_psu_1af689f2570d31f1f28f7916ecb120ce93" compoundref="xnandpsu_8h" startline="405">XNandPsu::DmaMode</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c" compoundref="xnandpsu_8h" startline="287">XNANDPSU_MDMA</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1gaa5768fde1d2659e318fc72562300253c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNandPsu_DisableDmaMode</definition>
+        <argsstring>(XNandPsu *InstancePtr)</argsstring>
+        <name>XNandPsu_DisableDmaMode</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables the DMA mode of driver/controller operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="769" bodyend="776"/>
+        <references refid="struct_x_nand_psu_1af689f2570d31f1f28f7916ecb120ce93" compoundref="xnandpsu_8h" startline="405">XNandPsu::DmaMode</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a0946609c88db24ae434b1ca54b26104d" compoundref="xnandpsu_8h" startline="285">XNANDPSU_PIO</references>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga0f80ab5f2d18a988eb6f6672fdc99d7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNandPsu_EnableEccMode</definition>
+        <argsstring>(XNandPsu *InstancePtr)</argsstring>
+        <name>XNandPsu_EnableEccMode</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables the ECC mode of driver/controller operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="786" bodyend="793"/>
+        <references refid="struct_x_nand_psu_1a1f2a85d38c0202fe76fed5e328d51ed7" compoundref="xnandpsu_8h" startline="406">XNandPsu::EccMode</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9aefc4ae80a0f88d083e99b9cda39da1b5" compoundref="xnandpsu_8h" startline="295">XNANDPSU_HWECC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1ga02c8c1204e6c83f910cb4a2b1df423ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNandPsu_DisableEccMode</definition>
+        <argsstring>(XNandPsu *InstancePtr)</argsstring>
+        <name>XNandPsu_DisableEccMode</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables the ECC mode of driver/controller operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="601" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="803" bodyend="810"/>
+        <references refid="struct_x_nand_psu_1a1f2a85d38c0202fe76fed5e328d51ed7" compoundref="xnandpsu_8h" startline="406">XNandPsu::EccMode</references>
+        <references refid="struct_x_nand_psu_1af937c82e0b5c79e13c98a124f107c972" compoundref="xnandpsu_8h" startline="398">XNandPsu::IsReady</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9adbd5450576bef401f38fb16dca8a2cd9" compoundref="xnandpsu_8h" startline="294">XNANDPSU_NONE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1gabfb036fc0238a5c54de831574c371450" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XNandPsu_Prepare_Cmd</definition>
+        <argsstring>(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState, u8 DmaMode, u8 AddrCycles)</argsstring>
+        <name>XNandPsu_Prepare_Cmd</name>
+        <param>
+          <type><ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Cmd1</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Cmd2</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EccState</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DmaMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AddrCycles</declname>
+        </param>
+        <briefdescription>
+<para>Prepares a command and writes it into the command register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Cmd1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First ONFI command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Cmd2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Second ONFI command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EccState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to enable ECC (applies only in HW ECC mode). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DmaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to enable DMA (applies only in MDMA mode). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AddrCycles</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of address cycles. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.c" bodystart="2632" bodyend="2657"/>
+        <references refid="struct_x_nand_psu_1af689f2570d31f1f28f7916ecb120ce93" compoundref="xnandpsu_8h" startline="405">XNandPsu::DmaMode</references>
+        <references refid="struct_x_nand_psu_1a1f2a85d38c0202fe76fed5e328d51ed7" compoundref="xnandpsu_8h" startline="406">XNandPsu::EccMode</references>
+        <references refid="group__nandpsu__api_1ga4289b87f7c202422ab0c90fe284d759e" compoundref="xnandpsu__hw_8h" startline="188">XNANDPSU_CMD_ADDR_CYCLES_SHIFT</references>
+        <references refid="group__nandpsu__api_1gacadb4a6cbb11dd64c3d6be90a5ccf820" compoundref="xnandpsu__hw_8h" startline="172">XNANDPSU_CMD_CMD2_MASK</references>
+        <references refid="group__nandpsu__api_1ga548e02649547dbb26d3ba373b67a185a" compoundref="xnandpsu__hw_8h" startline="183">XNANDPSU_CMD_CMD2_SHIFT</references>
+        <references refid="group__nandpsu__api_1ga31cd55caad2584c9d1dcf333c526e7ca" compoundref="xnandpsu__hw_8h" startline="187">XNANDPSU_CMD_DMA_EN_SHIFT</references>
+        <references refid="group__nandpsu__api_1ga390ead6fc832b4423d5769094880951f" compoundref="xnandpsu__hw_8h" startline="191">XNANDPSU_CMD_ECC_ON_SHIFT</references>
+        <references refid="group__nandpsu__api_1ga8a770f895919f2a9f22b109fc2dc4ddd" compoundref="xnandpsu__hw_8h" startline="60">XNANDPSU_CMD_OFFSET</references>
+        <references refid="group__nandpsu_1gga9382565edcb944d473966aac464a58b9aefc4ae80a0f88d083e99b9cda39da1b5" compoundref="xnandpsu_8h" startline="295">XNANDPSU_HWECC</references>
+        <references refid="group__nandpsu_1gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c" compoundref="xnandpsu_8h" startline="287">XNANDPSU_MDMA</references>
+        <references refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" compoundref="xnandpsu__hw_8h" startline="630">XNandPsu_WriteReg</references>
+        <referencedby refid="group__nandpsu_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2128" endline="2167">XNandPsu_EraseBlock</referencedby>
+        <referencedby refid="group__nandpsu_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2184" endline="2224">XNandPsu_GetFeature</referencedby>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandpsu_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2241" endline="2284">XNandPsu_SetFeature</referencedby>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__nandpsu_1gaefb793caab4620348cf6043032d3af05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_nand_psu___config" kindref="compound">XNandPsu_Config</ref> *</type>
+        <definition>XNandPsu_Config* XNandPsu_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XNandPsu_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID or base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XNandPsu_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the configuration found, or NULL if the specified device ID or base address is not found. See <ref refid="xnandpsu_8h" kindref="compound">xnandpsu.h</ref> for the definition of <ref refid="struct_x_nand_psu___config" kindref="compound">XNandPsu_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In the XSCT/Classic flow, DevID selects the device configuration. In the system device-tree flow, BaseAddress selects it. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_sinit.c" bodystart="89" bodyend="103"/>
+        <references refid="struct_x_nand_psu___config_1a2c251513222d924042afca72156548fd" compoundref="xnandpsu_8h" startline="238">XNandPsu_Config::Name</references>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__nandpsu_1ga0b1839d931457e61485dbc2e2c0a40fe" prot="public" static="no">
+        <name>XNANDPSU_DEBUG</name>
+        <briefdescription>
+<para>Enables the driver debug messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga1d00cce9eaed03608e36937d80b446ab" prot="public" static="no">
+        <name>XNANDPSU_MAX_TARGETS</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>ce_n0, ce_n1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__nandpsu__api_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="88" endline="166">XNandPsu_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga030f35fc80496f2361cccd92b4362fc0" prot="public" static="no">
+        <name>XNANDPSU_MAX_PKT_SIZE</name>
+        <initializer>0x7FFU</initializer>
+        <briefdescription>
+<para>Max packet size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gac0b07414cb64b71cc9d0b2aa22d8e550" prot="public" static="no">
+        <name>XNANDPSU_MAX_PKT_COUNT</name>
+        <initializer>0xFFFU</initializer>
+        <briefdescription>
+<para>Max packet count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga4abe1ddcbfeb68ca07f9a8e43a735146" prot="public" static="no">
+        <name>XNANDPSU_PAGE_SIZE_512</name>
+        <initializer>512U</initializer>
+        <briefdescription>
+<para>512 bytes page </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gaf35000ed01e262b18a57410eeee1d7ad" prot="public" static="no">
+        <name>XNANDPSU_PAGE_SIZE_2K</name>
+        <initializer>2048U</initializer>
+        <briefdescription>
+<para>2K bytes page </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga371967b2be339f919b6f41de5fe32560" prot="public" static="no">
+        <name>XNANDPSU_PAGE_SIZE_4K</name>
+        <initializer>4096U</initializer>
+        <briefdescription>
+<para>4K bytes page </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga31915f9c8a6eebd7bf3c2a9f73ea0aa8" prot="public" static="no">
+        <name>XNANDPSU_PAGE_SIZE_8K</name>
+        <initializer>8192U</initializer>
+        <briefdescription>
+<para>8K bytes page </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga694bbcd77efd1f02f8c81892128b8326" prot="public" static="no">
+        <name>XNANDPSU_PAGE_SIZE_16K</name>
+        <initializer>16384U</initializer>
+        <briefdescription>
+<para>16K bytes page </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga77f959e443ba8be91a9001d2c306d63b" prot="public" static="no">
+        <name>XNANDPSU_PAGE_SIZE_1K_16BIT</name>
+        <initializer>1024U</initializer>
+        <briefdescription>
+<para>16-bit 2K bytes page </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga63813d961faa82776631b0c04e690a8a" prot="public" static="no">
+        <name>XNANDPSU_MAX_PAGE_SIZE</name>
+        <initializer>16384U</initializer>
+        <briefdescription>
+<para>Max page size supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga619f76f21351e27aa851479a26a6c489" prot="public" static="no">
+        <name>XNANDPSU_HAMMING</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Hamming Flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gaab930920a8bf8a2366cf8e39778adf84" prot="public" static="no">
+        <name>XNANDPSU_BCH</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>BCH Flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga3cc1e2efdc26ce51713091aae6c196cb" prot="public" static="no">
+        <name>XNANDPSU_MAX_BLOCKS</name>
+        <initializer>16384U</initializer>
+        <briefdescription>
+<para>Max number of Blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga59a66b690b59fd716924d174074bb13a" prot="public" static="no">
+        <name>XNANDPSU_MAX_SPARE_SIZE</name>
+        <initializer>0x800U</initializer>
+        <briefdescription>
+<para>Max spare bytes of a NAND flash page of 16K. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga411a54a85677b6e104860befb6526e60" prot="public" static="no">
+        <name>XNANDPSU_MAX_LUNS</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Max number of LUNs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga96b22853fe560a5d16513f751f4b6391" prot="public" static="no">
+        <name>XNANDPSU_MAX_PAGES_PER_BLOCK</name>
+        <initializer>512U</initializer>
+        <briefdescription>
+<para>Max number pages per block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga1f5f1404698cb85b97e9a561cac41f69" prot="public" static="no">
+        <name>XNANDPSU_INTR_POLL_TIMEOUT</name>
+        <initializer>0xF000000U</initializer>
+        <briefdescription>
+<para>Timeout count for polling the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gaa90bfcef8812587941faa8606d440c29" prot="public" static="no">
+        <name>XNANDPSU_SDR_CLK</name>
+        <initializer>((u16)100U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for the SDR data interface (100 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2321" endline="2448">XNandPsu_ChangeTimingMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga493a4d6b8337862e82adc613e83a3bc2" prot="public" static="no">
+        <name>XNANDPSU_NVDDR_CLK_0</name>
+        <initializer>((u16)20U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for NVDDR timing mode 0 (20 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga681d425196a36f53478d629dd08a000a" prot="public" static="no">
+        <name>XNANDPSU_NVDDR_CLK_1</name>
+        <initializer>((u16)33U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for NVDDR timing mode 1 (33 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga0d8add065df1a78dbf61d3210056ea48" prot="public" static="no">
+        <name>XNANDPSU_NVDDR_CLK_2</name>
+        <initializer>((u16)50U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for NVDDR timing mode 2 (50 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gafd07ee64f000e5f9afe14bd6ce26d319" prot="public" static="no">
+        <name>XNANDPSU_NVDDR_CLK_3</name>
+        <initializer>((u16)66U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for NVDDR timing mode 3 (66 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga9adb1163e3f049e5ef0389bcbfa58c76" prot="public" static="no">
+        <name>XNANDPSU_NVDDR_CLK_4</name>
+        <initializer>((u16)83U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for NVDDR timing mode 4 (83 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gaa12c3f4e83b178171eec11554604cf08" prot="public" static="no">
+        <name>XNANDPSU_NVDDR_CLK_5</name>
+        <initializer>((u16)100U * (u16)1000U * (u16)1000U)</initializer>
+        <briefdescription>
+<para>Clock frequency for NVDDR timing mode 5 (100 MHz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga4da1671690e20d6941ab667d2695e77b" prot="public" static="no">
+        <name>XNANDPSU_MAX_TIMING_MODE</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Maximum timing mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga81badc5b18ca1a15e6842549eaeaaaec" prot="public" static="no">
+        <name>XNandPsu_SetBits</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>BitMask</defname></param>
+        <initializer><ref refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" kindref="member">XNandPsu_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,		\
+			  (RegOffset),						\
+			  ((u32)(<ref refid="group__nandpsu__api_1ga541264d14f94a94ef2db439d66eaef00" kindref="member">XNandPsu_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress,	\
+					  (RegOffset)) | (BitMask))))</initializer>
+        <briefdescription>
+<para>Sets the bitmask in the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask to set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__nandpsu_1ga81badc5b18ca1a15e6842549eaeaaaec" kindref="member">XNandPsu_SetBits(XNandPsu *InstancePtr, u32 RegOffset, u32 BitMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="441" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gac4a7a1715cbf95a1f16b34e6d0041d2d" prot="public" static="no">
+        <name>XNandPsu_ClrBits</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>BitMask</defname></param>
+        <initializer><ref refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" kindref="member">XNandPsu_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,		\
+			  (RegOffset),						\
+			  ((u32)(<ref refid="group__nandpsu__api_1ga541264d14f94a94ef2db439d66eaef00" kindref="member">XNandPsu_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress,	\
+					  (RegOffset)) &amp; ~(BitMask))))</initializer>
+        <briefdescription>
+<para>Clears the bitmask in the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BitMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask to clear.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__nandpsu_1gac4a7a1715cbf95a1f16b34e6d0041d2d" kindref="member">XNandPsu_ClrBits(XNandPsu *InstancePtr, u32 RegOffset, u32 BitMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="461" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga5e32b273f1cd2144727aa99c22c29185" prot="public" static="no">
+        <name>XNandPsu_ReadModifyWrite</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Mask</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group__nandpsu__api_1ga13968ef2c371ba365d36cfb05c27d1f9" kindref="member">XNandPsu_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,		\
+			  (RegOffset),						\
+			  ((u32)((u32)(<ref refid="group__nandpsu__api_1ga541264d14f94a94ef2db439d66eaef00" kindref="member">XNandPsu_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress,\
+					  (u32)(RegOffset)) &amp; (u32)(~(Mask))) | (u32)(Value))))</initializer>
+        <briefdescription>
+<para>Clears and updates the bitmask in the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask to clear. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to set in the cleared bits.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void XNandPsu_ReadModifyWrite(<ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> *InstancePtr, u32 RegOffset, u32 Mask, u32 Value) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="483" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gaa8e0d12404004b3c5191177cdb122b3f" prot="public" static="no">
+        <name>XNandPsu_IntrSigEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer><ref refid="group__nandpsu_1ga81badc5b18ca1a15e6842549eaeaaaec" kindref="member">XNandPsu_SetBits</ref>((InstancePtr),				\
+			 <ref refid="group__nandpsu__api_1ga8a25f700e1e33ac4bdb4be3681fdb477" kindref="member">XNANDPSU_INTR_SIG_EN_OFFSET</ref>,			\
+			 (Mask))</initializer>
+        <briefdescription>
+<para>Enables the bitmask in the Interrupt Signal Enable register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt bitmask to enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__nandpsu_1gaa8e0d12404004b3c5191177cdb122b3f" kindref="member">XNandPsu_IntrSigEnable(XNandPsu *InstancePtr, u32 Mask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="502" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga27f6ec689766f40ed35cee8b48880dd8" prot="public" static="no">
+        <name>XNandPsu_IntrSigClear</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer><ref refid="group__nandpsu_1gac4a7a1715cbf95a1f16b34e6d0041d2d" kindref="member">XNandPsu_ClrBits</ref>((InstancePtr),				\
+			 <ref refid="group__nandpsu__api_1ga8a25f700e1e33ac4bdb4be3681fdb477" kindref="member">XNANDPSU_INTR_SIG_EN_OFFSET</ref>,			\
+			 (Mask))</initializer>
+        <briefdescription>
+<para>Clears the bitmask in the Interrupt Signal Enable register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt bitmask to clear.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__nandpsu_1ga27f6ec689766f40ed35cee8b48880dd8" kindref="member">XNandPsu_IntrSigClear(XNandPsu *InstancePtr, u32 Mask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="521" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1ga66c46ed7cc6fd5fe94f1077d02138bd7" prot="public" static="no">
+        <name>XNandPsu_IntrStsEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer><ref refid="group__nandpsu_1ga81badc5b18ca1a15e6842549eaeaaaec" kindref="member">XNandPsu_SetBits</ref>((InstancePtr),				\
+			 <ref refid="group__nandpsu__api_1gaf3b3c15277fa67d8d1dd55492fa3173a" kindref="member">XNANDPSU_INTR_STS_EN_OFFSET</ref>,			\
+			 (Mask))</initializer>
+        <briefdescription>
+<para>Enables the bitmask in the Interrupt Status Enable register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt bitmask to enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__nandpsu_1ga66c46ed7cc6fd5fe94f1077d02138bd7" kindref="member">XNandPsu_IntrStsEnable(XNandPsu *InstancePtr, u32 Mask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="538" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="539" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu_1gaf541edc53a66ed48f638b75789dce6d7" prot="public" static="no">
+        <name>IS_ONFI</name>
+        <param><defname>Buff</defname></param>
+        <initializer>((Buff)[0] == (u8)&apos;O&apos;) &amp;&amp; ((Buff)[1] == (u8)&apos;N&apos;) &amp;&amp;	\
+	((Buff)[2] == (u8)&apos;F&apos;) &amp;&amp; ((Buff)[3] == (u8)&apos;I&apos;)</initializer>
+        <briefdescription>
+<para>Checks for the ONFI ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer holding the ONFI ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Nonzero if the buffer starts with the &quot;ONFI&quot; signature, 0 otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-style signature int <ref refid="group__nandpsu_1gaf541edc53a66ed48f638b75789dce6d7" kindref="member">IS_ONFI(u8 *Buff)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="557" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares the Arasan NAND controller driver for Zynq UltraScale+ MPSoC. </para>    </briefdescription>
+    <detaileddescription>
+<para><bold>Driver Initialization</bold></para><para>The function call <ref refid="group__nandpsu__api_1ga8268e05a9d1a0339dc2ec672d7dd8c79" kindref="member">XNandPsu_CfgInitialize()</ref> should be called by the application before any other function in the driver. The initialization function takes device specific data (like device id, instance id, and base address) and initializes the <ref refid="struct_x_nand_psu" kindref="compound">XNandPsu</ref> instance with the device specific data.</para><para><bold>Device Geometry</bold></para><para>NAND flash device is memory device and it is segmented into areas called Logical Unit(s) (LUN) and further in to blocks and pages. A NAND flash device can have multiple LUN. LUN is sequential raw of multiple blocks of the same size. A block is the smallest erasable unit of data within the Flash array of a LUN. The size of each block is based on a power of 2. There is no restriction on the number of blocks within the LUN. A block contains a number of pages. A page is the smallest addressable unit for read and program operations. The arrangement of LUN, blocks, and pages is referred to by this module as the part&apos;s geometry.</para><para>The cells within the part can be programmed from a logic 1 to a logic 0 and not the other way around. To change a cell back to a logic 1, the entire block containing that cell must be erased. When a block is erased all bytes contain the value 0xFF. The number of times a block can be erased is finite. Eventually the block wears out and is no longer capable of erasure. As of this writing, the typical flash block can be erased 100,000 or more times.</para><para>The jobs done by this driver typically are:<itemizedlist>
+<listitem><para>8-bit operational mode</para></listitem><listitem><para>Read, Write, and Erase operation</para></listitem></itemizedlist>
+</para><para><bold>Write Operation</bold></para><para>The write call can be used to write a minimum of one byte and a maximum entire flash. If the address offset specified to write is out of flash or if the number of bytes specified from the offset exceed flash boundaries an error is reported back to the user. The write is blocking in nature in that the control is returned back to user only after the write operation is completed successfully or an error is reported.</para><para><bold>Read Operation</bold></para><para>The read call can be used to read a minimum of one byte and maximum of entire flash. If the address offset specified to read is out of flash or if the number of bytes specified from the offset exceed flash boundaries an error is reported back to the user. The read is blocking in nature in that the control is returned back to user only after the read operation is completed successfully or an error is reported.</para><para><bold>Erase Operation</bold></para><para>The erase operations are provided to erase a Block in the Flash memory. The erase call is blocking in nature in that the control is returned back to user only after the erase operation is completed successfully or an error is reported.</para><para><simplesect kind="note"><para>The driver name changed to nandpsu after the change in naming convention.</para></simplesect>
+The driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads, mutual exclusion, virtual memory, cache control, or HW write protection management must be satisfied by the layer above this driver.</para><para><preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who    Date        Changes
+<hruler/>
+
+  1.0   nm     05/06/2014  First release
+  2.0   sb     01/12/2015  Removed Null checks for Buffer passed
+                           as parameter to Read API&apos;s<itemizedlist>
+<listitem><para><ref refid="group__nandpsu__api_1gad7e291db556ad9d33fbd06aa6ab79cb6" kindref="member">XNandPsu_Read()</ref></para></listitem><listitem><para>XNandPsu_ReadPage
+                           Modified</para></listitem><listitem><para><ref refid="group__nandpsu__api_1ga785eaf418c8f7e7c3fb6098ba327b720" kindref="member">XNandPsu_SetFeature()</ref></para></listitem><listitem><para><ref refid="group__nandpsu__api_1gaa6725c5aa761078a438094bad802045e" kindref="member">XNandPsu_GetFeature()</ref>
+                           and made them public.
+                           Removed Failure Return for BCF Error check in
+                           XNandPsu_ReadPage() and added BCH_Error counter
+                           in the instance pointer structure.
+                           Added XNandPsu_Prepare_Cmd API
+                           Replaced</para></listitem><listitem><para>XNandPsu_IntrStsEnable</para></listitem><listitem><para>XNandPsu_IntrStsClear</para></listitem><listitem><para>XNandPsu_IntrClear</para></listitem><listitem><para>XNandPsu_SetProgramReg
+                           with XNandPsu_WriteReg call
+                           Modified <ref refid="xnandpsu_8c" kindref="compound">xnandpsu.c</ref> file API&apos;s with above changes.
+                           Corrected the program command for Set Feature API.
+                           Modified</para></listitem><listitem><para>XNandPsu_OnfiReadStatus</para></listitem><listitem><para>XNandPsu_GetFeature</para></listitem><listitem><para>XNandPsu_SetFeature
+                           to add support for DDR mode.
+                           Changed Convention for SLC/MLC
+                           SLC <ndash/>&gt; HAMMING
+                           MLC <ndash/>&gt; BCH
+                           SlcMlc <ndash/>&gt; IsBCH
+                           Added support for writing BBT signature and version
+                           in page section by enabling XNANDPSU_BBT_NO_OOB.
+                           Removed extra DMA mode initialization from
+                           the XNandPsu_CfgInitialize API.
+                           Modified</para></listitem><listitem><para>XNandPsu_SetEccAddrSize
+                           ECC address now is calculated based upon the
+                           size of spare area
+                           Modified Block Erase API, removed clearing of
+                           packet register before erase.
+                           Clearing Data Interface Register before
+                           XNandPsu_OnfiReset call.
+                           Modified XNandPsu_ChangeTimingMode API supporting
+                           SDR and NVDDR interface for timing modes 0 to 5.
+                           Modified Bbt Signature and Version Offset value for
+                           Oob and No-Oob region.
+  1.0   kpc    17/06/2015  Increased the timeout for complete event to avoid
+                           timeout errors for erase operation on slower devices.
+  1.1   mi     09/16/16 Removed compilation warnings with extra compiler flags.
+  1.1   nsk    11/07/16    Change memcpy to Xil_MemCpy, CR#960462
+  1.2   nsk    01/19/17    Fix for the failure of reading nand first redundant
+                           parameter page. CR#966603
+        ms     02/12/17    Fix for the compilation warning in _g.c file.
+        ms     03/17/17    Added readme.txt file in examples folder for doxygen
+                           generation.
+        ms     04/10/17    Modified Comment lines in nandpsu_example.c to
+                           follow doxygen rules.
+  1.2   nsk    08/08/17    Added support to import example in SDK
+  1.4   nsk    04/10/18    Added ICCARM compiler support. CR#997552.
+  1.5   mus    11/08/18    Updated BBT signature array size  in
+                           <ref refid="struct_x_nand_psu___bbt_desc" kindref="compound">XNandPsu_BbtDesc</ref> structure to fix the compilation
+                           warnings.
+<heading level="1">1.6   sd     06/02/20    Added Clock support</heading>
+</para></listitem></itemizedlist>
+</preformatted></para><para><preformatted>
+  1.6   sd     20/03/20    Added compilation flag
+  1.8   sg     03/18/21    Added validation check for parameter page.
+  1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface &amp; Timing mode info.
+  1.10  akm    10/20/21    Fix gcc warnings.
+  1.10  akm    12/21/21    Validate input parameters before use.
+  1.10  akm    01/05/22    Remove assert checks form static and internal APIs.
+  1.11  akm    03/31/22    Fix unused parameter warning.
+  1.11  akm    03/31/22    Fix misleading-indentation warning.
+  1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
+  1.13  akm    02/13/24    Ensure buffer cache sync.
+  1.13  akm    02/13/24    Avoid loop counter reset.
+  1.13  akm    02/13/24    Always wrap page to device size.
+  1.16  vlt    12/30/25    Update Doxygen comments to include SDT flow details.
+  1.16  vlt    03/14/26    Updated BaseAddress type from u32 to UINTPTR
+                           to support 64-bit addressing.
+  1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards</preformatted></para><para><preformatted>  </preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

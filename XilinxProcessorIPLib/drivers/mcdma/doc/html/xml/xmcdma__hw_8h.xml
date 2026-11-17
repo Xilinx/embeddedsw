@@ -1,0 +1,1756 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmcdma__hw_8h" kind="file">
+    <compoundname>xmcdma_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xmcdma_8h" local="yes">xmcdma.h</includedby>
+    <includedby refid="xmcdma__bd_8c" local="yes">xmcdma_bd.c</includedby>
+    <includedby refid="xmcdma__interrupt__example_8c" local="yes">xmcdma_interrupt_example.c</includedby>
+    <includedby refid="xmcdma__polled__example_8c" local="yes">xmcdma_polled_example.c</includedby>
+    <incdepgraph>
+      <node id="65">
+        <label>xil_io.h</label>
+      </node>
+      <node id="64">
+        <label>xmcdma_hw.h</label>
+        <link refid="xmcdma_hw.h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="68">
+        <label>xmcdma.c</label>
+        <link refid="xmcdma_8c"/>
+      </node>
+      <node id="67">
+        <label>xmcdma.h</label>
+        <link refid="xmcdma_8h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>xmcdma_bd.c</label>
+        <link refid="xmcdma__bd_8c"/>
+      </node>
+      <node id="66">
+        <label>xmcdma_hw.h</label>
+        <link refid="xmcdma_hw.h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>xmcdma_interrupt_example.c</label>
+        <link refid="xmcdma__interrupt__example_8c"/>
+      </node>
+      <node id="73">
+        <label>xmcdma_sinit.c</label>
+        <link refid="xmcdma__sinit_8c"/>
+      </node>
+      <node id="72">
+        <label>xmcdma_selftest.c</label>
+        <link refid="xmcdma__selftest_8c"/>
+      </node>
+      <node id="75">
+        <label>xmcdma_polled_example.c</label>
+        <link refid="xmcdma__polled__example_8c"/>
+      </node>
+      <node id="71">
+        <label>xmcdma_intr.c</label>
+        <link refid="xmcdma__intr_8c"/>
+      </node>
+      <node id="70">
+        <label>xmcdma_g.c</label>
+        <link refid="xmcdma__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Registers offsets</header>
+      <memberdef kind="define" id="group__mcdma_1ga2c8b502909e733902d69a278ed970922" prot="public" static="no">
+        <name>XMCDMA_CCR_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Common control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
+        <referencedby refid="group__mcdma_1ga33076a9ec260fdf36a3bcb8517378e4a" compoundref="xmcdma_8c" startline="307" endline="337">XMcdma_ResetIsDone</referencedby>
+        <referencedby refid="group__mcdma_1ga1cb2b75af04c76888a93ad5b1063cbdc" compoundref="xmcdma_8c" startline="351" endline="383">XMcdma_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga2dd0caa0ecc7aaec2b18524e4c865d7f" prot="public" static="no">
+        <name>XMCDMA_CSR_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Common status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1cb2b75af04c76888a93ad5b1063cbdc" compoundref="xmcdma_8c" startline="351" endline="383">XMcdma_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga8e0f8fdaf9d5241ecef1283409c2e771" prot="public" static="no">
+        <name>XMCDMA_CHEN_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Channel enable register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga91a72a8c74cd2137ff49c83d2e275a93" compoundref="xmcdma_8c" startline="441" endline="448">XMcdma_EnableCh</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae2e0a340aa45b47ccdc6bbd4b49e79db" prot="public" static="no">
+        <name>XMCDMA_CHSER_OFFSET</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Channel service register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga7eceaf95d0f2c23ac4e4c5ce0fdf9920" compoundref="xmcdma_8c" startline="462" endline="476">XMcdma_GetChanServiced</referencedby>
+        <referencedby refid="group__mcdma_1gaf5bbe52004ff30b9cab2d3a1bec4c1fa" compoundref="xmcdma_8c" startline="490" endline="504">XMcdma_GetTxChanServiced</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga7c36825148c527afd4db56b0502fc688" prot="public" static="no">
+        <name>XMCDMA_ERR_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Error register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga3c7508f1e8124b3ed00d589ba1f05bc1" prot="public" static="no">
+        <name>XMCDMA_CHOBS1_OFFSET</name>
+        <initializer>0x440</initializer>
+        <briefdescription>
+<para>Channel observer 1 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga4f41c8f12ea35b8572949e9b09a825f0" prot="public" static="no">
+        <name>XMCDMA_CHOBS2_OFFSET</name>
+        <initializer>0x444</initializer>
+        <briefdescription>
+<para>Channel observer 2 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga92e938a32c87d9c79072c4fafb4b20af" prot="public" static="no">
+        <name>XMCDMA_CHOBS3_OFFSET</name>
+        <initializer>0x448</initializer>
+        <briefdescription>
+<para>Channel observer 3 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae60d92127345e4766e98a65f9859081b" prot="public" static="no">
+        <name>XMCDMA_CHOBS4_OFFSET</name>
+        <initializer>0x44C</initializer>
+        <briefdescription>
+<para>Channel observer 4 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaec2c43d8ce775a7e640f19748a160365" prot="public" static="no">
+        <name>XMCDMA_CHOBS5_OFFSET</name>
+        <initializer>0x450</initializer>
+        <briefdescription>
+<para>Channel observer 5 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga70bb6af6afa88af454ed627ea9b1793e" prot="public" static="no">
+        <name>XMCDMA_CHOBS6_OFFSET</name>
+        <initializer>0x454</initializer>
+        <briefdescription>
+<para>Channel observer 6 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaf1a3dc253a33f785535aac28d0d4e0e8" prot="public" static="no">
+        <name>XMCDMA_SGCACHE_OFFSET</name>
+        <initializer>0x4B0</initializer>
+        <briefdescription>
+<para>Scatter-gather cache register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1fc07ce6abf4692ce13eecfde7bdc25e" compoundref="xmcdma_8c" startline="277" endline="292">XMcdma_SetSGARCache</referencedby>
+        <referencedby refid="group__mcdma_1ga55549abc13232f33a4c689b7e490d7ed" compoundref="xmcdma_8c" startline="250" endline="266">XMcdma_SetSGAWCache</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga183d5cf17526bba9a865badcd2215041" prot="public" static="no">
+        <name>XMCDMA_TXSCHD_TYPE_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Transmit scheduler type register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae52f466ced46671ef522ad4ba665085d" prot="public" static="no">
+        <name>XMCDMA_TX_WRR_REG_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Transmit weighted round-robin register 0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1aa875bfa88080670d2626d7be0fa3f1" compoundref="xmcdma_8c" startline="515" endline="536">XMCdma_GetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga9a9916fa104aa76c134c88d306c0227d" compoundref="xmcdma_8c" startline="548" endline="581">XMCdma_SetChan_Weight</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga00f5aa68dea6d8e41a9e12623655c614" prot="public" static="no">
+        <name>XMCDMA_TX_WRR_REG1_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Transmit weighted round-robin register 1 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1aa875bfa88080670d2626d7be0fa3f1" compoundref="xmcdma_8c" startline="515" endline="536">XMCdma_GetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga9a9916fa104aa76c134c88d306c0227d" compoundref="xmcdma_8c" startline="548" endline="581">XMCdma_SetChan_Weight</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga1e5d565c2b74c82616dd28e9a3e5791b" prot="public" static="no">
+        <name>XMCDMA_TXCH_SERV_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Transmit channel service register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gafd5809a985bdc5f9344a5a88c48b9dfc" prot="public" static="no">
+        <name>XMCDMA_TXAXCACHE_OFFSET</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+<para>Transmit AXI cache register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga8abe39006303f9992b555882c0de2223" prot="public" static="no">
+        <name>XMCDMA_TXINT_SER_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Transmit interrupt service register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga0479c8b7ad51bdf521eeac7fa7658ca6" prot="public" static="no">
+        <name>XMCDMA_CPKTDROP_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Common packet drop register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga0131829d248fef9bf6c05a1bc2350799" prot="public" static="no">
+        <name>XMCDMA_RXCH_SER_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Receive channel service register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac7c878f764f4ebb91988f2f3a11375d2" prot="public" static="no">
+        <name>XMCDMA_RXAXCACHE_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Receive AXI cache register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga1f2b20b0e864d2394ab216041045a685" prot="public" static="no">
+        <name>XMCDMA_RXINT_SER_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Receive interrupt service register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga56b784864d8a2ef34f9e3d9abf1f6800" prot="public" static="no">
+        <name>XMCDMA_CR_OFFSET</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Per-channel control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga792b8ea5ccc876d81e0b3ca0bb3a028b" compoundref="xmcdma_8c" startline="397" endline="431">XMcdma_ChanHwStop</referencedby>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga2bd3b209e9435b35c70cf55d81099353" prot="public" static="no">
+        <name>XMCDMA_SR_OFFSET</name>
+        <initializer>0x44</initializer>
+        <briefdescription>
+<para>Per-channel status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga73ef05cf2c2957f31dcafb8bc0af02ea" prot="public" static="no">
+        <name>XMCDMA_CDESC_OFFSET</name>
+        <initializer>0x48</initializer>
+        <briefdescription>
+<para>Current descriptor pointer register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga34e74ad4836bc9c82d3288ccc41516ae" compoundref="xmcdma__bd_8c" startline="69" endline="92">XMcdma_UpdateChanCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga7594ce0a238f224f52ee5d2d4fdcea4d" prot="public" static="no">
+        <name>XMCDMA_CDESC_MSB_OFFSET</name>
+        <initializer>0x4C</initializer>
+        <briefdescription>
+<para>Current descriptor pointer MSB register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga34e74ad4836bc9c82d3288ccc41516ae" compoundref="xmcdma__bd_8c" startline="69" endline="92">XMcdma_UpdateChanCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gab464213b31aabe7f96f310794d0d8fe4" prot="public" static="no">
+        <name>XMCDMA_TDESC_OFFSET</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+<para>Tail descriptor pointer register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga23a559a5de120907f5a7ec314f715bdc" prot="public" static="no">
+        <name>XMCDMA_TDESC_MSB_OFFSET</name>
+        <initializer>0x54</initializer>
+        <briefdescription>
+<para>Tail descriptor pointer MSB register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gad2ba5c35f332f2550108e16de5df2f61" prot="public" static="no">
+        <name>XMCDMA_PKTDROP_OFFSET</name>
+        <initializer>0x58</initializer>
+        <briefdescription>
+<para>Packet drop count register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gadb2aadef1613ee913329f284452a105d" prot="public" static="no">
+        <name>XMCDMA_TX_PKTCNT_STAT_OFFSET</name>
+        <initializer>0x58</initializer>
+        <briefdescription>
+<para>Transmit packet count status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga677c74ccf0813dfd9fe249f7b15eebf6" compoundref="xmcdma_8c" startline="592" endline="606">XMCdma_GetChan_PktDoneCnt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga62504ea1384823d826c0db1dde322787" prot="public" static="no">
+        <name>XMCDMA_RX_PKTCNT_STAT_OFFSET</name>
+        <initializer>0x5C</initializer>
+        <briefdescription>
+<para>Receive packet count status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga677c74ccf0813dfd9fe249f7b15eebf6" compoundref="xmcdma_8c" startline="592" endline="606">XMCdma_GetChan_PktDoneCnt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga17cc464c70c8fe4367bc91f07f5d6936" prot="public" static="no">
+        <name>XMCDMA_NXTCHAN_OFFSET</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Next channel register block stride. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga792b8ea5ccc876d81e0b3ca0bb3a028b" compoundref="xmcdma_8c" startline="397" endline="431">XMcdma_ChanHwStop</referencedby>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga677c74ccf0813dfd9fe249f7b15eebf6" compoundref="xmcdma_8c" startline="592" endline="606">XMCdma_GetChan_PktDoneCnt</referencedby>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+        <referencedby refid="group__mcdma_1ga34e74ad4836bc9c82d3288ccc41516ae" compoundref="xmcdma__bd_8c" startline="69" endline="92">XMcdma_UpdateChanCDesc</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaac1cce5b84df7edec17374d6029ace57" prot="public" static="no">
+        <name>XMCDMA_NXTOBS_OFFSET</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>Next observer register stride. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga664c2a762730959c5b948609e6ef136d" prot="public" static="no">
+        <name>XMCDMA_RX_OFFSET</name>
+        <initializer>0x500</initializer>
+        <briefdescription>
+<para>Receive path register base offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga7eceaf95d0f2c23ac4e4c5ce0fdf9920" compoundref="xmcdma_8c" startline="462" endline="476">XMcdma_GetChanServiced</referencedby>
+        <referencedby refid="group__mcdma_1gac48d708f62efed396346f941c139bd3d" compoundref="xmcdma_8c" startline="116" endline="195">XMcDma_Initialize</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaa939bd922383b8cf45547a7bc3adedc2" prot="public" static="no">
+        <name>XMCDMA_CCR_RUNSTOP_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Common control run/stop bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga792b8ea5ccc876d81e0b3ca0bb3a028b" compoundref="xmcdma_8c" startline="397" endline="431">XMcdma_ChanHwStop</referencedby>
+        <referencedby refid="group__mcdma_1ga1cb2b75af04c76888a93ad5b1063cbdc" compoundref="xmcdma_8c" startline="351" endline="383">XMcdma_Start</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac0c3f28f72653470dc8ce9c2eaf7665d" prot="public" static="no">
+        <name>XMCDMA_CCR_RESET_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Common control reset bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
+        <referencedby refid="group__mcdma_1ga33076a9ec260fdf36a3bcb8517378e4a" compoundref="xmcdma_8c" startline="307" endline="337">XMcdma_ResetIsDone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga491830a9c3e5ec54fd4294a92488638e" prot="public" static="no">
+        <name>XMCDMA_CSR_HALTED_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Common status halted bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1cb2b75af04c76888a93ad5b1063cbdc" compoundref="xmcdma_8c" startline="351" endline="383">XMcdma_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga23d8646cba01d5ca6efe3111661a093b" prot="public" static="no">
+        <name>XMCDMA_CSR_IDLE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Common status idle bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga14b5170f37b55ac064590faac08d77d7" prot="public" static="no">
+        <name>XMCDMA_IRQ_PKTDROP_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Packet drop interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae21cd834dc0fa38672b21b0dd69ca6c7" prot="public" static="no">
+        <name>XMCDMA_IRQ_IOC_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Interrupt on complete mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaabd1faa395039ac6938d36ba10092b26" compoundref="xmcdma__intr_8c" startline="114" endline="142">XMcdma_ChanIntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga487c7cc449be6ad3fb9c69a33c36dbe2" prot="public" static="no">
+        <name>XMCDMA_IRQ_DELAY_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Delay interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaabd1faa395039ac6938d36ba10092b26" compoundref="xmcdma__intr_8c" startline="114" endline="142">XMcdma_ChanIntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gad2245c9890f67874a0200994a31af385" prot="public" static="no">
+        <name>XMCDMA_IRQ_ERROR_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Error interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaabd1faa395039ac6938d36ba10092b26" compoundref="xmcdma__intr_8c" startline="114" endline="142">XMcdma_ChanIntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga033c69503d0a21b6074acbf2e2f396ce" prot="public" static="no">
+        <name>XMCDMA_IRQ_ALL_MASK</name>
+        <initializer>0x000000F0</initializer>
+        <briefdescription>
+<para>All interrupt sources mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaabd1faa395039ac6938d36ba10092b26" compoundref="xmcdma__intr_8c" startline="114" endline="142">XMcdma_ChanIntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga80aff8cfb75c042ba87a7bdc935660c4" prot="public" static="no">
+        <name>XMCDMA_DELAY_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Interrupt delay counter field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga727b398e240d3682d8e6c4c41b72d602" prot="public" static="no">
+        <name>XMCDMA_COALESCE_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Interrupt coalesce counter field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga9134ac3d4a08d55f97bdf322f306c22b" prot="public" static="no">
+        <name>XMCDMA_PKTDROP_COALESCE_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Packet drop coalesce field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga895c3134dab43c65cfb53a05e277a18e" prot="public" static="no">
+        <name>XMCDMA_COALESCE_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit shift for the coalesce counter field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga349a3ee82a19eae28f90261454bd9f03" prot="public" static="no">
+        <name>XMCDMA_DELAY_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Bit shift for the delay counter field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga6748b48842fff2861afc075ac805e7a1" prot="public" static="no">
+        <name>XMCDMA_CHEN_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Channel enable field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga474770299665996f535b795cf6926b0c" prot="public" static="no">
+        <name>XMCDMA_CHID_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Channel identifier field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae6ce3704c9b7c8fd0cce0914c2c48479" prot="public" static="no">
+        <name>XMCDMA_ERR_INTERNAL_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Internal error bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga91e1a3f85b03103577385d5904cf9bd8" prot="public" static="no">
+        <name>XMCDMA_ERR_SLAVE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Slave error bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga25a67e09d16c279061ed80b8098d05ed" prot="public" static="no">
+        <name>XMCDMA_ERR_DECODE_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Decode error bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga5994f621790d3bc6c6a954ad9831da79" prot="public" static="no">
+        <name>XMCDMA_ERR_SG_INT_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Scatter-gather internal error bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga40a824bd16ed6243d3463e5cf9c24402" prot="public" static="no">
+        <name>XMCDMA_ERR_SG_SLV_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Scatter-gather slave error bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac95974a26cdf622df06c253958640f5c" prot="public" static="no">
+        <name>XMCDMA_ERR_SG_DEC_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Scatter-gather decode error bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga2534d66f32f57807a385168eff941d52" prot="public" static="no">
+        <name>XMCDMA_PKTDROP_CNT_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Packet drop count field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaa2b3e0e057d6e5d07bb35fe400e858f4" prot="public" static="no">
+        <name>XMCDMA_AXUSER_MASK</name>
+        <initializer>0x00000F00</initializer>
+        <briefdescription>
+<para>AXI user sideband field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga7b9937c0df0aed4fcc3c3ddbbc081988" prot="public" static="no">
+        <name>XMCDMA_AXCACHE_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>AXI cache attribute field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac3dc22f3ce129c314c5c6044dc451642" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH0_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga0d2603468cbf73bfcc38ed003f21d133" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH1_MASK</name>
+        <initializer>0x000000F0</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga5de47dfeec5daa8ce61c80cc17c9810e" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH2_MASK</name>
+        <initializer>0x00000F00</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga2f7a4567e3be16e9ae50bccb29acb82c" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH3_MASK</name>
+        <initializer>0x0000F000</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga12035991f5b124d5925538bc2c9628fe" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH4_MASK</name>
+        <initializer>0x000F0000</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga0926ad500a0af14d73792f5f6dfbf7a3" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH5_MASK</name>
+        <initializer>0x00F00000</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gab99911a910fae81237d69f00810ae515" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH6_MASK</name>
+        <initializer>0x0F000000</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gacc941757c20c409219fd5e2064d81736" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH7_MASK</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+<para>Transmit WRR weight mask for channel 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga950a66d762268b06da5b457c548cbbdf" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH_MASK</name>
+        <param><defname>Chan_id</defname></param>
+        <initializer><ref refid="group__mcdma_1ga0856e698e865308dd3ed2df3f87a6661" kindref="member">WRR_MASK</ref>((Chan_id * 4 + 3), Chan_id *4)</initializer>
+        <briefdescription>
+<para>Returns the WRR weight field mask for a transmit channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Chan_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the zero-based WRR channel index within the register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1aa875bfa88080670d2626d7be0fa3f1" compoundref="xmcdma_8c" startline="515" endline="536">XMCdma_GetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga9a9916fa104aa76c134c88d306c0227d" compoundref="xmcdma_8c" startline="548" endline="581">XMCdma_SetChan_Weight</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga5111c4acef7c65579e8baa38596ab45b" prot="public" static="no">
+        <name>XMCDMA_TX_WRRCH_SHIFT</name>
+        <param><defname>Chan_id</defname></param>
+        <initializer>Chan_id * 4</initializer>
+        <briefdescription>
+<para>Returns the bit shift for a transmit channel WRR weight field. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Chan_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the zero-based WRR channel index within the register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1aa875bfa88080670d2626d7be0fa3f1" compoundref="xmcdma_8c" startline="515" endline="536">XMCdma_GetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga9a9916fa104aa76c134c88d306c0227d" compoundref="xmcdma_8c" startline="548" endline="581">XMCdma_SetChan_Weight</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaa7eee98a57c6c0328017d6f4c25ba0d7" prot="public" static="no">
+        <name>XMCDMA_SGAWCACHE_MASK</name>
+        <initializer>0x000F0000</initializer>
+        <briefdescription>
+<para>Scatter-gather AXI write cache field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga55549abc13232f33a4c689b7e490d7ed" compoundref="xmcdma_8c" startline="250" endline="266">XMcdma_SetSGAWCache</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga949cc44a5a8c699e137614f70fb4a834" prot="public" static="no">
+        <name>XMCDMA_SGARCACHE_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>Scatter-gather AXI read cache field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga1fc07ce6abf4692ce13eecfde7bdc25e" compoundref="xmcdma_8c" startline="277" endline="292">XMcdma_SetSGARCache</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga5a752af7c3bf48700b93a85575c12e02" prot="public" static="no">
+        <name>XMCDMA_SGAWCACHE_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit shift for scatter-gather write cache field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga55549abc13232f33a4c689b7e490d7ed" compoundref="xmcdma_8c" startline="250" endline="266">XMcdma_SetSGAWCache</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Buffer Descriptor offsets</header>
+      <description><para>The first 13 words are used by hardware.</para><para>All words after the 13rd word are for software use only. </para></description>
+      <memberdef kind="define" id="group__mcdma_1gaa4cb42f83c73794f30006d4ba2c6b168" prot="public" static="no">
+        <name>XMCDMA_BD_NDESC_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Next descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5cb928c2177632d162e1f83b9df818a4" compoundref="xmcdma__bd_8c" startline="171" endline="246">XMcDma_ChanBdCreate</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac94bf302f257405aaa187ce035e1b58b" prot="public" static="no">
+        <name>XMCDMA_BD_NDESC_MSB_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Next descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5cb928c2177632d162e1f83b9df818a4" compoundref="xmcdma__bd_8c" startline="171" endline="246">XMcDma_ChanBdCreate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gad8085a8fbc188d5d77d6413056d36563" prot="public" static="no">
+        <name>XMCDMA_BD_BUFA_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Buffer address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="591" endline="616">XMcdma_BdSetBufAddr</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga0f6208c8de88c725e7f2fdbcb95ff6ba" prot="public" static="no">
+        <name>XMCDMA_BD_BUFA_MSB_OFFSET</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Buffer address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga8d41e58dd49ca699fa18564c4d1d27f2" prot="public" static="no">
+        <name>XMCDMA_BD_RESERVED_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Reserved field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga679ffa828b3dc343bb2afcf299a155bb" prot="public" static="no">
+        <name>XMCDMA_BD_CTRL_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Control/buffer length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="463" endline="532">XMcdma_BdChainFromHW</referencedby>
+        <referencedby refid="group__mcdma_1ga2388e0cd3c27b0c675f308b74a0e6b21" compoundref="xmcdma__bd_8c" startline="626" endline="637">XMcDma_BdSetCtrl</referencedby>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="339" endline="403">XMcDma_Chan_Sideband_Submit</referencedby>
+        <referencedby refid="group__mcdma_1ga043e7eb1811040fdbdafe288cd4ac5ea" compoundref="xmcdma__bd_8c" startline="266" endline="316">XMcDma_ChanSubmit</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga4cc5399df90593722a232d3a197746b6" prot="public" static="no">
+        <name>XMCDMA_BD_STS_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="463" endline="532">XMcdma_BdChainFromHW</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae324aec4158277e84bdd1f49cc1df0ec" prot="public" static="no">
+        <name>XMCDMA_BD_SIDEBAND_STS_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Side Band Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="463" endline="532">XMcdma_BdChainFromHW</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga7a6198f5b9ef91e0504489807799b53f" prot="public" static="no">
+        <name>XMCDMA_BD_USR0_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>User IP specific word0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga9295d5a6e89fe6a6471371191078b7fc" compoundref="xmcdma__bd_8c" startline="691" endline="713">XMcDma_BdGetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga357821499f1231555343dc309c59c67a" compoundref="xmcdma__bd_8c" startline="655" endline="675">XMcDma_BdSetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="339" endline="403">XMcDma_Chan_Sideband_Submit</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga44ba8f32907f12326dc0bca173bf4ef3" prot="public" static="no">
+        <name>XMCDMA_BD_USR1_OFFSET</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+<para>User IP specific word1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae99f80d9b615d80166508137f69b4087" prot="public" static="no">
+        <name>XMCDMA_BD_USR2_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>User IP specific word2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gab24885a2a69555d394b8cdaad0588677" prot="public" static="no">
+        <name>XMCDMA_BD_USR3_OFFSET</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+<para>User IP specific word3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga061e962de3c4858c4931d6073e2ca5ea" prot="public" static="no">
+        <name>XMCDMA_BD_USR4_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>User IP specific word3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="766" endline="793">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga90860836ea4dafd476cb77345ee652b3" prot="public" static="no">
+        <name>XMCDMA_BD_HAS_DRE_OFFSET</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+<para>First unused field by h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="591" endline="616">XMcdma_BdSetBufAddr</referencedby>
+        <referencedby refid="group__mcdma_1ga5cb928c2177632d162e1f83b9df818a4" compoundref="xmcdma__bd_8c" startline="171" endline="246">XMcDma_ChanBdCreate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae9be82f738eec2bcd42205f77588edd0" prot="public" static="no">
+        <name>XMCDMA_BD_HAS_CTRLSTS_OFFSET</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>BD offset for status/control stream flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga9295d5a6e89fe6a6471371191078b7fc" compoundref="xmcdma__bd_8c" startline="691" endline="713">XMcDma_BdGetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga357821499f1231555343dc309c59c67a" compoundref="xmcdma__bd_8c" startline="655" endline="675">XMcDma_BdSetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga5cb928c2177632d162e1f83b9df818a4" compoundref="xmcdma__bd_8c" startline="171" endline="246">XMcDma_ChanBdCreate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga22f6d540070250f7365039074e75dc3b" prot="public" static="no">
+        <name>XMCDMA_BD_SW_ID_OFFSET</name>
+        <initializer>0x3C</initializer>
+        <briefdescription>
+<para>Sw ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmcdma__hw_8h_1a60e8ca3ab608c4fc538793e8ecbec0b4" prot="public" static="no">
+        <name>XMCDMA_HW_H_</name>
+        <briefdescription>
+<para>Include guard for the MCDMA hardware header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gad92d4a2997ce514691e1587c08a73c44" prot="public" static="no">
+        <name>XMCDMA_BD_CTRL_SBAND_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga20571a1e4804fd5a782810a393e62a95" prot="public" static="no">
+        <name>XMCDMA_BD_CTRL_SOF_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Buffer descriptor start-of-frame control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gab495a570d71de537c394b6bdc09af6f8" prot="public" static="no">
+        <name>XMCDMA_BD_CTRL_EOF_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Buffer descriptor end-of-frame control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="463" endline="532">XMcdma_BdChainFromHW</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gab63387bfec8cf2cd32b13ba8131b10ef" prot="public" static="no">
+        <name>XMCDMA_BD_CTRL_ALL_MASK</name>
+        <initializer>0xC0000000</initializer>
+        <briefdescription>
+<para>Buffer descriptor SOF and EOF control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga2388e0cd3c27b0c675f308b74a0e6b21" compoundref="xmcdma__bd_8c" startline="626" endline="637">XMcDma_BdSetCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac6701f5f17778a7e5e43d6c3df806503" prot="public" static="no">
+        <name>XMCDMA_BD_CTRL_SBAND_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Bit shift for BD sideband control fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga6145ce2c6d47be46f2ad1af7b4c1d9ed" prot="public" static="no">
+        <name>XMCDMA_BD_STS_COMPLETE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Completed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="463" endline="532">XMcdma_BdChainFromHW</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga4cf8f138a6aa698c4909cd08af55b2ae" prot="public" static="no">
+        <name>XMCDMA_BD_STS_DEC_ERR_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Decode error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga38bb1340ac9e46fb06535ad0adf55ebf" prot="public" static="no">
+        <name>XMCDMA_BD_STS_SLV_ERR_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Slave error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga428a5e8889daf1568801a3c5f7a2e0f8" prot="public" static="no">
+        <name>XMCDMA_BD_STS_INT_ERR_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Internal err. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga97efe3950a4ce71ce3e261fec47fe62c" prot="public" static="no">
+        <name>XMCDMA_BD_STS_ALL_ERR_MASK</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+<para>All errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga3dec897e53eab8c9c51c1c4cf42ef909" prot="public" static="no">
+        <name>XMCDMA_BD_STS_RXSOF_MASK</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+<para>First rx pkt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga3f4a2af2b9983267fb2ed168a73fc39c" prot="public" static="no">
+        <name>XMCDMA_BD_STS_RXEOF_MASK</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Last rx pkt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="463" endline="532">XMcdma_BdChainFromHW</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga5bc11287728cc3f92fb10249954567fc" prot="public" static="no">
+        <name>XMCDMA_BD_STS_ALL_MASK</name>
+        <initializer>0xFC000000</initializer>
+        <briefdescription>
+<para>All status bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga503856ae87b576c27939abd0984bad6b" prot="public" static="no">
+        <name>XMCDMA_BD_SIDEBAND_STS_TID_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>BD sideband status TID field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga74e53f799d287ae27524278a1396dcd9" prot="public" static="no">
+        <name>XMCDMA_BD_SIDEBAND_STS_TDEST_MASK</name>
+        <initializer>0x000F0000</initializer>
+        <briefdescription>
+<para>BD sideband status TDEST field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaf5cd172eafefdb8ab10bc8a21b55ff95" prot="public" static="no">
+        <name>XMCDMA_BD_SIDEBAND_STS_TUSER_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>BD sideband status TUSER field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga6c9450f5599737518f76b6ed7df3288c" prot="public" static="no">
+        <name>XMCDMA_MAX_TRANSFER_LEN</name>
+        <initializer>0x03FFFFFF</initializer>
+        <briefdescription>
+<para>Maximum buffer transfer length mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga74ab18630d08c0efd4b0b0bea4ca9c4f" prot="public" static="no">
+        <name>XMCDMA_BD_HW_NUM_BYTES</name>
+        <initializer>52</initializer>
+        <briefdescription>
+<para>Number of bytes hw used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga14c83db2acc2dbfad0f35931bf346242" prot="public" static="no">
+        <name>XMCDMA_BD_START_CLEAR</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Offset to start clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaec981c185a28d3152f0fd7075664b356" prot="public" static="no">
+        <name>XMCDMA_BD_BYTES_TO_CLEAR</name>
+        <initializer>44</initializer>
+        <briefdescription>
+<para>BD-specific bytes to clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaf112290e9e029bcc721065c5ed7fda1f" prot="public" static="no">
+        <name>XMCDMA_BD_HAS_DRE_MASK</name>
+        <initializer>0xF00</initializer>
+        <briefdescription>
+<para>Whether has DRE mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="591" endline="616">XMcdma_BdSetBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga85f765d7b2ec07a6108b8038cabd0898" prot="public" static="no">
+        <name>XMCDMA_BD_WORDLEN_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Whether has DRE mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="591" endline="616">XMcdma_BdSetBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga20f31cecaf2eecfc98d5ced4bc2d9dca" prot="public" static="no">
+        <name>XMCDMA_BD_HAS_DRE_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Whether has DRE shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga5cb928c2177632d162e1f83b9df818a4" compoundref="xmcdma__bd_8c" startline="171" endline="246">XMcDma_ChanBdCreate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gad8dcc0a7d4b9a0438e39bada15b0a6d2" prot="public" static="no">
+        <name>XMCDMA_BD_WORDLEN_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Whether has DRE shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga69fc5e8455668b0219cd07daa93fb06b" prot="public" static="no">
+        <name>XMCDMA_LAST_APPWORD</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Last application word index in the BD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga9295d5a6e89fe6a6471371191078b7fc" compoundref="xmcdma__bd_8c" startline="691" endline="713">XMcDma_BdGetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga357821499f1231555343dc309c59c67a" compoundref="xmcdma__bd_8c" startline="655" endline="675">XMcDma_BdSetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="339" endline="403">XMcDma_Chan_Sideband_Submit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga672d38c867ed030abebccf205d6c6806" prot="public" static="no">
+        <name>XMcdma_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gae7d2724822a0011cbfbe38d9b4dc58cb" prot="public" static="no">
+        <name>XMcdma_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga11c8f0402fe4099e3429e58391bcab76" prot="public" static="no">
+        <name>XMcdma_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__mcdma_1ga672d38c867ed030abebccf205d6c6806" kindref="member">XMcdma_In32</ref>((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>Reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the MCDMA core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1ga11c8f0402fe4099e3429e58391bcab76" kindref="member">XMcdma_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga792b8ea5ccc876d81e0b3ca0bb3a028b" compoundref="xmcdma_8c" startline="397" endline="431">XMcdma_ChanHwStop</referencedby>
+        <referencedby refid="group__mcdma_1gabfe362aabed422da639b3fa8f8d8371b" compoundref="xmcdma_8c" startline="615" endline="640">XMcdma_DumpChanRegs</referencedby>
+        <referencedby refid="group__mcdma_1ga91a72a8c74cd2137ff49c83d2e275a93" compoundref="xmcdma_8c" startline="441" endline="448">XMcdma_EnableCh</referencedby>
+        <referencedby refid="group__mcdma_1ga677c74ccf0813dfd9fe249f7b15eebf6" compoundref="xmcdma_8c" startline="592" endline="606">XMCdma_GetChan_PktDoneCnt</referencedby>
+        <referencedby refid="group__mcdma_1ga1aa875bfa88080670d2626d7be0fa3f1" compoundref="xmcdma_8c" startline="515" endline="536">XMCdma_GetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga7eceaf95d0f2c23ac4e4c5ce0fdf9920" compoundref="xmcdma_8c" startline="462" endline="476">XMcdma_GetChanServiced</referencedby>
+        <referencedby refid="group__mcdma_1gaf5bbe52004ff30b9cab2d3a1bec4c1fa" compoundref="xmcdma_8c" startline="490" endline="504">XMcdma_GetTxChanServiced</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga33076a9ec260fdf36a3bcb8517378e4a" compoundref="xmcdma_8c" startline="307" endline="337">XMcdma_ResetIsDone</referencedby>
+        <referencedby refid="group__mcdma_1ga9a9916fa104aa76c134c88d306c0227d" compoundref="xmcdma_8c" startline="548" endline="581">XMCdma_SetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+        <referencedby refid="group__mcdma_1ga1fc07ce6abf4692ce13eecfde7bdc25e" compoundref="xmcdma_8c" startline="277" endline="292">XMcdma_SetSGARCache</referencedby>
+        <referencedby refid="group__mcdma_1ga55549abc13232f33a4c689b7e490d7ed" compoundref="xmcdma_8c" startline="250" endline="266">XMcdma_SetSGAWCache</referencedby>
+        <referencedby refid="group__mcdma_1ga1cb2b75af04c76888a93ad5b1063cbdc" compoundref="xmcdma_8c" startline="351" endline="383">XMcdma_Start</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaadc2e756c22d357627f6d770533c8354" prot="public" static="no">
+        <name>XMcdma_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__mcdma_1gae7d2724822a0011cbfbe38d9b4dc58cb" kindref="member">XMcdma_Out32</ref>(((BaseAddress) + (RegOffset)), (Data))</initializer>
+        <briefdescription>
+<para>Writes the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the MCDMA core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__mcdma_1gaadc2e756c22d357627f6d770533c8354" kindref="member">XMcdma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga792b8ea5ccc876d81e0b3ca0bb3a028b" compoundref="xmcdma_8c" startline="397" endline="431">XMcdma_ChanHwStop</referencedby>
+        <referencedby refid="group__mcdma_1ga91a72a8c74cd2137ff49c83d2e275a93" compoundref="xmcdma_8c" startline="441" endline="448">XMcdma_EnableCh</referencedby>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
+        <referencedby refid="group__mcdma_1ga9a9916fa104aa76c134c88d306c0227d" compoundref="xmcdma_8c" startline="548" endline="581">XMCdma_SetChan_Weight</referencedby>
+        <referencedby refid="group__mcdma_1ga5a6f8e287e29edd291257dea37570c94" compoundref="xmcdma__bd_8c" startline="728" endline="756">XMcdma_SetChanCoalesceDelay</referencedby>
+        <referencedby refid="group__mcdma_1ga1fc07ce6abf4692ce13eecfde7bdc25e" compoundref="xmcdma_8c" startline="277" endline="292">XMcdma_SetSGARCache</referencedby>
+        <referencedby refid="group__mcdma_1ga55549abc13232f33a4c689b7e490d7ed" compoundref="xmcdma_8c" startline="250" endline="266">XMcdma_SetSGAWCache</referencedby>
+        <referencedby refid="group__mcdma_1ga1cb2b75af04c76888a93ad5b1063cbdc" compoundref="xmcdma_8c" startline="351" endline="383">XMcdma_Start</referencedby>
+        <referencedby refid="group__mcdma_1ga34e74ad4836bc9c82d3288ccc41516ae" compoundref="xmcdma__bd_8c" startline="69" endline="92">XMcdma_UpdateChanCDesc</referencedby>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="106" endline="154">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XMCDMA_HW_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="9" refid="xmcdma__hw_8h_1a60e8ca3ab608c4fc538793e8ecbec0b4" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_HW_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="group__mcdma_1ga2c8b502909e733902d69a278ed970922" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group__mcdma_1ga2dd0caa0ecc7aaec2b18524e4c865d7f" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="group__mcdma_1ga8e0f8fdaf9d5241ecef1283409c2e771" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group__mcdma_1gae2e0a340aa45b47ccdc6bbd4b49e79db" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHSER_OFFSET<sp/><sp/><sp/><sp/><sp/>0x0C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group__mcdma_1ga7c36825148c527afd4db56b0502fc688" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__mcdma_1ga3c7508f1e8124b3ed00d589ba1f05bc1" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHOBS1_OFFSET<sp/><sp/><sp/><sp/>0x440<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__mcdma_1ga4f41c8f12ea35b8572949e9b09a825f0" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHOBS2_OFFSET<sp/><sp/><sp/><sp/>0x444<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__mcdma_1ga92e938a32c87d9c79072c4fafb4b20af" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHOBS3_OFFSET<sp/><sp/><sp/><sp/>0x448<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__mcdma_1gae60d92127345e4766e98a65f9859081b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHOBS4_OFFSET<sp/><sp/><sp/><sp/>0x44C<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__mcdma_1gaec2c43d8ce775a7e640f19748a160365" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHOBS5_OFFSET<sp/><sp/><sp/><sp/>0x450<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__mcdma_1ga70bb6af6afa88af454ed627ea9b1793e" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHOBS6_OFFSET<sp/><sp/><sp/><sp/>0x454<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__mcdma_1gaf1a3dc253a33f785535aac28d0d4e0e8" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_SGCACHE_OFFSET<sp/><sp/><sp/>0x4B0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>MM2S<sp/>Common<sp/>Register<sp/>offset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="group__mcdma_1ga183d5cf17526bba9a865badcd2215041" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_TXSCHD_TYPE_OFFSET<sp/>0x14<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__mcdma_1gae52f466ced46671ef522ad4ba665085d" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRR_REG_OFFSET<sp/><sp/>0x18<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__mcdma_1ga00f5aa68dea6d8e41a9e12623655c614" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRR_REG1_OFFSET<sp/>0x1C<sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__mcdma_1ga1e5d565c2b74c82616dd28e9a3e5791b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TXCH_SERV_OFFSET<sp/><sp/><sp/>0x20<sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__mcdma_1gafd5809a985bdc5f9344a5a88c48b9dfc" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TXAXCACHE_OFFSET<sp/><sp/><sp/>0x24<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__mcdma_1ga8abe39006303f9992b555882c0de2223" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TXINT_SER_OFFSET<sp/><sp/><sp/>0x28<sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>S2MM<sp/>Common<sp/>Register<sp/>offset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="group__mcdma_1ga0479c8b7ad51bdf521eeac7fa7658ca6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_CPKTDROP_OFFSET<sp/><sp/>0x14<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__mcdma_1ga0131829d248fef9bf6c05a1bc2350799" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_RXCH_SER_OFFSET<sp/><sp/>0x18<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__mcdma_1gac7c878f764f4ebb91988f2f3a11375d2" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_RXAXCACHE_OFFSET<sp/>0x1C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="group__mcdma_1ga1f2b20b0e864d2394ab216041045a685" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_RXINT_SER_OFFSET<sp/>0x20<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Per<sp/>Channel<sp/>Register<sp/>offset&apos;s<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="group__mcdma_1ga56b784864d8a2ef34f9e3d9abf1f6800" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__mcdma_1ga2bd3b209e9435b35c70cf55d81099353" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x44<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__mcdma_1ga73ef05cf2c2957f31dcafb8bc0af02ea" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CDESC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x48<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__mcdma_1ga7594ce0a238f224f52ee5d2d4fdcea4d" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CDESC_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group__mcdma_1gab464213b31aabe7f96f310794d0d8fe4" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TDESC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__mcdma_1ga23a559a5de120907f5a7ec314f715bdc" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TDESC_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x54<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="group__mcdma_1gad2ba5c35f332f2550108e16de5df2f61" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_PKTDROP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="group__mcdma_1gadb2aadef1613ee913329f284452a105d" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_PKTCNT_STAT_OFFSET<sp/><sp/><sp/><sp/>0x58<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__mcdma_1ga62504ea1384823d826c0db1dde322787" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_RX_PKTCNT_STAT_OFFSET<sp/><sp/><sp/><sp/>0x5C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__mcdma_1ga17cc464c70c8fe4367bc91f07f5d6936" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_NXTCHAN_OFFSET<sp/><sp/><sp/>0x40<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__mcdma_1gaac1cce5b84df7edec17374d6029ace57" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_NXTOBS_OFFSET<sp/><sp/><sp/><sp/>0x4<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__mcdma_1ga664c2a762730959c5b948609e6ef136d" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_RX_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x500<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group__mcdma_1gaa939bd922383b8cf45547a7bc3adedc2" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CCR_RUNSTOP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="group__mcdma_1gac0c3f28f72653470dc8ce9c2eaf7665d" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CCR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__mcdma_1ga491830a9c3e5ec54fd4294a92488638e" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CSR_HALTED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__mcdma_1ga23d8646cba01d5ca6efe3111661a093b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CSR_IDLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__mcdma_1ga14b5170f37b55ac064590faac08d77d7" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_IRQ_PKTDROP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__mcdma_1gae21cd834dc0fa38672b21b0dd69ca6c7" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_IRQ_IOC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__mcdma_1ga487c7cc449be6ad3fb9c69a33c36dbe2" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_IRQ_DELAY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group__mcdma_1gad2245c9890f67874a0200994a31af385" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_IRQ_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group__mcdma_1ga033c69503d0a21b6074acbf2e2f396ce" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_IRQ_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000F0<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="group__mcdma_1ga80aff8cfb75c042ba87a7bdc935660c4" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_DELAY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="group__mcdma_1ga727b398e240d3682d8e6c4c41b72d602" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_COALESCE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="group__mcdma_1ga9134ac3d4a08d55f97bdf322f306c22b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_PKTDROP_COALESCE_MASK<sp/><sp/><sp/><sp/>0x0000FF00<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="group__mcdma_1ga895c3134dab43c65cfb53a05e277a18e" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_COALESCE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="group__mcdma_1ga349a3ee82a19eae28f90261454bd9f03" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_DELAY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="group__mcdma_1ga6748b48842fff2861afc075ac805e7a1" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="group__mcdma_1ga474770299665996f535b795cf6926b0c" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_CHID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__mcdma_1gae6ce3704c9b7c8fd0cce0914c2c48479" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_INTERNAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="group__mcdma_1ga91e1a3f85b03103577385d5904cf9bd8" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_SLAVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__mcdma_1ga25a67e09d16c279061ed80b8098d05ed" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_DECODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="group__mcdma_1ga5994f621790d3bc6c6a954ad9831da79" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_SG_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group__mcdma_1ga40a824bd16ed6243d3463e5cf9c24402" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_SG_SLV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="group__mcdma_1gac95974a26cdf622df06c253958640f5c" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_ERR_SG_DEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="group__mcdma_1ga2534d66f32f57807a385168eff941d52" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_PKTDROP_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="group__mcdma_1gaa2b3e0e057d6e5d07bb35fe400e858f4" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_AXUSER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="group__mcdma_1ga7b9937c0df0aed4fcc3c3ddbbc081988" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_AXCACHE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000F<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="group__mcdma_1gac3dc22f3ce129c314c5c6044dc451642" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000F<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="group__mcdma_1ga0d2603468cbf73bfcc38ed003f21d133" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000F0<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="group__mcdma_1ga5de47dfeec5daa8ce61c80cc17c9810e" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="group__mcdma_1ga2f7a4567e3be16e9ae50bccb29acb82c" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000F000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="group__mcdma_1ga12035991f5b124d5925538bc2c9628fe" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000F0000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="group__mcdma_1ga0926ad500a0af14d73792f5f6dfbf7a3" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH5_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00F00000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group__mcdma_1gab99911a910fae81237d69f00810ae515" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH6_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0F000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="group__mcdma_1gacc941757c20c409219fd5e2064d81736" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH7_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF0000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="group__mcdma_1ga950a66d762268b06da5b457c548cbbdf" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH_MASK(Chan_id)<sp/><sp/><sp/>WRR_MASK((Chan_id<sp/>*<sp/>4<sp/>+<sp/>3),<sp/>Chan_id<sp/>*4)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143" refid="group__mcdma_1ga5111c4acef7c65579e8baa38596ab45b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_TX_WRRCH_SHIFT(Chan_id)<sp/><sp/>Chan_id<sp/>*<sp/>4</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="group__mcdma_1gaa7eee98a57c6c0328017d6f4c25ba0d7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_SGAWCACHE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000F0000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="group__mcdma_1ga949cc44a5a8c699e137614f70fb4a834" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_SGARCACHE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000F<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="group__mcdma_1ga5a752af7c3bf48700b93a85575c12e02" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_SGAWCACHE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group__mcdma_1gaa4cb42f83c73794f30006d4ba2c6b168" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_NDESC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__mcdma_1gac94bf302f257405aaa187ce035e1b58b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_NDESC_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__mcdma_1gad8085a8fbc188d5d77d6413056d36563" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_BUFA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__mcdma_1ga0f6208c8de88c725e7f2fdbcb95ff6ba" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_BUFA_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0C<sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="group__mcdma_1ga8d41e58dd49ca699fa18564c4d1d27f2" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_RESERVED_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10<sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="group__mcdma_1ga679ffa828b3dc343bb2afcf299a155bb" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14<sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="group__mcdma_1ga4cc5399df90593722a232d3a197746b6" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18<sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="group__mcdma_1gae324aec4158277e84bdd1f49cc1df0ec" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_SIDEBAND_STS_OFFSET<sp/><sp/><sp/>0x1C<sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="group__mcdma_1ga7a6198f5b9ef91e0504489807799b53f" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_USR0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="group__mcdma_1ga44ba8f32907f12326dc0bca173bf4ef3" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_USR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24<sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__mcdma_1gae99f80d9b615d80166508137f69b4087" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_USR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28<sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__mcdma_1gab24885a2a69555d394b8cdaad0588677" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_USR3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2C<sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="group__mcdma_1ga061e962de3c4858c4931d6073e2ca5ea" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_USR4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30<sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="group__mcdma_1ga90860836ea4dafd476cb77345ee652b3" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_HAS_DRE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x34<sp/></highlight></codeline>
+<codeline lineno="171" refid="group__mcdma_1gae9be82f738eec2bcd42205f77588edd0" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_HAS_CTRLSTS_OFFSET<sp/><sp/><sp/><sp/>0x38<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="group__mcdma_1ga22f6d540070250f7365039074e75dc3b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_SW_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3C<sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__mcdma_1gad92d4a2997ce514691e1587c08a73c44" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_CTRL_SBAND_OFFSET<sp/><sp/><sp/><sp/><sp/>0x18<sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="group__mcdma_1ga20571a1e4804fd5a782810a393e62a95" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_CTRL_SOF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="group__mcdma_1gab495a570d71de537c394b6bdc09af6f8" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_CTRL_EOF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="group__mcdma_1gab63387bfec8cf2cd32b13ba8131b10ef" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_CTRL_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group__mcdma_1gac6701f5f17778a7e5e43d6c3df806503" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_CTRL_SBAND_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183" refid="group__mcdma_1ga6145ce2c6d47be46f2ad1af7b4c1d9ed" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_COMPLETE_MASK<sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="184" refid="group__mcdma_1ga4cf8f138a6aa698c4909cd08af55b2ae" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_DEC_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="185" refid="group__mcdma_1ga38bb1340ac9e46fb06535ad0adf55ebf" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_SLV_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="186" refid="group__mcdma_1ga428a5e8889daf1568801a3c5f7a2e0f8" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_INT_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x10000000<sp/></highlight></codeline>
+<codeline lineno="187" refid="group__mcdma_1ga97efe3950a4ce71ce3e261fec47fe62c" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_ALL_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x70000000<sp/></highlight></codeline>
+<codeline lineno="188" refid="group__mcdma_1ga3dec897e53eab8c9c51c1c4cf42ef909" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_RXSOF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000<sp/></highlight></codeline>
+<codeline lineno="189" refid="group__mcdma_1ga3f4a2af2b9983267fb2ed168a73fc39c" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_RXEOF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000<sp/></highlight></codeline>
+<codeline lineno="190" refid="group__mcdma_1ga5bc11287728cc3f92fb10249954567fc" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_STS_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFC000000<sp/></highlight></codeline>
+<codeline lineno="192" refid="group__mcdma_1ga503856ae87b576c27939abd0984bad6b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_SIDEBAND_STS_TID_MASK<sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="group__mcdma_1ga74e53f799d287ae27524278a1396dcd9" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_SIDEBAND_STS_TDEST_MASK<sp/><sp/>0x000F0000<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="group__mcdma_1gaf5cd172eafefdb8ab10bc8a21b55ff95" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_SIDEBAND_STS_TUSER_MASK<sp/><sp/>0x0000FFFF<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196" refid="group__mcdma_1ga6c9450f5599737518f76b6ed7df3288c" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_MAX_TRANSFER_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03FFFFFF<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198" refid="group__mcdma_1ga74ab18630d08c0efd4b0b0bea4ca9c4f" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_HW_NUM_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>52<sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="group__mcdma_1ga14c83db2acc2dbfad0f35931bf346242" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_START_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="group__mcdma_1gaec981c185a28d3152f0fd7075664b356" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_BYTES_TO_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>44<sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="group__mcdma_1gaf112290e9e029bcc721065c5ed7fda1f" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_HAS_DRE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF00<sp/></highlight></codeline>
+<codeline lineno="203" refid="group__mcdma_1ga85f765d7b2ec07a6108b8038cabd0898" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_WORDLEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF<sp/><sp/></highlight></codeline>
+<codeline lineno="205" refid="group__mcdma_1ga20f31cecaf2eecfc98d5ced4bc2d9dca" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_HAS_DRE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="group__mcdma_1gad8dcc0a7d4b9a0438e39bada15b0a6d2" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_BD_WORDLEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="group__mcdma_1ga69fc5e8455668b0219cd07daa93fb06b" refkind="member"><highlight class="preprocessor">#define<sp/>XMCDMA_LAST_APPWORD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211" refid="group__mcdma_1ga672d38c867ed030abebccf205d6c6806" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMcdma_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212" refid="group__mcdma_1gae7d2724822a0011cbfbe38d9b4dc58cb" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_Out32<sp/><sp/><sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="229" refid="group__mcdma_1ga11c8f0402fe4099e3429e58391bcab76" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMcdma_In32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset))</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="246" refid="group__mcdma_1gaadc2e756c22d357627f6d770533c8354" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMcdma_Out32(((BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XMCDMA_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h"/>
+  </compounddef>
+</doxygen>

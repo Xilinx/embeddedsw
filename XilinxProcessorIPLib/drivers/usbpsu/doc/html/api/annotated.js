@@ -1,0 +1,25 @@
+var annotated =
+[
+    [ "audio_dev", "structaudio__dev.html", "structaudio__dev" ],
+    [ "audio_dfu_if", "structaudio__dfu__if.html", "structaudio__dfu__if" ],
+    [ "audio_if", "structaudio__if.html", "structaudio__if" ],
+    [ "composite_dev", "structcomposite__dev.html", "structcomposite__dev" ],
+    [ "dfu_if", "structdfu__if.html", "structdfu__if" ],
+    [ "keyboard_if", "structkeyboard__if.html", "structkeyboard__if" ],
+    [ "SetupPacket", "struct_setup_packet.html", "struct_setup_packet" ],
+    [ "storage_dev", "structstorage__dev.html", "structstorage__dev" ],
+    [ "storage_if", "structstorage__if.html", "structstorage__if" ],
+    [ "transfer", "structtransfer.html", "structtransfer" ],
+    [ "Usb_DevData", "struct_usb___dev_data.html", "struct_usb___dev_data" ],
+    [ "XUsbPsu", "struct_x_usb_psu.html", "struct_x_usb_psu" ],
+    [ "XUsbPsu_Config", "struct_x_usb_psu___config.html", "struct_x_usb_psu___config" ],
+    [ "XUsbPsu_Ep", "struct_x_usb_psu___ep.html", "struct_x_usb_psu___ep" ],
+    [ "XUsbPsu_EpParams", "struct_x_usb_psu___ep_params.html", "struct_x_usb_psu___ep_params" ],
+    [ "XUsbPsu_Event", "union_x_usb_psu___event.html", "union_x_usb_psu___event" ],
+    [ "XUsbPsu_Event_Devt", "struct_x_usb_psu___event___devt.html", "struct_x_usb_psu___event___devt" ],
+    [ "XUsbPsu_Event_Epevt", "struct_x_usb_psu___event___epevt.html", "struct_x_usb_psu___event___epevt" ],
+    [ "XUsbPsu_Event_Gevt", "struct_x_usb_psu___event___gevt.html", "struct_x_usb_psu___event___gevt" ],
+    [ "XUsbPsu_Event_Type", "struct_x_usb_psu___event___type.html", "struct_x_usb_psu___event___type" ],
+    [ "XUsbPsu_EvtBuffer", "struct_x_usb_psu___evt_buffer.html", "struct_x_usb_psu___evt_buffer" ],
+    [ "XUsbPsu_Trb", "struct_x_usb_psu___trb.html", "struct_x_usb_psu___trb" ]
+];

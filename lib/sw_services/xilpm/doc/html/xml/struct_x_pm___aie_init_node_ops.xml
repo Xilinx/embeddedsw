@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_init_node_ops" kind="struct" prot="public">
+    <compoundname>XPm_AieInitNodeOps</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_init_node_ops_1a7892e48aaa67eafd236b5d83013e3db1" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_AieInitNodeOps::InitStart)(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)</definition>
+        <argsstring>)(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>InitStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aiedevice.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aiedevice.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_init_node_ops_1a6c775eb1e7e261055820223087d6f0f5" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_AieInitNodeOps::InitFinish)(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)</definition>
+        <argsstring>)(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>InitFinish</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aiedevice.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aiedevice.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aiedevice.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aiedevice.h" bodystart="26" bodyend="29"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_init_node_ops_1a6c775eb1e7e261055820223087d6f0f5" prot="public" virt="non-virtual"><scope>XPm_AieInitNodeOps</scope><name>InitFinish</name></member>
+      <member refid="struct_x_pm___aie_init_node_ops_1a7892e48aaa67eafd236b5d83013e3db1" prot="public" virt="non-virtual"><scope>XPm_AieInitNodeOps</scope><name>InitStart</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

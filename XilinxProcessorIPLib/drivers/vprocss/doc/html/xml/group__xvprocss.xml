@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xvprocss" kind="group">
+    <compoundname>xvprocss</compoundname>
+    <title>Overview</title>
+    <briefdescription>
+<para>Contains Event Logging routines for xvprocss. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+2.00  dmc  01/11/16 Initial release.
+      dmc  03/03/16 Add events for VDMA configuration and operational errors
+2.20  rco  11/01/16 Change setup ignore messages (for csc, hscaler, vscaler
+                    etc.) severity from Info to Error
+2.30  rco  11/15/16 Make debug log optional (can be disabled via makefile)*
+2.40  vyc  10/04/17 Add 420 support in CSC-only topology
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

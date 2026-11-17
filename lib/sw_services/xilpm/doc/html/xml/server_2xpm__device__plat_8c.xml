@@ -1,0 +1,731 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__device__plat_8c" kind="file">
+    <compoundname>server/xpm_device_plat.c</compoundname>
+    <includes local="yes">xplmi_dma.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__core_8h" local="yes">xpm_core.h</includes>
+    <includes refid="server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__rpucore_8h" local="yes">xpm_rpucore.h</includes>
+    <includes refid="xpm__notifier_8h" local="yes">xpm_notifier.h</includes>
+    <includes refid="xpm__api_8h" local="yes">xpm_api.h</includes>
+    <includes refid="xpm__pmc_8h" local="yes">xpm_pmc.h</includes>
+    <includes refid="xpm__mem_8h" local="yes">xpm_mem.h</includes>
+    <includes refid="server_2xpm__pslpdomain_8h" local="yes">xpm_pslpdomain.h</includes>
+    <includes refid="server_2xpm__psfpdomain_8h" local="yes">xpm_psfpdomain.h</includes>
+    <includes refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includes>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <includes refid="xpm__pldevice_8h" local="yes">xpm_pldevice.h</includes>
+    <includes refid="xpm__aiedevice_8h" local="yes">xpm_aiedevice.h</includes>
+    <incdepgraph>
+      <node id="3427">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="3394" relation="include">
+        </childnode>
+        <childnode refid="3400" relation="include">
+        </childnode>
+        <childnode refid="3428" relation="include">
+        </childnode>
+        <childnode refid="3429" relation="include">
+        </childnode>
+      </node>
+      <node id="3402">
+        <label>xpm_api.h</label>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3386" relation="include">
+        </childnode>
+        <childnode refid="3395" relation="include">
+        </childnode>
+        <childnode refid="3391" relation="include">
+        </childnode>
+        <childnode refid="3403" relation="include">
+        </childnode>
+        <childnode refid="3404" relation="include">
+        </childnode>
+      </node>
+      <node id="3410">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3386" relation="include">
+        </childnode>
+        <childnode refid="3411" relation="include">
+        </childnode>
+      </node>
+      <node id="3398">
+        <label>xpm_clock.h</label>
+        <childnode refid="3388" relation="include">
+        </childnode>
+        <childnode refid="3399" relation="include">
+        </childnode>
+        <childnode refid="3384" relation="include">
+        </childnode>
+        <childnode refid="3394" relation="include">
+        </childnode>
+      </node>
+      <node id="3399">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="3422">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="3424">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="3425" relation="include">
+        </childnode>
+        <childnode refid="3427" relation="include">
+        </childnode>
+        <childnode refid="3412" relation="include">
+        </childnode>
+      </node>
+      <node id="3416">
+        <label>xpm_notifier.h</label>
+        <childnode refid="3401" relation="include">
+        </childnode>
+        <childnode refid="3417" relation="include">
+        </childnode>
+      </node>
+      <node id="3413">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="3389">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3384">
+        <label>xpm_node.h</label>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3386" relation="include">
+        </childnode>
+        <childnode refid="3387" relation="include">
+        </childnode>
+        <childnode refid="3388" relation="include">
+        </childnode>
+      </node>
+      <node id="3430">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="3408">
+        <label>xpm_core.h</label>
+        <childnode refid="3409" relation="include">
+        </childnode>
+        <childnode refid="3383" relation="include">
+        </childnode>
+        <childnode refid="3410" relation="include">
+        </childnode>
+      </node>
+      <node id="3391">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="3426">
+        <label>xpm_bisr_plat.h</label>
+      </node>
+      <node id="3418">
+        <label>xpm_pmc.h</label>
+        <childnode refid="3408" relation="include">
+        </childnode>
+      </node>
+      <node id="3382">
+        <label>xplmi.h</label>
+      </node>
+      <node id="3381">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="3429">
+        <label>xpm_rail.h</label>
+        <childnode refid="3386" relation="include">
+        </childnode>
+        <childnode refid="3430" relation="include">
+        </childnode>
+      </node>
+      <node id="3400">
+        <label>xpm_reset.h</label>
+        <childnode refid="3384" relation="include">
+        </childnode>
+        <childnode refid="3388" relation="include">
+        </childnode>
+        <childnode refid="3401" relation="include">
+        </childnode>
+        <childnode refid="3406" relation="include">
+        </childnode>
+      </node>
+      <node id="3411">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="3390">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3392">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3435">
+        <label>xpm_powerdomain.h</label>
+      </node>
+      <node id="3434">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="3419" relation="include">
+        </childnode>
+        <childnode refid="3435" relation="include">
+        </childnode>
+      </node>
+      <node id="3401">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="3402" relation="include">
+        </childnode>
+        <childnode refid="3395" relation="include">
+        </childnode>
+        <childnode refid="3386" relation="include">
+        </childnode>
+        <childnode refid="3405" relation="include">
+        </childnode>
+      </node>
+      <node id="3437">
+        <label>xpm_aie.h</label>
+        <childnode refid="3425" relation="include">
+        </childnode>
+        <childnode refid="3427" relation="include">
+        </childnode>
+        <childnode refid="3395" relation="include">
+        </childnode>
+        <childnode refid="3410" relation="include">
+        </childnode>
+        <childnode refid="3432" relation="include">
+        </childnode>
+        <childnode refid="3412" relation="include">
+        </childnode>
+        <childnode refid="3383" relation="include">
+        </childnode>
+      </node>
+      <node id="3431">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="3427" relation="include">
+        </childnode>
+        <childnode refid="3395" relation="include">
+        </childnode>
+        <childnode refid="3410" relation="include">
+        </childnode>
+        <childnode refid="3432" relation="include">
+        </childnode>
+      </node>
+      <node id="3419">
+        <label>xpm_mem.h</label>
+        <childnode refid="3383" relation="include">
+        </childnode>
+        <childnode refid="3420" relation="include">
+        </childnode>
+        <childnode refid="3421" relation="include">
+        </childnode>
+        <childnode refid="3423" relation="include">
+        </childnode>
+      </node>
+      <node id="3396">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="3395">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="3405">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="3415">
+        <label>xpm_rpucore_plat.h</label>
+      </node>
+      <node id="3407">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="3394">
+        <label>xpm_power.h</label>
+        <childnode refid="3395" relation="include">
+        </childnode>
+        <childnode refid="3384" relation="include">
+        </childnode>
+        <childnode refid="3396" relation="include">
+        </childnode>
+        <childnode refid="3397" relation="include">
+        </childnode>
+      </node>
+      <node id="3406">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="3409">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="3420">
+        <label>xpm_mem_plat.h</label>
+      </node>
+      <node id="3417">
+        <label>xpm_notifier_plat.h</label>
+      </node>
+      <node id="3421">
+        <label>xpm_requirement.h</label>
+        <childnode refid="3383" relation="include">
+        </childnode>
+        <childnode refid="3401" relation="include">
+        </childnode>
+        <childnode refid="3422" relation="include">
+        </childnode>
+      </node>
+      <node id="3386">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3388">
+        <label>xpm_common.h</label>
+        <childnode refid="3386" relation="include">
+        </childnode>
+        <childnode refid="3389" relation="include">
+        </childnode>
+        <childnode refid="3390" relation="include">
+        </childnode>
+        <childnode refid="3391" relation="include">
+        </childnode>
+        <childnode refid="3392" relation="include">
+        </childnode>
+        <childnode refid="3393" relation="include">
+        </childnode>
+      </node>
+      <node id="3432">
+        <label>xpm_ipi.h</label>
+        <childnode refid="3388" relation="include">
+        </childnode>
+      </node>
+      <node id="3387">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3423">
+        <label>cfu_apb.h</label>
+      </node>
+      <node id="3428">
+        <label>xpm_domain_iso.h</label>
+        <childnode refid="3384" relation="include">
+        </childnode>
+        <childnode refid="3388" relation="include">
+        </childnode>
+      </node>
+      <node id="3403">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="3385">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3380">
+        <label>xpm_device_plat.c</label>
+        <link refid="server/xpm_device_plat.c"/>
+        <childnode refid="3381" relation="include">
+        </childnode>
+        <childnode refid="3382" relation="include">
+        </childnode>
+        <childnode refid="3383" relation="include">
+        </childnode>
+        <childnode refid="3408" relation="include">
+        </childnode>
+        <childnode refid="3412" relation="include">
+        </childnode>
+        <childnode refid="3414" relation="include">
+        </childnode>
+        <childnode refid="3416" relation="include">
+        </childnode>
+        <childnode refid="3402" relation="include">
+        </childnode>
+        <childnode refid="3418" relation="include">
+        </childnode>
+        <childnode refid="3419" relation="include">
+        </childnode>
+        <childnode refid="3424" relation="include">
+        </childnode>
+        <childnode refid="3431" relation="include">
+        </childnode>
+        <childnode refid="3421" relation="include">
+        </childnode>
+        <childnode refid="3433" relation="include">
+        </childnode>
+        <childnode refid="3434" relation="include">
+        </childnode>
+        <childnode refid="3436" relation="include">
+        </childnode>
+      </node>
+      <node id="3393">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="3414">
+        <label>xpm_rpucore.h</label>
+        <childnode refid="3408" relation="include">
+        </childnode>
+        <childnode refid="3415" relation="include">
+        </childnode>
+      </node>
+      <node id="3436">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="3434" relation="include">
+        </childnode>
+        <childnode refid="3437" relation="include">
+        </childnode>
+      </node>
+      <node id="3397">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="3404">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="3412">
+        <label>xpm_regs.h</label>
+        <childnode refid="3413" relation="include">
+        </childnode>
+        <childnode refid="3397" relation="include">
+        </childnode>
+      </node>
+      <node id="3383">
+        <label>xpm_device.h</label>
+        <childnode refid="3384" relation="include">
+        </childnode>
+        <childnode refid="3394" relation="include">
+        </childnode>
+        <childnode refid="3398" relation="include">
+        </childnode>
+        <childnode refid="3400" relation="include">
+        </childnode>
+        <childnode refid="3407" relation="include">
+        </childnode>
+      </node>
+      <node id="3425">
+        <label>xpm_bisr.h</label>
+        <childnode refid="3388" relation="include">
+        </childnode>
+        <childnode refid="3426" relation="include">
+        </childnode>
+      </node>
+      <node id="3433">
+        <label>xpm_debug.h</label>
+        <childnode refid="3388" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2xpm__device__plat_8c_1a99c154ea1d0f801d394231b3f7c61820" prot="public" static="no">
+        <name>SD_DLL_DIV_MAP_RESET_VAL</name>
+        <initializer>(0x50505050U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__device__plat_8c_1a67ce5a0d22732a9fe14051924a4716a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="struct_x_pm___reqm" kindref="compound">XPm_Reqm</ref> *</type>
+        <definition>struct XPm_Reqm* XPmDevice_GetAieReqm</definition>
+        <argsstring>(XPm_Device *Device, XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmDevice_GetAieReqm</name>
+        <param>
+          <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="26" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__device__plat_8c_1a684ac108e977048de1cee5cdd8a003af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PlatDevRequest</definition>
+        <argsstring>(const XPm_Device *Device, const XPm_Subsystem *Subsystem, const u32 QoS, XStatus *Status)</argsstring>
+        <name>PlatDevRequest</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>QoS</declname>
+        </param>
+        <param>
+          <type>XStatus *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="44" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__device__plat_8c_1a22bce89128cab2f67bc088ba49a0287b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDevice_ConfigureADMA</definition>
+        <argsstring>(const u32 Id)</argsstring>
+        <name>XPmDevice_ConfigureADMA</name>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="53" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__device__plat_8c_1a9e15be5be2d9ff236e888a227c22b3c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus ResetSdDllRegs</definition>
+        <argsstring>(const XPm_Device *Device)</argsstring>
+        <name>ResetSdDllRegs</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="86" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__device__plat_8c_1a184c2433dfa8494e6177cd80064a3d00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDevice_SdResetWorkaround</definition>
+        <argsstring>(const XPm_Device *Device)</argsstring>
+        <name>XPmDevice_SdResetWorkaround</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="137" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__device__plat_8c_1a20d4d097a7e182bb5aa78f81466b0f09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDevice_PlatAddParent</definition>
+        <argsstring>(const u32 Id, const u32 ParentId)</argsstring>
+        <name>XPmDevice_PlatAddParent</name>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>ParentId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c" bodystart="154" bodyend="182"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_dma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_rpucore.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_notifier.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_mem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pslpdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psfpdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pldevice.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_aiedevice.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SD_DLL_DIV_MAP_RESET_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x50505050U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Reqm</ref><sp/>*XPmDevice_GetAieReqm(<ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>,<sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*<ref refid="struct_x_pm___reqm_1af4f7e5ee43d1c562d56daa9f7947afef" kindref="member">Subsystem</ref>)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IS_DEV_AIE(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XPmRequirement_Add(Subsystem,<sp/>Device,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)REQUIREMENT_FLAGS(0U,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)REQ_ACCESS_SECURE_NONSECURE,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)REQ_TIME_SHARED),</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/>XPM_DEF_QOS);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>requirement<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm<sp/>=<sp/>XPmDevice_FindRequirement(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>,<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Reqm;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PlatDevRequest(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>QoS,<sp/>XStatus<sp/>*Status)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Subsystem;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IS_DEV_AIE(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Status<sp/>=<sp/>XPmAieDevice_UpdateClockDiv(QoS);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">XStatus<sp/>XPmDevice_ConfigureADMA(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___ps_lp_domain" kindref="compound">XPm_PsLpDomain</ref><sp/>*PsLpd;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PsLpd<sp/>=<sp/>(<ref refid="struct_x_pm___ps_lp_domain" kindref="compound">XPm_PsLpDomain</ref><sp/>*)XPmPower_GetById(PM_POWER_LPD);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PsLpd)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configure<sp/>ADMA<sp/>as<sp/>non-secure<sp/>so<sp/>Linux</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>can<sp/>use<sp/>it.</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>TODO:<sp/>Remove<sp/>this<sp/>when<sp/>security<sp/>config</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>support<sp/>is<sp/>added<sp/>through<sp/>CDO</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PM_DEV_ADMA_0<sp/>&lt;=<sp/>Id)<sp/>&amp;&amp;<sp/>(PM_DEV_ADMA_7<sp/>&gt;=<sp/>Id))<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(PsLpd-&gt;<ref refid="struct_x_pm___ps_lp_domain_1aa79eacf63549b7b0d07c091bc726d2b2" kindref="member">LpdSlcrSecureBaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LPD_SLCR_SECURE_WPROT0_OFFSET,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(PsLpd-&gt;<ref refid="struct_x_pm___ps_lp_domain_1aa79eacf63549b7b0d07c091bc726d2b2" kindref="member">LpdSlcrSecureBaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LPD_SLCR_SECURE_ADMA_0_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Id<sp/>-<sp/>PM_DEV_ADMA_0)<sp/>*<sp/>4U),<sp/>0x1U);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(PsLpd-&gt;<ref refid="struct_x_pm___ps_lp_domain_1aa79eacf63549b7b0d07c091bc726d2b2" kindref="member">LpdSlcrSecureBaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LPD_SLCR_SECURE_WPROT0_OFFSET,<sp/>0x1U);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>ResetSdDllRegs(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*Pmc<sp/>=<sp/>(<ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*)XPmDevice_GetById(PM_DEV_PMC_PROC);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Pmc)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPM_INVALID_DEVICEID;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>Pmc-&gt;<ref refid="struct_x_pm___pmc_1ad38226d3084f1d2aa4ee33e78955ec33" kindref="member">PmcIouSlcrBaseAddr</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PM_DEV_SDIO_0<sp/>==<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SD_DLL_DIV_MAP_RESET_VAL);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SD_DLL_DIV_MAP_RESET_VAL);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device-&gt;Node.Id<sp/>is<sp/>PM_DEV_SDIO_1<sp/>here,<sp/>guaranteed<sp/>by</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>caller<sp/>XPmDevice_SdResetWorkaround<sp/>which<sp/>pre-filters</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>for<sp/>PM_DEV_SDIO_0<sp/>or<sp/>PM_DEV_SDIO_1<sp/>before<sp/>calling<sp/>this</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>function.</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SD_DLL_DIV_MAP_RESET_VAL);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SD_DLL_DIV_MAP_RESET_VAL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal">XStatus<sp/>XPmDevice_SdResetWorkaround(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>As<sp/>per<sp/>EDT-997700<sp/>SD/eMMC<sp/>DLL<sp/>modes<sp/>are<sp/>failing<sp/>after</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>SD<sp/>controller<sp/>reset.<sp/>Reset<sp/>SD_DLL_MAP<sp/>registers<sp/>after</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>reset<sp/>release<sp/>as<sp/>a<sp/>workaround.</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PM_DEV_SDIO_0<sp/>==<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>)<sp/>||<sp/>(PM_DEV_SDIO_1<sp/>==<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>ResetSdDllRegs(Device);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal">XStatus<sp/>XPmDevice_PlatAddParent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ParentId)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*DevPtr<sp/>=<sp/>XPmDevice_GetById(Id);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((u32)XPM_NODECLASS_DEVICE<sp/>==<sp/>NODECLASS(Id))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODESUBCL_DEV_AIE<sp/>==<sp/>NODESUBCLASS(Id)))<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_AieDevice<sp/>*AieDevice<sp/>=<sp/>(XPm_AieDevice<sp/>*)DevPtr;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PlDevice<sp/>*Parent<sp/>=<sp/>(XPm_PlDevice<sp/>*)XPmDevice_GetById(ParentId);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Along<sp/>with<sp/>checking<sp/>validity<sp/>of<sp/>parent,<sp/>check<sp/>if<sp/>parent<sp/>has</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>a<sp/>parent<sp/>with<sp/>exception<sp/>being<sp/>PLD_0.<sp/>This<sp/>is<sp/>to<sp/>prevent</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>broken<sp/>trees</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmPlDevice_IsValidPld(Parent);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AieDevice-&gt;Parent<sp/>=<sp/>Parent;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Parent-&gt;AieDevice<sp/>=<sp/>AieDevice;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPM_INVALID_DEVICEID;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c"/>
+  </compounddef>
+</doxygen>

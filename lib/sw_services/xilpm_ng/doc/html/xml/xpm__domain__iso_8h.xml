@@ -1,0 +1,711 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__domain__iso_8h" kind="file">
+    <compoundname>xpm_domain_iso.h</compoundname>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__domain__iso_8c" local="yes">xpm_domain_iso.c</includedby>
+    <includedby refid="xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="xpm__reset_8c" local="yes">xpm_reset.c</includedby>
+    <includedby refid="xpm__runtime__clock_8c" local="yes">xpm_runtime_clock.c</includedby>
+    <includedby refid="xpm__runtime__reset_8c" local="yes">xpm_runtime_reset.c</includedby>
+    <incdepgraph>
+      <node id="1379">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1384">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1380">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1382">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1377">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="1378">
+        <label>xpm_common.h</label>
+        <childnode refid="1376" relation="include">
+        </childnode>
+        <childnode refid="1379" relation="include">
+        </childnode>
+        <childnode refid="1380" relation="include">
+        </childnode>
+        <childnode refid="1381" relation="include">
+        </childnode>
+        <childnode refid="1382" relation="include">
+        </childnode>
+        <childnode refid="1383" relation="include">
+        </childnode>
+      </node>
+      <node id="1374">
+        <label>xpm_node.h</label>
+        <childnode refid="1375" relation="include">
+        </childnode>
+        <childnode refid="1376" relation="include">
+        </childnode>
+        <childnode refid="1377" relation="include">
+        </childnode>
+        <childnode refid="1378" relation="include">
+        </childnode>
+      </node>
+      <node id="1376">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1373">
+        <label>xpm_domain_iso.h</label>
+        <link refid="xpm_domain_iso.h"/>
+        <childnode refid="1374" relation="include">
+        </childnode>
+        <childnode refid="1378" relation="include">
+        </childnode>
+      </node>
+      <node id="1375">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1383">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1375" relation="include">
+        </childnode>
+        <childnode refid="1384" relation="include">
+        </childnode>
+      </node>
+      <node id="1381">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1376" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1388">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="1386">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="1391">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="1390">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="1387">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="1385">
+        <label>xpm_domain_iso.h</label>
+        <link refid="xpm_domain_iso.h"/>
+        <childnode refid="1386" relation="include">
+        </childnode>
+        <childnode refid="1387" relation="include">
+        </childnode>
+        <childnode refid="1388" relation="include">
+        </childnode>
+        <childnode refid="1389" relation="include">
+        </childnode>
+        <childnode refid="1390" relation="include">
+        </childnode>
+        <childnode refid="1391" relation="include">
+        </childnode>
+      </node>
+      <node id="1389">
+        <label>xpm_reset.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___iso" prot="public">XPm_Iso</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a815e188578a8a3c392d1c588ce1c8ed0" prot="public" static="no">
+        <name>XPM_ISO_DISABLE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Remove (disable) the isolation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a8d9ce093893e826632547b548299d105" prot="public" static="no">
+        <name>XPM_ISO_ENABLE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Apply (enable) the isolation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a21a4b89617ef6dad048d65aa64b7edb4" prot="public" static="no">
+        <name>XPM_ISO_DISABLE_IMMEDIATE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Remove isolation immediately. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1ae5c0050e108615ffcd004b086ecad5ed" prot="public" static="no">
+        <name>XPM_ISO_ENABLE_PENDING</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Set isolation, but pending removal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a7960210ecf26b45852b1fb363e1a77db" prot="public" static="no">
+        <name>PSM_API_DOMAIN_ISO_GETTER_HEADER</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a187f76897c4ea735e94f25c6e73a546b" prot="public" static="no">
+        <name>PSM_API_DOMAIN_ISO_SETTER_HEADER</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a6ac836581f83238de858ff2db49a83e9" prot="public" static="no">
+        <name>PSM_API_DOMAIN_ISO</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1ae905c0de8f2dc6f6afb8d691df122be0" prot="public" static="no">
+        <name>CDO_ISO_ARG_FORMAT_MASK</name>
+        <initializer>(0X00FFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1ac7eda617c7a8e574b2fef3d512eff442" prot="public" static="no">
+        <name>CDO_ISO_DEP_COUNT_MASK</name>
+        <initializer>(0xFF00U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1ac022cbb91a5a16821e8baffe65f2c516" prot="public" static="no">
+        <name>CDO_ISO_DEP_COUNT_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a8f59e1248267e43031202cb1e23045e2" prot="public" static="no">
+        <name>CDO_ISO_ARG_FORMAT</name>
+        <param><defname>ARG</defname></param>
+        <initializer>(ARG &amp; CDO_ISO_ARG_FORMAT_MASK) /* Extract format field of the at given arg */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a3184ed6a28b34d94483998409a660362" prot="public" static="no">
+        <name>CDO_ISO_DEP_COUNT</name>
+        <param><defname>ARG</defname></param>
+        <initializer>((ARG &amp; CDO_ISO_DEP_COUNT_MASK) &gt;&gt; (CDO_ISO_DEP_COUNT_SHIFT))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1af484e0e370edbe645d27197fc048d644" prot="public" static="no">
+        <name>PM_ISO_MAX_NUM_DEPENDENCIES</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1a58cde02820d172b3b465e8597e2a9ca0" prot="public" static="no">
+        <name>ACP_APU_GET_MASK</name>
+        <param><defname>NodeID</defname></param>
+        <initializer>(u32)(ACP_APU0_PORT_EN_MASK &lt;&lt; \
+					      (NODEINDEX(NodeID) - (u32)XPM_NODEIDX_ISO_PL_ACP_APU0))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1acb8e87c8aff308ec45d8aad7652d5af8" prot="public" static="no">
+        <name>PS_DTI_GET_MASK</name>
+        <param><defname>NodeID</defname></param>
+        <initializer>(u32)(PS_DTI0_PORT_EN_MASK &lt;&lt; \
+					      (NODEINDEX(NodeID) - (u32)XPM_NODEIDX_ISO_PL_PS_DTI0))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__domain__iso_8h_1ae2fcb7d9dafa6dd404e4f4890a979a51" prot="public" static="no">
+        <name>ISOID</name>
+        <param><defname>x</defname></param>
+        <initializer>NODEID(XPM_NODECLASS_ISOLATION, XPM_NODESUBCL_ISOLATION, XPM_NODETYPE_ISOLATION, x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__domain__iso_8h_1aceda4625ec89c3f52eceb91442cd276f" prot="public" static="no">
+        <name>XPm_IsoPolarity</name>
+        <enumvalue id="xpm__domain__iso_8h_1aceda4625ec89c3f52eceb91442cd276fa43ad983a1a6a3c04a137ec0471cdfe85" prot="public">
+          <name>ACTIVE_LOW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aceda4625ec89c3f52eceb91442cd276fafe240f1952811db0c18b4355fb28190f" prot="public">
+          <name>ACTIVE_HIGH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615c" prot="public" static="no">
+        <name>XPm_IsoCdoArgsFormat</name>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca607f427654d9402b181da499c62103e7" prot="public">
+          <name>SINGLE_WORD_ACTIVE_HIGH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca7b3aea93e30b55a31ff05e20a504506e" prot="public">
+          <name>SINGLE_WORD_ACTIVE_LOW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca649d7a7318ebe1263cbf801375584f8f" prot="public">
+          <name>PSM_SINGLE_WORD_ACTIVE_HIGH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615cac1caf87b0df34092a02f7546bec4fee6" prot="public">
+          <name>PSM_SINGLE_WORD_ACTIVE_LOW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca79add27cd0e42bed7deea79452028344" prot="public">
+          <name>POWER_DOMAIN_DEPENDENCY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca0bc5fa9cbf3cd183b1fd80170eb53fec" prot="public">
+          <name>PM_ISO_FORMAT_AFI_FM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615cab96eb7b5dcbe0331cfcc6e16c4df1643" prot="public">
+          <name>PM_ISO_FORMAT_AFI_FS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca529e5c6f97cc1abb4e2c8dabfeb8c77c" prot="public">
+          <name>PM_ISO_FORMAT_CHI_FPD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca8c76decbc63a56baa67d003af8df179b" prot="public">
+          <name>PM_ISO_FORMAT_ACP_APU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1aec314cdd8f71546ba1b71d503ba0615ca6b9706f4f4ab6c19e65080c28bb58643" prot="public">
+          <name>PM_ISO_FORMAT_PS_DTI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="51" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__domain__iso_8h_1a701bae905d0db267bd692ec02a2ae1e7" prot="public" static="no">
+        <name>XPm_IsoStates</name>
+        <enumvalue id="xpm__domain__iso_8h_1a701bae905d0db267bd692ec02a2ae1e7afa7fdd9e93b0ed9b0cad795461da143c" prot="public">
+          <name>PM_ISOLATION_ON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1a701bae905d0db267bd692ec02a2ae1e7a909885ee8f072dfdf1c7e8717d856b8e" prot="public">
+          <name>PM_ISOLATION_OFF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__domain__iso_8h_1a701bae905d0db267bd692ec02a2ae1e7a0a2f227346da12ce9ab5899f94db624b" prot="public">
+          <name>PM_ISOLATION_REMOVE_PENDING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="65" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__domain__iso_8h_1ae14501e394858eac7b5eff52837fb935" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDomainIso_NodeInit</definition>
+        <argsstring>(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format, const u32 *Dependencies, u32 NumDependencies)</argsstring>
+        <name>XPmDomainIso_NodeInit</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Format</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Dependencies</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumDependencies</declname>
+        </param>
+        <briefdescription>
+<para>Allocate, initialize, and register an isolation node. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Initializes the node in the isolation-on state, stores its format and
+    mask, copies the dependency IDs, and publishes it in the isolation
+    node table at the index encoded by NodeId.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unique isolation node ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the isolation control register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit mask controlling isolation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Isolation control format. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dependencies</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of dependency node IDs to copy into the node; must be non-NULL when NumDependencies is nonzero. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumDependencies</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of IDs in Dependencies; must not exceed PM_ISO_MAX_NUM_DEPENDENCIES.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS after the node is registered, or XST_FAILURE if the node index is out of range or allocation fails. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.c" bodystart="175" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__domain__iso_8h_1a27c87053370387a9357ee5898e1b3a53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDomainIso_Control</definition>
+        <argsstring>(u32 IsoIdx, u32 Enable)</argsstring>
+        <name>XPmDomainIso_Control</name>
+        <param>
+          <type>u32</type>
+          <declname>IsoIdx</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Isolation control handling. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IsoIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Isolation node index that need to control </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Desired isolation output state. 0: isolation removal or disable 1: isolation installation or enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or error code.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.c" bodystart="229" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__domain__iso_8h_1a137df15ff4da70e90ba549b4150606f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDomainIso_ProcessPending</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmDomainIso_ProcessPending</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Isolation control process pending This function is used as &quot;refreshing&quot; of all isolation nodes state to make sure all pending isolation got attention and being process further. </para>        </briefdescription>
+        <detaileddescription>
+<para>This should be called at device state transition. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IsoIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Isolation node index that need to control </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Desired isolation output state. 0: isolation removal or disable 1: isolation installation or enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or error code.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.c" bodystart="299" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__domain__iso_8h_1a0278572d4268dc96003acfb09402e2b1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused void</type>
+        <definition>static maybe_unused void XPmDomainIso_CpmPcieIsoRemoval</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmDomainIso_CpmPcieIsoRemoval</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="79" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_DOMAIN_ISO_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_DOMAIN_ISO_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_ISO_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor">#define<sp/>XPM_ISO_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor">#define<sp/>XPM_ISO_DISABLE_IMMEDIATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#define<sp/>XPM_ISO_ENABLE_PENDING<sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#define<sp/>PSM_API_DOMAIN_ISO_GETTER_HEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_DOMAIN_ISO_SETTER_HEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_DOMAIN_ISO<sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CDO_ISO_ARG_FORMAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00FFU)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CDO_ISO_DEP_COUNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFF00U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CDO_ISO_DEP_COUNT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CDO_ISO_ARG_FORMAT(ARG)<sp/>(ARG<sp/>&amp;<sp/>CDO_ISO_ARG_FORMAT_MASK)<sp/></highlight><highlight class="comment">/*<sp/>Extract<sp/>format<sp/>field<sp/>of<sp/>the<sp/>at<sp/>given<sp/>arg<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CDO_ISO_DEP_COUNT(ARG)<sp/>((ARG<sp/>&amp;<sp/>CDO_ISO_DEP_COUNT_MASK)<sp/>&gt;&gt;<sp/>(CDO_ISO_DEP_COUNT_SHIFT))</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_ISO_MAX_NUM_DEPENDENCIES<sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ACP_APU_GET_MASK(NodeID)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(ACP_APU0_PORT_EN_MASK<sp/>&lt;&lt;<sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODEINDEX(NodeID)<sp/>-<sp/>(u32)XPM_NODEIDX_ISO_PL_ACP_APU0))</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PS_DTI_GET_MASK(NodeID)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(PS_DTI0_PORT_EN_MASK<sp/>&lt;&lt;<sp/>\</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODEINDEX(NodeID)<sp/>-<sp/>(u32)XPM_NODEIDX_ISO_PL_PS_DTI0))</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>Node;<sp/><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Format;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumDependencies;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Dependencies[PM_ISO_MAX_NUM_DEPENDENCIES];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}XPm_Iso;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Polarity<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACTIVE_LOW,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACTIVE_HIGH,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}XPm_IsoPolarity;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SINGLE_WORD_ACTIVE_HIGH,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SINGLE_WORD_ACTIVE_LOW,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PSM_SINGLE_WORD_ACTIVE_HIGH,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PSM_SINGLE_WORD_ACTIVE_LOW,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>POWER_DOMAIN_DEPENDENCY,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISO_FORMAT_AFI_FM,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISO_FORMAT_AFI_FS,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISO_FORMAT_CHI_FPD,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISO_FORMAT_ACP_APU,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISO_FORMAT_PS_DTI,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}XPm_IsoCdoArgsFormat;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Isolation<sp/>states<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISOLATION_ON,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISOLATION_OFF,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_ISOLATION_REMOVE_PENDING,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}XPm_IsoStates;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISOID(x)<sp/>\</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NODEID(XPM_NODECLASS_ISOLATION,<sp/>XPM_NODESUBCL_ISOLATION,<sp/>XPM_NODETYPE_ISOLATION,<sp/>x)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">XStatus<sp/>XPmDomainIso_NodeInit(u32<sp/>NodeId,<sp/>u32<sp/>BaseAddress,<sp/>u32<sp/>Mask,<sp/>u32<sp/>Format,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>Dependencies,<sp/>u32<sp/>NumDependencies);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">XStatus<sp/>XPmDomainIso_Control(u32<sp/>IsoIdx,<sp/>u32<sp/>Enable);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">XStatus<sp/>XPmDomainIso_ProcessPending(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmDomainIso_CpmPcieIsoRemoval(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>unused<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_DOMAIN_ISO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_scu_gic___config" kind="struct" prot="public">
+    <compoundname>XScuGic_Config</compoundname>
+    <includes local="no">xscugic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_scu_gic___config_1a003522c9b6a6db98f6e1cf9f3dc42d1b" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XScuGic_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Compatible string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" compoundref="xscugic__sinit_8c" startline="126" endline="142">XScuGic_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_gic___config_1a699bf6b8bb8bfbb652b647b78cfae695" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XScuGic_Config::DistBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>DistBaseAddress</name>
+        <briefdescription>
+<para>Distributor Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" compoundref="xscugic_8c" startline="494" endline="587">XScuGic_CfgInitialize</referencedby>
+        <referencedby refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" compoundref="xscugic_8c" startline="1544" endline="1571">XScuGic_IsInitialized</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_gic___config_1a1bb3866706357e2cd84c657e0e703986" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XScuGic_Config::CpuBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>CpuBaseAddress</name>
+        <briefdescription>
+<para>CPU Interface Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="209" endline="330">ScuGicExample</referencedby>
+        <referencedby refid="xscugic__tapp__example_8c_1afc90342b59ae4675049ce95603456339" compoundref="xscugic__tapp__example_8c" startline="193" endline="239">ScuGicInterruptSetup</referencedby>
+        <referencedby refid="xscugic__tapp__example_8c_1ab990ab0ba6edb93226c0f59f1201c187" compoundref="xscugic__tapp__example_8c" startline="141" endline="168">ScuGicSelfTestExample</referencedby>
+        <referencedby refid="xscugic__low__level__example_8c_1a41e86f1c34d18e351ce42a5aa0c4ce2e" compoundref="xscugic__low__level__example_8c" startline="239" endline="253">SetupInterruptSystem</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_gic___config_1a7ea39fc648dff09faa2a238e9a054089" prot="public" static="no" mutable="no">
+        <type>XScuGic_VectorTableEntry</type>
+        <definition>XScuGic_VectorTableEntry XScuGic_Config::HandlerTable[XSCUGIC_MAX_NUM_INTR_INPUTS]</definition>
+        <argsstring>[XSCUGIC_MAX_NUM_INTR_INPUTS]</argsstring>
+        <name>HandlerTable</name>
+        <briefdescription>
+<para>Vector table of interrupt handlers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" compoundref="xscugic_8c" startline="494" endline="587">XScuGic_CfgInitialize</referencedby>
+        <referencedby refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" compoundref="xscugic_8c" startline="609" endline="634">XScuGic_Connect</referencedby>
+        <referencedby refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" compoundref="xscugic_8c" startline="648" endline="693">XScuGic_Disconnect</referencedby>
+        <referencedby refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" compoundref="xscugic__intr_8c" startline="92" endline="160">XScuGic_InterruptHandler</referencedby>
+        <referencedby refid="group__scugic__api_1gac1d1444968ff82f78505eeae32a2e471" compoundref="xscugic__hw_8c" startline="551" endline="574">XScuGic_RegisterHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="228" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_x_scu_gic___config_1a1bb3866706357e2cd84c657e0e703986" prot="public" virt="non-virtual"><scope>XScuGic_Config</scope><name>CpuBaseAddress</name></member>
+      <member refid="struct_x_scu_gic___config_1a699bf6b8bb8bfbb652b647b78cfae695" prot="public" virt="non-virtual"><scope>XScuGic_Config</scope><name>DistBaseAddress</name></member>
+      <member refid="struct_x_scu_gic___config_1a7ea39fc648dff09faa2a238e9a054089" prot="public" virt="non-virtual"><scope>XScuGic_Config</scope><name>HandlerTable</name></member>
+      <member refid="struct_x_scu_gic___config_1a003522c9b6a6db98f6e1cf9f3dc42d1b" prot="public" virt="non-virtual"><scope>XScuGic_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

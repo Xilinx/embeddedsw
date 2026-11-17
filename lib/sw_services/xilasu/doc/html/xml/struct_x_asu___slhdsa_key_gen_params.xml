@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___slhdsa_key_gen_params" kind="struct" prot="public">
+    <compoundname>XAsu_SlhdsaKeyGenParams</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_key_gen_params_1a579de6584fbde781e4b1354ac8c523d8" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaKeyGenParams::SkOutAddr</definition>
+        <argsstring></argsstring>
+        <name>SkOutAddr</name>
+        <briefdescription>
+<para>Address of the secret key output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" compoundref="xasu__keymanager__common_8c" startline="533" endline="575">XAsu_KmValidateSlhdsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_key_gen_params_1afc96376a69bb871298f58a68a231ec3c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaKeyGenParams::PkOutAddr</definition>
+        <argsstring></argsstring>
+        <name>PkOutAddr</name>
+        <briefdescription>
+<para>Address of the public key output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" compoundref="xasu__keymanager__common_8c" startline="533" endline="575">XAsu_KmValidateSlhdsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_key_gen_params_1a5f0414e586d3d61997a7983791c4de1b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaKeyGenParams::SkOutLen</definition>
+        <argsstring></argsstring>
+        <name>SkOutLen</name>
+        <briefdescription>
+<para>Length of the secret key output buffer in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="369" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" compoundref="xasu__keymanager__common_8c" startline="533" endline="575">XAsu_KmValidateSlhdsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_key_gen_params_1a55628c0f8fba9327655cfb7bce2f9694" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaKeyGenParams::PkOutLen</definition>
+        <argsstring></argsstring>
+        <name>PkOutLen</name>
+        <briefdescription>
+<para>Length of the public key output buffer in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" compoundref="xasu__keymanager__common_8c" startline="533" endline="575">XAsu_KmValidateSlhdsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_key_gen_params_1a0d596dd10659db0ab1d9529bcbc751d1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaKeyGenParams::ParamSet</definition>
+        <argsstring></argsstring>
+        <name>ParamSet</name>
+        <briefdescription>
+<para>Parameter set selector (XASU_SLHDSA_PARAM_*). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" compoundref="xasu__keymanager__common_8c" startline="533" endline="575">XAsu_KmValidateSlhdsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_key_gen_params_1af6378d1eb432303d5eb53f2775ac9dfe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaKeyGenParams::Reserved[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains info for the SLH-DSA key pair generation parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="366" bodyend="373"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___slhdsa_key_gen_params_1a0d596dd10659db0ab1d9529bcbc751d1" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaKeyGenParams</scope><name>ParamSet</name></member>
+      <member refid="struct_x_asu___slhdsa_key_gen_params_1afc96376a69bb871298f58a68a231ec3c" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaKeyGenParams</scope><name>PkOutAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_key_gen_params_1a55628c0f8fba9327655cfb7bce2f9694" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaKeyGenParams</scope><name>PkOutLen</name></member>
+      <member refid="struct_x_asu___slhdsa_key_gen_params_1af6378d1eb432303d5eb53f2775ac9dfe" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaKeyGenParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___slhdsa_key_gen_params_1a579de6584fbde781e4b1354ac8c523d8" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaKeyGenParams</scope><name>SkOutAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_key_gen_params_1a5f0414e586d3d61997a7983791c4de1b" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaKeyGenParams</scope><name>SkOutLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

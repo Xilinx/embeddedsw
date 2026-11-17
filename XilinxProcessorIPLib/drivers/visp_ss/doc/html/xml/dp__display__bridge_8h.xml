@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dp__display__bridge_8h" kind="file">
+    <compoundname>dp_display_bridge.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includedby refid="dp__display__bridge_8c" local="yes">dp_display_bridge.c</includedby>
+    <incdepgraph>
+      <node id="5348">
+        <label>dp_display_bridge.h</label>
+        <link refid="dp_display_bridge.h"/>
+        <childnode refid="5349" relation="include">
+        </childnode>
+        <childnode refid="5350" relation="include">
+        </childnode>
+      </node>
+      <node id="5350">
+        <label>xvidc.h</label>
+      </node>
+      <node id="5349">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5352">
+        <label>dp_display_bridge.c</label>
+      </node>
+      <node id="5351">
+        <label>dp_display_bridge.h</label>
+        <link refid="dp_display_bridge.h"/>
+        <childnode refid="5352" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="dp__display__bridge_8h_1a7f351cdd3df1a611cb394dbec83c80c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DpDisplayBridge_Init</definition>
+        <argsstring>(u32 Width, u32 Height, XVidC_ColorFormat MemCfmt, u32 Stride, u32 ChromaOffset)</argsstring>
+        <name>DpDisplayBridge_Init</name>
+        <param>
+          <type>u32</type>
+          <declname>Width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Height</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>MemCfmt</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Stride</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ChromaOffset</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the ISP -&gt; DisplayPort live output bridge. </para>        </briefdescription>
+        <detaileddescription>
+<para>Brings up the clock wizard, DC live input path, VTC, frmbuf_rd, live-input GPIO and the DP transmitter. After this call the DP link trains on hotplug and the DC continuously displays whatever frame frmbuf_rd points at.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Active width in pixels (e.g. 1920). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Active height in pixels (e.g. 1080). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MemCfmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Memory color format of the DDR frames written by the ISP (must be XVIDC_CSF_MEM_RGB8; other formats are skipped). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stride</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Frame buffer stride in bytes (from the frmbuf_wr setup). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChromaOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte offset from luma base to chroma plane (unused for RGB).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, otherwise an error code.</para></simplesect>
+Initialize the ISP -&gt; DisplayPort live output bridge. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.c" bodystart="479" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="dp__display__bridge_8h_1aa3ce119de11c60a3d8264b5271a9aa8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpDisplayBridge_UpdateFrame</definition>
+        <argsstring>(u64 LumaAddr, u64 ChromaAddr)</argsstring>
+        <name>DpDisplayBridge_UpdateFrame</name>
+        <param>
+          <type>u64</type>
+          <declname>LumaAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>ChromaAddr</declname>
+        </param>
+        <briefdescription>
+<para>Point the DisplayPort datapath at the latest completed ISP frame. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call this from the frmbuf_wr done-callback with the address of the frame that is ready for display (the read pointer buffer).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LumaAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DDR address of the luma plane of the ready frame. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChromaAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DDR address of the chroma plane (LumaAddr + ChromaOffset).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+Point the DisplayPort datapath at the latest completed ISP frame. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.c" bodystart="597" bodyend="626"/>
+      </memberdef>
+      <memberdef kind="function" id="dp__display__bridge_8h_1aedee33149756c30c9d15be826d90a711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DpDisplayBridge_IsReady</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpDisplayBridge_IsReady</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Query whether the bridge finished initialization successfully. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>1 if ready to accept frame updates, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.c" bodystart="629" bodyend="632"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>@file<sp/>dp_display_bridge.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>@brief<sp/>ISP<sp/>(VISP<sp/>SS)<sp/>-&gt;<sp/>DisplayPort<sp/>live<sp/>output<sp/>bridge.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Mirrors<sp/>the<sp/>role<sp/>of<sp/>vmix_hdmi_bridge<sp/>for<sp/>the<sp/>DisplayPort<sp/>datapath.<sp/>It<sp/>takes</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>the<sp/>frames<sp/>the<sp/>ISP<sp/>writes<sp/>to<sp/>DDR<sp/>via<sp/>the<sp/>Frame<sp/>Buffer<sp/>Writer<sp/>and<sp/>streams</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>them<sp/>out<sp/>to<sp/>a<sp/>DisplayPort<sp/>monitor<sp/>through<sp/>the<sp/>design&apos;s<sp/>live<sp/>pipeline:</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/>ISP<sp/>-&gt;<sp/>frmbuf_wr<sp/>-&gt;<sp/>DDR<sp/>-&gt;<sp/>frmbuf_rd<sp/>-&gt;<sp/>VTC<sp/>-&gt;<sp/>DC<sp/>(live<sp/>input)<sp/>-&gt;<sp/>DP<sp/>TX</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>The<sp/>bridge<sp/>programs<sp/>the<sp/>frame-buffer<sp/>reader<sp/>(frmbuf_rd),<sp/>the<sp/>video<sp/>timing</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>controller<sp/>(VTC),<sp/>the<sp/>live-input<sp/>GPIO<sp/>mux,<sp/>the<sp/>Display<sp/>Controller<sp/>(DC)<sp/>live</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>input<sp/>path<sp/>(RGB<sp/>passthrough)<sp/>and<sp/>the<sp/>MMI<sp/>DisplayPort<sp/>transmitter<sp/>(link</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>training<sp/>happens<sp/>via<sp/>the<sp/>DP<sp/>HPD<sp/>interrupt).</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>Format<sp/>note:<sp/>only<sp/>RGB888<sp/>is<sp/>supported.<sp/>The<sp/>ISP<sp/>/<sp/>frmbuf_wr<sp/>output<sp/>must<sp/>be</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>8-bit<sp/>RGB<sp/>(XVIDC_CSF_MEM_RGB8);<sp/>any<sp/>other<sp/>format<sp/>is<sp/>skipped<sp/>by<sp/>the<sp/>bridge.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DP_DISPLAY_BRIDGE_H</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DP_DISPLAY_BRIDGE_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DpDisplayBridge_Init(u32<sp/>Width,<sp/>u32<sp/>Height,<sp/>XVidC_ColorFormat<sp/>MemCfmt,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Stride,<sp/>u32<sp/>ChromaOffset);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpDisplayBridge_UpdateFrame(u64<sp/>LumaAddr,<sp/>u64<sp/>ChromaAddr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DpDisplayBridge_IsReady(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DP_DISPLAY_BRIDGE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/dp_display_bridge.h"/>
+  </compounddef>
+</doxygen>

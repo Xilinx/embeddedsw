@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ocp_cert_params" kind="struct" prot="public">
+    <compoundname>XAsu_OcpCertParams</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ocp_cert_params_1a51c1c6fa4113b532ca44fff879eab74e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpCertParams::CertBufAddr</definition>
+        <argsstring></argsstring>
+        <name>CertBufAddr</name>
+        <briefdescription>
+<para>Certificate buffer address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="68" endline="82">XAsu_OcpValidateCertParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_cert_params_1a11170b8674a8de5387a04058700a8c83" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpCertParams::CertActualSizeAddr</definition>
+        <argsstring></argsstring>
+        <name>CertActualSizeAddr</name>
+        <briefdescription>
+<para>Address at which the actual size of the generated certificate is written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="68" endline="82">XAsu_OcpValidateCertParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_cert_params_1a92f93e1c17fe3d3844afda84fb033303" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpCertParams::CertBufLen</definition>
+        <argsstring></argsstring>
+        <name>CertBufLen</name>
+        <briefdescription>
+<para>Certificate buffer length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="68" endline="82">XAsu_OcpValidateCertParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_cert_params_1ac399fb1b25745f8c06a56cb6eae1ef29" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpCertParams::DevKeySel</definition>
+        <argsstring></argsstring>
+        <name>DevKeySel</name>
+        <briefdescription>
+<para>Device key type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="68" endline="82">XAsu_OcpValidateCertParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains OCP params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="145" bodyend="151"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ocp_cert_params_1a11170b8674a8de5387a04058700a8c83" prot="public" virt="non-virtual"><scope>XAsu_OcpCertParams</scope><name>CertActualSizeAddr</name></member>
+      <member refid="struct_x_asu___ocp_cert_params_1a51c1c6fa4113b532ca44fff879eab74e" prot="public" virt="non-virtual"><scope>XAsu_OcpCertParams</scope><name>CertBufAddr</name></member>
+      <member refid="struct_x_asu___ocp_cert_params_1a92f93e1c17fe3d3844afda84fb033303" prot="public" virt="non-virtual"><scope>XAsu_OcpCertParams</scope><name>CertBufLen</name></member>
+      <member refid="struct_x_asu___ocp_cert_params_1ac399fb1b25745f8c06a56cb6eae1ef29" prot="public" virt="non-virtual"><scope>XAsu_OcpCertParams</scope><name>DevKeySel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

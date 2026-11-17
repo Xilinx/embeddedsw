@@ -1,0 +1,406 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__server__libcaps_8h" kind="file">
+    <compoundname>xsecure_server_libcaps.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xsecure_config.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includedby refid="xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="2ve__2vm_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
+    <incdepgraph>
+      <node id="3947">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="3948" relation="include">
+        </childnode>
+        <childnode refid="3944" relation="include">
+        </childnode>
+        <childnode refid="3949" relation="include">
+        </childnode>
+        <childnode refid="3950" relation="include">
+        </childnode>
+        <childnode refid="3946" relation="include">
+        </childnode>
+        <childnode refid="3951" relation="include">
+        </childnode>
+      </node>
+      <node id="3950">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3949">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="3951">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3943">
+        <label>xsecure_server_libcaps.h</label>
+        <link refid="xsecure_server_libcaps.h"/>
+        <childnode refid="3944" relation="include">
+        </childnode>
+        <childnode refid="3945" relation="include">
+        </childnode>
+        <childnode refid="3946" relation="include">
+        </childnode>
+        <childnode refid="3947" relation="include">
+        </childnode>
+      </node>
+      <node id="3946">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3944">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3945">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3948">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3953">
+        <label>xsecure_cmd.c</label>
+        <link refid="xsecure__cmd_8c"/>
+      </node>
+      <node id="3955">
+        <label>xsecure_cmd.c</label>
+        <link refid="net_2xsecure__cmd_8c"/>
+      </node>
+      <node id="3954">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="3952">
+        <label>xsecure_server_libcaps.h</label>
+        <link refid="xsecure_server_libcaps.h"/>
+        <childnode refid="3953" relation="include">
+        </childnode>
+        <childnode refid="3954" relation="include">
+        </childnode>
+        <childnode refid="3955" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga97b1909acf9562ea0fc098c157f49f21" prot="public" static="no">
+        <name>XSECURE_CAP_AES</name>
+        <initializer>((u32)1U &lt;&lt; XSECURE_CAP_AES_BIT)</initializer>
+        <briefdescription>
+<para>AES engine present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gacf8d8e1b44a8d1a118e19b6aebf50896" prot="public" static="no">
+        <name>XSECURE_CAP_RSA</name>
+        <initializer>((u32)1U &lt;&lt; XSECURE_CAP_RSA_BIT)</initializer>
+        <briefdescription>
+<para>RSA engine present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gae824e19d6df07efd001fcff5f36aa87e" prot="public" static="no">
+        <name>XSECURE_CAP_ECDSA</name>
+        <initializer>((u32)1U &lt;&lt; XSECURE_CAP_ECDSA_BIT)</initializer>
+        <briefdescription>
+<para>ECDSA engine present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga272d00f9442d4fc377f54a47586c4929" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_NIST_P384</name>
+        <initializer>((u32)1U &lt;&lt; XSECURE_CAP_ECC_NIST_P384_BIT)</initializer>
+        <briefdescription>
+<para>NIST P-384 curve supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga7ee6b8ec39213987c900decf93b68be1" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_NIST_P192</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>NIST P-192 curve not supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="100" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga09a2e915862032ea394ac07398350d74" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_NIST_P224</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>NIST P-224 curve not supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="106" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga5c55d02146017b0e5510fb8000cd21eb" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_NIST_P256</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>NIST P-256 curve not supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="112" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gacc65b33eef9aae0e1d64a38ade04b848" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_NIST_P521</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>NIST P-521 curve not supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="118" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga048f7404474b9b95d45d27feafbc0d48" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_BIG_ENDIAN</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>ECC APIs use little-endian data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="128" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga1d0be5b763b5617c4e5657bedb74992a" prot="public" static="no">
+        <name>XSECURE_CAP_ECC_ALL</name>
+        <initializer>(<ref refid="group__xsecure__common__apis_1ga7ee6b8ec39213987c900decf93b68be1" kindref="member">XSECURE_CAP_ECC_NIST_P192</ref> | <ref refid="group__xsecure__common__apis_1ga09a2e915862032ea394ac07398350d74" kindref="member">XSECURE_CAP_ECC_NIST_P224</ref> | \
+				 <ref refid="group__xsecure__common__apis_1ga5c55d02146017b0e5510fb8000cd21eb" kindref="member">XSECURE_CAP_ECC_NIST_P256</ref> | <ref refid="group__xsecure__common__apis_1ga272d00f9442d4fc377f54a47586c4929" kindref="member">XSECURE_CAP_ECC_NIST_P384</ref> | \
+				 <ref refid="group__xsecure__common__apis_1gacc65b33eef9aae0e1d64a38ade04b848" kindref="member">XSECURE_CAP_ECC_NIST_P521</ref> | <ref refid="group__xsecure__common__apis_1ga048f7404474b9b95d45d27feafbc0d48" kindref="member">XSECURE_CAP_ECC_BIG_ENDIAN</ref>)</initializer>
+        <briefdescription>
+<para>Aggregate of all ECC-domain capability bits (curves + endianness) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga5b555ff5928ae301841752efb11109fe" prot="public" static="no">
+        <name>XSECURE_CAP_LIB_CRYPTOALGINFO</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Crypto algorithm-info reporting excluded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="158" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gabf7c472a0e4adf0953ca3c71bc7f093f" prot="public" static="no">
+        <name>XSECURE_CAP_PLAT_ALL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>No platform-specific capabilities on this platform. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga6b2a103e65ec8358ee29e8382dc3f4fc" prot="public" static="no">
+        <name>XSECURE_LIB_CAPABILITIES</name>
+        <initializer>(<ref refid="group__xsecure__common__apis_1ga1d0be5b763b5617c4e5657bedb74992a" kindref="member">XSECURE_CAP_ECC_ALL</ref> | <ref refid="group__xsecure__common__apis_1gae824e19d6df07efd001fcff5f36aa87e" kindref="member">XSECURE_CAP_ECDSA</ref> | \
+					 <ref refid="group__xsecure__common__apis_1gacf8d8e1b44a8d1a118e19b6aebf50896" kindref="member">XSECURE_CAP_RSA</ref> | <ref refid="group__xsecure__common__apis_1ga97b1909acf9562ea0fc098c157f49f21" kindref="member">XSECURE_CAP_AES</ref> | \
+					 <ref refid="group__xsecure__common__apis_1ga5b555ff5928ae301841752efb11109fe" kindref="member">XSECURE_CAP_LIB_CRYPTOALGINFO</ref> | <ref refid="group__xsecure__common__apis_1gabf7c472a0e4adf0953ca3c71bc7f093f" kindref="member">XSECURE_CAP_PLAT_ALL</ref>)</initializer>
+        <briefdescription>
+<para>Library-wide capability bitmap reported to the client. </para>        </briefdescription>
+        <detaileddescription>
+<para>New algorithm families and library flags append their own bits here as they are added. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This server-only header derives the XilSecure library capability bitmap at compile time. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each build-gated feature contributes one permanently-assigned bit (see XSecure_LibCapBit in <ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>) to the aggregate XSECURE_LIB_CAPABILITIES constant, which the Features command reports to the client alongside the library version.</para><para>It lives in server/core (shared server code) rather than a per-platform directory so a single derivation is reused across platforms: the gate macros are named consistently, and a feature not compiled into a given platform simply leaves its gate undefined and contributes 0.</para><para>Derivation is entirely compile time (a chain of ifdef checks OR&apos;d together), so there is no runtime cost: a feature that is not compiled in simply contributes 0. Bits are append-only - a new capability consumes a new, previously-zero bit and never disturbs existing assignments, so older clients stay compatible.</para><para>Feature gating:<itemizedlist>
+<listitem><para>PLM_SECURE_EXCLUDE is the umbrella switch: when defined, the whole secure crypto set (RSA + ECDSA + AES) is excluded, so all of those bits read 0.</para></listitem><listitem><para>Inside it, PLM_RSA_EXCLUDE and PLM_ECDSA_EXCLUDE are the finer per-engine gates. AES has no finer gate, so AES presence == !PLM_SECURE_EXCLUDE.</para></listitem><listitem><para>ECC curve support macros: P-192/P-224/P-256/P-521 are BSP configurable (xsecure_config.h for SDT, xparameters.h for the classic flow); P-384 is always supported when ECDSA is in the build.</para></listitem><listitem><para>XSECURE_CRYPTOALGINFO_ENABLED is independent of the secure engines.</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.8   tus  08/21/26    Initial release with ECDSA/RSA/AES/crypto-alg-info and
+                       ECC big-endian capability bits</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SERVER_LIBCAPS_H</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SERVER_LIBCAPS_H</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>The<sp/>secure<sp/>crypto<sp/>set<sp/>(RSA<sp/>+<sp/>ECDSA<sp/>+<sp/>AES)<sp/>is<sp/>part<sp/>of<sp/>this<sp/>build.</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AES<sp/>has<sp/>no<sp/>finer<sp/>per-engine<sp/>gate:<sp/>present<sp/>whenever<sp/>the<sp/>secure<sp/>set<sp/>is<sp/>in.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="group__xsecure__common__apis_1ga97b1909acf9562ea0fc098c157f49f21" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_AES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_AES_BIT)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>RSA<sp/>engine<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="81" refid="group__xsecure__common__apis_1gacf8d8e1b44a8d1a118e19b6aebf50896" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_RSA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_RSA_BIT)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_RSA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ECDSA<sp/>engine<sp/>and<sp/>its<sp/>NIST<sp/>curves<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="88" refid="group__xsecure__common__apis_1gae824e19d6df07efd001fcff5f36aa87e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECDSA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECDSA_BIT)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>P-384<sp/>is<sp/>unconditionally<sp/>supported<sp/>whenever<sp/>ECDSA<sp/>is<sp/>part<sp/>of<sp/>the<sp/>build</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>(XSECURE_ECC_SUPPORT_NIST_P384<sp/>is<sp/>defined<sp/>in<sp/>xsecure_ellipticcrvs.h).<sp/>The</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*<sp/>remaining<sp/>curves<sp/>are<sp/>BSP<sp/>configurable.</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95" refid="group__xsecure__common__apis_1ga272d00f9442d4fc377f54a47586c4929" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P384<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECC_NIST_P384_BIT)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P192</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P192<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECC_NIST_P192_BIT)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="100" refid="group__xsecure__common__apis_1ga7ee6b8ec39213987c900decf93b68be1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P192<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P224</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P224<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECC_NIST_P224_BIT)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="106" refid="group__xsecure__common__apis_1ga09a2e915862032ea394ac07398350d74" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P224<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P256</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P256<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECC_NIST_P256_BIT)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="112" refid="group__xsecure__common__apis_1ga5c55d02146017b0e5510fb8000cd21eb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P256<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P521</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P521<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECC_NIST_P521_BIT)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="118" refid="group__xsecure__common__apis_1gacc65b33eef9aae0e1d64a38ade04b848" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_NIST_P521<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/>*<sp/>ECC<sp/>data<sp/>endianness<sp/>(XSECURE_ELLIPTIC_ENDIANNESS:<sp/>0<sp/>=<sp/>little,<sp/>1<sp/>=<sp/>big).<sp/>The</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/>*<sp/>bit<sp/>is<sp/>set<sp/>only<sp/>for<sp/>big-endian;<sp/>little-endian<sp/>(the<sp/>default)<sp/>leaves<sp/>it<sp/>0.</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XSECURE_ELLIPTIC_ENDIANNESS)<sp/>&amp;&amp;<sp/>(XSECURE_ELLIPTIC_ENDIANNESS<sp/>==<sp/>1U)</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_BIG_ENDIAN<sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECC_BIG_ENDIAN_BIT)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="128" refid="group__xsecure__common__apis_1ga048f7404474b9b95d45d27feafbc0d48" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_BIG_ENDIAN<sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132" refid="group__xsecure__common__apis_1ga1d0be5b763b5617c4e5657bedb74992a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_ALL<sp/><sp/><sp/><sp/><sp/>(XSECURE_CAP_ECC_NIST_P192<sp/>|<sp/>XSECURE_CAP_ECC_NIST_P224<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CAP_ECC_NIST_P256<sp/>|<sp/>XSECURE_CAP_ECC_NIST_P384<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CAP_ECC_NIST_P521<sp/>|<sp/>XSECURE_CAP_ECC_BIG_ENDIAN)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECDSA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_ALL<sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_ECDSA_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>PLM_SECURE_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_AES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_RSA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECDSA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECC_ALL<sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_SECURE_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/>*<sp/>Crypto<sp/>algorithm-info<sp/>reporting<sp/>is<sp/>independent<sp/>of<sp/>the<sp/>secure<sp/>engines.<sp/>The<sp/>bit</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/>*<sp/>must<sp/>track<sp/>where<sp/>the<sp/>algorithm<sp/>version/NIST<sp/>status<sp/>words<sp/>are<sp/>actually<sp/>written</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/>*<sp/>in<sp/>the<sp/>Features<sp/>response:<sp/>on<sp/>plain<sp/>Versal<sp/>the<sp/>fill<sp/>is<sp/>gated<sp/>by</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/>*<sp/>XSECURE_CRYPTOALGINFO_ENABLED,<sp/>whereas<sp/>VersalNet<sp/>and<sp/>Versal_2ve_2vm<sp/>write<sp/>them</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/>*<sp/>unconditionally<sp/>(VERSAL_NET<sp/>covers<sp/>both).<sp/>Gate<sp/>on<sp/>the<sp/>same<sp/>condition<sp/>so<sp/>the</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/>*<sp/>advertised<sp/>capability<sp/>matches<sp/>the<sp/>emitted<sp/>data.</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XSECURE_CRYPTOALGINFO_ENABLED)<sp/>||<sp/>defined(VERSAL_NET)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_LIB_CRYPTOALGINFO<sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_LIB_CRYPTOALGINFO_BIT)<sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="158" refid="group__xsecure__common__apis_1ga5b555ff5928ae301841752efb11109fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_LIB_CRYPTOALGINFO<sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/>*<sp/>Platform-specific<sp/>capabilities.<sp/>Some<sp/>capabilities<sp/>exist<sp/>only<sp/>on<sp/>certain</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/>*<sp/>platforms.<sp/>TRNG<sp/>(IPI)<sp/>and<sp/>ECDH<sp/>key<sp/>agreement<sp/>are<sp/>served<sp/>on<sp/>both<sp/>VersalNet<sp/>and</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/>*<sp/>Versal_2ve_2vm,<sp/>whereas<sp/>LMS<sp/>post-quantum<sp/>sign-verify<sp/>is<sp/>specific<sp/>to<sp/>Versal_2ve_2vm.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/>*<sp/>They<sp/>are<sp/>guarded<sp/>by<sp/>the<sp/>platform<sp/>macros<sp/>so<sp/>they<sp/>never<sp/>light<sp/>up<sp/>on<sp/>platforms</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/>*<sp/>that<sp/>do<sp/>not<sp/>implement<sp/>them<sp/>(e.g.<sp/>plain<sp/>Versal),<sp/>and<sp/>stay<sp/>gated<sp/>by<sp/>the<sp/>relevant</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/>*<sp/>build-exclude<sp/>switches<sp/>where<sp/>applicable.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_NET</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TRNG<sp/>is<sp/>part<sp/>of<sp/>the<sp/>secure<sp/>set<sp/>(shares<sp/>the<sp/>PLM_SECURE_EXCLUDE<sp/>umbrella).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_TRNG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_TRNG_BIT)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ECDH<sp/>key<sp/>agreement<sp/>rides<sp/>on<sp/>the<sp/>ECDSA/ECC<sp/>engine.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECDH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_ECDH_BIT)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECDH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>PLM_SECURE_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_TRNG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_ECDH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>LMS<sp/>post-quantum<sp/>sign-verify<sp/>is<sp/>specific<sp/>to<sp/>Versal_2ve_2vm.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_LMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XSECURE_CAP_LMS_BIT)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_LMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XSECURE_CAP_PLAT_ALL<sp/><sp/><sp/><sp/>(XSECURE_CAP_ECDH<sp/>|<sp/>XSECURE_CAP_TRNG<sp/>|<sp/>XSECURE_CAP_LMS)</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>!VERSAL_NET<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195" refid="group__xsecure__common__apis_1gabf7c472a0e4adf0953ca3c71bc7f093f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CAP_PLAT_ALL<sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="202" refid="group__xsecure__common__apis_1ga6b2a103e65ec8358ee29e8382dc3f4fc" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_LIB_CAPABILITIES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_CAP_ECC_ALL<sp/>|<sp/>XSECURE_CAP_ECDSA<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CAP_RSA<sp/>|<sp/>XSECURE_CAP_AES<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CAP_LIB_CRYPTOALGINFO<sp/>|<sp/>XSECURE_CAP_PLAT_ALL)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SERVER_LIBCAPS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_server_libcaps.h"/>
+  </compounddef>
+</doxygen>

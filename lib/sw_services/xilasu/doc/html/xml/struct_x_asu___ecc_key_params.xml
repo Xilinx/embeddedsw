@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ecc_key_params" kind="struct" prot="public">
+    <compoundname>XAsu_EccKeyParams</compoundname>
+    <includes local="no">xasu_eccinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref></type>
+        <definition>XAsu_EccKeyObject XAsu_EccKeyParams::PvtKey</definition>
+        <argsstring></argsstring>
+        <name>PvtKey</name>
+        <briefdescription>
+<para>Private key object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EccKeyParams::PubKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>PubKeyAddr</name>
+        <briefdescription>
+<para>Address where public key will be written (size = 2 * PvtKey.KeyLen) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains ECC params info for public key generation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="54">
+        <label>XAsu_EccKeyParams</label>
+        <link refid="struct_x_asu___ecc_key_params"/>
+        <childnode refid="55" relation="usage">
+          <edgelabel>PvtKey</edgelabel>
+        </childnode>
+      </node>
+      <node id="55">
+        <label>XAsu_EccKeyObject</label>
+        <link refid="struct_x_asu___ecc_key_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="139" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" prot="public" virt="non-virtual"><scope>XAsu_EccKeyParams</scope><name>PubKeyAddr</name></member>
+      <member refid="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" prot="public" virt="non-virtual"><scope>XAsu_EccKeyParams</scope><name>PvtKey</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

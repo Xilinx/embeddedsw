@@ -1,0 +1,1097 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__bisr_8h" kind="file">
+    <compoundname>xpm_bisr.h</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes local="yes">xpm_bisr_plat.h</includes>
+    <includedby refid="xpm__aie_8h" local="yes">xpm_aie.h</includedby>
+    <includedby refid="xpm__aie_8c" local="yes">xpm_aie.c</includedby>
+    <includedby refid="server_2xpm__pslpdomain_8h" local="yes">xpm_pslpdomain.h</includedby>
+    <includedby refid="server_2xpm__npdomain_8h" local="yes">xpm_npdomain.h</includedby>
+    <includedby refid="server_2xpm__cpmdomain_8h" local="yes">xpm_cpmdomain.h</includedby>
+    <includedby refid="server_2xpm__bisr__plat_8c" local="yes">xpm_bisr_plat.c</includedby>
+    <includedby refid="server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="xpm__noc__config_8c" local="yes">xpm_noc_config.c</includedby>
+    <includedby refid="xpm__noc__config__vp1902_8c" local="yes">xpm_noc_config_vp1902.c</includedby>
+    <includedby refid="server_2xpm__npdomain_8c" local="yes">xpm_npdomain.c</includedby>
+    <includedby refid="server_2xpm__pldomain__plat_8c" local="yes">xpm_pldomain_plat.c</includedby>
+    <includedby refid="server_2xpm__power__plat_8c" local="yes">xpm_power_plat.c</includedby>
+    <includedby refid="server_2xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="server_2xpm__psfpdomain_8c" local="yes">xpm_psfpdomain.c</includedby>
+    <includedby refid="server_2xpm__pslpdomain_8c" local="yes">xpm_pslpdomain.c</includedby>
+    <includedby refid="server_2xpm__repair_8h" local="yes">xpm_repair.h</includedby>
+    <includedby refid="xpm__bisr_8c" local="yes">xpm_bisr.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__pslpdomain_8h" local="yes">xpm_pslpdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__cpmdomain_8h" local="yes">xpm_cpmdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__npdomain_8h" local="yes">xpm_npdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__bisr__plat_8c" local="yes">xpm_bisr_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__npdomain_8c" local="yes">xpm_npdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__psfpdomain_8c" local="yes">xpm_psfpdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__pslpdomain_8c" local="yes">xpm_pslpdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__repair_8h" local="yes">xpm_repair.h</includedby>
+    <incdepgraph>
+      <node id="1454">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1456">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="1459">
+        <label>xpm_bisr_plat.h</label>
+      </node>
+      <node id="1455">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1457">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1453">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1452">
+        <label>xpm_common.h</label>
+        <childnode refid="1453" relation="include">
+        </childnode>
+        <childnode refid="1454" relation="include">
+        </childnode>
+        <childnode refid="1455" relation="include">
+        </childnode>
+        <childnode refid="1456" relation="include">
+        </childnode>
+        <childnode refid="1457" relation="include">
+        </childnode>
+        <childnode refid="1458" relation="include">
+        </childnode>
+      </node>
+      <node id="1458">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="1451">
+        <label>xpm_bisr.h</label>
+        <link refid="xpm_bisr.h"/>
+        <childnode refid="1452" relation="include">
+        </childnode>
+        <childnode refid="1459" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1473">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="1475">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="1477">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="1465" relation="include">
+        </childnode>
+        <childnode refid="1469" relation="include">
+        </childnode>
+        <childnode refid="1478" relation="include">
+        </childnode>
+        <childnode refid="1473" relation="include">
+        </childnode>
+        <childnode refid="1475" relation="include">
+        </childnode>
+      </node>
+      <node id="1491">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="1500">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="1480">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="1479">
+        <label>xpm_cpmdomain.h</label>
+        <childnode refid="1465" relation="include">
+        </childnode>
+        <childnode refid="1469" relation="include">
+        </childnode>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1475" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
+        <childnode refid="1470" relation="include">
+        </childnode>
+      </node>
+      <node id="1476">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="1471">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="1465" relation="include">
+        </childnode>
+        <childnode refid="1469" relation="include">
+        </childnode>
+        <childnode refid="1466" relation="include">
+        </childnode>
+        <childnode refid="1472" relation="include">
+        </childnode>
+        <childnode refid="1473" relation="include">
+        </childnode>
+        <childnode refid="1474" relation="include">
+        </childnode>
+        <childnode refid="1475" relation="include">
+        </childnode>
+        <childnode refid="1476" relation="include">
+        </childnode>
+      </node>
+      <node id="1482">
+        <label>xpm_noc_config.c</label>
+        <link refid="xpm__noc__config_8c"/>
+      </node>
+      <node id="1494">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="1502">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1498" relation="include">
+        </childnode>
+      </node>
+      <node id="1470">
+        <label>xpm_reset_plat.c</label>
+      </node>
+      <node id="1478">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="1467">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="1487">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="1486">
+        <label>xpm_repair.h</label>
+        <childnode refid="1487" relation="include">
+        </childnode>
+      </node>
+      <node id="1465">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="1485">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="1462">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="1461">
+        <label>xpm_aie.h</label>
+        <childnode refid="1462" relation="include">
+        </childnode>
+        <childnode refid="1463" relation="include">
+        </childnode>
+        <childnode refid="1464" relation="include">
+        </childnode>
+        <childnode refid="1465" relation="include">
+        </childnode>
+        <childnode refid="1469" relation="include">
+        </childnode>
+        <childnode refid="1467" relation="include">
+        </childnode>
+        <childnode refid="1470" relation="include">
+        </childnode>
+      </node>
+      <node id="1496">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="1490">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1495" relation="include">
+        </childnode>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1498" relation="include">
+        </childnode>
+      </node>
+      <node id="1503">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="1498">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="1474">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="1506">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="1505">
+        <label>xpm_repair.h</label>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+      </node>
+      <node id="1492">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="1472">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="1466">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="1481">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="1501">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="1499">
+        <label>xpm_cpmdomain.h</label>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+        <childnode refid="1498" relation="include">
+        </childnode>
+      </node>
+      <node id="1504">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="1495">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="1468">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="1489">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="1464">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="1463">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="1462" relation="include">
+        </childnode>
+        <childnode refid="1464" relation="include">
+        </childnode>
+        <childnode refid="1465" relation="include">
+        </childnode>
+        <childnode refid="1466" relation="include">
+        </childnode>
+        <childnode refid="1467" relation="include">
+        </childnode>
+        <childnode refid="1468" relation="include">
+        </childnode>
+      </node>
+      <node id="1493">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="1488">
+        <label>xpm_bisr.c</label>
+      </node>
+      <node id="1460">
+        <label>xpm_bisr.h</label>
+        <link refid="xpm_bisr.h"/>
+        <childnode refid="1461" relation="include">
+        </childnode>
+        <childnode refid="1462" relation="include">
+        </childnode>
+        <childnode refid="1471" relation="include">
+        </childnode>
+        <childnode refid="1477" relation="include">
+        </childnode>
+        <childnode refid="1479" relation="include">
+        </childnode>
+        <childnode refid="1469" relation="include">
+        </childnode>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1482" relation="include">
+        </childnode>
+        <childnode refid="1483" relation="include">
+        </childnode>
+        <childnode refid="1473" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+        <childnode refid="1474" relation="include">
+        </childnode>
+        <childnode refid="1475" relation="include">
+        </childnode>
+        <childnode refid="1485" relation="include">
+        </childnode>
+        <childnode refid="1476" relation="include">
+        </childnode>
+        <childnode refid="1486" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1502" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1495" relation="include">
+        </childnode>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+      </node>
+      <node id="1483">
+        <label>xpm_noc_config_vp1902.c</label>
+      </node>
+      <node id="1469">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="1497">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="1484">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__bisr_8h_1a087c8d5d7f9cb0c9661d1dd366b3aaef" prot="public" static="no">
+        <name>LPD_TAG_ID</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a91888eb70f0b2d46a06316ad20c6ce97" prot="public" static="no">
+        <name>FPD_TAG_ID</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a408d546ceefb7ee4f1e43ab016a7052b" prot="public" static="no">
+        <name>CPM_TAG_ID</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ab05c5902ff47103f1d97d3899ae70b40" prot="public" static="no">
+        <name>XRAM_TAG_ID</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a005b250330652ace0f6bd814a32b4796" prot="public" static="no">
+        <name>CPM5_TAG_ID</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a01315763924422ecd040cdbb517ff082" prot="public" static="no">
+        <name>MEA_TAG_ID</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1aa49bfc4340b5e0be922d45ecd1a4a9f2" prot="public" static="no">
+        <name>MEB_TAG_ID</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a94688ad6480189c16601c6991363be95" prot="public" static="no">
+        <name>MEC_TAG_ID</name>
+        <initializer>0x0A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a783a932f35407e3642f0835140003b89" prot="public" static="no">
+        <name>DDRMC_TAG_ID</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a099b9483ab86d128fa38f69af1a51c6e" prot="public" static="no">
+        <name>GTY_TAG_ID</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a3d6ad65b82008f41c76cfd3032fcfef0" prot="public" static="no">
+        <name>DCMAC_TAG_ID</name>
+        <initializer>0x0D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a38e1797718d1b1b6f3e0f91be1283feb" prot="public" static="no">
+        <name>ILKN_TAG_ID</name>
+        <initializer>0x0E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a788d70f5a8d561569f130cd00e2d610d" prot="public" static="no">
+        <name>MRMAC_TAG_ID</name>
+        <initializer>0x0F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ad17ea7a93d72be2f2fcb5b2a042c8d39" prot="public" static="no">
+        <name>SDFEC_TAG_ID</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1acda9a5e99e6d1fb611750a19ba269835" prot="public" static="no">
+        <name>BRAM_TAG_ID</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ad794a7f64794ab3d0f85937f67599b99" prot="public" static="no">
+        <name>URAM_TAG_ID</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1aa13671679bf6e2817e2809ad2fcd6c2f" prot="public" static="no">
+        <name>LAGUNA_TAG_ID</name>
+        <initializer>0x13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a22c964d6b305ba510d63cd46a92783bc" prot="public" static="no">
+        <name>VDU_TAG_ID</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a478ae8b58f57f26f2c6fc7959b6c79be" prot="public" static="no">
+        <name>HSC_TAG_ID</name>
+        <initializer>0x16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a88b9dcacb98131d13d4bc28a9fad8962" prot="public" static="no">
+        <name>CPM5_GTYP_TAG_ID</name>
+        <initializer>0x17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ac1bb92342cb04cd6054cb90540f9de2f" prot="public" static="no">
+        <name>GTYP_TAG_ID</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1af4c7bb254653801f1ff92f596544ef8d" prot="public" static="no">
+        <name>GTM_TAG_ID</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a61a52994eef092aab52803d3505c6b56" prot="public" static="no">
+        <name>BFRB_TAG_ID</name>
+        <initializer>0x1B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a0b72e5b0a9c576d4493231ff85e9b33e" prot="public" static="no">
+        <name>DDRMC5_CRYPTO_TAG_ID</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1aae79468de19a3d52fc74d808e8f9bd2a" prot="public" static="no">
+        <name>CPM5N_TAG_ID</name>
+        <initializer>0x1D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1add4a804fedfd046896832658b71689bd" prot="public" static="no">
+        <name>VP1902_LAGUNA_TAG_ID</name>
+        <initializer>0x1E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a3e1514c907b959f396ce5da51008ad46" prot="public" static="no">
+        <name>LPX_TAG_ID</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a23b2b3e9b59fb6944aaea4068ed1cb68" prot="public" static="no">
+        <name>FPX_TAG_ID</name>
+        <initializer>0x21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a6756bd35d076465429d26d24d667adcd" prot="public" static="no">
+        <name>HNICX_NTHUB_TAG_ID</name>
+        <initializer>0x22</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1aa679ed56014684f77f7f060f77d2ed04" prot="public" static="no">
+        <name>HNICX_LCS_TAG_ID</name>
+        <initializer>0x23</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1aac75cc32bdacba50af87693a23f134c9" prot="public" static="no">
+        <name>HNICX_DPU_TAG_ID</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a502e55b7c018deb6b1b153f0191ca6f0" prot="public" static="no">
+        <name>DDRMC5_MAIN_TAG_ID</name>
+        <initializer>0x26</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ace56e953af9f70933a312b38f51c16cf" prot="public" static="no">
+        <name>CPM6_TAG_ID</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>BISR tag ID for CPM6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1acb22fa3c297077904eadcb5ec0fe1462" prot="public" static="no">
+        <name>CPM6_GTMPW_TAG_ID</name>
+        <initializer>0x39</initializer>
+        <briefdescription>
+<para>BISR tag ID for CPM6_GTMPW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ac165f4c25ccce662803db10163cbae53" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_EXIT_CODE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a2f8f660e5cf57f7647656189d329d171" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_SKIP_CODE</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1aed75e0db2da845ca82181a416b3cda13" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_TAG_ID_MASK</name>
+        <initializer>(0xFF000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1adb1bdf7595e593fbba55110b56132211" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_TAG_ID_SHIFT</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a8120d2847690952b1de6a7035bb844dd" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_SIZE_MASK</name>
+        <initializer>(0x00FF0000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a9ff6414a166d59ea3c954301443eca6d" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_SIZE_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1ae4fa4a3f55b244f57c9f974f95d81f79" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_OPTIONAL_MASK</name>
+        <initializer>(0x0000FFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a402c0dc9153edde8c906997419fe3b18" prot="public" static="no">
+        <name>PMC_EFUSE_BISR_OPTIONAL_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a6ae30011ea385f8302f65ef4900661b1" prot="public" static="no">
+        <name>NPI_FIXED_BASEADDR</name>
+        <initializer>(0xF6000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__bisr_8h_1a4f228d6b2830bd07473545de101ce8c9" prot="public" static="no">
+        <name>NPI_EFUSE_ENDPOINT_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__bisr_8h_1a2417fea14ce68af72fbc431bd22d97b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmBisr_Repair2</definition>
+        <argsstring>(u32 TagId)</argsstring>
+        <name>XPmBisr_Repair2</name>
+        <param>
+          <type>u32</type>
+          <declname>TagId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.c" bodystart="349" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__bisr_8h_1ac874bf35dd21ce06a5127a687cc50081" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmBisr_CopyStandard</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr)</argsstring>
+        <name>XPmBisr_CopyStandard</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>BisrDataDestAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.c" bodystart="52" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__bisr_8h_1a2f7ee18b1cabf1d6ec353e40b7c8f224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmBisr_RepairGty</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr, u32 TagId)</argsstring>
+        <name>XPmBisr_RepairGty</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.c" bodystart="91" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__bisr_8h_1aa9a306243f018ffa030f614638c4b406" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmBisr_RepairBram</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize)</argsstring>
+        <name>XPmBisr_RepairBram</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.c" bodystart="159" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__bisr_8h_1a5a7001b78601299410f38fa868bf9741" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmBisr_RepairUram</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize)</argsstring>
+        <name>XPmBisr_RepairUram</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.c" bodystart="254" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__bisr_8h_1a33a7559e218591ccd0d79509c2ec2f56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmBisr_TagSupportCheck2</definition>
+        <argsstring>(u32 TagId)</argsstring>
+        <name>XPmBisr_TagSupportCheck2</name>
+        <param>
+          <type>u32</type>
+          <declname>TagId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.c" bodystart="498" bodyend="528"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_BISR_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_BISR_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_bisr_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>BISR<sp/>Tag<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LPD_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x03</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CPM_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x05</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRAM_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x06</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CPM5_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x07</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEA_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEB_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x09</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEC_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x0A</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC_TAG_ID<sp/><sp/><sp/><sp/>0x0B</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GTY_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x0C</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DCMAC_TAG_ID<sp/><sp/><sp/><sp/>0x0D</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ILKN_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x0E</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MRMAC_TAG_ID<sp/><sp/><sp/><sp/>0x0F</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SDFEC_TAG_ID<sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BRAM_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x11</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>URAM_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x12</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LAGUNA_TAG_ID<sp/><sp/><sp/>0x13</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VDU_TAG_ID<sp/><sp/>0x15</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HSC_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x16U</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CPM5_GTYP_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x17</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GTYP_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x18</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GTM_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x19</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BFRB_TAG_ID<sp/><sp/><sp/><sp/><sp/>0x1B</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_CRYPTO_TAG_ID<sp/><sp/><sp/>0x1C</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CPM5N_TAG_ID<sp/><sp/><sp/><sp/>0x1D</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VP1902_LAGUNA_TAG_ID<sp/><sp/><sp/><sp/>0x1E</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPX_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPX_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x21</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HNICX_NTHUB_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x22</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HNICX_LCS_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x23</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HNICX_DPU_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_MAIN_TAG_ID<sp/><sp/><sp/>0x26</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CPM6_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x38<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>CPM6_GTMPW_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x39<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_EXIT_CODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_SKIP_CODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_TAG_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFF000000U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_TAG_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00FF0000U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_SIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_OPTIONAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000FFFFU)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_EFUSE_BISR_OPTIONAL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NPI_FIXED_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF6000000U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NPI_EFUSE_ENDPOINT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">XStatus<sp/>XPmBisr_Repair2(u32<sp/>TagId);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">u32<sp/>XPmBisr_CopyStandard(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u64<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">XStatus<sp/>XPmBisr_RepairGty(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr,<sp/>u32<sp/>TagId);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">u32<sp/>XPmBisr_RepairBram(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">u32<sp/>XPmBisr_RepairUram(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">XStatus<sp/>XPmBisr_TagSupportCheck2(u32<sp/>TagId);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_BISR_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_bisr.h"/>
+  </compounddef>
+</doxygen>

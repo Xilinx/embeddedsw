@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_field_desc" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseFieldDesc</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1a028a8abd5495642dff36cd0e939b7ba8" prot="public" static="no" mutable="no">
+        <type><ref refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720" kindref="member">XNvm_EfuseFieldId</ref></type>
+        <definition>XNvm_EfuseFieldId XNvm_EfuseFieldDesc::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Field identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1a52dfa8e44903e9d706288062a05bde28" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_band" kindref="compound">XNvm_EfuseBand</ref> *</type>
+        <definition>const XNvm_EfuseBand* XNvm_EfuseFieldDesc::Bands</definition>
+        <argsstring></argsstring>
+        <name>Bands</name>
+        <briefdescription>
+<para>Band table for this field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1a2b7b537c7f728a393890c9c2e2c7ab0b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::NumBands</definition>
+        <argsstring></argsstring>
+        <name>NumBands</name>
+        <briefdescription>
+<para>Number of entries in Bands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1aebcfab94b3fa29c9e45d524ac4e8e348" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Field flags (XNVM_EFUSE_FIELD_FLAG_*) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gad86c042caa77fd779b4f0ac666798c51" compoundref="xnvm__ops_8c" startline="291" endline="312">XNvm_EfuseOpsValidateFieldWrLk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1a360c5b0ed762f59634f8b63d72c8007d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::ValidateFlags</definition>
+        <argsstring></argsstring>
+        <name>ValidateFlags</name>
+        <briefdescription>
+<para>Pre-program validation policy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa4c82666d93529495da00d27c7f52b37" compoundref="xnvm__ops_8c" startline="328" endline="436">XNvm_EfuseOpsValidateWriteField</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1aae671124b630a512af001d287f9a8726" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::WrLkCacheOffset</definition>
+        <argsstring></argsstring>
+        <name>WrLkCacheOffset</name>
+        <briefdescription>
+<para>Cache offset of write-lock word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gad86c042caa77fd779b4f0ac666798c51" compoundref="xnvm__ops_8c" startline="291" endline="312">XNvm_EfuseOpsValidateFieldWrLk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1adc94da00896cbdd70cce0c1c95db23dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::WrLkMask</definition>
+        <argsstring></argsstring>
+        <name>WrLkMask</name>
+        <briefdescription>
+<para>Write-lock bit mask in cache. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gad86c042caa77fd779b4f0ac666798c51" compoundref="xnvm__ops_8c" startline="291" endline="312">XNvm_EfuseOpsValidateFieldWrLk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1ac322b07878d181f2f8e98baabbd9d6de" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::ErrBeforePgm</definition>
+        <argsstring></argsstring>
+        <name>ErrBeforePgm</name>
+        <briefdescription>
+<para>Error when validation fails before program. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1a4699214d3589ee93e09fd67be0787239" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::ErrWrite</definition>
+        <argsstring></argsstring>
+        <name>ErrWrite</name>
+        <briefdescription>
+<para>Error when program fails. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gad86c042caa77fd779b4f0ac666798c51" compoundref="xnvm__ops_8c" startline="291" endline="312">XNvm_EfuseOpsValidateFieldWrLk</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1afd47352da863aad9f42e7a5de0d84ba1" prot="public" static="no" mutable="no">
+        <type><ref refid="xnvm__efuse__common__field_8h_1a64e8ef18eac841d6b49b94213bf9b5a0" kindref="member">XNvm_EfusePrecondId</ref></type>
+        <definition>XNvm_EfusePrecondId XNvm_EfuseFieldDesc::PrecondId</definition>
+        <argsstring></argsstring>
+        <name>PrecondId</name>
+        <briefdescription>
+<para>Field-specific pre-write check (see XNvm_EfusePrecondId) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa4c82666d93529495da00d27c7f52b37" compoundref="xnvm__ops_8c" startline="328" endline="436">XNvm_EfuseOpsValidateWriteField</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_field_desc_1a42e8429831276678ea223d8e587339ad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseFieldDesc::MinSrcWords</definition>
+        <argsstring></argsstring>
+        <name>MinSrcWords</name>
+        <briefdescription>
+<para>Minimum caller buffer length in 32-bit words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines a band-engine field descriptor. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="65">
+        <label>XNvm_EfuseFieldDesc</label>
+        <link refid="struct_x_nvm___efuse_field_desc"/>
+        <childnode refid="66" relation="usage">
+          <edgelabel>Bands</edgelabel>
+        </childnode>
+      </node>
+      <node id="66">
+        <label>XNvm_EfuseBand</label>
+        <link refid="struct_x_nvm___efuse_band"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="298" bodyend="310"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_field_desc_1a52dfa8e44903e9d706288062a05bde28" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>Bands</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1ac322b07878d181f2f8e98baabbd9d6de" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>ErrBeforePgm</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1a4699214d3589ee93e09fd67be0787239" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>ErrWrite</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1aebcfab94b3fa29c9e45d524ac4e8e348" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>Flags</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1a028a8abd5495642dff36cd0e939b7ba8" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>Id</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1a42e8429831276678ea223d8e587339ad" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>MinSrcWords</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1a2b7b537c7f728a393890c9c2e2c7ab0b" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>NumBands</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1afd47352da863aad9f42e7a5de0d84ba1" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>PrecondId</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1a360c5b0ed762f59634f8b63d72c8007d" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>ValidateFlags</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1aae671124b630a512af001d287f9a8726" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>WrLkCacheOffset</name></member>
+      <member refid="struct_x_nvm___efuse_field_desc_1adc94da00896cbdd70cce0c1c95db23dd" prot="public" virt="non-virtual"><scope>XNvm_EfuseFieldDesc</scope><name>WrLkMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

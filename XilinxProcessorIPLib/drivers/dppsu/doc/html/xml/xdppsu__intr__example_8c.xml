@@ -1,0 +1,540 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__intr__example_8c" kind="file">
+    <compoundname>xdppsu_intr_example.c</compoundname>
+    <includes refid="xdppsu__common__example_8h" local="yes">xdppsu_common_example.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_io.h</label>
+      </node>
+      <node id="104">
+        <label>xdppsu_common_example.h</label>
+        <link refid="xdppsu__common__example_8h"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>xdppsu_intr_example.c</label>
+        <link refid="xdppsu_intr_example.c"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="112">
+        <label>xstatus.h</label>
+      </node>
+      <node id="109">
+        <label>xvidc.h</label>
+      </node>
+      <node id="106">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xil_types.h</label>
+      </node>
+      <node id="111">
+        <label>xparameters.h</label>
+      </node>
+      <node id="110">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdppsu__intr__example_8c_1aef103530099ef87cc1e936e25876849f" prot="public" static="no">
+        <name>DP_INTERRUPT_ID</name>
+        <initializer>151</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__intr__example_8c_1a90bc74590962865fc1ab7ee1be0f4b64" prot="public" static="no">
+        <name>INTC_DEVICE_ID</name>
+        <initializer>XPAR_SCUGIC_SINGLE_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__intr__example_8c_1acbad0bcec47edfd40d1ca213be24408d" prot="public" static="no">
+        <name>INTC</name>
+        <initializer>XScuGic</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__intr__example_8c_1a1774a555f3fbdee1c1a31fd1dfda655d" prot="public" static="no">
+        <name>INTC_HANDLER</name>
+        <initializer>XScuGic_DeviceInterruptHandler</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdppsu__intr__example_8c_1acad752b5e72336a7e222c585828bd089" prot="public" static="no" mutable="no">
+        <type>INTC</type>
+        <definition>INTC IntcInstance</definition>
+        <argsstring></argsstring>
+        <name>IntcInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_IntrExample</definition>
+        <argsstring>(XDpPsu *InstancePtr, UINTPTR BaseAddress, INTC *IntcPtr, u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler, XDpPsu_HpdPulseHandler HpdPulseHandler)</argsstring>
+        <name>DpPsu_IntrExample</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>INTC *</type>
+          <declname>IntcPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>IntrId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DpIntrId</declname>
+        </param>
+        <param>
+          <type><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref></type>
+          <declname>HpdEventHandler</declname>
+        </param>
+        <param>
+          <type><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref></type>
+          <declname>HpdPulseHandler</declname>
+        </param>
+        <briefdescription>
+<para>The main entry point for the interrupt example using the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will set up the system with interrupts and set up the Hot-Plug-Event (HPD) handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the interrupt instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the interrupt controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DpIntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID of the DisplayPort TX connection to the interrupt controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HpdEventHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the handler called when an HPD event occurs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HpdPulseHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the handler called when an HPD pulse occurs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the system setup failed.</para></listitem><listitem><para>XST_SUCCESS should never return since this function, if setup was successful, is blocking.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>If system setup was successful, this function is blocking in order to illustrate interrupt handling taking place for HPD events. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="127" bodyend="157"/>
+        <references refid="xdppsu__common__example_8c_1a7386e44e956d4e783e345ca361326df0" compoundref="xdppsu__common__example_8c" startline="53" endline="58">DpPsu_PlatformInit</references>
+        <references refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" compoundref="xdppsu__common__example_8c" startline="188" endline="209">DpPsu_SetupExample</references>
+        <referencedby refid="xdppsu__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdppsu__intr__example_8c" startline="88" endline="97">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__intr__example_8c_1ab5c129332fd5e8ade10e414fd820cfa6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 DpPsu_SetupInterruptHandler</definition>
+        <argsstring>(XDpPsu *InstancePtr, INTC *IntcPtr, u16 IntrId, u16 DpIntrId, XDpPsu_HpdEventHandler HpdEventHandler, XDpPsu_HpdPulseHandler HpdPulseHandler)</argsstring>
+        <name>DpPsu_SetupInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>INTC *</type>
+          <declname>IntcPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>IntrId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DpIntrId</declname>
+        </param>
+        <param>
+          <type><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref></type>
+          <declname>HpdEventHandler</declname>
+        </param>
+        <param>
+          <type><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref></type>
+          <declname>HpdPulseHandler</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up the interrupt system such that interrupts caused by Hot-Plug-Detect (HPD) events and pulses are handled. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is application-specific for systems that have an interrupt controller connected to the processor. The user should modify this function to fit the application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the interrupt instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the interrupt controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DpIntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID of the DisplayPort TX connection to the interrupt controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HpdEventHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the handler called when an HPD event occurs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HpdPulseHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the handler called when an HPD pulse occurs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the interrupt system was successfully set up.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>An interrupt controller must be present in the system, connected to the processor and the DisplayPort TX core. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="185" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__intr__example_8c_1aebcdbd9556d7da944e04421d49cc5cb1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void DpPsu_HpdEventHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpPsu_HpdEventHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when a Hot-Plug-Detect (HPD) event is received by the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XDPPSU_INTERRUPT_STATUS_HPD_EVENT_MASK bit of the core&apos;s XDPPSU_INTERRUPT_STATUS register indicates that an HPD event has occurred.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Use the XDpPsu_SetHpdEventHandler driver function to set this function as the handler for HPD pulses. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="217" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__intr__example_8c_1a279d84aef11c185785479063f7a7b488" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void DpPsu_HpdPulseHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpPsu_HpdPulseHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when a Hot-Plug-Detect (HPD) pulse is received by the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XDPPSU_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK bit of the core&apos;s XDPPSU_INTERRUPT_STATUS register indicates that an HPD event has occurred.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Use the XDpPsu_SetHpdPulseHandler driver function to set this function as the handler for HPD pulses. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="246" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function of the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the DpPsuIntrExample function, which sets up the system succeeds, this function will wait for interrupts. Once a connection event or pulse is detected, link training will commence (if needed) and a video stream will start being sent over the main link.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the interrupt example was unsuccessful - system setup failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Unless setup failed, main will never return since DpPsuIntrExample is blocking (it is waiting on interrupts for Hot-Plug-Detect (HPD) events. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c" bodystart="88" bodyend="97"/>
+        <references refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" compoundref="xdppsu__intr__example_8c" startline="127" endline="157">DpPsu_IntrExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver with interrupts. </para>    </briefdescription>
+    <detaileddescription>
+<para>Upon Hot- Plug-Detect (HPD - DisplayPort cable is plugged/unplugged or the monitor is turned on/off), the main link will be trained.</para><para><simplesect kind="note"><para>This example requires an interrupt controller connected to the processor and the DisplayPort TX core in the system. </para><simplesectsep/><para>For this example to display output, the user will need to select the Test Pattern Generator or initialize and select an appropriate source. </para><simplesectsep/><para>DpPsu_PlatformInit and the DpPsu_StreamSrc* functions are empty stubs in <ref refid="xdppsu__common__example_8c" kindref="compound">xdppsu_common_example.c</ref> for the user to fill in as needed.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad 09/04/17 Initial creation.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu__common__example_8h" kindref="compound">xdppsu_common_example.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DP_INTERRUPT_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>151</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_HANDLER<sp/><sp/><sp/><sp/>XScuGic_DeviceInterruptHandler</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">u32<sp/><ref refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" kindref="member">DpPsu_IntrExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress,<sp/>INTC<sp/>*IntcPtr,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId,<sp/>u16<sp/>DpIntrId,<sp/><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref><sp/>HpdEventHandler,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref><sp/>HpdPulseHandler);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>DpPsu_SetupInterruptHandler(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>INTC<sp/>*IntcPtr,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId,<sp/>u16<sp/>DpIntrId,<sp/><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref><sp/>HpdEventHandler,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref><sp/>HpdPulseHandler);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_HpdEventHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_HpdPulseHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">INTC<sp/>IntcInstance;<sp/></highlight><highlight class="comment">/*<sp/>The<sp/>interrupt<sp/>controller<sp/>instance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="88" refid="xdppsu__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdppsu__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>DpPsuInstance;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>XDpPsu<sp/>interrupt<sp/>example.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" kindref="member">DpPsu_IntrExample</ref>(&amp;DpPsuInstance,<sp/>DPPSU_BASEADDR,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;IntcInstance,<sp/>INTC_DEVICE_ID,<sp/>DP_INTERRUPT_ID,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;DpPsu_HpdEventHandler,<sp/>&amp;DpPsu_HpdPulseHandler);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="127" refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" kindref="member">DpPsu_IntrExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress,<sp/>INTC<sp/>*IntcPtr,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId,<sp/>u16<sp/>DpIntrId,<sp/><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref><sp/>HpdEventHandler,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref><sp/>HpdPulseHandler)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>platform<sp/>initialization<sp/>here.<sp/>This<sp/>is<sp/>hardware<sp/>system<sp/>specific<sp/>-</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>this<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__common__example_8c_1a7386e44e956d4e783e345ca361326df0" kindref="member">DpPsu_PlatformInit</ref>();</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(InstancePtr,<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;----------------------\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>interrupt<sp/>handling<sp/>in<sp/>the<sp/>system.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>DpPsu_SetupInterruptHandler(InstancePtr,<sp/>IntcPtr,<sp/>IntrId,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpIntrId,<sp/>HpdEventHandler,<sp/>HpdPulseHandler);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;=======================\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>not<sp/>return<sp/>in<sp/>order<sp/>to<sp/>allow<sp/>interrupt<sp/>handling<sp/>to<sp/>run.<sp/>HPD<sp/>events</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(connect,<sp/>disconnect,<sp/>and<sp/>pulse)<sp/>will<sp/>be<sp/>detected<sp/>and<sp/>handled.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="185"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>DpPsu_SetupInterruptHandler(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>INTC<sp/>*IntcPtr,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId,<sp/>u16<sp/>DpIntrId,<sp/><ref refid="xdppsu_8h_1a13e177802b0d46ab226b56650ce50fc0" kindref="member">XDpPsu_HpdEventHandler</ref><sp/>HpdEventHandler,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a1b28e87125be77708843cd7941024b60" kindref="member">XDpPsu_HpdPulseHandler</ref><sp/>HpdPulseHandler)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrMask<sp/>=<sp/><ref refid="xdppsu__hw_8h_1ad848b6db96fff173582cb637b421b1fa" kindref="member">XDPPSU_INTR_HPD_IRQ_MASK</ref><sp/>|<sp/><ref refid="xdppsu__hw_8h_1a3c97c07d18d9c5a39382fb8f8f7518b6" kindref="member">XDPPSU_INTR_HPD_EVENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>HPD<sp/>interrupt<sp/>handlers.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a1c4b527b0d2029a84a19d8e419a071bc" kindref="member">XDpPsu_SetHpdEventHandler</ref>(InstancePtr,<sp/>HpdEventHandler,<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a566d5385a4745191d09f43440125d927" kindref="member">XDpPsu_SetHpdPulseHandler</ref>(InstancePtr,<sp/>HpdPulseHandler,<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(InstancePtr,<sp/>&amp;<ref refid="xdppsu_8h_1a940393f7b33c36e51ea69d4561630222" kindref="member">XDpPsu_HpdInterruptHandler</ref>,<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.IntrId,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a12cca2392764025ac1a8c0abc2042a98" kindref="member">IntrParent</ref>,<sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="217"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_HpdEventHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*XDpPsu_InstancePtr<sp/>=<sp/>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xdppsu_8c_1aee45a79c993e3bcad636dddf3121aeab" kindref="member">XDpPsu_IsConnected</ref>(XDpPsu_InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;+===&gt;<sp/>HPD<sp/>connection<sp/>event<sp/>detected.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kindref="member">DpPsu_Run</ref>(XDpPsu_InstancePtr);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;+===&gt;<sp/>HPD<sp/>disconnection<sp/>event<sp/>detected.\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="246"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_HpdPulseHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*XDpPsu_InstancePtr<sp/>=<sp/>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;===&gt;<sp/>HPD<sp/>pulse<sp/>detected.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kindref="member">DpPsu_Run</ref>(XDpPsu_InstancePtr);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_intr_example.c"/>
+  </compounddef>
+</doxygen>

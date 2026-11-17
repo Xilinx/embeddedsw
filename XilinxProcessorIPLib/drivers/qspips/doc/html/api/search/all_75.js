@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['unique_5fvalue',['UNIQUE_VALUE',['../group__qspips__dual__flash__lqspi__example.html#gad922278cd1812d8a566d5b9da390681f',1,'UNIQUE_VALUE():&#160;xqspips_dual_flash_lqspi_example.c'],['../group__qspips__dual__flash__stack__lqspi__example.html#gad922278cd1812d8a566d5b9da390681f',1,'UNIQUE_VALUE():&#160;xqspips_dual_flash_stack_lqspi_example.c'],['../group__qspips__flash__intr__example.html#gad922278cd1812d8a566d5b9da390681f',1,'UNIQUE_VALUE():&#160;xqspips_flash_intr_example.c'],['../group__qspips__flash__lqspi__example.html#gad922278cd1812d8a566d5b9da390681f',1,'UNIQUE_VALUE():&#160;xqspips_flash_lqspi_example.c'],['../group__qspips__flash__polled__example.html#gad922278cd1812d8a566d5b9da390681f',1,'UNIQUE_VALUE():&#160;xqspips_flash_polled_example.c'],['../group__qspips__g128__flash__example.html#gad922278cd1812d8a566d5b9da390681f',1,'UNIQUE_VALUE():&#160;xqspips_g128_flash_example.c']]]
+];

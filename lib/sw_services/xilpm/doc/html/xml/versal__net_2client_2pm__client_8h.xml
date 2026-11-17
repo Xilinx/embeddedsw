@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__net_2client_2pm__client_8h" kind="file">
+    <compoundname>versal_net/client/pm_client.h</compoundname>
+    <includes local="no">xil_types.h</includes>
+    <includes local="no">xstatus.h</includes>
+    <includes local="no">xil_exception.h</includes>
+    <includes local="no">xil_io.h</includes>
+    <includes local="no">xipipsu.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="versal__net_2client_2pm__client_8c" local="yes">pm_client.c</includedby>
+    <incdepgraph>
+      <node id="235">
+        <label>xil_io.h</label>
+      </node>
+      <node id="231">
+        <label>pm_client.h</label>
+        <link refid="versal_net/client/pm_client.h"/>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+        <childnode refid="237" relation="include">
+        </childnode>
+      </node>
+      <node id="233">
+        <label>xstatus.h</label>
+      </node>
+      <node id="234">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="232">
+        <label>xil_types.h</label>
+      </node>
+      <node id="236">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="237">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="239">
+        <label>pm_client.c</label>
+      </node>
+      <node id="238">
+        <label>pm_client.h</label>
+        <link refid="versal_net/client/pm_client.h"/>
+        <childnode refid="239" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PM_CLIENT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_CLIENT_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xstatus.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_exception.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_io.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xipipsu.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*<sp/>User<sp/>needs<sp/>to<sp/>enable<sp/>this<sp/>macro<sp/>to<sp/>enable<sp/>prints<sp/>of<sp/>client<sp/>library<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>DEBUG_MODE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>1<sp/>for<sp/>API<sp/>ID<sp/>+<sp/>5<sp/>for<sp/>API<sp/>arguments<sp/>+<sp/>1<sp/>for<sp/>reserved<sp/>+<sp/>1<sp/>for<sp/>CRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PAYLOAD_ARG_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>1<sp/>for<sp/>status<sp/>+<sp/>3<sp/>for<sp/>values<sp/>+<sp/>3<sp/>for<sp/>reserved<sp/>+<sp/>1<sp/>for<sp/>CRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESPONSE_ARG_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_IPI_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~0U)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XIPIPS_TARGET_PSXL_PMC_0_CH0_MASK</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TARGET_IPI_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIPIPS_TARGET_PSXL_PMC_0_CH0_MASK</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TARGET_IPI_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#define<sp/>XPM_FALSE_COND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_Proc<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DevId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>PwrCtrl;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>PwrDwnMask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*Ipi;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_Proc<sp/>*PrimaryProc;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPm_Read(addr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(addr)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPm_Write(addr,<sp/>value)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(addr,<sp/>value)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XpmEnableInterrupts()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable()</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XpmDisableInterrupts()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionDisable()</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPm_Print(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(&quot;APU:<sp/>&quot;MSG,<sp/>##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(__arm__)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ProcName[7];</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPm_Print(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(&quot;%s:<sp/>&quot;MSG,<sp/>ProcName,<sp/>##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(__microblaze__)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPm_Print(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(&quot;MicroBlaze:<sp/>&quot;MSG,<sp/>##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Conditional<sp/>debugging<sp/>prints<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_MODE</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XPm_Dbg(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/>XPm_Print(MSG,<sp/>##__VA_ARGS__);<sp/>}<sp/>while<sp/>(XPM_FALSE_COND)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XPm_Dbg(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{}<sp/>while<sp/>(XPM_FALSE_COND)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>below<sp/>macro<sp/>to<sp/>disable<sp/>error<sp/>prints<sp/>for<sp/>memory<sp/>constrained<sp/>applications<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DISABLE_ERROR_PRINTS</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XPm_Err(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/>XPm_Print(&quot;ERROR:<sp/>&quot;MSG,<sp/>##__VA_ARGS__);<sp/>}<sp/>while<sp/>(XPM_FALSE_COND)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XPm_Err(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{}<sp/>while<sp/>(XPM_FALSE_COND)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>pm_print<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Dbg</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>pm_dbg<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Dbg</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>pm_read<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Read</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>pm_write<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Write</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_RMW32(u32<sp/>RegAddress,<sp/>u32<sp/>Mask,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">XStatus<sp/>XPm_SetPrimaryProc(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_Proc<sp/>*XPm_GetProcByDeviceId(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_ClientSuspend(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPm_Proc<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Proc);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_ClientWakeUp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPm_Proc<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Proc);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_ClientSuspendFinalize(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_ClientAbortSuspend(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PM_CLIENT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/client/pm_client.h"/>
+  </compounddef>
+</doxygen>

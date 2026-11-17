@@ -1,0 +1,1373 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmonpsv__common_8h" kind="file">
+    <compoundname>xsysmonpsv_common.h</compoundname>
+    <includes refid="xsysmonpsv__driver_8h" local="yes">xsysmonpsv_driver.h</includes>
+    <includes local="yes">xsysmonpsv_supplylist.h</includes>
+    <includedby refid="xsysmonpsv__common_8c" local="yes">xsysmonpsv_common.c</includedby>
+    <includedby refid="xsysmonpsv__direct_8c" local="yes">xsysmonpsv_direct.c</includedby>
+    <includedby refid="xsysmonpsv__services_8c" local="yes">xsysmonpsv_services.c</includedby>
+    <includedby refid="xsysmonpsv_8h" local="yes">xsysmonpsv.h</includedby>
+    <incdepgraph>
+      <node id="52">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="49">
+        <label>xsysmonpsv_common.h</label>
+        <link refid="xsysmonpsv_common.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xsysmonpsv_supplylist.h</label>
+      </node>
+      <node id="51">
+        <label>xil_types.h</label>
+      </node>
+      <node id="50">
+        <label>xsysmonpsv_driver.h</label>
+        <link refid="xsysmonpsv__driver_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="60">
+        <label>xsysmonpsv_intr.c</label>
+        <link refid="xsysmonpsv__intr_8c"/>
+      </node>
+      <node id="55">
+        <label>xsysmonpsv_common.c</label>
+        <link refid="xsysmonpsv__common_8c"/>
+      </node>
+      <node id="54">
+        <label>xsysmonpsv_common.h</label>
+        <link refid="xsysmonpsv_common.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xsysmonpsv_sinit.c</label>
+        <link refid="xsysmonpsv__sinit_8c"/>
+      </node>
+      <node id="62">
+        <label>xsysmonpsv_intr_example.c</label>
+        <link refid="xsysmonpsv__intr__example_8c"/>
+      </node>
+      <node id="56">
+        <label>xsysmonpsv_direct.c</label>
+        <link refid="xsysmonpsv__direct_8c"/>
+      </node>
+      <node id="59">
+        <label>xsysmonpsv.c</label>
+        <link refid="xsysmonpsv_8c"/>
+      </node>
+      <node id="58">
+        <label>xsysmonpsv.h</label>
+        <link refid="xsysmonpsv_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xsysmonpsv_polled_example.c</label>
+        <link refid="xsysmonpsv__polled__example_8c"/>
+      </node>
+      <node id="57">
+        <label>xsysmonpsv_services.c</label>
+        <link refid="xsysmonpsv__services_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga5c8d4c6bfb7e2cd4d941a8b978b17359" prot="public" static="no">
+        <name>XSYSMONPSV_INTR_OFFSET</name>
+        <initializer>0xCU</initializer>
+        <briefdescription>
+<para>Interrupt Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga4a8eae39bcb70012826037830d666b7f" prot="public" static="no">
+        <name>XSYSMONPSV_LOCK_CODE</name>
+        <initializer>0xF9E8D7C6U</initializer>
+        <briefdescription>
+<para>Lock code value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1ga56422c5c70128f1ccedb5b93ad2b48bd" compoundref="xsysmonpsv__common_8c" startline="484" endline="491">XSysMonPsv_UnlockRegspace</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gacdf9e95792b4a01a0d0d5c57d76aed22" prot="public" static="no">
+        <name>XSYSMONPSV_INTR_0_ID</name>
+        <initializer>(144U + 32U)</initializer>
+        <briefdescription>
+<para>Interrupt unique ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga19bd81ddc074908597fdc00c8ff94189" prot="public" static="no">
+        <name>XSYSMONPSV_INTR_1_ID</name>
+        <initializer>(145U + 32U)</initializer>
+        <briefdescription>
+<para>Interrupt unique ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga6909b214c40a3f5cec1cf6aa7653cec4" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM0</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Bit for supply[0-31]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga51605e983789dc6f22ff004195580b5a" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM1</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Bit for supply[32-63]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gade655921aaa7a3eddbd7c648e97627e9" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM2</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Bit for supply[64-95]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga42576c00699720cd28723bf61ea40f54" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM3</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Bit for supply[96-127]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga183d8d8f2ffe40902e80206435f02660" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM4</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Bit for supply[128-159]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga55435b8423e00a4189594a3a077a259d" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM5</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gace21289a3e9b07bc1446f799ee80d91b" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM6</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga59675ead52813b82982b4877c5a81b7e" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_ALARM7</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gaed3e600c2f1729e899864291890697ae" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_OT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Over Temperature bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga865655d025cdf853a2ae9a9018ccaa5f" prot="public" static="no">
+        <name>XSYSMONPSV_BIT_TEMP</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>Temperature bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gac51ecf1a7056923d5ee7b2d79c2ad917" prot="public" static="no">
+        <name>XSYSMONPSV_UP_SAT_SIGNED_VAL</name>
+        <initializer>0x7FFFU</initializer>
+        <briefdescription>
+<para>Signed upper saturation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gac46eb5747fd8d8f552e675cf7794dd7b" compoundref="xsysmonpsv__common_8c" startline="246" endline="275">XSysMonPsv_SupplyProcessedToRaw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gaa0a6c963122b8943036348714117761d" prot="public" static="no">
+        <name>XSYSMONPSV_LOW_SAT_SIGNED_VAL</name>
+        <initializer>0x8000U</initializer>
+        <briefdescription>
+<para>Signed lower saturation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gac46eb5747fd8d8f552e675cf7794dd7b" compoundref="xsysmonpsv__common_8c" startline="246" endline="275">XSysMonPsv_SupplyProcessedToRaw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gacf16c31d3d1a905cce7a11808c1b2f22" prot="public" static="no">
+        <name>XSYSMONPSV_UP_SAT_VAL</name>
+        <initializer>0xFFFFU</initializer>
+        <briefdescription>
+<para>Upper saturation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gac46eb5747fd8d8f552e675cf7794dd7b" compoundref="xsysmonpsv__common_8c" startline="246" endline="275">XSysMonPsv_SupplyProcessedToRaw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gaf705be69c8ce9bae5e89d20d4c430266" prot="public" static="no">
+        <name>XSYSMONPSV_LOW_SAT_VAL</name>
+        <initializer>0x0000U</initializer>
+        <briefdescription>
+<para>Lower saturation value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gac46eb5747fd8d8f552e675cf7794dd7b" compoundref="xsysmonpsv__common_8c" startline="246" endline="275">XSysMonPsv_SupplyProcessedToRaw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga517e5f074fba7abc6939f126ca701392" prot="public" static="no">
+        <name>XSYSMONPSV_MILLI_SCALE</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+<para>Milli scale factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="xsysmonpsv__intr__example_8c_1a08f29d1a3ede32c28ff1b454b3b68a28" compoundref="xsysmonpsv__intr__example_8c" startline="147" endline="315">SysMonPsvIntrExample</referencedby>
+        <referencedby refid="xsysmonpsv__polled__example_8c_1a2a85002146b9f72b8f0f12efaa00d802" compoundref="xsysmonpsv__polled__example_8c" startline="108" endline="157">SysMonPsvPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga96bd47ddac126b1cff1f2d198db310fe" prot="public" static="no">
+        <name>compare</name>
+        <param><defname>val</defname></param>
+        <param><defname>thresh</defname></param>
+        <initializer>(((val)&amp;0x8000U) || ((thresh)&amp;0x8000U) ?                                 \
+		 ((val) &lt; (thresh)) :                                          \
+		 ((val) &gt; (thresh)))</initializer>
+        <briefdescription>
+<para>Compares a threshold with the current value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">thresh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Threshold value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__sysmonpsv__api_1ga96bd47ddac126b1cff1f2d198db310fe" kindref="member">compare(u32 val, u32 thresh)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga4afca72fb6d0ad4247f86d339a7c15ac" prot="public" static="no">
+        <name>twoscomp</name>
+        <param><defname>val</defname></param>
+        <initializer>((((val) ^ 0xFFFFU) + 1U) &amp; 0x0000FFFFU)</initializer>
+        <briefdescription>
+<para>Computes the 2&apos;s complement of a value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to convert.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__sysmonpsv__api_1ga4afca72fb6d0ad4247f86d339a7c15ac" kindref="member">twoscomp(u32 val)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gadbec82431fdcf7cbea444f04bc165417" compoundref="xsysmonpsv__common_8c" startline="183" endline="187">XSysMonPsv_Q8P7ToCelsius</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga16099b2571d3ca0524e7e54165aa80d6" prot="public" static="no">
+        <name>ALARM_REG</name>
+        <param><defname>address</defname></param>
+        <initializer>((address) / 32U)</initializer>
+        <briefdescription>
+<para>Returns the alarm register offset for a supply. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Supply address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__sysmonpsv__api_1ga16099b2571d3ca0524e7e54165aa80d6" kindref="member">ALARM_REG(u32 address)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gae768764267b169d51b366abe2c67e6ad" compoundref="xsysmonpsv__services_8c" startline="106" endline="132">XSysMonPsv_DisableVoltageEvents</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga27ee2cbf4e86a5e66f8ed744187a805f" compoundref="xsysmonpsv__services_8c" startline="64" endline="92">XSysMonPsv_EnableVoltageEvents</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1gabb9e93a5e3a832c42d695231684ba43d" prot="public" static="no">
+        <name>ALARM_SHIFT</name>
+        <param><defname>address</defname></param>
+        <initializer>((address) % 32U)</initializer>
+        <briefdescription>
+<para>Returns the supply bit position in the alarm register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Supply address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__sysmonpsv__api_1gabb9e93a5e3a832c42d695231684ba43d" kindref="member">ALARM_SHIFT(u32 address)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1gae768764267b169d51b366abe2c67e6ad" compoundref="xsysmonpsv__services_8c" startline="106" endline="132">XSysMonPsv_DisableVoltageEvents</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga27ee2cbf4e86a5e66f8ed744187a805f" compoundref="xsysmonpsv__services_8c" startline="64" endline="92">XSysMonPsv_EnableVoltageEvents</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sysmonpsv__api_1ga19668d9ffa3ce7d0838b70efa933fc08" prot="public" static="no">
+        <name>GET_BIT</name>
+        <param><defname>nr</defname></param>
+        <initializer>(1UL &lt;&lt; (nr))</initializer>
+        <briefdescription>
+<para>Returns a bit mask for the given bit number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">nr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: unsigned long <ref refid="group__sysmonpsv__api_1ga19668d9ffa3ce7d0838b70efa933fc08" kindref="member">GET_BIT(unsigned nr)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1ga27ee2cbf4e86a5e66f8ed744187a805f" compoundref="xsysmonpsv__services_8c" startline="64" endline="92">XSysMonPsv_EnableVoltageEvents</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" prot="public" static="no">
+        <name>XSysMonPsv_EventDir</name>
+        <enumvalue id="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a102c7797d2584b126f87eca3179d009e" prot="public">
+          <name>XSYSMONPSV_EV_DIR_EITHER</name>
+          <briefdescription>
+<para>Rising or falling both direction. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86ae4d5137bc186658234bb91118e87637c" prot="public">
+          <name>XSYSMONPSV_EV_DIR_RISING</name>
+          <briefdescription>
+<para>Rising both direction. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a71cd3a59169306ff3485c45e7b1d9efa" prot="public">
+          <name>XSYSMONPSV_EV_DIR_FALLING</name>
+          <briefdescription>
+<para>Falling both direction. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a2f8465af690f045e3580f0ce612ac92b" prot="public">
+          <name>XSYSMONPSV_EV_DIR_NONE</name>
+          <briefdescription>
+<para>No direction. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Event direction for threshold comparison. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="136" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__sysmonpsv__api_1gadfe9f0bbf776d4b6c29403ffbd49bf30" prot="public" static="no">
+        <name>XSysMonPsv_TempType</name>
+        <enumvalue id="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af77834f3af80ba55987a6dd3320090df" prot="public">
+          <name>XSYSMONPSV_TEMP</name>
+          <briefdescription>
+<para>Current temperature. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30ae89a5e61e7817a759c6a8e4c041cd394" prot="public">
+          <name>XSYSMONPSV_TEMP_MAX</name>
+          <briefdescription>
+<para>Maximum temperature reached since reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af47c7b392627575724efb983f3e1f2b3" prot="public">
+          <name>XSYSMONPSV_TEMP_MIN</name>
+          <briefdescription>
+<para>Minimum temperature reached since reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Temperature reading type selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="144" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__sysmonpsv__api_1ga121b9e0621d3f6c2a9b70e2081bb91be" prot="public" static="no">
+        <name>XSysMonPsv_TempEvt</name>
+        <enumvalue id="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91beab55778d23fd3e17972e5f218cea9a7e8" prot="public">
+          <name>XSYSMONPSV_TEMP_EVENT</name>
+          <briefdescription>
+<para>Temperature event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91bea311033c65e024c7db57d9f2acecd1c3e" prot="public">
+          <name>XSYSMONPSV_OT_EVENT</name>
+          <briefdescription>
+<para>Over Temperature event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Temperature event type for threshold configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h" bodystart="151" bodyend="154"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga6a12e8784552b16f6284da99b9ebf222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_TempOffset</definition>
+        <argsstring>(XSysMonPsv_TempType Type)</argsstring>
+        <name>XSysMonPsv_TempOffset</name>
+        <param>
+          <type><ref refid="group__sysmonpsv__api_1gadfe9f0bbf776d4b6c29403ffbd49bf30" kindref="member">XSysMonPsv_TempType</ref></type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>Provides the register offset for the given type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Max or Min temperature type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- -XST_FAILURE when it fails.<itemizedlist>
+<listitem><para>Register offset otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="60" bodyend="78"/>
+        <references refid="group__sysmonpsv__api_1gaf0370703ede011a34abca3fe003a9fd3" compoundref="xsysmonpsv__hw_8h" startline="656">XSYSMONPSV_DEVICE_TEMP_MAX</references>
+        <references refid="group__sysmonpsv__api_1ga1dc13e5fe83b2345990971199aa14de6" compoundref="xsysmonpsv__hw_8h" startline="691">XSYSMONPSV_DEVICE_TEMP_MAX_MAX</references>
+        <references refid="group__sysmonpsv__api_1gadfdafb6f5efb4bb8c41cc6f8a573bfc7" compoundref="xsysmonpsv__hw_8h" startline="699">XSYSMONPSV_DEVICE_TEMP_MIN_MIN</references>
+        <references refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af77834f3af80ba55987a6dd3320090df" compoundref="xsysmonpsv__common_8h" startline="145">XSYSMONPSV_TEMP</references>
+        <references refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30ae89a5e61e7817a759c6a8e4c041cd394" compoundref="xsysmonpsv__common_8h" startline="146">XSYSMONPSV_TEMP_MAX</references>
+        <references refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af47c7b392627575724efb983f3e1f2b3" compoundref="xsysmonpsv__common_8h" startline="147">XSYSMONPSV_TEMP_MIN</references>
+        <referencedby refid="group__sysmonpsv__api_1ga68d41d5890402def819f92c449b6aa64" compoundref="xsysmonpsv_8c" startline="858" endline="876">XSysMonPsv_ReadTempProcessed</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga215a6613a637b848cdd432f6f5678c15" compoundref="xsysmonpsv_8c" startline="891" endline="906">XSysMonPsv_ReadTempRaw</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga1941867eda39665e89f3ff23895baed4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_TempThreshOffset</definition>
+        <argsstring>(XSysMonPsv_TempEvt Event, XSysMonPsv_EventDir Dir, u32 *Offset)</argsstring>
+        <name>XSysMonPsv_TempThreshOffset</name>
+        <param>
+          <type><ref refid="group__sysmonpsv__api_1ga121b9e0621d3f6c2a9b70e2081bb91be" kindref="member">XSysMonPsv_TempEvt</ref></type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" kindref="member">XSysMonPsv_EventDir</ref></type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>Provides the temperature upper or lower threshold offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Temp or OT event type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Falling or rising direction. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper or lower threshold offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE when it fails.<itemizedlist>
+<listitem><para>XST_SUCCESS when correct params are used. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="93" bodyend="113"/>
+        <references refid="group__sysmonpsv__api_1gad0c0ffd131b82adc94d7acddc0e62215" compoundref="xsysmonpsv__hw_8h" startline="868">XSYSMONPSV_DEVICE_TEMP_TH_FALLING</references>
+        <references refid="group__sysmonpsv__api_1ga0eecfe6de4f7888f7891160ce19ad4c8" compoundref="xsysmonpsv__hw_8h" startline="878">XSYSMONPSV_DEVICE_TEMP_TH_RISING</references>
+        <references refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86ae4d5137bc186658234bb91118e87637c" compoundref="xsysmonpsv__common_8h" startline="138">XSYSMONPSV_EV_DIR_RISING</references>
+        <references refid="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91bea311033c65e024c7db57d9f2acecd1c3e" compoundref="xsysmonpsv__common_8h" startline="153">XSYSMONPSV_OT_EVENT</references>
+        <references refid="group__sysmonpsv__api_1gac5adab57ea2f5178c983b7498f90c47c" compoundref="xsysmonpsv__hw_8h" startline="898">XSYSMONPSV_OT_TEMP_TH_FALLING</references>
+        <references refid="group__sysmonpsv__api_1ga9bdf5ec8bcda757e1e6ee5066cec61c9" compoundref="xsysmonpsv__hw_8h" startline="908">XSYSMONPSV_OT_TEMP_TH_RISING</references>
+        <references refid="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91beab55778d23fd3e17972e5f218cea9a7e8" compoundref="xsysmonpsv__common_8h" startline="152">XSYSMONPSV_TEMP_EVENT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga6198b0ca31176e635868334bd2ccaba2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSysMonPsv_SupplyOffset</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, int Supply)</argsstring>
+        <name>XSysMonPsv_SupplyOffset</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Supply</declname>
+        </param>
+        <briefdescription>
+<para>Provides the supply offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Supply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum which indicates the desired supply.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Supply offset. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="126" bodyend="139"/>
+        <references refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" compoundref="xsysmonpsv__driver_8h" startline="116">XSysMonPsv::Config</references>
+        <references refid="struct_x_sys_mon_psv___config_1a8dd8a0f21ce7dda3a56d1526c3e8f676" compoundref="xsysmonpsv__driver_8h" startline="93">XSysMonPsv_Config::Supply_List</references>
+        <references refid="group__sysmonpsv__api_1gaea6632703187e0a828a7c4200132af8a" compoundref="xsysmonpsv__hw_8h" startline="731">XSYSMONPSV_SUPPLY</references>
+        <referencedby refid="group__sysmonpsv__api_1gad9a7e5df580de9e887d2a32e63506af6" compoundref="xsysmonpsv_8c" startline="1123" endline="1145">XSysMonPsv_ReadSupplyProcessed</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gadae2aa6363d44df1bd536d34b057e005" compoundref="xsysmonpsv_8c" startline="1160" endline="1181">XSysMonPsv_ReadSupplyRaw</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1gadde53ad4ac2dfe9a1bdc4a62bb7dd1a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSysMonPsv_SupplyThreshOffset</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, int Supply, XSysMonPsv_EventDir Dir)</argsstring>
+        <name>XSysMonPsv_SupplyThreshOffset</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Supply</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" kindref="member">XSysMonPsv_EventDir</ref></type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>Provides the supply upper or lower threshold offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Supply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum which indicates the desired supply. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the direction, falling or rising.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Upper or lower threshold offset. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="153" bodyend="171"/>
+        <references refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" compoundref="xsysmonpsv__driver_8h" startline="116">XSysMonPsv::Config</references>
+        <references refid="struct_x_sys_mon_psv___config_1a8dd8a0f21ce7dda3a56d1526c3e8f676" compoundref="xsysmonpsv__driver_8h" startline="93">XSysMonPsv_Config::Supply_List</references>
+        <references refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86ae4d5137bc186658234bb91118e87637c" compoundref="xsysmonpsv__common_8h" startline="138">XSYSMONPSV_EV_DIR_RISING</references>
+        <references refid="group__sysmonpsv__api_1gaa118f452e9166fa0d8862b396311462f" compoundref="xsysmonpsv__hw_8h" startline="918">XSYSMONPSV_SUPPLY_TH_LOWER</references>
+        <references refid="group__sysmonpsv__api_1ga7ee33c6423739a515a684980176551e0" compoundref="xsysmonpsv__hw_8h" startline="943">XSYSMONPSV_SUPPLY_TH_UPPER</references>
+        <referencedby refid="group__sysmonpsv__api_1ga67c461a10a691c449c71cab32fac6a48" compoundref="xsysmonpsv_8c" startline="1284" endline="1301">XSysMonPsv_GetSupplyThresholdLower</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga5b0151be3a224dd63fea642c1fe585ad" compoundref="xsysmonpsv_8c" startline="1252" endline="1269">XSysMonPsv_GetSupplyThresholdUpper</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga91085a71b3a47feced9334972d44fe42" compoundref="xsysmonpsv_8c" startline="1224" endline="1237">XSysMonPsv_SetSupplyThresholdLower</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga9ad66ba4141b25c3c0d88d2cc9b6da65" compoundref="xsysmonpsv_8c" startline="1196" endline="1209">XSysMonPsv_SetSupplyThresholdUpper</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1gadbec82431fdcf7cbea444f04bc165417" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSysMonPsv_Q8P7ToCelsius</definition>
+        <argsstring>(u32 RawData, int *Val, int *Val2)</argsstring>
+        <name>XSysMonPsv_Q8P7ToCelsius</name>
+        <param>
+          <type>u32</type>
+          <declname>RawData</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>Val</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>Val2</declname>
+        </param>
+        <briefdescription>
+<para>Converts Q8P7 format to Celsius. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">RawData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw temperature data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value in Q8P7 format. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Val2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Constant 128. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="183" bodyend="187"/>
+        <references refid="group__sysmonpsv__api_1ga4afca72fb6d0ad4247f86d339a7c15ac" compoundref="xsysmonpsv__common_8h" startline="100">twoscomp</references>
+        <referencedby refid="group__sysmonpsv__api_1ga68d41d5890402def819f92c449b6aa64" compoundref="xsysmonpsv_8c" startline="858" endline="876">XSysMonPsv_ReadTempProcessed</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga84625720834d5e07d7f4fe9d14bb43f8" compoundref="xsysmonpsv_8c" startline="921" endline="942">XSysMonPsv_ReadTempProcessedSat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga5b066fb52f89d2245a6ac21e807ffa17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSysMonPsv_CelsiusToQ8P7</definition>
+        <argsstring>(u32 *RawData, int Val, int Val2)</argsstring>
+        <name>XSysMonPsv_CelsiusToQ8P7</name>
+        <param>
+          <type>u32 *</type>
+          <declname>RawData</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Val</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Val2</declname>
+        </param>
+        <briefdescription>
+<para>Converts Celsius to Q8P7 format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">RawData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw temperature data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerator for conversion to degrees Celsius. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Val2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Denominator for conversion to degrees Celsius in Q8.7 format. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="200" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1gaca75f045ad9bd684a8604c4b00934acd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSysMonPsv_SupplyRawToProcessed</definition>
+        <argsstring>(int RawData, int *Val, int *Val2)</argsstring>
+        <name>XSysMonPsv_SupplyRawToProcessed</name>
+        <param>
+          <type>int</type>
+          <declname>RawData</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>Val</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>Val2</declname>
+        </param>
+        <briefdescription>
+<para>Converts raw data to processed data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">RawData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw voltage data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerator for conversion to volts. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Val2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Denominator for conversion to volts. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="218" bodyend="233"/>
+        <references refid="group__sysmonpsv__api_1ga3bbe144c26e48e98c87ee1540e24f892" compoundref="xsysmonpsv__hw_8h" startline="710">XSYSMONPSV_SUPPLY_FMT_MASK</references>
+        <references refid="group__sysmonpsv__api_1gacf8addb42ba9a943a877e5d3e2d59478" compoundref="xsysmonpsv__hw_8h" startline="714">XSYSMONPSV_SUPPLY_FMT_SHIFT</references>
+        <references refid="group__sysmonpsv__api_1gaaf2f57b40ce3352060e2d2b5a251de9a" compoundref="xsysmonpsv__hw_8h" startline="706">XSYSMONPSV_SUPPLY_MANTISSA_MASK</references>
+        <references refid="group__sysmonpsv__api_1ga6b8df8b3d4dd4bafb488ee19ee1f731a" compoundref="xsysmonpsv__hw_8h" startline="723">XSYSMONPSV_SUPPLY_MANTISSA_SIGN</references>
+        <references refid="group__sysmonpsv__api_1ga5e282dee35af566569b16ec6b3610b21" compoundref="xsysmonpsv__hw_8h" startline="716">XSYSMONPSV_SUPPLY_MODE_MASK</references>
+        <references refid="group__sysmonpsv__api_1ga8d056928492e28137d18acdd7ee2bebd" compoundref="xsysmonpsv__hw_8h" startline="721">XSYSMONPSV_SUPPLY_MODE_SHIFT</references>
+        <referencedby refid="group__sysmonpsv__api_1gad9a7e5df580de9e887d2a32e63506af6" compoundref="xsysmonpsv_8c" startline="1123" endline="1145">XSysMonPsv_ReadSupplyProcessed</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1gac46eb5747fd8d8f552e675cf7794dd7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSysMonPsv_SupplyProcessedToRaw</definition>
+        <argsstring>(int Val, int Val2, u32 RegVal, u32 *RawData)</argsstring>
+        <name>XSysMonPsv_SupplyProcessedToRaw</name>
+        <param>
+          <type>int</type>
+          <declname>Val</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Val2</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegVal</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RawData</declname>
+        </param>
+        <briefdescription>
+<para>Converts processed data to raw data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerator for conversion to volts. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Val2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Denominator for conversion to volts. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RawData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Converted raw data. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="246" bodyend="275"/>
+        <references refid="group__sysmonpsv__api_1ga6983143ca4186de09ea4698a1f716050" compoundref="xsysmonpsv__hw_8h" startline="1108">XSYSMONPSV_LOW_SAT</references>
+        <references refid="group__sysmonpsv__api_1gae910b542514c585b0c21095bfafda0d1" compoundref="xsysmonpsv__hw_8h" startline="1104">XSYSMONPSV_LOW_SAT_SIGNED</references>
+        <references refid="group__sysmonpsv__api_1gaa0a6c963122b8943036348714117761d" compoundref="xsysmonpsv__common_8h" startline="68">XSYSMONPSV_LOW_SAT_SIGNED_VAL</references>
+        <references refid="group__sysmonpsv__api_1gaf705be69c8ce9bae5e89d20d4c430266" compoundref="xsysmonpsv__common_8h" startline="74">XSYSMONPSV_LOW_SAT_VAL</references>
+        <references refid="group__sysmonpsv__api_1ga3bbe144c26e48e98c87ee1540e24f892" compoundref="xsysmonpsv__hw_8h" startline="710">XSYSMONPSV_SUPPLY_FMT_MASK</references>
+        <references refid="group__sysmonpsv__api_1gacf8addb42ba9a943a877e5d3e2d59478" compoundref="xsysmonpsv__hw_8h" startline="714">XSYSMONPSV_SUPPLY_FMT_SHIFT</references>
+        <references refid="group__sysmonpsv__api_1ga5e282dee35af566569b16ec6b3610b21" compoundref="xsysmonpsv__hw_8h" startline="716">XSYSMONPSV_SUPPLY_MODE_MASK</references>
+        <references refid="group__sysmonpsv__api_1ga8d056928492e28137d18acdd7ee2bebd" compoundref="xsysmonpsv__hw_8h" startline="721">XSYSMONPSV_SUPPLY_MODE_SHIFT</references>
+        <references refid="group__sysmonpsv__api_1ga8c544d085eddc2aaf125abab345c6b19" compoundref="xsysmonpsv__hw_8h" startline="1100">XSYSMONPSV_UP_SAT</references>
+        <references refid="group__sysmonpsv__api_1ga35ecf3166abe7254e2c59db1df1b9a6f" compoundref="xsysmonpsv__hw_8h" startline="1096">XSYSMONPSV_UP_SAT_SIGNED</references>
+        <references refid="group__sysmonpsv__api_1gac51ecf1a7056923d5ee7b2d79c2ad917" compoundref="xsysmonpsv__common_8h" startline="64">XSYSMONPSV_UP_SAT_SIGNED_VAL</references>
+        <references refid="group__sysmonpsv__api_1gacf16c31d3d1a905cce7a11808c1b2f22" compoundref="xsysmonpsv__common_8h" startline="73">XSYSMONPSV_UP_SAT_VAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga988ca4d7c214731f9965743cf77a639a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSysMonPsv_IsAlarmPresent</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)</argsstring>
+        <name>XSysMonPsv_IsAlarmPresent</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSysMonPsv_Supply</type>
+          <declname>Supply</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the supply value has exceeded the set threshold values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Supply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum which indicates the desired supply.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if new data available. False if new data is not available. Invalid if the supply is not configured. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="290" bodyend="316"/>
+        <references refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" compoundref="xsysmonpsv__driver_8h" startline="116">XSysMonPsv::Config</references>
+        <references refid="struct_x_sys_mon_psv___config_1a8dd8a0f21ce7dda3a56d1526c3e8f676" compoundref="xsysmonpsv__driver_8h" startline="93">XSysMonPsv_Config::Supply_List</references>
+        <references refid="group__sysmonpsv__api_1ga87c8cb949820a8865031d158d1c011b7" compoundref="xsysmonpsv__hw_8h" startline="606">XSYSMONPSV_ALARM_FLAG0</references>
+        <references refid="group__sysmonpsv__api_1ga9a679ed94a444b7c9bfe9932e281d842" compoundref="xsysmonpsv__hw_8h" startline="1092">XSYSMONPSV_INVALID</references>
+        <references refid="group__sysmonpsv__api_1ga916b6265b6d630fc8678e714e3123dfd" compoundref="xsysmonpsv__hw_8h" startline="1089">XSYSMONPSV_INVALID_SUPPLY</references>
+        <references refid="group__sysmonpsv__api_1gaf4320c775170d738c09e9514f8ed0578" compoundref="xsysmonpsv__direct_8c" startline="55" endline="60">XSysMonPsv_ReadReg32</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga6b989c85810f2390a4731ff676240825" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSysMonPsv_ClearAlarm</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)</argsstring>
+        <name>XSysMonPsv_ClearAlarm</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSysMonPsv_Supply</type>
+          <declname>Supply</declname>
+        </param>
+        <briefdescription>
+<para>Clears the alarm status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Supply</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum which indicates the desired supply.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the alarm was cleared. XSYSMONPSV_INVALID if the supply is not configured. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="330" bodyend="360"/>
+        <references refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" compoundref="xsysmonpsv__driver_8h" startline="116">XSysMonPsv::Config</references>
+        <references refid="struct_x_sys_mon_psv___config_1a8dd8a0f21ce7dda3a56d1526c3e8f676" compoundref="xsysmonpsv__driver_8h" startline="93">XSysMonPsv_Config::Supply_List</references>
+        <references refid="group__sysmonpsv__api_1ga87c8cb949820a8865031d158d1c011b7" compoundref="xsysmonpsv__hw_8h" startline="606">XSYSMONPSV_ALARM_FLAG0</references>
+        <references refid="group__sysmonpsv__api_1ga9a679ed94a444b7c9bfe9932e281d842" compoundref="xsysmonpsv__hw_8h" startline="1092">XSYSMONPSV_INVALID</references>
+        <references refid="group__sysmonpsv__api_1ga916b6265b6d630fc8678e714e3123dfd" compoundref="xsysmonpsv__hw_8h" startline="1089">XSYSMONPSV_INVALID_SUPPLY</references>
+        <references refid="group__sysmonpsv__api_1gaf4320c775170d738c09e9514f8ed0578" compoundref="xsysmonpsv__direct_8c" startline="55" endline="60">XSysMonPsv_ReadReg32</references>
+        <references refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga4ae75168c5bf36923920778a77c15190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_InterruptEnable</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)</argsstring>
+        <name>XSysMonPsv_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IntrNum</declname>
+        </param>
+        <briefdescription>
+<para>Enables the specified interrupts in the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit mask of the interrupts to be enabled. Bit positions of 1 are enabled. Bit positions of 0 keep the previous setting. This mask is formed by OR&apos;ing XSYSMON_IER_* bits defined in <ref refid="xsysmonpsv__hw_8h" kindref="compound">xsysmonpsv_hw.h</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">IntrNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt enable register to be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE if error.<itemizedlist>
+<listitem><para>XST_SUCCESS if successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="378" bodyend="394"/>
+        <references refid="group__sysmonpsv__api_1gaedc7b72f6668bf1ebcec44de5916a982" compoundref="xsysmonpsv__hw_8h" startline="233">XSYSMONPSV_IER0_OFFSET</references>
+        <references refid="group__sysmonpsv__api_1ga0531dfb8a91f71cfa8e31bb0abc3d97e" compoundref="xsysmonpsv__hw_8h" startline="106">XSYSMONPSV_PCSR_LOCK</references>
+        <references refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</references>
+        <referencedby refid="group__sysmonpsv__api_1ga27ee2cbf4e86a5e66f8ed744187a805f" compoundref="xsysmonpsv__services_8c" startline="64" endline="92">XSysMonPsv_EnableVoltageEvents</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga780deadc037ba622ecb6dd6ce2e2f559" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_InterruptDisable</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)</argsstring>
+        <name>XSysMonPsv_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IntrNum</declname>
+        </param>
+        <briefdescription>
+<para>Disables the specified interrupts in the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit mask of the interrupts to be disabled. Bit positions of 1 are disabled. Bit positions of 0 keep the previous setting. This mask is formed by OR&apos;ing XSYSMONPSV_IDR_* bits defined in <ref refid="xsysmonpsv__hw_8h" kindref="compound">xsysmonpsv_hw.h</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">IntrNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt disable register to be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE if error.<itemizedlist>
+<listitem><para>XST_SUCCESS if successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="412" bodyend="428"/>
+        <references refid="group__sysmonpsv__api_1gae9d0fd1d1e8eb1d4ac3a2fedf9887db3" compoundref="xsysmonpsv__hw_8h" startline="285">XSYSMONPSV_IDR0_OFFSET</references>
+        <references refid="group__sysmonpsv__api_1ga0531dfb8a91f71cfa8e31bb0abc3d97e" compoundref="xsysmonpsv__hw_8h" startline="106">XSYSMONPSV_PCSR_LOCK</references>
+        <references refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1gabd3c28bb9cea2402997c6ee2950330c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSysMonPsv_InterruptGetStatus</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, u32 *IntrStatus)</argsstring>
+        <name>XSysMonPsv_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IntrStatus</declname>
+        </param>
+        <briefdescription>
+<para>Returns the interrupt status read from the Interrupt Status Register (ISR). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XSYSMONPSV_ISR* constants defined in <ref refid="xsysmonpsv__hw_8h" kindref="compound">xsysmonpsv_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">IntrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value representing the contents of the Interrupt Status Register (ISR).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE when a NULL instance is passed.<itemizedlist>
+<listitem><para>XST_SUCCESS if it succeeds. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="447" bodyend="455"/>
+        <references refid="group__sysmonpsv__api_1gad6a0d0fc444bc07d4bea0576fb87bb9d" compoundref="xsysmonpsv__hw_8h" startline="123">XSYSMONPSV_ISR_OFFSET</references>
+        <references refid="group__sysmonpsv__api_1gaf4320c775170d738c09e9514f8ed0578" compoundref="xsysmonpsv__direct_8c" startline="55" endline="60">XSysMonPsv_ReadReg32</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga396ab64a4d49e54dfbe618b1f827678f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSysMonPsv_InterruptClear</definition>
+        <argsstring>(XSysMonPsv *InstancePtr, u32 Mask)</argsstring>
+        <name>XSysMonPsv_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears the specified interrupts in the Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit mask of the interrupts to be cleared. Bit positions of 1 are cleared. Bit positions of 0 do not change the previous interrupt status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="468" bodyend="474"/>
+        <references refid="group__sysmonpsv__api_1gad6a0d0fc444bc07d4bea0576fb87bb9d" compoundref="xsysmonpsv__hw_8h" startline="123">XSYSMONPSV_ISR_OFFSET</references>
+        <references refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga56422c5c70128f1ccedb5b93ad2b48bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSysMonPsv_UnlockRegspace</definition>
+        <argsstring>(XSysMonPsv *InstancePtr)</argsstring>
+        <name>XSysMonPsv_UnlockRegspace</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Unlocks the register space of the SysMon hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c" bodystart="484" bodyend="491"/>
+        <references refid="group__sysmonpsv__api_1ga4a8eae39bcb70012826037830d666b7f" compoundref="xsysmonpsv__common_8h" startline="49">XSYSMONPSV_LOCK_CODE</references>
+        <references refid="group__sysmonpsv__api_1ga0531dfb8a91f71cfa8e31bb0abc3d97e" compoundref="xsysmonpsv__hw_8h" startline="106">XSYSMONPSV_PCSR_LOCK</references>
+        <references refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares the basic driver functions for the <ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="xsysmonpsv__common_8h" kindref="compound">xsysmonpsv_common.h</ref> file declares basic driver functions used in the services or directly by the application.</para><para><preformatted>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+<hruler/>
+
+3.0   cog    03/25/21 Driver Restructure
+4.0   se     10/04/22 Update return value definitions
+5.2   se     08/24/25 Microblaze support added
+5.3   dc     02/18/26 Correct spelling errors
+      se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+                      (void) cast, sign conversion, parentheses
+5.4   vn     09/29/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_XSYSMONPSV_COMMON_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_XSYSMONPSV_COMMON_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsv__driver_8h" kindref="compound">xsysmonpsv_driver.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsysmonpsv_supplylist.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="group__sysmonpsv__api_1ga5c8d4c6bfb7e2cd4d941a8b978b17359" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSYSMONPSV_INTR_OFFSET<sp/>0xCU<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__sysmonpsv__api_1ga4a8eae39bcb70012826037830d666b7f" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_LOCK_CODE<sp/>0xF9E8D7C6U<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__sysmonpsv__api_1gacdf9e95792b4a01a0d0d5c57d76aed22" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_INTR_0_ID<sp/>(144U<sp/>+<sp/>32U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__sysmonpsv__api_1ga19bd81ddc074908597fdc00c8ff94189" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_INTR_1_ID<sp/>(145U<sp/>+<sp/>32U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__sysmonpsv__api_1ga6909b214c40a3f5cec1cf6aa7653cec4" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM0<sp/>0U<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__sysmonpsv__api_1ga51605e983789dc6f22ff004195580b5a" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM1<sp/>1U<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__sysmonpsv__api_1gade655921aaa7a3eddbd7c648e97627e9" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM2<sp/>2U<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__sysmonpsv__api_1ga42576c00699720cd28723bf61ea40f54" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM3<sp/>3U<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__sysmonpsv__api_1ga183d8d8f2ffe40902e80206435f02660" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM4<sp/>4U<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__sysmonpsv__api_1ga55435b8423e00a4189594a3a077a259d" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM5<sp/>5U<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__sysmonpsv__api_1gace21289a3e9b07bc1446f799ee80d91b" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM6<sp/>6U<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__sysmonpsv__api_1ga59675ead52813b82982b4877c5a81b7e" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_ALARM7<sp/>7U<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__sysmonpsv__api_1gaed3e600c2f1729e899864291890697ae" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_OT<sp/>8U<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__sysmonpsv__api_1ga865655d025cdf853a2ae9a9018ccaa5f" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_BIT_TEMP<sp/>9U<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__sysmonpsv__api_1gac51ecf1a7056923d5ee7b2d79c2ad917" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_UP_SAT_SIGNED_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FFFU<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_LOW_SAT_SIGNED_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="68" refid="group__sysmonpsv__api_1gaa0a6c963122b8943036348714117761d" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8000U<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_UP_SAT_VAL<sp/>0xFFFFU<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_LOW_SAT_VAL<sp/>0x0000U<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__sysmonpsv__api_1gaf705be69c8ce9bae5e89d20d4c430266" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_MILLI_SCALE<sp/>1000<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>compare(val,<sp/>thresh)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((val)&amp;0x8000U)<sp/>||<sp/>((thresh)&amp;0x8000U)<sp/>?<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="87" refid="group__sysmonpsv__api_1ga96bd47ddac126b1cff1f2d198db310fe" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((val)<sp/>&lt;<sp/>(thresh))<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((val)<sp/>&gt;<sp/>(thresh)))</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>twoscomp(val)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((((val)<sp/>^<sp/>0xFFFFU)<sp/>+<sp/>1U)<sp/>&amp;<sp/>0x0000FFFFU)</highlight></codeline>
+<codeline lineno="100" refid="group__sysmonpsv__api_1ga4afca72fb6d0ad4247f86d339a7c15ac" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>ALARM_REG(address)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((address)<sp/>/<sp/>32U)</highlight></codeline>
+<codeline lineno="111" refid="group__sysmonpsv__api_1ga16099b2571d3ca0524e7e54165aa80d6" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>ALARM_SHIFT(address)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((address)<sp/>%<sp/>32U)</highlight></codeline>
+<codeline lineno="122" refid="group__sysmonpsv__api_1gabb9e93a5e3a832c42d695231684ba43d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>GET_BIT(nr)<sp/>(1UL<sp/>&lt;&lt;<sp/>(nr))</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a102c7797d2584b126f87eca3179d009e" kindref="member">XSYSMONPSV_EV_DIR_EITHER</ref>,<sp/></highlight></codeline>
+<codeline lineno="136" refid="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86ae4d5137bc186658234bb91118e87637c" kindref="member">XSYSMONPSV_EV_DIR_RISING</ref>,<sp/></highlight></codeline>
+<codeline lineno="137" refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a102c7797d2584b126f87eca3179d009e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a71cd3a59169306ff3485c45e7b1d9efa" kindref="member">XSYSMONPSV_EV_DIR_FALLING</ref>,<sp/></highlight></codeline>
+<codeline lineno="138" refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86ae4d5137bc186658234bb91118e87637c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a2f8465af690f045e3580f0ce612ac92b" kindref="member">XSYSMONPSV_EV_DIR_NONE</ref>,<sp/></highlight></codeline>
+<codeline lineno="139" refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a71cd3a59169306ff3485c45e7b1d9efa" refkind="member"><highlight class="normal">}<sp/><ref refid="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" kindref="member">XSysMonPsv_EventDir</ref>;</highlight></codeline>
+<codeline lineno="140" refid="group__sysmonpsv__api_1ggafa09b3eb6bf7927a1217cfee24fdaa86a2f8465af690f045e3580f0ce612ac92b" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af77834f3af80ba55987a6dd3320090df" kindref="member">XSYSMONPSV_TEMP</ref>,<sp/></highlight></codeline>
+<codeline lineno="144" refid="group__sysmonpsv__api_1gadfe9f0bbf776d4b6c29403ffbd49bf30" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30ae89a5e61e7817a759c6a8e4c041cd394" kindref="member">XSYSMONPSV_TEMP_MAX</ref>,<sp/></highlight></codeline>
+<codeline lineno="145" refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af77834f3af80ba55987a6dd3320090df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af47c7b392627575724efb983f3e1f2b3" kindref="member">XSYSMONPSV_TEMP_MIN</ref>,<sp/></highlight></codeline>
+<codeline lineno="146" refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30ae89a5e61e7817a759c6a8e4c041cd394" refkind="member"><highlight class="normal">}<sp/><ref refid="group__sysmonpsv__api_1gadfe9f0bbf776d4b6c29403ffbd49bf30" kindref="member">XSysMonPsv_TempType</ref>;</highlight></codeline>
+<codeline lineno="147" refid="group__sysmonpsv__api_1ggadfe9f0bbf776d4b6c29403ffbd49bf30af47c7b392627575724efb983f3e1f2b3" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91beab55778d23fd3e17972e5f218cea9a7e8" kindref="member">XSYSMONPSV_TEMP_EVENT</ref>,<sp/></highlight></codeline>
+<codeline lineno="151" refid="group__sysmonpsv__api_1ga121b9e0621d3f6c2a9b70e2081bb91be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91bea311033c65e024c7db57d9f2acecd1c3e" kindref="member">XSYSMONPSV_OT_EVENT</ref>,<sp/></highlight></codeline>
+<codeline lineno="152" refid="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91beab55778d23fd3e17972e5f218cea9a7e8" refkind="member"><highlight class="normal">}<sp/><ref refid="group__sysmonpsv__api_1ga121b9e0621d3f6c2a9b70e2081bb91be" kindref="member">XSysMonPsv_TempEvt</ref>;</highlight></codeline>
+<codeline lineno="153" refid="group__sysmonpsv__api_1gga121b9e0621d3f6c2a9b70e2081bb91bea311033c65e024c7db57d9f2acecd1c3e" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>in<sp/>xsysmonpsv_common.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga6a12e8784552b16f6284da99b9ebf222" kindref="member">XSysMonPsv_TempOffset</ref>(<ref refid="group__sysmonpsv__api_1gadfe9f0bbf776d4b6c29403ffbd49bf30" kindref="member">XSysMonPsv_TempType</ref><sp/>Type);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga1941867eda39665e89f3ff23895baed4" kindref="member">XSysMonPsv_TempThreshOffset</ref>(<ref refid="group__sysmonpsv__api_1ga121b9e0621d3f6c2a9b70e2081bb91be" kindref="member">XSysMonPsv_TempEvt</ref><sp/>Event,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" kindref="member">XSysMonPsv_EventDir</ref><sp/>Dir,<sp/>u32<sp/>*Offset);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">u32<sp/><ref refid="group__sysmonpsv__api_1ga6198b0ca31176e635868334bd2ccaba2" kindref="member">XSysMonPsv_SupplyOffset</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Supply);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">u32<sp/><ref refid="group__sysmonpsv__api_1gadde53ad4ac2dfe9a1bdc4a62bb7dd1a2" kindref="member">XSysMonPsv_SupplyThreshOffset</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Supply,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sysmonpsv__api_1gafa09b3eb6bf7927a1217cfee24fdaa86" kindref="member">XSysMonPsv_EventDir</ref><sp/>Dir);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1gadbec82431fdcf7cbea444f04bc165417" kindref="member">XSysMonPsv_Q8P7ToCelsius</ref>(u32<sp/>RawData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*Val,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*Val2);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga5b066fb52f89d2245a6ac21e807ffa17" kindref="member">XSysMonPsv_CelsiusToQ8P7</ref>(u32<sp/>*RawData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Val,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Val2);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1gaca75f045ad9bd684a8604c4b00934acd" kindref="member">XSysMonPsv_SupplyRawToProcessed</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RawData,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*Val,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*Val2);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1gac46eb5747fd8d8f552e675cf7794dd7b" kindref="member">XSysMonPsv_SupplyProcessedToRaw</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Val,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Val2,<sp/>u32<sp/>RegVal,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RawData);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal">u32<sp/><ref refid="group__sysmonpsv__api_1ga988ca4d7c214731f9965743cf77a639a" kindref="member">XSysMonPsv_IsAlarmPresent</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysMonPsv_Supply<sp/>Supply);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">u32<sp/><ref refid="group__sysmonpsv__api_1ga6b989c85810f2390a4731ff676240825" kindref="member">XSysMonPsv_ClearAlarm</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>XSysMonPsv_Supply<sp/>Supply);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga4ae75168c5bf36923920778a77c15190" kindref="member">XSysMonPsv_InterruptEnable</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask,<sp/>u8<sp/>IntrNum);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga780deadc037ba622ecb6dd6ce2e2f559" kindref="member">XSysMonPsv_InterruptDisable</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask,<sp/>u8<sp/>IntrNum);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1gabd3c28bb9cea2402997c6ee2950330c7" kindref="member">XSysMonPsv_InterruptGetStatus</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>*IntrStatus);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga396ab64a4d49e54dfbe618b1f827678f" kindref="member">XSysMonPsv_InterruptClear</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1ga56422c5c70128f1ccedb5b93ad2b48bd" kindref="member">XSysMonPsv_UnlockRegspace</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XSYSMONPSV_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h"/>
+  </compounddef>
+</doxygen>

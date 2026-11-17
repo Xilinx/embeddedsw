@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['data_5fptr',['data_ptr',['../struct_x_usb_ps.html#a066d0880336b8cd00dfd8e06d8159619',1,'XUsbPs']]],
+  ['dcbwdatatransferlength',['dCBWDataTransferLength',['../struct_u_s_b___c_b_w.html#a1f3cb85bc32de34ff766c61de079a633',1,'USB_CBW']]],
+  ['dcbwsignature',['dCBWSignature',['../struct_u_s_b___c_b_w.html#abe00e0cd6e36535ea8f113bc3af37be7',1,'USB_CBW']]],
+  ['dcbwtag',['dCBWTag',['../struct_u_s_b___c_b_w.html#ad8b54e7b7c5d078b04a335def0572e2d',1,'USB_CBW']]],
+  ['dcswdataresidue',['dCSWDataResidue',['../struct_u_s_b___c_s_w.html#a747ea205c2871343386d03757ff2b9ed',1,'USB_CSW']]],
+  ['dcswsignature',['dCSWSignature',['../struct_u_s_b___c_s_w.html#a39b2a4f30cb67e6e1544221cb5295811',1,'USB_CSW']]],
+  ['dcswtag',['dCSWTag',['../struct_u_s_b___c_s_w.html#afba99883e1187598ebf59e7cea60e6a4',1,'USB_CSW']]],
+  ['desccode',['descCode',['../struct_s_c_s_i___c_a_p___l_i_s_t.html#a50b97c43ed5d1e79022dedde9258d0dc',1,'SCSI_CAP_LIST']]],
+  ['deviceconfig',['DeviceConfig',['../struct_x_usb_ps.html#a6b2850e98dd08df31ee5369ce56e8c50',1,'XUsbPs::DeviceConfig()'],['../xusbps__audio__example_8c.html#a41079ea5f43773b72f02eaa3e270b91a',1,'DeviceConfig():&#160;xusbps_audio_example.c']]],
+  ['devicedesc',['deviceDesc',['../xusbps__ch9__audio_8c.html#a3beb70f10bb3d715cc478e087098d994',1,'xusbps_ch9_audio.c']]],
+  ['devicetype',['deviceType',['../struct_s_c_s_i___i_n_q_u_i_r_y.html#a25c69b7d903c648cb736e3dc8b0ff9d8',1,'SCSI_INQUIRY']]],
+  ['dmamemphys',['DMAMemPhys',['../struct_x_usb_ps___device_config.html#a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e',1,'XUsbPs_DeviceConfig']]],
+  ['dqh',['dQH',['../struct_x_usb_ps___ep_out.html#a25529ccf4a095d2704dc7dc02ee6d7de',1,'XUsbPs_EpOut::dQH()'],['../struct_x_usb_ps___ep_in.html#a1a0fa8f4626a7ba2951c0127ae8bb863',1,'XUsbPs_EpIn::dQH()']]],
+  ['dtdbufs',['dTDBufs',['../struct_x_usb_ps___ep_out.html#a6b2cdb5074182d7f0f4b6d3e9dbf622c',1,'XUsbPs_EpOut']]],
+  ['dtdcurr',['dTDCurr',['../struct_x_usb_ps___ep_out.html#a07bb77bd265570152d71877ebb60d0a6',1,'XUsbPs_EpOut']]],
+  ['dtdhead',['dTDHead',['../struct_x_usb_ps___ep_in.html#a4b9ea6443d363d27d2db7568e7f9bdca',1,'XUsbPs_EpIn']]],
+  ['dtds',['dTDs',['../struct_x_usb_ps___ep_out.html#af6d60c79e713a15dbdf233cfaee0679a',1,'XUsbPs_EpOut::dTDs()'],['../struct_x_usb_ps___ep_in.html#a375b19e94ca30922e04ce4c67b4c6d9b',1,'XUsbPs_EpIn::dTDs()']]],
+  ['dtdtail',['dTDTail',['../struct_x_usb_ps___ep_in.html#ab96881a7e7762bb132da2c0c9ff30f07',1,'XUsbPs_EpIn']]]
+];

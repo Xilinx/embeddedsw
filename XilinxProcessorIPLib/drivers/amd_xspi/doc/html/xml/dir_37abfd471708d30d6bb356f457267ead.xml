@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_37abfd471708d30d6bb356f457267ead" kind="dir">
+    <compoundname>embeddedsw</compoundname>
+    <innerdir refid="dir_2a6e8276974ef312fef0b4f4f182f4c4">XilinxProcessorIPLib</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/"/>
+  </compounddef>
+</doxygen>

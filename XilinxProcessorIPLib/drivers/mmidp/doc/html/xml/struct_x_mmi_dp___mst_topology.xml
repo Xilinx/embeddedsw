@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___mst_topology" kind="struct" prot="public">
+    <compoundname>XMmiDp_MstTopology</compoundname>
+    <includes local="no">xmmidp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_topology_1a2975f3c0925a236fbf3199cd3afbe5ca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstTopology::BranchTotal</definition>
+        <argsstring></argsstring>
+        <name>BranchTotal</name>
+        <briefdescription>
+<para>Branches walked. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="413" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstTopology::SinkTotal</definition>
+        <argsstring></argsstring>
+        <name>SinkTotal</name>
+        <briefdescription>
+<para>Entries used in Sinks[]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="414" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mmi_dp___mst_sink" kindref="compound">XMmiDp_MstSink</ref></type>
+        <definition>XMmiDp_MstSink XMmiDp_MstTopology::Sinks[XMMIDP_MST_MAX_SINKS]</definition>
+        <argsstring>[XMMIDP_MST_MAX_SINKS]</argsstring>
+        <name>Sinks</name>
+        <briefdescription>
+<para>Found sinks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MST topology found by <ref refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" kindref="member">XMmiDp_MstDiscoverTopology()</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="25">
+        <label>XMmiDp_MstTopology</label>
+        <link refid="struct_x_mmi_dp___mst_topology"/>
+        <childnode refid="26" relation="usage">
+          <edgelabel>Sinks</edgelabel>
+        </childnode>
+      </node>
+      <node id="26">
+        <label>XMmiDp_MstSink</label>
+        <link refid="struct_x_mmi_dp___mst_sink"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="412" bodyend="416"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___mst_topology_1a2975f3c0925a236fbf3199cd3afbe5ca" prot="public" virt="non-virtual"><scope>XMmiDp_MstTopology</scope><name>BranchTotal</name></member>
+      <member refid="struct_x_mmi_dp___mst_topology_1a62bd65b919bb73da777136562e3928ec" prot="public" virt="non-virtual"><scope>XMmiDp_MstTopology</scope><name>Sinks</name></member>
+      <member refid="struct_x_mmi_dp___mst_topology_1a16cdd814134c93c1e294baa30efd6ceb" prot="public" virt="non-virtual"><scope>XMmiDp_MstTopology</scope><name>SinkTotal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xwdttb__intr__example" kind="group">
+    <compoundname>xwdttb_intr_example</compoundname>
+    <title>Xwdttb_intr_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xwdttb__intr__example_1gab8af281a0812133a8f56ae603f696ef1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref></type>
+        <definition>XWdtTb WdtTbInstance</definition>
+        <argsstring></argsstring>
+        <name>WdtTbInstance</name>
+        <briefdescription>
+<para>Instance of Time Base WatchDog Timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xwdttb__intr__example_1ga9a3a500686a269cd8194f4693c6f8b45" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int WdtExpired</definition>
+        <argsstring></argsstring>
+        <name>WdtExpired</name>
+        <briefdescription>
+<para>Flag set when the WDT expires. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xwdttb__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int WdtTbIntrExample</definition>
+        <argsstring>(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>WdtTbIntrExample</name>
+        <param>
+          <type><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> *</type>
+          <declname>WdtTbInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Tests the TimeBase WatchDog Timer module in interrupt mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The test uses the WDT interrupt.</para><para>After one expiration of the WDT timeout interval, an interrupt is generated and the WDT state bit is set to one in the status register. If the state bit is not cleared (by writing a 1 to the state bit) before the next expiration of the timeout interval, a WDT reset is generated. A WDT reset sets the WDT reset status bit in the status register so that the application code can determine if the last system reset was a WDT reset.</para><para>This function assumes that the reset output of the WdtTb device is not connected to the reset of the processor. The function allows the watchdog timer to timeout such that a reset occurs if it is connected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">WdtTbInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of WdtTb driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, the example uses WdtTbDeviceId and WdtTbIntrId to look up the device configuration and set up interrupt handling.<itemizedlist>
+<listitem><para>This example does not return if the interrupts are not working. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" line="128" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xwdttb__intr__example_1ga30103615faf456b845c73828f7939a4a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void WdtTbIntrHandler</definition>
+        <argsstring>(void *CallBackRef)</argsstring>
+        <name>WdtTbIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Handles the WDT interrupt of the WdtTb device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler runs in interrupt context on the expiration of the WDT period.</para><para>This function provides an example of how to handle WDT interrupt of the WdtTb device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" bodystart="505" bodyend="518"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xwdttb__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the WdtTb interrupt example from the main function. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_intr_example.c" bodystart="166" bodyend="189"/>
+        <references refid="group__xwdttb__gwdt__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" compoundref="xwdttb__gwdt__intr__example_8c" startline="189" endline="284">WdtTbIntrExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

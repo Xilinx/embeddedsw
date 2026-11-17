@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_qspi_psu___msg" kind="struct" prot="public">
+    <compoundname>XQspiPsu_Msg</compoundname>
+    <includes local="no">xqspipsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPsu_Msg::TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Tx Buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga4f09bf044ed26b11fc5489cb7b7ca1e6" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1452" endline="1559">BulkErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga97d8ab88e6002a97c30b95b66db231ea" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1574" endline="1728">DieErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaadb5bba767105a02460fed573339cc03" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1109" endline="1191">FlashCheckIsBadBlock</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga83a78784f5ba39b5e76b17a7e4a5ecad" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2170" endline="2895">FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gae8d1767607b58391ccb2d0103c2fd456" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1914" endline="2154">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga8c7c38172a5258ee7cdfaef5a1a9af82" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="835" endline="1070">FlashErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga00a4de96abf83f73868e4deaac0201cf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1063" endline="1096">FlashIsNotBusy</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaaaad34739d0ad6d1fb5436c1d6428463" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1093" endline="1227">FlashRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gac7c0194bd58d158581c699b8c07c309d" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="582" endline="638">FlashReadID</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5e40a81a572bfacbf4d7a39af7905cea" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1336" endline="1364">FlashRegisterRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5b70ac0045f51c4babd8709e1c030752" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1227" endline="1318">FlashRegisterWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga8f54c2517204156c731fc188b2813dbf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1020" endline="1049">FlashStatusRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga9e04afb92201a853b5e46ecd588e6c2e" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="981" endline="1004">FlashStatusWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga333c8e44e9af52811dee98f2cfcacf53" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="659" endline="820">FlashWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga90470da2a9dac8ed645e737039c69d8a" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2911" endline="2994">GetStatusReadAnyReg</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaa6007218826af36e0df62b747de40de5" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1249" endline="1437">MultiDieRead</referencedby>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" compoundref="xqspipsu__hw_8c" startline="77" endline="114">XQspiPsu_FillTxFifo</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaf4252e677790f632c68c5d33fe5e4cd5" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1205" endline="1299">XQspiPsu_ReadParamPage</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="127" endline="139">XQspiPsu_TXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPsu_Msg::RxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>RxBfrPtr</name>
+        <briefdescription>
+<para>Rx Buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga4f09bf044ed26b11fc5489cb7b7ca1e6" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1452" endline="1559">BulkErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga97d8ab88e6002a97c30b95b66db231ea" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1574" endline="1728">DieErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaadb5bba767105a02460fed573339cc03" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1109" endline="1191">FlashCheckIsBadBlock</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga83a78784f5ba39b5e76b17a7e4a5ecad" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2170" endline="2895">FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gae8d1767607b58391ccb2d0103c2fd456" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1914" endline="2154">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga8c7c38172a5258ee7cdfaef5a1a9af82" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="835" endline="1070">FlashErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga00a4de96abf83f73868e4deaac0201cf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1063" endline="1096">FlashIsNotBusy</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaaaad34739d0ad6d1fb5436c1d6428463" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1093" endline="1227">FlashRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gac7c0194bd58d158581c699b8c07c309d" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="582" endline="638">FlashReadID</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5e40a81a572bfacbf4d7a39af7905cea" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1336" endline="1364">FlashRegisterRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5b70ac0045f51c4babd8709e1c030752" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1227" endline="1318">FlashRegisterWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga8f54c2517204156c731fc188b2813dbf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1020" endline="1049">FlashStatusRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga9e04afb92201a853b5e46ecd588e6c2e" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="981" endline="1004">FlashStatusWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga333c8e44e9af52811dee98f2cfcacf53" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="659" endline="820">FlashWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga90470da2a9dac8ed645e737039c69d8a" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2911" endline="2994">GetStatusReadAnyReg</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaa6007218826af36e0df62b747de40de5" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1249" endline="1437">MultiDieRead</referencedby>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="767" endline="811">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaf4252e677790f632c68c5d33fe5e4cd5" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1205" endline="1299">XQspiPsu_ReadParamPage</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" compoundref="xqspipsu__hw_8c" startline="672" endline="704">XQspiPsu_ReadRxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="262" endline="283">XQspiPsu_SetIOMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" compoundref="xqspipsu__hw_8c" startline="150" endline="196">XQspiPsu_SetupRxDma</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_Msg::ByteCount</definition>
+        <argsstring></argsstring>
+        <name>ByteCount</name>
+        <briefdescription>
+<para>Byte Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga4f09bf044ed26b11fc5489cb7b7ca1e6" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1452" endline="1559">BulkErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga97d8ab88e6002a97c30b95b66db231ea" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1574" endline="1728">DieErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaadb5bba767105a02460fed573339cc03" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1109" endline="1191">FlashCheckIsBadBlock</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga83a78784f5ba39b5e76b17a7e4a5ecad" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2170" endline="2895">FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gae8d1767607b58391ccb2d0103c2fd456" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1914" endline="2154">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga8c7c38172a5258ee7cdfaef5a1a9af82" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="835" endline="1070">FlashErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga00a4de96abf83f73868e4deaac0201cf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1063" endline="1096">FlashIsNotBusy</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaaaad34739d0ad6d1fb5436c1d6428463" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1093" endline="1227">FlashRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gac7c0194bd58d158581c699b8c07c309d" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="582" endline="638">FlashReadID</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5e40a81a572bfacbf4d7a39af7905cea" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1336" endline="1364">FlashRegisterRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5b70ac0045f51c4babd8709e1c030752" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1227" endline="1318">FlashRegisterWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga8f54c2517204156c731fc188b2813dbf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1020" endline="1049">FlashStatusRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga9e04afb92201a853b5e46ecd588e6c2e" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="981" endline="1004">FlashStatusWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga333c8e44e9af52811dee98f2cfcacf53" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="659" endline="820">FlashWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga90470da2a9dac8ed645e737039c69d8a" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2911" endline="2994">GetStatusReadAnyReg</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaa6007218826af36e0df62b747de40de5" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1249" endline="1437">MultiDieRead</referencedby>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="71" endline="121">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga7fc4cdebc35bb7b5d3ca9128917c131c" compoundref="xqspipsu__hw_8c" startline="463" endline="517">XQspiPsu_GenFifoEntryDataLen</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaf4252e677790f632c68c5d33fe5e4cd5" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1205" endline="1299">XQspiPsu_ReadParamPage</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="296" endline="314">XQspiPsu_RXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="262" endline="283">XQspiPsu_SetIOMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" compoundref="xqspipsu__hw_8c" startline="209" endline="244">XQspiPsu_Setup64BRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" compoundref="xqspipsu__hw_8c" startline="150" endline="196">XQspiPsu_SetupRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="127" endline="139">XQspiPsu_TXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1ae4dae8ba728f7da9b6f31bb39c62b81f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_Msg::BusWidth</definition>
+        <argsstring></argsstring>
+        <name>BusWidth</name>
+        <briefdescription>
+<para>Bus Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga4f09bf044ed26b11fc5489cb7b7ca1e6" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1452" endline="1559">BulkErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga97d8ab88e6002a97c30b95b66db231ea" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1574" endline="1728">DieErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaadb5bba767105a02460fed573339cc03" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1109" endline="1191">FlashCheckIsBadBlock</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga83a78784f5ba39b5e76b17a7e4a5ecad" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2170" endline="2895">FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gae8d1767607b58391ccb2d0103c2fd456" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1914" endline="2154">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga8c7c38172a5258ee7cdfaef5a1a9af82" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="835" endline="1070">FlashErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga00a4de96abf83f73868e4deaac0201cf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1063" endline="1096">FlashIsNotBusy</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaaaad34739d0ad6d1fb5436c1d6428463" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1093" endline="1227">FlashRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gac7c0194bd58d158581c699b8c07c309d" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="582" endline="638">FlashReadID</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5e40a81a572bfacbf4d7a39af7905cea" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1336" endline="1364">FlashRegisterRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5b70ac0045f51c4babd8709e1c030752" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1227" endline="1318">FlashRegisterWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga8f54c2517204156c731fc188b2813dbf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1020" endline="1049">FlashStatusRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga9e04afb92201a853b5e46ecd588e6c2e" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="981" endline="1004">FlashStatusWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga333c8e44e9af52811dee98f2cfcacf53" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="659" endline="820">FlashWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga90470da2a9dac8ed645e737039c69d8a" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2911" endline="2994">GetStatusReadAnyReg</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaa6007218826af36e0df62b747de40de5" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1249" endline="1437">MultiDieRead</referencedby>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="71" endline="121">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaf4252e677790f632c68c5d33fe5e4cd5" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1205" endline="1299">XQspiPsu_ReadParamPage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_Msg::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga4f09bf044ed26b11fc5489cb7b7ca1e6" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1452" endline="1559">BulkErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga97d8ab88e6002a97c30b95b66db231ea" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1574" endline="1728">DieErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaadb5bba767105a02460fed573339cc03" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1109" endline="1191">FlashCheckIsBadBlock</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga83a78784f5ba39b5e76b17a7e4a5ecad" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2170" endline="2895">FlashEnableQuadMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gae8d1767607b58391ccb2d0103c2fd456" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1914" endline="2154">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga8c7c38172a5258ee7cdfaef5a1a9af82" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="835" endline="1070">FlashErase</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga00a4de96abf83f73868e4deaac0201cf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1063" endline="1096">FlashIsNotBusy</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaaaad34739d0ad6d1fb5436c1d6428463" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1093" endline="1227">FlashRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gac7c0194bd58d158581c699b8c07c309d" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="582" endline="638">FlashReadID</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5e40a81a572bfacbf4d7a39af7905cea" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1336" endline="1364">FlashRegisterRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__non__blocking__read__example_1ga5b70ac0045f51c4babd8709e1c030752" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="1227" endline="1318">FlashRegisterWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga8f54c2517204156c731fc188b2813dbf" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1020" endline="1049">FlashStatusRead</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1ga9e04afb92201a853b5e46ecd588e6c2e" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="981" endline="1004">FlashStatusWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga333c8e44e9af52811dee98f2cfcacf53" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="659" endline="820">FlashWrite</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1ga90470da2a9dac8ed645e737039c69d8a" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2911" endline="2994">GetStatusReadAnyReg</referencedby>
+        <referencedby refid="group__xqspipsu__generic__flash__interrupt__example_1gaa6007218826af36e0df62b747de40de5" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1249" endline="1437">MultiDieRead</referencedby>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="71" endline="121">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+        <referencedby refid="group__xqspipsu__generic__nand__flash__interrupt__example_1gaf4252e677790f632c68c5d33fe5e4cd5" compoundref="xqspipsu__generic__nand__flash__interrupt__example_8c" startline="1205" endline="1299">XQspiPsu_ReadParamPage</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga247f94a74b565ab82db91f0debc855ba" compoundref="xqspipsu__control_8c" startline="300" endline="334">XQspiPsu_StartDmaMsgTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="421" endline="449">XQspiPsu_TXRXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a1a7d94d20674d2af431203e779c3a58a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsu_Msg::PollData</definition>
+        <argsstring></argsstring>
+        <name>PollData</name>
+        <briefdescription>
+<para>Poll Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" compoundref="xqspipsu__hw_8c" startline="530" endline="556">XQspiPsu_CreatePollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1ac06e894441ae84236cd61d98b5a322f0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu_Msg::PollTimeout</definition>
+        <argsstring></argsstring>
+        <name>PollTimeout</name>
+        <briefdescription>
+<para>Poll Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a4868812107662f5c99d0ad03ef9da293" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsu_Msg::PollStatusCmd</definition>
+        <argsstring></argsstring>
+        <name>PollStatusCmd</name>
+        <briefdescription>
+<para>Poll Status command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a3899d4d75a4cb3e0cdacbd659b53c8df" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsu_Msg::PollBusMask</definition>
+        <argsstring></argsstring>
+        <name>PollBusMask</name>
+        <briefdescription>
+<para>Poll Bus mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__polldata__polltimeout__interrupt__example_1ga90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="601" endline="636">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" compoundref="xqspipsu__hw_8c" startline="530" endline="556">XQspiPsu_CreatePollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XQspiPsu_Msg::RxAddr64bit</definition>
+        <argsstring></argsstring>
+        <name>RxAddr64bit</name>
+        <briefdescription>
+<para>64-bit Rx address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="767" endline="811">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="296" endline="314">XQspiPsu_RXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" compoundref="xqspipsu__hw_8c" startline="209" endline="244">XQspiPsu_Setup64BRxDma</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu___msg_1ac9a904e6a2fa8d5668e554615a59bbb5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsu_Msg::Xfer64bit</definition>
+        <argsstring></argsstring>
+        <name>Xfer64bit</name>
+        <briefdescription>
+<para>64-bit Tx address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="767" endline="811">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="296" endline="314">XQspiPsu_RXSetup</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the configuration information for a flash message. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="188" bodyend="200"/>
+    <listofallmembers>
+      <member refid="struct_x_qspi_psu___msg_1ae4dae8ba728f7da9b6f31bb39c62b81f" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>BusWidth</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a420a0720c6eb8d77aae09c829185b160" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>ByteCount</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a2c11ea724a05dd7d68b8e4adcb7ac46e" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>Flags</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a3899d4d75a4cb3e0cdacbd659b53c8df" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>PollBusMask</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a1a7d94d20674d2af431203e779c3a58a" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>PollData</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a4868812107662f5c99d0ad03ef9da293" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>PollStatusCmd</name></member>
+      <member refid="struct_x_qspi_psu___msg_1ac06e894441ae84236cd61d98b5a322f0" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>PollTimeout</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a95b9e43bb920ea5055db6b1971d7f780" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>RxAddr64bit</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a1fb697c64fd14580822f4baf50f26df1" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>RxBfrPtr</name></member>
+      <member refid="struct_x_qspi_psu___msg_1a09fc20d95cb26f29a649207d0b495f58" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>TxBfrPtr</name></member>
+      <member refid="struct_x_qspi_psu___msg_1ac9a904e6a2fa8d5668e554615a59bbb5" prot="public" virt="non-virtual"><scope>XQspiPsu_Msg</scope><name>Xfer64bit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

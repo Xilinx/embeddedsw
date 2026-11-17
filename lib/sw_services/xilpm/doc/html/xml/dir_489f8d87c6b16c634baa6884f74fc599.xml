@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_489f8d87c6b16c634baa6884f74fc599" kind="dir">
+    <compoundname>zynqmp</compoundname>
+    <innerdir refid="dir_7c76505648bea475a2bf6f30caa1eeba">client</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/"/>
+  </compounddef>
+</doxygen>

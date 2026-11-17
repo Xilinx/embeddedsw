@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___psm" kind="struct" prot="public">
+    <compoundname>XPm_Psm</compoundname>
+    <includes local="no">xpm_psm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___psm_1acfa7fa1da4ecba96a43ef636895b1199" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref></type>
+        <definition>XPm_Core XPm_Psm::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+<para>Processor core device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Psm::PsmGlobalBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PsmGlobalBaseAddr</name>
+        <briefdescription>
+<para>PSM Global register module base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___psm_1a48a7d7590f53e0e21636bd10dc75e9b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Psm::CrlBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CrlBaseAddr</name>
+        <briefdescription>
+<para>CRL module base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The PSM processor class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="269">
+        <label>XPm_Psm</label>
+        <link refid="struct_x_pm___psm"/>
+        <childnode refid="270" relation="usage">
+          <edgelabel>Core</edgelabel>
+        </childnode>
+      </node>
+      <node id="277">
+        <label>XPm_PendSuspCb</label>
+        <link refid="struct_x_pm___pend_susp_cb"/>
+      </node>
+      <node id="275">
+        <label>XPm_ReqmInfo</label>
+        <link refid="struct_x_pm___reqm_info"/>
+      </node>
+      <node id="276">
+        <label>XPm_Subsystem</label>
+        <link refid="struct_x_pm___subsystem"/>
+        <childnode refid="276" relation="usage">
+          <edgelabel>NextSubsystem</edgelabel>
+        </childnode>
+        <childnode refid="274" relation="usage">
+          <edgelabel>Requirements</edgelabel>
+        </childnode>
+        <childnode refid="277" relation="usage">
+          <edgelabel>PendCb</edgelabel>
+        </childnode>
+      </node>
+      <node id="279">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="272" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="273" relation="usage">
+          <edgelabel>PwrDomain</edgelabel>
+        </childnode>
+      </node>
+      <node id="271">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="272" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="273" relation="usage">
+          <edgelabel>Power</edgelabel>
+        </childnode>
+        <childnode refid="274" relation="usage">
+          <edgelabel>PendingReqm</edgelabel>
+        </childnode>
+        <childnode refid="278" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="280" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="274">
+        <label>XPm_Reqm</label>
+        <link refid="struct_x_pm___reqm"/>
+        <childnode refid="271" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="275" relation="usage">
+          <edgelabel>Next</edgelabel>
+          <edgelabel>Curr</edgelabel>
+        </childnode>
+        <childnode refid="276" relation="usage">
+          <edgelabel>Subsystem</edgelabel>
+        </childnode>
+        <childnode refid="274" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextSubsystem</edgelabel>
+        </childnode>
+      </node>
+      <node id="280">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="271" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="281" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="280" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="281">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="272" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="280" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="273">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="272" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="273" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="278">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="271" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="279" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="278" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="272">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="270">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="271" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm.h" bodystart="27" bodyend="32"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___psm_1acfa7fa1da4ecba96a43ef636895b1199" prot="public" virt="non-virtual"><scope>XPm_Psm</scope><name>Core</name></member>
+      <member refid="struct_x_pm___psm_1a48a7d7590f53e0e21636bd10dc75e9b1" prot="public" virt="non-virtual"><scope>XPm_Psm</scope><name>CrlBaseAddr</name></member>
+      <member refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" prot="public" virt="non-virtual"><scope>XPm_Psm</scope><name>PsmGlobalBaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

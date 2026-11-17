@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___sign_store" kind="struct" prot="public">
+    <compoundname>XCert_SignStore</compoundname>
+    <includes local="no">xcert_genx509cert.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___sign_store_1a5aece10a2a02289ef5f13b16f1849311" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_SignStore::Sign[XCERT_ECC_P384_PUBLIC_KEY_LEN]</definition>
+        <argsstring>[XCERT_ECC_P384_PUBLIC_KEY_LEN]</argsstring>
+        <name>Sign</name>
+        <briefdescription>
+<para>Signature of TBS certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___sign_store_1a47a31a81b987739963261cb014990427" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_SignStore::Hash[XCERT_HASH_SIZE_IN_BYTES]</definition>
+        <argsstring>[XCERT_HASH_SIZE_IN_BYTES]</argsstring>
+        <name>Hash</name>
+        <briefdescription>
+<para>Hash of the TBS certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___sign_store_1aa999f388f23022aa2c09354dd0f54aef" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_SignStore::IsSignAvailable</definition>
+        <argsstring></argsstring>
+        <name>IsSignAvailable</name>
+        <briefdescription>
+<para>Flag to check if signature is available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains information related to storing the signature of X.509 certificate. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="110" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___sign_store_1a47a31a81b987739963261cb014990427" prot="public" virt="non-virtual"><scope>XCert_SignStore</scope><name>Hash</name></member>
+      <member refid="struct_x_cert___sign_store_1aa999f388f23022aa2c09354dd0f54aef" prot="public" virt="non-virtual"><scope>XCert_SignStore</scope><name>IsSignAvailable</name></member>
+      <member refid="struct_x_cert___sign_store_1a5aece10a2a02289ef5f13b16f1849311" prot="public" virt="non-virtual"><scope>XCert_SignStore</scope><name>Sign</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

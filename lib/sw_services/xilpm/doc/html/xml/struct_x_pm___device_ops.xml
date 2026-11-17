@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___device_ops" kind="struct" prot="public">
+    <compoundname>XPm_DeviceOps</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___device_ops_1ab431e490ac3190c5305ba3089388c7fb" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_DeviceOps::Request)(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 Capabilities, u32 QoS, u32 CmdType)</definition>
+        <argsstring>)(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 Capabilities, u32 QoS, u32 CmdType)</argsstring>
+        <name>Request</name>
+        <briefdescription>
+<para>Request: Request the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_ops_1a8c79c470580d5525076b3d4532a37377" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_DeviceOps::SetRequirement)(XPm_Device *Device, const XPm_Subsystem *Subsystem, u32 Capabilities, const u32 QoS)</definition>
+        <argsstring>)(XPm_Device *Device, const XPm_Subsystem *Subsystem, u32 Capabilities, const u32 QoS)</argsstring>
+        <name>SetRequirement</name>
+        <briefdescription>
+<para>SetRequirement: Set the device requirement. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_ops_1a592db12ef77aa4f3571fef83d8af1710" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_DeviceOps::Release)(XPm_Device *Device, const XPm_Subsystem *Subsystem, u32 CmdType)</definition>
+        <argsstring>)(XPm_Device *Device, const XPm_Subsystem *Subsystem, u32 CmdType)</argsstring>
+        <name>Release</name>
+        <briefdescription>
+<para>Release: Release the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="60" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___device_ops_1a592db12ef77aa4f3571fef83d8af1710" prot="public" virt="non-virtual"><scope>XPm_DeviceOps</scope><name>Release</name></member>
+      <member refid="struct_x_pm___device_ops_1ab431e490ac3190c5305ba3089388c7fb" prot="public" virt="non-virtual"><scope>XPm_DeviceOps</scope><name>Request</name></member>
+      <member refid="struct_x_pm___device_ops_1a8c79c470580d5525076b3d4532a37377" prot="public" virt="non-virtual"><scope>XPm_DeviceOps</scope><name>SetRequirement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

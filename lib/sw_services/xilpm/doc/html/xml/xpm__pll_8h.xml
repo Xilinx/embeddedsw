@@ -1,0 +1,926 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pll_8h" kind="file">
+    <compoundname>xpm_pll.h</compoundname>
+    <includes refid="xpm__clock_8h" local="yes">xpm_clock.h</includes>
+    <includes local="yes">xpm_defs.h</includes>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__pll__plat_8h" local="yes">xpm_pll_plat.h</includedby>
+    <includedby refid="xpm__subsystem__plat_8c" local="yes">xpm_subsystem_plat.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__clock_8c" local="yes">xpm_clock.c</includedby>
+    <includedby refid="xpm__pll_8c" local="yes">xpm_pll.c</includedby>
+    <includedby refid="xpm__power_8c" local="yes">xpm_power.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__pll__plat_8h" local="yes">xpm_pll_plat.h</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="5984">
+        <label>xpm_clock.h</label>
+        <childnode refid="5985" relation="include">
+        </childnode>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="5993" relation="include">
+        </childnode>
+        <childnode refid="5996" relation="include">
+        </childnode>
+      </node>
+      <node id="5992">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="5987">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5993">
+        <label>xpm_node.h</label>
+        <childnode refid="5994" relation="include">
+        </childnode>
+        <childnode refid="5986" relation="include">
+        </childnode>
+        <childnode refid="5995" relation="include">
+        </childnode>
+        <childnode refid="5985" relation="include">
+        </childnode>
+      </node>
+      <node id="5989">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="5988">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5990">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5998">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="5997">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="5996">
+        <label>xpm_power.h</label>
+        <childnode refid="5997" relation="include">
+        </childnode>
+        <childnode refid="5993" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="5999" relation="include">
+        </childnode>
+      </node>
+      <node id="5986">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5985">
+        <label>xpm_common.h</label>
+        <childnode refid="5986" relation="include">
+        </childnode>
+        <childnode refid="5987" relation="include">
+        </childnode>
+        <childnode refid="5988" relation="include">
+        </childnode>
+        <childnode refid="5989" relation="include">
+        </childnode>
+        <childnode refid="5990" relation="include">
+        </childnode>
+        <childnode refid="5991" relation="include">
+        </childnode>
+      </node>
+      <node id="5995">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5994">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5991">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="5999">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="5983">
+        <label>xpm_pll.h</label>
+        <link refid="xpm_pll.h"/>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="5997" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6005">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="6006">
+        <label>xpm_clock.c</label>
+      </node>
+      <node id="6012">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="6011">
+        <label>xpm_pll_plat.h</label>
+        <childnode refid="6007" relation="include">
+        </childnode>
+        <childnode refid="6012" relation="include">
+        </childnode>
+      </node>
+      <node id="6004">
+        <label>xpm_subsystem_plat.c</label>
+      </node>
+      <node id="6009">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="6001">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="6013">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="6008">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="6003">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="6002">
+        <label>xpm_pll_plat.h</label>
+        <childnode refid="6003" relation="include">
+        </childnode>
+      </node>
+      <node id="6010">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="6007">
+        <label>xpm_pll.c</label>
+      </node>
+      <node id="6000">
+        <label>xpm_pll.h</label>
+        <link refid="xpm_pll.h"/>
+        <childnode refid="6001" relation="include">
+        </childnode>
+        <childnode refid="6002" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="6005" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+        <childnode refid="6007" relation="include">
+        </childnode>
+        <childnode refid="6008" relation="include">
+        </childnode>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6010" relation="include">
+        </childnode>
+        <childnode refid="6011" relation="include">
+        </childnode>
+        <childnode refid="6013" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___pll_param" prot="public">XPm_PllParam</innerclass>
+    <innerclass refid="struct_x_pm___pll_topology" prot="public">XPm_PllTopology</innerclass>
+    <innerclass refid="struct_pm_pll_context" prot="public">PmPllContext</innerclass>
+    <innerclass refid="struct_x_pm___pll_clock_node" prot="public">XPm_PllClockNode</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__pll_8h_1a291f0dd420663adb7f6edaf782f93773" prot="public" static="no">
+        <name>ISPLL</name>
+        <param><defname>id</defname></param>
+        <initializer>((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) &amp;&amp; \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_PLL) &amp;&amp; \
+			 (NODEINDEX(id) &lt; (u32)XPM_NODEIDX_CLK_MAX))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1ae59fe2e449814561774350155cf294f3" prot="public" static="no">
+        <name>RESET_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1adddf24fdc515a64350ec1e322a27b8f1" prot="public" static="no">
+        <name>BYPASS_SHIFT</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1aefdfcf1455e707bb8cb02008743cb889" prot="public" static="no">
+        <name>GEN_LOCK_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a77c32837fde09f9a9f05767708db805c" prot="public" static="no">
+        <name>NPLL_LOCK_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1aa6c08ed6e001efd2debabdab4f3bd6ac" prot="public" static="no">
+        <name>GEN_STABLE_SHIFT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a01e823a4140f0ff9773e7c91c7b7086d" prot="public" static="no">
+        <name>NPLL_STABLE_SHIFT</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a96a9544637f1f1cd20a2751a09ed8d50" prot="public" static="no">
+        <name>GEN_REG3_OFFSET</name>
+        <initializer>0x68U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a5987eb17da8833c52e44b20a5ac804f9" prot="public" static="no">
+        <name>NPLL_REG3_OFFSET</name>
+        <initializer>0xA8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1afbc0fa0c172b62a8d93c000fc5e2f452" prot="public" static="no">
+        <name>PPLL_REG3_OFFSET</name>
+        <initializer>0x78U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1aff76591926f532862d38499e627269ae" prot="public" static="no">
+        <name>PLL_REG3_CP_RES_H_SHIFT</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a1a636251342b1ec7aab27f02945ef423" prot="public" static="no">
+        <name>PLL_REG3_CP_RES_H_WIDTH</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a33acf1c16a405e24f6847f2cc797a6a6" prot="public" static="no">
+        <name>PLLPARAMS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a173e9fa152541d042e6054e668c37af8" prot="public" static="no">
+        <name>PLL_LOCK_TIMEOUT</name>
+        <initializer>0x10000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a88c7721aa925e652e870193562776805" prot="public" static="no">
+        <name>PLL_RESET_ASSERT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a57b2c40adb0ddc96b4e55ea289a67206" prot="public" static="no">
+        <name>PLL_RESET_RELEASE</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a0f9a38bb45776b1ea68e6a09e7919f80" prot="public" static="no">
+        <name>PLL_RESET_PULSE</name>
+        <initializer>(PLL_RESET_ASSERT | PLL_RESET_RELEASE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a8de7b78caf203f0be23e68c2add21074" prot="public" static="no">
+        <name>PM_PLL_CONTEXT_SAVED</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a41bf9b0722f3b06a4fc16729f91c4ea4" prot="public" static="no">
+        <name>PM_PLL_STATE_RESET</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1adddd3ec353802e0b28131688a80bc429" prot="public" static="no">
+        <name>PM_PLL_STATE_LOCKED</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1a209ae5ac8bc1e5f20d07926691554e13" prot="public" static="no">
+        <name>PM_PLL_STATE_SUSPENDED</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pll_8h_1adce535e0f9549b640c4ded8eec5dcbaa" prot="public" static="no">
+        <name>PLL_FRAC_CFG_ENABLED_MASK</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__pll_8h_1ad6bb33e70a72df086ad1f767e8d2519e" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___pll_param" kindref="compound">XPm_PllParam</ref></type>
+        <definition>typedef struct XPm_PllParam  XPm_PllParam</definition>
+        <argsstring></argsstring>
+        <name>XPm_PllParam</name>
+        <briefdescription>
+<para>The PLL class. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the class to represent pll nodes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="24" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__pll_8h_1a41ee22069bec09dfe2099471d5eb2127" prot="public" static="no">
+        <type>struct XPm_PllClockNode</type>
+        <definition>typedef struct XPm_PllClockNode XPm_PllClockNode</definition>
+        <argsstring></argsstring>
+        <name>XPm_PllClockNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__pll_8h_1ad6ca6c3e0f155e8fbdc7d4d2377d66cd" prot="public" static="no">
+        <type>struct <ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref></type>
+        <definition>typedef struct PmPllContext  PmPllContext</definition>
+        <argsstring></argsstring>
+        <name>PmPllContext</name>
+        <briefdescription>
+<para><ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref> - Structure for saving context of PLL registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Contains variable to store default content of:
+</verbatim>  Control register  Configuration register  Fractional control register  Indicates context saved or not</para><para>Note: context of the PLL is saved when PM framework suspends a PLL (when no node requires PLL to be locked). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="54" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pll_8h_1a5344afa53b2098935fa6a0d782cc59e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_AddNode</definition>
+        <argsstring>(u32 Id, u32 ControlReg, u8 TopologyType, const u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)</argsstring>
+        <name>XPmClockPll_AddNode</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ControlReg</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TopologyType</declname>
+        </param>
+        <param>
+          <type>const u16 *</type>
+          <declname>Offsets</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PowerDomainId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ClkFlags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="27" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1ac4d96bdbec4da891cc91f7b4a29b9ea3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_AddParent</definition>
+        <argsstring>(u32 Id, const u32 *Parents, u8 NumParents)</argsstring>
+        <name>XPmClockPll_AddParent</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Parents</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>NumParents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="80" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1a1e627922b338af9df762fe333f5312dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_Request</definition>
+        <argsstring>(u32 PllId)</argsstring>
+        <name>XPmClockPll_Request</name>
+        <param>
+          <type>u32</type>
+          <declname>PllId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="224" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1abaf6219a10cd354eef72f30dc6cb6df7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_Release</definition>
+        <argsstring>(u32 PllId)</argsstring>
+        <name>XPmClockPll_Release</name>
+        <param>
+          <type>u32</type>
+          <declname>PllId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Do not suspend the PLL if its use count goes to 0 because it may possible that IOU_SWITCH of other domain is using this PLL. Just decrement its parent use count and PLL will be suspended when its power domain goes off.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="259" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1ad0cad1bb038005201cf1eb284908ec1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_SetMode</definition>
+        <argsstring>(XPm_PllClockNode *Pll, u32 Mode)</argsstring>
+        <name>XPmClockPll_SetMode</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="101" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1affec60848fe8b64ccbb25650556306a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_GetMode</definition>
+        <argsstring>(XPm_PllClockNode *Pll, u32 *Mode)</argsstring>
+        <name>XPmClockPll_GetMode</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="144" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1a87264ebd61a48cf135d2a3c4c4ab09d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmClockPll_Suspend</definition>
+        <argsstring>(XPm_PllClockNode *Pll)</argsstring>
+        <name>XPmClockPll_Suspend</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="193" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1a00280a70dc12159fedc9906f7165e9ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_Resume</definition>
+        <argsstring>(XPm_PllClockNode *Pll)</argsstring>
+        <name>XPmClockPll_Resume</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="205" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1a87d1035c6e3fea50a7ae122a9dd961c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_Reset</definition>
+        <argsstring>(XPm_PllClockNode *Pll, uint8_t Flags)</argsstring>
+        <name>XPmClockPll_Reset</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>PLL lock error source needs to be disabled before PLL suspend and re-enable after PLL lock which can be done by disabling interrupt from PMC global module but it is also disabling another error interrupts. So another way is to clear the PLL error lock status once PLL is locked after resume.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="290" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1aa688754a2368bd4b2640dac74db5eaf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_SetParam</definition>
+        <argsstring>(const XPm_PllClockNode *Pll, u32 Param, u32 Value)</argsstring>
+        <name>XPmClockPll_SetParam</name>
+        <param>
+          <type>const XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Param</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="339" bodyend="401"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1a37707cc478f57dd9e05419e83b027cc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_GetParam</definition>
+        <argsstring>(const XPm_PllClockNode *Pll, u32 Param, u32 *Val)</argsstring>
+        <name>XPmClockPll_GetParam</name>
+        <param>
+          <type>const XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Param</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="403" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1a3100756b65f9a1a6e8c1443952a70f31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_QueryMuxSources</definition>
+        <argsstring>(u32 Id, u32 Index, u32 *Resp)</argsstring>
+        <name>XPmClockPll_QueryMuxSources</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Index</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Resp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="458" bodyend="484"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pll_8h_1ad8042b9af836a83ceba4a7f837bc846a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_GetWakeupLatency</definition>
+        <argsstring>(const u32 Id, u32 *Latency)</argsstring>
+        <name>XPmClockPll_GetWakeupLatency</name>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Latency</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c" bodystart="486" bodyend="518"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PLL_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PLL_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_clock.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="21" refid="struct_x_pm___pll_param" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pll_param" kindref="compound">XPm_PllParam</ref><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Shift;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Width;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}<sp/><ref refid="struct_x_pm___pll_param" kindref="compound">XPm_PllParam</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PllTopology<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>Id;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___pll_param" kindref="compound">XPm_PllParam</ref><sp/>ConfigParams[<ref refid="group__xpm__versal__apis_1gga0a5fc029c42f0a9e25f4f92a97fae598a6ce2bb45422810003bb3a59bce526c20" kindref="member">PM_PLL_PARAM_MAX</ref>];</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>ResetShift;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>BypassShift;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>LockShift;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>StableShift;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>PllReg3Offset;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PllClockNode<sp/>XPm_PllClockNode;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="struct_pm_pll_context" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Ctrl;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Cfg;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Frac;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Flag;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/><ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PllClockNode<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>ClkNode;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FracConfigReg;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SAVE_REGION(</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PllMode;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref><sp/>Context;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPm_PllTopology<sp/>*Topology;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISPLL(id)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((NODECLASS(id)<sp/>==<sp/>(u32)XPM_NODECLASS_CLOCK)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODESUBCLASS(id)<sp/>==<sp/>(u32)XPM_NODESUBCL_CLOCK_PLL)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODEINDEX(id)<sp/>&lt;<sp/>(u32)XPM_NODEIDX_CLK_MAX))</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GEN_LOCK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NPLL_LOCK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GEN_STABLE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NPLL_STABLE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GEN_REG3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x68U</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NPLL_REG3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA8U</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PPLL_REG3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x78U</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLL_REG3_CP_RES_H_SHIFT<sp/><sp/>20U</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLL_REG3_CP_RES_H_WIDTH<sp/><sp/>2U</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLLPARAMS<sp/>{<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_DIV2]<sp/>=<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>16U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>2U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_FBDIV]<sp/>=<sp/>{<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>8U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>8U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_DATA]<sp/>=<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>16U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_PRE_SRC]<sp/>=<sp/>{<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>20U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>3U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_POST_SRC]<sp/>=<sp/>{<sp/><sp/>\</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>24U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>3U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_LOCK_DLY]<sp/>=<sp/>{<sp/><sp/>\</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>25U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>7U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_LOCK_CNT]<sp/>=<sp/>{<sp/><sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>13U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>10U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_LFHF]<sp/>=<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>10U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>2U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_CP]<sp/>=<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>5U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>4U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[PM_PLL_PARAM_ID_RES]<sp/>=<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Shift<sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Width<sp/>=<sp/>4U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>TBD:<sp/>TImeout<sp/>value<sp/>need<sp/>to<sp/>be<sp/>defined<sp/>as<sp/>per<sp/>spec<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLL_LOCK_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000U</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PLL<sp/>Flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLL_RESET_ASSERT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLL_RESET_RELEASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLL_RESET_PULSE<sp/>(PLL_RESET_ASSERT<sp/>|<sp/>PLL_RESET_RELEASE)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_PLL_CONTEXT_SAVED<sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PLL<sp/>states:<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PM_PLL_STATE_RESET<sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_PLL_STATE_LOCKED<sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_PLL_STATE_SUSPENDED<sp/><sp/>2U</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLL_FRAC_CFG_ENABLED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal">XStatus<sp/>XPmClockPll_AddNode(u32<sp/>Id,<sp/>u32<sp/>ControlReg,<sp/>u8<sp/>TopologyType,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u16<sp/>*Offsets,<sp/>u32<sp/>PowerDomainId,<sp/>u8<sp/>ClkFlags);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">XStatus<sp/>XPmClockPll_AddParent(u32<sp/>Id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Parents,<sp/>u8<sp/>NumParents);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">XStatus<sp/>XPmClockPll_Request(u32<sp/>PllId);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">XStatus<sp/>XPmClockPll_Release(u32<sp/>PllId);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">XStatus<sp/>XPmClockPll_SetMode(XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>Mode);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">XStatus<sp/>XPmClockPll_GetMode(XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>*Mode);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmClockPll_Suspend(XPm_PllClockNode<sp/>*Pll);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">XStatus<sp/>XPmClockPll_Resume(XPm_PllClockNode<sp/>*Pll);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">XStatus<sp/>XPmClockPll_Reset(XPm_PllClockNode<sp/>*Pll,<sp/>uint8_t<sp/>Flags);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">XStatus<sp/>XPmClockPll_SetParam(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>Param,u32<sp/>Value);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">XStatus<sp/>XPmClockPll_GetParam(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>Param,u32<sp/>*Val);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">XStatus<sp/>XPmClockPll_QueryMuxSources(u32<sp/>Id,<sp/>u32<sp/>Index,<sp/>u32<sp/>*Resp);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">XStatus<sp/>XPmClockPll_GetWakeupLatency(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id,<sp/>u32<sp/>*Latency);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PLL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h"/>
+  </compounddef>
+</doxygen>

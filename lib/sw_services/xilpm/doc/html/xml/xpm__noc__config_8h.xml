@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__noc__config_8h" kind="file">
+    <compoundname>xpm_noc_config.h</compoundname>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xpm_config.h</includes>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="xpm__noc__config_8c" local="yes">xpm_noc_config.c</includedby>
+    <includedby refid="xpm__noc__config__vp1902_8c" local="yes">xpm_noc_config_vp1902.c</includedby>
+    <incdepgraph>
+      <node id="4547">
+        <label>xpm_noc_config.h</label>
+        <link refid="xpm_noc_config.h"/>
+        <childnode refid="4548" relation="include">
+        </childnode>
+        <childnode refid="4549" relation="include">
+        </childnode>
+      </node>
+      <node id="4548">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4549">
+        <label>xpm_config.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4552">
+        <label>xpm_noc_config.c</label>
+        <link refid="xpm__noc__config_8c"/>
+      </node>
+      <node id="4550">
+        <label>xpm_noc_config.h</label>
+        <link refid="xpm_noc_config.h"/>
+        <childnode refid="4551" relation="include">
+        </childnode>
+        <childnode refid="4552" relation="include">
+        </childnode>
+        <childnode refid="4553" relation="include">
+        </childnode>
+      </node>
+      <node id="4551">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="4553">
+        <label>xpm_noc_config_vp1902.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__noc__config_8h_1abd10d2af416df92a39d7ec39ac349dc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_NoCConfig</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_NoCConfig</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>NoC Power is checked in the HW config routine</para><para>NIDB Repair Enable NIDB</para><para>Temporal check on return value added</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_noc_config.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_noc_config.c" bodystart="100" bodyend="134"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>NOC configuration header file. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who  Date                Changes
+----- ---- -------- -------------------------------------------------------
+1.0  rpoolla     23/01/18 Initial release
+2.0  tnt         01/11/22 Porting to xilpm
+3.0  ronakj      11/04/24 Add extern &apos;C&apos; signature
+4.0  hgodhani  26/03/26 Convert XPm_NoCHWConfig to static void
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>SRC_XPMCR_NOC_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_XPMCR_NOC_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">XStatus<sp/><ref refid="xpm__noc__config_8c_1abd10d2af416df92a39d7ec39ac349dc6" kindref="member">XPm_NoCConfig</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XCVP1902</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>XPm_NocConfig_vp1902(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SRC_XPMCR_NOC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_noc_config.h"/>
+  </compounddef>
+</doxygen>

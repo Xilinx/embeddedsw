@@ -1,0 +1,911 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dpdc__example_8h" kind="file">
+    <compoundname>mmi_dpdc_example.h</compoundname>
+    <includes refid="xdc_8h" local="yes">xdc.h</includes>
+    <includes refid="xdcdma_8h" local="yes">xdcdma.h</includes>
+    <includes refid="xdcsub_8h" local="yes">xdcsub.h</includes>
+    <includes local="yes">xmmidp.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="mmi__dc__bypass__test_8h" local="yes">mmi_dc_bypass_test.h</includedby>
+    <includedby refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includedby>
+    <includedby refid="mmi__dc__live__test_8h" local="yes">mmi_dc_live_test.h</includedby>
+    <includedby refid="mmi__dc__mixed__test_8h" local="yes">mmi_dc_mixed_test.h</includedby>
+    <includedby refid="mmi__dpdc__menus_8h" local="yes">mmi_dpdc_menus.h</includedby>
+    <includedby refid="mmi__dpdc__menus_8c" local="yes">mmi_dpdc_menus.c</includedby>
+    <includedby refid="xavpg_8h" local="yes">xavpg.h</includedby>
+    <includedby refid="xavpg_8c" local="yes">xavpg.c</includedby>
+    <incdepgraph>
+      <node id="400">
+        <label>xil_io.h</label>
+      </node>
+      <node id="397">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi_dpdc_example.h"/>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+        <childnode refid="403" relation="include">
+        </childnode>
+        <childnode refid="404" relation="include">
+        </childnode>
+        <childnode refid="405" relation="include">
+        </childnode>
+      </node>
+      <node id="401">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="402" relation="include">
+        </childnode>
+        <childnode refid="398" relation="include">
+        </childnode>
+      </node>
+      <node id="403">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+      </node>
+      <node id="399">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="400" relation="include">
+        </childnode>
+      </node>
+      <node id="404">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="402">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="400" relation="include">
+        </childnode>
+      </node>
+      <node id="398">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="399" relation="include">
+        </childnode>
+      </node>
+      <node id="405">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="410">
+        <label>mmi_dpdc_example.c</label>
+        <link refid="mmi__dpdc__example_8c"/>
+      </node>
+      <node id="406">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi_dpdc_example.h"/>
+        <childnode refid="407" relation="include">
+        </childnode>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="429" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+        <childnode refid="433" relation="include">
+        </childnode>
+      </node>
+      <node id="426">
+        <label>mmi_dc_partial_plane.c</label>
+        <link refid="mmi__dc__partial__plane_8c"/>
+      </node>
+      <node id="425">
+        <label>mmi_dc_partial_plane.h</label>
+        <link refid="mmi__dc__partial__plane_8h"/>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="426" relation="include">
+        </childnode>
+      </node>
+      <node id="411">
+        <label>mmi_dpdc_menus.c</label>
+        <link refid="mmi__dpdc__menus_8c"/>
+      </node>
+      <node id="431">
+        <label>mmi_dpdc_menus.h</label>
+        <link refid="mmi__dpdc__menus_8h"/>
+        <childnode refid="410" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+      </node>
+      <node id="430">
+        <label>mmi_dc_mixed_test.h</label>
+        <link refid="mmi__dc__mixed__test_8h"/>
+      </node>
+      <node id="423">
+        <label>mmi_dp_intr.c</label>
+        <link refid="mmi__dp__intr_8c"/>
+      </node>
+      <node id="428">
+        <label>mmi_dp_intr.h</label>
+        <link refid="mmi__dp__intr_8h"/>
+        <childnode refid="409" relation="include">
+        </childnode>
+        <childnode refid="423" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+      <node id="409">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+      <node id="422">
+        <label>mmi_dp_init.h</label>
+        <link refid="mmi__dp__init_8h"/>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="409" relation="include">
+        </childnode>
+        <childnode refid="423" relation="include">
+        </childnode>
+        <childnode refid="410" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+      <node id="414">
+        <label>mmi_dc_cursor.c</label>
+        <link refid="mmi__dc__cursor_8c"/>
+      </node>
+      <node id="413">
+        <label>mmi_dc_cursor.h</label>
+        <link refid="mmi__dc__cursor_8h"/>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+      <node id="433">
+        <label>xavpg.c</label>
+        <link refid="xavpg_8c"/>
+      </node>
+      <node id="432">
+        <label>xavpg.h</label>
+        <link refid="xavpg_8h"/>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="433" relation="include">
+        </childnode>
+      </node>
+      <node id="429">
+        <label>mmi_dc_live_test.h</label>
+        <link refid="mmi__dc__live__test_8h"/>
+      </node>
+      <node id="415">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="412">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="418" relation="include">
+        </childnode>
+        <childnode refid="420" relation="include">
+        </childnode>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="422" relation="include">
+        </childnode>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="425" relation="include">
+        </childnode>
+        <childnode refid="427" relation="include">
+        </childnode>
+        <childnode refid="426" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="428" relation="include">
+        </childnode>
+        <childnode refid="410" relation="include">
+        </childnode>
+      </node>
+      <node id="408">
+        <label>mmi_dc_bypass_test.c</label>
+        <link refid="mmi__dc__bypass__test_8c"/>
+      </node>
+      <node id="407">
+        <label>mmi_dc_bypass_test.h</label>
+        <link refid="mmi__dc__bypass__test_8h"/>
+        <childnode refid="408" relation="include">
+        </childnode>
+        <childnode refid="409" relation="include">
+        </childnode>
+        <childnode refid="410" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+      </node>
+      <node id="419">
+        <label>mmi_dc_sdp.c</label>
+        <link refid="mmi__dc__sdp_8c"/>
+      </node>
+      <node id="427">
+        <label>mmi_dc_sdp.h</label>
+        <link refid="mmi__dc__sdp_8h"/>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+      <node id="416">
+        <label>mmi_dc_setup_frames.c</label>
+        <link refid="mmi__dc__setup__frames_8c"/>
+      </node>
+      <node id="418">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi__dc__setup__frames_8h"/>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+      <node id="421">
+        <label>mmi_dc_generate_frames.c</label>
+        <link refid="mmi__dc__generate__frames_8c"/>
+      </node>
+      <node id="420">
+        <label>mmi_dc_generate_frames.h</label>
+        <link refid="mmi__dc__generate__frames_8h"/>
+        <childnode refid="421" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+      </node>
+      <node id="417">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="424">
+        <label>mmi_dpdc_platform.h</label>
+        <link refid="mmi__dpdc__platform_8h"/>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="409" relation="include">
+        </childnode>
+        <childnode refid="410" relation="include">
+        </childnode>
+        <childnode refid="411" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_frame_info" prot="public">FrameInfo</innerclass>
+    <innerclass refid="struct_avpg_run_config" prot="public">AvpgRunConfig</innerclass>
+    <innerclass refid="struct_run_config" prot="public">RunConfig</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1ad00f5a4497e1ea61e5af71a571c6740b" prot="public" static="no">
+        <name>__MMI_DPDC_EXAMPLE_H__</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a4998351787c4c8ca64dba4ad7fc55351" prot="public" static="no">
+        <name>APP_DEFAULT_WIDTH</name>
+        <initializer>1920</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1ab39174131a1b695d49afcb957ede159f" prot="public" static="no">
+        <name>APP_DEFAULT_HEIGHT</name>
+        <initializer>1080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1aeedfa90698ed46924e8bcf56b988966f" prot="public" static="no">
+        <name>APP_DEFAULT_FPS</name>
+        <initializer>60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a8ff3b14bfc19428f482b53e91f1769b7" prot="public" static="no">
+        <name>APP_BYPASS_8K_WIDTH</name>
+        <initializer>7680</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1ac1908c4e34fa8f35849540b2895947dd" prot="public" static="no">
+        <name>APP_BYPASS_8K_HEIGHT</name>
+        <initializer>4320</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a59fe80ea4f10582bb658c9a244330b41" prot="public" static="no">
+        <name>APP_BYPASS_8K_FPS</name>
+        <initializer>30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a841ba00944e76001048ddce7106afc09" prot="public" static="no">
+        <name>APP_FUNCTIONAL_MAX_WIDTH</name>
+        <initializer>3840</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a2ffaeeac8c2e1f75687efed84b93b08d" prot="public" static="no">
+        <name>APP_FUNCTIONAL_MAX_HEIGHT</name>
+        <initializer>2160</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a242f5e5c821a97fe17d3fe79327f74cf" prot="public" static="no">
+        <name>APP_DEFAULT_NL_PIXFMT</name>
+        <initializer>RGBA8888</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1aebaa04d409515c79db712a8cf5fba851" prot="public" static="no">
+        <name>APP_DEFAULT_LIVE_PIXFMT</name>
+        <initializer>RGB_8BPC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1aac9aef27e6e51c14df9c3cc25b6e24a8" prot="public" static="no">
+        <name>APP_DEFAULT_DC_OUT_FMT</name>
+        <initializer>RGB_8BPC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1aa151e063708a14fa5e4198ba03e47bba" prot="public" static="no">
+        <name>XDPDC_AUD_CHANNELS_NONE</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1ac64319ceecb0020cc8491bacfb1f724b" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_UNSUPPORTED_HZ</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a0a507586542a0594c86938ab3712e628" prot="public" static="no">
+        <name>XDPDC_HZ_PER_KHZ</name>
+        <initializer>1000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a25df8abb59175e448fc15347addb971e" prot="public" static="no">
+        <name>XDPDC_HZ_PER_TENTH_KHZ</name>
+        <initializer>100U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a95b887e948df19c8c988edd37ab842d7" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_44_1K_HZ</name>
+        <initializer>44100U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1ad9dd052e820e69f1b3ba4080153859ba" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_48K_HZ</name>
+        <initializer>48000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a40372a08ed6c6fa7bf2dfea7be65d2a9" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_88_2K_HZ</name>
+        <initializer>88200U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1a3ec14064bb035efa34c90fffb82cc7ea" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_96K_HZ</name>
+        <initializer>96000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1af463c725e01eff781183289dd1487dda" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_176_4K_HZ</name>
+        <initializer>176400U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__example_8h_1ad6967107b4f29338545528c8df02f00c" prot="public" static="no">
+        <name>XDPDC_AUD_RATE_192K_HZ</name>
+        <initializer>192000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a0c247ee9352ed4022126a9681d091c78" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref></type>
+        <definition>RunConfig RunCfg</definition>
+        <argsstring></argsstring>
+        <name>RunCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a0d8e9793261f6022c971fc8cad248f94" prot="public" static="no" mutable="no">
+        <type>XDcSub</type>
+        <definition>XDcSub DcSub</definition>
+        <argsstring></argsstring>
+        <name>DcSub</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1ae5aaf509c4712e91dd5948fc207a534c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref></type>
+        <definition>XDcDma DcDma</definition>
+        <argsstring></argsstring>
+        <name>DcDma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1ae8d8dea2d01148970548a455cc08c77c" prot="public" static="no" mutable="no">
+        <type>XDc</type>
+        <definition>XDc Dc</definition>
+        <argsstring></argsstring>
+        <name>Dc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a3b3eb2553f99afac834b92d2edd259ba" prot="public" static="no" mutable="no">
+        <type>XMmiDp</type>
+        <definition>XMmiDp DpPsuPtr</definition>
+        <argsstring></argsstring>
+        <name>DpPsuPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a5114e42f5fa0a748a260ededb3d7fe4c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 CSCCoeff_RGB[]</definition>
+        <argsstring>[]</argsstring>
+        <name>CSCCoeff_RGB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a1d2d3be53e37c6c63ce4eab773f0d743" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 CSCOffset_RGB[]</definition>
+        <argsstring>[]</argsstring>
+        <name>CSCOffset_RGB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a2cdf1bf5a31b298939e89b25732413f6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 In_CSCCoeff_YUV[]</definition>
+        <argsstring>[]</argsstring>
+        <name>In_CSCCoeff_YUV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a3b26ad15458185176c1bfcd80d3ae691" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 In_CSCOffset_YUV[]</definition>
+        <argsstring>[]</argsstring>
+        <name>In_CSCOffset_YUV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a08e06728f8350fb403e657e023258846" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Out_CSCCoeff_YUV[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Out_CSCCoeff_YUV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mmi__dpdc__example_8h_1a782a26172306d1bdfb057e8352d0b582" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Out_CSCOffset_YUV[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Out_CSCOffset_YUV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dpdc__example_8h_1a5615c1a208b9f4897040f89bcf5b4f6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_GetAudSampleRateHz</definition>
+        <argsstring>(u8 AudioFrequency)</argsstring>
+        <name>XDpDc_GetAudSampleRateHz</name>
+        <param>
+          <type>u8</type>
+          <declname>AudioFrequency</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the audio sample rate in Hz for a sample frequency selector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AudioFrequency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sample frequency selector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Sample rate in Hz, or XDPDC_AUD_RATE_UNSUPPORTED_HZ if the selector is not supported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.c" bodystart="84" bodyend="91"/>
+        <references refid="xdcsub_8h_1a65e6a502a143e97cc356e8fbaa027bdb" compoundref="xdcsub_8h" startline="37">XDCSUB_AUDIO_FREQ_MAX</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="513" endline="616">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a1acaf857e04799cc985d19389fe5ea3f" compoundref="mmi__dpdc__platform_8c" startline="279" endline="413">XDpDc_InitClkWiz</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1720" endline="1946">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains type definitions, constants, and external declarations for the DisplayPort Display Controller example application. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who     Date      Changes
+<hruler/>
+
+1.00 arm     04/02/26  Initial version</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>__MMI_DPDC_EXAMPLE_H__</highlight></codeline>
+<codeline lineno="26" refid="mmi__dpdc__example_8h_1ad00f5a4497e1ea61e5af71a571c6740b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__MMI_DPDC_EXAMPLE_H__<sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdc_8h" kindref="compound">xdc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdcdma_8h" kindref="compound">xdcdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdcsub_8h" kindref="compound">xdcsub.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xmmidp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>APP_DEFAULT_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1920</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_DEFAULT_HEIGHT<sp/><sp/><sp/><sp/><sp/><sp/>1080</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_DEFAULT_FPS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>60</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_BYPASS_8K_WIDTH<sp/><sp/><sp/><sp/><sp/>7680</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_BYPASS_8K_HEIGHT<sp/><sp/><sp/><sp/>4320</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_BYPASS_8K_FPS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>30</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_FUNCTIONAL_MAX_WIDTH<sp/><sp/>3840</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_FUNCTIONAL_MAX_HEIGHT<sp/>2160</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_DEFAULT_NL_PIXFMT<sp/><sp/><sp/>RGBA8888</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_DEFAULT_LIVE_PIXFMT<sp/>RGB_8BPC</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_DEFAULT_DC_OUT_FMT<sp/><sp/>RGB_8BPC</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Audio<sp/>channel<sp/>count<sp/>held<sp/>while<sp/>audio<sp/>is<sp/>disabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_CHANNELS_NONE<sp/>0U</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sample<sp/>rate<sp/>reported<sp/>for<sp/>an<sp/>unsupported<sp/>sample<sp/>frequency<sp/>selector<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_UNSUPPORTED_HZ<sp/>0U</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Divisors<sp/>used<sp/>to<sp/>report<sp/>a<sp/>rate<sp/>in<sp/>Hz<sp/>as<sp/>kHz<sp/>with<sp/>one<sp/>decimal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_HZ_PER_KHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000U</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_HZ_PER_TENTH_KHZ<sp/><sp/>100U</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Audio<sp/>sample<sp/>rates<sp/>in<sp/>Hz<sp/>supported<sp/>by<sp/>the<sp/>DC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_44_1K_HZ<sp/><sp/>44100U</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_48K_HZ<sp/><sp/><sp/><sp/>48000U</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_88_2K_HZ<sp/><sp/>88200U</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_96K_HZ<sp/><sp/><sp/><sp/>96000U</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_176_4K_HZ<sp/>176400U</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_AUD_RATE_192K_HZ<sp/><sp/><sp/>192000U</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79" refid="struct_frame_info" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Stride;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Width;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Height;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Bpc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>VideoFormat;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93" refid="struct_avpg_run_config" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>bpc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>pattern;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>pix_fmt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>colorimetry;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_avpg_run_config_1a9f05f549a896b4a4c9906122fae858bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ppc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_avpg_run_config" kindref="compound">AvpgRunConfig</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105" refid="struct_run_config" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcSub<sp/>*DcSubPtr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_run_config_1a155539680243341a34acb114b0333b41" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp<sp/>*DpPsuPtr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_avpg_run_config" kindref="compound">AvpgRunConfig</ref><sp/>avpg[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_run_config_1a032e8dad8d2502e989379239eb569fec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc2;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_run_config_1aa8105f5039b3f9ec5e219bfa42955f97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc3;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_run_config_1ac706a1a31ffef301f97b18381271d170" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc4;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_run_config_1abe6e71b53d284446b7f8011ada7b3579" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc5;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_run_config_1aa88ef860111459a6b832446ae5529743" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc6;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="struct_run_config_1adc0f9a32830fdebfdbc3c279c70487a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Desc7;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*V1_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*V2_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*V3_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*V4_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_run_config_1adbad41731e86124a761b769b9948346b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*V5_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*V6_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*Cursor_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*Sdp_FbInfo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Width;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Height;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>VideoMode;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PixelClkHz;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PPC;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Stream1Format;<sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Stream2Format;<sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>OutStreamFormat;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_run_config_1af4cad423a1cf363a0c140c3d59a63b1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1a89f97a13057417752351b72afc565101" kindref="member">XDc_CursorBlend</ref><sp/>CursorEnable;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ade7189ee3e9d6111088d07c0f133dbbb" kindref="member">XDc_AudEn</ref><sp/>AudioEnable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AudioChannels;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_run_config_1ad7e69b12358de7a878851be16bb2aeaa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AudioFrequency;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_run_config_1a66e7936e11ecf14e5de99f12629caec4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SdpEnable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kindref="member">XDc_PartialBlendEn</ref><sp/>Stream1PbEnable;<sp/></highlight></codeline>
+<codeline lineno="146" refid="struct_run_config_1ab574751a70f38e5b62ec97832ba85856" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kindref="member">XDc_PartialBlendEn</ref><sp/>Stream2PbEnable;<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CursorCoordX;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="struct_run_config_1ada47938d55738c23004dd79bee00538f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CursorCoordY;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="struct_run_config_1a3b11a353ee68a922c4c9be2c02424fa5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CursorSizeX;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="struct_run_config_1abb0cb390ebd09332447f76082e0c3e44" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CursorSizeY;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpbCoordX;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_run_config_1aedebedc6ff67f0ed64f987b8548a8554" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpbCoordY;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_run_config_1a0204dfaaa74d8a0c7c7c29a291a25ad6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpbSizeX;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_run_config_1a8612be37b0cdf9932f1de7f82a30f3d2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpbSizeY;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="struct_run_config_1a982b47059a0853debe3fd9facadaedc0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpbOffsetX;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="struct_run_config_1a9009deb408fcea686b6846e06b2b5134" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpbOffsetY;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>operatingmode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_run_config_1a975268f253882e0520fa0cfc7695f233" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>presentationmode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_run_config_1a9983481d9e3ae8274b831da8fc715586" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>livevidselect;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="struct_run_config_1a53d5db92cc60d3e8f82b705e09f2c5df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>livevideo01mode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_run_config_1a703f064dc9b1bcb5dd595e4d7a0743ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>livevideo02mode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_run_config_1a16b5a5459cdbb564256b470ffc4d3513" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>livevideoalphaen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="struct_run_config_1a2724e6959beec45928b173d2b4ebe477" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>livevideosdpen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="struct_run_config_1ac85e7701b8fe435094a6ce3845037d71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>byp_streams;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DesignMstEn;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MstMode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="struct_run_config_1a8389dc7f16112a7de107908efabf0907" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>byp_stream_sdp_en[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="struct_run_config_1a50cbf3aaeda34e448ac04e7099a14f71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>byp_stream_vid_mode[4];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxLaneCount;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_run_config_1a6c31fb2de76478d7c5a9e545a297866d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxLinkRate;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}<sp/><ref refid="struct_run_config" kindref="compound">RunConfig</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>RunCfg;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcSub<sp/>DcSub;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>DcDma;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDc<sp/>Dc;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XMmiDp<sp/>DpPsuPtr;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SDTV<sp/>CSC<sp/>Coefficients<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>CSCCoeff_RGB[];</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>CSCOffset_RGB[];</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>YUV-to-RGB<sp/>input<sp/>conversion<sp/>(SDTV<sp/>BT.601)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>In_CSCCoeff_YUV[];</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>In_CSCOffset_YUV[];</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>RGB-to-YUV<sp/>output<sp/>conversion<sp/>(SDTV<sp/>BT.601)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Out_CSCCoeff_YUV[];</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Out_CSCOffset_YUV[];</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__example_8c_1a5615c1a208b9f4897040f89bcf5b4f6c" kindref="member">XDpDc_GetAudSampleRateHz</ref>(u8<sp/>AudioFrequency);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__MMI_DPDC_EXAMPLE_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h"/>
+  </compounddef>
+</doxygen>

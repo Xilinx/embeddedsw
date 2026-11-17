@@ -1,0 +1,609 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__alloc_8c" kind="file">
+    <compoundname>xpm_runtime_alloc.c</compoundname>
+    <includes refid="xpm__runtime__alloc_8h" local="yes">xpm_runtime_alloc.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes local="yes">xpm_memory_pools.h</includes>
+    <includes local="yes">xplmi_update.h</includes>
+    <includes refid="xpm__runtime__reset_8h" local="yes">xpm_runtime_reset.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes refid="xpm__runtime__device_8h" local="yes">xpm_runtime_device.h</includes>
+    <includes refid="xpm__regnode_8h" local="yes">xpm_regnode.h</includes>
+    <includes refid="xpm__update_8h" local="yes">xpm_update.h</includes>
+    <incdepgraph>
+      <node id="4275">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4280">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4282">
+        <label>xplmi_update.h</label>
+      </node>
+      <node id="4300">
+        <label>xpm_update.h</label>
+      </node>
+      <node id="4276">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4278">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4287">
+        <label>xpm_api.h</label>
+        <childnode refid="4272" relation="include">
+        </childnode>
+        <childnode refid="4273" relation="include">
+        </childnode>
+        <childnode refid="4279" relation="include">
+        </childnode>
+        <childnode refid="4277" relation="include">
+        </childnode>
+        <childnode refid="4288" relation="include">
+        </childnode>
+        <childnode refid="4289" relation="include">
+        </childnode>
+      </node>
+      <node id="4285">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4292">
+        <label>xpm_clock.h</label>
+        <childnode refid="4274" relation="include">
+        </childnode>
+        <childnode refid="4284" relation="include">
+        </childnode>
+        <childnode refid="4291" relation="include">
+        </childnode>
+      </node>
+      <node id="4291">
+        <label>xpm_power.h</label>
+        <childnode refid="4279" relation="include">
+        </childnode>
+        <childnode refid="4284" relation="include">
+        </childnode>
+      </node>
+      <node id="4281">
+        <label>xpm_memory_pools.h</label>
+      </node>
+      <node id="4298">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="4290" relation="include">
+        </childnode>
+        <childnode refid="4286" relation="include">
+        </childnode>
+        <childnode refid="4297" relation="include">
+        </childnode>
+        <childnode refid="4291" relation="include">
+        </childnode>
+        <childnode refid="4274" relation="include">
+        </childnode>
+        <childnode refid="4295" relation="include">
+        </childnode>
+        <childnode refid="4287" relation="include">
+        </childnode>
+      </node>
+      <node id="4283">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="4284" relation="include">
+        </childnode>
+        <childnode refid="4274" relation="include">
+        </childnode>
+        <childnode refid="4286" relation="include">
+        </childnode>
+        <childnode refid="4293" relation="include">
+        </childnode>
+      </node>
+      <node id="4271">
+        <label>xpm_alloc.h</label>
+        <childnode refid="4272" relation="include">
+        </childnode>
+        <childnode refid="4273" relation="include">
+        </childnode>
+      </node>
+      <node id="4295">
+        <label>xpm_requirement.h</label>
+        <childnode refid="4290" relation="include">
+        </childnode>
+        <childnode refid="4286" relation="include">
+        </childnode>
+        <childnode refid="4296" relation="include">
+        </childnode>
+      </node>
+      <node id="4274">
+        <label>xpm_common.h</label>
+        <childnode refid="4273" relation="include">
+        </childnode>
+        <childnode refid="4275" relation="include">
+        </childnode>
+        <childnode refid="4276" relation="include">
+        </childnode>
+        <childnode refid="4277" relation="include">
+        </childnode>
+        <childnode refid="4278" relation="include">
+        </childnode>
+        <childnode refid="4279" relation="include">
+        </childnode>
+      </node>
+      <node id="4289">
+        <label>xpm_mem.h</label>
+        <childnode refid="4290" relation="include">
+        </childnode>
+      </node>
+      <node id="4284">
+        <label>xpm_node.h</label>
+        <childnode refid="4272" relation="include">
+        </childnode>
+        <childnode refid="4273" relation="include">
+        </childnode>
+        <childnode refid="4285" relation="include">
+        </childnode>
+        <childnode refid="4274" relation="include">
+        </childnode>
+      </node>
+      <node id="4273">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4272">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4297">
+        <label>xpm_fsm.h</label>
+        <childnode refid="4272" relation="include">
+        </childnode>
+        <childnode refid="4273" relation="include">
+        </childnode>
+        <childnode refid="4290" relation="include">
+        </childnode>
+      </node>
+      <node id="4279">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4272" relation="include">
+        </childnode>
+        <childnode refid="4280" relation="include">
+        </childnode>
+      </node>
+      <node id="4294">
+        <label>xpm_list.h</label>
+        <childnode refid="4270" relation="include">
+        </childnode>
+      </node>
+      <node id="4296">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="4272" relation="include">
+        </childnode>
+      </node>
+      <node id="4286">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4287" relation="include">
+        </childnode>
+        <childnode refid="4279" relation="include">
+        </childnode>
+        <childnode refid="4273" relation="include">
+        </childnode>
+        <childnode refid="4294" relation="include">
+        </childnode>
+        <childnode refid="4295" relation="include">
+        </childnode>
+        <childnode refid="4297" relation="include">
+        </childnode>
+      </node>
+      <node id="4290">
+        <label>xpm_device.h</label>
+        <childnode refid="4284" relation="include">
+        </childnode>
+        <childnode refid="4291" relation="include">
+        </childnode>
+        <childnode refid="4292" relation="include">
+        </childnode>
+        <childnode refid="4293" relation="include">
+        </childnode>
+      </node>
+      <node id="4293">
+        <label>xpm_reset.h</label>
+        <childnode refid="4284" relation="include">
+        </childnode>
+        <childnode refid="4274" relation="include">
+        </childnode>
+      </node>
+      <node id="4288">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="4277">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4273" relation="include">
+        </childnode>
+      </node>
+      <node id="4299">
+        <label>xpm_regnode.h</label>
+        <childnode refid="4272" relation="include">
+        </childnode>
+        <childnode refid="4291" relation="include">
+        </childnode>
+      </node>
+      <node id="4269">
+        <label>xpm_runtime_alloc.c</label>
+        <link refid="xpm_runtime_alloc.c"/>
+        <childnode refid="4270" relation="include">
+        </childnode>
+        <childnode refid="4274" relation="include">
+        </childnode>
+        <childnode refid="4281" relation="include">
+        </childnode>
+        <childnode refid="4282" relation="include">
+        </childnode>
+        <childnode refid="4283" relation="include">
+        </childnode>
+        <childnode refid="4286" relation="include">
+        </childnode>
+        <childnode refid="4298" relation="include">
+        </childnode>
+        <childnode refid="4299" relation="include">
+        </childnode>
+        <childnode refid="4300" relation="include">
+        </childnode>
+      </node>
+      <node id="4270">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="4271" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a3aa474fe155570ee92227d2dd0ff3ca7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8 SubSystemPoolMemBuffer[MAX_SUBSYS_POOL_SIZE]</type>
+        <definition>static u8 SubSystemPoolMemBuffer [MAX_SUBSYS_POOL_SIZE] XPM_PLACE_IN</definition>
+        <argsstring>(&quot;.SubSystemPoolMemBuffer&quot;)</argsstring>
+        <name>XPM_PLACE_IN</name>
+        <param>
+          <type>&quot;.SubSystemPoolMemBuffer&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="15" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a27ceefd3357f5bd4621f9e0eaf4b93d3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8 ReqmPoolMemBuffer[MAX_REQM_POOL_SIZE]</type>
+        <definition>static u8 ReqmPoolMemBuffer [MAX_REQM_POOL_SIZE] XPM_PLACE_IN</definition>
+        <argsstring>(&quot;.ReqmPoolMemBuffer&quot;)</argsstring>
+        <name>XPM_PLACE_IN</name>
+        <param>
+          <type>&quot;.ReqmPoolMemBuffer&quot;</type>
+        </param>
+        <briefdescription>
+<para>For Subsystem and requirement data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="16" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a948ceb777b49b45650d5b0613fef1c8d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8 DevOpsPoolMemBuffer[MAX_DEVOPS_POOL_SIZE]</type>
+        <definition>static u8 DevOpsPoolMemBuffer [MAX_DEVOPS_POOL_SIZE] XPM_PLACE_IN</definition>
+        <argsstring>(&quot;.DevOpsPoolMemBuffer&quot;)</argsstring>
+        <name>XPM_PLACE_IN</name>
+        <param>
+          <type>&quot;.DevOpsPoolMemBuffer&quot;</type>
+        </param>
+        <briefdescription>
+<para>For Subsystem and requirement data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1aa25dce2cea841cb481135460fb89fd50" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8 OtherPoolMemBuffer[MAX_OTHER_POOL_SIZE]</type>
+        <definition>static u8 OtherPoolMemBuffer [MAX_OTHER_POOL_SIZE] XPM_PLACE_IN</definition>
+        <argsstring>(&quot;.OtherPoolMemBuffer&quot;)</argsstring>
+        <name>XPM_PLACE_IN</name>
+        <param>
+          <type>&quot;.OtherPoolMemBuffer&quot;</type>
+        </param>
+        <briefdescription>
+<para>Other Pool Memory Buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a7ec9b1f405627a0fe3697dcd66d57dcd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_AllocablePool_t SubSystemPoolMem</type>
+        <definition>static XPm_AllocablePool_t SubSystemPoolMem XPM_INIT_DATA</definition>
+        <argsstring>(SubSystemPoolMem)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>SubSystemPoolMem</type>
+        </param>
+        <briefdescription>
+<para>Other Pool Memory Buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="20" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a9e8a59ab9c62ad1de6e1a8ba56ed03ce" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_AllocablePool_t ReqmPoolMem</type>
+        <definition>static XPm_AllocablePool_t ReqmPoolMem XPM_INIT_DATA</definition>
+        <argsstring>(ReqmPoolMem)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>ReqmPoolMem</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a3c0dd22db376cbe75e23e83db33cb3c6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_AllocablePool_t DevOpsPoolMem</type>
+        <definition>static XPm_AllocablePool_t DevOpsPoolMem XPM_INIT_DATA</definition>
+        <argsstring>(DevOpsPoolMem)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>DevOpsPoolMem</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="30" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a008f85a6ac92b9eacb72f181be9931f4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_AllocablePool_t OtherPoolMem</type>
+        <definition>static XPm_AllocablePool_t OtherPoolMem XPM_INIT_DATA</definition>
+        <argsstring>(OtherPoolMem)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>OtherPoolMem</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="35" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a80989390a7a9e58b33813943504f7a6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XPm_AllocBytesSubsys</definition>
+        <argsstring>(u32 SizeInBytes)</argsstring>
+        <name>XPm_AllocBytesSubsys</name>
+        <param>
+          <type>u32</type>
+          <declname>SizeInBytes</declname>
+        </param>
+        <briefdescription>
+<para>Allocate zero-initialized storage from the subsystem pool. </para>        </briefdescription>
+        <detaileddescription>
+<para>Advances the subsystem pool through XPm_AllocPool(). On failure, logs the requested size and dumps usage information for all runtime memory pools.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SizeInBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the allocated region on success; NULL on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" bodystart="53" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a824e3fb29075221c46cf58a7d815545b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XPm_AllocBytesReqm</definition>
+        <argsstring>(u32 SizeInBytes)</argsstring>
+        <name>XPm_AllocBytesReqm</name>
+        <param>
+          <type>u32</type>
+          <declname>SizeInBytes</declname>
+        </param>
+        <briefdescription>
+<para>Allocate zero-initialized storage from the requirement pool. </para>        </briefdescription>
+        <detaileddescription>
+<para>Advances the requirement pool through XPm_AllocPool(). On failure, logs the requested size and dumps usage information for all runtime memory pools.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SizeInBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the allocated region on success; NULL on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" bodystart="77" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a3e11fdcecf4895470eb6a9449dcdd8e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XPm_AllocBytesOthers</definition>
+        <argsstring>(u32 SizeInBytes)</argsstring>
+        <name>XPm_AllocBytesOthers</name>
+        <param>
+          <type>u32</type>
+          <declname>SizeInBytes</declname>
+        </param>
+        <briefdescription>
+<para>Allocates a block of memory from the OtherPoolMem. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function allocates a block of memory of the specified size from the OtherPoolMem. If the allocation fails, an error message is printed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SizeInBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the memory block to allocate, in bytes. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the allocated memory block, or NULL if the allocation fails. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" bodystart="98" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1ac7de7456662a8f80246a56b4819c58db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XPm_AllocBytesDevOps</definition>
+        <argsstring>(u32 SizeInBytes)</argsstring>
+        <name>XPm_AllocBytesDevOps</name>
+        <param>
+          <type>u32</type>
+          <declname>SizeInBytes</declname>
+        </param>
+        <briefdescription>
+<para>Allocate zero-initialized storage from the device-operations pool. </para>        </briefdescription>
+        <detaileddescription>
+<para>Advances the device-operations pool through XPm_AllocPool(). If allocation fails, logs the requested size without dumping the other pools.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SizeInBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the allocated region on success; NULL on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" bodystart="119" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__alloc_8c_1a6ba2b01fda0652d129d4b56fd3801da1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_DumpMemUsage</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_DumpMemUsage</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Dumps the memory usage of the SubSystemPoolMem, ReqmPoolMem, and OtherPoolMem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Weak implementation of XPm_DumpMemUsage().</para><para>This function prints the memory usage of the SubSystemPoolMem, ReqmPoolMem, and OtherPoolMem by calling the XPm_DumpMemUsage_Pool function for each pool. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c" bodystart="134" bodyend="145"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_alloc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_memory_pools.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_reset.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regnode.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>SubSystemPoolMemBuffer[MAX_SUBSYS_POOL_SIZE]<sp/>XPM_PLACE_IN(</highlight><highlight class="stringliteral">&quot;.SubSystemPoolMemBuffer&quot;</highlight><highlight class="normal">);<sp/></highlight></codeline>
+<codeline lineno="16"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>ReqmPoolMemBuffer[MAX_REQM_POOL_SIZE]<sp/>XPM_PLACE_IN(</highlight><highlight class="stringliteral">&quot;.ReqmPoolMemBuffer&quot;</highlight><highlight class="normal">);<sp/></highlight></codeline>
+<codeline lineno="17"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>DevOpsPoolMemBuffer[MAX_DEVOPS_POOL_SIZE]<sp/>XPM_PLACE_IN(</highlight><highlight class="stringliteral">&quot;.DevOpsPoolMemBuffer&quot;</highlight><highlight class="normal">);<sp/></highlight></codeline>
+<codeline lineno="18"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>OtherPoolMemBuffer[MAX_OTHER_POOL_SIZE]<sp/>XPM_PLACE_IN(</highlight><highlight class="stringliteral">&quot;.OtherPoolMemBuffer&quot;</highlight><highlight class="normal">);<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPm_AllocablePool_t<sp/>SubSystemPoolMem<sp/>XPM_INIT_DATA(SubSystemPoolMem)=<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Size<sp/>=<sp/>MAX_SUBSYS_POOL_SIZE,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Pool<sp/>=<sp/>SubSystemPoolMemBuffer,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.FreeMem<sp/>=<sp/>SubSystemPoolMemBuffer</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPm_AllocablePool_t<sp/>ReqmPoolMem<sp/>XPM_INIT_DATA(ReqmPoolMem)=<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Size<sp/>=<sp/>MAX_REQM_POOL_SIZE,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Pool<sp/>=<sp/>ReqmPoolMemBuffer,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.FreeMem<sp/>=<sp/>ReqmPoolMemBuffer</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPm_AllocablePool_t<sp/>DevOpsPoolMem<sp/>XPM_INIT_DATA(DevOpsPoolMem)=<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Size<sp/>=<sp/>MAX_DEVOPS_POOL_SIZE,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Pool<sp/>=<sp/>DevOpsPoolMemBuffer,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.FreeMem<sp/>=<sp/>DevOpsPoolMemBuffer</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPm_AllocablePool_t<sp/>OtherPoolMem<sp/>XPM_INIT_DATA(OtherPoolMem)=<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Size<sp/>=<sp/>MAX_OTHER_POOL_SIZE,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Pool<sp/>=<sp/>OtherPoolMemBuffer,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.FreeMem<sp/>=<sp/>OtherPoolMemBuffer</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XPm_AllocBytesSubsys(u32<sp/>SizeInBytes)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ret<sp/>=<sp/><sp/>XPm_AllocPool(SizeInBytes,<sp/>&amp;SubSystemPoolMem);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Report<sp/>pool<sp/>exhaustion<sp/>together<sp/>with<sp/>the<sp/>full<sp/>runtime<sp/>memory<sp/>usage<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>ret)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>allocate<sp/>%u<sp/>bytes<sp/>from<sp/>SubSystemPoolMem\n\r&quot;</highlight><highlight class="normal">,<sp/>SizeInBytes);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_DumpMemUsage();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="77"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XPm_AllocBytesReqm(u32<sp/>SizeInBytes)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ret<sp/>=<sp/><sp/>XPm_AllocPool(SizeInBytes,<sp/>&amp;ReqmPoolMem);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Report<sp/>pool<sp/>exhaustion<sp/>together<sp/>with<sp/>the<sp/>full<sp/>runtime<sp/>memory<sp/>usage<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>ret)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>allocate<sp/>%u<sp/>bytes<sp/>from<sp/>ReqmPoolMem\n\r&quot;</highlight><highlight class="normal">,<sp/>SizeInBytes);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_DumpMemUsage();</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XPm_AllocBytesOthers(u32<sp/>SizeInBytes)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ret<sp/>=<sp/><sp/>XPm_AllocPool(SizeInBytes,<sp/>&amp;OtherPoolMem);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>ret)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>allocate<sp/>%u<sp/>bytes<sp/>from<sp/>OtherPoolMem\n\r&quot;</highlight><highlight class="normal">,<sp/>SizeInBytes);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="119"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XPm_AllocBytesDevOps(u32<sp/>SizeInBytes)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ret<sp/>=<sp/><sp/>XPm_AllocPool(SizeInBytes,<sp/>&amp;DevOpsPoolMem);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>ret)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>allocate<sp/>%u<sp/>bytes<sp/>from<sp/>DevOpsPoolMem\n\r&quot;</highlight><highlight class="normal">,<sp/>SizeInBytes);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/>XPm_DumpMemUsage(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XPm_DumpTopologyMemUsage();</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmInfo(</highlight><highlight class="stringliteral">&quot;SubSystem<sp/>Pool:\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>XPm_DumpMemUsage_Pool(SubSystemPoolMem);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmInfo(</highlight><highlight class="stringliteral">&quot;Requirement<sp/>Pool:\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>XPm_DumpMemUsage_Pool(ReqmPoolMem);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmInfo(</highlight><highlight class="stringliteral">&quot;DevOps<sp/>Pool:\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>XPm_DumpMemUsage_Pool(DevOpsPoolMem);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmInfo(</highlight><highlight class="stringliteral">&quot;Other<sp/>Pool:\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>XPm_DumpMemUsage_Pool(OtherPoolMem);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_alloc.c"/>
+  </compounddef>
+</doxygen>

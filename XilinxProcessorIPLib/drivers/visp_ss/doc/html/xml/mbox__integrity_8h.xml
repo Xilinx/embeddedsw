@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__integrity_8h" kind="file">
+    <compoundname>mbox_integrity.h</compoundname>
+    <includes refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includes>
+    <includedby refid="mbox__integrity_8c" local="yes">mbox_integrity.c</includedby>
+    <includedby refid="mbox__interface_8c" local="yes">mbox_interface.c</includedby>
+    <incdepgraph>
+      <node id="6808">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6813">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6814">
+        <label>stdint.h</label>
+      </node>
+      <node id="6806">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6815">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6813" relation="include">
+        </childnode>
+        <childnode refid="6816" relation="include">
+        </childnode>
+      </node>
+      <node id="6809">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6817">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6803">
+        <label>mbox_integrity.h</label>
+        <link refid="mbox_integrity.h"/>
+        <childnode refid="6804" relation="include">
+        </childnode>
+      </node>
+      <node id="6819">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6812" relation="include">
+        </childnode>
+        <childnode refid="6820" relation="include">
+        </childnode>
+      </node>
+      <node id="6812">
+        <label>mbox_api.h</label>
+        <childnode refid="6813" relation="include">
+        </childnode>
+        <childnode refid="6814" relation="include">
+        </childnode>
+        <childnode refid="6815" relation="include">
+        </childnode>
+      </node>
+      <node id="6807">
+        <label>sys/types.h</label>
+      </node>
+      <node id="6818">
+        <label>mbox_hardware.h</label>
+        <childnode refid="6815" relation="include">
+        </childnode>
+      </node>
+      <node id="6821">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6810">
+        <label>signal.h</label>
+      </node>
+      <node id="6804">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6805" relation="include">
+        </childnode>
+        <childnode refid="6806" relation="include">
+        </childnode>
+        <childnode refid="6807" relation="include">
+        </childnode>
+        <childnode refid="6808" relation="include">
+        </childnode>
+        <childnode refid="6809" relation="include">
+        </childnode>
+        <childnode refid="6810" relation="include">
+        </childnode>
+        <childnode refid="6811" relation="include">
+        </childnode>
+        <childnode refid="6812" relation="include">
+        </childnode>
+        <childnode refid="6817" relation="include">
+        </childnode>
+        <childnode refid="6815" relation="include">
+        </childnode>
+        <childnode refid="6818" relation="include">
+        </childnode>
+        <childnode refid="6819" relation="include">
+        </childnode>
+        <childnode refid="6821" relation="include">
+        </childnode>
+      </node>
+      <node id="6816">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6811">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6805">
+        <label>stdio.h</label>
+      </node>
+      <node id="6820">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6824">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="6822">
+        <label>mbox_integrity.h</label>
+        <link refid="mbox_integrity.h"/>
+        <childnode refid="6823" relation="include">
+        </childnode>
+        <childnode refid="6824" relation="include">
+        </childnode>
+      </node>
+      <node id="6823">
+        <label>mbox_integrity.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__integrity_8h_1aa6b5603841960dc5da5edca2bfb7d07f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_integrity_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_integrity_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initializes the mailbox integrity state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_integrity.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_integrity.c" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__integrity_8h_1a6af9702eb0ce8b3f8ab0681f595eb731" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_integrity_stamp_outbound</definition>
+        <argsstring>(MboxCoreId receiver_id, MboxPostMsg *msg)</argsstring>
+        <name>mbox_integrity_stamp_outbound</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Stamps sequence counter and checksum onto an outbound message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to stamp in place. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_integrity.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_integrity.c" bodystart="23" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__integrity_8h_1ab681b74e68049aeeef8b68187446e3a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_integrity_validate_inbound</definition>
+        <argsstring>(MboxCoreId src_core_id, MboxPostMsg *msg)</argsstring>
+        <name>mbox_integrity_validate_inbound</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>src_core_id</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Validates the sequence counter and checksum of an inbound message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">src_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Received message to validate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS if the message is valid, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_integrity.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_integrity.c" bodystart="37" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_MBOX_INTEGRITY_H_</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_INTEGRITY_H_</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__cmd_8h" kindref="compound">mbox_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_integrity_init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_integrity_stamp_outbound(MboxCoreId<sp/>receiver_id,<sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">int32_t<sp/>mbox_integrity_validate_inbound(MboxCoreId<sp/>src_core_id,<sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_integrity.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__dsc__fec_8h" kind="file">
+    <compoundname>xdptxss_dsc_fec.h</compoundname>
+    <includes refid="xdptxss_8h" local="yes">xdptxss.h</includes>
+    <includes local="yes">xdp21_dsc.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xdptxss__dsc__fec_8c" local="yes">xdptxss_dsc_fec.c</includedby>
+    <incdepgraph>
+      <node id="313">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="323">
+        <label>xdp21_dsc.h</label>
+      </node>
+      <node id="312">
+        <label>xil_io.h</label>
+      </node>
+      <node id="316">
+        <label>xdebug.h</label>
+      </node>
+      <node id="321">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="322" relation="include">
+        </childnode>
+        <childnode refid="318" relation="include">
+        </childnode>
+      </node>
+      <node id="310">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="311" relation="include">
+        </childnode>
+        <childnode refid="313" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+        <childnode refid="315" relation="include">
+        </childnode>
+        <childnode refid="316" relation="include">
+        </childnode>
+        <childnode refid="317" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="321" relation="include">
+        </childnode>
+      </node>
+      <node id="318">
+        <label>xdp.h</label>
+      </node>
+      <node id="317">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="318" relation="include">
+        </childnode>
+      </node>
+      <node id="311">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="312" relation="include">
+        </childnode>
+      </node>
+      <node id="314">
+        <label>xstatus.h</label>
+      </node>
+      <node id="315">
+        <label>xvidc.h</label>
+      </node>
+      <node id="324">
+        <label>xil_types.h</label>
+      </node>
+      <node id="320">
+        <label>xparameters.h</label>
+      </node>
+      <node id="319">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="318" relation="include">
+        </childnode>
+      </node>
+      <node id="322">
+        <label>xvtc.h</label>
+      </node>
+      <node id="309">
+        <label>xdptxss_dsc_fec.h</label>
+        <link refid="xdptxss_dsc_fec.h"/>
+        <childnode refid="310" relation="include">
+        </childnode>
+        <childnode refid="323" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="326">
+        <label>xdptxss_dsc_fec.c</label>
+        <link refid="xdptxss__dsc__fec_8c"/>
+      </node>
+      <node id="325">
+        <label>xdptxss_dsc_fec.h</label>
+        <link refid="xdptxss_dsc_fec.h"/>
+        <childnode refid="326" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>DP TX Subsystem DSC/FEC Support Header. </para>    </briefdescription>
+    <detaileddescription>
+<para>Declares the Display Stream Compression and Forward Error Correction entry points of the DisplayPort 2.1 TX Subsystem. The whole interface is compiled only for designs that build the DSC encoder in. The subsystem instance is left unchanged, so the state is held in this translation unit. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor">#ifndef<sp/>XDPTXSS_DSC_FEC_H</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPTXSS_DSC_FEC_H</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdptxss_8h" kindref="compound">xdptxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp21_dsc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDPTXSS_USE_DSC</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#define<sp/>XDPTXSS_DSC_TU_SIZE_BYTES<sp/><sp/>64U</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#define<sp/>XDPTXSS_DSC_LINK_BW_FACTOR<sp/>27U</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#define<sp/>XDPTXSS_DSC_LINK_BPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>24U</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_DscFecInit(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_SetFecEnable(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_DscNegotiateCapabilities(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_EnableDscPassthrough(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_WriteDscPps(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*PpsData);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_SetDscEnable(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_SetDscStreamConfig(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PpsData);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_RefreshDscMsaTu(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UserDataCountPerLane;<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MinBytesPerTu;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FracBytesPerTu;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InitWait;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CompBytesPerLine;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AvgBytesPerTu;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}<sp/>XDpTxSs_DscTuValues;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_CalcDscTuValues(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*Pps,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>UncompPixelClockHz,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpTxSs_DscTuValues<sp/>*Out);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpTxSs_ApplyDscTuValues(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDpTxSs_DscTuValues<sp/>*Values,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDPTXSS_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDPTXSS_DSC_FEC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_dsc_fec.h"/>
+  </compounddef>
+</doxygen>

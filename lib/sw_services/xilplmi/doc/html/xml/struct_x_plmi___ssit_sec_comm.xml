@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___ssit_sec_comm" kind="struct" prot="public">
+    <compoundname>XPlmi_SsitSecComm</compoundname>
+    <includes local="no">xplmi_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___ssit_sec_comm_1a360743431372ae4cd7c0cf1ecc2c48d2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_SsitSecComm::SlrIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrIndex</name>
+        <briefdescription>
+<para>SLR index number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="260" endline="280">XPlmi_ConfigSecureComm</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_sec_comm_1a7187e4d9a1777d9fa9440cf9bbae7fab" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_plmi___i_vsand_key" kindref="compound">XPlmi_IVsandKey</ref></type>
+        <definition>XPlmi_IVsandKey XPlmi_SsitSecComm::IVsandKey</definition>
+        <argsstring></argsstring>
+        <name>IVsandKey</name>
+        <briefdescription>
+<para>Ivs and key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="260" endline="280">XPlmi_ConfigSecureComm</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure holding the SSIT secure communication parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="48">
+        <label>XPlmi_IVsandKey</label>
+        <link refid="struct_x_plmi___i_vsand_key"/>
+      </node>
+      <node id="47">
+        <label>XPlmi_SsitSecComm</label>
+        <link refid="struct_x_plmi___ssit_sec_comm"/>
+        <childnode refid="48" relation="usage">
+          <edgelabel>IVsandKey</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="113" bodyend="116"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___ssit_sec_comm_1a7187e4d9a1777d9fa9440cf9bbae7fab" prot="public" virt="non-virtual"><scope>XPlmi_SsitSecComm</scope><name>IVsandKey</name></member>
+      <member refid="struct_x_plmi___ssit_sec_comm_1a360743431372ae4cd7c0cf1ecc2c48d2" prot="public" virt="non-virtual"><scope>XPlmi_SsitSecComm</scope><name>SlrIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

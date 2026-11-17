@@ -1,0 +1,712 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__asufw__keepalive_8c" kind="file">
+    <compoundname>xplmi_asufw_keepalive.c</compoundname>
+    <includes refid="xplmi__asufw__keepalive_8h" local="yes">xplmi_asufw_keepalive.h</includes>
+    <includes refid="xplmi__asu__update_8h" local="yes">xplmi_asu_update.h</includes>
+    <includes refid="xplmi__modules_8h" local="yes">xplmi_modules.h</includes>
+    <includes refid="xplmi__scheduler_8h" local="yes">xplmi_scheduler.h</includes>
+    <includes refid="xplmi_8h" local="yes">xplmi.h</includes>
+    <includes refid="2ve__2vm_2server_2xplmi__hw_8h" local="yes">xplmi_hw.h</includes>
+    <includes refid="2ve__2vm_2server_2xplmi__status_8h" local="yes">xplmi_status.h</includes>
+    <includes refid="xplmi__task_8h" local="yes">xplmi_task.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="309">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="330">
+        <label>xplmi_config.h</label>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="331" relation="include">
+        </childnode>
+      </node>
+      <node id="307">
+        <label>xplmi_scheduler.h</label>
+        <link refid="xplmi__scheduler_8h"/>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+        <childnode refid="302" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+      </node>
+      <node id="300">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="301" relation="include">
+        </childnode>
+        <childnode refid="302" relation="include">
+        </childnode>
+      </node>
+      <node id="296">
+        <label>xplmi_asufw_keepalive.c</label>
+        <link refid="xplmi_asufw_keepalive.c"/>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
+        </childnode>
+        <childnode refid="304" relation="include">
+        </childnode>
+        <childnode refid="307" relation="include">
+        </childnode>
+        <childnode refid="315" relation="include">
+        </childnode>
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="333" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+        <childnode refid="311" relation="include">
+        </childnode>
+      </node>
+      <node id="297">
+        <label>xplmi_asufw_keepalive.h</label>
+        <link refid="xplmi__asufw__keepalive_8h"/>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
+        </childnode>
+      </node>
+      <node id="316">
+        <label>xplmi_generic.h</label>
+        <childnode refid="317" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
+        <childnode refid="300" relation="include">
+        </childnode>
+      </node>
+      <node id="326">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="332">
+        <label>xil_io.h</label>
+      </node>
+      <node id="304">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="305" relation="include">
+        </childnode>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+      </node>
+      <node id="299">
+        <label>xplmi_asu_update.h</label>
+        <link refid="xplmi__asu__update_8h"/>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="303" relation="include">
+        </childnode>
+      </node>
+      <node id="329">
+        <label>xplmi_hw.h</label>
+        <childnode refid="330" relation="include">
+        </childnode>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="332" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+      </node>
+      <node id="313">
+        <label>stdlib.h</label>
+      </node>
+      <node id="312">
+        <label>list.h</label>
+        <childnode refid="313" relation="include">
+        </childnode>
+      </node>
+      <node id="333">
+        <label>xplmi_status.h</label>
+        <childnode refid="311" relation="include">
+        </childnode>
+      </node>
+      <node id="315">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="316" relation="include">
+        </childnode>
+        <childnode refid="305" relation="include">
+        </childnode>
+      </node>
+      <node id="317">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="318" relation="include">
+        </childnode>
+        <childnode refid="302" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="321" relation="include">
+        </childnode>
+      </node>
+      <node id="325">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="304" relation="include">
+        </childnode>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="309" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+      </node>
+      <node id="303">
+        <label>xplmi_update.h</label>
+        <link refid="xplmi__update_8h"/>
+        <childnode refid="300" relation="include">
+        </childnode>
+      </node>
+      <node id="324">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="325" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+      </node>
+      <node id="331">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="321">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="322" relation="include">
+        </childnode>
+        <childnode refid="323" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+      </node>
+      <node id="310">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="311">
+        <label>xstatus.h</label>
+      </node>
+      <node id="302">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="323">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="327">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="328" relation="include">
+        </childnode>
+      </node>
+      <node id="298">
+        <label>xil_types.h</label>
+      </node>
+      <node id="328">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="308">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="309" relation="include">
+        </childnode>
+        <childnode refid="310" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="311" relation="include">
+        </childnode>
+        <childnode refid="312" relation="include">
+        </childnode>
+      </node>
+      <node id="306">
+        <label>xparameters.h</label>
+      </node>
+      <node id="318">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="314">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="322">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="305">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="301">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="320">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="298" relation="include">
+        </childnode>
+      </node>
+      <node id="319">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="300" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" prot="public" static="no">
+        <name>XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</name>
+        <initializer>(0x123U)</initializer>
+        <briefdescription>
+<para>Task Id for ASUFW keep-alive monitor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" compoundref="xplmi__asufw__keepalive_8c" startline="157" endline="179">XPlmi_AsufwKeepAliveInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" compoundref="xplmi__asufw__keepalive_8c" startline="190" endline="232">XPlmi_StartAsufwKeepAliveMonitor</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga692192c75fe945cb7621079f01409eb8" prot="public" static="no">
+        <name>XPLMI_ASU_KEEP_ALIVE_STS_DS_ID</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>ASU keep-alive status DS Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gac21264186590cabea0b91b6aeec0fe71" prot="public" static="no">
+        <name>XPLMI_ASU_KEEP_ALIVE_STS_VER</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>ASU keep-alive status version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga6ae06e41c3a0d4b6ef6700ddf2bafd71" prot="public" static="no">
+        <name>XPLMI_ASU_KEEP_ALIVE_STS_LCVER</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>ASU keep-alive status LC version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" prot="public" static="no">
+        <name>XPLMI_ASUFW_ALIVE_INIT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>ASUFW keep-alive init. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" compoundref="xplmi__asufw__keepalive_8c" startline="190" endline="232">XPlmi_StartAsufwKeepAliveMonitor</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gace36ebdc09af6f857e0861ea4eb7201b" prot="public" static="no">
+        <name>XPLMI_ASUFW_ALIVE_ERR</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>ASUFW keep-alive error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" compoundref="xplmi__asufw__keepalive_8c" startline="190" endline="232">XPlmi_StartAsufwKeepAliveMonitor</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1gad69122127161dd0e300098726683c54f" prot="public" static="no">
+        <name>XPLMI_ASUFW_KEEP_ALIVE_MAX_RETRIES</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Consecutive stall samples before reporting ASUFW not alive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1gadba1298e088afad0a8d6e05670408119" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 AsuKeepAliveStatus</definition>
+        <argsstring></argsstring>
+        <name>AsuKeepAliveStatus</name>
+        <initializer>= <ref refid="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" kindref="member">XPLMI_ASUFW_ALIVE_INIT</ref></initializer>
+        <briefdescription>
+<para>ASUFW keep-alive status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1gae9e5859b1a206aaff619f8e563d210ec" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 PrevAsufwCounterValue</definition>
+        <argsstring></argsstring>
+        <name>PrevAsufwCounterValue</name>
+        <briefdescription>
+<para>Previous ASUFW counter value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga5288716c4f93cd3926444e17ec98c850" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 StallRetryCount</definition>
+        <argsstring></argsstring>
+        <name>StallRetryCount</name>
+        <briefdescription>
+<para>Consecutive stall sample count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga3a7bbbdd60c8694e7c4b1b001829a888" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPlmi_AsufwKeepAliveTask</definition>
+        <argsstring>(void *Arg)</argsstring>
+        <name>XPlmi_AsufwKeepAliveTask</name>
+        <param>
+          <type>void *</type>
+          <declname>Arg</declname>
+        </param>
+        <briefdescription>
+<para>This function runs the ASUFW keep-alive health check. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when the check completes normally.</para></listitem><listitem><para>XPLM_ERR_ASUFW_NOT_ALIVE when the ASUFW counter did not change across three consecutive samples. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Skip check when ASUFW is not present.</para><para>Skip check while PLM update is in progress.</para><para>Skip keep-alive check while counter is zero, waiting for ASUFW to start incrementing.</para><para>Report failure after three consecutive samples with no counter change. ASUFW increments every 100 ms and PLM polls every 200 ms, so the counter must advance at least once between consecutive PLM samples.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="88" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga74fb7a1943fb8375dffe4104b3eb489c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPlmi_RemoveAsufwKeepAliveTask</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_RemoveAsufwKeepAliveTask</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function stops the ASUFW keep-alive health check. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code from <ref refid="group__xilplmi__server__apis_1gac8483b0e4e094965c6e8f5be1417a624" kindref="member">XPlmi_SchedulerRemoveTask()</ref> on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Remove ASUFW keep-alive health check from scheduler </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="243" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gabde25a1cb99cc79bd46919f15d75c666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EXPORT_DS</definition>
+        <argsstring>(AsuKeepAliveStatus, XPLMI_MODULE_ASU_ID, XPLMI_ASU_KEEP_ALIVE_STS_DS_ID, XPLMI_ASU_KEEP_ALIVE_STS_VER, XPLMI_ASU_KEEP_ALIVE_STS_LCVER, sizeof(AsuKeepAliveStatus),(u32)(UINTPTR)&amp;AsuKeepAliveStatus)</argsstring>
+        <name>EXPORT_DS</name>
+        <param>
+          <type>AsuKeepAliveStatus</type>
+        </param>
+        <param>
+          <type>XPLMI_MODULE_ASU_ID</type>
+        </param>
+        <param>
+          <type><ref refid="group__xilplmi__server__apis_1ga692192c75fe945cb7621079f01409eb8" kindref="member">XPLMI_ASU_KEEP_ALIVE_STS_DS_ID</ref></type>
+        </param>
+        <param>
+          <type><ref refid="group__xilplmi__server__apis_1gac21264186590cabea0b91b6aeec0fe71" kindref="member">XPLMI_ASU_KEEP_ALIVE_STS_VER</ref></type>
+        </param>
+        <param>
+          <type><ref refid="group__xilplmi__server__apis_1ga6ae06e41c3a0d4b6ef6700ddf2bafd71" kindref="member">XPLMI_ASU_KEEP_ALIVE_STS_LCVER</ref></type>
+        </param>
+        <param>
+          <type>sizeof(AsuKeepAliveStatus)</type>
+        </param>
+        <param>
+          <type>(u32)(UINTPTR)&amp;</type>
+          <declname>AsuKeepAliveStatus</declname>
+        </param>
+        <briefdescription>
+<para>Export AsuKeepAliveStatus for in-place PLM update. </para>        </briefdescription>
+        <detaileddescription>
+<para>Exports keep-alive status so a latched ASUFW-not-alive error survives the PLM image swap and prevents monitor restart after failure. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="70" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_AsufwKeepAliveInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_AsufwKeepAliveInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function creates the ASUFW keep-alive PLM task. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Create ASUFW keep-alive task which will be triggered on start</para><para>Assign task ID for identification </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="157" bodyend="179"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="247">XPLM_ERR_TASK_CREATE</references>
+        <references refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" compoundref="xplmi__asufw__keepalive_8c" startline="41">XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</references>
+        <references refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="91" endline="120">XPlmi_TaskCreate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_StartAsufwKeepAliveMonitor</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_StartAsufwKeepAliveMonitor</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function starts the ASUFW keep-alive monitor. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Does not restart the monitor when keep-alive status is already error. Does not add a duplicate scheduler entry when the monitor is already running. Logs with DEBUG_PRINT_ALWAYS on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Retrieve the pre-created ASUFW keep-alive task</para><para>Set init and start monitor only when keep-alive status is not error.</para><para>Skip add when monitor is already scheduled.</para><para>Register periodic keep-alive health check with scheduler </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="190" bodyend="232"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="247">XPLM_ERR_TASK_CREATE</references>
+        <references refid="xplmi__asufw__keepalive_8h_1a63a66b7afa2852d35af98c5ac9c1743c" compoundref="xplmi__asufw__keepalive_8h" startline="37">XPLMI_ASU_RTCA_KEEP_ALIVE_COUNTER_ADDR</references>
+        <references refid="group__xilplmi__server__apis_1gace36ebdc09af6f857e0861ea4eb7201b" compoundref="xplmi__asufw__keepalive_8c" startline="50">XPLMI_ASUFW_ALIVE_ERR</references>
+        <references refid="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" compoundref="xplmi__asufw__keepalive_8c" startline="49">XPLMI_ASUFW_ALIVE_INIT</references>
+        <references refid="xplmi__asufw__keepalive_8h_1a303c291f69e631cff0fd2c58a3c9baf2" compoundref="xplmi__asufw__keepalive_8h" startline="41">XPLMI_ASUFW_KEEP_ALIVE_INTERVAL_MS</references>
+        <references refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" compoundref="xplmi__asufw__keepalive_8c" startline="41">XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</references>
+        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="134" endline="160">XPlmi_GetTaskInstance</references>
+        <references refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains ASUFW keep-alive monitor. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+====  ==== ======== ==============================================================================
+1.0   vm   07/14/2026 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__asufw__keepalive_8h" kindref="compound">xplmi_asufw_keepalive.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__asu__update_8h" kindref="compound">xplmi_asu_update.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__modules_8h" kindref="compound">xplmi_modules.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__scheduler_8h" kindref="compound">xplmi_scheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi_8h" kindref="compound">xplmi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_status.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__task_8h" kindref="compound">xplmi_task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASUFW_KEEP_ALIVE_TASK_ID<sp/><sp/>(0x123U)<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Keep-alive<sp/>status<sp/>data<sp/>structure<sp/>identifiers<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44" refid="group__xilplmi__server__apis_1ga692192c75fe945cb7621079f01409eb8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASU_KEEP_ALIVE_STS_DS_ID<sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="45" refid="group__xilplmi__server__apis_1gac21264186590cabea0b91b6aeec0fe71" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_ASU_KEEP_ALIVE_STS_VER<sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="46" refid="group__xilplmi__server__apis_1ga6ae06e41c3a0d4b6ef6700ddf2bafd71" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_ASU_KEEP_ALIVE_STS_LCVER<sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ASUFW<sp/>keep-alive<sp/>status<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49" refid="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASUFW_ALIVE_INIT<sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xilplmi__server__apis_1gace36ebdc09af6f857e0861ea4eb7201b" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_ASUFW_ALIVE_ERR<sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xilplmi__server__apis_1gad69122127161dd0e300098726683c54f" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_ASUFW_KEEP_ALIVE_MAX_RETRIES<sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56"><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_AsufwKeepAliveTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_RemoveAsufwKeepAliveTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>AsuKeepAliveStatus<sp/>__attribute__<sp/>((aligned(4U)))</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" kindref="member">XPLMI_ASUFW_ALIVE_INIT</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><ref refid="group__xilplmi__server__apis_1gabde25a1cb99cc79bd46919f15d75c666" kindref="member">EXPORT_DS</ref>(AsuKeepAliveStatus,<sp/>XPLMI_MODULE_ASU_ID,<sp/><ref refid="group__xilplmi__server__apis_1ga692192c75fe945cb7621079f01409eb8" kindref="member">XPLMI_ASU_KEEP_ALIVE_STS_DS_ID</ref>,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gac21264186590cabea0b91b6aeec0fe71" kindref="member">XPLMI_ASU_KEEP_ALIVE_STS_VER</ref>,<sp/><ref refid="group__xilplmi__server__apis_1ga6ae06e41c3a0d4b6ef6700ddf2bafd71" kindref="member">XPLMI_ASU_KEEP_ALIVE_STS_LCVER</ref>,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(AsuKeepAliveStatus),<sp/>(u32)(UINTPTR)&amp;AsuKeepAliveStatus);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>PrevAsufwCounterValue;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>StallRetryCount;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="88"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_AsufwKeepAliveTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrCounterValue;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UpdateState;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Arg;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u8)FALSE<sp/>==<sp/><ref refid="group__xilplmi__server__apis_1ga46390ced7637005f48e1ed0004705824" kindref="member">XPlmi_AsuFwIsPresent</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UpdateState<sp/>=<sp/>XPlmi_In32(<ref refid="xplmi__asu__update_8h_1a402dedee332854b6cff2f6d82e1b2556" kindref="member">XPLMI_ASU_UPDATE_STATE_REG</ref>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((UpdateState<sp/>!=<sp/><ref refid="xplmi__asu__update_8h_1ab62f71b63ebd66177bee0017ea3b31b4" kindref="member">XPLMI_UPDATE_STATE_INIT</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UpdateState<sp/>!=<sp/><ref refid="xplmi__asu__update_8h_1a4d504aa1f49a3c858efda012412b64c1" kindref="member">XPLMI_UPDATE_STATE_FINISHED</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrCounterValue<sp/>=<sp/>XPlmi_In32(<ref refid="xplmi__asufw__keepalive_8h_1a63a66b7afa2852d35af98c5ac9c1743c" kindref="member">XPLMI_ASU_RTCA_KEEP_ALIVE_COUNTER_ADDR</ref>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>CurrCounterValue)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrevAsufwCounterValue<sp/>=<sp/>CurrCounterValue;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StallRetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CurrCounterValue<sp/>==<sp/>PrevAsufwCounterValue)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StallRetryCount++;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StallRetryCount<sp/>&gt;=<sp/><ref refid="group__xilplmi__server__apis_1gad69122127161dd0e300098726683c54f" kindref="member">XPLMI_ASUFW_KEEP_ALIVE_MAX_RETRIES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrevAsufwCounterValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StallRetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuKeepAliveStatus<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gace36ebdc09af6f857e0861ea4eb7201b" kindref="member">XPLMI_ASUFW_ALIVE_ERR</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_RemoveAsufwKeepAliveTask();</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XPLM_ERR_ASUFW_NOT_ALIVE,<sp/>Status);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%s<sp/>ERROR:<sp/>ASUFW<sp/>is<sp/>not<sp/>alive\r\n&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrevAsufwCounterValue<sp/>=<sp/>CurrCounterValue;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StallRetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="157" refid="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" kindref="member">XPlmi_AsufwKeepAliveInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" kindref="member">XPlmi_TaskCreate</ref>(XPLM_TASK_PRIORITY_0,<sp/>XPlmi_AsufwKeepAliveTask,<sp/>NULL);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" kindref="member">XPLM_ERR_TASK_CREATE</ref>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ASUFW<sp/>keep-alive<sp/>task<sp/>creation<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;IntrId<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" kindref="member">XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="190" refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" kindref="member">XPlmi_StartAsufwKeepAliveMonitor</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" kindref="member">XPlmi_GetTaskInstance</ref>(NULL,<sp/>NULL,<sp/><ref refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" kindref="member">XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" kindref="member">XPLM_ERR_TASK_CREATE</ref>);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xilplmi__server__apis_1gace36ebdc09af6f857e0861ea4eb7201b" kindref="member">XPLMI_ASUFW_ALIVE_ERR</ref><sp/>!=<sp/>AsuKeepAliveStatus)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrevAsufwCounterValue<sp/>=<sp/>XPlmi_In32(<ref refid="xplmi__asufw__keepalive_8h_1a63a66b7afa2852d35af98c5ac9c1743c" kindref="member">XPLMI_ASU_RTCA_KEEP_ALIVE_COUNTER_ADDR</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StallRetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsuKeepAliveStatus<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" kindref="member">XPLMI_ASUFW_ALIVE_INIT</ref>;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(metal_list_is_empty(&amp;Task-&gt;TaskNode)<sp/>==<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" kindref="member">XPlmi_SchedulerAddTask</ref>(XPLMI_MODULE_ASU_ID,<sp/>XPlmi_AsufwKeepAliveTask,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/><ref refid="xplmi__asufw__keepalive_8h_1a303c291f69e631cff0fd2c58a3c9baf2" kindref="member">XPLMI_ASUFW_KEEP_ALIVE_INTERVAL_MS</ref>,<sp/>XPLM_TASK_PRIORITY_0,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/>XPLMI_PERIODIC_TASK);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ASUFW<sp/>keep-alive<sp/>monitor<sp/>start<sp/>failed.<sp/>Error:<sp/>0x%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)Status);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="243"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_RemoveAsufwKeepAliveTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gac8483b0e4e094965c6e8f5be1417a624" kindref="member">XPlmi_SchedulerRemoveTask</ref>(XPLMI_MODULE_ASU_ID,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_AsufwKeepAliveTask,<sp/>0U,<sp/>NULL);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrevAsufwCounterValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StallRetryCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c"/>
+  </compounddef>
+</doxygen>

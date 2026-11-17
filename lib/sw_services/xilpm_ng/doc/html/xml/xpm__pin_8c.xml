@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pin_8c" kind="file">
+    <compoundname>xpm_pin.c</compoundname>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xpm__pin_8h" local="yes">xpm_pin.h</includes>
+    <includes refid="xpm__update_8h" local="yes">xpm_update.h</includes>
+    <incdepgraph>
+      <node id="2452">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2456">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="2444">
+        <label>xpm_pin.c</label>
+        <link refid="xpm_pin.c"/>
+        <childnode refid="2445" relation="include">
+        </childnode>
+        <childnode refid="2446" relation="include">
+        </childnode>
+        <childnode refid="2464" relation="include">
+        </childnode>
+      </node>
+      <node id="2446">
+        <label>xpm_pin.h</label>
+        <childnode refid="2447" relation="include">
+        </childnode>
+        <childnode refid="2457" relation="include">
+        </childnode>
+        <childnode refid="2461" relation="include">
+        </childnode>
+      </node>
+      <node id="2464">
+        <label>xpm_update.h</label>
+      </node>
+      <node id="2445">
+        <label>xil_util.h</label>
+      </node>
+      <node id="2454">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="2461">
+        <label>xpm_api.h</label>
+        <childnode refid="2448" relation="include">
+        </childnode>
+        <childnode refid="2449" relation="include">
+        </childnode>
+        <childnode refid="2455" relation="include">
+        </childnode>
+        <childnode refid="2453" relation="include">
+        </childnode>
+        <childnode refid="2462" relation="include">
+        </childnode>
+        <childnode refid="2463" relation="include">
+        </childnode>
+      </node>
+      <node id="2450">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="2459">
+        <label>xpm_clock.h</label>
+        <childnode refid="2451" relation="include">
+        </childnode>
+        <childnode refid="2447" relation="include">
+        </childnode>
+        <childnode refid="2458" relation="include">
+        </childnode>
+      </node>
+      <node id="2458">
+        <label>xpm_power.h</label>
+        <childnode refid="2455" relation="include">
+        </childnode>
+        <childnode refid="2447" relation="include">
+        </childnode>
+      </node>
+      <node id="2451">
+        <label>xpm_common.h</label>
+        <childnode refid="2449" relation="include">
+        </childnode>
+        <childnode refid="2452" relation="include">
+        </childnode>
+        <childnode refid="2445" relation="include">
+        </childnode>
+        <childnode refid="2453" relation="include">
+        </childnode>
+        <childnode refid="2454" relation="include">
+        </childnode>
+        <childnode refid="2455" relation="include">
+        </childnode>
+      </node>
+      <node id="2463">
+        <label>xpm_mem.h</label>
+        <childnode refid="2457" relation="include">
+        </childnode>
+      </node>
+      <node id="2447">
+        <label>xpm_node.h</label>
+        <childnode refid="2448" relation="include">
+        </childnode>
+        <childnode refid="2449" relation="include">
+        </childnode>
+        <childnode refid="2450" relation="include">
+        </childnode>
+        <childnode refid="2451" relation="include">
+        </childnode>
+      </node>
+      <node id="2449">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2448">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2455">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="2448" relation="include">
+        </childnode>
+        <childnode refid="2456" relation="include">
+        </childnode>
+      </node>
+      <node id="2457">
+        <label>xpm_device.h</label>
+        <childnode refid="2447" relation="include">
+        </childnode>
+        <childnode refid="2458" relation="include">
+        </childnode>
+        <childnode refid="2459" relation="include">
+        </childnode>
+        <childnode refid="2460" relation="include">
+        </childnode>
+      </node>
+      <node id="2460">
+        <label>xpm_reset.h</label>
+        <childnode refid="2447" relation="include">
+        </childnode>
+        <childnode refid="2451" relation="include">
+        </childnode>
+      </node>
+      <node id="2462">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="2453">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="2449" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pin_8c_1a9918341f7a92d6116c983f8a57927898" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> *PmMioPins[XPM_NODEIDX_STMIC_MAX]</type>
+        <definition>static XPm_PinNode* PmMioPins [XPM_NODEIDX_STMIC_MAX] XPM_INIT_DATA</definition>
+        <argsstring>(PmMioPins)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>PmMioPins</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" line="9" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pin_8c_1a3a918b76fba0a3047eb1191682648803" prot="public" static="yes" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>u32 PmNumPins</type>
+        <definition>static u32 PmNumPins XPM_INIT_DATA</definition>
+        <argsstring>(PmNumPins)=0</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>PmNumPins</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" bodystart="11" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pin_8c_1a7677e6a70111cd90e61d97c3e1bac626" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> *</type>
+        <definition>XPm_PinNode* XPmPin_GetById</definition>
+        <argsstring>(u32 PinId)</argsstring>
+        <name>XPmPin_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>PinId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns instance to <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> based on PinId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PinId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PinNode ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Instance of <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> if successful else NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" bodystart="52" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pin_8c_1a76302a28fae1d102e9a644abba05b5e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref> *</type>
+        <definition>XPm_PinNode* XPmPin_GetByIndex</definition>
+        <argsstring>(const u32 PinIndex)</argsstring>
+        <name>XPmPin_GetByIndex</name>
+        <param>
+          <type>const u32</type>
+          <declname>PinIndex</declname>
+        </param>
+        <briefdescription>
+<para>Get requested pin node by node index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PinIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin Index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to requested <ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref>, NULL otherwise</para></simplesect>
+<simplesect kind="note"><para>Requires only node index </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c" bodystart="86" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pin.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*PmMioPins[XPM_NODEIDX_STMIC_MAX]<sp/>XPM_INIT_DATA(PmMioPins)<sp/>=<sp/>{<sp/>NULL<sp/>};</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>coverity[misra_c_2025_rule_8_9_violation]<sp/>IPU<sp/>save/restore<sp/>persistent<sp/>state;<sp/>must<sp/>retain<sp/>file<sp/>scope<sp/>for<sp/>the<sp/>persistence/update<sp/>mechanism.<sp/>Excluded<sp/>from<sp/>static<sp/>analysis<sp/>per<sp/>design.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>PmNumPins<sp/>XPM_INIT_DATA(PmNumPins)<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">XStatus<sp/>XPmPin_Init(<ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*Pin,<sp/>u32<sp/>PinId,<sp/>u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PinIdx;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PinIdx<sp/>=<sp/>NODEINDEX(PinId);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PinIdx<sp/>&gt;=<sp/>(u32)XPM_NODEIDX_STMIC_MAX)<sp/>||</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PinIdx<sp/>==<sp/>(u32)XPM_NODEIDX_STMIC_MIN))<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmNode_Init(&amp;Pin-&gt;<ref refid="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" kindref="member">Node</ref>,<sp/>PinId,<sp/>(u8)XPM_PINSTATE_UNUSED,<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmMioPins[PinIdx]<sp/>=<sp/>Pin;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmNumPins++;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*XPmPin_GetById(u32<sp/>PinId)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*PinNode<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PinIndex<sp/>=<sp/>NODEINDEX(PinId);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)XPM_NODECLASS_STMIC<sp/>!=<sp/>NODECLASS(PinId))<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)XPM_NODESUBCL_PIN<sp/>!=<sp/>NODESUBCLASS(PinId))<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((u32)XPM_NODETYPE_LPD_MIO<sp/>!=<sp/>NODETYPE(PinId))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODETYPE_PMC_MIO<sp/>!=<sp/>NODETYPE(PinId)))<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PinIndex<sp/>&gt;=<sp/>(u32)XPM_NODEIDX_STMIC_MAX)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Required<sp/>by<sp/>MISRA<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PinNode<sp/>=<sp/><sp/>PmMioPins[PinIndex];</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>PinNode;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*XPmPin_GetByIndex(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>PinIndex)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___pin_node" kindref="compound">XPm_PinNode</ref><sp/>*Pin<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pin<sp/>=<sp/>PmMioPins[PinIndex];</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Pin;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c"/>
+  </compounddef>
+</doxygen>

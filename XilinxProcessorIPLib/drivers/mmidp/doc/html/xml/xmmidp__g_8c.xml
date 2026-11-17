@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmmidp__g_8c" kind="file">
+    <compoundname>xmmidp_g.c</compoundname>
+    <includes refid="xmmidp_8h" local="yes">xmmidp.h</includes>
+    <incdepgraph>
+      <node id="17">
+        <label>xil_io.h</label>
+      </node>
+      <node id="15">
+        <label>xmmidp.h</label>
+        <link refid="xmmidp_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xvidc.h</label>
+      </node>
+      <node id="18">
+        <label>xil_types.h</label>
+      </node>
+      <node id="14">
+        <label>xmmidp_g.c</label>
+        <link refid="xmmidp_g.c"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xmmidp_hw.h</label>
+        <link refid="xmmidp__hw_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmmidp__g_8c_1aedb5a36a9d7b4de0e1e36ce5e9291182" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mmi_dp___config" kindref="compound">XMmiDp_Config</ref></type>
+        <definition>XMmiDp_Config XMmiDp_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XMmiDp_ConfigTable</name>
+        <initializer>= {
+	{
+		&quot;amd,mmi-dptx-1.0&quot;,
+		0xede00000U,
+		&quot;dp&quot;,
+		0x40b2U,
+		&quot;dptx&quot;,
+		0xe2000000U,
+		0x0U,
+		0x0U,
+		0x0U,
+		0x0U,
+		0x0U,
+		0x0U,
+		0x4U,
+		0x0U
+	},
+	{
+		NULL
+	}
+}</initializer>
+        <briefdescription>
+<para>Configuration table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_g.c" line="8" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_g.c" bodystart="9" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gac208ef2307d56ac04e68c5402b5b278e" compoundref="xmmidp__phy_8c" startline="1606" endline="1621">XMmiDp_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmmidp_8h" kindref="compound">xmmidp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">__attribute__((weak))<sp/><ref refid="struct_x_mmi_dp___config" kindref="compound">XMmiDp_Config</ref><sp/><ref refid="xmmidp_8h_1aedb5a36a9d7b4de0e1e36ce5e9291182" kindref="member">XMmiDp_ConfigTable</ref>[]</highlight></codeline>
+<codeline lineno="9" refid="xmmidp_8h_1aedb5a36a9d7b4de0e1e36ce5e9291182" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((section(&quot;.drvcfg_sec&quot;)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;amd,mmi-dptx-1.0&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>compatible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xede00000U,<sp/></highlight><highlight class="comment">/*<sp/>reg<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;dp&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>reg-names<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40b2U,<sp/></highlight><highlight class="comment">/*<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;dptx&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>interrupt-names<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xe2000000U,<sp/></highlight><highlight class="comment">/*<sp/>interrupt-parent<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U,<sp/></highlight><highlight class="comment">/*<sp/>ports<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,hdcp-1x<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,hdcp-2x<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,mst-mode-en<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,dptx-streams<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,dptx-pixel-mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,dp-lanes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/></highlight><highlight class="comment">/*<sp/>phys<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_g.c"/>
+  </compounddef>
+</doxygen>

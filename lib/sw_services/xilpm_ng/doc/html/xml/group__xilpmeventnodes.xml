@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilpmeventnodes" kind="group">
+    <compoundname>xilpmeventnodes</compoundname>
+    <title>Event Node IDs</title>
+    <innergroup refid="group__xilpmerroreventmask">Error Event Mask</innergroup>
+      <sectiondef kind="user-defined">
+      <header>Versal Event Node IDs</header>
+      <memberdef kind="define" id="group__xilpmeventnodes_1ga951e8fa8cca3c3adc576a5a7bf1226e1" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_PMC_ERR1</name>
+        <initializer>(0x28100000U)</initializer>
+        <briefdescription>
+<para>Error Event Node Ids. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1ga9730aa0e64ccd93959ba7e1751295d48" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_PMC_ERR2</name>
+        <initializer>(0x28104000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1gae38af261366df5e6af754d0aceb84daf" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_PMC_ERR3</name>
+        <initializer>(0x28108000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1ga2945900e38ade44e51ac461ed319fc97" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR1</name>
+        <initializer>(0x2810C000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1ga210f7f99dd8b7c81638a237b38e01482" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR2</name>
+        <initializer>(0x28110000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1gadd336fc6cc635e820db0a16639bc3b21" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR3</name>
+        <initializer>(0x28114000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1gaa68e4139a663bc3c460663ba94944984" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR4</name>
+        <initializer>(0x28118000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmeventnodes_1gacd7d30d54a09ad56d722b00ddc777e34" prot="public" static="no">
+        <name>XPM_NODETYPE_EVENT_ERROR_SW_ERR</name>
+        <initializer>(0x2811C000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

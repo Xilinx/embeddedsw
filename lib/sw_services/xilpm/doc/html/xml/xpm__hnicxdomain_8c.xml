@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__hnicxdomain_8c" kind="file">
+    <compoundname>xpm_hnicxdomain.c</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__hnicxdomain_8h" local="yes">xpm_hnicxdomain.h</includes>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <incdepgraph>
+      <node id="4044">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4053">
+        <label>xpm_node.h</label>
+        <childnode refid="4054" relation="include">
+        </childnode>
+        <childnode refid="4043" relation="include">
+        </childnode>
+        <childnode refid="4055" relation="include">
+        </childnode>
+        <childnode refid="4042" relation="include">
+        </childnode>
+      </node>
+      <node id="4059">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="4046">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="4041">
+        <label>xpm_hnicxdomain.c</label>
+        <link refid="xpm_hnicxdomain.c"/>
+        <childnode refid="4042" relation="include">
+        </childnode>
+        <childnode refid="4049" relation="include">
+        </childnode>
+        <childnode refid="4060" relation="include">
+        </childnode>
+      </node>
+      <node id="4049">
+        <label>xpm_hnicxdomain.h</label>
+        <childnode refid="4050" relation="include">
+        </childnode>
+      </node>
+      <node id="4058">
+        <label>xpm_rail.h</label>
+        <childnode refid="4043" relation="include">
+        </childnode>
+        <childnode refid="4059" relation="include">
+        </childnode>
+      </node>
+      <node id="4045">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4047">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4056">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="4052">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="4051">
+        <label>xpm_power.h</label>
+        <childnode refid="4052" relation="include">
+        </childnode>
+        <childnode refid="4053" relation="include">
+        </childnode>
+        <childnode refid="4056" relation="include">
+        </childnode>
+        <childnode refid="4057" relation="include">
+        </childnode>
+      </node>
+      <node id="4043">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4042">
+        <label>xpm_common.h</label>
+        <childnode refid="4043" relation="include">
+        </childnode>
+        <childnode refid="4044" relation="include">
+        </childnode>
+        <childnode refid="4045" relation="include">
+        </childnode>
+        <childnode refid="4046" relation="include">
+        </childnode>
+        <childnode refid="4047" relation="include">
+        </childnode>
+        <childnode refid="4048" relation="include">
+        </childnode>
+      </node>
+      <node id="4055">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4054">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4048">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="4050">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="4051" relation="include">
+        </childnode>
+        <childnode refid="4058" relation="include">
+        </childnode>
+      </node>
+      <node id="4057">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="4060">
+        <label>xpm_debug.h</label>
+        <childnode refid="4042" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__hnicxdomain_8c_1a6b40555819cd58937e13649c2b6bb13b" prot="public" static="yes" mutable="no">
+        <type>struct <ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref></type>
+        <definition>struct XPm_PowerDomainOps HnicxDomainOps</definition>
+        <argsstring></argsstring>
+        <name>HnicxDomainOps</name>
+        <initializer>= {
+	.InitStart = HnicxInitStart,
+	.InitFinish = HnicxInitFinish,
+	.TrimAms = NULL
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__hnicxdomain_8c_1a1f6568e96cce5f4208fcecfb592405e8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus HnicxInitStart</definition>
+        <argsstring>(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>HnicxInitStart</name>
+        <param>
+          <type>XPm_PowerDomain *</type>
+          <declname>PwrDomain</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOfArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" bodystart="11" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__hnicxdomain_8c_1a80463e04106fded068184b2a88a4a9db" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus HnicxInitFinish</definition>
+        <argsstring>(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>HnicxInitFinish</name>
+        <param>
+          <type>const XPm_PowerDomain *</type>
+          <declname>PwrDomain</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOfArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" bodystart="25" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__hnicxdomain_8c_1a98b580b43c78cd5d617b21cba2deca31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmHnicxDomain_Init</definition>
+        <argsstring>(XPm_HnicxDomain *Hnicxd, u32 Id, u32 BaseAddress, XPm_Power *Parent)</argsstring>
+        <name>XPmHnicxDomain_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___hnicx_domain" kindref="compound">XPm_HnicxDomain</ref> *</type>
+          <declname>Hnicxd</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c" bodystart="45" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_hnicxdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>HnicxInitStart(XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfArgs)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PwrDomain;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Args;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)NumOfArgs;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>HnicxInitFinish(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfArgs)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PwrDomain;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Args;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)NumOfArgs;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref><sp/>HnicxDomainOps<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.InitStart<sp/>=<sp/>HnicxInitStart,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.InitFinish<sp/>=<sp/>HnicxInitFinish,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.TrimAms<sp/>=<sp/>NULL</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">XStatus<sp/>XPmHnicxDomain_Init(<ref refid="struct_x_pm___hnicx_domain" kindref="compound">XPm_HnicxDomain</ref><sp/>*Hnicxd,<sp/>u32<sp/>Id,<sp/>u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Parent)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmPowerDomain_Init(&amp;Hnicxd-&gt;<ref refid="struct_x_pm___hnicx_domain_1a8c73697c847435751d1e2bcab78d202c" kindref="member">Domain</ref>,<sp/>Id,<sp/>BaseAddress,<sp/>Parent,<sp/>&amp;HnicxDomainOps);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_POWER_DOMAIN_INIT;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_hnicxdomain.c"/>
+  </compounddef>
+</doxygen>

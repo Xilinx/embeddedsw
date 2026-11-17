@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__efuse__plat_8h" kind="file">
+    <compoundname>xnvm_efuse_plat.h</compoundname>
+    <includes local="yes">xnvm_defs.h</includes>
+    <includedby refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8h" local="yes">xnvm_efuse.h</includedby>
+    <includedby refid="versal__2ve2vm_2xnvm__efuse__plat__field_8h" local="yes">xnvm_efuse_plat_field.h</includedby>
+    <includedby refid="versal__net_2xnvm__efuse__plat__field_8h" local="yes">xnvm_efuse_plat_field.h</includedby>
+    <includedby refid="xnvm__efuse__plat_8c" local="yes">xnvm_efuse_plat.c</includedby>
+    <incdepgraph>
+      <node id="678">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="677">
+        <label>xnvm_efuse_plat.h</label>
+        <link refid="xnvm_efuse_plat.h"/>
+        <childnode refid="678" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="683">
+        <label>xnvm_efuse_engine.c</label>
+        <link refid="xnvm__efuse__engine_8c"/>
+      </node>
+      <node id="682">
+        <label>xnvm_efuse_engine.h</label>
+        <link refid="xnvm__efuse__engine_8h"/>
+        <childnode refid="681" relation="include">
+        </childnode>
+        <childnode refid="683" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+      </node>
+      <node id="688">
+        <label>xnvm_efuse_plat_field.h</label>
+        <link refid="versal__net_2xnvm__efuse__plat__field_8h"/>
+        <childnode refid="683" relation="include">
+        </childnode>
+      </node>
+      <node id="681">
+        <label>xnvm_efuse.c</label>
+        <link refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c"/>
+      </node>
+      <node id="680">
+        <label>xnvm_efuse.h</label>
+        <childnode refid="681" relation="include">
+        </childnode>
+        <childnode refid="682" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+        <childnode refid="685" relation="include">
+        </childnode>
+        <childnode refid="686" relation="include">
+        </childnode>
+      </node>
+      <node id="685">
+        <label>xilnvm_efuse_spartan_ultrascale_plus_example.c</label>
+        <link refid="xilnvm__efuse__spartan__ultrascale__plus__example_8c"/>
+      </node>
+      <node id="687">
+        <label>xnvm_efuse_plat_field.h</label>
+        <link refid="versal__2ve2vm_2xnvm__efuse__plat__field_8h"/>
+      </node>
+      <node id="686">
+        <label>xilnvm_efuse_versal_server_example.c</label>
+        <link refid="xilnvm__efuse__versal__server__example_8c"/>
+      </node>
+      <node id="684">
+        <label>xnvm_efuse_plat.c</label>
+        <link refid="xnvm__efuse__plat_8c"/>
+      </node>
+      <node id="679">
+        <label>xnvm_efuse_plat.h</label>
+        <link refid="xnvm_efuse_plat.h"/>
+        <childnode refid="680" relation="include">
+        </childnode>
+        <childnode refid="687" relation="include">
+        </childnode>
+        <childnode refid="688" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xnvm__efuse__plat_8h_1a7eba9506ab629fe555099e872c7f200f" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_ROWS_PER_PAGE</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Number of PUF SYN user-data rows per page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuse__plat_8h_1aad9addffb3f2548c6a5374d87b8c3842" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_PAGE_ROW_INDEX_BITS</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Bits for PUF row index within a page (shift =&gt; page index) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuse__plat_8h_1a4e547a3fba73d852f988bc2c22d02527" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_PAGE_ROW_OFFSET_MASK</name>
+        <initializer>(0x3FU)</initializer>
+        <briefdescription>
+<para>In-page PUF row offset mask (LSB 6 bits: 0..63) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWritePufSecCtrl</definition>
+        <argsstring>(u32 EnvDisFlag, u32 PufCtrlBits)</argsstring>
+        <name>XNvm_EfuseWritePufSecCtrl</name>
+        <param>
+          <type>u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PufCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function programs Puf control bits specified by user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Environmental monitoring flag set by the user, when set to true it will not check for voltage and temperature limits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PufCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- PufCtrlBits input to be programmed</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XNVM_EFUSE_ERR_INVALID_PARAM On invalid input parameter.</para></listitem><listitem><para>XNVM_EFUSE_ERR_BEFORE_PROGRAMMING Error before programming.</para></listitem><listitem><para>XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS Error while writing PUF security control bits (REGIS_DIS, HD_INVLD, REGEN_DIS). </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.c" bodystart="78" bodyend="100"/>
+        <references refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" compoundref="xnvm__efuse__plat_8c" startline="78" endline="100">XNvm_EfuseWritePufSecCtrl</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga66f5b9ce61387b401c6d89f84bf525c4" compoundref="xnvm__efuse__plat_8c" startline="52">XNVM_EFUSE_PUF_SEC_CTRL_INVLD_MASK</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</references>
+        <references refid="xnvm__efuse__common__field_8h_1aff2a2b9d7ae886bab0ef9b2f706bb87f" compoundref="versal__2ve2vm_2xnvm__efuse__plat__field_8h" startline="1236">XNvm_EfuseDeviceDesc</references>
+        <references refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720af991d4a5e02def915f58c4ea9039605c" compoundref="xnvm__efuse__common__field_8h" startline="272">XNVM_EFUSE_FIELD_PUF_SEC_CTRL</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba91e4b12e40ef1fd3a78d16279d51d2d0" compoundref="spartanup_2xnvm__efuse_8h" startline="441">XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</references>
+        <references refid="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aafcfebaaed17c52382ab7b1420d8f7381" compoundref="next_2common_2xnvm__efuse__error__plat_8h" startline="112">XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" compoundref="xnvm__efuse__plat_8c" startline="78" endline="100">XNvm_EfuseWritePufSecCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga3e5b32d4a7ec60464f46788458b5e67f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWritePuf</definition>
+        <argsstring>(const XNvm_EfusePufHdAddr *PufHelperData)</argsstring>
+        <name>XNvm_EfuseWritePuf</name>
+        <param>
+          <type>const XNvm_EfusePufHdAddr *</type>
+          <declname>PufHelperData</declname>
+        </param>
+        <briefdescription>
+<para>This function programs PUF ctrl and PUF helper data, Chash and Aux. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufHelperData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to XNvm_EfusePufHdAddr structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful write.</para></listitem><listitem><para>XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA Error while writing Puf helper data.</para></listitem><listitem><para>XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA Error while writing Puf Syndata.</para></listitem><listitem><para>XNVM_EFUSE_ERR_WRITE_PUF_CHASH Error while writing Puf Chash.</para></listitem><listitem><para>XNVM_EFUSE_ERR_WRITE_PUF_AUX Error while writing Puf Aux.</para></listitem><listitem><para>XNVM_EFUSE_ERR_INVALID_PARAM On Invalid input parameter.</para></listitem><listitem><para>XNVM_EFUSE_ERR_BEFORE_PROGRAMMING Error before programming.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>To generate PufSyndromeData please use XPuf_Registration API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.c" bodystart="122" bodyend="169"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</references>
+        <references refid="xnvm__efuse__common__field_8h_1aff2a2b9d7ae886bab0ef9b2f706bb87f" compoundref="versal__2ve2vm_2xnvm__efuse__plat__field_8h" startline="1236">XNvm_EfuseDeviceDesc</references>
+        <references refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720aa5dfb589fd6242911e5020b2497f74bc" compoundref="xnvm__efuse__common__field_8h" startline="268">XNVM_EFUSE_FIELD_PUF_SYN_DATA</references>
+        <references refid="group__xnvm__def__api__ids_1ga93c0329067f591b0540f4d1e5bb27673" compoundref="xnvm__common__defs_8h" startline="61">XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS</references>
+        <references refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720ae7d6ce0c5b56203fbca9cd97a4d8c7f3" compoundref="xnvm__efuse__common__field_8h" startline="269">XNVM_EFUSE_FIELD_PUF_CHASH</references>
+        <references refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720a56853b0be31f0ee3b48797fdd118ed8e" compoundref="xnvm__efuse__common__field_8h" startline="270">XNVM_EFUSE_FIELD_PUF_AUX</references>
+        <references refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720a1f1d048be91231770efc3ee394ae9ace" compoundref="xnvm__efuse__common__field_8h" startline="271">XNVM_EFUSE_FIELD_PUF_RO_SWAP</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gaa382c4bb1913e008f005ea239d399862" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfusePlatProtectionChecks</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_EfusePlatProtectionChecks</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs Versal Net protection checks after cache reload. </para>        </briefdescription>
+        <detaileddescription>
+<para>Protection status bits live in TBITS0_SVD. Each active protection bit requires its protected fuse region to be programmed.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when all active protection rules pass.</para></listitem><listitem><para>XNVM_EFUSE_ERR_ANCHOR_BIT_PATTERN on bad anchor pattern.</para></listitem><listitem><para>XNVM_EFUSE_ERR_IN_PROTECTION_CHECK on protected-data mismatch.</para></listitem><listitem><para>XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR on CRC failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.c" bodystart="397" bodyend="546"/>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a467ea87d34e4f09532943d40d358b37f" compoundref="xnvm__efuse__common__hw_8h" startline="300">XNVM_EFUSE_CACHE_BASEADDR</references>
+        <references refid="xnvm__efuse__common__hw_8h_1aae1aa6df20f516033f31e17e5bb14f47" compoundref="xnvm__efuse__common__hw_8h" startline="308">XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a714d2adcfd974f5e912f798beee0ad60" compoundref="xnvm__efuse__common__hw_8h" startline="367">XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_3_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a0ed28dcbacc625596c8d00a3e1bbe9e3" compoundref="xnvm__efuse__common__hw_8h" startline="369">XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_2_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a901a2b1b7cb6b364588706a5a80581c1" compoundref="xnvm__efuse__common__hw_8h" startline="379">XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_1_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a7c621b6c6d2917eb9c252ef9807f2a8e" compoundref="xnvm__efuse__common__hw_8h" startline="381">XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_0_MASK</references>
+        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad7f03ac4a5883f382120b643304ae835" compoundref="xnvm__efuse__error_8h" startline="73">XNVM_EFUSE_ERR_ANCHOR_BIT_PATTERN</references>
+        <references refid="xnvm__efuse__common__hw_8h_1ae13d2c8332ab146e60f177d1d53c34cd" compoundref="xnvm__efuse__common__hw_8h" startline="322">XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET</references>
+        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca7965e45dc8b39a233994765d38bff3b3" compoundref="xnvm__efuse__error_8h" startline="74">XNVM_EFUSE_ERR_IN_PROTECTION_CHECK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a0cad8b652a4cc6b9a8bb07d6b22ef4a3" compoundref="xnvm__efuse__common__hw_8h" startline="324">XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga88247ae52e7771b1040b0be80956e1be" compoundref="spartanup_2xnvm__efuse_8h" startline="169">XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1af0aeeb93ac74ffc8dff15e56fb4d2359" compoundref="xnvm__efuse__common__hw_8h" startline="332">XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga304d7fadfa39830e9cc0cfd70acce076" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="137">XNVM_EFUSE_TOTAL_PPK_HASH_ROWS</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a2bed27efcecfc1d0a6cce977bcd8d6a0" compoundref="xnvm__efuse__common__hw_8h" startline="338">XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga4d4b8fa510a9a0fc773eccc863cae848" compoundref="xnvm__ops_8c" startline="555" endline="592">XNvm_EfuseOpsValidateCrc</references>
+        <references refid="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa00e58d67dd13be865b06f43684a76f74" compoundref="next_2common_2xnvm__efuse__error__plat_8h" startline="176">XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a68ee6af44e3de455ab5ef3f5e1ddc3d8" compoundref="xnvm__efuse__common__hw_8h" startline="320">XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET</references>
+        <references refid="xnvm__efuse__common__hw_8h_1aebb850cb587fffe5eb7842217e93b370" compoundref="xnvm__efuse__common__hw_8h" startline="326">XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET</references>
+        <references refid="xnvm__efuse__common__hw_8h_1adb99c9176edd915769348b01b43ce355" compoundref="xnvm__efuse__common__hw_8h" startline="231">XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Platform PUF eFuse programming API declarations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- ---------- -------------------------------------------------------
+3.8   vss  08/20/2026 Initial release</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_PLAT_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PLAT_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="xnvm__efuse__plat_8h_1a7eba9506ab629fe555099e872c7f200f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_ROWS_PER_PAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="39" refid="xnvm__efuse__plat_8h_1aad9addffb3f2548c6a5374d87b8c3842" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_PAGE_ROW_INDEX_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41" refid="xnvm__efuse__plat_8h_1a4e547a3fba73d852f988bc2c22d02527" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_PAGE_ROW_OFFSET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FU)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_ACCESS_PUF_USER_DATA</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnvMonitorDis;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrgmPufFuse;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StartPufFuseRow;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfPufFusesRows;<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*PufFuseData;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/>XNvm_EfusePufFuse;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!(defined(VERSAL_2VE_2VM)<sp/>&amp;&amp;<sp/>defined(VERSAL_2VP_P))</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" kindref="member">XNvm_EfuseWritePufSecCtrl</ref>(u32<sp/>EnvDisFlag,<sp/>u32<sp/>PufCtrlBits);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_ACCESS_PUF_USER_DATA</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_EfuseWritePufAsUserFuses(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_EfusePufFuse<sp/>*PufFuse);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gad260093cbe9bacb6d0f649b84bccd8a0" kindref="member">XNvm_EfuseWritePuf</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_EfusePufHdAddr<sp/>*PufHelperData);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>!(VERSAL_2VE_2VM<sp/>&amp;&amp;<sp/>VERSAL_2VP_P)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gaa382c4bb1913e008f005ea239d399862" kindref="member">XNvm_EfusePlatProtectionChecks</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/xnvm_efuse_plat.h"/>
+  </compounddef>
+</doxygen>

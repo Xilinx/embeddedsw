@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsaalginfo_8c" kind="file">
+    <compoundname>xsecure_slhdsaalginfo.c</compoundname>
+    <includes refid="xsecure__slhdsaalginfo_8h" local="yes">xsecure_slhdsaalginfo.h</includes>
+    <includes refid="xsecure__alghelper_8h" local="yes">xsecure_alghelper.h</includes>
+    <includes local="yes">xsecure_plat_defs.h</includes>
+    <incdepgraph>
+      <node id="4824">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="4827">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="4823">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="4826">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4821">
+        <label>xsecure_slhdsaalginfo.c</label>
+        <link refid="xsecure_slhdsaalginfo.c"/>
+        <childnode refid="4822" relation="include">
+        </childnode>
+        <childnode refid="4825" relation="include">
+        </childnode>
+        <childnode refid="4827" relation="include">
+        </childnode>
+      </node>
+      <node id="4822">
+        <label>xsecure_slhdsaalginfo.h</label>
+        <link refid="xsecure__slhdsaalginfo_8h"/>
+        <childnode refid="4823" relation="include">
+        </childnode>
+        <childnode refid="4824" relation="include">
+        </childnode>
+      </node>
+      <node id="4825">
+        <label>xsecure_alghelper.h</label>
+        <link refid="xsecure__alghelper_8h"/>
+        <childnode refid="4823" relation="include">
+        </childnode>
+        <childnode refid="4826" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsecure__slhdsaalginfo_8c_1a2a44de7cfbcd351900df107b1bd943ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_SlhdsaGetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_SlhdsaGetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the SLHDSA crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaalginfo.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaalginfo.c" bodystart="46" bodyend="49"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="133">XSECURE_API_SLHDSA_SIGN_VERIFY</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.8   tbk     06/17/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">/******************************************<sp/>Include<sp/>Files<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsaalginfo_8h" kindref="compound">xsecure_slhdsaalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__alghelper_8h" kindref="compound">xsecure_alghelper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Constant<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Type<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Function<sp/>Prototypes<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="46" refid="xsecure__slhdsaalginfo_8h_1a2a44de7cfbcd351900df107b1bd943ea" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xsecure__slhdsaalginfo_8c_1a2a44de7cfbcd351900df107b1bd943ea" kindref="member">XSecure_SlhdsaGetCryptoAlgInfo</ref>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" kindref="member">XSECURE_API_SLHDSA_SIGN_VERIFY</ref>);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaalginfo.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__clock__plat_8h" kind="file">
+    <compoundname>server/xpm_clock_plat.h</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <incdepgraph>
+      <node id="1838">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1843">
+        <label>xpm_node.h</label>
+        <childnode refid="1844" relation="include">
+        </childnode>
+        <childnode refid="1837" relation="include">
+        </childnode>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+      </node>
+      <node id="1840">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="1839">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1841">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1837">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1836">
+        <label>xpm_common.h</label>
+        <childnode refid="1837" relation="include">
+        </childnode>
+        <childnode refid="1838" relation="include">
+        </childnode>
+        <childnode refid="1839" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1841" relation="include">
+        </childnode>
+        <childnode refid="1842" relation="include">
+        </childnode>
+      </node>
+      <node id="1845">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="1844">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1835">
+        <label>xpm_clock_plat.h</label>
+        <link refid="server/xpm_clock_plat.h"/>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1843" relation="include">
+        </childnode>
+      </node>
+      <node id="1842">
+        <label>xpm_common_plat.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2xpm__clock__plat_8h_1aac5df5493baf5f76d01a823ba73b569b" prot="public" static="no">
+        <name>ISCPMCLK</name>
+        <param><defname>idx</defname></param>
+        <initializer>(((idx) == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_PLL) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_PRESRC) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_POSTCLK) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_PLL_OUT) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_CORE_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_DMA_ALT_REF) ||	\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_AUX2_REF)	||	\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPLL))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_clock_plat.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_clock_plat.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__clock__plat_8h_1a05e68742fe34946f0d626687ae53b408" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmClock_SetPlClockAsReadOnly</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmClock_SetPlClockAsReadOnly</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_clock_plat.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_clock_plat.c" bodystart="8" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_CLOCK_PLAT_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLOCK_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISCPMCLK(idx)<sp/><sp/><sp/>(((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_PLL)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_PRESRC)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_POSTCLK)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_PLL_OUT)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_CORE_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_DBG_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_AUX0_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_AUX1_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_DMA_ALT_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_AUX2_REF)<sp/><sp/><sp/><sp/>||<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPLL))</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmClock_SetPlClockAsReadOnly(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_CLOCK_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_clock_plat.h"/>
+  </compounddef>
+</doxygen>

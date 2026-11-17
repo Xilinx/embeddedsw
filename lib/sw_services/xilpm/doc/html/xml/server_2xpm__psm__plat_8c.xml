@@ -1,0 +1,447 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__psm__plat_8c" kind="file">
+    <compoundname>server/xpm_psm_plat.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__psm_8h" local="yes">xpm_psm.h</includes>
+    <incdepgraph>
+      <node id="7710">
+        <label>xpm_api.h</label>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7704" relation="include">
+        </childnode>
+        <childnode refid="7700" relation="include">
+        </childnode>
+        <childnode refid="7711" relation="include">
+        </childnode>
+        <childnode refid="7712" relation="include">
+        </childnode>
+      </node>
+      <node id="7716">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7717" relation="include">
+        </childnode>
+      </node>
+      <node id="7706">
+        <label>xpm_clock.h</label>
+        <childnode refid="7699" relation="include">
+        </childnode>
+        <childnode refid="7707" relation="include">
+        </childnode>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7703" relation="include">
+        </childnode>
+      </node>
+      <node id="7707">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="7689">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="7686">
+        <label>xil_io.h</label>
+      </node>
+      <node id="7695">
+        <label>xpm_node.h</label>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7698" relation="include">
+        </childnode>
+        <childnode refid="7699" relation="include">
+        </childnode>
+      </node>
+      <node id="7692">
+        <label>xpm_core.h</label>
+        <childnode refid="7693" relation="include">
+        </childnode>
+        <childnode refid="7694" relation="include">
+        </childnode>
+        <childnode refid="7716" relation="include">
+        </childnode>
+      </node>
+      <node id="7700">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="7708">
+        <label>xpm_reset.h</label>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7699" relation="include">
+        </childnode>
+        <childnode refid="7709" relation="include">
+        </childnode>
+        <childnode refid="7714" relation="include">
+        </childnode>
+      </node>
+      <node id="7717">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="7718">
+        <label>xpm_psm_plat.h</label>
+      </node>
+      <node id="7687">
+        <label>xil_util.h</label>
+      </node>
+      <node id="7691">
+        <label>xpm_psm.h</label>
+        <childnode refid="7692" relation="include">
+        </childnode>
+        <childnode refid="7718" relation="include">
+        </childnode>
+      </node>
+      <node id="7701">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="7709">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="7710" relation="include">
+        </childnode>
+        <childnode refid="7704" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7713" relation="include">
+        </childnode>
+      </node>
+      <node id="7705">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="7704">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="7713">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="7715">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="7703">
+        <label>xpm_power.h</label>
+        <childnode refid="7704" relation="include">
+        </childnode>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+        <childnode refid="7690" relation="include">
+        </childnode>
+      </node>
+      <node id="7714">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="7693">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="7697">
+        <label>xstatus.h</label>
+      </node>
+      <node id="7699">
+        <label>xpm_common.h</label>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7686" relation="include">
+        </childnode>
+        <childnode refid="7687" relation="include">
+        </childnode>
+        <childnode refid="7700" relation="include">
+        </childnode>
+        <childnode refid="7701" relation="include">
+        </childnode>
+        <childnode refid="7702" relation="include">
+        </childnode>
+      </node>
+      <node id="7698">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="7711">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="7696">
+        <label>xil_types.h</label>
+      </node>
+      <node id="7685">
+        <label>xpm_psm_plat.c</label>
+        <link refid="server/xpm_psm_plat.c"/>
+        <childnode refid="7686" relation="include">
+        </childnode>
+        <childnode refid="7687" relation="include">
+        </childnode>
+        <childnode refid="7688" relation="include">
+        </childnode>
+        <childnode refid="7691" relation="include">
+        </childnode>
+      </node>
+      <node id="7702">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="7690">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="7712">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="7688">
+        <label>xpm_regs.h</label>
+        <childnode refid="7689" relation="include">
+        </childnode>
+        <childnode refid="7690" relation="include">
+        </childnode>
+      </node>
+      <node id="7694">
+        <label>xpm_device.h</label>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7703" relation="include">
+        </childnode>
+        <childnode refid="7706" relation="include">
+        </childnode>
+        <childnode refid="7708" relation="include">
+        </childnode>
+        <childnode refid="7715" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2xpm__psm__plat_8c_1a81ac1f83639a519b0af3520f909a1ea1" prot="public" static="no">
+        <name>PWR_UP_EN</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSM_GLOBAL_REQ_PWRUP_EN)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__psm__plat_8c_1a985ad25ab858c4d27754df84314a5309" prot="public" static="no">
+        <name>PWR_UP_TRIG</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSM_GLOBAL_REQ_PWRUP_TRIG)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__psm__plat_8c_1ac5315dcec9d79d99504adfb230e181d8" prot="public" static="no">
+        <name>PWR_DN_EN</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSM_GLOBAL_REQ_PWRDWN_EN)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__psm__plat_8c_1a3a2d3ae12e37100d3d0f471ee547b4c6" prot="public" static="no">
+        <name>PWR_DN_TRIG</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSM_GLOBAL_REQ_PWRDWN_TRIG)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__psm__plat_8c_1a18562bf104f9eaf585e6dbe0cce210a7" prot="public" static="no">
+        <name>PWR_DN_STAT</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSM_GLOBAL_REQ_PWRDWN_STAT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__psm__plat_8c_1ab81146f628d02ad4a7a725912623f13f" prot="public" static="no">
+        <name>PWR_STAT</name>
+        <param><defname>BASE</defname></param>
+        <initializer>((BASE) + PSM_GLOBAL_PWR_STATE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__psm__plat_8c_1a17d876762b324db9547e5a5ebc706ffc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPsm_SendPowerUpReq</definition>
+        <argsstring>(u32 BitMask)</argsstring>
+        <name>XPmPsm_SendPowerUpReq</name>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="19" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__psm__plat_8c_1aa3eac227668d30b8b93462938429a676" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPsm_SendPowerDownReq</definition>
+        <argsstring>(u32 BitMask)</argsstring>
+        <name>XPmPsm_SendPowerDownReq</name>
+        <param>
+          <type>u32</type>
+          <declname>BitMask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c" bodystart="57" bodyend="113"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PWR_UP_EN(BASE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSM_GLOBAL_REQ_PWRUP_EN)</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_UP_TRIG(BASE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSM_GLOBAL_REQ_PWRUP_TRIG)</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_DN_EN(BASE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSM_GLOBAL_REQ_PWRDWN_EN)</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_DN_TRIG(BASE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSM_GLOBAL_REQ_PWRDWN_TRIG)</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_DN_STAT(BASE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSM_GLOBAL_REQ_PWRDWN_STAT)</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_STAT(BASE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((BASE)<sp/>+<sp/>PSM_GLOBAL_PWR_STATE)</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">XStatus<sp/>XPmPsm_SendPowerUpReq(u32<sp/>BitMask)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___psm" kindref="compound">XPm_Psm</ref><sp/>*Psm;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmDbg(</highlight><highlight class="stringliteral">&quot;BitMask=0x%08X\n\r&quot;</highlight><highlight class="normal">,<sp/>BitMask);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Psm<sp/>=<sp/>(<ref refid="struct_x_pm___psm" kindref="compound">XPm_Psm</ref><sp/>*)XPmDevice_GetById(PM_DEV_PSM_PROC);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Psm)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>!=<sp/>XPmPsm_FwIsPresent())<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;PSMFW<sp/>is<sp/>not<sp/>present\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_NOT_ENABLED;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>already<sp/>powered<sp/>up<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(PWR_STAT(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>Reg);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BitMask<sp/>==<sp/>(Reg<sp/>&amp;<sp/>BitMask))<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(PWR_UP_TRIG(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>BitMask);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(PWR_UP_EN(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>BitMask);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(PWR_STAT(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>Reg);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Reg<sp/>&amp;<sp/>BitMask)<sp/>!=<sp/>BitMask);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">XStatus<sp/>XPmPsm_SendPowerDownReq(u32<sp/>BitMask)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___psm" kindref="compound">XPm_Psm</ref><sp/>*Psm;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Ocm0<sp/>=<sp/>XPmPower_GetById(PM_POWER_OCM_0);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Ocm1<sp/>=<sp/>XPmPower_GetById(PM_POWER_OCM_1);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Ocm2<sp/>=<sp/>XPmPower_GetById(PM_POWER_OCM_2);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Ocm3<sp/>=<sp/>XPmPower_GetById(PM_POWER_OCM_3);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>As<sp/>per<sp/>EDT-995988,<sp/>Getting<sp/>the<sp/>SLV<sp/>error<sp/>from<sp/>power<sp/>down</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>island<sp/>even<sp/>when<sp/>Dec<sp/>error<sp/>disabled</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>OCM<sp/>gives<sp/>SLVERR<sp/>response<sp/>when<sp/>a<sp/>powered-down<sp/>bank<sp/>is</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>accessed,<sp/>even<sp/>when<sp/>Response<sp/>Error<sp/>is<sp/>disabled.<sp/>Error<sp/>occurs</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only<sp/>for<sp/>a<sp/>narrow<sp/>access<sp/>(&lt;<sp/>64<sp/>bits).<sp/>Skip<sp/>OCM<sp/>power<sp/>down<sp/>as</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>workaround.</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((BitMask<sp/>==<sp/>Ocm0-&gt;<ref refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BitMask<sp/>==<sp/>Ocm1-&gt;<ref refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BitMask<sp/>==<sp/>Ocm2-&gt;<ref refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BitMask<sp/>==<sp/>Ocm3-&gt;<ref refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmDbg(</highlight><highlight class="stringliteral">&quot;BitMask=0x%08X\n\r&quot;</highlight><highlight class="normal">,<sp/>BitMask);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Psm<sp/>=<sp/>(<ref refid="struct_x_pm___psm" kindref="compound">XPm_Psm</ref><sp/>*)XPmDevice_GetById(PM_DEV_PSM_PROC);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Psm)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>!=<sp/>XPmPsm_FwIsPresent())<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_NOT_ENABLED;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>already<sp/>powered<sp/>down<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(PWR_STAT(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>Reg);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>(Reg<sp/>&amp;<sp/>BitMask))<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(PWR_DN_TRIG(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>BitMask);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(PWR_DN_EN(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>BitMask);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(PWR_DN_STAT(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref>),<sp/>Reg);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(Reg<sp/>&amp;<sp/>BitMask));</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c"/>
+  </compounddef>
+</doxygen>

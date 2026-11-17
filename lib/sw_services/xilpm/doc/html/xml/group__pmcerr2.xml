@@ -1,0 +1,589 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__pmcerr2" kind="group">
+    <compoundname>pmcerr2</compoundname>
+    <title>Error Event Mask for PMC ERR2</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__pmcerr2_1ga4dfa3f1767a51c1f51302c58432c47f2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCAPB</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for General purpose PMC error, can be triggered by any of the following peripherals:,. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>PMC Global Registers,- PMC Clock &amp; Reset (CRP),- PMC IOU Secure SLCR,</para></listitem><listitem><para>PMC IOU SLCR,- BBRAM Controller,- PMC Analog Control Registers,</para></listitem><listitem><para>RTC Control Registers. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga619a9df5703182c15643828a86344ca2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCROM</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC ROM Validation Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga9fb3d89121c81b0ab1dc50b25a1d38f9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MB_FATAL0</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC PPU0 MB TMR Fatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga1917309f30d70f1f0c5b77f1955550d3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MB_FATAL1</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC PPU1 MB TMR Fatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gabf1d557d95d65aa50c61d1d984b174ff" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMC_CR</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Correctable Errors:, PPU0 RAM correctable error.,PPU1 instruction RAM correctable error., PPU1 data RAM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gae798c845f99f86bb465b43f123e92e4e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMC_NCR</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Non-Correctable Errors:, PPU0 RAM non-correctable error.,PPU1 instruction RAM non-correctable error., PPU1 data RAM non-correctable error.,PRAM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga0596b4ad6a2b28235c479b4539b32559" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON0</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[0]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY0 to SUPPLY31. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaceb239e50352fe462074b77cfb899a03" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON1</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[1]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY32 to SUPPLY63. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaadc2088b35ba60ab7d6f4e187285f83d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON2</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[2]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY64 to SUPPLY95. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaa380fed4907b2d5ae25f6d7219bb0cd7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON3</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[3]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY96 to SUPPLY127. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gad074b9e71298abd50e5ad341ec48b317" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON4</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[4]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY128 to SUPPLY159. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga37758fc7dbd2b2be988236f47243da7e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON8</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[8]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an over-temperature alarm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga6ce3069ddfbcf158ca6c2ac52b751aad" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON9</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[9]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates a device temperature alarm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gac6691fe8c7e3bc681fc510da6086960d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CFI</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFI Non-Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga2110ac9650fc9edbbf1c45c4d1d33da3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SEUCRC</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFRAME SEU CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaa6ee2afff5fb858e72ebf3cb202d8096" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SEUECC</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFRAME SEU ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga8a34c5d715e7d803952b93117b3cfdae" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMX_WWDT</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFRAME SEU ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga4a3c36a02741062b5e8877bc2d415cf3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RTCALARM</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for RTC Alarm Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaa782f308d76a1fff701afd0dc490d235" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NPLL</name>
+        <initializer>(0x00800000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC NPLL Lock Error, This error can be unmasked after the NPLL is locked to alert when the NPLL loses lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga14ae2774a95ea21b2aa67550c3c7003d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PPLL</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC PPLL Lock Error, This error can be unmasked after the PPLL is locked to alert when the PPLL loses lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gae9406937255ff381c83bbbdfa5307679" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CLKMON</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Clock Monitor Errors., Collected from CRP&apos;s CLKMON_STATUS register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga34f439a59e4589ad9b8b18c51cfc37a9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PMX_CORR_ERR</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC interconnect correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga0f11bfb8423e7b98c87713a0ad9eee31" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PMX_UNCORR_ERR</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC interconnect uncorrectable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gac617c8ec908ea0147805102c351064d8" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SSIT0</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for For Master SLR: SSIT Error from Slave SLR1., For Slave SLRs: SSIT Error0 from Master SLR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga603cb563d7b3a0d59e723528f3ec1fca" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SSIT1</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for For Master SLR: SSIT Error from Slave SLR2., For Slave SLRs: SSIT Error1 from Master SLR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga16c0d57df7aeecaffa670338bfafac2b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SSIT2</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for For Master SLR: SSIT Error from Slave SLR3., For Slave SLRs: SSIT Error2 from Master SLR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga4dfa3f1767a51c1f51302c58432c47f2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCAPB</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for General purpose PMC error, can be triggered by any of the following peripherals:,. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>PMC Global Registers,- PMC Clock &amp; Reset (CRP),- PMC IOU Secure SLCR,</para></listitem><listitem><para>PMC IOU SLCR,- BBRAM Controller,- PMC Analog Control Registers,</para></listitem><listitem><para>RTC Control Registers. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga619a9df5703182c15643828a86344ca2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCROM</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC ROM Validation Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga9fb3d89121c81b0ab1dc50b25a1d38f9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MB_FATAL0</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC PPU0 MB TMR Fatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga1917309f30d70f1f0c5b77f1955550d3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MB_FATAL1</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC PPU1 MB TMR Fatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gabf1d557d95d65aa50c61d1d984b174ff" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMC_CR</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Correctable Errors:, PPU0 RAM correctable error.,PPU1 instruction RAM correctable error., PPU1 data RAM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gae798c845f99f86bb465b43f123e92e4e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMC_NCR</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Non-Correctable Errors:, PPU0 RAM non-correctable error.,PPU1 instruction RAM non-correctable error., PPU1 data RAM non-correctable error.,PRAM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga0596b4ad6a2b28235c479b4539b32559" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON0</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[0]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY0 to SUPPLY31. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaceb239e50352fe462074b77cfb899a03" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON1</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[1]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY32 to SUPPLY63. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaadc2088b35ba60ab7d6f4e187285f83d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON2</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[2]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY64 to SUPPLY95. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaa380fed4907b2d5ae25f6d7219bb0cd7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON3</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[3]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY96 to SUPPLY127. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gad074b9e71298abd50e5ad341ec48b317" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON4</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[4]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an alarm condition on any of SUPPLY128 to SUPPLY159. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga37758fc7dbd2b2be988236f47243da7e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON8</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[8]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates an over-temperature alarm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga6ce3069ddfbcf158ca6c2ac52b751aad" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMCSMON9</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC Temperature Shutdown Alert and Power Supply Failure Detection Errors from PMC Sysmon alarm[9]. </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates a device temperature alarm. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gac6691fe8c7e3bc681fc510da6086960d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CFI</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFI Non-Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga2110ac9650fc9edbbf1c45c4d1d33da3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SEUCRC</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFRAME SEU CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaa6ee2afff5fb858e72ebf3cb202d8096" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SEUECC</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFRAME SEU ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga8a34c5d715e7d803952b93117b3cfdae" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PMX_WWDT</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CFRAME SEU ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga4a3c36a02741062b5e8877bc2d415cf3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RTCALARM</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for RTC Alarm Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gaa782f308d76a1fff701afd0dc490d235" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NPLL</name>
+        <initializer>(0x00800000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC NPLL Lock Error, This error can be unmasked after the NPLL is locked to alert when the NPLL loses lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga14ae2774a95ea21b2aa67550c3c7003d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PPLL</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC PPLL Lock Error, This error can be unmasked after the PPLL is locked to alert when the PPLL loses lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gae9406937255ff381c83bbbdfa5307679" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CLKMON</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Clock Monitor Errors., Collected from CRP&apos;s CLKMON_STATUS register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga34f439a59e4589ad9b8b18c51cfc37a9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PMX_CORR_ERR</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC interconnect correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga0f11bfb8423e7b98c87713a0ad9eee31" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PMX_UNCORR_ERR</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC interconnect uncorrectable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1gac617c8ec908ea0147805102c351064d8" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SSIT0</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for For Master SLR: SSIT Error from Slave SLR1., For Slave SLRs: SSIT Error0 from Master SLR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga603cb563d7b3a0d59e723528f3ec1fca" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SSIT1</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for For Master SLR: SSIT Error from Slave SLR2., For Slave SLRs: SSIT Error1 from Master SLR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr2_1ga16c0d57df7aeecaffa670338bfafac2b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_SSIT2</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for For Master SLR: SSIT Error from Slave SLR3., For Slave SLRs: SSIT Error2 from Master SLR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to PMC ERR2 Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

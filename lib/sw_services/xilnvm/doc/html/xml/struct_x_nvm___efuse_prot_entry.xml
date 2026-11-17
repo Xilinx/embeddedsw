@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_prot_entry" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseProtEntry</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1af161d26d89059f38dc1037baf051e9e0" prot="public" static="no" mutable="no">
+        <type><ref refid="xnvm__efuse__common__field_8h_1af9636449640eb9cd08a5e7c6c58c2db4" kindref="member">XNvm_EfuseProtTriggerType</ref></type>
+        <definition>XNvm_EfuseProtTriggerType XNvm_EfuseProtEntry::TriggerType</definition>
+        <argsstring></argsstring>
+        <name>TriggerType</name>
+        <briefdescription>
+<para>Condition that arms programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1a8112215afbbd99f7441268ea87178583" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::CacheOffset</definition>
+        <argsstring></argsstring>
+        <name>CacheOffset</name>
+        <briefdescription>
+<para>Cache address monitored for trigger. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1abb40f8a3bddd0bfb495f74e31b1240e2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::NumWords</definition>
+        <argsstring></argsstring>
+        <name>NumWords</name>
+        <briefdescription>
+<para>Word count for RANGE_NONZERO trigger. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1a792cc65618c86144e16b6d7701783a6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+<para>Bit mask for MASKED_NONZERO trigger. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1ad09fe248d09b4270fb94acd1129b629f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::Page</definition>
+        <argsstring></argsstring>
+        <name>Page</name>
+        <briefdescription>
+<para>eFuse page for protection bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1a3b0594f045c29eb6518ef0dd31eefb62" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::ProtRow</definition>
+        <argsstring></argsstring>
+        <name>ProtRow</name>
+        <briefdescription>
+<para>Protection fuse row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1a83c05b8552acfa398f78cee8582e00e4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::ProtCol0</definition>
+        <argsstring></argsstring>
+        <name>ProtCol0</name>
+        <briefdescription>
+<para>First protection fuse column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1ac952bdecc58857acc3a00daa0f95fa53" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::ProtCol1</definition>
+        <argsstring></argsstring>
+        <name>ProtCol1</name>
+        <briefdescription>
+<para>Second protection fuse column (paired check) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1ab69f1bb95fdc22733c9b0fa3135b82ef" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::ProtReadMask</definition>
+        <argsstring></argsstring>
+        <name>ProtReadMask</name>
+        <briefdescription>
+<para>Expected read-back mask after program. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1a954db2e056ced1b86b2398b71f971e2b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::ErrProt0</definition>
+        <argsstring></argsstring>
+        <name>ErrProt0</name>
+        <briefdescription>
+<para>Error code for ProtCol0 failure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prot_entry_1a74ee799f1dd80eebf994bf5c0e5eec29" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseProtEntry::ErrProt1</definition>
+        <argsstring></argsstring>
+        <name>ErrProt1</name>
+        <briefdescription>
+<para>Error code for ProtCol1 failure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines a protection (Tbits) trigger entry. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="315" bodyend="327"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_prot_entry_1a8112215afbbd99f7441268ea87178583" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>CacheOffset</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1a954db2e056ced1b86b2398b71f971e2b" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>ErrProt0</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1a74ee799f1dd80eebf994bf5c0e5eec29" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>ErrProt1</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1a792cc65618c86144e16b6d7701783a6e" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>Mask</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1abb40f8a3bddd0bfb495f74e31b1240e2" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>NumWords</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1ad09fe248d09b4270fb94acd1129b629f" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>Page</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1a83c05b8552acfa398f78cee8582e00e4" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>ProtCol0</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1ac952bdecc58857acc3a00daa0f95fa53" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>ProtCol1</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1ab69f1bb95fdc22733c9b0fa3135b82ef" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>ProtReadMask</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1a3b0594f045c29eb6518ef0dd31eefb62" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>ProtRow</name></member>
+      <member refid="struct_x_nvm___efuse_prot_entry_1af161d26d89059f38dc1037baf051e9e0" prot="public" virt="non-virtual"><scope>XNvm_EfuseProtEntry</scope><name>TriggerType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

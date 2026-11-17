@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___cpm_domain" kind="struct" prot="public">
+    <compoundname>XPm_CpmDomain</compoundname>
+    <includes local="no">xpm_cpmdomain.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___cpm_domain_1ab2a0624a0881e4749c091d5a803159a6" prot="public" static="no" mutable="no">
+        <type>XPm_PowerDomain</type>
+        <definition>XPm_PowerDomain XPm_CpmDomain::Domain</definition>
+        <argsstring></argsstring>
+        <name>Domain</name>
+        <briefdescription>
+<para>Power domain node base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___cpm_domain_1a50680aef704daacc134181d61ba34887" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_CpmDomain::CpmSlcrBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CpmSlcrBaseAddr</name>
+        <briefdescription>
+<para>CPM SLCR Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___cpm_domain_1aa2ba54697a93e368f32bf41ecd9b1b94" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_CpmDomain::CpmSlcrSecureBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CpmSlcrSecureBaseAddr</name>
+        <briefdescription>
+<para>CPM SLCR Secure base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___cpm_domain_1a515b4f173c1b025edb42f15b4bdaa09c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_CpmDomain::CpmPcsrBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CpmPcsrBaseAddr</name>
+        <briefdescription>
+<para>CPM PCSR Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___cpm_domain_1a2f076aa6b5e58b4dbd1c02056664546a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_CpmDomain::CpmCrCpmBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CpmCrCpmBaseAddr</name>
+        <briefdescription>
+<para>CPM CRCPM Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>CPM domain node class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h" bodystart="22" bodyend="28"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___cpm_domain_1a2f076aa6b5e58b4dbd1c02056664546a" prot="public" virt="non-virtual"><scope>XPm_CpmDomain</scope><name>CpmCrCpmBaseAddr</name></member>
+      <member refid="struct_x_pm___cpm_domain_1a515b4f173c1b025edb42f15b4bdaa09c" prot="public" virt="non-virtual"><scope>XPm_CpmDomain</scope><name>CpmPcsrBaseAddr</name></member>
+      <member refid="struct_x_pm___cpm_domain_1a50680aef704daacc134181d61ba34887" prot="public" virt="non-virtual"><scope>XPm_CpmDomain</scope><name>CpmSlcrBaseAddr</name></member>
+      <member refid="struct_x_pm___cpm_domain_1aa2ba54697a93e368f32bf41ecd9b1b94" prot="public" virt="non-virtual"><scope>XPm_CpmDomain</scope><name>CpmSlcrSecureBaseAddr</name></member>
+      <member refid="struct_x_pm___cpm_domain_1ab2a0624a0881e4749c091d5a803159a6" prot="public" virt="non-virtual"><scope>XPm_CpmDomain</scope><name>Domain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

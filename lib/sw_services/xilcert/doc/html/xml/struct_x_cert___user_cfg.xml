@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___user_cfg" kind="struct" prot="public">
+    <compoundname>XCert_UserCfg</compoundname>
+    <includes local="no">xcert_genx509cert.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1a0b36a1d01dc73972bb62022f7c0bff23" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_UserCfg::Issuer[XCERT_ISSUER_MAX_SIZE]</definition>
+        <argsstring>[XCERT_ISSUER_MAX_SIZE]</argsstring>
+        <name>Issuer</name>
+        <briefdescription>
+<para>DER encoded value of Issuer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1abcb17ed731e58fe58f2b2e8d581e8fad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_UserCfg::IssuerLen</definition>
+        <argsstring></argsstring>
+        <name>IssuerLen</name>
+        <briefdescription>
+<para>Length of DER encoded Issuer field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1ac8ffae57ccdd2068711b6b28b6e89586" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_UserCfg::Subject[XCERT_SUBJECT_MAX_SIZE]</definition>
+        <argsstring>[XCERT_SUBJECT_MAX_SIZE]</argsstring>
+        <name>Subject</name>
+        <briefdescription>
+<para>DER encoded value of Subject. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1abc4bba2fc3b24bb3d27fe94f5274bcde" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_UserCfg::SubjectLen</definition>
+        <argsstring></argsstring>
+        <name>SubjectLen</name>
+        <briefdescription>
+<para>Length of DER encoded Subject field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1a4c317b7455edfa4282b7ce1bddce3666" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_UserCfg::Validity[XCERT_VALIDITY_MAX_SIZE]</definition>
+        <argsstring>[XCERT_VALIDITY_MAX_SIZE]</argsstring>
+        <name>Validity</name>
+        <briefdescription>
+<para>DER encoded value of Validity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1adbae73c7ed69762e6f8f849777305783" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_UserCfg::ValidityLen</definition>
+        <argsstring></argsstring>
+        <name>ValidityLen</name>
+        <briefdescription>
+<para>Length of DER encoded Validity field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1a41aa1a8786523bfde85de6b76f5933ac" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_UserCfg::IsSubAltNameAvailable</definition>
+        <argsstring></argsstring>
+        <name>IsSubAltNameAvailable</name>
+        <briefdescription>
+<para>Flag to indicate if Subject Alt Name is given by user. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1a105d2b4bef6c3b421077c3aeed4cb18a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCert_UserCfg::SubAltName[XCERT_SUB_ALT_NAME_MAX_SIZE]</definition>
+        <argsstring>[XCERT_SUB_ALT_NAME_MAX_SIZE]</argsstring>
+        <name>SubAltName</name>
+        <briefdescription>
+<para>DER encoded value of Subject Alt Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___user_cfg_1a4b8ac56bf3cddfaf7cf7c1bbe80e8a1b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_UserCfg::SubAltNameLen</definition>
+        <argsstring></argsstring>
+        <name>SubAltNameLen</name>
+        <briefdescription>
+<para>Length of DER encoded Subject Alt Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains information of the fields of X.509 certificate which is provided by user. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="120" bodyend="130"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___user_cfg_1a41aa1a8786523bfde85de6b76f5933ac" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>IsSubAltNameAvailable</name></member>
+      <member refid="struct_x_cert___user_cfg_1a0b36a1d01dc73972bb62022f7c0bff23" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>Issuer</name></member>
+      <member refid="struct_x_cert___user_cfg_1abcb17ed731e58fe58f2b2e8d581e8fad" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>IssuerLen</name></member>
+      <member refid="struct_x_cert___user_cfg_1a105d2b4bef6c3b421077c3aeed4cb18a" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>SubAltName</name></member>
+      <member refid="struct_x_cert___user_cfg_1a4b8ac56bf3cddfaf7cf7c1bbe80e8a1b" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>SubAltNameLen</name></member>
+      <member refid="struct_x_cert___user_cfg_1ac8ffae57ccdd2068711b6b28b6e89586" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>Subject</name></member>
+      <member refid="struct_x_cert___user_cfg_1abc4bba2fc3b24bb3d27fe94f5274bcde" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>SubjectLen</name></member>
+      <member refid="struct_x_cert___user_cfg_1a4c317b7455edfa4282b7ce1bddce3666" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>Validity</name></member>
+      <member refid="struct_x_cert___user_cfg_1adbae73c7ed69762e6f8f849777305783" prot="public" virt="non-virtual"><scope>XCert_UserCfg</scope><name>ValidityLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

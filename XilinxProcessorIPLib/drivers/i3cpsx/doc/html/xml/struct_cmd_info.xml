@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cmd_info" kind="struct" prot="public">
+    <compoundname>CmdInfo</compoundname>
+    <includes local="no">xi3cpsx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdInfo::Cmd</definition>
+        <argsstring></argsstring>
+        <name>Cmd</name>
+        <briefdescription>
+<para>Command type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__polled__example_8c_1a5419de39e4f4fb073bb44ad6c07d657a" compoundref="xi3cpsx__polled__example_8c" startline="135" endline="321">I3cPsxMasterPolledExample</referencedby>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+        <referencedby refid="xi3cpsx__slave__loopback_8c_1ab9d0cb3ac9cd03f7d09a187b988688c4" compoundref="xi3cpsx__slave__loopback_8c" startline="147" endline="216">I3cPsxSlaveLoopbackExample</referencedby>
+        <referencedby refid="group__i3cpsx__api_1ga10dedaf409b8b5c149dd04b5d082769e" compoundref="xi3cpsx__master_8c" startline="263" endline="338">XI3cPsx_BusInit</referencedby>
+        <referencedby refid="group__i3cpsx_1ga8a69288d43feb7b4b08a025f240c7d3d" compoundref="xi3cpsx_8c" startline="370" endline="394">XI3cPsx_SendAddrAssignCmd</referencedby>
+        <referencedby refid="group__i3cpsx_1gaee8fde7c3ffa489ee7e96352c6d7c322" compoundref="xi3cpsx_8c" startline="325" endline="356">XI3cPsx_SendTransferCmd</referencedby>
+        <referencedby refid="group__i3cpsx__api_1gaf5663751e9f6964ed6398bdd20101ba8" compoundref="xi3cpsx__slave_8c" startline="157" endline="197">XI3cPsx_SlaveSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1adc65b9863f3d3b9e8ab464751d7c3213" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 CmdInfo::SlaveAddr</definition>
+        <argsstring></argsstring>
+        <name>SlaveAddr</name>
+        <briefdescription>
+<para>Slave address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="282" bodyend="-1"/>
+        <referencedby refid="group__i3cpsx__api_1ga10dedaf409b8b5c149dd04b5d082769e" compoundref="xi3cpsx__master_8c" startline="263" endline="338">XI3cPsx_BusInit</referencedby>
+        <referencedby refid="group__i3cpsx_1ga8a69288d43feb7b4b08a025f240c7d3d" compoundref="xi3cpsx_8c" startline="370" endline="394">XI3cPsx_SendAddrAssignCmd</referencedby>
+        <referencedby refid="group__i3cpsx_1gaee8fde7c3ffa489ee7e96352c6d7c322" compoundref="xi3cpsx_8c" startline="325" endline="356">XI3cPsx_SendTransferCmd</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1ad0ec3bf720fbefe91d294cb5e834266d" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* CmdInfo::TxBuff</definition>
+        <argsstring></argsstring>
+        <name>TxBuff</name>
+        <briefdescription>
+<para>Pointer to transmit buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1a10402adf3fc8238db62c49c4193ebd56" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* CmdInfo::RxBuff</definition>
+        <argsstring></argsstring>
+        <name>RxBuff</name>
+        <briefdescription>
+<para>Pointer to receive buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__i3cpsx_1gaee8fde7c3ffa489ee7e96352c6d7c322" compoundref="xi3cpsx_8c" startline="325" endline="356">XI3cPsx_SendTransferCmd</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1a1096091010e2b336e93f8b9f2ec07858" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdInfo::TxLen</definition>
+        <argsstring></argsstring>
+        <name>TxLen</name>
+        <briefdescription>
+<para>Transmit length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cmd_info_1acee08a9d797639ee4a6577cd38a0526b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdInfo::RxLen</definition>
+        <argsstring></argsstring>
+        <name>RxLen</name>
+        <briefdescription>
+<para>Receive length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__polled__example_8c_1a5419de39e4f4fb073bb44ad6c07d657a" compoundref="xi3cpsx__polled__example_8c" startline="135" endline="321">I3cPsxMasterPolledExample</referencedby>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+        <referencedby refid="group__i3cpsx__api_1ga10dedaf409b8b5c149dd04b5d082769e" compoundref="xi3cpsx__master_8c" startline="263" endline="338">XI3cPsx_BusInit</referencedby>
+        <referencedby refid="group__i3cpsx_1gaee8fde7c3ffa489ee7e96352c6d7c322" compoundref="xi3cpsx_8c" startline="325" endline="356">XI3cPsx_SendTransferCmd</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds command information. </para>    </briefdescription>
+    <detaileddescription>
+<para>This typedef contains Command information. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="280" bodyend="287"/>
+    <listofallmembers>
+      <member refid="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>Cmd</name></member>
+      <member refid="struct_cmd_info_1a10402adf3fc8238db62c49c4193ebd56" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>RxBuff</name></member>
+      <member refid="struct_cmd_info_1acee08a9d797639ee4a6577cd38a0526b" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>RxLen</name></member>
+      <member refid="struct_cmd_info_1adc65b9863f3d3b9e8ab464751d7c3213" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>SlaveAddr</name></member>
+      <member refid="struct_cmd_info_1ad0ec3bf720fbefe91d294cb5e834266d" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>TxBuff</name></member>
+      <member refid="struct_cmd_info_1a1096091010e2b336e93f8b9f2ec07858" prot="public" virt="non-virtual"><scope>CmdInfo</scope><name>TxLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

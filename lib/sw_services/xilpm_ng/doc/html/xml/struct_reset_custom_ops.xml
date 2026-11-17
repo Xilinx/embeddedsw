@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_reset_custom_ops" kind="struct" prot="public">
+    <compoundname>ResetCustomOps</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_reset_custom_ops_1aea6b97311e8f9936120bb4e3e50dbb88" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ResetCustomOps::ResetIdx</definition>
+        <argsstring></argsstring>
+        <name>ResetIdx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_custom_ops_1ad150d606a8b7f9125a66616146e5c44e" prot="public" static="no" mutable="no">
+        <type>XStatus(*const</type>
+        <definition>XStatus(*const ResetCustomOps::ActionAssert)(const XPm_ResetNode *Rst)</definition>
+        <argsstring>)(const XPm_ResetNode *Rst)</argsstring>
+        <name>ActionAssert</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_custom_ops_1aa82e30820b5740f44974f06ba54a4d6b" prot="public" static="no" mutable="no">
+        <type>XStatus(*const</type>
+        <definition>XStatus(*const ResetCustomOps::ActionRelease)(const XPm_ResetNode *Rst)</definition>
+        <argsstring>)(const XPm_ResetNode *Rst)</argsstring>
+        <name>ActionRelease</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_custom_ops_1acf3a864dd9292727e58c76ff2a550bce" prot="public" static="no" mutable="no">
+        <type>XStatus(*const</type>
+        <definition>XStatus(*const ResetCustomOps::ActionPulse)(const XPm_ResetNode *Rst)</definition>
+        <argsstring>)(const XPm_ResetNode *Rst)</argsstring>
+        <name>ActionPulse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_custom_ops_1ae81518ca02f67f6f6867be79320dbd4a" prot="public" static="no" mutable="no">
+        <type>u32(*const</type>
+        <definition>u32(*const ResetCustomOps::GetStatus)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>GetStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="66" bodyend="72"/>
+    <listofallmembers>
+      <member refid="struct_reset_custom_ops_1ad150d606a8b7f9125a66616146e5c44e" prot="public" virt="non-virtual"><scope>ResetCustomOps</scope><name>ActionAssert</name></member>
+      <member refid="struct_reset_custom_ops_1acf3a864dd9292727e58c76ff2a550bce" prot="public" virt="non-virtual"><scope>ResetCustomOps</scope><name>ActionPulse</name></member>
+      <member refid="struct_reset_custom_ops_1aa82e30820b5740f44974f06ba54a4d6b" prot="public" virt="non-virtual"><scope>ResetCustomOps</scope><name>ActionRelease</name></member>
+      <member refid="struct_reset_custom_ops_1ae81518ca02f67f6f6867be79320dbd4a" prot="public" virt="non-virtual"><scope>ResetCustomOps</scope><name>GetStatus</name></member>
+      <member refid="struct_reset_custom_ops_1aea6b97311e8f9936120bb4e3e50dbb88" prot="public" virt="non-virtual"><scope>ResetCustomOps</scope><name>ResetIdx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___x509_user_cert_cfg" kind="struct" prot="public">
+    <compoundname>XAsu_X509UserCertCfg</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___x509_user_cert_cfg_1a3885ba8e876d32fefa4c61a9c80cf77a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___x509_cert_fields" kindref="compound">XAsu_X509CertFields</ref></type>
+        <definition>XAsu_X509CertFields XAsu_X509UserCertCfg::CertCfg</definition>
+        <argsstring></argsstring>
+        <name>CertCfg</name>
+        <briefdescription>
+<para>Certificate fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_user_cert_cfg_1a8e8dc42c6e31c42f91bdcaeed5aec94c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_X509UserCertCfg::SubjectPubKeyId</definition>
+        <argsstring></argsstring>
+        <name>SubjectPubKeyId</name>
+        <briefdescription>
+<para><verbatim> Key vault key ID of the public key which is certified
+</verbatim> as the subject public key </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_user_cert_cfg_1aa91e232372edb43cb2f8b21ea5066e81" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_X509UserCertCfg::IssuerPubKeyId</definition>
+        <argsstring></argsstring>
+        <name>IssuerPubKeyId</name>
+        <briefdescription>
+<para><verbatim> Key vault key ID of the issuer public key, from which
+</verbatim> the authority key identifier extension is derived </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_user_cert_cfg_1a09e885cd2e1ac34e6ead0a2ac70d2b83" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_X509UserCertCfg::IssuerPvtKeyId</definition>
+        <argsstring></argsstring>
+        <name>IssuerPvtKeyId</name>
+        <briefdescription>
+<para><verbatim> Key vault key ID of the private key which signs the
+</verbatim> certificate </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the user supplied configuration of a user X.509 certificate. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="193">
+        <label>XAsu_X509CertFields</label>
+        <link refid="struct_x_asu___x509_cert_fields"/>
+        <childnode refid="194" relation="usage">
+          <edgelabel>Validity</edgelabel>
+        </childnode>
+        <childnode refid="196" relation="usage">
+          <edgelabel>Issuer</edgelabel>
+          <edgelabel>Subject</edgelabel>
+        </childnode>
+      </node>
+      <node id="196">
+        <label>XAsu_X509Name</label>
+        <link refid="struct_x_asu___x509_name"/>
+      </node>
+      <node id="192">
+        <label>XAsu_X509UserCertCfg</label>
+        <link refid="struct_x_asu___x509_user_cert_cfg"/>
+        <childnode refid="193" relation="usage">
+          <edgelabel>CertCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="194">
+        <label>XAsu_X509Validity</label>
+        <link refid="struct_x_asu___x509_validity"/>
+        <childnode refid="195" relation="usage">
+          <edgelabel>NotAfter</edgelabel>
+          <edgelabel>NotBefore</edgelabel>
+        </childnode>
+      </node>
+      <node id="195">
+        <label>XAsu_X509Time</label>
+        <link refid="struct_x_asu___x509_time"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="200" bodyend="208"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___x509_user_cert_cfg_1a3885ba8e876d32fefa4c61a9c80cf77a" prot="public" virt="non-virtual"><scope>XAsu_X509UserCertCfg</scope><name>CertCfg</name></member>
+      <member refid="struct_x_asu___x509_user_cert_cfg_1aa91e232372edb43cb2f8b21ea5066e81" prot="public" virt="non-virtual"><scope>XAsu_X509UserCertCfg</scope><name>IssuerPubKeyId</name></member>
+      <member refid="struct_x_asu___x509_user_cert_cfg_1a09e885cd2e1ac34e6ead0a2ac70d2b83" prot="public" virt="non-virtual"><scope>XAsu_X509UserCertCfg</scope><name>IssuerPvtKeyId</name></member>
+      <member refid="struct_x_asu___x509_user_cert_cfg_1a8e8dc42c6e31c42f91bdcaeed5aec94c" prot="public" virt="non-virtual"><scope>XAsu_X509UserCertCfg</scope><name>SubjectPubKeyId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

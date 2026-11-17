@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___gic_proxy__t" kind="struct" prot="public">
+    <compoundname>XPm_GicProxy_t</compoundname>
+    <includes local="no">xpm_gic_proxy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref> *const</type>
+        <definition>XPm_GicProxyGroup* const XPm_GicProxy_t::Groups</definition>
+        <argsstring></argsstring>
+        <name>Groups</name>
+        <briefdescription>
+<para>Pointer to GIC Proxy group data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gic_proxy__t_1a1c5a74c6eb86553ac8429e5bf803a7be" prot="public" static="no" mutable="no">
+        <type>void(*const</type>
+        <definition>void(*const XPm_GicProxy_t::Clear)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>Clear</name>
+        <briefdescription>
+<para>Clear all cached wake-up sources. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gic_proxy__t_1afa80eb57106035f23620dd1acb6d4cf3" prot="public" static="no" mutable="no">
+        <type>XStatus(*const</type>
+        <definition>XStatus(*const XPm_GicProxy_t::Enable)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para>Enable GIC Proxy wake interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPm_GicProxy_t::GroupsCnt</definition>
+        <argsstring></argsstring>
+        <name>GroupsCnt</name>
+        <briefdescription>
+<para>Number of GIC Proxy groups. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_GicProxy_t::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>GIC Proxy state flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XPm_GicProxy - Structure containing GIC Proxy properties  Pointer to the array of GIC Proxy Groups  Number of elements in the array of GIC Proxy Groups  Clear all set wake-up sources (Flags for all Groups)  Function that Enables GIC Proxy and all interrupts that are set as wake sources. </para>    </briefdescription>
+    <detaileddescription>
+<para>Returns XST_SUCCESS or an error code.  GIC Proxy Flags (is Enabled or not) </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="121">
+        <label>XPm_GicProxyGroup</label>
+        <link refid="struct_x_pm___gic_proxy_group"/>
+      </node>
+      <node id="120">
+        <label>XPm_GicProxy_t</label>
+        <link refid="struct_x_pm___gic_proxy__t"/>
+        <childnode refid="121" relation="usage">
+          <edgelabel>Groups</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" bodystart="33" bodyend="39"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___gic_proxy__t_1a1c5a74c6eb86553ac8429e5bf803a7be" prot="public" virt="non-virtual"><scope>XPm_GicProxy_t</scope><name>Clear</name></member>
+      <member refid="struct_x_pm___gic_proxy__t_1afa80eb57106035f23620dd1acb6d4cf3" prot="public" virt="non-virtual"><scope>XPm_GicProxy_t</scope><name>Enable</name></member>
+      <member refid="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" prot="public" virt="non-virtual"><scope>XPm_GicProxy_t</scope><name>Flags</name></member>
+      <member refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" prot="public" virt="non-virtual"><scope>XPm_GicProxy_t</scope><name>Groups</name></member>
+      <member refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" prot="public" virt="non-virtual"><scope>XPm_GicProxy_t</scope><name>GroupsCnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

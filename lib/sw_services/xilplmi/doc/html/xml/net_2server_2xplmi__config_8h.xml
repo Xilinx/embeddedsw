@@ -1,0 +1,897 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xplmi__config_8h" kind="file">
+    <compoundname>net/server/xplmi_config.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xplmi_bsp_config.h</includes>
+    <includedby refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includedby>
+    <includedby refid="xplmi__cmd_8h" local="yes">xplmi_cmd.h</includedby>
+    <includedby refid="xplmi__scheduler_8h" local="yes">xplmi_scheduler.h</includedby>
+    <includedby refid="xplmi__proc_8c" local="yes">xplmi_proc.c</includedby>
+    <includedby refid="net_2server_2xplmi__hw_8h" local="yes">xplmi_hw.h</includedby>
+    <incdepgraph>
+      <node id="563">
+        <label>xplmi_config.h</label>
+        <link refid="net/server/xplmi_config.h"/>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="565">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="564">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="614">
+        <label>xplmi_scheduler.c</label>
+        <link refid="xplmi__scheduler_8c"/>
+      </node>
+      <node id="632">
+        <label>xplmi_scheduler.h</label>
+        <link refid="xplmi__scheduler_8h"/>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+      </node>
+      <node id="612">
+        <label>xplmi_cmd.c</label>
+        <link refid="xplmi__cmd_8c"/>
+      </node>
+      <node id="574">
+        <label>xplmi_err_psm.c</label>
+        <link refid="xplmi__err__psm_8c"/>
+      </node>
+      <node id="617">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="612" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+      </node>
+      <node id="586">
+        <label>xplmi_asufw_keepalive.c</label>
+        <link refid="xplmi__asufw__keepalive_8c"/>
+      </node>
+      <node id="576">
+        <label>xplmi_generic.c</label>
+      </node>
+      <node id="630">
+        <label>xplmi_asufw_keepalive.h</label>
+        <link refid="xplmi__asufw__keepalive_8h"/>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+      </node>
+      <node id="568">
+        <label>xplmi_generic.h</label>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+      </node>
+      <node id="592">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="628">
+        <label>xplmi_modules.c</label>
+        <link refid="xplmi__modules_8c"/>
+      </node>
+      <node id="622">
+        <label>xplmi_plat.h</label>
+        <childnode refid="592" relation="include">
+        </childnode>
+      </node>
+      <node id="624">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="612" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+      </node>
+      <node id="606">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi__asu__update_8c"/>
+      </node>
+      <node id="629">
+        <label>xplmi_asu_update.h</label>
+        <link refid="xplmi__asu__update_8h"/>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+      </node>
+      <node id="572">
+        <label>xplmi_err_cmd.c</label>
+        <link refid="xplmi__err__cmd_8c"/>
+      </node>
+      <node id="581">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="605">
+        <label>xplmi_err.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+      </node>
+      <node id="633">
+        <label>xplmi_hw.h</label>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="589">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="593">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+      </node>
+      <node id="621">
+        <label>xplmi_plat.h</label>
+        <link refid="2vp_2server_2xplmi__plat_8h"/>
+        <childnode refid="589" relation="include">
+        </childnode>
+      </node>
+      <node id="602">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="610">
+        <label>xplmi_err.h</label>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+      </node>
+      <node id="595">
+        <label>xplmi_plat_cmd.c</label>
+        <link refid="xplmi__plat__cmd_8c"/>
+      </node>
+      <node id="587">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="607">
+        <label>xplmi_err.h</label>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+      </node>
+      <node id="566">
+        <label>xplmi_config.h</label>
+        <link refid="net/server/xplmi_config.h"/>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="583">
+        <label>xplmi_ssit.c</label>
+        <link refid="xplmi__ssit_8c"/>
+      </node>
+      <node id="580">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+      </node>
+      <node id="570">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="569">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+        <childnode refid="591" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="571">
+        <label>xplmi_debug.c</label>
+        <link refid="xplmi__debug_8c"/>
+      </node>
+      <node id="567">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="612" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="591" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="577">
+        <label>xplmi_ipi.c</label>
+        <link refid="xplmi__ipi_8c"/>
+      </node>
+      <node id="625">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+      </node>
+      <node id="591">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="596">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+      <node id="631">
+        <label>xplmi_update.h</label>
+        <link refid="xplmi__update_8h"/>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="613">
+        <label>xplmi_gic_interrupts.c</label>
+        <link refid="xplmi__gic__interrupts_8c"/>
+      </node>
+      <node id="626">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+      </node>
+      <node id="604">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi__proc_8c"/>
+      </node>
+      <node id="627">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="600">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="608">
+        <label>xplmi_err.h</label>
+        <link refid="2vp_2server_2xplmi__err_8h"/>
+        <childnode refid="600" relation="include">
+        </childnode>
+      </node>
+      <node id="594">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="623">
+        <label>xplmi_plat.h</label>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+      </node>
+      <node id="590">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="589" relation="include">
+        </childnode>
+      </node>
+      <node id="573">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="615">
+        <label>xplmi_sysmon.c</label>
+        <link refid="xplmi__sysmon_8c"/>
+      </node>
+      <node id="603">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="607" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+      </node>
+      <node id="588">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="620">
+        <label>xplmi_plat.h</label>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+      </node>
+      <node id="599">
+        <label>xplmi_dma.c</label>
+        <link refid="xplmi__dma_8c"/>
+      </node>
+      <node id="578">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
+      </node>
+      <node id="616">
+        <label>xplmi_task.c</label>
+        <link refid="xplmi__task_8c"/>
+      </node>
+      <node id="601">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="609">
+        <label>xplmi_err.h</label>
+        <link refid="2vp__p_2server_2xplmi__err_8h"/>
+        <childnode refid="601" relation="include">
+        </childnode>
+      </node>
+      <node id="585">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi__asu__cmd_8c"/>
+      </node>
+      <node id="579">
+        <label>xplmi_util.c</label>
+        <link refid="xplmi__util_8c"/>
+      </node>
+      <node id="582">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="619">
+        <label>xplmi_plat.h</label>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+      </node>
+      <node id="584">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="598">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi__cdo_8c"/>
+      </node>
+      <node id="575">
+        <label>xplmi_event_logging.c</label>
+        <link refid="xplmi__event__logging_8c"/>
+      </node>
+      <node id="611">
+        <label>xplmi_cdo.h</label>
+        <link refid="xplmi__cdo_8h"/>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+      </node>
+      <node id="618">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+      </node>
+      <node id="597">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="634">
+        <label>xplmi_wdt.h</label>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#ifndef<sp/>XPLMI_CONFIG_H</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CONFIG_H</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
+<codeline lineno="89"><highlight class="comment">//#define<sp/>PLM_PRINT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_DEBUG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_DEBUG_INFO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_DEBUG_DETAILED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>To<sp/>Enable<sp/>CDO<sp/>debug<sp/>prints</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>CDO_DEBUG_ENABLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="comment">//#define<sp/>PLM_PRINT_NO_UART</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="comment">//#define<sp/>PLM_PRINT_PERF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="comment">//#define<sp/>PLM_QSPI_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_SD_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_OSPI_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_USB_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_SEM_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_SECURE_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_NVM_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PUF_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_NVM_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_NVM))</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_NVM</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_PUF_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_PUF))</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_PUF</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_OCP_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_OCP))</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_HW_PCR</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_OCP_KEY_MGMT_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_OCP_KEY_MGMT))<sp/>&amp;&amp;<sp/>(!defined(PLM_ECDSA_EXCLUDE))</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP_KEY_MGMT</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP_NATIVE_KEY_MGMT</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP_KEY_WRAP</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_OCP_KEY_WRAP<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_OCP_KEY_MGMT<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_OCP<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_SECURE_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_AUTH_JTAG_EXCLUDE))</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_AUTH_JTAG</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>PLM_GET_OPT_DATA_EN</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="189"><highlight class="comment">//#define<sp/>PLM_DEBUG_MODE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_POLL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_DMA</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_CDO_PROCESS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_KEYHOLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_PL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="comment">//#define<sp/>PLM_ENABLE_ADDR_RANGE_VALIDATION</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>below<sp/>define<sp/>to<sp/>enable<sp/>CFI<sp/>selective<sp/>read<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_ENABLE_CFI_SELECTIVE_READ</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DDR<sp/>calibration<sp/>data<sp/>restore.<sp/>Disabled<sp/>by<sp/>default.</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/>*<sp/>Uncomment<sp/>for<sp/>the<sp/>versionless<sp/>flow.</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_ENABLE_DDR_CALIB_RESTORE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>below<sp/>define<sp/>to<sp/>enable<sp/>PMC<sp/>I2C<sp/>Handshake<sp/>Feature<sp/>based<sp/>on<sp/>DDR5<sp/>IP*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NOC_MC_DDR5</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_I2C_MB_HANDSHAKE</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>PLM_ENABLE_SHA_AES_EVENTS_QUEUING</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_CONFIG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_config.h"/>
+  </compounddef>
+</doxygen>

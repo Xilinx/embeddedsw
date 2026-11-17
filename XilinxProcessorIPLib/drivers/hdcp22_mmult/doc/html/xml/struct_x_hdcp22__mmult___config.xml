@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22__mmult___config" kind="struct" prot="public">
+    <compoundname>XHdcp22_mmult_Config</compoundname>
+    <includes local="no">xhdcp22_mmult.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22__mmult___config_1a4caae91d3c978c067198b8a7c6e05ae3" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XHdcp22_mmult_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="xhdcp22__mmult__sinit_8c_1a170c4f343ec4ae9c6bac6066831a0fbb" compoundref="xhdcp22__mmult__sinit_8c" startline="38" endline="53">XHdcp22_mmult_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp22_mmult_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__mmult_1ga94b5544d7e1f29c8bac9ea8f4c40d541" compoundref="xhdcp22__mmult_8c" startline="34" endline="43">XHdcp22_mmult_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga7069c42bd78bcfb06fd5c82917dc84e9" compoundref="xhdcp22__mmult_8c" startline="94" endline="99">XHdcp22_mmult_DisableAutoRestart</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga0106c3829be6beafd6c5404de31b2886" compoundref="xhdcp22__mmult_8c" startline="87" endline="92">XHdcp22_mmult_EnableAutoRestart</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga4b26d6c73921464555847e8820abc47d" compoundref="xhdcp22__mmult_8c" startline="196" endline="201">XHdcp22_mmult_Get_A_BaseAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga22ac0b061031dbdcaa8a04fb71342665" compoundref="xhdcp22__mmult_8c" startline="203" endline="208">XHdcp22_mmult_Get_A_HighAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga4e42b971382b04e13c7c377a7f88bc78" compoundref="xhdcp22__mmult_8c" startline="291" endline="296">XHdcp22_mmult_Get_B_BaseAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga94cdffad6eed7a4d21b44de54bb78717" compoundref="xhdcp22__mmult_8c" startline="298" endline="303">XHdcp22_mmult_Get_B_HighAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga78fd7818a9ff849e182cd10bdd26be4c" compoundref="xhdcp22__mmult_8c" startline="386" endline="391">XHdcp22_mmult_Get_N_BaseAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga31dce994a40176c7a2ce1b1d6e3b3ae8" compoundref="xhdcp22__mmult_8c" startline="393" endline="398">XHdcp22_mmult_Get_N_HighAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gacd8d5271f0fd52b3057bbae69abbe834" compoundref="xhdcp22__mmult_8c" startline="481" endline="486">XHdcp22_mmult_Get_NPrime_BaseAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga9c51a3ce9d0c08066fdb3ed4f6a1b00a" compoundref="xhdcp22__mmult_8c" startline="488" endline="493">XHdcp22_mmult_Get_NPrime_HighAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga57c85592b56c876828a3a9e777d57b76" compoundref="xhdcp22__mmult_8c" startline="101" endline="106">XHdcp22_mmult_Get_U_BaseAddress</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga0dcb483225b0b201162d5f136c41e468" compoundref="xhdcp22__mmult_8c" startline="108" endline="113">XHdcp22_mmult_Get_U_HighAddress</referencedby>
+        <referencedby refid="xhdcp22__mmult__sinit_8c_1a135634219c127344183f1e124c5324b2" compoundref="xhdcp22__mmult__sinit_8c" startline="54" endline="67">XHdcp22_mmult_Initialize</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga5f57b3ad73d2af383b9a56a5480d45e4" compoundref="xhdcp22__mmult_8c" startline="610" endline="615">XHdcp22_mmult_InterruptClear</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga677f0b27e60de747d871a709c71d4980" compoundref="xhdcp22__mmult_8c" startline="600" endline="608">XHdcp22_mmult_InterruptDisable</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gaafab83ff2f0b0dbc1b88fddac81bb370" compoundref="xhdcp22__mmult_8c" startline="590" endline="598">XHdcp22_mmult_InterruptEnable</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga06410ece0b45d5545edde0dd6c0bf7c1" compoundref="xhdcp22__mmult_8c" startline="617" endline="622">XHdcp22_mmult_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga9188eaa04a1cee205888f0ce74d8ea95" compoundref="xhdcp22__mmult_8c" startline="624" endline="629">XHdcp22_mmult_InterruptGetStatus</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gaaded4632056df461a108ddfaa367d50a" compoundref="xhdcp22__mmult_8c" startline="583" endline="588">XHdcp22_mmult_InterruptGlobalDisable</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga57f825f3abb852cc627c98d78b571cc8" compoundref="xhdcp22__mmult_8c" startline="576" endline="581">XHdcp22_mmult_InterruptGlobalEnable</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga223db09f1f75a1c3088b86539f29b495" compoundref="xhdcp22__mmult_8c" startline="56" endline="64">XHdcp22_mmult_IsDone</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga4d97cd0494e4afdc7e9877d9801f3ca2" compoundref="xhdcp22__mmult_8c" startline="66" endline="74">XHdcp22_mmult_IsIdle</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga291bd0c175ef6e0b1d06317dc51f519f" compoundref="xhdcp22__mmult_8c" startline="76" endline="85">XHdcp22_mmult_IsReady</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga969007e4d40524307b16837cbc2f5941" compoundref="xhdcp22__mmult_8c" startline="276" endline="289">XHdcp22_mmult_Read_A_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga5a2156db39a08a29bfde332bc7eae268" compoundref="xhdcp22__mmult_8c" startline="246" endline="259">XHdcp22_mmult_Read_A_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga4a6403e014e29ce384785d94e90941e9" compoundref="xhdcp22__mmult_8c" startline="371" endline="384">XHdcp22_mmult_Read_B_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga2ec49bd54405da927d9d77a61ed86ef3" compoundref="xhdcp22__mmult_8c" startline="341" endline="354">XHdcp22_mmult_Read_B_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga7a3732dc13b319a823e5ee18f13df869" compoundref="xhdcp22__mmult_8c" startline="466" endline="479">XHdcp22_mmult_Read_N_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga35c3f08c86b6c551fb5291bf29615e58" compoundref="xhdcp22__mmult_8c" startline="436" endline="449">XHdcp22_mmult_Read_N_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga5f9ce30683bfeee80ce17a14e528d306" compoundref="xhdcp22__mmult_8c" startline="561" endline="574">XHdcp22_mmult_Read_NPrime_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga7a05c9a5ec7ad5042e859a195dc590dd" compoundref="xhdcp22__mmult_8c" startline="531" endline="544">XHdcp22_mmult_Read_NPrime_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga268c285f3a9ce51f71ac95da7589122d" compoundref="xhdcp22__mmult_8c" startline="181" endline="194">XHdcp22_mmult_Read_U_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga4c949e1913088f3c0c28206ff59acd51" compoundref="xhdcp22__mmult_8c" startline="151" endline="164">XHdcp22_mmult_Read_U_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gaefd0d1ed8197ed37b4c3ae24e8113537" compoundref="xhdcp22__mmult_8c" startline="46" endline="54">XHdcp22_mmult_Start</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga46e1006804cd4c8a1c5482f4270a5c7b" compoundref="xhdcp22__mmult_8c" startline="261" endline="274">XHdcp22_mmult_Write_A_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gae595618b7ed896a94b0fe1d465a60c1d" compoundref="xhdcp22__mmult_8c" startline="231" endline="244">XHdcp22_mmult_Write_A_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga87dbb9cd24bfae203f925a6c47c193c3" compoundref="xhdcp22__mmult_8c" startline="356" endline="369">XHdcp22_mmult_Write_B_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga2cac322fe0b239894debc710ae10c86f" compoundref="xhdcp22__mmult_8c" startline="326" endline="339">XHdcp22_mmult_Write_B_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga9157b188c2b7d36c9f81f77fab261df2" compoundref="xhdcp22__mmult_8c" startline="451" endline="464">XHdcp22_mmult_Write_N_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1ga459c1faaae262ded90e16309b42c4b30" compoundref="xhdcp22__mmult_8c" startline="421" endline="434">XHdcp22_mmult_Write_N_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gac675213cae1200e3ece11d675a296000" compoundref="xhdcp22__mmult_8c" startline="546" endline="559">XHdcp22_mmult_Write_NPrime_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gae96ce8f44a05c9ac0eb0e83e08ec0405" compoundref="xhdcp22__mmult_8c" startline="516" endline="529">XHdcp22_mmult_Write_NPrime_Words</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gae2d8a19abe9584b721ba07e1c9d924a6" compoundref="xhdcp22__mmult_8c" startline="166" endline="179">XHdcp22_mmult_Write_U_Bytes</referencedby>
+        <referencedby refid="group__hdcp22__mmult_1gaa2eda6b307858b00bfd5d0af8d3f8df7" compoundref="xhdcp22__mmult_8c" startline="136" endline="149">XHdcp22_mmult_Write_U_Words</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" bodystart="60" bodyend="63"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" prot="public" virt="non-virtual"><scope>XHdcp22_mmult_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_hdcp22__mmult___config_1a4caae91d3c978c067198b8a7c6e05ae3" prot="public" virt="non-virtual"><scope>XHdcp22_mmult_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

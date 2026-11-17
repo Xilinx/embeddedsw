@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['uart0_5fref_5fdiv0',['UART0_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a868eb19735dc8e2843f2ec8bd7ba8340',1,'xclockps.h']]],
+  ['uart0_5fref_5fdiv1',['UART0_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a8be1effb71f07a53fbbbf8bdf86a7c71',1,'xclockps.h']]],
+  ['uart0_5fref_5fgate',['UART0_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5ad9fc532b82b010742873f56a01fd2767',1,'xclockps.h']]],
+  ['uart0_5fref_5fmux',['UART0_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a6d610868db475940e07a8493a453fcce',1,'xclockps.h']]],
+  ['uart1_5fref_5fdiv0',['UART1_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3aca07c3f1f87e88c61085efc73e8c8d0e',1,'xclockps.h']]],
+  ['uart1_5fref_5fdiv1',['UART1_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3ac86922646f14df0891907aa2326234a7',1,'xclockps.h']]],
+  ['uart1_5fref_5fgate',['UART1_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5a4857988253c04972bdd328555aa77976',1,'xclockps.h']]],
+  ['uart1_5fref_5fmux',['UART1_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64af03d7ef8b11513eac2b2af9996a9a03b',1,'xclockps.h']]],
+  ['usb0_5fbus_5fref_5fdiv0',['USB0_BUS_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a6a4857b2b972b594a28973352793d1d1',1,'xclockps.h']]],
+  ['usb0_5fbus_5fref_5fdiv1',['USB0_BUS_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3added7708aa477fa542786ed08fa31d06',1,'xclockps.h']]],
+  ['usb0_5fbus_5fref_5fgate',['USB0_BUS_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5a24b7b102d01f02f90c92a615c6dc6b09',1,'xclockps.h']]],
+  ['usb0_5fbus_5fref_5fmux',['USB0_BUS_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a02954270624256f5114ff6f4fbe7aa06',1,'xclockps.h']]],
+  ['usb1_5fbus_5fref_5fdiv0',['USB1_BUS_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a62e502fc982cd9720f7a226a8f48b99c',1,'xclockps.h']]],
+  ['usb1_5fbus_5fref_5fdiv1',['USB1_BUS_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3ad481ec8175c63fd7cab32abef9e7d02d',1,'xclockps.h']]],
+  ['usb1_5fbus_5fref_5fgate',['USB1_BUS_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5a75d65df0c39e293efc3cbf8ce2765aca',1,'xclockps.h']]],
+  ['usb1_5fbus_5fref_5fmux',['USB1_BUS_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a616cae7518faa56655c8727a0a46f558',1,'xclockps.h']]],
+  ['usb3_5fdual_5fref_5fdiv0',['USB3_DUAL_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a03917202bdc43677ed4a11d9d5c84648',1,'xclockps.h']]],
+  ['usb3_5fdual_5fref_5fdiv1',['USB3_DUAL_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a12560669a301e8bbf8dd386e39ec4be5',1,'xclockps.h']]],
+  ['usb3_5fdual_5fref_5fgate',['USB3_DUAL_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5ae103f639c1acbfa024e0f56bb3352652',1,'xclockps.h']]],
+  ['usb3_5fdual_5fref_5fmux',['USB3_DUAL_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a2683841a980081c25b447bcbb2fe2c14',1,'xclockps.h']]]
+];

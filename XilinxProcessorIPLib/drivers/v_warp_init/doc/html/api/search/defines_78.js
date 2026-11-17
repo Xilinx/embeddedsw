@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['xhls_5fip_5freadreg',['XHls_IP_ReadReg',['../xwarp__example_8c.html#a077c9a18b69690db63a1eb6625a3e19a',1,'xwarp_example.c']]],
+  ['xhls_5fip_5fwritereg',['XHls_IP_WriteReg',['../xwarp__example_8c.html#a882e928023692485ffa35afc5c8ecf7b',1,'xwarp_example.c']]],
+  ['xv_5fwait_5ffor_5fflush_5fdone',['XV_WAIT_FOR_FLUSH_DONE',['../xv__warp__init__l2_8c.html#a34469042deedafb14574f8a43284f3e5',1,'xv_warp_init_l2.c']]],
+  ['xv_5fwait_5ffor_5fflush_5fdone_5ftimeout',['XV_WAIT_FOR_FLUSH_DONE_TIMEOUT',['../xv__warp__init__l2_8c.html#a19046cb2d8895cf51b3ff44a93ee2afa',1,'xv_warp_init_l2.c']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fap_5fctrl',['XV_WARP_INIT_CTRL_ADDR_AP_CTRL',['../xv__warp__init__hw_8h.html#a936df21cbdb3b6bbd1d126e286df4503',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fdesc_5faddr_5fdata',['XV_WARP_INIT_CTRL_ADDR_DESC_ADDR_DATA',['../xv__warp__init__hw_8h.html#ab931db7a9b064bf84b533170f3cb57c6',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fgie',['XV_WARP_INIT_CTRL_ADDR_GIE',['../xv__warp__init__hw_8h.html#a8f60d7fcb2e940f2f8501f64fd5fa71d',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fier',['XV_WARP_INIT_CTRL_ADDR_IER',['../xv__warp__init__hw_8h.html#aba84bc90d844ceda687efafe68338a57',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fip_5fstatus_5freg_5fdata',['XV_WARP_INIT_CTRL_ADDR_IP_STATUS_REG_DATA',['../xv__warp__init__hw_8h.html#a84f048bc5d9a38e2c1c0372e6968ecf1',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fisr',['XV_WARP_INIT_CTRL_ADDR_ISR',['../xv__warp__init__hw_8h.html#a85bc0e7687dcf013d23630aa4b3796e9',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5faddr_5fmaxi_5fread_5fwrite_5fdata',['XV_WARP_INIT_CTRL_ADDR_MAXI_READ_WRITE_DATA',['../xv__warp__init__hw_8h.html#aa3a7115c0bf46e4b2de82522ad3127de',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5fbits_5fdesc_5faddr_5fdata',['XV_WARP_INIT_CTRL_BITS_DESC_ADDR_DATA',['../xv__warp__init__hw_8h.html#a7d2dd5b4452409416b317f357f51041b',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5fbits_5fip_5fstatus_5freg_5fdata',['XV_WARP_INIT_CTRL_BITS_IP_STATUS_REG_DATA',['../xv__warp__init__hw_8h.html#a5a6914f8d43fabf92dc8445a1f960ca0',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fctrl_5fbits_5fmaxi_5fread_5fwrite_5fdata',['XV_WARP_INIT_CTRL_BITS_MAXI_READ_WRITE_DATA',['../xv__warp__init__hw_8h.html#a1b58ee27e8334b4875c59f9d589e3932',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fintr_5fap_5fdone_5fmask',['XV_WARP_INIT_INTR_AP_DONE_MASK',['../xv__warp__init__hw_8h.html#adaff63549b3b993fb0483f337ad79615',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5fintr_5fap_5fready_5fmask',['XV_WARP_INIT_INTR_AP_READY_MASK',['../xv__warp__init__hw_8h.html#a71002f6219c051f8b5006afd3a9d26a1',1,'xv_warp_init_hw.h']]],
+  ['xv_5fwarp_5finit_5freadreg',['XV_warp_init_ReadReg',['../xv__warp__init_8h.html#aabbcb484f634f60c799985ced501a0ee',1,'xv_warp_init.h']]],
+  ['xv_5fwarp_5finit_5fwritereg',['XV_warp_init_WriteReg',['../xv__warp__init_8h.html#a4ac25f4dcb70f7f308a8a37f8526888c',1,'xv_warp_init.h']]]
+];

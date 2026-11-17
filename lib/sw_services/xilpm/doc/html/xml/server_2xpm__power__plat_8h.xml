@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__power__plat_8h" kind="file">
+    <compoundname>server/xpm_power_plat.h</compoundname>
+    <includes local="yes">xpm_defs.h</includes>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes local="yes">xpm_config.h</includes>
+    <incdepgraph>
+      <node id="6611">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6606">
+        <label>xpm_node.h</label>
+        <childnode refid="6607" relation="include">
+        </childnode>
+        <childnode refid="6608" relation="include">
+        </childnode>
+        <childnode refid="6609" relation="include">
+        </childnode>
+        <childnode refid="6610" relation="include">
+        </childnode>
+      </node>
+      <node id="6613">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="6612">
+        <label>xil_util.h</label>
+      </node>
+      <node id="6614">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="6605">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="6604">
+        <label>xpm_power_plat.h</label>
+        <link refid="server/xpm_power_plat.h"/>
+        <childnode refid="6605" relation="include">
+        </childnode>
+        <childnode refid="6606" relation="include">
+        </childnode>
+        <childnode refid="6610" relation="include">
+        </childnode>
+        <childnode refid="6616" relation="include">
+        </childnode>
+      </node>
+      <node id="6608">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6610">
+        <label>xpm_common.h</label>
+        <childnode refid="6608" relation="include">
+        </childnode>
+        <childnode refid="6611" relation="include">
+        </childnode>
+        <childnode refid="6612" relation="include">
+        </childnode>
+        <childnode refid="6613" relation="include">
+        </childnode>
+        <childnode refid="6614" relation="include">
+        </childnode>
+        <childnode refid="6615" relation="include">
+        </childnode>
+      </node>
+      <node id="6609">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="6607">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6615">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="6616">
+        <label>xpm_config.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_pm___power" prot="public">XPm_Power</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="server_2xpm__power__plat_8h_1ab44e4611529f57964699f3a409c340fc" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref></type>
+        <definition>typedef struct XPm_Power XPm_Power</definition>
+        <argsstring></argsstring>
+        <name>XPm_Power</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__power__plat_8h_1a81b6447db2b02d865e57ee2d4da806b3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused void</type>
+        <definition>static maybe_unused void XPmPower_SetPsmRegInfo</definition>
+        <argsstring>(XPm_Power *Power, const u32 *Args)</argsstring>
+        <name>XPmPower_SetPsmRegInfo</name>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Power</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="53" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__power__plat_8h_1a784c3d95d0f2cc3a4e66cfc26fa324b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_SendIslandPowerUpReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_SendIslandPowerUpReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.c" bodystart="173" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__power__plat_8h_1a4ff5578255d906ca8e57a86d9bcdf7e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_SendIslandPowerDwnReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_SendIslandPowerDwnReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.c" bodystart="211" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__power__plat_8h_1aea9d2663dd52436c42190574b0f02f19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_PlatSendPowerUpReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_PlatSendPowerUpReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.c" bodystart="261" bodyend="282"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__power__plat_8h_1ac3785d53d8da796517cf8dc68efbc463" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_PlatSendPowerDownReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_PlatSendPowerDownReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.c" bodystart="284" bodyend="305"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_POWER_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_POWER_PLAT_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>Versal<sp/>DVS<sp/>feature<sp/>requires<sp/>controlling<sp/>external<sp/>power<sp/>rails,<sp/>therefore,</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>include<sp/>the<sp/>power<sp/>rail<sp/>control<sp/>code.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_DVS)<sp/>&amp;&amp;<sp/>!<sp/>defined<sp/>(RAIL_CONTROL)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RAIL_CONTROL</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="struct_x_pm___power" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>{</highlight></codeline>
+<codeline lineno="37" refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/><ref refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" kindref="member">Node</ref>;<sp/></highlight></codeline>
+<codeline lineno="38" refid="struct_x_pm___power_1a0e6ac6fbe3a0321d56e650e7bbb4acd3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*<ref refid="struct_x_pm___power_1a0e6ac6fbe3a0321d56e650e7bbb4acd3" kindref="member">Parent</ref>;<sp/></highlight></codeline>
+<codeline lineno="39" refid="struct_x_pm___power_1a62c01d63c532e45e009ad1f91b869edf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___power_1a62c01d63c532e45e009ad1f91b869edf" kindref="member">UseCount</ref>;<sp/></highlight></codeline>
+<codeline lineno="40" refid="struct_x_pm___power_1ad614bd542afc648c3eb1ce5694773a83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___power_1ad614bd542afc648c3eb1ce5694773a83" kindref="member">WfParentUseCnt</ref>;<sp/></highlight></codeline>
+<codeline lineno="41" refid="struct_x_pm___power_1a8a5f743ce20e1249ff4c2a20d62aef7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___power_1a8a5f743ce20e1249ff4c2a20d62aef7b" kindref="member">PwrDnLatency</ref>;<sp/></highlight></codeline>
+<codeline lineno="42" refid="struct_x_pm___power_1a3223d429ee46944e8a0e44afd6684cd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___power_1a3223d429ee46944e8a0e44afd6684cd0" kindref="member">PwrUpLatency</ref>;<sp/></highlight></codeline>
+<codeline lineno="43" refid="struct_x_pm___power_1a04ec8e071f6a9865d9537648d0d01746" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*<sp/><ref refid="struct_x_pm___power_1a04ec8e071f6a9865d9537648d0d01746" kindref="member">HandleEvent</ref>)(<ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*<ref refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" kindref="member">Node</ref>,<sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(RAIL_CONTROL)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Support<sp/>for<sp/>up<sp/>to<sp/>4<sp/>words<sp/>of<sp/>data<sp/>for<sp/>I2C<sp/>commands<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_I2C_COMMAND_LEN<sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RAIL_CONTROL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmPower_SetPsmRegInfo(<ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Power,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Power;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Args;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">XStatus<sp/>XPmPower_SendIslandPowerUpReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">XStatus<sp/>XPmPower_SendIslandPowerDwnReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">XStatus<sp/>XPmPower_PlatSendPowerUpReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">XStatus<sp/>XPmPower_PlatSendPowerDownReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_POWER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h"/>
+  </compounddef>
+</doxygen>

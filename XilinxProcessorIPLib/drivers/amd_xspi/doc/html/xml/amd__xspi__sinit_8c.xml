@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="amd__xspi__sinit_8c" kind="file">
+    <compoundname>amd_xspi_sinit.c</compoundname>
+    <includes refid="amd__xspi_8h" local="yes">amd_xspi.h</includes>
+    <incdepgraph>
+      <node id="134">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="129">
+        <label>amd_xspi.h</label>
+        <link refid="amd__xspi_8h"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>xil_io.h</label>
+      </node>
+      <node id="130">
+        <label>amd_xspi_hw.h</label>
+        <link refid="amd__xspi__hw_8h"/>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>amd_xspi_sinit.c</label>
+        <link refid="amd_xspi_sinit.c"/>
+        <childnode refid="129" relation="include">
+        </childnode>
+      </node>
+      <node id="133">
+        <label>xstatus.h</label>
+      </node>
+      <node id="131">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__amd__xspi_1ga45961734a4a1c1e4611a196cdbb8e209" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_amd_xspi___config" kindref="compound">AmdXspi_Config</ref></type>
+        <definition>AmdXspi_Config AmdXspi_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>AmdXspi_ConfigTable</name>
+        <briefdescription>
+<para>Holds the configuration entry for each AXI XSPI instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_sinit.c" line="43" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__amd__xspi_1ga1bd70a24f250f6fff1700df83c9b3294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_amd_xspi___config" kindref="compound">AmdXspi_Config</ref> *</type>
+        <definition>AmdXspi_Config * AmdXspi_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>AmdXspi_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the base address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- A pointer to the configuration table entry if found.<itemizedlist>
+<listitem><para>NULL if not found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_sinit.c" bodystart="56" bodyend="69"/>
+        <references refid="struct_amd_xspi___config_1ab6874549af974e660b1ffd223a6449b4" compoundref="amd__xspi_8h" startline="114">AmdXspi_Config::Name</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements the static initialization lookup for the AXI XSPI driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the static initialization lookup function for the AXI XSPI driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   akm  07/29/26 Initial release
+1.0   vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="amd__xspi_8h" kindref="compound">amd_xspi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___config" kindref="compound">AmdXspi_Config</ref><sp/><ref refid="group__amd__xspi_1ga45961734a4a1c1e4611a196cdbb8e209" kindref="member">AmdXspi_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="56" refid="group__amd__xspi_1ga1bd70a24f250f6fff1700df83c9b3294" refkind="member"><highlight class="normal"><ref refid="struct_amd_xspi___config" kindref="compound">AmdXspi_Config</ref><sp/>*<ref refid="group__amd__xspi_1ga1bd70a24f250f6fff1700df83c9b3294" kindref="member">AmdXspi_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_amd_xspi___config" kindref="compound">AmdXspi_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>AmdXspi_ConfigTable[Index].<ref refid="struct_amd_xspi___config_1ab6874549af974e660b1ffd223a6449b4" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AmdXspi_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;AmdXspi_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_sinit.c"/>
+  </compounddef>
+</doxygen>

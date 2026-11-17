@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_op_uc_zeroisation" kind="struct" prot="public">
+    <compoundname>XPm_AieOpUcZeroisation</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_op_uc_zeroisation_1a14c35eb381449c89cbcc139b47d91cdf" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpUcZeroisation::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_uc_zeroisation_1aeb07c19ae642874737b03b638b06692e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpUcZeroisation::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_uc_zeroisation_1a7a85c446a03e6add5825181c891c5f8b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpUcZeroisation::Flag</definition>
+        <argsstring></argsstring>
+        <name>Flag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="49" bodyend="53"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_op_uc_zeroisation_1a7a85c446a03e6add5825181c891c5f8b" prot="public" virt="non-virtual"><scope>XPm_AieOpUcZeroisation</scope><name>Flag</name></member>
+      <member refid="struct_x_pm___aie_op_uc_zeroisation_1aeb07c19ae642874737b03b638b06692e" prot="public" virt="non-virtual"><scope>XPm_AieOpUcZeroisation</scope><name>Len</name></member>
+      <member refid="struct_x_pm___aie_op_uc_zeroisation_1a14c35eb381449c89cbcc139b47d91cdf" prot="public" virt="non-virtual"><scope>XPm_AieOpUcZeroisation</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

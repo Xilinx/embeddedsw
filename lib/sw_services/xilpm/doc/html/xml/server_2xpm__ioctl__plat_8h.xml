@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__ioctl__plat_8h" kind="file">
+    <compoundname>server/xpm_ioctl_plat.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__access_8h" local="yes">xpm_access.h</includes>
+    <includes local="yes">xpm_defs.h</includes>
+    <includes refid="server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <incdepgraph>
+      <node id="4223">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="4212">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4209">
+        <label>xpm_node.h</label>
+        <childnode refid="4206" relation="include">
+        </childnode>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4210" relation="include">
+        </childnode>
+        <childnode refid="4211" relation="include">
+        </childnode>
+      </node>
+      <node id="4214">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="4205">
+        <label>xpm_ioctl_plat.h</label>
+        <link refid="server/xpm_ioctl_plat.h"/>
+        <childnode refid="4206" relation="include">
+        </childnode>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4208" relation="include">
+        </childnode>
+        <childnode refid="4218" relation="include">
+        </childnode>
+        <childnode refid="4222" relation="include">
+        </childnode>
+      </node>
+      <node id="4213">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4215">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4219">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="4218">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="4217">
+        <label>xpm_power.h</label>
+        <childnode refid="4218" relation="include">
+        </childnode>
+        <childnode refid="4209" relation="include">
+        </childnode>
+        <childnode refid="4219" relation="include">
+        </childnode>
+        <childnode refid="4220" relation="include">
+        </childnode>
+      </node>
+      <node id="4221">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="4207">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4211">
+        <label>xpm_common.h</label>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4212" relation="include">
+        </childnode>
+        <childnode refid="4213" relation="include">
+        </childnode>
+        <childnode refid="4214" relation="include">
+        </childnode>
+        <childnode refid="4215" relation="include">
+        </childnode>
+        <childnode refid="4216" relation="include">
+        </childnode>
+      </node>
+      <node id="4210">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4208">
+        <label>xpm_access.h</label>
+        <childnode refid="4209" relation="include">
+        </childnode>
+        <childnode refid="4217" relation="include">
+        </childnode>
+        <childnode refid="4221" relation="include">
+        </childnode>
+      </node>
+      <node id="4206">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4216">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="4220">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="4222">
+        <label>xpm_regs.h</label>
+        <childnode refid="4223" relation="include">
+        </childnode>
+        <childnode refid="4220" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2xpm__ioctl__plat_8h_1a0954703f3a1311f916cc7f51220584b6" prot="public" static="no">
+        <name>IS_DEV_USB</name>
+        <param><defname>DeviceId</defname></param>
+        <initializer>(PM_DEV_USB_0 == (DeviceId))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1a6b2eab60f9984526d96e7862b9b69511" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPm_ValidateDeviceId</definition>
+        <argsstring>(const pm_ioctl_id IoctlId, const u32 DeviceId)</argsstring>
+        <name>XPm_ValidateDeviceId</name>
+        <param>
+          <type>const <ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" bodystart="22" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1a587a58d9f90532e194216e8a001a5d70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetQos</definition>
+        <argsstring>(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)</argsstring>
+        <name>XPm_GetQos</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Response</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.c" bodystart="113" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1ab1f834e2e0ddb40e7705aae14197d9b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SetAieClkDiv</definition>
+        <argsstring>(const u32 DeviceId, const u32 Divider)</argsstring>
+        <name>XPm_SetAieClkDiv</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Divider</declname>
+        </param>
+        <briefdescription>
+<para>IOCTL to set AIE clock divider. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Id of the AIE device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Divider</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested divider value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.c" bodystart="153" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1a39e7060168a26b67478d9aac878dc01b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_AieOperation</definition>
+        <argsstring>(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops, u32 Arg3)</argsstring>
+        <name>XPm_AieOperation</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Part</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Ops</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg3</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.c" bodystart="66" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1a8ec60b9ced535f1da5c86bf9b4a8b437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_AieISRClear</definition>
+        <argsstring>(u32 Value)</argsstring>
+        <name>XPm_AieISRClear</name>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Clear AIE ISR status. </para>        </briefdescription>
+        <detaileddescription>
+<para>Clears the AIE interrupt status register</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ISR bits to be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.c" bodystart="31" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1ad7f1ec240062f39eed91ecfa06064b27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetSsitTemp</definition>
+        <argsstring>(u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 *const Response)</argsstring>
+        <name>XPm_GetSsitTemp</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Response</declname>
+        </param>
+        <briefdescription>
+<para>IOCTL read secondary SLR temperature data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Id (Sysmon node ID + SLR number) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IoctlId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOCTL Id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local sysmon min/max temperature register offset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.c" bodystart="181" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1a11a3fa7b1e68ffcf2ad081d14e918325" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPm_ApuGetOperMode</definition>
+        <argsstring>(const u32 DeviceId, u32 *Mode)</argsstring>
+        <name>XPm_ApuGetOperMode</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" bodystart="54" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1a0885562c82ede7aa58117c88d57871a5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPm_ApuSetOperMode</definition>
+        <argsstring>(const u32 DeviceId, const u32 Mode)</argsstring>
+        <name>XPm_ApuSetOperMode</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" bodystart="60" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1af4fe94429d32bae89f009026d30a40e4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused u32</type>
+        <definition>static maybe_unused u32 XPm_GetUsbPwrReqOffset</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_GetUsbPwrReqOffset</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" bodystart="66" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__ioctl__plat_8h_1abf2f2df78130722f017295e13751b5d8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused u32</type>
+        <definition>static maybe_unused u32 XPm_GetUsbCurrPwrOffset</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_GetUsbCurrPwrOffset</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h" bodystart="71" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_IOCTL_PLAT_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_IOCTL_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_access.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IS_DEV_USB(DeviceId)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PM_DEV_USB_0<sp/>==<sp/>(DeviceId))</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPm_ValidateDeviceId(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((u32)<ref refid="group__xpm__versal__apis_1ggaf60d077a5f0ed79269e8b37cc966713ca99e41182e4cdedf1012bcbea9f39e4c8" kindref="member">IOCTL_GET_RPU_OPER_MODE</ref><sp/>==<sp/>IoctlId)<sp/>||</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__xpm__versal__apis_1ggaf60d077a5f0ed79269e8b37cc966713ca9918145c80cbb28ef9f559e4bab47116" kindref="member">IOCTL_SET_RPU_OPER_MODE</ref><sp/>==<sp/>IoctlId)<sp/>||</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__xpm__versal__apis_1ggaf60d077a5f0ed79269e8b37cc966713cadbb5044b3ac2c30a004ffdfd60fa8718" kindref="member">IOCTL_RPU_BOOT_ADDR_CONFIG</ref><sp/>==<sp/>IoctlId)<sp/>||</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__xpm__versal__apis_1ggaf60d077a5f0ed79269e8b37cc966713ca38a4de093be920eab2f60b27d0a09ff4" kindref="member">IOCTL_TCM_COMB_CONFIG</ref><sp/>==<sp/>IoctlId))<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PM_DEV_RPU0_0<sp/>!=<sp/>DeviceId)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PM_DEV_RPU0_1<sp/>!=<sp/>DeviceId))<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPM_INVALID_DEVICEID;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__xpm__versal__apis_1ggaf60d077a5f0ed79269e8b37cc966713caaccef68f77cab7334b0ae91ff6cb113a" kindref="member">IOCTL_PREPARE_DDR_SHUTDOWN</ref><sp/>==<sp/>IoctlId)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PM_DEV_DDR_0<sp/>!=<sp/>DeviceId))<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPM_INVALID_DEVICEID;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">XStatus<sp/>XPm_GetQos(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,<sp/>u32<sp/>*Response);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">XStatus<sp/>XPm_SetAieClkDiv(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Divider);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">XStatus<sp/>XPm_AieOperation(u32<sp/>SubsystemId,<sp/>u32<sp/>Id,<sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,<sp/>u32<sp/>Part,<sp/>u32<sp/>Ops,<sp/>u32<sp/>Arg3);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">XStatus<sp/>XPm_AieISRClear(u32<sp/>Value);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">XStatus<sp/>XPm_GetSsitTemp(u32<sp/>DeviceId,<sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,<sp/>u32<sp/>Offset,<sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Response);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPm_ApuGetOperMode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/>u32<sp/>*Mode)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)DeviceId;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Mode;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPM_ERR_IOCTL;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPm_ApuSetOperMode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Mode)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)DeviceId;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Mode;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPM_ERR_IOCTL;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XPm_GetUsbPwrReqOffset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)DeviceId;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPM_USB_PWR_REQ_OFFSET;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XPm_GetUsbCurrPwrOffset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)DeviceId;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPM_USB_CUR_PWR_OFFSET;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_IOCTL_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h"/>
+  </compounddef>
+</doxygen>

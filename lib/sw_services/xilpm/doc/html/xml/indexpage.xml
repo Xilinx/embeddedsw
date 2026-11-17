@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>The following table lists the parameter ID and their respective values:</title>
+    <detaileddescription>
+<para>This function is used to set the pin parameter of specified pin<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PinId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of the parameter</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+} <hruler/>
+ <table rows="7" cols="2"><row>
+<entry thead="yes"><para>ParamId </para></entry><entry thead="yes"><para>ParamVal  </para></entry></row>
+<row>
+<entry thead="no"><para>PINCTRL_CONFIG_SLEW_RATE </para></entry><entry thead="no"><para>PINCTRL_SLEW_RATE_SLOW, PINCTRL_SLEW_RATE_FAST </para></entry></row>
+<row>
+<entry thead="no"><para>PINCTRL_CONFIG_BIAS_STATUS </para></entry><entry thead="no"><para>PINCTRL_BIAS_DISABLE, PINCTRL_BIAS_ENABLE </para></entry></row>
+<row>
+<entry thead="no"><para>PINCTRL_CONFIG_PULL_CTRL </para></entry><entry thead="no"><para>PINCTRL_BIAS_PULL_DOWN, PINCTRL_BIAS_PULL_UP </para></entry></row>
+<row>
+<entry thead="no"><para>PINCTRL_CONFIG_SCHMITT_CMOS </para></entry><entry thead="no"><para>PINCTRL_INPUT_TYPE_CMOS, PINCTRL_INPUT_TYPE_SCHMITT </para></entry></row>
+<row>
+<entry thead="no"><para>PINCTRL_CONFIG_DRIVE_STRENGTH </para></entry><entry thead="no"><para>PINCTRL_DRIVE_STRENGTH_TRISTATE, PINCTRL_DRIVE_STRENGTH_4MA, PINCTRL_DRIVE_STRENGTH_8MA, PINCTRL_DRIVE_STRENGTH_12MA </para></entry></row>
+<row>
+<entry thead="no"><para>PINCTRL_CONFIG_TRI_STATE </para></entry><entry thead="no"><para>PINCTRL_TRI_STATE_DISABLE, PINCTRL_TRI_STATE_ENABLE </para></entry></row>
+</table>
+<hruler/>
+</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

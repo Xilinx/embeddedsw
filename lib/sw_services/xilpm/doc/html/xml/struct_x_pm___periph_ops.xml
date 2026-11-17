@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___periph_ops" kind="struct" prot="public">
+    <compoundname>XPm_PeriphOps</compoundname>
+    <includes local="no">xpm_periph.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___periph_ops_1ae11c3c8da97c13c8237cd4ea066fa6d4" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PeriphOps::SetWakeupSource)(const XPm_Periph *Periph, u8 Enable)</definition>
+        <argsstring>)(const XPm_Periph *Periph, u8 Enable)</argsstring>
+        <name>SetWakeupSource</name>
+        <briefdescription>
+<para>Configure wake routing and return its status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_periph.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_periph.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Peripheral operations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_periph.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_periph.h" bodystart="22" bodyend="25"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___periph_ops_1ae11c3c8da97c13c8237cd4ea066fa6d4" prot="public" virt="non-virtual"><scope>XPm_PeriphOps</scope><name>SetWakeupSource</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

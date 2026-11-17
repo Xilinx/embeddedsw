@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___rail" kind="struct" prot="public">
+    <compoundname>XPm_Rail</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___rail_1ae0652be410645e6d118ad22190c515ed" prot="public" static="no" mutable="no">
+        <type>XPm_Power</type>
+        <definition>XPm_Power XPm_Rail::Power</definition>
+        <argsstring></argsstring>
+        <name>Power</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1ad1a198b90210c34ea8d9d540e7061f35" prot="public" static="no" mutable="no">
+        <type>XPm_PgoodSource</type>
+        <definition>XPm_PgoodSource XPm_Rail::Source</definition>
+        <argsstring></argsstring>
+        <name>Source</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1ac4185e829903808d7e63839ee92beb57" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Rail::ParentId</definition>
+        <argsstring></argsstring>
+        <name>ParentId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1ab09a83bc1d7d3776923ac87f7fd3c6cb" prot="public" static="no" mutable="no">
+        <type>XPm_RailType</type>
+        <definition>XPm_RailType XPm_Rail::ControlType[MAX_MODES]</definition>
+        <argsstring>[MAX_MODES]</argsstring>
+        <name>ControlType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1a6c7f594c1a77bca60e5a5d7a2dd47aa5" prot="public" static="no" mutable="no">
+        <type>XPm_I2cCmd</type>
+        <definition>XPm_I2cCmd XPm_Rail::I2cModes[MAX_MODES]</definition>
+        <argsstring>[MAX_MODES]</argsstring>
+        <name>I2cModes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1acffe56e60bb974e1ec1d7e985220da6d" prot="public" static="no" mutable="no">
+        <type>XPm_GPIOCmd</type>
+        <definition>XPm_GPIOCmd XPm_Rail::GPIOModes[MAX_MODES]</definition>
+        <argsstring>[MAX_MODES]</argsstring>
+        <name>GPIOModes</name>
+        <briefdescription>
+<para>Modes information if parent regulator is controlled by I2C. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1a09c7a8f3926199c212f26db5396f5f9f" prot="public" static="no" mutable="no">
+        <type>XPmRail_TempVoltAdj *</type>
+        <definition>XPmRail_TempVoltAdj* XPm_Rail::TempVoltAdj</definition>
+        <argsstring></argsstring>
+        <name>TempVoltAdj</name>
+        <briefdescription>
+<para>Modes information if parent regulator is controlled by GPIO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1aae56aa9fab220db93be9748c3b510b1f" prot="public" static="no" mutable="no">
+        <type>XPmRail_VIDAdj *</type>
+        <definition>XPmRail_VIDAdj* XPm_Rail::VIDAdj</definition>
+        <argsstring></argsstring>
+        <name>VIDAdj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="131" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___rail_1ab09a83bc1d7d3776923ac87f7fd3c6cb" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>ControlType</name></member>
+      <member refid="struct_x_pm___rail_1acffe56e60bb974e1ec1d7e985220da6d" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>GPIOModes</name></member>
+      <member refid="struct_x_pm___rail_1a6c7f594c1a77bca60e5a5d7a2dd47aa5" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>I2cModes</name></member>
+      <member refid="struct_x_pm___rail_1ac4185e829903808d7e63839ee92beb57" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>ParentId</name></member>
+      <member refid="struct_x_pm___rail_1ae0652be410645e6d118ad22190c515ed" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>Power</name></member>
+      <member refid="struct_x_pm___rail_1ad1a198b90210c34ea8d9d540e7061f35" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>Source</name></member>
+      <member refid="struct_x_pm___rail_1a09c7a8f3926199c212f26db5396f5f9f" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>TempVoltAdj</name></member>
+      <member refid="struct_x_pm___rail_1aae56aa9fab220db93be9748c3b510b1f" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>VIDAdj</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

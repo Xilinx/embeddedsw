@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['ulpihandlerfunc',['UlpiHandlerFunc',['../struct_x_usb.html#ab0d59874fba6dffe942a93fa0c3e4a50',1,'XUsb']]],
+  ['ulpihandlerref',['UlpiHandlerRef',['../struct_x_usb.html#af31a5aa64ccb76037ca8aeca2c0aab0a',1,'XUsb']]],
+  ['usbaddress',['USBAddress',['../struct_x_usb.html#a82aaf4839aaa1cc58a1dde0e2dd7c2b4',1,'XUsb']]],
+  ['usbconfigptr',['UsbConfigPtr',['../xusb__dma__intr__storage_8c.html#a0184f31affcf6284ad838ccaac7e67cb',1,'UsbConfigPtr():&#160;xusb_dma_intr_storage.c'],['../xusb__keyboard_8c.html#a0184f31affcf6284ad838ccaac7e67cb',1,'UsbConfigPtr():&#160;xusb_keyboard.c'],['../xusb__microphone_8c.html#a0184f31affcf6284ad838ccaac7e67cb',1,'UsbConfigPtr():&#160;xusb_microphone.c'],['../xusb__mouse_8c.html#a0184f31affcf6284ad838ccaac7e67cb',1,'UsbConfigPtr():&#160;xusb_mouse.c'],['../xusb__phy__read__write_8c.html#a0184f31affcf6284ad838ccaac7e67cb',1,'UsbConfigPtr():&#160;xusb_phy_read_write.c']]],
+  ['usbinstance',['UsbInstance',['../xusb__dma__intr__storage_8c.html#a62cef26eb4d9076d0888c81106bf2146',1,'UsbInstance():&#160;xusb_dma_intr_storage.c'],['../xusb__mouse_8c.html#a62cef26eb4d9076d0888c81106bf2146',1,'UsbInstance():&#160;xusb_mouse.c'],['../xusb__phy__read__write_8c.html#a62cef26eb4d9076d0888c81106bf2146',1,'UsbInstance():&#160;xusb_phy_read_write.c'],['../xusb__storage_8c.html#a62cef26eb4d9076d0888c81106bf2146',1,'UsbInstance():&#160;xusb_storage.c'],['../xusb__storage__polled__mode_8c.html#a62cef26eb4d9076d0888c81106bf2146',1,'UsbInstance():&#160;xusb_storage_polled_mode.c']]],
+  ['usbmemdata',['UsbMemData',['../xusb__cp9_8c.html#aad134fa6705cabd23302ccfbd27b9c60',1,'UsbMemData():&#160;xusb_cp9.c'],['../xusb__microphone_8h.html#aad134fa6705cabd23302ccfbd27b9c60',1,'UsbMemData():&#160;xusb_cp9.c'],['../xusb__storage_8h.html#aad134fa6705cabd23302ccfbd27b9c60',1,'UsbMemData():&#160;xusb_cp9.c']]]
+];

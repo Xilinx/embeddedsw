@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>dsi2rx</title>
+    <detaileddescription>
+<para>This file contains the implementation of the MIPI DSI2 RX Controller driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who   Date     Changes
+<hruler/>
+
+1.0 Kunal 18/04/24 Initial Release for DSI2RX driver
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

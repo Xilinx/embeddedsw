@@ -1,0 +1,27 @@
+var struct_x_ufs_psxc =
+[
+    [ "AllocUnitSize", "struct_x_ufs_psxc.html#aa05041d157353c06249dbf65a5258cbf", null ],
+    [ "BLunALunId", "struct_x_ufs_psxc.html#a0cf71892780b85bf9cdb41b9c2584a2c", null ],
+    [ "BLunBLunId", "struct_x_ufs_psxc.html#ad5454b7ffce463add169fc9003c5f900", null ],
+    [ "BootLunEn", "struct_x_ufs_psxc.html#ac2310f05b9df66792d9bfbe307daf629", null ],
+    [ "CapAdjFactor", "struct_x_ufs_psxc.html#aac8308eb3db3e1114ba74cd939cafe70", null ],
+    [ "CmdDesc", "struct_x_ufs_psxc.html#a1d243835e7651bebde57356cca4b6e34", null ],
+    [ "Config", "struct_x_ufs_psxc.html#a40590173865640480671ea4c87b5f9f5", null ],
+    [ "Config_Desc_Data", "struct_x_ufs_psxc.html#a18356f3363611bd87c604075919a9aa8", null ],
+    [ "DevBootEn", "struct_x_ufs_psxc.html#a2204f80d7cad468c2717858a351d1636", null ],
+    [ "DeviceCapacityMiB", "struct_x_ufs_psxc.html#aab4f0bb2deed6af099f5c9300b9e2416", null ],
+    [ "ErrorCode", "struct_x_ufs_psxc.html#ab21c3ded37027bfe0c7210d2e9c3ed31", null ],
+    [ "IsReady", "struct_x_ufs_psxc.html#affac3a9613e0d8ec011b2dfd0615c9ed", null ],
+    [ "LUNInfo", "struct_x_ufs_psxc.html#a9bb4875c59891fdfc93a448ce6ce1402", null ],
+    [ "NumOfLuns", "struct_x_ufs_psxc.html#aac8fec21329d3b7210ac709c2dfe15db", null ],
+    [ "PowerMode", "struct_x_ufs_psxc.html#adfbdbe0e904b836ece09e71013d5fa5c", null ],
+    [ "req_desc_baseaddr", "struct_x_ufs_psxc.html#a15b3baa4da1f2b59e8dd2525ffa21c77", null ],
+    [ "RxATTCompValL0", "struct_x_ufs_psxc.html#a3e96a9ca2f1b75abcf78ff5c59e7a18d", null ],
+    [ "RxATTCompValL1", "struct_x_ufs_psxc.html#a59268ffd267abe52ae11b60ec7beb51f", null ],
+    [ "RxCTLECompValL0", "struct_x_ufs_psxc.html#accf541ed7d3ad51ac2e2a91948b53ee2", null ],
+    [ "RxCTLECompValL1", "struct_x_ufs_psxc.html#ae911e88161d54777e64efcf5aea88bf3", null ],
+    [ "SegmentSize", "struct_x_ufs_psxc.html#a0f61a28c041ad8515599c066c14d4c91", null ],
+    [ "TestUnitRdyLun", "struct_x_ufs_psxc.html#a4c844d6b232e376e2e3a305010e82800", null ],
+    [ "UD0BaseOffset", "struct_x_ufs_psxc.html#af51590f54e68c7abde991a3b78b33953", null ],
+    [ "UDLength", "struct_x_ufs_psxc.html#a8e7f62f8db69b869827ae31273e89a4d", null ]
+];

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___unwrap_provision_instructions_params" kind="struct" prot="public">
+    <compoundname>XAsu_UnwrapProvisionInstructionsParams</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___unwrap_provision_instructions_params_1ae2535a473828b1249c4986391bd18658" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_UnwrapProvisionInstructionsParams::ImageAddr</definition>
+        <argsstring></argsstring>
+        <name>ImageAddr</name>
+        <briefdescription>
+<para>Base address of the whole provisioning image (header @ 0). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___unwrap_provision_instructions_params_1a419b4bc4f24db52a5b000d3c0136d0e7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_UnwrapProvisionInstructionsParams::TotalLen</definition>
+        <argsstring></argsstring>
+        <name>TotalLen</name>
+        <briefdescription>
+<para>Total image/buffer length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___unwrap_provision_instructions_params_1a98c8ee023abda9d7668b6f7e2de39b40" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_UnwrapProvisionInstructionsParams::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved; must be zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="280" bodyend="284"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___unwrap_provision_instructions_params_1ae2535a473828b1249c4986391bd18658" prot="public" virt="non-virtual"><scope>XAsu_UnwrapProvisionInstructionsParams</scope><name>ImageAddr</name></member>
+      <member refid="struct_x_asu___unwrap_provision_instructions_params_1a98c8ee023abda9d7668b6f7e2de39b40" prot="public" virt="non-virtual"><scope>XAsu_UnwrapProvisionInstructionsParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___unwrap_provision_instructions_params_1a419b4bc4f24db52a5b000d3c0136d0e7" prot="public" virt="non-virtual"><scope>XAsu_UnwrapProvisionInstructionsParams</scope><name>TotalLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

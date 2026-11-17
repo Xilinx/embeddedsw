@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pend_susp_cb" kind="struct" prot="public">
+    <compoundname>XPm_PendSuspCb</compoundname>
+    <includes local="no">xpm_subsystem_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a75ea04a11a60115592a61a4832c9d5cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PendSuspCb::Reason</definition>
+        <argsstring></argsstring>
+        <name>Reason</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a1b6c7c34020a2859b1adca2c54678342" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PendSuspCb::Latency</definition>
+        <argsstring></argsstring>
+        <name>Latency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a2d6b62cc9a5f40234df8664fa50174ff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PendSuspCb::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Pending suspend callback. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="34" bodyend="38"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pend_susp_cb_1a1b6c7c34020a2859b1adca2c54678342" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>Latency</name></member>
+      <member refid="struct_x_pm___pend_susp_cb_1a75ea04a11a60115592a61a4832c9d5cd" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>Reason</name></member>
+      <member refid="struct_x_pm___pend_susp_cb_1a2d6b62cc9a5f40234df8664fa50174ff" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

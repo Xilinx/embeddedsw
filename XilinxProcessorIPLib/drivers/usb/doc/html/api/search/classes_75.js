@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['usb_5faudio_5ftype_5fi_5fformat_5fdesc',['USB_AUDIO_TYPE_I_FORMAT_DESC',['../struct_u_s_b___a_u_d_i_o___t_y_p_e___i___f_o_r_m_a_t___d_e_s_c.html',1,'']]],
+  ['usb_5fclass_5fspecific_5fac_5fif_5fheader_5fdesc',['USB_CLASS_SPECIFIC_AC_IF_HEADER_DESC',['../struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_c___i_f___h_e_a_d_e_r___d_e_s_c.html',1,'']]],
+  ['usb_5fclass_5fspecific_5fas_5fif_5fdesc',['USB_CLASS_SPECIFIC_AS_IF_DESC',['../struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_s___i_f___d_e_s_c.html',1,'']]],
+  ['usb_5fclass_5fspecific_5faudio_5fdata_5fep_5fdesc',['USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC',['../struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c.html',1,'']]],
+  ['usb_5fcmd_5fbuf',['USB_CMD_BUF',['../struct_u_s_b___c_m_d___b_u_f.html',1,'']]],
+  ['usb_5ffeature_5funit_5fdesc',['USB_FEATURE_UNIT_DESC',['../struct_u_s_b___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c.html',1,'']]],
+  ['usb_5finput_5fterminal_5fdesc',['USB_INPUT_TERMINAL_DESC',['../struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html',1,'']]],
+  ['usb_5foutput_5fterminal_5fdesc',['USB_OUTPUT_TERMINAL_DESC',['../struct_u_s_b___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5faudio_5fep_5fdesc',['USB_STD_AUDIO_EP_DESC',['../struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fcfg_5fdesc',['USB_STD_CFG_DESC',['../struct_u_s_b___s_t_d___c_f_g___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fdev_5fdesc',['USB_STD_DEV_DESC',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fep_5fdesc',['USB_STD_EP_DESC',['../struct_u_s_b___s_t_d___e_p___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fhid_5fdesc',['USB_STD_HID_DESC',['../struct_u_s_b___s_t_d___h_i_d___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fif_5fdesc',['USB_STD_IF_DESC',['../struct_u_s_b___s_t_d___i_f___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fqua_5fdesc',['USB_STD_QUA_DESC',['../struct_u_s_b___s_t_d___q_u_a___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fqual_5fdesc',['USB_STD_QUAL_DESC',['../struct_u_s_b___s_t_d___q_u_a_l___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fstring_5fdesc',['USB_STD_STRING_DESC',['../struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fstring_5fman_5fdesc',['USB_STD_STRING_MAN_DESC',['../struct_u_s_b___s_t_d___s_t_r_i_n_g___m_a_n___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fstring_5fps_5fdesc',['USB_STD_STRING_PS_DESC',['../struct_u_s_b___s_t_d___s_t_r_i_n_g___p_s___d_e_s_c.html',1,'']]],
+  ['usb_5fstd_5fstring_5fsn_5fdesc',['USB_STD_STRING_SN_DESC',['../struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c.html',1,'']]],
+  ['usbcbw',['USBCBW',['../struct_u_s_b_c_b_w.html',1,'']]],
+  ['usbcsw',['USBCSW',['../struct_u_s_b_c_s_w.html',1,'']]]
+];

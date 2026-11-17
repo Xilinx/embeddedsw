@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use iic driver.</para><sect1 id="example_1ex1">
+<title>xiic_selftest_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example performs the basic selftest using the driver.</para><para>For details, see <ref refid="xiic__selftest__example_8c" kindref="compound">xiic_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xiic_dynamic_eeprom_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a Interrupt mode design which shows the usage of the Xilinx iic device and <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver to exercise the EEPROM in Dynamic controller mode. The <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver uses the complete FIFO functionality to transmit/receive data. This example writes/reads from the lower 256 bytes of the IIC EEPROMS.</para><para>For details, see <ref refid="xiic__dynamic__eeprom__example_8c" kindref="compound">xiic_dynamic_eeprom_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xiic_eeprom_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a Interrupt mode design which shows the usage of the Xilinx iic device and <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver to exercise the EEPROM. The <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver uses the complete FIFO functionality to transmit/receive data. This example writes/reads from the lower 256 bytes of the IIC EEPROMS.</para><para>For details, see <ref refid="xiic__eeprom__example_8c" kindref="compound">xiic_eeprom_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xiic_low_level_dynamic_eeprom_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a polled mode design which shows the usage of the Xilinx iic device in dynamic mode and low-level driver to exercise the EEPROM.</para><para>For details, see <ref refid="xiic__low__level__dynamic__eeprom__example_8c" kindref="compound">xiic_low_level_dynamic_eeprom_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xiic_low_level_eeprom_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a polled mode design which shows the usage of the Xilinx iic device and low-level driver to exercise the EEPROM. This example writes/reads from the lower 256 bytes of the IIC EEPROMS.</para><para>For details, see <ref refid="xiic__low__level__eeprom__example_8c" kindref="compound">xiic_low_level_eeprom_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xiic_low_level_tempsensor_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example contains a polled mode design which shows the usage of the Xilinx iic device and low-level driver to execise the temperature sensor. This example only performs read operations (receive) from the iic temperature sensor of the platform.</para><para>For details, see <ref refid="xiic__low__level__tempsensor__example_8c" kindref="compound">xiic_low_level_tempsensor_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xiic_multi_master_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a Interrupt mode design which shows the usage of the Xilinx iic device and <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver to exercise the EEPROM in a multi master mode. This example writes/reads from the lower 256 bytes of the IIC EEPROMS.</para><para>For details, see <ref refid="xiic__multi__master__example_8c" kindref="compound">xiic_multi_master_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xiic_repeated_start_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a interrupt mode design to demonstrate the use of repeated start using the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver.</para><para>For details, see <ref refid="xiic__repeated__start__example_8c" kindref="compound">xiic_repeated_start_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex9">
+<title>xiic_slave_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a Interrupt mode design which shows the usage of the Xilinx iic device and <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver to exercise the slave functionality of the iic device.</para><para>For details, see <ref refid="xiic__slave__example_8c" kindref="compound">xiic_slave_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex10">
+<title>xiic_tempsensor_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example contains an interrupt based design which shows the usage of the Xilinx iic device and driver to exercise the temperature sensor. This example only performs read operations(receive) from the iic temperature sensor of the platform.</para><para>For details, see <ref refid="xiic__tempsensor__example_8c" kindref="compound">xiic_tempsensor_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex11">
+<title>xiic_tenbitaddr_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver directly. This example consists of a Interrupt mode design which shows the usage of the Xilinx iic device and <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver to exercise the 10-bit Address functionality of the iic device.</para><para>For details, see <ref refid="xiic__tenbitaddr__example_8c" kindref="compound">xiic_tenbitaddr_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

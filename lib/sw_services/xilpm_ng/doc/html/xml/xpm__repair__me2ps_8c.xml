@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__repair__me2ps_8c" kind="file">
+    <compoundname>xpm_repair_me2ps.c</compoundname>
+    <includes refid="xpm__repair_8h" local="yes">xpm_repair.h</includes>
+    <incdepgraph>
+      <node id="3776">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="3777" relation="include">
+        </childnode>
+        <childnode refid="3780" relation="include">
+        </childnode>
+      </node>
+      <node id="3768">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3774">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3783">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="3763">
+        <label>xpm_repair_me2ps.c</label>
+        <link refid="xpm_repair_me2ps.c"/>
+        <childnode refid="3764" relation="include">
+        </childnode>
+      </node>
+      <node id="3769">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3771">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3779">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3785">
+        <label>xpm_clock.h</label>
+        <childnode refid="3766" relation="include">
+        </childnode>
+        <childnode refid="3778" relation="include">
+        </childnode>
+        <childnode refid="3777" relation="include">
+        </childnode>
+      </node>
+      <node id="3780">
+        <label>xpm_rail.h</label>
+        <childnode refid="3767" relation="include">
+        </childnode>
+        <childnode refid="3777" relation="include">
+        </childnode>
+        <childnode refid="3781" relation="include">
+        </childnode>
+      </node>
+      <node id="3777">
+        <label>xpm_power.h</label>
+        <childnode refid="3772" relation="include">
+        </childnode>
+        <childnode refid="3778" relation="include">
+        </childnode>
+      </node>
+      <node id="3766">
+        <label>xpm_common.h</label>
+        <childnode refid="3767" relation="include">
+        </childnode>
+        <childnode refid="3768" relation="include">
+        </childnode>
+        <childnode refid="3769" relation="include">
+        </childnode>
+        <childnode refid="3770" relation="include">
+        </childnode>
+        <childnode refid="3771" relation="include">
+        </childnode>
+        <childnode refid="3772" relation="include">
+        </childnode>
+      </node>
+      <node id="3778">
+        <label>xpm_node.h</label>
+        <childnode refid="3773" relation="include">
+        </childnode>
+        <childnode refid="3767" relation="include">
+        </childnode>
+        <childnode refid="3779" relation="include">
+        </childnode>
+        <childnode refid="3766" relation="include">
+        </childnode>
+      </node>
+      <node id="3767">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3765">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="3773">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3782">
+        <label>xcframe.h</label>
+      </node>
+      <node id="3772">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3773" relation="include">
+        </childnode>
+        <childnode refid="3774" relation="include">
+        </childnode>
+      </node>
+      <node id="3775">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="3776" relation="include">
+        </childnode>
+        <childnode refid="3765" relation="include">
+        </childnode>
+        <childnode refid="3782" relation="include">
+        </childnode>
+        <childnode refid="3783" relation="include">
+        </childnode>
+        <childnode refid="3779" relation="include">
+        </childnode>
+      </node>
+      <node id="3781">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="3784">
+        <label>xpm_device.h</label>
+        <childnode refid="3778" relation="include">
+        </childnode>
+        <childnode refid="3777" relation="include">
+        </childnode>
+        <childnode refid="3785" relation="include">
+        </childnode>
+        <childnode refid="3786" relation="include">
+        </childnode>
+      </node>
+      <node id="3786">
+        <label>xpm_reset.h</label>
+        <childnode refid="3778" relation="include">
+        </childnode>
+        <childnode refid="3766" relation="include">
+        </childnode>
+      </node>
+      <node id="3770">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3767" relation="include">
+        </childnode>
+      </node>
+      <node id="3764">
+        <label>xpm_repair.h</label>
+        <childnode refid="3765" relation="include">
+        </childnode>
+        <childnode refid="3766" relation="include">
+        </childnode>
+        <childnode refid="3775" relation="include">
+        </childnode>
+        <childnode refid="3784" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__repair__me2ps_8c_1a3d8f42d86a121ef48f6019fa83808c95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Aie2p_s</definition>
+        <argsstring>(u32 *EfuseTagAddr, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Aie2p_s</name>
+        <param>
+          <type>u32 *</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_me2ps.c" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_me2ps.c" bodystart="13" bodyend="44"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>File<sp/>name:<sp/>xpm_repair_me2ps.c</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>THIS<sp/>FILE<sp/>IS<sp/>DESIGNED<sp/>BY<sp/>GOQ<sp/>FIRMWARE<sp/>TEAM<sp/>FOR<sp/>PLM<sp/>SPECIALLY</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>It<sp/>is<sp/>used<sp/>for<sp/>aie2ps<sp/>module<sp/>repair</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/><sp/><sp/><sp/>&quot;xpm_repair.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">XStatus<sp/>XPmRepair_Aie2p_s(u32<sp/>*<sp/>EfuseTagAddr,<sp/>u32<sp/>*<sp/>TagDataAddr)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*EfuseTagCursor<sp/>=<sp/>EfuseTagAddr;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagIdWd<sp/>=<sp/>*EfuseTagCursor++;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagSize<sp/>=<sp/>(TagIdWd<sp/>&amp;<sp/>PMC_EFUSE_BISR_SIZE_MASK)<sp/>&gt;&gt;<sp/>PMC_EFUSE_BISR_SIZE_SHIFT;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional<sp/>=<sp/>(TagIdWd<sp/>&amp;<sp/>PMC_EFUSE_BISR_OPTIONAL_MASK)<sp/>&gt;&gt;<sp/>PMC_EFUSE_BISR_OPTIONAL_SHIFT;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BaseAddr<sp/>=(u64)(VIVADO_ME_BASEADDR<sp/>+<sp/>((u64)TagOptional<sp/>&lt;&lt;<sp/>ME_BISR_EFUSE_OFFSET_SHIFT));<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>aie2ps_pl_module_x_0<sp/>base<sp/>address</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>BaseAddr<sp/>+(u64)(AIE2PS_PL_MODULE_0_0_BISR_CACHE_DATA0<sp/>-<sp/>AIE2PS_PL_MODULE_0_0_BASEADDR);<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ME_PL_MODULE_X_0_BISR_cache_data0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(TagSize<sp/>&gt;<sp/>8U){<sp/></highlight><highlight class="comment">/*Sanity<sp/>check<sp/>in<sp/>case<sp/>user<sp/>enters<sp/>incorrect<sp/>data<sp/>size*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard(EfuseTagCursor,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>Bisr<sp/>Repair<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>swea((BaseAddr<sp/>+(u64)(AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL<sp/>-<sp/>AIE2PS_PL_MODULE_0_0_BASEADDR)),<sp/>AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>Bisr<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>RegAddr<sp/>=<sp/>BaseAddr<sp/>+<sp/>(AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS<sp/>-<sp/>AIE2PS_PL_MODULE_0_0_BASEADDR);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask64(RegAddr,<sp/>AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_DONE_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_TIMEOUT);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((lwea(RegAddr)<sp/>&amp;<sp/>AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_PASS_MASK)<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_me2ps.c"/>
+  </compounddef>
+</doxygen>

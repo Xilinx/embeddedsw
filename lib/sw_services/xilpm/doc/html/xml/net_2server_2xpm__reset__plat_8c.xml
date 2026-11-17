@@ -1,0 +1,425 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__reset__plat_8c" kind="file">
+    <compoundname>net/server/xpm_reset_plat.c</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__device__idle_8h" local="yes">xpm_device_idle.h</includes>
+    <includes refid="xpm__reset_8h" local="yes">xpm_reset.h</includes>
+    <includes local="yes">xzdma_hw.h</includes>
+    <incdepgraph>
+      <node id="8874">
+        <label>xpm_api.h</label>
+        <childnode refid="8864" relation="include">
+        </childnode>
+        <childnode refid="8856" relation="include">
+        </childnode>
+        <childnode refid="8867" relation="include">
+        </childnode>
+        <childnode refid="8859" relation="include">
+        </childnode>
+        <childnode refid="8875" relation="include">
+        </childnode>
+        <childnode refid="8876" relation="include">
+        </childnode>
+      </node>
+      <node id="8870">
+        <label>xpm_clock.h</label>
+        <childnode refid="8855" relation="include">
+        </childnode>
+        <childnode refid="8871" relation="include">
+        </childnode>
+        <childnode refid="8863" relation="include">
+        </childnode>
+        <childnode refid="8866" relation="include">
+        </childnode>
+      </node>
+      <node id="8871">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="8857">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8863">
+        <label>xpm_node.h</label>
+        <childnode refid="8864" relation="include">
+        </childnode>
+        <childnode refid="8856" relation="include">
+        </childnode>
+        <childnode refid="8865" relation="include">
+        </childnode>
+        <childnode refid="8855" relation="include">
+        </childnode>
+      </node>
+      <node id="8859">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8872">
+        <label>xpm_reset.h</label>
+        <childnode refid="8863" relation="include">
+        </childnode>
+        <childnode refid="8855" relation="include">
+        </childnode>
+        <childnode refid="8873" relation="include">
+        </childnode>
+        <childnode refid="8878" relation="include">
+        </childnode>
+      </node>
+      <node id="8882">
+        <label>xzdma_hw.h</label>
+      </node>
+      <node id="8880">
+        <label>xpm_device_idle.h</label>
+        <childnode refid="8881" relation="include">
+        </childnode>
+        <childnode refid="8863" relation="include">
+        </childnode>
+        <childnode refid="8862" relation="include">
+        </childnode>
+      </node>
+      <node id="8858">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8860">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8873">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8874" relation="include">
+        </childnode>
+        <childnode refid="8867" relation="include">
+        </childnode>
+        <childnode refid="8856" relation="include">
+        </childnode>
+        <childnode refid="8877" relation="include">
+        </childnode>
+      </node>
+      <node id="8854">
+        <label>xpm_reset_plat.c</label>
+        <link refid="net/server/xpm_reset_plat.c"/>
+        <childnode refid="8855" relation="include">
+        </childnode>
+        <childnode refid="8862" relation="include">
+        </childnode>
+        <childnode refid="8880" relation="include">
+        </childnode>
+        <childnode refid="8872" relation="include">
+        </childnode>
+        <childnode refid="8882" relation="include">
+        </childnode>
+      </node>
+      <node id="8868">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="8867">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8877">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8879">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="8866">
+        <label>xpm_power.h</label>
+        <childnode refid="8867" relation="include">
+        </childnode>
+        <childnode refid="8863" relation="include">
+        </childnode>
+        <childnode refid="8868" relation="include">
+        </childnode>
+        <childnode refid="8869" relation="include">
+        </childnode>
+      </node>
+      <node id="8878">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8856">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8855">
+        <label>xpm_common.h</label>
+        <childnode refid="8856" relation="include">
+        </childnode>
+        <childnode refid="8857" relation="include">
+        </childnode>
+        <childnode refid="8858" relation="include">
+        </childnode>
+        <childnode refid="8859" relation="include">
+        </childnode>
+        <childnode refid="8860" relation="include">
+        </childnode>
+        <childnode refid="8861" relation="include">
+        </childnode>
+      </node>
+      <node id="8865">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8875">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8864">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8861">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8881">
+        <label>xparameters.h</label>
+      </node>
+      <node id="8869">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="8876">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="8862">
+        <label>xpm_device.h</label>
+        <childnode refid="8863" relation="include">
+        </childnode>
+        <childnode refid="8866" relation="include">
+        </childnode>
+        <childnode refid="8870" relation="include">
+        </childnode>
+        <childnode refid="8872" relation="include">
+        </childnode>
+        <childnode refid="8879" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xpm__reset__plat_8c_1aff21b37428989431c042b6cd1d13e64e" prot="public" static="no">
+        <name>XPM_MAX_TIMEOUT</name>
+        <initializer>(0x1FFFFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__reset__plat_8c_1a49fef591e8e40f1c230f71c8454d9f24" prot="public" static="no">
+        <name>XILPM_ZDMA_CH_ISR_OFFSET</name>
+        <initializer>(0x100U)	/* Channel ISR offset */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__reset__plat_8c_1abb3a0ddf4d7768cdd5c498a8e46a8c1e" prot="public" static="no">
+        <name>XILPM_ZDMA_CH_IDS_OFFSET</name>
+        <initializer>(0x10CU)	/* Channel IDS offset */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__reset__plat_8c_1a0d622b1c2dc4135da84fc0a2b5c15047" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus AdmaResetAssert</definition>
+        <argsstring>(const XPm_ResetNode *Rst)</argsstring>
+        <name>AdmaResetAssert</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Rst</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" bodystart="16" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__reset__plat_8c_1ac45318e1fa0242d6742966fe4592d23e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus AdmaResetPulse</definition>
+        <argsstring>(const XPm_ResetNode *Rst)</argsstring>
+        <name>AdmaResetPulse</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Rst</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" bodystart="68" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__reset__plat_8c_1a65e56bf48cfccd050ca2b882c95b56dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const void *</type>
+        <definition>const void* GetResetCustomOps</definition>
+        <argsstring>(u32 ResetId)</argsstring>
+        <name>GetResetCustomOps</name>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c" bodystart="85" bodyend="139"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device_idle.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_reset.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xzdma_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_MAX_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1FFFFFFFU)</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPM_ZDMA_CH_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Channel<sp/>ISR<sp/>offset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPM_ZDMA_CH_IDS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10CU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Channel<sp/>IDS<sp/>offset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>AdmaResetAssert(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0U,<sp/>LocalTimeout;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>Rst-&gt;Node.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable/stop<sp/>the<sp/>Channel<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>(XZDMA_CH_CTRL2_OFFSET),<sp/>(XZDMA_CH_CTRL2_DIS_MASK));</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>till<sp/>transfers<sp/>are<sp/>not<sp/>completed<sp/>or<sp/>halted<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LocalTimeout<sp/>=<sp/>XPM_MAX_TIMEOUT;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XZDma_ReadReg(BaseAddress,<sp/>XZDMA_CH_STS_OFFSET)<sp/>&amp;<sp/>XZDMA_STS_BUSY_MASK;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LocalTimeout--;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((0U<sp/>!=<sp/>RegVal)<sp/>&amp;&amp;<sp/>(LocalTimeout<sp/>&gt;<sp/>0U));</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>RegVal)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>and<sp/>clear<sp/>all<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XILPM_ZDMA_CH_IDS_OFFSET,<sp/>XZDMA_IXR_ALL_INTR_MASK);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XZDma_ReadReg(BaseAddress,<sp/>XILPM_ZDMA_CH_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XILPM_ZDMA_CH_ISR_OFFSET,<sp/>(RegVal<sp/>&amp;<sp/>XZDMA_IXR_ALL_INTR_MASK));</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>all<sp/>the<sp/>configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_CTRL0_OFFSET,<sp/>XZDMA_CTRL0_RESET_VALUE);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_CTRL1_OFFSET,<sp/>XZDMA_CTRL1_RESET_VALUE);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_DATA_ATTR_OFFSET,<sp/>XZDMA_DATA_ATTR_RESET_VALUE);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_DSCR_ATTR_OFFSET,<sp/>XZDMA_DSCR_ATTR_RESET_VALUE);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clears<sp/>total<sp/>byte<sp/>transferred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XZDma_ReadReg(BaseAddress,<sp/>XZDMA_CH_TOTAL_BYTE_OFFSET);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_TOTAL_BYTE_OFFSET,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>interrupt<sp/>counts<sp/>to<sp/>clear<sp/>it<sp/>on<sp/>both<sp/>source<sp/>and<sp/>destination<sp/>Channels*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XZDma_ReadReg(BaseAddress,<sp/>XZDMA_CH_IRQ_SRC_ACCT_OFFSET);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XZDma_ReadReg(BaseAddress,<sp/>XZDMA_CH_IRQ_DST_ACCT_OFFSET);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>channel&apos;s<sp/>coherent<sp/>attributes.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_DSCR_ATTR_OFFSET,<sp/>0x0);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_SRC_DSCR_WORD3_OFFSET,<sp/>0x0);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_WriteReg(BaseAddress,<sp/>XZDMA_CH_DST_DSCR_WORD3_OFFSET,<sp/>0x0);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>AdmaResetPulse(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Mask<sp/>=<sp/>BITNMASK(Rst-&gt;Shift,<sp/>Rst-&gt;Width);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ControlReg<sp/>=<sp/>Rst-&gt;Node.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>AdmaResetAssert(Rst);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(ControlReg,<sp/>Mask,<sp/>0U);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*GetResetCustomOps(u32<sp/>ResetId)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Idx;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ResetCustomOps<sp/>*RstCustomStatus<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ResetCustomOps<sp/>Reset_Custom[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_0,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_1,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_2,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_3,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_4,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_5,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_6,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ResetIdx<sp/>=<sp/>(u32)XPM_NODEIDX_RST_ADMA_7,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionAssert<sp/>=<sp/>&amp;AdmaResetAssert,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ActionPulse<sp/>=<sp/>&amp;AdmaResetPulse,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>ARRAY_SIZE(Reset_Custom);<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Reset_Custom[Idx].ResetIdx<sp/>==<sp/>NODEINDEX(ResetId))<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RstCustomStatus<sp/>=<sp/>&amp;Reset_Custom[Idx];</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>RstCustomStatus;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.c"/>
+  </compounddef>
+</doxygen>

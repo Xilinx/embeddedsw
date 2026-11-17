@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsfl__flashconfig_8h" kind="file">
+    <compoundname>xilsfl_flashconfig.h</compoundname>
+    <includes refid="xilsfl_8h" local="yes">xilsfl.h</includes>
+    <includedby refid="xilsfl__control_8h" local="yes">xilsfl_control.h</includedby>
+    <includedby refid="xilsfl__flashconfig_8c" local="yes">xilsfl_flashconfig.c</includedby>
+    <incdepgraph>
+      <node id="72">
+        <label>xilsfl.h</label>
+        <link refid="xilsfl_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xilsfl_flashconfig.h</label>
+        <link refid="xilsfl_flashconfig.h"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="74">
+        <label>xilsfl_config.h</label>
+      </node>
+      <node id="77">
+        <label>xstatus.h</label>
+      </node>
+      <node id="73">
+        <label>xparameters.h</label>
+      </node>
+      <node id="75">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="79">
+        <label>xilsfl_control.h</label>
+        <link refid="xilsfl__control_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>xilsfl_flashconfig.h</label>
+        <link refid="xilsfl_flashconfig.h"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xilsfl_interface.c</label>
+        <link refid="xilsfl__interface_8c"/>
+      </node>
+      <node id="83">
+        <label>xilsfl_flashconfig.c</label>
+        <link refid="xilsfl__flashconfig_8c"/>
+      </node>
+      <node id="81">
+        <label>xilsfl_control.c</label>
+        <link refid="xilsfl__control_8c"/>
+      </node>
+      <node id="80">
+        <label>xilsfl.c</label>
+        <link refid="xilsfl_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_flash_info" prot="public">XFlashInfo</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Flash dummy cycles</header>
+      <description><para>Dummy cycles that the library can send to the flash device. </para></description>
+      <memberdef kind="define" id="group__xilsfl_1ga9d94d20d91f30a6485f68b5a97bb1e16" prot="public" static="no">
+        <name>XSFL_FLASH_DUMMY_CYCLES_0</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Zero dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga7d44b80720fd373a53985cff36294816" prot="public" static="no">
+        <name>XSFL_FLASH_DUMMY_CYCLES_8</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+<para>Eight dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga1674db5944099ffb248a6d374b900de4" prot="public" static="no">
+        <name>XSFL_FLASH_DUMMY_CYCLES_10</name>
+        <initializer>0xA</initializer>
+        <briefdescription>
+<para>10 dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga3f445a7c0e8d3f774478ff31d391fb21" prot="public" static="no">
+        <name>XSFL_FLASH_DUMMY_CYCLES_16</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>16 dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga08d9dd3d19fbe4e6042a71afd62e3b60" prot="public" static="no">
+        <name>XSFL_FLASH_DUMMY_CYCLES_20</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>20 dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gafb448efb6b1fe4c48eeffb51e5b89f49" prot="public" static="no">
+        <name>XSFL_FLASH_DUMMY_CYCLES_21</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+<para>21 dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Flash frequencies</header>
+      <memberdef kind="define" id="group__xilsfl_1gad9e390695ed51a716901fb20f53dc75d" prot="public" static="no">
+        <name>XSFL_FLASH_FREQUENCY_166_MHZ</name>
+        <initializer>166000000U</initializer>
+        <briefdescription>
+<para>Flash frequency of 166 MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gab738f9a8fe35cf929d7fc8f995cb7614" prot="public" static="no">
+        <name>XSFL_FLASH_FREQUENCY_150_MHZ</name>
+        <initializer>150000000U</initializer>
+        <briefdescription>
+<para>Flash frequency of 150 MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga41b90824c16a7992f9d6807302368f9f" prot="public" static="no">
+        <name>XSFL_FLASH_FREQUENCY_133_MHZ</name>
+        <initializer>133000000U</initializer>
+        <briefdescription>
+<para>Flash frequency of 133 MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilsfl_1ga49546ca692512f2b92129b92006af985" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_flash_info" kindref="compound">XFlashInfo</ref></type>
+        <definition>const XFlashInfo Flash_Config_Table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Flash_Config_Table</name>
+        <briefdescription>
+<para>Holds the configuration of each supported flash device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_flashconfig.c" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga3117ca4afac19f594039caade68a1466" compoundref="xilsfl__flashconfig_8c" startline="404" endline="417">XSfl_CalculateFCTIndex</referencedby>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="130" endline="161">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1ga2dc535e80a4fa46f52380b8ece695826" compoundref="xilsfl_8c" startline="530" endline="560">XSfl_FlashGetInfo</referencedby>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="542" endline="655">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="325" endline="401">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="420" endline="523">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="72" endline="113">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga34e14f3a74f1e2cf6f8b659449453522" compoundref="xilsfl__control_8c" startline="699" endline="846">XSfl_FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xilsfl_1ga5db7bb11b2fc937b06a37b5e0e4b29a7" compoundref="xilsfl__interface_8c" startline="266" endline="282">XSfl_GetRealAddr</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="243" endline="307">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="177" endline="244">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilsfl_1ga3117ca4afac19f594039caade68a1466" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSfl_CalculateFCTIndex</definition>
+        <argsstring>(u32 ReadId, u32 *FCTIndex)</argsstring>
+        <name>XSfl_CalculateFCTIndex</name>
+        <param>
+          <type>u32</type>
+          <declname>ReadId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>FCTIndex</declname>
+        </param>
+        <briefdescription>
+<para>Identifies the flash in the Flash Configuration Table (FCT). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ReadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JEDEC read ID of the flash device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">FCTIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer that stores the matching FCT table index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_control.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_flashconfig.c" bodystart="404" bodyend="417"/>
+        <references refid="group__xilsfl_1ga49546ca692512f2b92129b92006af985" compoundref="xilsfl__flashconfig_8c" startline="47">Flash_Config_Table</references>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="70" endline="112">XSfl_FlashIdRead</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares the flash configuration table and flash-related constants. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the flash configuration table and flash-related defines.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.0   sb  8/20/24  Initial release
+1.1   sb  02/11/25 Add support for x2/x4 operation.
+1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
+1.4   vn  08/26/26 Fix Doxygen warnings.
+1.4   vn  09/30/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XILSFL_FLASHCONFIG_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSFL_FLASHCONFIG_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilsfl_8h" kindref="compound">xilsfl.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__xilsfl_1ga9d94d20d91f30a6485f68b5a97bb1e16" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_DUMMY_CYCLES_0<sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49" refid="group__xilsfl_1ga7d44b80720fd373a53985cff36294816" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_DUMMY_CYCLES_8<sp/><sp/><sp/>0x8</highlight></codeline>
+<codeline lineno="50" refid="group__xilsfl_1ga1674db5944099ffb248a6d374b900de4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSFL_FLASH_DUMMY_CYCLES_10<sp/><sp/>0xA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xilsfl_1ga3f445a7c0e8d3f774478ff31d391fb21" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_DUMMY_CYCLES_16<sp/><sp/>0x10<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xilsfl_1ga08d9dd3d19fbe4e6042a71afd62e3b60" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_DUMMY_CYCLES_20<sp/><sp/>0x14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xilsfl_1gafb448efb6b1fe4c48eeffb51e5b89f49" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_DUMMY_CYCLES_21<sp/><sp/>0x15<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__xilsfl_1gad9e390695ed51a716901fb20f53dc75d" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_FREQUENCY_166_MHZ<sp/><sp/><sp/>166000000U</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="group__xilsfl_1gab738f9a8fe35cf929d7fc8f995cb7614" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_FREQUENCY_150_MHZ<sp/><sp/><sp/>150000000U</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__xilsfl_1ga41b90824c16a7992f9d6807302368f9f" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_FLASH_FREQUENCY_133_MHZ<sp/><sp/><sp/>133000000U</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="struct_x_flash_info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="78" refid="struct_x_flash_info_1a91f6a9fa58c39ff3e63075c61017e63b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a91f6a9fa58c39ff3e63075c61017e63b" kindref="member">jedec_id</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_x_flash_info_1a1ba032ff389226bd841da6f55ddb8833" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a1ba032ff389226bd841da6f55ddb8833" kindref="member">SectSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_x_flash_info_1aec12c9968bc8a8384f0cd262de75e358" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1aec12c9968bc8a8384f0cd262de75e358" kindref="member">NumSect</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_x_flash_info_1a164f70749b141b0ec196a04b2a8f458c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a164f70749b141b0ec196a04b2a8f458c" kindref="member">PageSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_x_flash_info_1a17d5cf344b53541336e0b039b243bbc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a17d5cf344b53541336e0b039b243bbc1" kindref="member">NumPage</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_x_flash_info_1a6b45daa97d5c99f28d566bfb60bc32d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a6b45daa97d5c99f28d566bfb60bc32d1" kindref="member">FlashDeviceSize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="struct_x_flash_info_1a59160028fa0309c050deb017f5abfc7e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a59160028fa0309c050deb017f5abfc7e" kindref="member">SectMask</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_x_flash_info_1a62ec282b6c6da2504f725ec28fe5268f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a62ec282b6c6da2504f725ec28fe5268f" kindref="member">ReadCmd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="struct_x_flash_info_1aad7d6f9d39ad751dd09208cbe394aba4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1aad7d6f9d39ad751dd09208cbe394aba4" kindref="member">WriteCmd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_x_flash_info_1ab6c7a384893b585113e3c9593ad3ae78" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1ab6c7a384893b585113e3c9593ad3ae78" kindref="member">EraseCmd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_x_flash_info_1a6fed439badd48ed2aa4d51f431a1d627" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a6fed439badd48ed2aa4d51f431a1d627" kindref="member">Proto</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_x_flash_info_1a588462fc977e39765295b5b172059935" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1a588462fc977e39765295b5b172059935" kindref="member">SdrMaxFreq</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_x_flash_info_1adb4556f6a86821b489a14a33663733a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_flash_info_1adb4556f6a86821b489a14a33663733a3" kindref="member">DummyCycles</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_x_flash_info_1a115cf14e0d8a2785a16c3883a415c01a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_flash_info_1a115cf14e0d8a2785a16c3883a415c01a" kindref="member">StatusCmd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_x_flash_info_1a353fe491816aae3b4340e2117b65d600" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_flash_info_1a353fe491816aae3b4340e2117b65d600" kindref="member">NumDie</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_flash_info_1ad8b7dcd605ed15ee80295dbe7278438c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_flash_info_1ad8b7dcd605ed15ee80295dbe7278438c" kindref="member">FSRFlag</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_flash_info_1a64143914205edd0597624a36ae2441a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_flash_info_1a64143914205edd0597624a36ae2441a3" kindref="member">ExtOpCodeType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_x_flash_info_1a088f114969ecee72f82ee807c25adcfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_flash_info_1a088f114969ecee72f82ee807c25adcfb" kindref="member">FlashType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}<sp/><ref refid="struct_x_flash_info" kindref="compound">XFlashInfo</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">u32<sp/><ref refid="group__xilsfl_1ga3117ca4afac19f594039caade68a1466" kindref="member">XSfl_CalculateFCTIndex</ref>(u32<sp/>ReadId,<sp/>u32<sp/>*FCTIndex);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_flash_info" kindref="compound">XFlashInfo</ref><sp/><ref refid="group__xilsfl_1ga49546ca692512f2b92129b92006af985" kindref="member">Flash_Config_Table</ref>[];</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSFL_FLASHCONFIG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structtransfer" kind="struct" prot="public">
+    <compoundname>transfer</compoundname>
+    <includes local="no">xusb_freertos_class_composite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtransfer_1a6d9045c56e18028400f95faaa97ce710" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * transfer::Ptr</definition>
+        <argsstring></argsstring>
+        <name>Ptr</name>
+        <briefdescription>
+<para>Ptr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a787b860ced36f781523ab445c3f0f1e9" compoundref="xusb__freertos__class__composite_8c" startline="886" endline="990">ParseCBW</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8c_1a3dd6b88879ee439db086e2ff6a7664d9" compoundref="xusb__freertos__class__storage_8c" startline="287" endline="337">prvSCSITask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structtransfer_1aa1a48cec70a9df99c3179561e7516901" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 transfer::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a787b860ced36f781523ab445c3f0f1e9" compoundref="xusb__freertos__class__composite_8c" startline="886" endline="990">ParseCBW</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8c_1a3dd6b88879ee439db086e2ff6a7664d9" compoundref="xusb__freertos__class__storage_8c" startline="287" endline="337">prvSCSITask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>USB transfer data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="335" bodyend="338"/>
+    <listofallmembers>
+      <member refid="structtransfer_1aa1a48cec70a9df99c3179561e7516901" prot="public" virt="non-virtual"><scope>transfer</scope><name>Length</name></member>
+      <member refid="structtransfer_1a6d9045c56e18028400f95faaa97ce710" prot="public" virt="non-virtual"><scope>transfer</scope><name>Ptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

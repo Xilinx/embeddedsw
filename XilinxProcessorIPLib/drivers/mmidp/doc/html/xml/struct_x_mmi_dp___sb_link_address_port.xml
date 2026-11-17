@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___sb_link_address_port" kind="struct" prot="public">
+    <compoundname>XMmiDp_SbLinkAddressPort</compoundname>
+    <includes local="no">xmmidp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::InputPort</definition>
+        <argsstring></argsstring>
+        <name>InputPort</name>
+        <briefdescription>
+<para>1 = input (upstream) port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="378" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::PeerDeviceType</definition>
+        <argsstring></argsstring>
+        <name>PeerDeviceType</name>
+        <briefdescription>
+<para>XMMIDP_PEER_DEVICE_*. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="379" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::PortNum</definition>
+        <argsstring></argsstring>
+        <name>PortNum</name>
+        <briefdescription>
+<para>Port number on the branch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="380" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a98a94afcc59e0638214c6cca9aa9baa8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::MsgCapStatus</definition>
+        <argsstring></argsstring>
+        <name>MsgCapStatus</name>
+        <briefdescription>
+<para>1 = peer handles sideband messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="381" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a4d95c986b88c33079fbef2f3a39c1e9c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::DpDevPlugStatus</definition>
+        <argsstring></argsstring>
+        <name>DpDevPlugStatus</name>
+        <briefdescription>
+<para>1 = DP device plugged in. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="382" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a9c1968942d9c970f25676d057e1d2184" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::LegacyDevPlugStatus</definition>
+        <argsstring></argsstring>
+        <name>LegacyDevPlugStatus</name>
+        <briefdescription>
+<para>1 = legacy device plugged in. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a15bd1869a7dc1f3ff8bd547179cd98db" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::DpcdRev</definition>
+        <argsstring></argsstring>
+        <name>DpcdRev</name>
+        <briefdescription>
+<para>DPCD revision of the peer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="384" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1a20ad53d6d448e35d9abcf07a5e9cbc27" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::NumSdpStreams</definition>
+        <argsstring></argsstring>
+        <name>NumSdpStreams</name>
+        <briefdescription>
+<para>SDP streams the port supports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_link_address_port_1ac5d8719bf7fb54c931d74b49d29677a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbLinkAddressPort::NumSdpStreamSinks</definition>
+        <argsstring></argsstring>
+        <name>NumSdpStreamSinks</name>
+        <briefdescription>
+<para>SDP stream sinks on the port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>One output port from a LINK_ADDRESS reply. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="377" bodyend="387"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a15bd1869a7dc1f3ff8bd547179cd98db" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>DpcdRev</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a4d95c986b88c33079fbef2f3a39c1e9c" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>DpDevPlugStatus</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a22935e92056371fd2303debc41b8a096" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>InputPort</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a9c1968942d9c970f25676d057e1d2184" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>LegacyDevPlugStatus</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a98a94afcc59e0638214c6cca9aa9baa8" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>MsgCapStatus</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a20ad53d6d448e35d9abcf07a5e9cbc27" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>NumSdpStreams</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1ac5d8719bf7fb54c931d74b49d29677a9" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>NumSdpStreamSinks</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a1428e8816b2e29543f4b5dc9b43cbac9" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>PeerDeviceType</name></member>
+      <member refid="struct_x_mmi_dp___sb_link_address_port_1a3de34bc986c74fd99ef7f8dc53acc55e" prot="public" virt="non-virtual"><scope>XMmiDp_SbLinkAddressPort</scope><name>PortNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

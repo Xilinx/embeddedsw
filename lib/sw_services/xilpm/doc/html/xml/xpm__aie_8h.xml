@@ -1,0 +1,824 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__aie_8h" kind="file">
+    <compoundname>xpm_aie.h</compoundname>
+    <includes refid="xpm__bisr_8h" local="yes">xpm_bisr.h</includes>
+    <includes refid="server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includes>
+    <includes local="yes">xpm_defs.h</includes>
+    <includes refid="xpm__psm__api_8h" local="yes">xpm_psm_api.h</includes>
+    <includes refid="xpm__ipi_8h" local="yes">xpm_ipi.h</includes>
+    <includes refid="server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includedby refid="xpm__aie_8c" local="yes">xpm_aie.c</includedby>
+    <includedby refid="xpm__aiedevice_8h" local="yes">xpm_aiedevice.h</includedby>
+    <includedby refid="xpm__aiedevice_8c" local="yes">xpm_aiedevice.c</includedby>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__bisr__plat_8c" local="yes">xpm_bisr_plat.c</includedby>
+    <includedby refid="xpm__ioctl__plat_8c" local="yes">xpm_ioctl_plat.c</includedby>
+    <includedby refid="server_2xpm__reset__plat_8c" local="yes">xpm_reset_plat.c</includedby>
+    <incdepgraph>
+      <node id="475">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="483" relation="include">
+        </childnode>
+        <childnode refid="490" relation="include">
+        </childnode>
+        <childnode refid="491" relation="include">
+        </childnode>
+      </node>
+      <node id="485">
+        <label>xpm_api.h</label>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="471" relation="include">
+        </childnode>
+        <childnode refid="486" relation="include">
+        </childnode>
+        <childnode refid="487" relation="include">
+        </childnode>
+      </node>
+      <node id="493">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="494" relation="include">
+        </childnode>
+      </node>
+      <node id="499">
+        <label>xpm_clock.h</label>
+        <childnode refid="467" relation="include">
+        </childnode>
+        <childnode refid="500" relation="include">
+        </childnode>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="476" relation="include">
+        </childnode>
+      </node>
+      <node id="500">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="497">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="469">
+        <label>xil_io.h</label>
+      </node>
+      <node id="478">
+        <label>xpm_node.h</label>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="480" relation="include">
+        </childnode>
+        <childnode refid="467" relation="include">
+        </childnode>
+      </node>
+      <node id="492">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="471">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="474">
+        <label>xpm_bisr_plat.h</label>
+      </node>
+      <node id="491">
+        <label>xpm_rail.h</label>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="492" relation="include">
+        </childnode>
+      </node>
+      <node id="483">
+        <label>xpm_reset.h</label>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="467" relation="include">
+        </childnode>
+        <childnode refid="484" relation="include">
+        </childnode>
+        <childnode refid="489" relation="include">
+        </childnode>
+      </node>
+      <node id="494">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="470">
+        <label>xil_util.h</label>
+      </node>
+      <node id="472">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="484">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="485" relation="include">
+        </childnode>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="488" relation="include">
+        </childnode>
+      </node>
+      <node id="465">
+        <label>xpm_aie.h</label>
+        <link refid="xpm_aie.h"/>
+        <childnode refid="466" relation="include">
+        </childnode>
+        <childnode refid="475" relation="include">
+        </childnode>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="493" relation="include">
+        </childnode>
+        <childnode refid="495" relation="include">
+        </childnode>
+        <childnode refid="496" relation="include">
+        </childnode>
+        <childnode refid="498" relation="include">
+        </childnode>
+      </node>
+      <node id="481">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="477">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="488">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="501">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="476">
+        <label>xpm_power.h</label>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="481" relation="include">
+        </childnode>
+        <childnode refid="482" relation="include">
+        </childnode>
+      </node>
+      <node id="489">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="468">
+        <label>xstatus.h</label>
+      </node>
+      <node id="467">
+        <label>xpm_common.h</label>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="469" relation="include">
+        </childnode>
+        <childnode refid="470" relation="include">
+        </childnode>
+        <childnode refid="471" relation="include">
+        </childnode>
+        <childnode refid="472" relation="include">
+        </childnode>
+        <childnode refid="473" relation="include">
+        </childnode>
+      </node>
+      <node id="495">
+        <label>xpm_ipi.h</label>
+        <childnode refid="467" relation="include">
+        </childnode>
+      </node>
+      <node id="480">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="490">
+        <label>xpm_domain_iso.h</label>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="467" relation="include">
+        </childnode>
+      </node>
+      <node id="486">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="479">
+        <label>xil_types.h</label>
+      </node>
+      <node id="473">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="482">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="487">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="496">
+        <label>xpm_regs.h</label>
+        <childnode refid="497" relation="include">
+        </childnode>
+        <childnode refid="482" relation="include">
+        </childnode>
+      </node>
+      <node id="498">
+        <label>xpm_device.h</label>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="499" relation="include">
+        </childnode>
+        <childnode refid="483" relation="include">
+        </childnode>
+        <childnode refid="501" relation="include">
+        </childnode>
+      </node>
+      <node id="466">
+        <label>xpm_bisr.h</label>
+        <childnode refid="467" relation="include">
+        </childnode>
+        <childnode refid="474" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="511">
+        <label>xpm_reset_plat.c</label>
+      </node>
+      <node id="508">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="506">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="503">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="502">
+        <label>xpm_aie.h</label>
+        <link refid="xpm_aie.h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="504" relation="include">
+        </childnode>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+        <childnode refid="510" relation="include">
+        </childnode>
+        <childnode refid="508" relation="include">
+        </childnode>
+        <childnode refid="511" relation="include">
+        </childnode>
+      </node>
+      <node id="507">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="509">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="505">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="504">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+        <childnode refid="507" relation="include">
+        </childnode>
+        <childnode refid="508" relation="include">
+        </childnode>
+        <childnode refid="509" relation="include">
+        </childnode>
+      </node>
+      <node id="510">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___aie_array" prot="public">XPm_AieArray</innerclass>
+    <innerclass refid="struct_x_pm___aie_domain_op_hooks" prot="public">XPm_AieDomainOpHooks</innerclass>
+    <innerclass refid="struct_x_pm___aie_domain" prot="public">XPm_AieDomain</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__aie_8h_1a5dc61380d1dea503d4de46cfd894adc8" prot="public" static="no">
+        <name>ECC_SCRUB_ENABLE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a9b93cbd99f039ce1f3ea95b3e3c28837" prot="public" static="no">
+        <name>ECC_SCRUB_DISABLE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a66fc61b606ff6d9c5c5d435711dcac4f" prot="public" static="no">
+        <name>AIE_GENV1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1abeedf10a5de3491f01373ab18b87608d" prot="public" static="no">
+        <name>AIE_GENV2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a806b2272f66da1d423333ef949de0f9c" prot="public" static="no">
+        <name>ARR_GENV</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u16)((ArrWord) &amp; 0xFFFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a2d7bbb0ad8476e10df638691765828a9" prot="public" static="no">
+        <name>ARR_ROWS</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u16)((ArrWord) &amp; 0xFFFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1aca5579ad621a96362b293647c686d023" prot="public" static="no">
+        <name>ARR_COLS</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u16)(((ArrWord) &gt;&gt; 16U) &amp; 0xFFFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1aa656a3aa1bc54fbe624b407f6292ab64" prot="public" static="no">
+        <name>ARR_AIEROWS</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u16)(((ArrWord) &gt;&gt; 16U) &amp; 0xFFFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a74676307b6755502fc2393f115a2d9e0" prot="public" static="no">
+        <name>ARR_MEMROWS</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u16)(((ArrWord) &gt;&gt; 8U) &amp; 0xFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1aec271c670a35cc74f0a6a7a8fee96e04" prot="public" static="no">
+        <name>ARR_SHMROWS</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u16)((ArrWord) &amp; 0xFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a4e975ea2b6df7119e7a7450a3a345098" prot="public" static="no">
+        <name>ARR_TROWOFF</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u8)(((ArrWord) &gt;&gt; 16U) &amp; 0xFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1aea49d86ac98cb1b588bc75a727ca3903" prot="public" static="no">
+        <name>ARR_RCOLOFF</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u8)(((ArrWord) &gt;&gt; 8U) &amp; 0xFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a7eae7aa35cfb1bacb9c74d70c7d4dce6" prot="public" static="no">
+        <name>ARR_LCOLOFF</name>
+        <param><defname>ArrWord</defname></param>
+        <initializer>((u8)((ArrWord) &amp; 0xFFU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a5e319318b4a193f3f1389fb5ccdfae74" prot="public" static="no">
+        <name>AIE_START_COL_MASK</name>
+        <initializer>(0x0000FFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1aeaf690980d09ffc3f2ea65b5773863eb" prot="public" static="no">
+        <name>AIE_NUM_COL_MASK</name>
+        <initializer>(0xFFFF0000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a2a09b0e25d351b81a145f8b61648644b" prot="public" static="no">
+        <name>AIE_NUM_COL_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Bit shift to extract NumCol from OPS Part word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1ae1ef6e38cb66d5b70da9ce9d85328ff6" prot="public" static="no">
+        <name>AIE_COL_ARG_MASK</name>
+        <initializer>(0x0000FFFFU)</initializer>
+        <briefdescription>
+<para>Mask for CDO column arguments (StartCol, NumCol) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a1e3204996d6246f80bdfbfc229864c2d" prot="public" static="no">
+        <name>AIE_COL_U16_MAX</name>
+        <initializer>(0xFFFFU)</initializer>
+        <briefdescription>
+<para>Maximum valid column value (u16 range) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1aa0f13170c58590208fa66b0d59a09b18" prot="public" static="no">
+        <name>AIE_TILE_TYPE_UNDEFINED</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a4882f7aa39e13081dc2368e6bb3a4c7b" prot="public" static="no">
+        <name>AIE_TILE_TYPE_SHIMPL</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__aie_8h_1a676c3de34eaefe9c5865cdae70373e3f" prot="public" static="no">
+        <name>AIE_TILE_TYPE_SHIMNOC</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__aie_8h_1aa44ffee5de8a04f630b748a7614e639a" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___aie_array" kindref="compound">XPm_AieArray</ref></type>
+        <definition>typedef struct XPm_AieArray XPm_AieArray</definition>
+        <argsstring></argsstring>
+        <name>XPm_AieArray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="2350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__aie_8h_1aae89a7d2fa02be03a0bed295a0a6f817" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref></type>
+        <definition>typedef struct XPm_AieDomain XPm_AieDomain</definition>
+        <argsstring></argsstring>
+        <name>XPm_AieDomain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="2350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__aie_8h_1a2f4ba0403fd2635ac639bd84499c7622" prot="public" static="no">
+        <type>struct XPm_AieDomainOpHooks</type>
+        <definition>typedef struct XPm_AieDomainOpHooks XPm_AieDomainOpHooks</definition>
+        <argsstring></argsstring>
+        <name>XPm_AieDomainOpHooks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="2350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__aie_8h_1a5710ab377ae205c3e6650de4986676ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAieDomain_Init</definition>
+        <argsstring>(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress, XPm_Power *Parent, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmAieDomain_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref> *</type>
+          <declname>AieDomain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Parent</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; left col offset = 0</para><para>&lt; right col offset = 0</para><para>&lt; top row offset = 0</para><para>NOTE: This hardcoded AIE NoC Address will later be replaced; <emphasis>if</emphasis> it is passed from pm_init_start for AIE PD command.</para><para>&lt; always start from first column</para><para>&lt; always start after shim row</para><para>&lt; left col offset = 0</para><para>&lt; right col offset = 0</para><para>&lt; top row offset = 0 </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.c" bodystart="1273" bodyend="1376"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__aie_8h_1a3aec61e1b73bac36b9aba27387ba5a35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus Aie_Operations</definition>
+        <argsstring>(u32 DeviceId, u32 Part, u32 Ops)</argsstring>
+        <name>Aie_Operations</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Part</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Ops</declname>
+        </param>
+        <briefdescription>
+<para>Perform AIE column operations with partition bounds checking. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>AIE device node ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Part</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Packed column info (StartCol[15:0] | NumCol[31:16]) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ops</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of AIE operations to perform</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.c" bodystart="2301" bodyend="2342"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__aie_8h_1a281aeec624a3969af2704a9185154d85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus AddAieDeviceNode</definition>
+        <argsstring>(void)</argsstring>
+        <name>AddAieDeviceNode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.c" bodystart="351" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__aie_8h_1a8ef97a906b6321a0cd784aec66afce17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref> *</type>
+        <definition>XPm_AieDomain* XPmAie_GetDomain</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmAie_GetDomain</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns the current active AIE power domain in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>PmAieDomain </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.c" bodystart="2350" bodyend="2353"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_AIE_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_AIE_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_bisr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_powerdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_ipi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ECC_SCRUB_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ECC_SCRUB_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AIE_GENV1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AIE_GENV2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___aie_array" kindref="compound">XPm_AieArray</ref><sp/><ref refid="struct_x_pm___aie_array" kindref="compound">XPm_AieArray</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref><sp/><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieDomainOpHooks<sp/>XPm_AieDomainOpHooks;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARR_GENV(ArrWord)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u16)((ArrWord)<sp/>&amp;<sp/>0xFFFFU))</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_ROWS(ArrWord)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u16)((ArrWord)<sp/>&amp;<sp/>0xFFFFU))</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_COLS(ArrWord)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u16)(((ArrWord)<sp/>&gt;&gt;<sp/>16U)<sp/>&amp;<sp/>0xFFFFU))</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_AIEROWS(ArrWord)<sp/><sp/><sp/><sp/>((u16)(((ArrWord)<sp/>&gt;&gt;<sp/>16U)<sp/>&amp;<sp/>0xFFFFU))</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_MEMROWS(ArrWord)<sp/><sp/><sp/><sp/>((u16)(((ArrWord)<sp/>&gt;&gt;<sp/>8U)<sp/>&amp;<sp/>0xFFU))</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_SHMROWS(ArrWord)<sp/><sp/><sp/><sp/>((u16)((ArrWord)<sp/>&amp;<sp/>0xFFU))</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_TROWOFF(ArrWord)<sp/><sp/><sp/><sp/>((u8)(((ArrWord)<sp/>&gt;&gt;<sp/>16U)<sp/>&amp;<sp/>0xFFU))</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_RCOLOFF(ArrWord)<sp/><sp/><sp/><sp/>((u8)(((ArrWord)<sp/>&gt;&gt;<sp/>8U)<sp/>&amp;<sp/>0xFFU))</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARR_LCOLOFF(ArrWord)<sp/><sp/><sp/><sp/>((u8)((ArrWord)<sp/>&amp;<sp/>0xFFU))</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AIE_START_COL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000FFFFU)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AIE_NUM_COL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFF0000U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AIE_NUM_COL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>AIE_COL_ARG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000FFFFU)<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>AIE_COL_U16_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFU)<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Type<sp/>of<sp/>Tile<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AIE_TILE_TYPE_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AIE_TILE_TYPE_SHIMPL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AIE_TILE_TYPE_SHIMNOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="struct_x_pm___aie_array" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___aie_array" kindref="compound">XPm_AieArray</ref><sp/>{</highlight></codeline>
+<codeline lineno="58" refid="struct_x_pm___aie_array_1aa57cf43b6f95b0f6b05941212145bb7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_pm___aie_array_1aa57cf43b6f95b0f6b05941212145bb7b" kindref="member">NocAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_pm___aie_array_1a8965106552d36c7c1a576fecf534c876" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1a8965106552d36c7c1a576fecf534c876" kindref="member">GenVersion</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_pm___aie_array_1aa2654b8f1477f06ce8d65437f34eda78" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1aa2654b8f1477f06ce8d65437f34eda78" kindref="member">NumCols</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_pm___aie_array_1af7a21401fa844e4183be5c7d079309bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1af7a21401fa844e4183be5c7d079309bd" kindref="member">NumRows</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_pm___aie_array_1a8a567b53d683623a1222f9f9b8396622" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1a8a567b53d683623a1222f9f9b8396622" kindref="member">NumColsAdjusted</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_pm___aie_array_1aaadcec938e5a8e81a0d02b63f25b7727" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1aaadcec938e5a8e81a0d02b63f25b7727" kindref="member">NumRowsAdjusted</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_pm___aie_array_1aba75c38ea3f9d33d33bd104b8794ab3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1aba75c38ea3f9d33d33bd104b8794ab3c" kindref="member">NumAieRows</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_pm___aie_array_1a0bc4e1909ff07d667f723d1af6e2568d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1a0bc4e1909ff07d667f723d1af6e2568d" kindref="member">NumMemRows</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_pm___aie_array_1ad30ed37625824eeeb16d959c81361367" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1ad30ed37625824eeeb16d959c81361367" kindref="member">NumShimRows</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_pm___aie_array_1afaf64f3636dd96d879aa64a350a177c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1afaf64f3636dd96d879aa64a350a177c0" kindref="member">StartCol</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_pm___aie_array_1abf2c63d46d49a243053ebcd40823b7c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___aie_array_1abf2c63d46d49a243053ebcd40823b7c8" kindref="member">StartRow</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_pm___aie_array_1a247423ba2bdf9111fa658db8473a763e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___aie_array_1a247423ba2bdf9111fa658db8473a763e" kindref="member">LColOffset</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_x_pm___aie_array_1a7351624cb423cd2b8a1151f5446c2949" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___aie_array_1a7351624cb423cd2b8a1151f5446c2949" kindref="member">RColOffset</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_x_pm___aie_array_1aafdfe6741270365254a6bf3b7cab5b2b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___aie_array_1aafdfe6741270365254a6bf3b7cab5b2b" kindref="member">TRowOffset</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieDomainOpHooks<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*PostScanClearHook)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref><sp/>*AieDomain,<sp/>u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*PreBisrHook)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref><sp/>*AieDomain,<sp/>u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="struct_x_pm___aie_domain" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref><sp/>{</highlight></codeline>
+<codeline lineno="83" refid="struct_x_pm___aie_domain_1a6cc0df1eb6631def4002f22341410241" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PowerDomain<sp/><ref refid="struct_x_pm___aie_domain_1a6cc0df1eb6631def4002f22341410241" kindref="member">Domain</ref>;<sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_x_pm___aie_domain_1a32c164356365b9db9c3b1a76bc3bea83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___aie_array" kindref="compound">XPm_AieArray</ref><sp/><ref refid="struct_x_pm___aie_domain_1a32c164356365b9db9c3b1a76bc3bea83" kindref="member">Array</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_x_pm___aie_domain_1ab2a2dd6fc9d5ef1770b5c5cd94a2d68d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_AieDomainOpHooks<sp/><ref refid="struct_x_pm___aie_domain_1ab2a2dd6fc9d5ef1770b5c5cd94a2d68d" kindref="member">Hooks</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_x_pm___aie_domain_1ae7e9041930cd72349143281c3b39e68c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___aie_domain_1ae7e9041930cd72349143281c3b39e68c" kindref="member">AieNpiAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_x_pm___aie_domain_1abd590c9d81dd5598419a88453f8a0e04" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___aie_domain_1abd590c9d81dd5598419a88453f8a0e04" kindref="member">DefaultClockDiv</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">XStatus<sp/>XPmAieDomain_Init(<ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref><sp/>*AieDomain,<sp/>u32<sp/>Id,<sp/>u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Parent,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">XStatus<sp/>Aie_Operations(u32<sp/>DeviceId,<sp/>u32<sp/>Part,<sp/>u32<sp/>Ops);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">XStatus<sp/>AddAieDeviceNode(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><ref refid="struct_x_pm___aie_domain" kindref="compound">XPm_AieDomain</ref>*<sp/>XPmAie_GetDomain(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_AIE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h"/>
+  </compounddef>
+</doxygen>

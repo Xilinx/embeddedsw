@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__notifier__plat_8h" kind="file">
+    <compoundname>net/server/xpm_notifier_plat.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xpm__notifier_8h" local="yes">xpm_notifier.h</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="5021">
+        <label>xpm_notifier_plat.h</label>
+        <link refid="net/server/xpm_notifier_plat.h"/>
+        <childnode refid="5022" relation="include">
+        </childnode>
+      </node>
+      <node id="5022">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5028">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="5030">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="5033">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="5024">
+        <label>xpm_notifier.h</label>
+        <childnode refid="5025" relation="include">
+        </childnode>
+        <childnode refid="5026" relation="include">
+        </childnode>
+        <childnode refid="5027" relation="include">
+        </childnode>
+        <childnode refid="5028" relation="include">
+        </childnode>
+        <childnode refid="5029" relation="include">
+        </childnode>
+        <childnode refid="5030" relation="include">
+        </childnode>
+        <childnode refid="5031" relation="include">
+        </childnode>
+        <childnode refid="5032" relation="include">
+        </childnode>
+        <childnode refid="5033" relation="include">
+        </childnode>
+        <childnode refid="5034" relation="include">
+        </childnode>
+        <childnode refid="5035" relation="include">
+        </childnode>
+        <childnode refid="5036" relation="include">
+        </childnode>
+        <childnode refid="5037" relation="include">
+        </childnode>
+      </node>
+      <node id="5031">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="5029">
+        <label>xpm_subsystem_plat.c</label>
+      </node>
+      <node id="5037">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="5035">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="5025">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="5038">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="5034">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="5023">
+        <label>xpm_notifier_plat.h</label>
+        <link refid="net/server/xpm_notifier_plat.h"/>
+        <childnode refid="5024" relation="include">
+        </childnode>
+        <childnode refid="5038" relation="include">
+        </childnode>
+      </node>
+      <node id="5026">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="5027">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="5036">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="5032">
+        <label>xpm_device.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__notifier__plat_8h_1a6a031bd09e07754a382fda064480f1d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_RestoreErrorEvents</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmNotifier_RestoreErrorEvents</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_notifier_plat.h" line="16" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__notifier__plat_8h_1a2f824e261e0849b90c2a820ef859c082" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmNotifier_PlatHandleSsit</definition>
+        <argsstring>(u32 SubsystemId, u32 NodeId, u32 Event, u32 Enable)</argsstring>
+        <name>XPmNotifier_PlatHandleSsit</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_notifier_plat.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_notifier_plat.h" bodystart="17" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_NOTIFIER_PLAT_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_NOTIFIER_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">XStatus<sp/>XPmNotifier_RestoreErrorEvents(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmNotifier_PlatHandleSsit(u32<sp/>SubsystemId,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NodeId,<sp/>u32<sp/>Event,<sp/>u32<sp/>Enable)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)SubsystemId;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)NodeId;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Event;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Enable;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>NOTE:<sp/>NOP<sp/>on<sp/>Versal<sp/>Net<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ENABLE_UNREGISTER_ALL_NOTIFIER_SUPPORT</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmNotifier_PlatUnregisterAllSsitErr(u32<sp/>SubsystemId)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)SubsystemId;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_NOTIFIER_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_notifier_plat.h"/>
+  </compounddef>
+</doxygen>

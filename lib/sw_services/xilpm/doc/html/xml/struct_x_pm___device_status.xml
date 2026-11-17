@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___device_status" kind="struct" prot="public">
+    <compoundname>XPm_DeviceStatus</compoundname>
+    <includes local="no">xpm_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___device_status_1ac4b5a26047b5d4208d9ea69973c3b21f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_DeviceStatus::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <briefdescription>
+<para>Device power state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_status_1a17184ce56fad28ed6a39e1cdcd891aee" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_DeviceStatus::Requirement</definition>
+        <argsstring></argsstring>
+        <name>Requirement</name>
+        <briefdescription>
+<para>Requirements placed on the device by the caller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_status_1a1398e2c04698c7818d64d906c31354e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_DeviceStatus::Usage</definition>
+        <argsstring></argsstring>
+        <name>Usage</name>
+        <briefdescription>
+<para>Usage info (which subsystem is using the device) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the device status information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/common/xpm_defs.h" bodystart="129" bodyend="133"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___device_status_1a17184ce56fad28ed6a39e1cdcd891aee" prot="public" virt="non-virtual"><scope>XPm_DeviceStatus</scope><name>Requirement</name></member>
+      <member refid="struct_x_pm___device_status_1ac4b5a26047b5d4208d9ea69973c3b21f" prot="public" virt="non-virtual"><scope>XPm_DeviceStatus</scope><name>Status</name></member>
+      <member refid="struct_x_pm___device_status_1a1398e2c04698c7818d64d906c31354e0" prot="public" virt="non-virtual"><scope>XPm_DeviceStatus</scope><name>Usage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

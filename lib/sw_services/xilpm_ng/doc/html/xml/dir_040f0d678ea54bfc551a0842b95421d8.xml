@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_040f0d678ea54bfc551a0842b95421d8" kind="dir">
+    <compoundname>xilpm_boot</compoundname>
+    <innerdir refid="dir_9c6fa0e6c0ba7b677fc2ddf8cfe44420">versal_2ve_2vm</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__rpucore_8h" kind="file">
+    <compoundname>xpm_runtime_rpucore.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__runtime__rpucore_8c" local="yes">xpm_runtime_rpucore.c</includedby>
+    <incdepgraph>
+      <node id="5101">
+        <label>xpm_runtime_rpucore.h</label>
+        <link refid="xpm_runtime_rpucore.h"/>
+        <childnode refid="5102" relation="include">
+        </childnode>
+        <childnode refid="5103" relation="include">
+        </childnode>
+      </node>
+      <node id="5102">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5103">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5106">
+        <label>xpm_runtime_rpucore.c</label>
+      </node>
+      <node id="5104">
+        <label>xpm_runtime_rpucore.h</label>
+        <link refid="xpm_runtime_rpucore.h"/>
+        <childnode refid="5105" relation="include">
+        </childnode>
+        <childnode refid="5106" relation="include">
+        </childnode>
+      </node>
+      <node id="5105">
+        <label>xpm_ioctl.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__rpucore_8h_1a4f090d35ba7415277e47fa0064f8bb8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RpuBootAddrConfig</definition>
+        <argsstring>(const u32 DeviceId, const u32 BootAddr)</argsstring>
+        <name>XPm_RpuBootAddrConfig</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>BootAddr</declname>
+        </param>
+        <briefdescription>
+<para>Public API to configure the RPU core boot address for a device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the target RPU core device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BootAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boot vector address; 0 selects TCM boot</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success; XST_INVALID_PARAM if DeviceId is invalid or BootAddr is misaligned; XST_FAILURE on register-write glitch detection. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_rpucore.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_rpucore.c" bodystart="42" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RUNTIME_RPUCORE_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RUNTIME_RPUCORE_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>XPm_RpuBootAddrConfig(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>BootAddr);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RUNTIME_RPUCORE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_rpucore.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_t_m_r___manager" kind="struct" prot="public">
+    <compoundname>XTMR_Manager</compoundname>
+    <includes local="no">xtmr_manager.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_t_m_r___manager___stats" kindref="compound">XTMR_Manager_Stats</ref></type>
+        <definition>XTMR_Manager_Stats XTMR_Manager::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Component Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="xtmr__manager__recovery__example_8c_1a6870457be2d38ba96bf040dbe6a5307b" compoundref="xtmr__manager__recovery__example_8c" startline="153" endline="224">TMR_ManagerRecoveryExample</referencedby>
+        <referencedby refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" compoundref="xtmr__manager__stats_8c" startline="80" endline="90">XTMR_Manager_ClearStats</referencedby>
+        <referencedby refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" compoundref="xtmr__manager__stats_8c" startline="58" endline="71">XTMR_Manager_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga35bf0628effa71127914a170724b7e74" compoundref="xtmr__manager__recover_8c" startline="103" endline="148">XTMR_Manager_ResetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a742af92f46cbd48043582f2f1fac1586" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_t_m_r___manager___config" kindref="compound">XTMR_Manager_Config</ref></type>
+        <definition>XTMR_Manager_Config XTMR_Manager::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Config structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="xtmr__manager__intr__example_8c_1afac56f7c06b7f49ccc240019cd8db0fe" compoundref="xtmr__manager__intr__example_8c" startline="153" endline="208">TMR_ManagerIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="69" endline="89">XTMR_Manager_BreakHandler</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTMR_Manager::RegBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>RegBaseAddress</name>
+        <briefdescription>
+<para>Base address of registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gad39bb96c73a9cfee8367f01565d02b7a" compoundref="xtmr__manager_8c" startline="197" endline="203">XTMR_Manager_Configure_BrkDelay</referencedby>
+        <referencedby refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" compoundref="xtmr__manager__intr_8c" startline="110" endline="121">XTMR_Manager_DisableInterrupt</referencedby>
+        <referencedby refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" compoundref="xtmr__manager__intr_8c" startline="128" endline="139">XTMR_Manager_EnableInterrupt</referencedby>
+        <referencedby refid="group___overview_1ga35bf0628effa71127914a170724b7e74" compoundref="xtmr__manager__recover_8c" startline="103" endline="148">XTMR_Manager_ResetHandler</referencedby>
+        <referencedby refid="group___overview_1gad5a70c2dc4f54f69f80a13b972b6d8d3" compoundref="xtmr__manager__selftest_8c" startline="67" endline="93">XTMR_Manager_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="69" endline="89">XTMR_Manager_BreakHandler</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" compoundref="xtmr__manager__stats_8c" startline="80" endline="90">XTMR_Manager_ClearStats</referencedby>
+        <referencedby refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" compoundref="xtmr__manager__intr_8c" startline="110" endline="121">XTMR_Manager_DisableInterrupt</referencedby>
+        <referencedby refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" compoundref="xtmr__manager__intr_8c" startline="128" endline="139">XTMR_Manager_EnableInterrupt</referencedby>
+        <referencedby refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" compoundref="xtmr__manager__stats_8c" startline="58" endline="71">XTMR_Manager_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga35bf0628effa71127914a170724b7e74" compoundref="xtmr__manager__recover_8c" startline="103" endline="148">XTMR_Manager_ResetHandler</referencedby>
+        <referencedby refid="group___overview_1gad5a70c2dc4f54f69f80a13b972b6d8d3" compoundref="xtmr__manager__selftest_8c" startline="67" endline="93">XTMR_Manager_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" compoundref="xtmr__manager__intr_8c" startline="54" endline="67">XTMR_Manager_SetHandler</referencedby>
+        <referencedby refid="group___overview_1ga4a316389f148733636ce902586b3635a" compoundref="xtmr__manager__recover_8c" startline="218" endline="230">XTMR_Manager_SetPostResetHandler</referencedby>
+        <referencedby refid="group___overview_1ga9b07ba47bffb32613157e5ae9d8c38eb" compoundref="xtmr__manager__recover_8c" startline="192" endline="204">XTMR_Manager_SetPreResetHandler</referencedby>
+        <referencedby refid="group___overview_1gab07912dd332bd8ef68ca0c91cf06ef4b" compoundref="xtmr__manager__recover_8c" startline="164" endline="176">XTMR_Manager_SetRecoveryHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a5900b2ad4493f3b1cac896e93f7a134b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::Cr</definition>
+        <argsstring></argsstring>
+        <name>Cr</name>
+        <briefdescription>
+<para>Control register value (CR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="69" endline="89">XTMR_Manager_BreakHandler</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a9fee1a4c60dfd49105fe50b150768a10" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::Cmr0</definition>
+        <argsstring></argsstring>
+        <name>Cmr0</name>
+        <briefdescription>
+<para>Comparison mask 0 (CMR0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a3ce2d8e35325aa85054196aa48647978" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::Cmr1</definition>
+        <argsstring></argsstring>
+        <name>Cmr1</name>
+        <briefdescription>
+<para>Comparison mask 0 (CMR0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1affe67f7e583533cfd95180e0fda40065" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::Bdir</definition>
+        <argsstring></argsstring>
+        <name>Bdir</name>
+        <briefdescription>
+<para>Break delay init (BDIR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1ac5fd5d597db81fc4b33df4ccf308c1ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::SemImr</definition>
+        <argsstring></argsstring>
+        <name>SemImr</name>
+        <briefdescription>
+<para>SEM interrupt mask (SEMIMR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" compoundref="xtmr__manager__intr_8c" startline="110" endline="121">XTMR_Manager_DisableInterrupt</referencedby>
+        <referencedby refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" compoundref="xtmr__manager__intr_8c" startline="128" endline="139">XTMR_Manager_EnableInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1abc84d4a956b1ebdb7b20b053f1a5c482" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTMR_Manager::Cfir</definition>
+        <argsstring></argsstring>
+        <name>Cfir</name>
+        <briefdescription>
+<para>Comparator fault inject (CFIR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1ac2332ba307f2df6127ee6c182c559918" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kindref="member">XTMR_Manager_Handler</ref></type>
+        <definition>XTMR_Manager_Handler XTMR_Manager::RecoveryHandler</definition>
+        <argsstring></argsstring>
+        <name>RecoveryHandler</name>
+        <briefdescription>
+<para>Recovery callback handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gab07912dd332bd8ef68ca0c91cf06ef4b" compoundref="xtmr__manager__recover_8c" startline="164" endline="176">XTMR_Manager_SetRecoveryHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1ae74d16e0403d25e6456f026a5847bf82" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTMR_Manager::RecoveryCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>RecoveryCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab07912dd332bd8ef68ca0c91cf06ef4b" compoundref="xtmr__manager__recover_8c" startline="164" endline="176">XTMR_Manager_SetRecoveryHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a2dfd3181c6a6e135645b9e094dac2da7" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kindref="member">XTMR_Manager_Handler</ref></type>
+        <definition>XTMR_Manager_Handler XTMR_Manager::PreResetHandler</definition>
+        <argsstring></argsstring>
+        <name>PreResetHandler</name>
+        <briefdescription>
+<para>Pre-reset callback handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="69" endline="89">XTMR_Manager_BreakHandler</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga9b07ba47bffb32613157e5ae9d8c38eb" compoundref="xtmr__manager__recover_8c" startline="192" endline="204">XTMR_Manager_SetPreResetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a513a53d97b3c01bfba7f6f8f70fd175f" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTMR_Manager::PreResetCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>PreResetCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="69" endline="89">XTMR_Manager_BreakHandler</referencedby>
+        <referencedby refid="group___overview_1ga9b07ba47bffb32613157e5ae9d8c38eb" compoundref="xtmr__manager__recover_8c" startline="192" endline="204">XTMR_Manager_SetPreResetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1a1318c3215d2d8636bd93babee7c5a5d6" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kindref="member">XTMR_Manager_Handler</ref></type>
+        <definition>XTMR_Manager_Handler XTMR_Manager::PostResetHandler</definition>
+        <argsstring></argsstring>
+        <name>PostResetHandler</name>
+        <briefdescription>
+<para>Post-reset callback handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga35bf0628effa71127914a170724b7e74" compoundref="xtmr__manager__recover_8c" startline="103" endline="148">XTMR_Manager_ResetHandler</referencedby>
+        <referencedby refid="group___overview_1ga4a316389f148733636ce902586b3635a" compoundref="xtmr__manager__recover_8c" startline="218" endline="230">XTMR_Manager_SetPostResetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1ae5088cc2d2df5aa676971e07559d02d9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTMR_Manager::PostResetCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>PostResetCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga35bf0628effa71127914a170724b7e74" compoundref="xtmr__manager__recover_8c" startline="103" endline="148">XTMR_Manager_ResetHandler</referencedby>
+        <referencedby refid="group___overview_1ga4a316389f148733636ce902586b3635a" compoundref="xtmr__manager__recover_8c" startline="218" endline="230">XTMR_Manager_SetPostResetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1aaf6e0ead681cf5b466c1cb5cbc1817bc" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kindref="member">XTMR_Manager_Handler</ref></type>
+        <definition>XTMR_Manager_Handler XTMR_Manager::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Interrupt callback handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" compoundref="xtmr__manager__intr_8c" startline="54" endline="67">XTMR_Manager_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_t_m_r___manager_1afd72080a3e684a34516743136f0f4d80" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTMR_Manager::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Callback ref for handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" compoundref="xtmr__manager__intr_8c" startline="54" endline="67">XTMR_Manager_SetHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every TMR Manager device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XTMR_Manager_Stats</label>
+        <link refid="struct_x_t_m_r___manager___stats"/>
+      </node>
+      <node id="2">
+        <label>XTMR_Manager_Config</label>
+        <link refid="struct_x_t_m_r___manager___config"/>
+      </node>
+      <node id="1">
+        <label>XTMR_Manager</label>
+        <link refid="struct_x_t_m_r___manager"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="158" bodyend="182"/>
+    <listofallmembers>
+      <member refid="struct_x_t_m_r___manager_1affe67f7e583533cfd95180e0fda40065" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Bdir</name></member>
+      <member refid="struct_x_t_m_r___manager_1afd72080a3e684a34516743136f0f4d80" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_t_m_r___manager_1abc84d4a956b1ebdb7b20b053f1a5c482" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Cfir</name></member>
+      <member refid="struct_x_t_m_r___manager_1a9fee1a4c60dfd49105fe50b150768a10" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Cmr0</name></member>
+      <member refid="struct_x_t_m_r___manager_1a3ce2d8e35325aa85054196aa48647978" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Cmr1</name></member>
+      <member refid="struct_x_t_m_r___manager_1a742af92f46cbd48043582f2f1fac1586" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Config</name></member>
+      <member refid="struct_x_t_m_r___manager_1a5900b2ad4493f3b1cac896e93f7a134b" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Cr</name></member>
+      <member refid="struct_x_t_m_r___manager_1aaf6e0ead681cf5b466c1cb5cbc1817bc" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Handler</name></member>
+      <member refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>IsReady</name></member>
+      <member refid="struct_x_t_m_r___manager_1ae5088cc2d2df5aa676971e07559d02d9" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>PostResetCallBackRef</name></member>
+      <member refid="struct_x_t_m_r___manager_1a1318c3215d2d8636bd93babee7c5a5d6" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>PostResetHandler</name></member>
+      <member refid="struct_x_t_m_r___manager_1a513a53d97b3c01bfba7f6f8f70fd175f" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>PreResetCallBackRef</name></member>
+      <member refid="struct_x_t_m_r___manager_1a2dfd3181c6a6e135645b9e094dac2da7" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>PreResetHandler</name></member>
+      <member refid="struct_x_t_m_r___manager_1ae74d16e0403d25e6456f026a5847bf82" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>RecoveryCallBackRef</name></member>
+      <member refid="struct_x_t_m_r___manager_1ac2332ba307f2df6127ee6c182c559918" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>RecoveryHandler</name></member>
+      <member refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>RegBaseAddress</name></member>
+      <member refid="struct_x_t_m_r___manager_1ac5fd5d597db81fc4b33df4ccf308c1ed" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>SemImr</name></member>
+      <member refid="struct_x_t_m_r___manager_1a93e610bae21b4f43b4cf6e3bc3150638" prot="public" virt="non-virtual"><scope>XTMR_Manager</scope><name>Stats</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

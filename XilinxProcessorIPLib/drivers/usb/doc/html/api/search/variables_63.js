@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['cap_5fcode_5fblocklength',['cap_code_blocklength',['../struct_c_a_p_a_c_i_t_y___l_i_s_t.html#a9f043097cf1f27b6108e66425adeac5a',1,'CAPACITY_LIST']]],
+  ['caplstlen',['caplstlen',['../struct_c_a_p_a_c_i_t_y___l_i_s_t.html#a96d163d21bf5822f3c3a07dda97533df',1,'CAPACITY_LIST']]],
+  ['ch9_5fcmdbuf',['Ch9_CmdBuf',['../xusb__cp9_8c.html#a04e44d422ce05f3671ecc108f05052cc',1,'Ch9_CmdBuf():&#160;xusb_cp9.c'],['../xusb__microphone_8h.html#a04e44d422ce05f3671ecc108f05052cc',1,'Ch9_CmdBuf():&#160;xusb_cp9.c'],['../xusb__storage_8h.html#a04e44d422ce05f3671ecc108f05052cc',1,'Ch9_CmdBuf():&#160;xusb_cp9.c']]],
+  ['charblockcount',['CharBlockCount',['../xusb__storage_8h.html#aa552807a35e86de99ccda265ae085595',1,'xusb_storage.h']]],
+  ['charlba',['CharLba',['../xusb__storage_8h.html#a82fb9d1a5452696975e86395839cb21a',1,'xusb_storage.h']]],
+  ['cmdblock',['CmdBlock',['../xusb__storage_8h.html#a7b9138f2a03dd29cc77c2224504d08e4',1,'xusb_storage.h']]],
+  ['cmdflag',['CmdFlag',['../xusb__dma__intr__storage_8c.html#a0bed40faee8bf08c610c37ce2d0ddee0',1,'xusb_dma_intr_storage.c']]],
+  ['cmdstatusblock',['CmdStatusBlock',['../xusb__storage_8h.html#a69a02290348febc327a4cc627a4cd1a3',1,'xusb_storage.h']]],
+  ['config',['Config',['../struct_x_usb.html#ac9eb29e8f2372f88e570357da004e189',1,'XUsb']]],
+  ['contreadcount',['ContReadCount',['../struct_u_s_b___c_m_d___b_u_f.html#a0a13c1a8e4de4e49d255abc99e1f3b1d',1,'USB_CMD_BUF']]],
+  ['contreaddatabuffer',['ContReadDataBuffer',['../struct_u_s_b___c_m_d___b_u_f.html#a895b6520b165a146fe4f41a395532bb5',1,'USB_CMD_BUF']]],
+  ['contreadptr',['ContReadPtr',['../struct_u_s_b___c_m_d___b_u_f.html#abc9554c8476ab2278ac19cfc4478fea6',1,'USB_CMD_BUF']]],
+  ['control',['control',['../struct_u_s_b_c_b_w.html#a82f38403baaf1c122afbb3bebda76eab',1,'USBCBW']]],
+  ['contwritecount',['ContWriteCount',['../struct_u_s_b___c_m_d___b_u_f.html#a8f3fc2a17663237f0dd852bcdf3efc06',1,'USB_CMD_BUF']]],
+  ['contwriteptr',['ContWritePtr',['../struct_u_s_b___c_m_d___b_u_f.html#a8fed7b9fc178910c5acabf9b54b9621d',1,'USB_CMD_BUF']]],
+  ['curbufnum',['CurBufNum',['../struct_x_usb___ep_config.html#ac0e9a72b2f9eca216670a86e7a0b35e2',1,'XUsb_EpConfig']]],
+  ['currentconfiguration',['CurrentConfiguration',['../struct_x_usb___device_config.html#aa2e570d2cf6027c87adee4304b6afd79',1,'XUsb_DeviceConfig']]],
+  ['currentspeed',['CurrentSpeed',['../struct_x_usb___device_config.html#a53ebfe09517736ee2ca350e4d96e996c',1,'XUsb_DeviceConfig']]],
+  ['cylinders',['cylinders',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#af98c0f8eb1ee1e8afeed3c1f97abbaa1',1,'MODESENSE_FD']]]
+];

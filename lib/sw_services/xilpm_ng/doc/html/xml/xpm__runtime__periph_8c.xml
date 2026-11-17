@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__periph_8c" kind="file">
+    <compoundname>xpm_runtime_periph.c</compoundname>
+    <includes refid="xpm__runtime__periph_8h" local="yes">xpm_runtime_periph.h</includes>
+    <includes refid="xpm__update_8h" local="yes">xpm_update.h</includes>
+    <incdepgraph>
+      <node id="4816">
+        <label>xpm_runtime_periph.c</label>
+        <link refid="xpm_runtime_periph.c"/>
+        <childnode refid="4817" relation="include">
+        </childnode>
+        <childnode refid="4837" relation="include">
+        </childnode>
+      </node>
+      <node id="4825">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4817">
+        <label>xpm_runtime_periph.h</label>
+        <childnode refid="4818" relation="include">
+        </childnode>
+        <childnode refid="4834" relation="include">
+        </childnode>
+      </node>
+      <node id="4830">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4818">
+        <label>xpm_periph.h</label>
+        <childnode refid="4819" relation="include">
+        </childnode>
+      </node>
+      <node id="4837">
+        <label>xpm_update.h</label>
+      </node>
+      <node id="4826">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4828">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4823">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4832">
+        <label>xpm_clock.h</label>
+        <childnode refid="4824" relation="include">
+        </childnode>
+        <childnode refid="4820" relation="include">
+        </childnode>
+        <childnode refid="4831" relation="include">
+        </childnode>
+      </node>
+      <node id="4831">
+        <label>xpm_power.h</label>
+        <childnode refid="4829" relation="include">
+        </childnode>
+        <childnode refid="4820" relation="include">
+        </childnode>
+      </node>
+      <node id="4836">
+        <label>xpm_alloc.h</label>
+        <childnode refid="4821" relation="include">
+        </childnode>
+        <childnode refid="4822" relation="include">
+        </childnode>
+      </node>
+      <node id="4824">
+        <label>xpm_common.h</label>
+        <childnode refid="4822" relation="include">
+        </childnode>
+        <childnode refid="4825" relation="include">
+        </childnode>
+        <childnode refid="4826" relation="include">
+        </childnode>
+        <childnode refid="4827" relation="include">
+        </childnode>
+        <childnode refid="4828" relation="include">
+        </childnode>
+        <childnode refid="4829" relation="include">
+        </childnode>
+      </node>
+      <node id="4820">
+        <label>xpm_node.h</label>
+        <childnode refid="4821" relation="include">
+        </childnode>
+        <childnode refid="4822" relation="include">
+        </childnode>
+        <childnode refid="4823" relation="include">
+        </childnode>
+        <childnode refid="4824" relation="include">
+        </childnode>
+      </node>
+      <node id="4822">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4821">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4829">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4821" relation="include">
+        </childnode>
+        <childnode refid="4830" relation="include">
+        </childnode>
+      </node>
+      <node id="4834">
+        <label>xpm_list.h</label>
+        <childnode refid="4835" relation="include">
+        </childnode>
+      </node>
+      <node id="4819">
+        <label>xpm_device.h</label>
+        <childnode refid="4820" relation="include">
+        </childnode>
+        <childnode refid="4831" relation="include">
+        </childnode>
+        <childnode refid="4832" relation="include">
+        </childnode>
+        <childnode refid="4833" relation="include">
+        </childnode>
+      </node>
+      <node id="4833">
+        <label>xpm_reset.h</label>
+        <childnode refid="4820" relation="include">
+        </childnode>
+        <childnode refid="4824" relation="include">
+        </childnode>
+      </node>
+      <node id="4827">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4822" relation="include">
+        </childnode>
+      </node>
+      <node id="4835">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="4836" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__periph_8c_1a4623f3647ff0f2eeeb480339e3efa0cf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPmRuntime_PeriphList *PeriphList</type>
+        <definition>static XPmRuntime_PeriphList* PeriphList XPM_INIT_DATA</definition>
+        <argsstring>(PeriphList)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>PeriphList</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" line="8" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__periph_8c_1a6c924095630b31e7de3732bbddb2645f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPmRuntime_Periph *</type>
+        <definition>static XPmRuntime_Periph* XPmRuntime_Periph_Find</definition>
+        <argsstring>(const XPm_Periph *Device)</argsstring>
+        <name>XPmRuntime_Periph_Find</name>
+        <param>
+          <type>const XPm_Periph *</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+<para>Find a peripheral association by device pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Peripheral device to find.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the first matching association, or NULL when absent. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" bodystart="19" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__periph_8c_1ad1d83b09c7f12c888660ae7c8369156a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRuntime_Periph_GetWakeProcId</definition>
+        <argsstring>(const XPm_Periph *Device, u32 *WakeProcId)</argsstring>
+        <name>XPmRuntime_Periph_GetWakeProcId</name>
+        <param>
+          <type>const XPm_Periph *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>WakeProcId</declname>
+        </param>
+        <briefdescription>
+<para>Get the wake processor ID associated with a peripheral device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Peripheral device to look up in the peripheral list </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WakeProcId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer that receives the wake processor ID on success; unchanged when no association is found</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if found; XST_INVALID_PARAM for NULL arguments; XST_DEVICE_NOT_FOUND if the peripheral list is empty; XST_FAILURE if the list contains no association for <computeroutput>Device</computeroutput>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" bodystart="49" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__periph_8c_1a9757cf977bd8f2ee2adb2278612449a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRuntime_Periph_SetWakeProcId</definition>
+        <argsstring>(XPm_Periph *Device, u32 WakeProcId)</argsstring>
+        <name>XPmRuntime_Periph_SetWakeProcId</name>
+        <param>
+          <type>XPm_Periph *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WakeProcId</declname>
+        </param>
+        <briefdescription>
+<para>Associate a wake processor ID with a peripheral device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set the wake processor ID associated with a peripheral device.</para><para>Updates an existing association when one is present. Otherwise, lazily creates the peripheral list, allocates a new association, and prepends it to the list. Allocated list storage persists for the firmware lifetime.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Peripheral device to associate with <computeroutput>WakeProcId</computeroutput>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WakeProcId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Wake processor node ID to store.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when the association is stored; XST_INVALID_PARAM when <computeroutput>Device</computeroutput> is NULL; XST_BUFFER_TOO_SMALL when list or entry allocation fails. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c" bodystart="91" bodyend="127"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_periph.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPmRuntime_PeriphList<sp/>*PeriphList<sp/>XPM_INIT_DATA(PeriphList)<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="19"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPmRuntime_Periph<sp/>*XPmRuntime_Periph_Find(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Periph<sp/>*Device)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmRuntime_Periph<sp/>*Periph<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Match<sp/>associations<sp/>by<sp/>device<sp/>pointer<sp/>identity.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_FOREACH(PeriphList,<sp/>PeriphNode)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>!=<sp/>PeriphNode-&gt;Data)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PeriphNode-&gt;Data-&gt;Device<sp/>==<sp/>Device))<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Retain<sp/>the<sp/>first<sp/>association<sp/>in<sp/>list<sp/>order.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Periph<sp/>=<sp/>PeriphNode-&gt;Data;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Periph;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">XStatus<sp/>XPmRuntime_Periph_GetWakeProcId(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Periph<sp/>*<sp/>Device,<sp/>u32<sp/>*WakeProcId)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>==<sp/>Device)<sp/>||<sp/>(NULL<sp/>==<sp/>WakeProcId))<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>setter<sp/>creates<sp/>the<sp/>association<sp/>list<sp/>on<sp/>first<sp/>use<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PeriphList)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Match<sp/>associations<sp/>by<sp/>device<sp/>pointer<sp/>identity<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_FOREACH(PeriphList,<sp/>PeriphNode)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>!=<sp/>PeriphNode-&gt;Data)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PeriphNode-&gt;Data-&gt;Device<sp/>==<sp/>Device))<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*WakeProcId<sp/>=<sp/>PeriphNode-&gt;Data-&gt;WakeProcId;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Leave<sp/>the<sp/>output<sp/>untouched<sp/>when<sp/>no<sp/>association<sp/>matches<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">XStatus<sp/>XPmRuntime_Periph_SetWakeProcId(XPm_Periph<sp/>*<sp/>Device,<sp/>u32<sp/>WakeProcId)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmRuntime_Periph<sp/>*Periph<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reject<sp/>a<sp/>NULL<sp/>association<sp/>key<sp/>before<sp/>touching<sp/>the<sp/>list<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Device)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Lazily<sp/>create<sp/>storage<sp/>for<sp/>the<sp/>first<sp/>association<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PeriphList)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PeriphList<sp/>=<sp/>Make_XPmRuntime_PeriphList();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PeriphList)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_BUFFER_TOO_SMALL;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Periph<sp/>=<sp/>XPmRuntime_Periph_Find(Device);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Allocate<sp/>a<sp/>persistent<sp/>entry<sp/>when<sp/>the<sp/>device<sp/>is<sp/>not<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Periph)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Periph<sp/>=<sp/>(XPmRuntime_Periph*)XPm_AllocBytesDevOps(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XPmRuntime_Periph));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Periph)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_BUFFER_TOO_SMALL;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Periph-&gt;Device<sp/>=<sp/>Device;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Periph-&gt;WakeProcId<sp/>=<sp/>WakeProcId;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Prepend<sp/>may<sp/>also<sp/>fail<sp/>while<sp/>allocating<sp/>its<sp/>list<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_PREPEND(PeriphList,<sp/>Periph);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Replace<sp/>the<sp/>wake<sp/>processor<sp/>for<sp/>an<sp/>existing<sp/>association<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Periph-&gt;WakeProcId<sp/>=<sp/>WakeProcId;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c"/>
+  </compounddef>
+</doxygen>

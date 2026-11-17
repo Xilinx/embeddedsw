@@ -1,0 +1,490 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__ams__trim_8c" kind="file">
+    <compoundname>xpm_ams_trim.c</compoundname>
+    <includes local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__ams__trim_8h" local="yes">xpm_ams_trim.h</includes>
+    <incdepgraph>
+      <node id="634">
+        <label>xpm_api.h</label>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+      </node>
+      <node id="630">
+        <label>xpm_clock.h</label>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+      </node>
+      <node id="631">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="617">
+        <label>xil_io.h</label>
+      </node>
+      <node id="623">
+        <label>xpm_node.h</label>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+      </node>
+      <node id="619">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="632">
+        <label>xpm_reset.h</label>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+      </node>
+      <node id="618">
+        <label>xil_util.h</label>
+      </node>
+      <node id="620">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="633">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="637" relation="include">
+        </childnode>
+      </node>
+      <node id="628">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="627">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="637">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="639">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="626">
+        <label>xpm_power.h</label>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="629" relation="include">
+        </childnode>
+      </node>
+      <node id="638">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="613">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="616">
+        <label>xstatus.h</label>
+      </node>
+      <node id="615">
+        <label>xpm_common.h</label>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+      </node>
+      <node id="625">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="635">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="624">
+        <label>xil_types.h</label>
+      </node>
+      <node id="621">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="612">
+        <label>xpm_ams_trim.c</label>
+        <link refid="xpm_ams_trim.c"/>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+      </node>
+      <node id="640">
+        <label>xpm_ams_trim.h</label>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+      </node>
+      <node id="629">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="636">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="622">
+        <label>xpm_device.h</label>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+      </node>
+      <node id="614">
+        <label>xpm_debug.h</label>
+        <childnode refid="615" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__ams__trim_8c_1ad05f0a6d5067799dff499a144db8791f" prot="public" static="no">
+        <name>BITMASK_LOWER_15_BITS</name>
+        <initializer>(0x7fffU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" line="11" column="12" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ams__trim_8c_1a20d96c0a7bd010248fbb8b2d796cb06d" prot="public" static="no">
+        <name>BITMASK_UPPER_17_BITS</name>
+        <initializer>(0xffff8000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__ams__trim_8c_1a37a6060af6ec8e2db76d3d23ec01a466" prot="public" static="no">
+        <name>GET_DELTA_AT_OFFSET</name>
+        <param><defname>array</defname></param>
+        <param><defname>x</defname></param>
+        <initializer>(0xfU &amp; (array[(x) / 32U] &gt;&gt; ((x) % 32U)))</initializer>
+        <briefdescription>
+<para>The below macro is getting 4 bits from x offset of given array of 32-bits number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__ams__trim_8c_1a06fe5fff4ae5dba014c5bffd8a0607a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus AmsTrim_CopyCache</definition>
+        <argsstring>(u32 EfuseCacheBaseAddress, u32 PowerDomainId, u32 SateliteIdx, u32 *CacheRead, u32 *DeltaVal)</argsstring>
+        <name>AmsTrim_CopyCache</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseCacheBaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PowerDomainId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SateliteIdx</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CacheRead</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DeltaVal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" bodystart="16" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__ams__trim_8c_1a11c09486d442e71619ada1541592cb72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ApplyAmsTrim</definition>
+        <argsstring>(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)</argsstring>
+        <name>XPm_ApplyAmsTrim</name>
+        <param>
+          <type>u32</type>
+          <declname>DestAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PowerDomainId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SateliteIdx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c" bodystart="102" bodyend="195"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_ams_trim.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BITMASK_LOWER_15_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7fffU)</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BITMASK_UPPER_17_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xffff8000U)</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#define<sp/>GET_DELTA_AT_OFFSET(array,<sp/>x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xfU<sp/>&amp;<sp/>(array[(x)<sp/>/<sp/>32U]<sp/>&gt;&gt;<sp/>((x)<sp/>%<sp/>32U)))</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>AmsTrim_CopyCache(u32<sp/>EfuseCacheBaseAddress,<sp/><sp/>u32<sp/>PowerDomainId,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SateliteIdx,<sp/>u32<sp/>*CacheRead,<sp/>u32<sp/>*DeltaVal)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StartbitOffset,<sp/>RegValue,<sp/>i;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Arr[8]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>*CacheRead)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>256<sp/>bits<sp/>of<sp/>TSENS_DELTA<sp/>value<sp/>to<sp/>array<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EfuseCacheBaseAddress<sp/>+<sp/>EFUSE_CACHE_TRIM_AMS_3_OFFSET,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Store<sp/>17<sp/>bits<sp/>from<sp/>current<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Arr[0]<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_SHIFT;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0U;<sp/>i<sp/>&lt;<sp/>8U;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Address<sp/>=<sp/>(EfuseCacheBaseAddress<sp/>+<sp/>EFUSE_CACHE_TRIM_AMS_4_OFFSET<sp/>+<sp/>(i*4U));</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(Address,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>current<sp/>element<sp/>already<sp/>have<sp/>17<sp/>bits<sp/>stored<sp/>from<sp/>prev<sp/>register,</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>store<sp/>15<sp/>bits<sp/>from<sp/>current<sp/>register<sp/>to<sp/>current<sp/>element<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Arr[i]<sp/>|=<sp/>(RegValue<sp/>&amp;<sp/>BITMASK_LOWER_15_BITS)<sp/>&lt;&lt;<sp/>17;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>store<sp/>17<sp/>bits<sp/>from<sp/>current<sp/>register<sp/>to<sp/>next<sp/>element<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/>7U)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Arr[i<sp/>+<sp/>1U]<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>BITMASK_UPPER_17_BITS)<sp/>&gt;&gt;<sp/>15;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>cache<sp/>read<sp/>to<sp/>avoid<sp/>multiple<sp/>reads<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CacheRead<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(NODEINDEX(PowerDomainId))<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_POWER_PMC:</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>SateliteIdx)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_3_0<sp/>to<sp/>PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>0U);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>==<sp/>SateliteIdx)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_7_4<sp/>to<sp/>PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>4U);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Required<sp/>due<sp/>to<sp/>MISRA<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmDbg(</highlight><highlight class="stringliteral">&quot;[%d]<sp/>Invalid<sp/>SateliteIdx\r\n&quot;</highlight><highlight class="normal">,<sp/>__LINE__);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_POWER_LPD:</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_15_12<sp/>to<sp/>LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>12U);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_POWER_CPM5N:</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_243_240<sp/>to<sp/>CPM5N_SYSMON.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>240U);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_POWER_FPD:</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>SateliteIdx)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_11_8<sp/>to<sp/>FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>8U);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>==<sp/>SateliteIdx)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_247_244<sp/>to<sp/>FPD_SYSMON_SAT1.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>244U);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(2U<sp/>==<sp/>SateliteIdx)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_251_248<sp/>to<sp/>FPD_SYSMON_SAT2.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>248U);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(3U<sp/>==<sp/>SateliteIdx)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_255_252<sp/>to<sp/>FPD_SYSMON_SAT3.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>252U);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Required<sp/>due<sp/>to<sp/>MISRA<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmDbg(</highlight><highlight class="stringliteral">&quot;[%d]<sp/>Invalid<sp/>SateliteIdx\r\n&quot;</highlight><highlight class="normal">,<sp/>__LINE__);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_POWER_NOC:</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartbitOffset<sp/>=<sp/>16U<sp/>+<sp/>(SateliteIdx<sp/>*<sp/>4U);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT<sp/>to<sp/>AMS_SAT_N.EFUSE_CONFIG0[15:12]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DeltaVal<sp/>=<sp/><sp/>GET_DELTA_AT_OFFSET(Arr,<sp/>StartbitOffset);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal">XStatus<sp/>XPm_ApplyAmsTrim(u32<sp/>DestAddress,<sp/>u32<sp/>PowerDomainId,<sp/>u32<sp/>SateliteIdx)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EfuseCacheBaseAddress,<sp/>RegValue,<sp/>DeltaVal<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>OffsetVal,SlopeVal,ProcessVal,ResistorVal,BjtOffsetVal,ExtOffsetVal,AnaSpareVal,DigSpareVal;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>CacheRead=0;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>BipSelVal,<sp/>TsensSelVal,<sp/>TsensBiasVal;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>DestAddress)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_ADDR;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*EfuseCache<sp/>=<sp/>XPmDevice_GetById(PM_DEV_EFUSE_CACHE);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>EfuseCache)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_DEVICE;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EfuseCacheBaseAddress<sp/>=<sp/>EfuseCache-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unlock<sp/>writes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_UnlockPcsr(DestAddress);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>CacheRead)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.TSENS_INT_OFFSET_5_0*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EfuseCacheBaseAddress<sp/>+<sp/>EFUSE_CACHE_TRIM_AMS_3_OFFSET,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OffsetVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_3_TSENS_INT_OFFSET_5_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_3_TSENS_INT_OFFSET_5_0_SHIFT;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.TSENS_SLOPE_5_0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlopeVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_3_TSENS_SLOPE_5_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_3_TSENS_SLOPE_5_0_SHIFT;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.IXPCM_PROCESS_15_0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EfuseCacheBaseAddress<sp/>+<sp/>EFUSE_CACHE_TRIM_AMS_11_OFFSET,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ProcessVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_11_IXPCM_PROCESS_15_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_11_IXPCM_PROCESS_15_0_SHIFT;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.RES_PROCESS_6_0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EfuseCacheBaseAddress<sp/>+<sp/>EFUSE_CACHE_TRIM_AMS_11_OFFSET,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResistorVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_11_RES_PROCESS_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_11_RES_PROCESS_0_SHIFT;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(EfuseCacheBaseAddress<sp/>+<sp/>EFUSE_CACHE_TRIM_AMS_12_OFFSET,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResistorVal<sp/>|=<sp/>(((RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_RES_PROCESS_6_1_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_RES_PROCESS_6_1_SHIFT)<sp/>&lt;&lt;<sp/>1);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.BJT_PROCESS_3_0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BjtOffsetVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_BJT_PROCESS_3_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_BJT_PROCESS_3_0_SHIFT;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.TSENS_EXT_OFFSET_5_0*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ExtOffsetVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_TSENS_EXT_OFFSET_5_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_TSENS_EXT_OFFSET_5_0_SHIFT;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.SHARED_SPARE_1_0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AnaSpareVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_1_0_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_1_0_SHIFT;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>EFUSE_CACHE.SHARED_SPARE_14_2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DigSpareVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_14_2_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_14_2_SHIFT;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TsensSelVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_2_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_2_SHIFT;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BipSelVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_6_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_6_SHIFT;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TsensBiasVal<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_4_3_MASK)<sp/>&gt;&gt;<sp/>EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_4_3_SHIFT;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_INT_OFFSET_5_0<sp/>to<sp/>dest_reg.EFUSE_CONFIG0[5:0]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG0_OFFSET,<sp/><sp/>EFUSE_CONFIG0_OFFSET_MASK,<sp/>(OffsetVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG0_OFFSET_SHIFT));</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_SLOPE_5_0<sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>dest_reg.EFUSE_CONFIG0[11:6]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG0_OFFSET,<sp/><sp/>EFUSE_CONFIG0_SLOPE_MASK,<sp/>(SlopeVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG0_SLOPE_SHIFT));</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.IXPCM_PROCESS_15_0<sp/><sp/><sp/>to<sp/>dest_reg.EFUSE_CONFIG0[31:16]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG0_OFFSET,<sp/><sp/>EFUSE_CONFIG0_PROCESS_MASK,<sp/>(ProcessVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG0_PROCESS_SHIFT));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.RES_PROCESS_6_0<sp/><sp/><sp/><sp/><sp/>to<sp/>dest_reg.EFUSE_CONFIG1[6:0]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG1_OFFSET,<sp/><sp/>EFUSE_CONFIG1_RESISTOR_MASK,<sp/>(ResistorVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG1_RESISTOR_SHIFT));</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.BJT_PROCESS_3_0<sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>dest_reg.EFUSE_CONFIG1[10:7]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG1_OFFSET,<sp/><sp/>EFUSE_CONFIG1_BJT_OFFSET_MASK,<sp/>(BjtOffsetVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG1_BJT_OFFSET_SHIFT));</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TSENS_EXT_OFFSET_5_0<sp/>to<sp/>dest_reg.EFUSE_CONFIG1[16:11]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG1_OFFSET,<sp/><sp/>EFUSE_CONFIG1_EXT_OFFSET_MASK,<sp/>(ExtOffsetVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG1_EXT_OFFSET_SHIFT));</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.SHARED_SPARE_1_0<sp/><sp/><sp/><sp/><sp/>to<sp/>dest_reg.EFUSE_CONFIG1[18:17]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG1_OFFSET,<sp/><sp/>EFUSE_CONFIG1_ANA_SPARE_MASK,<sp/>(AnaSpareVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG1_ANA_SPARE_SHIFT));</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.SHARED_SPARE_14_2<sp/><sp/><sp/><sp/>to<sp/>dest_reg.EFUSE_CONFIG1[31:19]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG1_OFFSET,<sp/><sp/>EFUSE_CONFIG1_DIG_SPARE_MASK,<sp/>(DigSpareVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG1_DIG_SPARE_SHIFT));</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TRIM_AMS_12.SHARED_SPARE_2<sp/>to<sp/>dest_reg.CAL_SM_BIP_TSENS[1]<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>CAL_SM_BIP_TSENS_OFFSET,<sp/><sp/>CAL_SM_BIP_TSENS_TSENS_MASK,<sp/>(TsensSelVal<sp/>&lt;&lt;<sp/>CAL_SM_BIP_TSENS_TSENS_SHIFT));</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TRIM_AMS_12.SHARED_SPARE_6<sp/><sp/>to<sp/>dest_reg.CAL_SM_BIP_TSENS[0]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>CAL_SM_BIP_TSENS_OFFSET,<sp/><sp/>CAL_SM_BIP_TSENS_BIP_MASK,<sp/>(BipSelVal<sp/>&lt;&lt;<sp/>CAL_SM_BIP_TSENS_BIP_SHIFT));</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>EFUSE_CACHE.TRIM_AMS_12.SHARED_SPARE_3_4<sp/>to<sp/>dest_reg.TSENS_BIAS_CTRL[1:0]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>TSENS_BIAS_CTRL_OFFSET,<sp/><sp/>TSENS_BIAS_VAL_MASK,<sp/>(TsensBiasVal<sp/>&lt;&lt;<sp/>TSENS_BIAS_VAL_SHIFT));</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>AmsTrim_CopyCache(EfuseCacheBaseAddress,<sp/>PowerDomainId,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SateliteIdx,<sp/>&amp;CacheRead,<sp/>&amp;DeltaVal);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_PWR_DOMAIN;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>fail;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>DeltaVal)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(DestAddress<sp/>+<sp/>EFUSE_CONFIG0_OFFSET,<sp/><sp/>EFUSE_CONFIG0_DELTA_MASK,<sp/>(DeltaVal<sp/>&lt;&lt;<sp/>EFUSE_CONFIG0_DELTA_SHIFT));</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">fail:</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Lock<sp/>writes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XPm_LockPcsr(DestAddress);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c"/>
+  </compounddef>
+</doxygen>

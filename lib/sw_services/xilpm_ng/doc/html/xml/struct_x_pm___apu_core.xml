@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___apu_core" kind="struct" prot="public">
+    <compoundname>XPm_ApuCore</compoundname>
+    <includes local="no">xpm_apucore.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref></type>
+        <definition>XPm_Core XPm_ApuCore::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+<para>Processor core devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___apu_core_1a59dad02276193e0527a7c2b7c7828064" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ApuCore::FpdApuBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>FpdApuBaseAddr</name>
+        <briefdescription>
+<para>Base address of FPD_APU module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___apu_core_1a21dd11e88447aa0dcb470781443686c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ApuCore::PcilPwrDwnReg</definition>
+        <argsstring></argsstring>
+        <name>PcilPwrDwnReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The APU core class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="58">
+        <label>XPm_ApuCore</label>
+        <link refid="struct_x_pm___apu_core"/>
+        <childnode refid="59" relation="usage">
+          <edgelabel>Core</edgelabel>
+        </childnode>
+      </node>
+      <node id="63">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="61" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="60">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="61" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="64" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="64">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="65" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="64" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="65">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="61" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="64" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="62">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="63" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="61">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="59">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h" bodystart="54" bodyend="58"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" prot="public" virt="non-virtual"><scope>XPm_ApuCore</scope><name>Core</name></member>
+      <member refid="struct_x_pm___apu_core_1a59dad02276193e0527a7c2b7c7828064" prot="public" virt="non-virtual"><scope>XPm_ApuCore</scope><name>FpdApuBaseAddr</name></member>
+      <member refid="struct_x_pm___apu_core_1a21dd11e88447aa0dcb470781443686c2" prot="public" virt="non-virtual"><scope>XPm_ApuCore</scope><name>PcilPwrDwnReg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

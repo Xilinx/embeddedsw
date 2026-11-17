@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspi__intr__example" kind="group">
+    <compoundname>xspi_intr_example</compoundname>
+    <title>Xspi_intr_example</title>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xspi__intr__example_1ga0736e8fd26ac04767d1c7975befa0f79" prot="public" static="no">
+        <type>u8</type>
+        <definition>typedef u8 DataBuffer[BUFFER_SIZE]</definition>
+        <argsstring>[BUFFER_SIZE]</argsstring>
+        <name>DataBuffer</name>
+        <briefdescription>
+<para>Holds the data sent and received on the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspi__intr__example_1ga9b8eff14a764717b110daede88fd5fb8" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref></type>
+        <definition>XSpi SpiInstance</definition>
+        <argsstring></argsstring>
+        <name>SpiInstance</name>
+        <briefdescription>
+<para>Instance of the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__intr__example_1ga2dd94411694db2d8662ebacc6e880c0a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransferInProgress</definition>
+        <argsstring></argsstring>
+        <name>TransferInProgress</name>
+        <briefdescription>
+<para>The following variables are shared between non-interrupt processing and interrupt processing such that they must be global. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__intr__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <briefdescription>
+<para>The following variable tracks any errors that occur during interrupt processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__intr__example_1ga6d483cc635d6d110a35d871bf4498b8d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[BUFFER_SIZE]</definition>
+        <argsstring>[BUFFER_SIZE]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Buffer to read from the Spi device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__intr__example_1ga57c3703f9a6a1c27edfd3105cc5d339e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[BUFFER_SIZE]</definition>
+        <argsstring>[BUFFER_SIZE]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Buffer to write to the Spi device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspi__intr__example_1ga9311ed4ae1b8862383322e45697ee09c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiIntrExample</definition>
+        <argsstring>(XSpi *SpiInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>SpiIntrExample</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs a minimal test on the Spi device and driver as a design example. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the function is to illustrate how to use the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> component using the interrupt mode.</para><para>The function sends data and expects to receive the same data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">SpiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of Spi component. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI configuration is not found, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, the device configuration is looked up by DeviceId.<itemizedlist>
+<listitem><para>The function contains an infinite loop such that if interrupts are not working it may never return. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="227" bodyend="354"/>
+        <references refid="struct_x_spi___config_1a495ec19a4ab441ea59a0e220f0728dd9" compoundref="xspi_8h" startline="406">XSpi_Config::BaseAddress</references>
+        <references refid="group__xspi__intr__example_1ga6b20d41d6252e9871430c242cb1a56e7" compoundref="xspi__intr__example_8c" startline="91">BUFFER_SIZE</references>
+        <references refid="struct_x_spi___config_1a3f6036a8c85e0a81febbc13c358335e0" compoundref="xspi_8h" startline="419">XSpi_Config::IntrId</references>
+        <references refid="struct_x_spi___config_1a8eab103efa3a50b4bbe39d6a002150b2" compoundref="xspi_8h" startline="421">XSpi_Config::IntrParent</references>
+        <references refid="group__xspi__atmel__flash__example_1ga40c54443c9847562f2fc4543f6169aaa" compoundref="xspi__atmel__flash__example_8c" startline="193">ReadBuffer</references>
+        <references refid="group__xspi__intr__example_1ga60c82f8284908b74700875c6dadf9a49" compoundref="xspi__intr__example_8c" startline="375" endline="391">SpiIntrHandler</references>
+        <references refid="struct_x_spi_1a9816437229050cd78cb29c4f762228b7" compoundref="xspi_8h" startline="442">XSpi::SpiMode</references>
+        <references refid="group__xspi__eeprom__example_1gab3bcee72bda39943b664463f1df4d211" compoundref="xspi__eeprom__example_8c" startline="185">Test</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <references refid="group__xspi__atmel__flash__example_1ga8c8e6822de48b9dbe6a292c0b2ed7bde" compoundref="xspi__atmel__flash__example_8c" startline="195">WriteBuffer</references>
+        <references refid="group__spi_1ga1124f7ede8e4ebe96f2c764b0dadfea1" compoundref="xspi_8h" startline="353">XSP_LOOPBACK_OPTION</references>
+        <references refid="group__spi_1gac2c043a14b04e38a61b1979ccaa8a200" compoundref="xspi_8h" startline="350">XSP_MASTER_OPTION</references>
+        <references refid="group__spi__api_1gadb9526c0fe208894f41ac9a75a4ae33b" compoundref="xspi__l_8h" startline="333">XSP_STANDARD_MODE</references>
+        <references refid="group__spi__api_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</references>
+        <references refid="group__spi__api_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</references>
+        <references refid="group__spi_1ga89a706debf1603a19b95d8e556f04f68" compoundref="xspi__sinit_8c" startline="93" endline="107">XSpi_LookupConfig</references>
+        <references refid="group__spi_1ga11b6ebdb6f69c6939176e05600b10e3e" compoundref="xspi__selftest_8c" startline="90" endline="183">XSpi_SelfTest</references>
+        <references refid="group__spi_1ga67c2076b133a55b6f80343642a1ace41" compoundref="xspi__options_8c" startline="110" endline="164">XSpi_SetOptions</references>
+        <references refid="group__spi__api_1gabc09f4d503de2a772e5079ac46fc62b6" compoundref="xspi_8c" startline="1065" endline="1074">XSpi_SetStatusHandler</references>
+        <references refid="group__spi__api_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="318" endline="370">XSpi_Start</references>
+        <references refid="group__spi__api_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="564" endline="901">XSpi_Transfer</references>
+        <referencedby refid="group__xspi__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__intr__example_8c" startline="166" endline="188">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__intr__example_1ga60c82f8284908b74700875c6dadf9a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SpiIntrHandler</definition>
+        <argsstring>(void *CallBackRef, u32 StatusEvent, u32 ByteCount)</argsstring>
+        <name>SpiIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Handles the status events of the SPI driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</para><para>This handler provides an example of how to handle SPI interrupts and is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event that just occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes transferred up until the event occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="375" bodyend="391"/>
+        <references refid="group__xspi__eeprom__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" compoundref="xspi__eeprom__example_8c" startline="178">Error</references>
+        <references refid="group__xspi__eeprom__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspi__eeprom__example_8c" startline="172">TransferInProgress</references>
+        <referencedby refid="group__xspi__intr__example_1ga9311ed4ae1b8862383322e45697ee09c" compoundref="xspi__intr__example_8c" startline="227" endline="354">SpiIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the Spi interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="166" bodyend="188"/>
+        <references refid="group__xspi__intr__example_1ga9311ed4ae1b8862383322e45697ee09c" compoundref="xspi__intr__example_8c" startline="227" endline="354">SpiIntrExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspi__intr__example_1ga6b20d41d6252e9871430c242cb1a56e7" prot="public" static="no">
+        <name>BUFFER_SIZE</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>This is the size of the buffer to be transmitted/received in this example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_intr_example.c" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xspi__intr__example_1ga9311ed4ae1b8862383322e45697ee09c" compoundref="xspi__intr__example_8c" startline="227" endline="354">SpiIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

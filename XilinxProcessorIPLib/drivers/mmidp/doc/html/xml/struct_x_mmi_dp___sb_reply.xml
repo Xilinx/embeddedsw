@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___sb_reply" kind="struct" prot="public">
+    <compoundname>XMmiDp_SbReply</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_reply_1a6df765d9c56b29b8d9599d910144a9f0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_SbReply::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Valid bytes in Data[]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sb_reply_1ac56c3727ad5267f8ac9083ade1039381" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SbReply::Data[XMMIDP_SBMSG_REPLY_MAX_BYTES]</definition>
+        <argsstring>[XMMIDP_SBMSG_REPLY_MAX_BYTES]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Reply body. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sideband reply body reassembled from message transactions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_mst.c" bodystart="66" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___sb_reply_1ac56c3727ad5267f8ac9083ade1039381" prot="public" virt="non-virtual"><scope>XMmiDp_SbReply</scope><name>Data</name></member>
+      <member refid="struct_x_mmi_dp___sb_reply_1a6df765d9c56b29b8d9599d910144a9f0" prot="public" virt="non-virtual"><scope>XMmiDp_SbReply</scope><name>Length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__regulator_8h" kind="file">
+    <compoundname>xpm_regulator.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__rail_8c" local="yes">xpm_rail.c</includedby>
+    <includedby refid="xpm__regulator_8c" local="yes">xpm_regulator.c</includedby>
+    <incdepgraph>
+      <node id="3501">
+        <label>xpm_regulator.h</label>
+        <link refid="xpm_regulator.h"/>
+        <childnode refid="3502" relation="include">
+        </childnode>
+        <childnode refid="3503" relation="include">
+        </childnode>
+        <childnode refid="3514" relation="include">
+        </childnode>
+      </node>
+      <node id="3510">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3506">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3511">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3513">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3508">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3515">
+        <label>xpm_clock.h</label>
+        <childnode refid="3509" relation="include">
+        </childnode>
+        <childnode refid="3507" relation="include">
+        </childnode>
+        <childnode refid="3503" relation="include">
+        </childnode>
+      </node>
+      <node id="3503">
+        <label>xpm_power.h</label>
+        <childnode refid="3504" relation="include">
+        </childnode>
+        <childnode refid="3507" relation="include">
+        </childnode>
+      </node>
+      <node id="3509">
+        <label>xpm_common.h</label>
+        <childnode refid="3502" relation="include">
+        </childnode>
+        <childnode refid="3510" relation="include">
+        </childnode>
+        <childnode refid="3511" relation="include">
+        </childnode>
+        <childnode refid="3512" relation="include">
+        </childnode>
+        <childnode refid="3513" relation="include">
+        </childnode>
+        <childnode refid="3504" relation="include">
+        </childnode>
+      </node>
+      <node id="3507">
+        <label>xpm_node.h</label>
+        <childnode refid="3505" relation="include">
+        </childnode>
+        <childnode refid="3502" relation="include">
+        </childnode>
+        <childnode refid="3508" relation="include">
+        </childnode>
+        <childnode refid="3509" relation="include">
+        </childnode>
+      </node>
+      <node id="3502">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3505">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3504">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3505" relation="include">
+        </childnode>
+        <childnode refid="3506" relation="include">
+        </childnode>
+      </node>
+      <node id="3514">
+        <label>xpm_device.h</label>
+        <childnode refid="3507" relation="include">
+        </childnode>
+        <childnode refid="3503" relation="include">
+        </childnode>
+        <childnode refid="3515" relation="include">
+        </childnode>
+        <childnode refid="3516" relation="include">
+        </childnode>
+      </node>
+      <node id="3516">
+        <label>xpm_reset.h</label>
+        <childnode refid="3507" relation="include">
+        </childnode>
+        <childnode refid="3509" relation="include">
+        </childnode>
+      </node>
+      <node id="3512">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3502" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3520">
+        <label>xpm_regulator.c</label>
+      </node>
+      <node id="3517">
+        <label>xpm_regulator.h</label>
+        <link refid="xpm_regulator.h"/>
+        <childnode refid="3518" relation="include">
+        </childnode>
+        <childnode refid="3519" relation="include">
+        </childnode>
+        <childnode refid="3520" relation="include">
+        </childnode>
+      </node>
+      <node id="3518">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="3519">
+        <label>xpm_rail.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___regulator" prot="public">XPm_Regulator</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__regulator_8h_1a0626d74c738923445aab88b7b4c1a431" prot="public" static="no">
+        <name>XPM_METHODTYPE_I2C</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__regulator_8h_1af53c412014c6488264946584c74e6ffd" prot="public" static="no">
+        <name>XPM_METHODTYPE_GPIO</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__regulator_8h_1a7a5442c70b56f2f98f64369c692baae3" prot="public" static="no">
+        <name>XPm_CntrlrType</name>
+        <enumvalue id="xpm__regulator_8h_1a7a5442c70b56f2f98f64369c692baae3a62586c214d676827dc51edb69623dd30" prot="public">
+          <name>XPM_I2C_CNTRLR</name>
+          <initializer>=0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__regulator_8h_1a7a5442c70b56f2f98f64369c692baae3ae847da0835d0ee3c65be79c835f9193c" prot="public">
+          <name>XPM_GPIO_CNTRLR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__regulator_8h_1a7a5442c70b56f2f98f64369c692baae3a063c3d6d90243382b9a479e1a04d723f" prot="public">
+          <name>XPM_MAX_NUM_CNTRLR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="20" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__regulator_8h_1ac05bf8a475eb18357517d16bf1eaa695" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_Regulator *</type>
+        <definition>XPm_Regulator* XPmRegulator_GetById</definition>
+        <argsstring>(u32 Id)</argsstring>
+        <name>XPmRegulator_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.c" bodystart="16" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__regulator_8h_1aaf581f4713361cc2e2c78460bff7272f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRegulator_Init</definition>
+        <argsstring>(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmRegulator_Init</name>
+        <param>
+          <type>XPm_Regulator *</type>
+          <declname>Regulator</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.c" bodystart="36" bodyend="121"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_REGULATOR_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_REGULATOR_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_METHODTYPE_I2C<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_METHODTYPE_GPIO<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_I2C_CNTRLR=0,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GPIO_CNTRLR,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_MAX_NUM_CNTRLR,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}<sp/>XPm_CntrlrType;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>Node;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_I2cCmd<sp/>Config;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>I2cAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Cntrlr[XPM_MAX_NUM_CNTRLR];<sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}<sp/>XPm_Regulator;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">XPm_Regulator<sp/>*XPmRegulator_GetById(u32<sp/>Id);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">XStatus<sp/>XPmRegulator_Init(XPm_Regulator<sp/>*Regulator,<sp/>u32<sp/>Id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_REGULATOR_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h"/>
+  </compounddef>
+</doxygen>

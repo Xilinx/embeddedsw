@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__provision__ude__input__example_8h" kind="file">
+    <compoundname>xasu_provision_ude_input_example.h</compoundname>
+    <includes refid="xasu__provision_8h" local="yes">xasu_provision.h</includes>
+    <includedby refid="xasu__provision__ude__example_8c" local="yes">xasu_provision_ude_example.c</includedby>
+    <incdepgraph>
+      <node id="1492">
+        <label>xasu_mldsainfo.h</label>
+        <link refid="xasu__mldsainfo_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+      </node>
+      <node id="1481">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+      </node>
+      <node id="1478">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="1479" relation="include">
+        </childnode>
+        <childnode refid="1482" relation="include">
+        </childnode>
+        <childnode refid="1483" relation="include">
+        </childnode>
+        <childnode refid="1485" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
+      </node>
+      <node id="1488">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1484">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1485">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+      </node>
+      <node id="1482">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1491">
+        <label>xasu_provisioninfo.h</label>
+        <link refid="xasu__provisioninfo_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+      </node>
+      <node id="1477">
+        <label>xasu_provision.h</label>
+        <link refid="xasu__provision_8h"/>
+        <childnode refid="1478" relation="include">
+        </childnode>
+        <childnode refid="1486" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1480" relation="include">
+        </childnode>
+      </node>
+      <node id="1476">
+        <label>xasu_provision_ude_input_example.h</label>
+        <link refid="xasu_provision_ude_input_example.h"/>
+        <childnode refid="1477" relation="include">
+        </childnode>
+      </node>
+      <node id="1480">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1479">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
+      </node>
+      <node id="1490">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+      </node>
+      <node id="1489">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+      </node>
+      <node id="1486">
+        <label>xasu_provision_common.h</label>
+        <link refid="xasu__provision__common_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+      </node>
+      <node id="1487">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+      </node>
+      <node id="1483">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+        <childnode refid="1484" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1494">
+        <label>xasu_provision_ude_example.c</label>
+        <link refid="xasu__provision__ude__example_8c"/>
+      </node>
+      <node id="1493">
+        <label>xasu_provision_ude_input_example.h</label>
+        <link refid="xasu_provision_ude_input_example.h"/>
+        <childnode refid="1494" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xasu__provision__ude__input__example_8h_1ad66a146bc944a42a7443318f5eadd804" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_KEY_0</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable provisioning of UDE key into slot 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xasufw__provision__ude__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__provision__ude__example_8c" startline="80" endline="146">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xasu__provision__ude__input__example_8h_1a2f4a623b27bfd356ddfd654c0b71553e" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_KEY_1</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable provisioning of UDE key into slot 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xasufw__provision__ude__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__provision__ude__example_8c" startline="80" endline="146">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xasu__provision__ude__input__example_8h_1a7a35310c424fadf268caf3a1adc2be59" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_KEY_2</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable provisioning of UDE key into slot 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasufw__provision__ude__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__provision__ude__example_8c" startline="80" endline="146">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xasu__provision__ude__input__example_8h_1aecc9b732e0b739217b1975635269c309" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_KEY_TYPE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacf23d886851705cb977606902a41305c" kindref="member">XASU_PROVISION_UDE_KEY_TYPE_ECC_P384</ref>)</initializer>
+        <briefdescription>
+<para>UDE key type to provision into the enabled slots. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example is supported for versal_2ve_2vm devices. </para>    </briefdescription>
+    <detaileddescription>
+<para>It contains macros which needs to be configured by user for <ref refid="xasu__provision__ude__example_8c" kindref="compound">xasu_provision_ude_example.c</ref> On the basis of the options selected by user, the required operations will be performed.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who     Date     Changes
+ ----- ------  -------- ------------------------------------------------------
+ 1.0   yog      08/25/26 First release</preformatted></para><para><preformatted> </preformatted></para><para><heading level="2">GUIDE for using example </heading>
+</para><para>This example provisions Unique Device Endorsement (UDE) key pairs into the UDE eFUSE slots. For every enabled slot the UDE key pair is generated inside the ASU (the private key never leaves the ASU), the private key is encrypted with the PUF KEK and programmed into the requested eFUSE slot, and a self-signed X.509 certificate over the generated public key is returned and printed on the console.</para><para>Please follow below guide to configure the specific macros as per your requirement:</para><para>XASU_PROVISION_UDE_KEY_0 must be configured as TRUE to provision UDE key into slot 0.</para><para>XASU_PROVISION_UDE_KEY_1 must be configured as TRUE to provision UDE key into slot 1.</para><para>XASU_PROVISION_UDE_KEY_2 must be configured as TRUE to provision UDE key into slot 2.</para><para>XASU_PROVISION_UDE_KEY_TYPE selects the UDE key type to provision. Currently only XASU_PROVISION_UDE_KEY_TYPE_ECC_P384 is supported. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#ifndef<sp/>XASU_PROVISION_UDE_INPUT_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_INPUT_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__provision_8h" kindref="compound">xasu_provision.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="xasu__provision__ude__input__example_8h_1ad66a146bc944a42a7443318f5eadd804" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_KEY_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_KEY_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_UDE_KEY_TYPE_ECC_P384)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xasu__provision__ude__input__example_8h_1aecc9b732e0b739217b1975635269c309" refkind="member"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XASU_PROVISION_UDE_INPUT_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_input_example.h"/>
+  </compounddef>
+</doxygen>

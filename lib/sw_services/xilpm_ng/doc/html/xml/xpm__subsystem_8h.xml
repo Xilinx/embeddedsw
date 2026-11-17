@@ -1,0 +1,2279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__subsystem_8h" kind="file">
+    <compoundname>xpm_subsystem.h</compoundname>
+    <includes refid="xpm__api_8h" local="yes">xpm_api.h</includes>
+    <includes refid="xpm__defs_8h" local="yes">xpm_defs.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__list_8h" local="yes">xpm_list.h</includes>
+    <includes refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includes>
+    <includes refid="xpm__fsm_8h" local="yes">xpm_fsm.h</includes>
+    <includedby refid="xpm__runtime__hbmon__subsys_8c" local="yes">xpm_runtime_hbmon_subsys.c</includedby>
+    <includedby refid="xpm__runtime__subsys_8c" local="yes">xpm_runtime_subsys.c</includedby>
+    <includedby refid="xpm__access_8c" local="yes">xpm_access.c</includedby>
+    <includedby refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includedby>
+    <includedby refid="xpm__runtime__device_8h" local="yes">xpm_runtime_device.h</includedby>
+    <includedby refid="xpm__ioctl_8h" local="yes">xpm_ioctl.h</includedby>
+    <includedby refid="xpm__runtime__clock_8h" local="yes">xpm_runtime_clock.h</includedby>
+    <includedby refid="xpm__fsm_8c" local="yes">xpm_fsm.c</includedby>
+    <includedby refid="xpm__runtime__aie_8h" local="yes">xpm_runtime_aie.h</includedby>
+    <includedby refid="xpm__notifier_8h" local="yes">xpm_notifier.h</includedby>
+    <includedby refid="xpm__runtime__core_8h" local="yes">xpm_runtime_core.h</includedby>
+    <includedby refid="xpm__runtime__reset_8h" local="yes">xpm_runtime_reset.h</includedby>
+    <includedby refid="xpm__runtime__alloc_8c" local="yes">xpm_runtime_alloc.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <includedby refid="xpm__runtime__clock_8c" local="yes">xpm_runtime_clock.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <includedby refid="xpm__runtime__eemi_8c" local="yes">xpm_runtime_eemi.c</includedby>
+    <includedby refid="xpm__runtime__mem_8c" local="yes">xpm_runtime_mem.c</includedby>
+    <includedby refid="xpm__runtime__pin_8c" local="yes">xpm_runtime_pin.c</includedby>
+    <includedby refid="xpm__runtime__reset_8c" local="yes">xpm_runtime_reset.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <incdepgraph>
+      <node id="5192">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5184">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="5193">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5194">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5180">
+        <label>xpm_api.h</label>
+        <childnode refid="5181" relation="include">
+        </childnode>
+        <childnode refid="5182" relation="include">
+        </childnode>
+        <childnode refid="5183" relation="include">
+        </childnode>
+        <childnode refid="5185" relation="include">
+        </childnode>
+        <childnode refid="5186" relation="include">
+        </childnode>
+        <childnode refid="5187" relation="include">
+        </childnode>
+      </node>
+      <node id="5190">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5196">
+        <label>xpm_clock.h</label>
+        <childnode refid="5191" relation="include">
+        </childnode>
+        <childnode refid="5189" relation="include">
+        </childnode>
+        <childnode refid="5195" relation="include">
+        </childnode>
+      </node>
+      <node id="5195">
+        <label>xpm_power.h</label>
+        <childnode refid="5183" relation="include">
+        </childnode>
+        <childnode refid="5189" relation="include">
+        </childnode>
+      </node>
+      <node id="5200">
+        <label>xpm_alloc.h</label>
+        <childnode refid="5181" relation="include">
+        </childnode>
+        <childnode refid="5182" relation="include">
+        </childnode>
+      </node>
+      <node id="5201">
+        <label>xpm_requirement.h</label>
+        <childnode refid="5188" relation="include">
+        </childnode>
+        <childnode refid="5179" relation="include">
+        </childnode>
+        <childnode refid="5202" relation="include">
+        </childnode>
+      </node>
+      <node id="5191">
+        <label>xpm_common.h</label>
+        <childnode refid="5182" relation="include">
+        </childnode>
+        <childnode refid="5192" relation="include">
+        </childnode>
+        <childnode refid="5193" relation="include">
+        </childnode>
+        <childnode refid="5185" relation="include">
+        </childnode>
+        <childnode refid="5194" relation="include">
+        </childnode>
+        <childnode refid="5183" relation="include">
+        </childnode>
+      </node>
+      <node id="5187">
+        <label>xpm_mem.h</label>
+        <childnode refid="5188" relation="include">
+        </childnode>
+      </node>
+      <node id="5189">
+        <label>xpm_node.h</label>
+        <childnode refid="5181" relation="include">
+        </childnode>
+        <childnode refid="5182" relation="include">
+        </childnode>
+        <childnode refid="5190" relation="include">
+        </childnode>
+        <childnode refid="5191" relation="include">
+        </childnode>
+      </node>
+      <node id="5182">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5181">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5203">
+        <label>xpm_fsm.h</label>
+        <childnode refid="5181" relation="include">
+        </childnode>
+        <childnode refid="5182" relation="include">
+        </childnode>
+        <childnode refid="5188" relation="include">
+        </childnode>
+      </node>
+      <node id="5183">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="5181" relation="include">
+        </childnode>
+        <childnode refid="5184" relation="include">
+        </childnode>
+      </node>
+      <node id="5198">
+        <label>xpm_list.h</label>
+        <childnode refid="5199" relation="include">
+        </childnode>
+      </node>
+      <node id="5202">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="5181" relation="include">
+        </childnode>
+      </node>
+      <node id="5179">
+        <label>xpm_subsystem.h</label>
+        <link refid="xpm_subsystem.h"/>
+        <childnode refid="5180" relation="include">
+        </childnode>
+        <childnode refid="5183" relation="include">
+        </childnode>
+        <childnode refid="5182" relation="include">
+        </childnode>
+        <childnode refid="5198" relation="include">
+        </childnode>
+        <childnode refid="5201" relation="include">
+        </childnode>
+        <childnode refid="5203" relation="include">
+        </childnode>
+      </node>
+      <node id="5188">
+        <label>xpm_device.h</label>
+        <childnode refid="5189" relation="include">
+        </childnode>
+        <childnode refid="5195" relation="include">
+        </childnode>
+        <childnode refid="5196" relation="include">
+        </childnode>
+        <childnode refid="5197" relation="include">
+        </childnode>
+      </node>
+      <node id="5197">
+        <label>xpm_reset.h</label>
+        <childnode refid="5189" relation="include">
+        </childnode>
+        <childnode refid="5191" relation="include">
+        </childnode>
+      </node>
+      <node id="5186">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="5185">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="5182" relation="include">
+        </childnode>
+      </node>
+      <node id="5199">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="5200" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5232">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="5207">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="5212">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="5222">
+        <label>xpm_ioctl.h</label>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5207" relation="include">
+        </childnode>
+        <childnode refid="5212" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+      </node>
+      <node id="5215">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="5228">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="5227">
+        <label>xpm_notifier.h</label>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5228" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+      </node>
+      <node id="5209">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="5218">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="5217">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="5210">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="5205" relation="include">
+        </childnode>
+        <childnode refid="5209" relation="include">
+        </childnode>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5207" relation="include">
+        </childnode>
+        <childnode refid="5211" relation="include">
+        </childnode>
+        <childnode refid="5212" relation="include">
+        </childnode>
+        <childnode refid="5213" relation="include">
+        </childnode>
+        <childnode refid="5214" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+        <childnode refid="5216" relation="include">
+        </childnode>
+        <childnode refid="5217" relation="include">
+        </childnode>
+        <childnode refid="5218" relation="include">
+        </childnode>
+        <childnode refid="5219" relation="include">
+        </childnode>
+        <childnode refid="5220" relation="include">
+        </childnode>
+        <childnode refid="5221" relation="include">
+        </childnode>
+      </node>
+      <node id="5229">
+        <label>xpm_runtime_core.h</label>
+        <childnode refid="5228" relation="include">
+        </childnode>
+        <childnode refid="5230" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+        <childnode refid="5217" relation="include">
+        </childnode>
+        <childnode refid="5218" relation="include">
+        </childnode>
+      </node>
+      <node id="5221">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="5231">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5214" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+        <childnode refid="5217" relation="include">
+        </childnode>
+        <childnode refid="5218" relation="include">
+        </childnode>
+        <childnode refid="5219" relation="include">
+        </childnode>
+        <childnode refid="5221" relation="include">
+        </childnode>
+      </node>
+      <node id="5206">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="5213">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="5208">
+        <label>xpm_requirement.h</label>
+        <childnode refid="5205" relation="include">
+        </childnode>
+        <childnode refid="5209" relation="include">
+        </childnode>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5204" relation="include">
+        </childnode>
+        <childnode refid="5210" relation="include">
+        </childnode>
+        <childnode refid="5207" relation="include">
+        </childnode>
+        <childnode refid="5211" relation="include">
+        </childnode>
+        <childnode refid="5212" relation="include">
+        </childnode>
+        <childnode refid="5213" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+        <childnode refid="5218" relation="include">
+        </childnode>
+        <childnode refid="5219" relation="include">
+        </childnode>
+        <childnode refid="5220" relation="include">
+        </childnode>
+      </node>
+      <node id="5219">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="5216">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="5223">
+        <label>xpm_runtime_clock.h</label>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5211" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+        <childnode refid="5216" relation="include">
+        </childnode>
+        <childnode refid="5217" relation="include">
+        </childnode>
+        <childnode refid="5219" relation="include">
+        </childnode>
+      </node>
+      <node id="5220">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="5224">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="5205">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="5226">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="5225">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="5212" relation="include">
+        </childnode>
+        <childnode refid="5226" relation="include">
+        </childnode>
+        <childnode refid="5218" relation="include">
+        </childnode>
+      </node>
+      <node id="5211">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="5233">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="5234">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="5204">
+        <label>xpm_subsystem.h</label>
+        <link refid="xpm_subsystem.h"/>
+        <childnode refid="5205" relation="include">
+        </childnode>
+        <childnode refid="5206" relation="include">
+        </childnode>
+        <childnode refid="5207" relation="include">
+        </childnode>
+        <childnode refid="5208" relation="include">
+        </childnode>
+        <childnode refid="5210" relation="include">
+        </childnode>
+        <childnode refid="5222" relation="include">
+        </childnode>
+        <childnode refid="5223" relation="include">
+        </childnode>
+        <childnode refid="5224" relation="include">
+        </childnode>
+        <childnode refid="5225" relation="include">
+        </childnode>
+        <childnode refid="5227" relation="include">
+        </childnode>
+        <childnode refid="5229" relation="include">
+        </childnode>
+        <childnode refid="5231" relation="include">
+        </childnode>
+        <childnode refid="5214" relation="include">
+        </childnode>
+        <childnode refid="5215" relation="include">
+        </childnode>
+        <childnode refid="5216" relation="include">
+        </childnode>
+        <childnode refid="5218" relation="include">
+        </childnode>
+        <childnode refid="5219" relation="include">
+        </childnode>
+        <childnode refid="5232" relation="include">
+        </childnode>
+        <childnode refid="5233" relation="include">
+        </childnode>
+        <childnode refid="5221" relation="include">
+        </childnode>
+        <childnode refid="5234" relation="include">
+        </childnode>
+      </node>
+      <node id="5214">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+      <node id="5230">
+        <label>xpm_power_handlers.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___frc_pwr_dwn_req" prot="public">XPm_FrcPwrDwnReq</innerclass>
+    <innerclass refid="struct_x_pm___permissions" prot="public">XPm_Permissions</innerclass>
+    <innerclass refid="struct_x_pm___pend_susp_cb" prot="public">XPm_PendSuspCb</innerclass>
+    <innerclass refid="struct_x_pm___subsystem_ops" prot="public">XPm_SubsystemOps</innerclass>
+    <innerclass refid="struct_x_pm___subsystem" prot="public">XPm_Subsystem</innerclass>
+    <innerclass refid="struct_x_pm___subsystem_mgr" prot="public">XPm_SubsystemMgr</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__subsystem_8h_1acd9138fbb426bf801653d84fdfe3b490" prot="public" static="no">
+        <name>INVALID_SUBSYSID</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a2ed863046df0176f25fccc743acbbff2" prot="public" static="no">
+        <name>MAX_NUM_SUBSYSTEMS</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a53064af1aa54d9ff04e6104d244d27b8" prot="public" static="no">
+        <name>SUBSYS_TO_NS_BITPOS</name>
+        <param><defname>x</defname></param>
+        <initializer>(NODE_INDEX_MASK &amp; ((x)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a191414b74bfd682c003b15cd603a46e3" prot="public" static="no">
+        <name>SUBSYS_TO_S_BITPOS</name>
+        <param><defname>x</defname></param>
+        <initializer>(NODE_INDEX_MASK &amp; ((x) + MAX_NUM_SUBSYSTEMS))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1ac5061279f55fe8c7815c8e7644f71eed" prot="public" static="no">
+        <name>SUBSYSTEM_INIT_FINALIZED</name>
+        <initializer>((u8)1U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+<para>Subsystem specific flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1ad081731a01ac3896f937c805b473699c" prot="public" static="no">
+        <name>SUBSYSTEM_IS_CONFIGURED</name>
+        <initializer>((u8)1U &lt;&lt; 1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1af1279ecb411a4d2ebe1ad0fcc9c0075a" prot="public" static="no">
+        <name>SUBSYSTEM_IDLE_SUPPORTED</name>
+        <initializer>((u8)1U &lt;&lt; 2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a63c40852a1b40326f5b49923d5b6a4cf" prot="public" static="no">
+        <name>SUBSYSTEM_SUSCB_PRIORITIZE</name>
+        <initializer>((u8)1U &lt;&lt; 3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1ae313caba920ae117710c70f1d20686fc" prot="public" static="no">
+        <name>SUBSYSTEM_IDLE_CB_IS_SENT</name>
+        <initializer>((u8)1U &lt;&lt; 4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a34327e144beeb597362441f3fe1591f1" prot="public" static="no">
+        <name>IS_SUBSYS_CONFIGURED</name>
+        <param><defname>Flags</defname></param>
+        <initializer>(SUBSYSTEM_IS_CONFIGURED == ((Flags) &amp; SUBSYSTEM_IS_CONFIGURED))</initializer>
+        <briefdescription>
+<para>Helper macros to check subsystem specific flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a2c11861c451dfecc258b9d182a3485e9" prot="public" static="no">
+        <name>IS_SUBSYS_INIT_FINALIZED</name>
+        <param><defname>Flags</defname></param>
+        <initializer>(SUBSYSTEM_INIT_FINALIZED == ((Flags) &amp; SUBSYSTEM_INIT_FINALIZED))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a34eb1162c540f47bebc2981becf7552c" prot="public" static="no">
+        <name>SUB_PERM_WAKE_MASK</name>
+        <initializer>(0x1U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a58384b728c271ce5303997b4413b9d2c" prot="public" static="no">
+        <name>SUB_PERM_PWRDWN_MASK</name>
+        <initializer>(0x1U &lt;&lt; 1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1ae96c8db899029f209c5c71248cf30e06" prot="public" static="no">
+        <name>SUB_PERM_WAKE_SHIFT_NS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a69d6ce2a037cecd921099d1587e7e061" prot="public" static="no">
+        <name>SUB_PERM_PWRDWN_SHIFT_NS</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1a2151bf592c949f8f54eccc482246eb29" prot="public" static="no">
+        <name>SUB_PERM_WAKE_SHIFT_S</name>
+        <initializer>(0U + MAX_NUM_SUBSYSTEMS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1ae98a6b18e971227294b00e3bfa2a9f57" prot="public" static="no">
+        <name>SUB_PERM_PWRDWN_SHIFT_S</name>
+        <initializer>(1U + MAX_NUM_SUBSYSTEMS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__subsystem_8h_1ac1787dc6494dd85420cdfc525d9f2bb9" prot="public" static="no">
+        <name>PERM_BITMASK</name>
+        <param><defname>Op</defname></param>
+        <param><defname>OpShift</defname></param>
+        <param><defname>SubShift</defname></param>
+        <initializer>((1U &amp; ((Op) &gt;&gt; (OpShift))) &lt;&lt; (SubShift))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fc" prot="public" static="no">
+        <name>XPm_SubsysState</name>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fcac0bbecd096aa5dd9b0cad289c4042f59" prot="public">
+          <name>OFFLINE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fcafe4c21755babfece7188666f75c7386b" prot="public">
+          <name>RESERVED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fca38b7803ce18b4539764cac6b13611dcc" prot="public">
+          <name>ONLINE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fca884d33f23e423437fa69574d4581bdaf" prot="public">
+          <name>SUSPENDING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fca1c2114335a42993ac5cc5dbf65f83d41" prot="public">
+          <name>SUSPENDED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fca94e3dec3bebf662987ec1965b7d05310" prot="public">
+          <name>POWERED_OFF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fcae96cb55961e8e6c935d05f00ea1199f2" prot="public">
+          <name>PENDING_POWER_OFF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fca2f62850f0061c668f940bb4ab2d78d91" prot="public">
+          <name>PENDING_RESTART</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a62284a9e44562e712bd7c75e61a101fca55fe42f82ff8eb2e60397607926f17f3" prot="public">
+          <name>MAX_STATE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Subsystem creation states. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="54" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__subsystem_8h_1a85e88e5499941bd2639b7a438075048e" prot="public" static="no">
+        <name>XPm_SubsysOpsType</name>
+        <enumvalue id="xpm__subsystem_8h_1a85e88e5499941bd2639b7a438075048ea3ada4800812cc29bd491ec415fffa068" prot="public">
+          <name>SUBSYS_OPS_GENERIC</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__subsystem_8h_1a85e88e5499941bd2639b7a438075048ea05ef05cdd3974c4b080e5a106aac3061" prot="public">
+          <name>SUBSYS_OPS_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Subsystem Ops Types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="69" bodyend="72"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1aeb2937af00d6ad2b633493bfe69092d8" prot="public" static="no">
+        <type>struct XPm_FrcPwrDwnReq</type>
+        <definition>typedef struct XPm_FrcPwrDwnReq  XPm_FrcPwrDwnReq</definition>
+        <argsstring></argsstring>
+        <name>XPm_FrcPwrDwnReq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1a100f54984c27ce4efa6a99786eab5635" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref></type>
+        <definition>typedef struct XPm_Subsystem XPm_Subsystem</definition>
+        <argsstring></argsstring>
+        <name>XPm_Subsystem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1a2faef8518d1d21ae59d421b1d4dd6461" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___subsystem_mgr" kindref="compound">XPm_SubsystemMgr</ref></type>
+        <definition>typedef struct XPm_SubsystemMgr XPm_SubsystemMgr</definition>
+        <argsstring></argsstring>
+        <name>XPm_SubsystemMgr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1a4eaa9be1520b09d7c1be9d99a7f4ea45" prot="public" static="no">
+        <type>struct XPm_RequirementList</type>
+        <definition>typedef struct XPm_RequirementList XPm_RequirementList</definition>
+        <argsstring></argsstring>
+        <name>XPm_RequirementList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1ab53fd5ff86bee07acdf2f1eb4331b8dc" prot="public" static="no">
+        <type>struct XPm_Permissions</type>
+        <definition>typedef struct XPm_Permissions  XPm_Permissions</definition>
+        <argsstring></argsstring>
+        <name>XPm_Permissions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1ae417f6de8d979466602453fad85db0f4" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___pend_susp_cb" kindref="compound">XPm_PendSuspCb</ref></type>
+        <definition>typedef struct XPm_PendSuspCb  XPm_PendSuspCb</definition>
+        <argsstring></argsstring>
+        <name>XPm_PendSuspCb</name>
+        <briefdescription>
+<para>The Pending suspend callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__subsystem_8h_1a82a3c03dd8c2d02bdd63a32836a2da12" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref></type>
+        <definition>typedef struct XPm_SubsystemOps  XPm_SubsystemOps</definition>
+        <argsstring></argsstring>
+        <name>XPm_SubsystemOps</name>
+        <briefdescription>
+<para>Subsystem Ops. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="121" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__subsystem_8h_1a33b8bc8e30667f01bf7d1a8003e92f32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CREATE_LIST</definition>
+        <argsstring>(XPm_Subsystem)</argsstring>
+        <name>CREATE_LIST</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a6f0631d537804bef34eb1087ac232d25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_ModuleInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmSubsystem_ModuleInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize the subsystem module. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>This function is reserved for future module initialization needs. Currently returns success as a placeholder. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="618" bodyend="622"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a133279fb8cf2e3612aaf7ca871c8ede1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmSubsystem_GetIPIMask</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_GetIPIMask</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a68a36e35f1ad6ef853025ae95e6c70de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_IsWakeAllowed</definition>
+        <argsstring>(u32 SubsystemId, u32 NodeId, u32 CmdType)</argsstring>
+        <name>XPm_IsWakeAllowed</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>Check if subsystem is allowed to wake up a node (subsystem or core device) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID requesting wakeup </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to wake (subsystem or core device) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, XPM_PM_NO_ACCESS if denied, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full permission checking implementation for subsystem builds. Validates wake permissions for subsystems and core devices, checking subsystem ownership and operation permissions.</para></simplesect>
+Check if subsystem is allowed to wake up a node (subsystem or core device)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID requesting wakeup </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to wake (subsystem or core device) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, error code if denied</para></simplesect>
+<simplesect kind="note"><para>Weak symbol - stub implementation for EEMI-only builds. Always returns success. Full permission checking implementation available in subsystem builds via strong symbol override. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="644" bodyend="721"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a59d6a878a048373bbd8de90d050636e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_IsAccessAllowed</definition>
+        <argsstring>(u32 SubsystemId, u32 NodeId)</argsstring>
+        <name>XPm_IsAccessAllowed</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>Check if subsystem has permission to access a node (public API wrapper) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID requesting access </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to check access for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, XPM_INVALID_SUBSYSID if subsystem not found, error code if denied</para></simplesect>
+<simplesect kind="note"><para>Public API wrapper that retrieves the subsystem by ID and calls XPmSubsystem_IsAccessAllowed. This function provides a convenient interface when only the subsystem ID is available. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="114" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1af4b6fb79be0741e0f6c0a38fb1cd4c4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_Add</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_Add</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Add a new subsystem to the power management framework. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID to add</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_DEVICE_BUSY if subsystem already exists, XST_BUFFER_TOO_SMALL on allocation failure</para></simplesect>
+<simplesect kind="note"><para>Creates and initializes a new subsystem object with default state (ONLINE), adds it to the subsystem list, and updates the maximum subsystem index tracker. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="224" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ad1fc81f15e39114b933405667c6dcdbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+        <definition>XPm_Subsystem* XPmSubsystem_GetById</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Get subsystem by ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> if successful else NULL</para></simplesect>
+<simplesect kind="note"><para>This function serves as the abstraction layer between runtime core and subsystem implementation. It always uses the unified SubsysMgr regardless of build configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="66" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a2cf82d0072b01c933273f4d76b0e55e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+        <definition>XPm_Subsystem* XPmSubsystem_GetByIndex</definition>
+        <argsstring>(u32 SubSysIdx)</argsstring>
+        <name>XPmSubsystem_GetByIndex</name>
+        <param>
+          <type>u32</type>
+          <declname>SubSysIdx</declname>
+        </param>
+        <briefdescription>
+<para>This function gives Subsystem from Subsystem &quot;INDEX&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubSysIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem Index</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> if successful else NULL</para></simplesect>
+<simplesect kind="note"><para>This is a less strict version of XPmSubsystem_GetByIndex(), and mainly is implemented due to other modules such as xpm_device needs to access the subsystem database and iterate over it using indexes only, without the need to use the complete subsystem ID. Use this function where it is absolutely necessary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="143" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ab759694d0ab82a69842ec01b03617d22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmSubsystem_GetMaxSubsysIdx</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmSubsystem_GetMaxSubsysIdx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the maximum subsystem index currently present in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Maximum subsystem index (0-based), or 0 if no subsystems exist</para></simplesect>
+<simplesect kind="note"><para>This value is updated when subsystems are added and is used for efficient iteration over subsystem indices. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a252a257ffe661c770abbbe2684498c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_ForcePwrDwn</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_ForcePwrDwn</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Release all devices of a subsystem that is being restarted, forced down or shut down. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target Subsystem ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>FPD is held on across the release, see XPmPower_HoldFpd() </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="284" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a1aa53456ead09bd449d699398bc3144b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_IsOperationAllowed</definition>
+        <argsstring>(const u32 HostId, const u32 TargetId, const u32 Operation, const u32 CmdType)</argsstring>
+        <name>XPmSubsystem_IsOperationAllowed</name>
+        <param>
+          <type>const u32</type>
+          <declname>HostId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>TargetId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Operation</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>Check if host subsystem has permission to perform operation on target subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HostId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Host subsystem ID requesting the operation </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TargetId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target subsystem ID on which operation is requested </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Operation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation type (SUB_PERM_WAKE_MASK or SUB_PERM_PWRDWN_MASK) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, XPM_PM_NO_ACCESS if denied, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full permission checking implementation for subsystem builds. Validates permissions based on target subsystem&apos;s permission masks and command type (secure/non-secure).</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HostId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Host subsystem ID requesting the operation </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TargetId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target subsystem ID on which operation is requested </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Operation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation type (wake/powerdown) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, error code if denied</para></simplesect>
+<simplesect kind="note"><para>Weak symbol - stub implementation for EEMI-only builds. Always returns success. Full permission checking implementation available in subsystem builds via strong symbol override. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="579" bodyend="627"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a68ab2de413349c5866833f6ff1348a1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_IsForcePowerDownAllowed</definition>
+        <argsstring>(u32 SubsystemId, u32 NodeId, u32 CmdType)</argsstring>
+        <name>XPm_IsForcePowerDownAllowed</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>Check if subsystem is allowed to force power down a subsystem node. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID requesting force powerdown </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to power down (must be subsystem node) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, XPM_PM_NO_ACCESS if denied, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full permission checking implementation for subsystem builds. Validates force powerdown permissions for subsystem nodes only. Prevents force powerdown of self, PMC, ASU, or default subsystems.</para></simplesect>
+Check if subsystem is allowed to force power down a subsystem node.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID requesting force powerdown </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to power down (subsystem node) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_INVALID_PARAM (stub always denies)</para></simplesect>
+<simplesect kind="note"><para>Weak symbol - stub implementation for EEMI-only builds. Always denies force powerdown requests. Full permission checking implementation available in subsystem builds via strong symbol override. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="738" bodyend="779"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a7563f27419c39a600a4318380a526a98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_CmnFlush</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_CmnFlush</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Flush all memory region/device nodes (DDR, OCM, TCM, PL) for the given subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of given subsystem</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else appropriate return code</para></simplesect>
+Flush all memory region/device nodes (DDR, OCM, TCM, PL) for the given subsystem.</para><para>This weak EEMI implementation performs no cache or register operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem whose cache would be flushed; unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_mem_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_mem_subsys.c" bodystart="357" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1aa095a8a909e9a45330aa70ec35cabb48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_Fsm *</type>
+        <definition>XPm_Fsm* XPmSubsystem_GetHbMonFsm</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmSubsystem_GetHbMonFsm</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Return the FSM describing the Healthy Boot Monitor device states. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to the Healthy Boot Monitor FSM</para></simplesect>
+Return the FSM describing the Healthy Boot Monitor device states.</para><para>This weak EEMI implementation logs that boot and recovery timers are not supported and does not access a finite state machine.</para><para><simplesect kind="return"><para>NULL.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_hbmon_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="418" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a5ee80ed091c405a9c58ee9fd9fea8ed0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_Activate</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_Activate</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Activate a subsystem by requesting all pre-allocated devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate Activate implementation via the SubsystemOps table. The actual implementation may be a common function or a build-specific override. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="324" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a1853b1e7c4cd423bfd52903b80c0e289" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_SetState</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 State)</argsstring>
+        <name>XPmSubsystem_SetState</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+<para>Set the state of a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New state value (must be less than MAX_STATE)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate SetState implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="351" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ad23c1aa2b9b70187f6995ac35d844898" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_GetStatus</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus)</argsstring>
+        <name>XPmSubsystem_GetStatus</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref> *const</type>
+          <declname>DeviceStatus</declname>
+        </param>
+        <briefdescription>
+<para>Get the current status/state of a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to device status structure to populate</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem or DeviceStatus is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate GetStatus implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="378" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a85260e611ba2d4d6232928aeb87b2f9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_Idle</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_Idle</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Idle a subsystem (prepare for low-power state) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate Idle implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="485" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a9a54e7bb4ba087de4a97fd4757098ca5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_InitFinalize</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_InitFinalize</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Finalize subsystem initialization after successful boot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate InitFinalize implementation via the SubsystemOps table. Typically notifies healthy boot to stop healthy boot monitors. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="512" bodyend="523"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a25477bf04889f0547e183150be438833" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_AddPermissions</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations)</argsstring>
+        <name>XPmSubsystem_AddPermissions</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TargetId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Operations</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="171" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ad51581cafc29a2b141024ee663313b7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_AddRequirement</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)</argsstring>
+        <name>XPmSubsystem_AddRequirement</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Payload</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <briefdescription>
+<para>Add a requirement (device/reset/subsystem) to a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requirement payload containing node-specific arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of payload array</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem, Payload is NULL or PayloadLen is 0, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate AddRequirement implementation via the SubsystemOps table. The payload format depends on the node type being added as a requirement. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="407" bodyend="418"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a7f2801aca0447bb6f346d1a974275317" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_StartRecoveryTimer</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 CmdType)</argsstring>
+        <name>XPmSubsystem_StartRecoveryTimer</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>Start recovery timer for subsystem (healthy boot monitor) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate StartRecoveryTimer implementation via the SubsystemOps table. Requests runtime healthy boot monitor device to start recovery timer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="595" bodyend="606"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a059925e40eca866d772746d8ffaa6aa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_NotifyHealthyBoot</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_NotifyHealthyBoot</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Notify that subsystem has booted successfully (releases healthy boot monitors) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate NotifyHealthyBoot implementation via the SubsystemOps table. Releases healthy boot monitor devices allocated to the subsystem. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="567" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a33a1531fff2c4027f680bf08c641a233" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_Activate</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_Activate</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Activate and configure a subsystem&apos;s preallocated devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>Marks a powered-off subsystem online, requests each unallocated preallocated device, and sets SUBSYSTEM_IS_CONFIGURED after all requests succeed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem to activate and configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if already configured or all preallocations succeed; XST_INVALID_PARAM for a NULL subsystem; XST_FAILURE for malformed requirement data; or XPM_ERR_DEVICE_REQ if a device request fails. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="303" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ac974f8c104b3fd7ad0c6f8d896a77467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_AddRequirement</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)</argsstring>
+        <name>XPmSubsystemOp_AddRequirement</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Payload</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <briefdescription>
+<para>Add a node-class-specific requirement to a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Dispatches the request using the class of the node ID in <computeroutput>Payload</computeroutput>[1]. A device request adds a device requirement, a reset request grants reset permission, a subsystem request grants operation permissions, and a register node request adds register-node access.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the subsystem receiving the requirement. Must not be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command payload whose second word contains the node ID. Must contain at least two words; class-specific handlers can require additional words. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of words available in <computeroutput>Payload</computeroutput>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the selected requirement was added. </para><simplesectsep/><para>XST_INVALID_PARAM for an unsupported node class or a malformed class-specific payload. </para><simplesectsep/><para>An error status returned by the selected requirement handler.</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full implementation for subsystem builds.</para></simplesect>
+Add a node-class-specific requirement to a subsystem.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem that would own the requirement; unused. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Serialized requirement data; unused. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of payload words; unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="452" bodyend="485"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ae4643e42e0f21011811bb6b598a9c801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_GetStatus</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus)</argsstring>
+        <name>XPmSubsystemOp_GetStatus</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref> *const</type>
+          <declname>DeviceStatus</declname>
+        </param>
+        <briefdescription>
+<para>Read the software state recorded for a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Copies Subsystem-&gt;State to DeviceStatus-&gt;Status.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem whose state is queried. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output structure that receives the state.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, or XST_INVALID_PARAM if either pointer is NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="212" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ac9547510f5484d3a4a8cfb39deac37ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_Idle</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_Idle</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Return success without idling the subsystem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="137" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a9a5f5afb50b1826b2834622e7227f2af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_InitFinalize</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_InitFinalize</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Finalize subsystem initialization after successful boot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full implementation for subsystem builds. Notifies healthy boot to stop healthy boot monitors after successful subsystem boot.</para></simplesect>
+Finalize subsystem initialization after successful boot.</para><para>This weak EEMI implementation does not inspect or modify the subsystem.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem to finalize; unused by this stub.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="190" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a7e5568be658270b3fb36ace3214f5ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_IsAccessAllowed</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 NodeId)</argsstring>
+        <name>XPmSubsystemOp_IsAccessAllowed</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>Check whether a subsystem may access a node. </para>        </briefdescription>
+        <detaileddescription>
+<para>PMC access is accepted directly. Clock, reset, device, and pin requests are dispatched to their permission checkers; power and unsupported node classes remain denied. A denial is logged.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem requesting access. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node whose access permission is checked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when access is allowed, XPM_INVALID_SUBSYSID for a NULL subsystem, XST_GLITCH_ERROR if the redundant PMC-ID check disagrees, XST_FAILURE for a power or unsupported node class, or the selected permission checker&apos;s failure status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="482" bodyend="513"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a73be9e1e331c64e08bba08a893833be9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_NotifyHealthyBoot</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_NotifyHealthyBoot</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Notify that subsystem has booted successfully and release healthy boot monitors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full implementation for subsystem builds. Iterates through healthy boot monitor devices and releases those allocated to the subsystem.</para></simplesect>
+Notify that subsystem has booted successfully and release healthy boot monitors.</para><para>This weak EEMI implementation does not inspect or modify the subsystem.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem reporting a healthy boot; unused by this stub.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="42" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a74724b34f20b6aa9aaad4865a7153261" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_SetState</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 State)</argsstring>
+        <name>XPmSubsystemOp_SetState</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+<para>Set the software state recorded for a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Validates the pointer and state, stores the state, and verifies the stored value to detect a fault during the update. No hardware registers are written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem whose State field is updated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New state; must be less than MAX_STATE.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the state is stored, XST_INVALID_PARAM for an invalid pointer or state, or XST_GLITCH_ERROR if verification fails. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="179" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a8e78f25cf233298383f5b3881d6d972f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_ShutDown</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_ShutDown</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Shut down a subsystem and release its runtime resources. </para>        </briefdescription>
+        <detaileddescription>
+<para>An already powered-off subsystem is accepted without further action. Otherwise this function idles its cores, clears its configured and idle- callback flags, releases all requirements, unregisters all notifiers, clears the pending callback reason, and changes the state to POWERED_OFF. Processing stops at the first failed step, so effects completed before that failure remain in place.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the subsystem to shut down. Must not be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the subsystem was already off or shutdown completed. </para><simplesectsep/><para>An error status returned by the idle, cleanup, or state-change step.</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full implementation for subsystem builds.</para></simplesect>
+Shut down a subsystem and release its runtime resources.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem to shut down; unused by this EEMI stub.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="260" bodyend="304"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a98e87576f9ad7d0786dc699565895a08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_StartRecoveryTimer</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 CmdType)</argsstring>
+        <name>XPmSubsystemOp_StartRecoveryTimer</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>Start recovery timer for subsystem using healthy boot monitor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_DEVICE_NOT_FOUND if no runtime healthy boot monitor available, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Strong symbol override - full implementation for subsystem builds. Requests runtime healthy boot monitor device (skips pre-allocated boot-time monitors) to start recovery timer.</para></simplesect>
+Start recovery timer for subsystem using healthy boot monitor.</para><para>This weak EEMI implementation does not start a timer or modify the subsystem.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem whose recovery timer was requested; unused. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Security type of the request; unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>A subsystem build overrides this definition in xpm_runtime_subsys.c. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_subsys.c" bodystart="90" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1ac4afd0c85ba1c9cbed5fd031d055987f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_Suspend</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_Suspend</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Return success without suspending the subsystem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="147" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8h_1a30f25dd2664c08239e0ed51aecdcd271" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystemOp_WakeUp</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystemOp_WakeUp</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Return success without waking the subsystem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_eemi.c" bodystart="157" bodyend="162"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_SUBSYSTEM_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_SUBSYSTEM_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__defs_8h" kindref="compound">xpm_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_list.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_fsm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INVALID_SUBSYSID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_NUM_SUBSYSTEMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUBSYS_TO_NS_BITPOS(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODE_INDEX_MASK<sp/>&amp;<sp/>((x)))</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUBSYS_TO_S_BITPOS(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODE_INDEX_MASK<sp/>&amp;<sp/>((x)<sp/>+<sp/>MAX_NUM_SUBSYSTEMS))</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#define<sp/>SUBSYSTEM_INIT_FINALIZED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)1U<sp/>&lt;&lt;<sp/>0U)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUBSYSTEM_IS_CONFIGURED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)1U<sp/>&lt;&lt;<sp/>1U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUBSYSTEM_IDLE_SUPPORTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)1U<sp/>&lt;&lt;<sp/>2U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUBSYSTEM_SUSCB_PRIORITIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)1U<sp/>&lt;&lt;<sp/>3U)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUBSYSTEM_IDLE_CB_IS_SENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)1U<sp/>&lt;&lt;<sp/>4U)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#define<sp/>IS_SUBSYS_CONFIGURED(Flags)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SUBSYSTEM_IS_CONFIGURED<sp/>==<sp/>((Flags)<sp/>&amp;<sp/>SUBSYSTEM_IS_CONFIGURED))</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IS_SUBSYS_INIT_FINALIZED(Flags)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SUBSYSTEM_INIT_FINALIZED<sp/>==<sp/>((Flags)<sp/>&amp;<sp/>SUBSYSTEM_INIT_FINALIZED))</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUB_PERM_WAKE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>0U)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUB_PERM_PWRDWN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>1U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUB_PERM_WAKE_SHIFT_NS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUB_PERM_PWRDWN_SHIFT_NS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SUB_PERM_WAKE_SHIFT_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U<sp/>+<sp/>MAX_NUM_SUBSYSTEMS)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SUB_PERM_PWRDWN_SHIFT_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>+<sp/>MAX_NUM_SUBSYSTEMS)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PERM_BITMASK(Op,<sp/>OpShift,<sp/>SubShift)<sp/><sp/><sp/><sp/><sp/>((1U<sp/>&amp;<sp/>((Op)<sp/>&gt;&gt;<sp/>(OpShift)))<sp/>&lt;&lt;<sp/>(SubShift))</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OFFLINE,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESERVED,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ONLINE,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUSPENDING,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUSPENDED,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>POWERED_OFF,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PENDING_POWER_OFF,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PENDING_RESTART,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_STATE</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}<sp/>XPm_SubsysState;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBSYS_OPS_GENERIC<sp/>=<sp/>0U,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SUBSYS_OPS_MAX<sp/><sp/></highlight><highlight class="comment">/*<sp/>Always<sp/>keep<sp/>this<sp/>as<sp/>the<sp/>last<sp/>element<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}<sp/>XPm_SubsysOpsType;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_FrcPwrDwnReq<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AckType;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InitiatorIpiMask;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/>XPm_FrcPwrDwnReq;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Forward<sp/>declaration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___subsystem_mgr" kindref="compound">XPm_SubsystemMgr</ref><sp/><ref refid="struct_x_pm___subsystem_mgr" kindref="compound">XPm_SubsystemMgr</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_RequirementList<sp/>XPm_RequirementList;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">CREATE_LIST(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_Permissions<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>bits[0:15]<sp/>non<sp/>secure<sp/>operations</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>bits[16:31]<sp/>secure<sp/>operations</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WakeupPerms;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PowerdownPerms;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<sp/>XPm_Permissions;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="struct_x_pm___pend_susp_cb" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pend_susp_cb" kindref="compound">XPm_PendSuspCb</ref><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reason;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Latency;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>State;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*SuspendCb)(u32<sp/>IpiMask,<sp/>u32<sp/>Event,<sp/>u32<sp/>*Payload);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><ref refid="struct_x_pm___pend_susp_cb" kindref="compound">XPm_PendSuspCb</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="struct_x_pm___subsystem_ops" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*Activate)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*SetState)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>State);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*InitFinalize)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*GetStatus)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref><sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DeviceStatus);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*AddRequirement)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>*Payload,<sp/>u32<sp/>PayloadLen);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*ShutDown)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*WakeUp)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*Suspend)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*Idle)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*IsAccessAllowed)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*StartRecoveryTimer)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>(*NotifyHealthyBoot)(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}<sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="struct_x_pm___subsystem" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>{</highlight></codeline>
+<codeline lineno="127" refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>;<sp/></highlight></codeline>
+<codeline lineno="128" refid="struct_x_pm___subsystem_1afa3950a11c422ea9b3bfb1c4de155ea1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___subsystem_1afa3950a11c422ea9b3bfb1c4de155ea1" kindref="member">IpiMask</ref>;<sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_x_pm___subsystem_1a1160acd436cf3e267f5b9ff695fb00f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___subsystem_1a1160acd436cf3e267f5b9ff695fb00f3" kindref="member">State</ref>;<sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_x_pm___subsystem_1a303c051eb659d05cbef398ad2bdbf9cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___subsystem_1a303c051eb659d05cbef398ad2bdbf9cd" kindref="member">Flags</ref>;<sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_x_pm___subsystem_1a0fc972dcff4b6309d994588eaf12471b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___subsystem_1a0fc972dcff4b6309d994588eaf12471b" kindref="member">OpsType</ref>;<sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_pm___subsystem_1ae42a90097b01c4b1397ddb6abed8d204" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Permissions<sp/><ref refid="struct_x_pm___subsystem_1ae42a90097b01c4b1397ddb6abed8d204" kindref="member">Perms</ref>;<sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_x_pm___subsystem_1af96887fa03761bb065bb1158ab308ced" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___pend_susp_cb" kindref="compound">XPm_PendSuspCb</ref><sp/><ref refid="struct_x_pm___subsystem_1af96887fa03761bb065bb1158ab308ced" kindref="member">PendCb</ref>;<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_FrcPwrDwnReq<sp/>FrcPwrDwnReq;<sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_pm___subsystem_1a5ab94665c95bf353b7066ca82bd81d05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RequirementList<sp/>*<ref refid="struct_x_pm___subsystem_1a5ab94665c95bf353b7066ca82bd81d05" kindref="member">Requirements</ref>;<sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_pm___subsystem_1af2114f126bf4004489632e0692c5b390" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_SubsystemList<sp/>*<ref refid="struct_x_pm___subsystem_1af2114f126bf4004489632e0692c5b390" kindref="member">AllSubsystems</ref>;<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="struct_x_pm___subsystem_mgr" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___subsystem_mgr" kindref="compound">XPm_SubsystemMgr</ref><sp/>{</highlight></codeline>
+<codeline lineno="143" refid="struct_x_pm___subsystem_mgr_1a2148f2da89a0c539bb5790bcd1e9c255" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_SubsystemList<sp/><ref refid="struct_x_pm___subsystem_mgr_1a2148f2da89a0c539bb5790bcd1e9c255" kindref="member">Subsystems</ref>;<sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_x_pm___subsystem_mgr_1ad1abd550cb9f9fdcb06106ea313e4cab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/><ref refid="struct_x_pm___subsystem_mgr_1ad1abd550cb9f9fdcb06106ea313e4cab" kindref="member">SubsysOps</ref>[SUBSYS_OPS_MAX];<sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_pm___subsystem_mgr_1a30ba7582b2f8ff0453b48ca34e3c3c67" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___subsystem_mgr_1a30ba7582b2f8ff0453b48ca34e3c3c67" kindref="member">NumSubsystems</ref>;<sp/></highlight></codeline>
+<codeline lineno="146" refid="struct_x_pm___subsystem_mgr_1ae43b6694fadff08e625171beec63e060" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___subsystem_mgr_1ae43b6694fadff08e625171beec63e060" kindref="member">MaxSubsystemIdx</ref>;<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">XStatus<sp/>XPmSubsystem_ModuleInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">u32<sp/>XPmSubsystem_GetIPIMask(u32<sp/>SubsystemId);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">XStatus<sp/>XPm_IsWakeAllowed(u32<sp/>SubsystemId,<sp/>u32<sp/>NodeId,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">XStatus<sp/>XPm_IsAccessAllowed(u32<sp/>SubsystemId,<sp/>u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">XStatus<sp/>XPmSubsystem_Add(u32<sp/>SubsystemId);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*XPmSubsystem_GetById(u32<sp/>SubsystemId);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*XPmSubsystem_GetByIndex(u32<sp/>SubSysIdx);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">u32<sp/>XPmSubsystem_GetMaxSubsysIdx(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">XStatus<sp/>XPmSubsystem_ForcePwrDwn(u32<sp/>SubsystemId);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">XStatus<sp/>XPmSubsystem_IsOperationAllowed(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HostId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>TargetId,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Operation,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">XStatus<sp/>XPm_IsForcePowerDownAllowed(u32<sp/>SubsystemId,<sp/>u32<sp/>NodeId,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">XStatus<sp/>XPmSubsystem_CmnFlush(u32<sp/>SubsystemId);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">XPm_Fsm<sp/>*XPmSubsystem_GetHbMonFsm(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">XStatus<sp/>XPmSubsystem_Activate(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">XStatus<sp/>XPmSubsystem_SetState(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>State);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">XStatus<sp/>XPmSubsystem_GetStatus(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref><sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DeviceStatus);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">XStatus<sp/>XPmSubsystem_Idle(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">XStatus<sp/>XPmSubsystem_InitFinalize(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">XStatus<sp/>XPmSubsystem_AddPermissions(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>TargetId,<sp/>u32<sp/>Operations);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">XStatus<sp/>XPmSubsystem_AddRequirement(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>*Payload,<sp/>u32<sp/>PayloadLen);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">XStatus<sp/>XPmSubsystem_StartRecoveryTimer(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">XStatus<sp/>XPmSubsystem_NotifyHealthyBoot(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/>*<sp/>(Private)<sp/>Generic<sp/>Common<sp/>Subsystem<sp/>Operation<sp/>Functions</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/>*<sp/>These<sp/>are<sp/>common<sp/>implementations<sp/>used<sp/>by<sp/>SubsystemOpsTable<sp/>in</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/>*<sp/>implementation<sp/>modules<sp/>(xpm_runtime_subsys.c<sp/>and<sp/>xpm_runtime_eemi.c).</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/>*<sp/>Declared<sp/>here<sp/>for<sp/>LTO<sp/>visibility.</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_Activate(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_AddRequirement(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>*Payload,<sp/>u32<sp/>PayloadLen);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_GetStatus(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref><sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DeviceStatus);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_Idle(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_InitFinalize(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_IsAccessAllowed(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_NotifyHealthyBoot(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_SetState(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>State);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_ShutDown(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_StartRecoveryTimer(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_Suspend(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">XStatus<sp/>XPmSubsystemOp_WakeUp(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_SUBSYSTEM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h"/>
+  </compounddef>
+</doxygen>

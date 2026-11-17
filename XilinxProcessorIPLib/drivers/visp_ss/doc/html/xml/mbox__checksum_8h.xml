@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__checksum_8h" kind="file">
+    <compoundname>mbox_checksum.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includes refid="mbox__fifo_8h" local="yes">mbox_fifo.h</includes>
+    <includedby refid="mbox__checksum_8c" local="yes">mbox_checksum.c</includedby>
+    <includedby refid="mbox__integrity_8c" local="yes">mbox_integrity.c</includedby>
+    <incdepgraph>
+      <node id="6438">
+        <label>mbox_checksum.h</label>
+        <link refid="mbox_checksum.h"/>
+        <childnode refid="6439" relation="include">
+        </childnode>
+        <childnode refid="6440" relation="include">
+        </childnode>
+        <childnode refid="6441" relation="include">
+        </childnode>
+      </node>
+      <node id="6442">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6440">
+        <label>stdint.h</label>
+      </node>
+      <node id="6441">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6442" relation="include">
+        </childnode>
+        <childnode refid="6443" relation="include">
+        </childnode>
+      </node>
+      <node id="6439">
+        <label>stddef.h</label>
+      </node>
+      <node id="6443">
+        <label>sys/_stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6444">
+        <label>mbox_checksum.h</label>
+        <link refid="mbox_checksum.h"/>
+        <childnode refid="6445" relation="include">
+        </childnode>
+        <childnode refid="6446" relation="include">
+        </childnode>
+      </node>
+      <node id="6446">
+        <label>mbox_integrity.c</label>
+      </node>
+      <node id="6445">
+        <label>mbox_checksum.c</label>
+        <link refid="mbox__checksum_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mbox__checksum_8h_1a6016ac61659561e24a81fde3109d6888" prot="public" static="no">
+        <name>MBOX_CRC16_INIT</name>
+        <initializer>0x4F4EU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_checksum.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_checksum.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__checksum_8h_1a08081b5f3c430f19db4a96e6837fc02d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t mbox_checksum_size</definition>
+        <argsstring>(const MboxPostMsg *msg)</argsstring>
+        <name>mbox_checksum_size</name>
+        <param>
+          <type>const <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Number of bytes covered by the checksum: header + used payload only. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Byte count to feed into the CRC (not sizeof(MboxPostMsg)) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_checksum.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_checksum.c" bodystart="43" bodyend="46"/>
+        <referencedby refid="mbox__checksum_8c_1a4bafdc482f9426ed8f66b692ee3a2997" compoundref="mbox__checksum_8c" startline="48" endline="64">mbox_checksum_calculate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mbox__checksum_8h_1a4bafdc482f9426ed8f66b692ee3a2997" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t mbox_checksum_calculate</definition>
+        <argsstring>(MboxPostMsg *msg)</argsstring>
+        <name>mbox_checksum_calculate</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the CRC-16 checksum of a message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> (checksum field is zeroed then restored during calculation) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Calculated 16-bit CRC value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_checksum.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_checksum.c" bodystart="48" bodyend="64"/>
+        <references refid="mbox__checksum_8h_1a08081b5f3c430f19db4a96e6837fc02d" compoundref="mbox__checksum_8c" startline="43" endline="46">mbox_checksum_size</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. </para>    </briefdescription>
+    <detaileddescription>
+<para>All Rights Reserved.</para><para>Header of mailbox CRC-16 message checksum </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="7"><highlight class="preprocessor">#ifndef<sp/>_MBOX_CHECKSUM_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_CHECKSUM_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__fifo_8h" kindref="compound">mbox_fifo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MBOX_CRC16_INIT<sp/>0x4F4EU</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="mbox__checksum_8h_1a08081b5f3c430f19db4a96e6837fc02d" kindref="member">mbox_checksum_size</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">uint16_t<sp/><ref refid="mbox__checksum_8h_1a4bafdc482f9426ed8f66b692ee3a2997" kindref="member">mbox_checksum_calculate</ref>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>_MBOX_CHECKSUM_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_checksum.h"/>
+  </compounddef>
+</doxygen>

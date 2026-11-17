@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__mldsa__common_8h" kind="file">
+    <compoundname>xasu_mldsa_common.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xasu__mldsainfo_8h" local="yes">xasu_mldsainfo.h</includes>
+    <includedby refid="xasu__mldsa_8c" local="yes">xasu_mldsa.c</includedby>
+    <includedby refid="xasu__mldsa__common_8c" local="yes">xasu_mldsa_common.c</includedby>
+    <incdepgraph>
+      <node id="998">
+        <label>xasu_mldsainfo.h</label>
+        <link refid="xasu__mldsainfo_8h"/>
+        <childnode refid="997" relation="include">
+        </childnode>
+        <childnode refid="999" relation="include">
+        </childnode>
+      </node>
+      <node id="996">
+        <label>xasu_mldsa_common.h</label>
+        <link refid="xasu_mldsa_common.h"/>
+        <childnode refid="997" relation="include">
+        </childnode>
+        <childnode refid="998" relation="include">
+        </childnode>
+      </node>
+      <node id="999">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="997">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1002">
+        <label>xasu_mldsa_common.c</label>
+        <link refid="xasu__mldsa__common_8c"/>
+      </node>
+      <node id="1000">
+        <label>xasu_mldsa_common.h</label>
+        <link refid="xasu_mldsa_common.h"/>
+        <childnode refid="1001" relation="include">
+        </childnode>
+        <childnode refid="1002" relation="include">
+        </childnode>
+      </node>
+      <node id="1001">
+        <label>xasu_mldsa.c</label>
+        <link refid="xasu__mldsa_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MldsaValidateParams</definition>
+        <argsstring>(const XAsu_MldsaSignVerifyParams *MldsaParamsPtr)</argsstring>
+        <name>XAsu_MldsaValidateParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___mldsa_sign_verify_params" kindref="compound">XAsu_MldsaSignVerifyParams</ref> *</type>
+          <declname>MldsaParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the ML-DSA signature generation/verification parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MldsaParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mldsa_sign_verify_params" kindref="compound">XAsu_MldsaSignVerifyParams</ref> structure which holds the ML-DSA signature generation/verification parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of ML-DSA parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ML-DSA params pointer.</para><para>Validate the parameter set against the FIPS 204 approved sets.</para><para>Validate signature address, which is the output for sign and the input for verify.</para><para>Validate message address and length. MsgAddr must be a valid (non-zero) buffer pointer even for an empty message (MsgLen == 0), to match the firmware contract that lets the message stream through the SHA engine: a zero-length update on a valid address is a no-op, while a zero address is rejected by the SHA driver.</para><para>Validate the context string length and its address when a context is supplied.</para><para>Validate that exactly one of KeyAddr or KeyId is provided, and that a vault sourced key carries no length.</para><para>Validate the signing mode before the mode dependent checks below, so that an undefined mode is rejected here rather than travelling to the server to be rejected there.</para><para>Validate the pre-hash SHA type and mode, which apply only to HashML-DSA.</para><para>Validate the randomness mode, which selects hedged or deterministic signing and is unused for verification. An out of range value would otherwise be taken as hedged rather than rejected, silently signing in a mode the request did not ask for.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsa_common.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsa_common.c" bodystart="58" bodyend="132"/>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1acf543d8e311b4ee967c922f6a88f05d0" compoundref="xasu__mldsainfo_8h" startline="127">XAsu_MldsaSignVerifyParams::ContextAddr</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a10269382cbb521436e7efd23fb0c932f" compoundref="xasu__mldsainfo_8h" startline="131">XAsu_MldsaSignVerifyParams::ContextLen</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a05b8d27638c9ba934766b71920ca0076" compoundref="xasu__mldsainfo_8h" startline="142">XAsu_MldsaSignVerifyParams::Deterministic</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1aadc1661ecc0c21993c8719c323083f9c" compoundref="xasu__mldsainfo_8h" startline="122">XAsu_MldsaSignVerifyParams::KeyAddr</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a4a9561d32575e56b71252d56f80688cf" compoundref="xasu__mldsainfo_8h" startline="132">XAsu_MldsaSignVerifyParams::KeyId</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1ac19d86066504cfcb6d04aa35cec6aa57" compoundref="xasu__mldsainfo_8h" startline="128">XAsu_MldsaSignVerifyParams::KeyLen</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a57a2e9c694745ebfb987da4ec7bbc4d0" compoundref="xasu__mldsainfo_8h" startline="124">XAsu_MldsaSignVerifyParams::MsgAddr</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1ab40e0d4bd8ce5c505d070c6b69e00f93" compoundref="xasu__mldsainfo_8h" startline="129">XAsu_MldsaSignVerifyParams::MsgLen</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1aed874f7191a0f33fe7148ccdd16d2181" compoundref="xasu__mldsainfo_8h" startline="134">XAsu_MldsaSignVerifyParams::ParamSet</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a0265c99339ca4cadbe7504f1149dee10" compoundref="xasu__mldsainfo_8h" startline="140">XAsu_MldsaSignVerifyParams::ShaMode</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a25d05927f58e028b15e8005e27ea4b42" compoundref="xasu__mldsainfo_8h" startline="138">XAsu_MldsaSignVerifyParams::ShaType</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a2e56bd935b98275432f771084b5e6f26" compoundref="xasu__mldsainfo_8h" startline="126">XAsu_MldsaSignVerifyParams::SignatureAddr</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1aac7cb2d52fc5c55a12c3ce29be26e0bb" compoundref="xasu__mldsainfo_8h" startline="135">XAsu_MldsaSignVerifyParams::SignMode</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="73">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" compoundref="xasu__keymanager__common_8c" startline="598" endline="622">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45afa4ac7963b0db583423a33f683ef87b7" compoundref="xasu__mldsainfo_8h" startline="100">XASU_MLDSA_87</references>
+        <references refid="group__xasu__common__defs_1gaafd8cdaeea1d4f09d175bb7801ec491a" compoundref="xasu__mldsainfo_8h" startline="71">XASU_MLDSA_DETERMINISTIC</references>
+        <references refid="group__xasu__common__defs_1ga127a0fa85fed4a24d371746f2c9be46e" compoundref="xasu__mldsainfo_8h" startline="63">XASU_MLDSA_MAX_CTX_LEN</references>
+        <references refid="group__xasu__common__defs_1gad4456e8e57dae7b1088045ff6eac1ab7" compoundref="xasu__mldsainfo_8h" startline="67">XASU_MLDSA_SIGN_MODE_PREHASH</references>
+        <referencedby refid="group__xasu__mldsa__client__apis_1gaeb13299f8abe43cbebabbde90d970d70" compoundref="xasu__mldsa_8c" startline="62" endline="99">XAsu_MldsaSign</referencedby>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+        <referencedby refid="group__xasu__mldsa__client__apis_1ga11ebbf80195c5d47d4da4f7e8d3f8ad3" compoundref="xasu__mldsa_8c" startline="181" endline="218">XAsu_MldsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MldsaValidateSignDerandParams</definition>
+        <argsstring>(const XAsu_MldsaSignDerandParams *MldsaParamsPtr)</argsstring>
+        <name>XAsu_MldsaValidateSignDerandParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___mldsa_sign_derand_params" kindref="compound">XAsu_MldsaSignDerandParams</ref> *</type>
+          <declname>MldsaParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the parameters of the ML-DSA signature generation which takes its rnd from the request, an algorithm validation only service. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MldsaParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mldsa_sign_derand_params" kindref="compound">XAsu_MldsaSignDerandParams</ref> structure which holds the ML-DSA signature generation parameters and the rnd to sign with.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of ML-DSA parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ML-DSA params pointer.</para><para>Validate the signing parameters this command shares with signature generation.</para><para>The secret key comes from KeyAddr only, as the key vault is not reachable from a validation command.</para><para>rnd must be supplied: a zero address is an error here rather than a request to draw from the TRNG.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsa_common.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsa_common.c" bodystart="147" bodyend="186"/>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1aadc1661ecc0c21993c8719c323083f9c" compoundref="xasu__mldsainfo_8h" startline="122">XAsu_MldsaSignVerifyParams::KeyAddr</references>
+        <references refid="struct_x_asu___mldsa_sign_verify_params_1a4a9561d32575e56b71252d56f80688cf" compoundref="xasu__mldsainfo_8h" startline="132">XAsu_MldsaSignVerifyParams::KeyId</references>
+        <references refid="struct_x_asu___mldsa_sign_derand_params_1a0fd80dc06d8016d5afe1196069445b3e" compoundref="xasu__mldsainfo_8h" startline="160">XAsu_MldsaSignDerandParams::RndAddr</references>
+        <references refid="struct_x_asu___mldsa_sign_derand_params_1a2d0dfcf0898db0f5cb6fde8ead4a4ca7" compoundref="xasu__mldsainfo_8h" startline="161">XAsu_MldsaSignDerandParams::RndLen</references>
+        <references refid="struct_x_asu___mldsa_sign_derand_params_1aaa1530a14866fb3862dac1bd1fe9ecd7" compoundref="xasu__mldsainfo_8h" startline="158">XAsu_MldsaSignDerandParams::SignParams</references>
+        <references refid="group__xasu__common__defs_1gabb0e6eeea94b04ae4a61618c484fb6d3" compoundref="xasu__mldsainfo_8h" startline="75">XASU_MLDSA_SIGN_RND_LEN</references>
+        <references refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</references>
+        <referencedby refid="group__xasu__mldsa__client__apis_1ga18c8cf02e218a342838405be0b25ba3c" compoundref="xasu__mldsa_8c" startline="124" endline="162">XAsu_MldsaSignDerand</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ML-DSA function prototypes which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/21/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_MLDSA_COMMON_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_COMMON_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__mldsainfo_8h" kindref="compound">xasu_mldsainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">s32<sp/><ref refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" kindref="member">XAsu_MldsaValidateParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params" kindref="compound">XAsu_MldsaSignVerifyParams</ref><sp/>*MldsaParamsPtr);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">s32<sp/><ref refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" kindref="member">XAsu_MldsaValidateSignDerandParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___mldsa_sign_derand_params" kindref="compound">XAsu_MldsaSignDerandParams</ref><sp/>*MldsaParamsPtr);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_MLDSA_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsa_common.h"/>
+  </compounddef>
+</doxygen>

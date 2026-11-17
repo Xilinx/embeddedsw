@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xclk__wiz__versal__example_8c" kind="file">
+    <compoundname>xclk_wiz_versal_example.c</compoundname>
+    <includes refid="xclk__wiz_8h" local="yes">xclk_wiz.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <incdepgraph>
+      <node id="104">
+        <label>xil_io.h</label>
+      </node>
+      <node id="106">
+        <label>sleep.h</label>
+      </node>
+      <node id="99">
+        <label>xclk_wiz_versal_example.c</label>
+        <link refid="xclk_wiz_versal_example.c"/>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="105">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="109">
+        <label>xstatus.h</label>
+      </node>
+      <node id="101">
+        <label>xil_types.h</label>
+      </node>
+      <node id="103">
+        <label>xclk_wiz_hw.h</label>
+        <link refid="xclk__wiz__hw_8h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xparameters.h</label>
+      </node>
+      <node id="107">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="100">
+        <label>xclk_wiz.h</label>
+        <link refid="xclk__wiz_8h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" prot="public" static="no">
+        <name>CLK_LOCK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Clock-lock status bit value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" compoundref="xclk__wiz__versal__example_8c" startline="106" endline="118">XClk_WaitForLock</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xclk__wiz__versal__example_1gafe1f538083ba57672c15775f0d15739d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref></type>
+        <definition>XClk_Wiz ClkWiz_Dynamic</definition>
+        <argsstring></argsstring>
+        <name>ClkWiz_Dynamic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xclk__wiz__versal__example_1ga91d283445c401eebe2a05eff4c549363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 ClkWiz_Example</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>ClkWiz_Example</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs the CLK_WIZ rate example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the main entry point for the versal example using the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> driver. This function sets up the system with interrupts handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the system setup failed.</para></listitem><listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XClk_WaitForLock</definition>
+        <argsstring>(XClk_Wiz_Config *CfgPtr_Dynamic)</argsstring>
+        <name>XClk_WaitForLock</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref> *</type>
+          <declname>CfgPtr_Dynamic</declname>
+        </param>
+        <briefdescription>
+<para>Waits for the dynamic clock wizard to lock. </para>        </briefdescription>
+        <detaileddescription>
+<para>Waits for the lock to settle after a frequency change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CfgPtr_Dynamic</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides pointer to clock wizard dynamic config.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the lock occurs.</para></listitem><listitem><para>XST_FAILURE if timeout. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="106" bodyend="118"/>
+        <references refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" compoundref="xclk__wiz_8h" startline="189">XClk_Wiz_Config::BaseAddr</references>
+        <references refid="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" compoundref="xclk__wiz__versal__example_8c" startline="68">CLK_LOCK</references>
+        <references refid="group__clk__wiz__api_1ga38a1af73dd61e339615ff6d772c67bd6" compoundref="xclk__wiz__hw_8h" startline="74">XCLK_WIZ_REG4_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__versal__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Runs the CLK_WIZ example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the main function for <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> rate example. If the ClkWiz_Example function which sets up the system succeeds, this function sets the desired rate.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if the interrupt example was unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>main returns after ClkWiz_Example completes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c" bodystart="136" bodyend="157"/>
+        <references refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" compoundref="xclk__wiz__setrate__example_8c" startline="150" endline="203">ClkWiz_Example</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Runs the CLK_WIZ Versal rate example. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains a design example using the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> driver with different rates assigned to clock wizard 1. Modify this value as per your dynamic clock reconfiguration Clocking wizard</para><para><simplesect kind="note"><para>This example targets Versal/Versal2 platforms.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date   Changes
+<hruler/>
+
+1.3 sd  4/7/20 Initial version for Clock Wizard Example
+1.4 sd  5/20/20 Use Macros and use readReg API
+1.6 sd  7/7/23  Add SDT support.
+1.8 sd  6/26/24 Update the device name and Baseaddress.
+    sd  9/5/24  Add GetRate and multi clock support.
+1.11 vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+1.12 ss  8/15/26  Updated specifiers.
+1.12 vn  09/3/26  Fix doxygen warnings.
+1.12 ss  9/23/26  Document platform note.
+1.12  tb  09/16/26 Align Doxygen comments with AMD standards.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xclk__wiz_8h" kindref="compound">xclk_wiz.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="52"><highlight class="comment">*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>names<sp/>of<sp/>the<sp/>hardware<sp/>instances.</highlight></codeline>
+<codeline lineno="53"><highlight class="comment">*<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily<sp/>change<sp/>all<sp/>the</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">*<sp/>needed<sp/>device<sp/>IDs<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XCLK_WIZARD_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_CLK_WIZ_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="62"><highlight class="comment">*<sp/>The<sp/>following<sp/>constants<sp/>are<sp/>part<sp/>of<sp/>clock<sp/>dynamic<sp/>reconfiguration</highlight></codeline>
+<codeline lineno="63"><highlight class="comment">*<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily<sp/>change</highlight></codeline>
+<codeline lineno="64"><highlight class="comment">*<sp/>needed<sp/>parameters</highlight></codeline>
+<codeline lineno="65"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" refkind="member"><highlight class="preprocessor">#define<sp/>CLK_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>Output<sp/>frequency<sp/>in<sp/>MHz.<sp/>User<sp/>need<sp/>to<sp/>change<sp/>this<sp/>value<sp/>to</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>generate<sp/>grater/lesser<sp/>interrupt<sp/>as<sp/>per<sp/>input<sp/>frequency</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" kindref="member">ClkWiz_Example</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" kindref="member">ClkWiz_Example</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" kindref="member">XClk_WaitForLock</ref>(<ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref><sp/>*CfgPtr_Dynamic);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>ClkWiz_Dynamic;<sp/></highlight><highlight class="comment">/*<sp/>The<sp/>instance<sp/>of<sp/>the<sp/>ClkWiz_Dynamic<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" kindref="member">XClk_WaitForLock</ref>(<ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref><sp/>*CfgPtr_Dynamic)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!XClk_Wiz_ReadReg(CfgPtr_Dynamic-&gt;<ref refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__clk__wiz__api_1ga38a1af73dd61e339615ff6d772c67bd6" kindref="member">XCLK_WIZ_REG4_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" kindref="member">CLK_LOCK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Count<sp/>==<sp/>10000)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(100);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count++;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="136" refid="group__xclk__wiz__versal__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xclk__wiz__intr__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;------------------------------------------\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CLK_WIZARD<sp/>example\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-------------------------------------------\n\r\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" kindref="member">ClkWiz_Example</ref>(XCLK_WIZARD_DEVICE_ID);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" kindref="member">ClkWiz_Example</ref>(XPAR_XCLK_WIZ_0_BASEADDR);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CLK_WIZARD<sp/>Monitor<sp/>interrupt<sp/>example<sp/>Failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>CLK_WIZARD<sp/>example\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" kindref="member">ClkWiz_Example</ref>(u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xclk__wiz__setrate__example_1ga91d283445c401eebe2a05eff4c549363" kindref="member">ClkWiz_Example</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref><sp/>*CfgPtr_Dynamic;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Rate;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>CLK_WIZ<sp/>Dynamic<sp/>reconfiguration<sp/>driver<sp/>instance</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr_Dynamic<sp/>=<sp/><ref refid="group__clk__wiz_1ga209a145483be43688a5ff52b66de0010" kindref="member">XClk_Wiz_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr_Dynamic<sp/>=<sp/><ref refid="group__clk__wiz_1ga209a145483be43688a5ff52b66de0010" kindref="member">XClk_Wiz_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!CfgPtr_Dynamic)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>CLK_WIZ<sp/>Dynamic<sp/>reconfiguration<sp/>driver</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__clk__wiz__api_1ga96e21929b605502ed7b693c0a2132b4e" kindref="member">XClk_Wiz_CfgInitialize</ref>(&amp;ClkWiz_Dynamic,<sp/>CfgPtr_Dynamic,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr_Dynamic-&gt;<ref refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" kindref="member">BaseAddr</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__clk__wiz__api_1ga5da48627691e7e979b7c4fbcb608796a" kindref="member">XClk_Wiz_GetRate</ref>(&amp;ClkWiz_Dynamic,<sp/>0,<sp/>&amp;Rate);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Rate<sp/>=<sp/>Rate<sp/>/<sp/><ref refid="group__clk__wiz_1ga7f4801bb3ade2dba35a43d47db2466f3" kindref="member">XCLK_MHZ</ref>;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nThe<sp/>Rate<sp/>%llu<sp/>MHz<sp/>\n&quot;</highlight><highlight class="normal">,<sp/><sp/>Rate);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calling<sp/>Clock<sp/>wizard<sp/>dynamic<sp/>reconfig<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_Wiz_WriteReg(CfgPtr_Dynamic-&gt;<ref refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__clk__wiz__api_1ga8344ad97aac75db9f1529b4f639565f1" kindref="member">XCLK_WIZ_REG25_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CfgPtr_Dynamic-&gt;<ref refid="struct_x_clk___wiz___config_1ad27e675e3da734bc59621ddb146dc927" kindref="member">NumClocks</ref><sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__clk__wiz__api_1ga0408e2c4fba6d9237aeb72db5c38164b" kindref="member">XClk_Wiz_SetRateHz</ref>(&amp;ClkWiz_Dynamic,<sp/>200000000);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__clk__wiz__api_1gad966194a45d93fa34d0eb8ab8c2de08d" kindref="member">XClk_Wiz_SetLeafRateHz</ref>(&amp;ClkWiz_Dynamic,<sp/>0,<sp/>200000000);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_Wiz_WriteReg(CfgPtr_Dynamic-&gt;<ref refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__clk__wiz__api_1ga8d853c1eaeeb4b89d06b7de0ff13d999" kindref="member">XCLK_WIZ_RECONFIG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__clk__wiz__api_1gab434cd858b06997f7ac2c8cdbbb5f525" kindref="member">XCLK_WIZ_RECONFIG_LOAD</ref><sp/>|<sp/><ref refid="group__clk__wiz__api_1ga1c1811b6a3ab2f3c0e824a07b7ea816d" kindref="member">XCLK_WIZ_RECONFIG_SADDR</ref>));</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xclk__wiz__versal__example_1ga7ac72face0b386c645cdba25e6d99967" kindref="member">XClk_WaitForLock</ref>(CfgPtr_Dynamic);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XClk_Wiz_ReadReg(CfgPtr_Dynamic-&gt;<ref refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__clk__wiz__api_1ga38a1af73dd61e339615ff6d772c67bd6" kindref="member">XCLK_WIZ_REG4_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__xclk__wiz__versal__example_1ga17e93c0269bc770ec81c1553ff5602f3" kindref="member">CLK_LOCK</ref>;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n<sp/>ERROR:<sp/>Clock<sp/>is<sp/>not<sp/>locked<sp/>:<sp/>0x%x<sp/>\t<sp/>Expected<sp/>&quot;</highlight><highlight class="normal">\</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;:<sp/>0x1\n\r&quot;</highlight><highlight class="normal">,<sp/>Reg);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__clk__wiz__api_1ga5da48627691e7e979b7c4fbcb608796a" kindref="member">XClk_Wiz_GetRate</ref>(&amp;ClkWiz_Dynamic,<sp/>0,<sp/>&amp;Rate);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Rate<sp/>=<sp/>Rate<sp/>/<sp/><ref refid="group__clk__wiz_1ga7f4801bb3ade2dba35a43d47db2466f3" kindref="member">XCLK_MHZ</ref>;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\nThe<sp/>Rate<sp/>%llu<sp/>MHz<sp/>\t<sp/>Expected<sp/>200<sp/>MHz<sp/>\n&quot;</highlight><highlight class="normal">,<sp/><sp/>Rate);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c"/>
+  </compounddef>
+</doxygen>

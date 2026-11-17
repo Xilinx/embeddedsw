@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_amd_xspi___hyper_bus_config" kind="struct" prot="public">
+    <compoundname>AmdXspi_HyperBusConfig</compoundname>
+    <includes local="no">amd_xspi_hyperbus_config.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_amd_xspi___hyper_bus_config_1aa36c8502a77b6e68fbb1ddf6d678affe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_HyperBusConfig::ManufacturerId</definition>
+        <argsstring></argsstring>
+        <name>ManufacturerId</name>
+        <briefdescription>
+<para>IR0[3:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___hyper_bus_config_1a3337729d67a1e6825986da567a9e8955" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_HyperBusConfig::DeviceType</definition>
+        <argsstring></argsstring>
+        <name>DeviceType</name>
+        <briefdescription>
+<para>IR1[3:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___hyper_bus_config_1a4a6a7ddcdcc05e269bc8628cb89804f4" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* AmdXspi_HyperBusConfig::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Human readable device name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___hyper_bus_config_1a7c89e6d6c99dfdcacb06d957cfce6add" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_HyperBusConfig::CsLowMaxUs</definition>
+        <argsstring></argsstring>
+        <name>CsLowMaxUs</name>
+        <briefdescription>
+<para>tCSM: max CS# LOW time, imposed by refresh. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes a HyperBus device. </para>    </briefdescription>
+    <detaileddescription>
+<para>One entry per supported device, looked up at runtime from the manufacturer and device identifiers read out of the part - IR0 and IR1 for HyperRAM.</para><para>This holds ONLY what the device cannot report about itself:</para><para><itemizedlist>
+<listitem><para>Geometry is absent. Density, row/column bits, array rows and the address limit are all decoded from IR0 by the accessors below. So one entry serves every density in a family.</para></listitem><listitem><para>Directly readable register fields are not duplicated.</para></listitem></itemizedlist>
+</para><para>Adding a device is therefore data, not code: append an entry and everything else follows. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="265" bodyend="273"/>
+    <listofallmembers>
+      <member refid="struct_amd_xspi___hyper_bus_config_1a7c89e6d6c99dfdcacb06d957cfce6add" prot="public" virt="non-virtual"><scope>AmdXspi_HyperBusConfig</scope><name>CsLowMaxUs</name></member>
+      <member refid="struct_amd_xspi___hyper_bus_config_1a3337729d67a1e6825986da567a9e8955" prot="public" virt="non-virtual"><scope>AmdXspi_HyperBusConfig</scope><name>DeviceType</name></member>
+      <member refid="struct_amd_xspi___hyper_bus_config_1aa36c8502a77b6e68fbb1ddf6d678affe" prot="public" virt="non-virtual"><scope>AmdXspi_HyperBusConfig</scope><name>ManufacturerId</name></member>
+      <member refid="struct_amd_xspi___hyper_bus_config_1a4a6a7ddcdcc05e269bc8628cb89804f4" prot="public" virt="non-virtual"><scope>AmdXspi_HyperBusConfig</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

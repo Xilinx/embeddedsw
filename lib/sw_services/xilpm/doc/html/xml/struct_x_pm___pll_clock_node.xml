@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pll_clock_node" kind="struct" prot="public">
+    <compoundname>XPm_PllClockNode</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pll_clock_node_1a94df88f3d21e6a993a804f70bfb204a1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref></type>
+        <definition>XPm_ClockNode XPm_PllClockNode::ClkNode</definition>
+        <argsstring></argsstring>
+        <name>ClkNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_clock_node_1a13254ba82310917228e4c157f5da7e93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PllClockNode::StatusReg</definition>
+        <argsstring></argsstring>
+        <name>StatusReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_clock_node_1a4aff8843ac2534a0ac01356f56245b7c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PllClockNode::ConfigReg</definition>
+        <argsstring></argsstring>
+        <name>ConfigReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_clock_node_1a0d499754f41eb7a29b709d30f1147453" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PllClockNode::FracConfigReg</definition>
+        <argsstring></argsstring>
+        <name>FracConfigReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_x_pm___pll_clock_node_1afddd20140d0379135884babb19921a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>XPm_PllClockNode::SAVE_REGION</definition>
+        <argsstring>(u8 PllMode;PmPllContext Context;) struct XPm_PllTopology *Topology</argsstring>
+        <name>SAVE_REGION</name>
+        <param>
+          <type>u8 PllMode;<ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref> Context;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="61" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="230">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="231" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="232" relation="usage">
+          <edgelabel>PwrDomain</edgelabel>
+        </childnode>
+      </node>
+      <node id="229">
+        <label>XPm_PllClockNode</label>
+        <childnode refid="230" relation="usage">
+          <edgelabel>ClkNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="232">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="231" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="232" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="231">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="56" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pll_clock_node_1a94df88f3d21e6a993a804f70bfb204a1" prot="public" virt="non-virtual"><scope>XPm_PllClockNode</scope><name>ClkNode</name></member>
+      <member refid="struct_x_pm___pll_clock_node_1a4aff8843ac2534a0ac01356f56245b7c" prot="public" virt="non-virtual"><scope>XPm_PllClockNode</scope><name>ConfigReg</name></member>
+      <member refid="struct_x_pm___pll_clock_node_1a0d499754f41eb7a29b709d30f1147453" prot="public" virt="non-virtual"><scope>XPm_PllClockNode</scope><name>FracConfigReg</name></member>
+      <member refid="struct_x_pm___pll_clock_node_1afddd20140d0379135884babb19921a49" prot="public" virt="non-virtual"><scope>XPm_PllClockNode</scope><name>SAVE_REGION</name></member>
+      <member refid="struct_x_pm___pll_clock_node_1a13254ba82310917228e4c157f5da7e93" prot="public" virt="non-virtual"><scope>XPm_PllClockNode</scope><name>StatusReg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

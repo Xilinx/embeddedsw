@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_time_stamp" kind="struct" prot="public">
+    <compoundname>TimeStamp</compoundname>
+    <includes local="no">trace.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_time_stamp_1a84ad44bef4d82d9e9b2ffe9f252ebdc7" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 TimeStamp::sec</definition>
+        <argsstring></argsstring>
+        <name>sec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_time_stamp_1ae4fe18b15fac1cbeefb86c5d8fa154cf" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 TimeStamp::secFrac</definition>
+        <argsstring></argsstring>
+        <name>secFrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Timestamp structure for time tracking. </para>    </briefdescription>
+    <detaileddescription>
+<para>Holds time split into whole seconds and fractional microseconds. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="162" bodyend="165"/>
+    <listofallmembers>
+      <member refid="struct_time_stamp_1a84ad44bef4d82d9e9b2ffe9f252ebdc7" prot="public" virt="non-virtual"><scope>TimeStamp</scope><name>sec</name></member>
+      <member refid="struct_time_stamp_1ae4fe18b15fac1cbeefb86c5d8fa154cf" prot="public" virt="non-virtual"><scope>TimeStamp</scope><name>secFrac</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__seq_8h" kind="file">
+    <compoundname>mbox_seq.h</compoundname>
+    <includes refid="mbox__fifo_8h" local="yes">mbox_fifo.h</includes>
+    <includes refid="mbox__api_8h" local="yes">mbox_api.h</includes>
+    <includedby refid="mbox__integrity_8c" local="yes">mbox_integrity.c</includedby>
+    <includedby refid="mbox__seq_8c" local="yes">mbox_seq.c</includedby>
+    <incdepgraph>
+      <node id="6950">
+        <label>mbox_seq.h</label>
+        <link refid="mbox_seq.h"/>
+        <childnode refid="6951" relation="include">
+        </childnode>
+        <childnode refid="6954" relation="include">
+        </childnode>
+      </node>
+      <node id="6952">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6955">
+        <label>stdint.h</label>
+      </node>
+      <node id="6951">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6952" relation="include">
+        </childnode>
+        <childnode refid="6953" relation="include">
+        </childnode>
+      </node>
+      <node id="6954">
+        <label>mbox_api.h</label>
+        <childnode refid="6952" relation="include">
+        </childnode>
+        <childnode refid="6955" relation="include">
+        </childnode>
+        <childnode refid="6951" relation="include">
+        </childnode>
+      </node>
+      <node id="6953">
+        <label>sys/_stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6956">
+        <label>mbox_seq.h</label>
+        <link refid="mbox_seq.h"/>
+        <childnode refid="6957" relation="include">
+        </childnode>
+        <childnode refid="6958" relation="include">
+        </childnode>
+      </node>
+      <node id="6957">
+        <label>mbox_integrity.c</label>
+      </node>
+      <node id="6958">
+        <label>mbox_seq.c</label>
+        <link refid="mbox__seq_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__seq_8h_1aa6c27d9f82181c5bb3357b4685765b16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_seq_init_all</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_seq_init_all</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize sequence counter state for all mbox cores. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_seq.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="43" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8h_1a0c3a4f3eaa90f1caa8b330ec29b2dc38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_seq_assign_outbound</definition>
+        <argsstring>(MboxCoreId remote_core_id, Payload_packet *payload)</argsstring>
+        <name>mbox_seq_assign_outbound</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>remote_core_id</declname>
+        </param>
+        <param>
+          <type><ref refid="mbox__fifo_8h_1afbb21034653fa377acc38d088c0d8704" kindref="member">Payload_packet</ref> *</type>
+          <declname>payload</declname>
+        </param>
+        <briefdescription>
+<para>Assign the next outbound sequence number to a payload. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>remote_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target remote core ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Payload_packet to stamp </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_seq.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="48" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8h_1a222dac29e6b88c34147587bb68e021da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_seq_validate_inbound</definition>
+        <argsstring>(MboxCoreId remote_core_id, const MboxPostMsg *msg)</argsstring>
+        <name>mbox_seq_validate_inbound</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>remote_core_id</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Validate the sequence number of an inbound message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>remote_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source remote core ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to received <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS if valid/accepted, VPI_ERR_SEQ_MISMATCH otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_seq.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="58" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8h_1a6ce339f8e45b2223bb0f072b76d02a7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_seq_mark_resync</definition>
+        <argsstring>(MboxCoreId remote_core_id)</argsstring>
+        <name>mbox_seq_mark_resync</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>remote_core_id</declname>
+        </param>
+        <briefdescription>
+<para>Force the inbound counter for a remote core to resync on next receive. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>remote_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Remote core ID whose next message defines the new baseline </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_seq.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="112" bodyend="118"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. </para>    </briefdescription>
+    <detaileddescription>
+<para>All Rights Reserved.</para><para>Header of mailbox per-core sequence counter integrity checks </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="7"><highlight class="preprocessor">#ifndef<sp/>_MBOX_SEQ_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_SEQ_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__fifo_8h" kindref="compound">mbox_fifo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__seq_8h_1aa6c27d9f82181c5bb3357b4685765b16" kindref="member">mbox_seq_init_all</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__seq_8h_1a0c3a4f3eaa90f1caa8b330ec29b2dc38" kindref="member">mbox_seq_assign_outbound</ref>(MboxCoreId<sp/>remote_core_id,<sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*payload);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">int32_t<sp/><ref refid="mbox__seq_8h_1a222dac29e6b88c34147587bb68e021da" kindref="member">mbox_seq_validate_inbound</ref>(MboxCoreId<sp/>remote_core_id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__seq_8h_1a6ce339f8e45b2223bb0f072b76d02a7c" kindref="member">mbox_seq_mark_resync</ref>(MboxCoreId<sp/>remote_core_id);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>_MBOX_SEQ_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_seq.h"/>
+  </compounddef>
+</doxygen>

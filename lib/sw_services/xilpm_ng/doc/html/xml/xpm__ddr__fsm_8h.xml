@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__ddr__fsm_8h" kind="file">
+    <compoundname>xpm_ddr_fsm.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__fsm_8h" local="yes">xpm_fsm.h</includes>
+    <includedby refid="xpm__ddr__fsm_8c" local="yes">xpm_ddr_fsm.c</includedby>
+    <includedby refid="xpm__fsm_8c" local="yes">xpm_fsm.c</includedby>
+    <incdepgraph>
+      <node id="940">
+        <label>xil_io.h</label>
+      </node>
+      <node id="945">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="932">
+        <label>xpm_ddr_fsm.h</label>
+        <link refid="xpm_ddr_fsm.h"/>
+        <childnode refid="933" relation="include">
+        </childnode>
+        <childnode refid="934" relation="include">
+        </childnode>
+      </node>
+      <node id="941">
+        <label>xil_util.h</label>
+      </node>
+      <node id="943">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="938">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="947">
+        <label>xpm_clock.h</label>
+        <childnode refid="939" relation="include">
+        </childnode>
+        <childnode refid="937" relation="include">
+        </childnode>
+        <childnode refid="946" relation="include">
+        </childnode>
+      </node>
+      <node id="946">
+        <label>xpm_power.h</label>
+        <childnode refid="944" relation="include">
+        </childnode>
+        <childnode refid="937" relation="include">
+        </childnode>
+      </node>
+      <node id="939">
+        <label>xpm_common.h</label>
+        <childnode refid="933" relation="include">
+        </childnode>
+        <childnode refid="940" relation="include">
+        </childnode>
+        <childnode refid="941" relation="include">
+        </childnode>
+        <childnode refid="942" relation="include">
+        </childnode>
+        <childnode refid="943" relation="include">
+        </childnode>
+        <childnode refid="944" relation="include">
+        </childnode>
+      </node>
+      <node id="937">
+        <label>xpm_node.h</label>
+        <childnode refid="935" relation="include">
+        </childnode>
+        <childnode refid="933" relation="include">
+        </childnode>
+        <childnode refid="938" relation="include">
+        </childnode>
+        <childnode refid="939" relation="include">
+        </childnode>
+      </node>
+      <node id="933">
+        <label>xstatus.h</label>
+      </node>
+      <node id="935">
+        <label>xil_types.h</label>
+      </node>
+      <node id="934">
+        <label>xpm_fsm.h</label>
+        <childnode refid="935" relation="include">
+        </childnode>
+        <childnode refid="933" relation="include">
+        </childnode>
+        <childnode refid="936" relation="include">
+        </childnode>
+      </node>
+      <node id="944">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="935" relation="include">
+        </childnode>
+        <childnode refid="945" relation="include">
+        </childnode>
+      </node>
+      <node id="936">
+        <label>xpm_device.h</label>
+        <childnode refid="937" relation="include">
+        </childnode>
+        <childnode refid="946" relation="include">
+        </childnode>
+        <childnode refid="947" relation="include">
+        </childnode>
+        <childnode refid="948" relation="include">
+        </childnode>
+      </node>
+      <node id="948">
+        <label>xpm_reset.h</label>
+        <childnode refid="937" relation="include">
+        </childnode>
+        <childnode refid="939" relation="include">
+        </childnode>
+      </node>
+      <node id="942">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="933" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="950">
+        <label>xpm_ddr_fsm.c</label>
+      </node>
+      <node id="949">
+        <label>xpm_ddr_fsm.h</label>
+        <link refid="xpm_ddr_fsm.h"/>
+        <childnode refid="950" relation="include">
+        </childnode>
+        <childnode refid="951" relation="include">
+        </childnode>
+      </node>
+      <node id="951">
+        <label>xpm_fsm.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__ddr__fsm_8h_1a29f326335d4c07d1b0b453ca36b7a236" prot="public" static="no" mutable="no">
+        <type>const XPm_Fsm</type>
+        <definition>const XPm_Fsm XPmDDRDeviceFsm</definition>
+        <argsstring></argsstring>
+        <name>XPmDDRDeviceFsm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ddr_fsm.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ddr_fsm.c" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_DDR_FSM_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_DDR_FSM_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_fsm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Fsm<sp/>XPmDDRDeviceFsm;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_DDR_FSM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ddr_fsm.h"/>
+  </compounddef>
+</doxygen>

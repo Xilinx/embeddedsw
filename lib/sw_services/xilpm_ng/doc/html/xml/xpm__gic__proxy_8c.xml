@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__gic__proxy_8c" kind="file">
+    <compoundname>xpm_gic_proxy.c</compoundname>
+    <includes refid="xpm__gic__proxy_8h" local="yes">xpm_gic_proxy.h</includes>
+    <includes refid="xpm__pmc_8h" local="yes">xpm_pmc.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__update_8h" local="yes">xpm_update.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <incdepgraph>
+      <node id="1648">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1661">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="1639">
+        <label>xpm_gic_proxy.c</label>
+        <link refid="xpm_gic_proxy.c"/>
+        <childnode refid="1640" relation="include">
+        </childnode>
+        <childnode refid="1657" relation="include">
+        </childnode>
+        <childnode refid="1642" relation="include">
+        </childnode>
+        <childnode refid="1647" relation="include">
+        </childnode>
+        <childnode refid="1659" relation="include">
+        </childnode>
+        <childnode refid="1660" relation="include">
+        </childnode>
+        <childnode refid="1661" relation="include">
+        </childnode>
+      </node>
+      <node id="1640">
+        <label>xpm_gic_proxy.h</label>
+        <childnode refid="1641" relation="include">
+        </childnode>
+      </node>
+      <node id="1653">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1641">
+        <label>xpm_periph.h</label>
+        <childnode refid="1642" relation="include">
+        </childnode>
+      </node>
+      <node id="1660">
+        <label>xpm_update.h</label>
+      </node>
+      <node id="1649">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1651">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1646">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="1655">
+        <label>xpm_clock.h</label>
+        <childnode refid="1647" relation="include">
+        </childnode>
+        <childnode refid="1643" relation="include">
+        </childnode>
+        <childnode refid="1654" relation="include">
+        </childnode>
+      </node>
+      <node id="1654">
+        <label>xpm_power.h</label>
+        <childnode refid="1652" relation="include">
+        </childnode>
+        <childnode refid="1643" relation="include">
+        </childnode>
+      </node>
+      <node id="1647">
+        <label>xpm_common.h</label>
+        <childnode refid="1645" relation="include">
+        </childnode>
+        <childnode refid="1648" relation="include">
+        </childnode>
+        <childnode refid="1649" relation="include">
+        </childnode>
+        <childnode refid="1650" relation="include">
+        </childnode>
+        <childnode refid="1651" relation="include">
+        </childnode>
+        <childnode refid="1652" relation="include">
+        </childnode>
+      </node>
+      <node id="1643">
+        <label>xpm_node.h</label>
+        <childnode refid="1644" relation="include">
+        </childnode>
+        <childnode refid="1645" relation="include">
+        </childnode>
+        <childnode refid="1646" relation="include">
+        </childnode>
+        <childnode refid="1647" relation="include">
+        </childnode>
+      </node>
+      <node id="1645">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1657">
+        <label>xpm_pmc.h</label>
+        <childnode refid="1658" relation="include">
+        </childnode>
+      </node>
+      <node id="1659">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="1658">
+        <label>xpm_core.h</label>
+        <childnode refid="1642" relation="include">
+        </childnode>
+        <childnode refid="1659" relation="include">
+        </childnode>
+      </node>
+      <node id="1644">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1652">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1644" relation="include">
+        </childnode>
+        <childnode refid="1653" relation="include">
+        </childnode>
+      </node>
+      <node id="1642">
+        <label>xpm_device.h</label>
+        <childnode refid="1643" relation="include">
+        </childnode>
+        <childnode refid="1654" relation="include">
+        </childnode>
+        <childnode refid="1655" relation="include">
+        </childnode>
+        <childnode refid="1656" relation="include">
+        </childnode>
+      </node>
+      <node id="1656">
+        <label>xpm_reset.h</label>
+        <childnode refid="1643" relation="include">
+        </childnode>
+        <childnode refid="1647" relation="include">
+        </childnode>
+      </node>
+      <node id="1650">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1645" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__gic__proxy_8c_1ac5995ad341d53f41f8ebc583d1c4c344" prot="public" static="no">
+        <name>XPM_GIC_PROXY_IS_ENABLED</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__gic__proxy_8c_1a4e44b3df071bd3e689d174758fd3281f" prot="public" static="no">
+        <name>XPM_GIC_PROXY_REDUNDANT_ADDR</name>
+        <param><defname>Status</defname></param>
+        <param><defname>StatusTmp</defname></param>
+        <param><defname>RegAddress</defname></param>
+        <param><defname>RegAddressTmp</defname></param>
+        <param><defname>Function</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>do {								\
+		(Status) = (Function)(__VA_ARGS__, &amp;(RegAddress));	\
+		(StatusTmp) = (Function)(__VA_ARGS__, &amp;(RegAddressTmp));	\
+		if ((XST_SUCCESS != (Status)) ||			\
+		    (XST_SUCCESS != (StatusTmp)) ||			\
+		    ((RegAddress) != (RegAddressTmp))) {		\
+			(Status) = XST_GLITCH_ERROR;			\
+			goto done;					\
+		}							\
+	} while (0U != 0U)</initializer>
+        <briefdescription>
+<para>Invoke an address helper twice and compare computed addresses. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status from the first helper call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusTmp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status from the second helper call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address from the first helper call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegAddressTmp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address from the second helper call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address helper function to invoke redundantly. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments forwarded to Function before output pointer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__gic__proxy_8c_1a7ca712ce3c2e00d708038b796747edeb" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref></type>
+        <definition>static XPm_GicProxy_t XPm_GicProxy</definition>
+        <argsstring></argsstring>
+        <name>XPm_GicProxy</name>
+        <initializer>= {
+	.Groups = XPm_GicProxyGroups,
+	.GroupsCnt = ARRAY_SIZE(XPm_GicProxyGroups),
+	.Clear = &amp;XPmGicProxy_Clear,
+	.Enable = &amp;XPmGicProxy_Enable,
+	.Flags = 0U,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a08da77144f1fc6efa0ea7df1b32ca1f1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmGicProxy_GetGroupRegAddr</definition>
+        <argsstring>(u32 BaseAddress, u32 Group, u32 RegOffset, volatile u32 *RegAddress)</argsstring>
+        <name>XPmGicProxy_GetGroupRegAddr</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Group</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>volatile u32 *</type>
+          <declname>RegAddress</declname>
+        </param>
+        <briefdescription>
+<para>Compute a GIC Proxy group register address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Define the noinline GIC Proxy group register address helper.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PMC Global base address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Group</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GIC Proxy group index. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Per-group register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store computed register address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="79" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1aaedf8743f70fef3599cd276b14dff1aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmGicProxy_GetTopRegAddr</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset, volatile u32 *RegAddress)</argsstring>
+        <name>XPmGicProxy_GetTopRegAddr</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>volatile u32 *</type>
+          <declname>RegAddress</declname>
+        </param>
+        <briefdescription>
+<para>Compute a top-level GIC Proxy register address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Define the noinline top-level GIC Proxy register address helper.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PMC Global base address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Top-level GIC Proxy register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store computed register address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="98" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1ad01e3a94c68229de399161c012f70108" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmGicProxy_WakeEventSet</definition>
+        <argsstring>(const XPm_Periph *Periph, u8 Enable)</argsstring>
+        <name>XPmGicProxy_WakeEventSet</name>
+        <param>
+          <type>const XPm_Periph *</type>
+          <declname>Periph</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Enable or disable a wake event in the GIC Proxy for a peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para>When enabling, clears any pending IRQ for the peripheral in the GIC Proxy status register and remembers the wake-source bit so a later call to XPm_GicProxy.Enable() can program the IRQ-enable register. When disabling, the wake-source bit is cleared in the cached SetMask only.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Periph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the peripheral whose wake event is configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Non-zero to remember the wake source and clear pending IRQ; zero to clear the cached wake-source bit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="120" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a59073adbdf950f4063594f3a63bc5c91" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmGicProxy_Enable</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmGicProxy_Enable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Enable all interrupts requested as GIC Proxy wake sources. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success, error code on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="171" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a1539da5b328c649dcfe0338db6359f92" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPm_GicProxyDisable</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_GicProxyDisable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Disable all interrupts in the GIC Proxy. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success, error code on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="220" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a285a5476f3c4108c908d1f271c99498c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPmGicProxy_Clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmGicProxy_Clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>XPmGicProxy_Clear() - Clear wake-up sources. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="284" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a3909a0cedad78b06cb387039d7ea827c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref> XPm_GicProxyGroups[8]</type>
+        <definition>static XPm_GicProxyGroup XPm_GicProxyGroups [8] XPM_INIT_DATA</definition>
+        <argsstring>(XPm_GicProxyGroups)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>XPm_GicProxyGroups</type>
+        </param>
+        <briefdescription>
+<para>GIC Proxy group state cache. </para>        </briefdescription>
+        <detaileddescription>
+<para>Versal 2VE/2VM has 8 GICP groups; RTC, GPIO_PMC, SDIO and PMC_WWDT live in groups 5..7, so the array is sized for all 8. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="306" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a424292812c8ccf85a6dcfa4444ee7284" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmGicProxy_EnableWakeup</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmGicProxy_EnableWakeup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Enable GIC Proxy wake interrupts (runtime override of the weak BOOT stub defined in xpm_powerdomain.c). </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success, error code on failure.</para></simplesect>
+<simplesect kind="note"><para>Strong symbol - linked when XilPM runtime (EEMI/Subsystem) is enabled; overrides the weak BOOT-only stub. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="325" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8c_1a7efd86f9515d2a9963a8ad7ccf9289c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmGicProxy_ClearWakeup</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmGicProxy_ClearWakeup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Clear all cached GIC Proxy wake-up sources. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Public wrapper around the file-local XPm_GicProxy.Clear() so callers outside this translation unit (e.g. the wakeup path) can reset the GIC Proxy setup. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="337" bodyend="340"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_gic_proxy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_GIC_PROXY_IS_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#define<sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,<sp/>RegAddress,<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddressTmp,<sp/>Function,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status)<sp/>=<sp/>(Function)(__VA_ARGS__,<sp/>&amp;(RegAddress));<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(StatusTmp)<sp/>=<sp/>(Function)(__VA_ARGS__,<sp/>&amp;(RegAddressTmp));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((XST_SUCCESS<sp/>!=<sp/>(Status))<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XST_SUCCESS<sp/>!=<sp/>(StatusTmp))<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegAddress)<sp/>!=<sp/>(RegAddressTmp)))<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status)<sp/>=<sp/>XST_GLITCH_ERROR;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>goto<sp/>done;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>while<sp/>(0U<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref><sp/>XPm_GicProxy;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmGicProxy_GetGroupRegAddr(u32<sp/>BaseAddress,<sp/>u32<sp/>Group,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegOffset,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>*RegAddress)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((noinline));</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmGicProxy_GetTopRegAddr(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>*RegAddress)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((noinline));</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmGicProxy_GetGroupRegAddr(u32<sp/>BaseAddress,<sp/>u32<sp/>Group,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegOffset,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>*RegAddress)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RegAddress<sp/>=<sp/>BaseAddress<sp/>+<sp/>PMC_GLOBAL_GIC_PROXY_BASE_OFFSET<sp/>+</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GIC_PROXY_GROUP_OFFSET(Group)<sp/>+<sp/>RegOffset;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmGicProxy_GetTopRegAddr(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>*RegAddress)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RegAddress<sp/>=<sp/>BaseAddress<sp/>+<sp/>RegOffset;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">XStatus<sp/>XPmGicProxy_WakeEventSet(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Periph<sp/>*Periph,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegAddress<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegAddressTmp<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GicProxyMask<sp/>=<sp/>Periph-&gt;GicProxyMask;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GicProxyGroup<sp/>=<sp/>Periph-&gt;GicProxyGroup;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*Pmc<sp/>=<sp/>(<ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*)XPmDevice_GetById(PM_DEV_PMC_PROC);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GicProxyGroup<sp/>&gt;=<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" kindref="member">GroupsCnt</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>Enable)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[GicProxyGroup].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref><sp/>&amp;=<sp/>~GicProxyMask;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Pmc)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PMC<sp/>Global<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>Pmc-&gt;<ref refid="struct_x_pm___pmc_1a04a498f87929acb6c7dab7fefa04ce0c" kindref="member">PmcGlobalBaseAddr</ref>;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,<sp/>RegAddress,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddressTmp,<sp/>XPmGicProxy_GetGroupRegAddr,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,<sp/>GicProxyGroup,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GIC_PROXY_IRQ_STATUS_OFFSET);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>1<sp/>into<sp/>status<sp/>register<sp/>to<sp/>Clear<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(RegAddress,<sp/>GicProxyMask);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Remember<sp/>which<sp/>interrupt<sp/>in<sp/>the<sp/>group<sp/>needs<sp/>to<sp/>be<sp/>Enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[GicProxyGroup].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref><sp/>|=<sp/>GicProxyMask;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmGicProxy_Enable(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegAddress<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegAddressTmp<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>g;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*Pmc<sp/>=<sp/>(<ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*)XPmDevice_GetById(PM_DEV_PMC_PROC);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Pmc)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(g<sp/>=<sp/>0U;<sp/>g<sp/>&lt;<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" kindref="member">GroupsCnt</ref>;<sp/>g++)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PMC<sp/>Global<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress<sp/>=<sp/>Pmc-&gt;<ref refid="struct_x_pm___pmc_1a04a498f87929acb6c7dab7fefa04ce0c" kindref="member">PmcGlobalBaseAddr</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,<sp/>RegAddress,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddressTmp,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmGicProxy_GetGroupRegAddr,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,<sp/>g,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GIC_PROXY_IRQ_ENABLE_OFFSET);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>interrupts<sp/>in<sp/>the<sp/>group<sp/>that<sp/>are<sp/>set<sp/>as<sp/>wake<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(RegAddress,<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[g].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[g].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddress,<sp/>RegAddressTmp,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmGicProxy_GetTopRegAddr,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(RegAddress,<sp/>BIT32(g));</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" kindref="member">Flags</ref><sp/>|=<sp/>XPM_GIC_PROXY_IS_ENABLED;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPm_GicProxyDisable(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegAddress<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegAddressTmp<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>MaskAddr<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>MaskAddrTmp<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>g;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*Pmc<sp/>=<sp/>(<ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*)XPmDevice_GetById(PM_DEV_PMC_PROC);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Pmc)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(g<sp/>=<sp/>0U;<sp/>g<sp/>&lt;<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" kindref="member">GroupsCnt</ref>;<sp/>g++)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PMC<sp/>Global<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress<sp/>=<sp/>Pmc-&gt;<ref refid="struct_x_pm___pmc_1a04a498f87929acb6c7dab7fefa04ce0c" kindref="member">PmcGlobalBaseAddr</ref>;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,<sp/>MaskAddr,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskAddrTmp,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmGicProxy_GetGroupRegAddr,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,<sp/>g,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GIC_PROXY_IRQ_MASK_OFFSET);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>interrupts<sp/>in<sp/>the<sp/>GIC<sp/>Proxy<sp/>group<sp/>that<sp/>are<sp/>set<sp/>as<sp/>wake<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,<sp/>RegAddress,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddressTmp,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmGicProxy_GetGroupRegAddr,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,<sp/>g,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GIC_PROXY_IRQ_STATUS_OFFSET);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(RegAddress,<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[g].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>interrupts<sp/>in<sp/>the<sp/>GIC<sp/>Proxy<sp/>group<sp/>that<sp/>are<sp/>set<sp/>as<sp/>wake<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,<sp/>RegAddress,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddressTmp,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmGicProxy_GetGroupRegAddr,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,<sp/>g,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GIC_PROXY_IRQ_DISABLE_OFFSET);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(RegAddress,<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[g].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(GIC_PROXY_ALL_MASK<sp/>==<sp/>XPm_In32(MaskAddr))<sp/>{</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_GIC_PROXY_REDUNDANT_ADDR(Status,<sp/>StatusTmp,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegAddress,<sp/>RegAddressTmp,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmGicProxy_GetTopRegAddr,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(RegAddress,<sp/>BIT32(g));</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" kindref="member">Flags</ref><sp/>&amp;=<sp/>(u8)(~XPM_GIC_PROXY_IS_ENABLED);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmGicProxy_Clear(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>g;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" kindref="member">Flags</ref><sp/>&amp;<sp/>XPM_GIC_PROXY_IS_ENABLED))<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XPm_GicProxyDisable();</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;0x%x\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(g<sp/>=<sp/>0U;<sp/>g<sp/>&lt;<sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" kindref="member">GroupsCnt</ref>;<sp/>g++)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>[g].<ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref><sp/>XPm_GicProxyGroups[8]<sp/>XPM_INIT_DATA(XPm_GicProxyGroups);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref><sp/>XPm_GicProxy<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.<ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref><sp/>=<sp/>XPm_GicProxyGroups,</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.GroupsCnt<sp/>=<sp/>ARRAY_SIZE(XPm_GicProxyGroups),</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Clear<sp/>=<sp/>&amp;XPmGicProxy_Clear,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Enable<sp/>=<sp/>&amp;XPmGicProxy_Enable,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Flags<sp/>=<sp/>0U,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal">XStatus<sp/>XPmGicProxy_EnableWakeup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1afa80eb57106035f23620dd1acb6d4cf3" kindref="member">Enable</ref>();</highlight></codeline>
+<codeline lineno="328"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmGicProxy_ClearWakeup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GicProxy.<ref refid="struct_x_pm___gic_proxy__t_1a1c5a74c6eb86553ac8429e5bf803a7be" kindref="member">Clear</ref>();</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c"/>
+  </compounddef>
+</doxygen>

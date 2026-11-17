@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_flash_info" kind="struct" prot="public">
+    <compoundname>XFlashInfo</compoundname>
+    <includes local="no">xilsfl_flashconfig.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_flash_info_1a91f6a9fa58c39ff3e63075c61017e63b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::jedec_id</definition>
+        <argsstring></argsstring>
+        <name>jedec_id</name>
+        <briefdescription>
+<para>JEDEC ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga2dc535e80a4fa46f52380b8ece695826" compoundref="xilsfl_8c" startline="530" endline="560">XSfl_FlashGetInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a1ba032ff389226bd841da6f55ddb8833" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::SectSize</definition>
+        <argsstring></argsstring>
+        <name>SectSize</name>
+        <briefdescription>
+<para>Individual sector size, or combined sector size in case of parallel configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1aec12c9968bc8a8384f0cd262de75e358" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::NumSect</definition>
+        <argsstring></argsstring>
+        <name>NumSect</name>
+        <briefdescription>
+<para>Total number of sectors in one or two flash devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a164f70749b141b0ec196a04b2a8f458c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::PageSize</definition>
+        <argsstring></argsstring>
+        <name>PageSize</name>
+        <briefdescription>
+<para>Individual page size, or combined page size in case of parallel configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a17d5cf344b53541336e0b039b243bbc1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::NumPage</definition>
+        <argsstring></argsstring>
+        <name>NumPage</name>
+        <briefdescription>
+<para>Total number of pages in one or two flash devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a6b45daa97d5c99f28d566bfb60bc32d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::FlashDeviceSize</definition>
+        <argsstring></argsstring>
+        <name>FlashDeviceSize</name>
+        <briefdescription>
+<para>Size of one flash device, NOT the combination of both devices, if present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="542" endline="655">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="420" endline="523">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1ga5db7bb11b2fc937b06a37b5e0e4b29a7" compoundref="xilsfl__interface_8c" startline="266" endline="282">XSfl_GetRealAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a59160028fa0309c050deb017f5abfc7e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::SectMask</definition>
+        <argsstring></argsstring>
+        <name>SectMask</name>
+        <briefdescription>
+<para>Mask to get the sector start address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a62ec282b6c6da2504f725ec28fe5268f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::ReadCmd</definition>
+        <argsstring></argsstring>
+        <name>ReadCmd</name>
+        <briefdescription>
+<para>Read command used to read data from flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1aad7d6f9d39ad751dd09208cbe394aba4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::WriteCmd</definition>
+        <argsstring></argsstring>
+        <name>WriteCmd</name>
+        <briefdescription>
+<para>Write command used to write data to flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1ab6c7a384893b585113e3c9593ad3ae78" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::EraseCmd</definition>
+        <argsstring></argsstring>
+        <name>EraseCmd</name>
+        <briefdescription>
+<para>Erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a6fed439badd48ed2aa4d51f431a1d627" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::Proto</definition>
+        <argsstring></argsstring>
+        <name>Proto</name>
+        <briefdescription>
+<para>Indicates the number of Cmd-Addr-Data lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="542" endline="655">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="420" endline="523">XSfl_FlashReadProcess</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a588462fc977e39765295b5b172059935" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::SdrMaxFreq</definition>
+        <argsstring></argsstring>
+        <name>SdrMaxFreq</name>
+        <briefdescription>
+<para>Maximum supported flash frequency in SDR mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1adb4556f6a86821b489a14a33663733a3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashInfo::DummyCycles</definition>
+        <argsstring></argsstring>
+        <name>DummyCycles</name>
+        <briefdescription>
+<para>Number of dummy cycles for read operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="542" endline="655">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="420" endline="523">XSfl_FlashReadProcess</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a115cf14e0d8a2785a16c3883a415c01a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XFlashInfo::StatusCmd</definition>
+        <argsstring></argsstring>
+        <name>StatusCmd</name>
+        <briefdescription>
+<para>Status command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="177" endline="244">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a353fe491816aae3b4340e2117b65d600" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XFlashInfo::NumDie</definition>
+        <argsstring></argsstring>
+        <name>NumDie</name>
+        <briefdescription>
+<para>Number of dies forming a single flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1ad8b7dcd605ed15ee80295dbe7278438c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XFlashInfo::FSRFlag</definition>
+        <argsstring></argsstring>
+        <name>FSRFlag</name>
+        <briefdescription>
+<para>Indicates the Flag Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a64143914205edd0597624a36ae2441a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XFlashInfo::ExtOpCodeType</definition>
+        <argsstring></argsstring>
+        <name>ExtOpCodeType</name>
+        <briefdescription>
+<para>Extended opcode in dual-byte opcode mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga34e14f3a74f1e2cf6f8b659449453522" compoundref="xilsfl__control_8c" startline="699" endline="846">XSfl_FlashSetSDRDDRMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_info_1a088f114969ecee72f82ee807c25adcfb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XFlashInfo::FlashType</definition>
+        <argsstring></argsstring>
+        <name>FlashType</name>
+        <briefdescription>
+<para>Indicates the type of the flash device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga2dc535e80a4fa46f52380b8ece695826" compoundref="xilsfl_8c" startline="530" endline="560">XSfl_FlashGetInfo</referencedby>
+        <referencedby refid="group__xilsfl_1ga91e56d8af1dd4e5d1b5d614be6b123ec" compoundref="xilsfl_8c" startline="76" endline="269">XSfl_FlashInit</referencedby>
+        <referencedby refid="group__xilsfl_1ga34e14f3a74f1e2cf6f8b659449453522" compoundref="xilsfl__control_8c" startline="699" endline="846">XSfl_FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="177" endline="244">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds the configuration information for a flash device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h" bodystart="77" bodyend="107"/>
+    <listofallmembers>
+      <member refid="struct_x_flash_info_1adb4556f6a86821b489a14a33663733a3" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>DummyCycles</name></member>
+      <member refid="struct_x_flash_info_1ab6c7a384893b585113e3c9593ad3ae78" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>EraseCmd</name></member>
+      <member refid="struct_x_flash_info_1a64143914205edd0597624a36ae2441a3" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>ExtOpCodeType</name></member>
+      <member refid="struct_x_flash_info_1a6b45daa97d5c99f28d566bfb60bc32d1" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>FlashDeviceSize</name></member>
+      <member refid="struct_x_flash_info_1a088f114969ecee72f82ee807c25adcfb" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>FlashType</name></member>
+      <member refid="struct_x_flash_info_1ad8b7dcd605ed15ee80295dbe7278438c" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>FSRFlag</name></member>
+      <member refid="struct_x_flash_info_1a91f6a9fa58c39ff3e63075c61017e63b" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>jedec_id</name></member>
+      <member refid="struct_x_flash_info_1a353fe491816aae3b4340e2117b65d600" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>NumDie</name></member>
+      <member refid="struct_x_flash_info_1a17d5cf344b53541336e0b039b243bbc1" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>NumPage</name></member>
+      <member refid="struct_x_flash_info_1aec12c9968bc8a8384f0cd262de75e358" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>NumSect</name></member>
+      <member refid="struct_x_flash_info_1a164f70749b141b0ec196a04b2a8f458c" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>PageSize</name></member>
+      <member refid="struct_x_flash_info_1a6fed439badd48ed2aa4d51f431a1d627" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>Proto</name></member>
+      <member refid="struct_x_flash_info_1a62ec282b6c6da2504f725ec28fe5268f" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>ReadCmd</name></member>
+      <member refid="struct_x_flash_info_1a588462fc977e39765295b5b172059935" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>SdrMaxFreq</name></member>
+      <member refid="struct_x_flash_info_1a59160028fa0309c050deb017f5abfc7e" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>SectMask</name></member>
+      <member refid="struct_x_flash_info_1a1ba032ff389226bd841da6f55ddb8833" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>SectSize</name></member>
+      <member refid="struct_x_flash_info_1a115cf14e0d8a2785a16c3883a415c01a" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>StatusCmd</name></member>
+      <member refid="struct_x_flash_info_1aad7d6f9d39ad751dd09208cbe394aba4" prot="public" virt="non-virtual"><scope>XFlashInfo</scope><name>WriteCmd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_052658d587c68d8746143f285b927ba9" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="zynqmp_2client_2common_2pm__api__sys_8c">zynqmp/client/common/pm_api_sys.c</innerfile>
+    <innerfile refid="zynqmp_2client_2common_2pm__api__sys_8h">zynqmp/client/common/pm_api_sys.h</innerfile>
+    <innerfile refid="zynqmp_2client_2common_2pm__callbacks_8c">zynqmp/client/common/pm_callbacks.c</innerfile>
+    <innerfile refid="zynqmp_2client_2common_2pm__callbacks_8h">zynqmp/client/common/pm_callbacks.h</innerfile>
+    <innerfile refid="pm__cfg__obj_8h">pm_cfg_obj.h</innerfile>
+    <innerfile refid="pm__clock_8c">pm_clock.c</innerfile>
+    <innerfile refid="pm__clock_8h">pm_clock.h</innerfile>
+    <innerfile refid="pm__common_8h">pm_common.h</innerfile>
+    <innerfile refid="zynqmp_2client_2common_2pm__defs_8h">zynqmp/client/common/pm_defs.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/"/>
+  </compounddef>
+</doxygen>

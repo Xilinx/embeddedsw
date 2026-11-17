@@ -1,0 +1,755 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcert__createfield_8h" kind="file">
+    <compoundname>xcert_createfield.h</compoundname>
+    <includes local="yes">xplmi_config.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xcert__genx509cert_8h" local="yes">xcert_genx509cert.h</includes>
+    <includedby refid="xcert__genx509cert_8c" local="yes">xcert_genx509cert.c</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>xcert_createfield.h</label>
+        <link refid="xcert_createfield.h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="15">
+        <label>xcert_genx509cert.h</label>
+        <link refid="xcert__genx509cert_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="14">
+        <label>xil_types.h</label>
+      </node>
+      <node id="17">
+        <label>xsecure_elliptic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="18">
+        <label>xcert_createfield.h</label>
+        <link refid="xcert_createfield.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xcert_genx509cert.c</label>
+        <link refid="xcert__genx509cert_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_cert___x509_cert_info" prot="public">XCert_X509CertInfo</innerclass>
+      <sectiondef kind="user-defined">
+      <header>ASN.1 tags</header>
+      <memberdef kind="define" id="xcert__createfield_8h_1a4ee6526c48f762e4ff554b768dd5e63b" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_BOOLEAN</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>&lt; ASN.1 tags </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a628c33ddfa40c1404d9575b5d722a2a2" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_INTEGER</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a1874de712a9efa0c1cc4bcc9060e0bc1" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_BITSTRING</name>
+        <initializer>(0x03U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1ac759164f36bf2366ddf752d0701c79f8" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_OCTETSTRING</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a77872ea7bb8537560c44c1042301f42b" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_NULL</name>
+        <initializer>(0x05U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1aee113d29f5f162517ce265fe03863ddb" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_SEQUENCE</name>
+        <initializer>(0x30U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a685b294713c9e037a8a78f1d016be322" prot="public" static="no">
+        <name>XCERT_ASN1_TAG_SET</name>
+        <initializer>(0x31U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xcert__createfield_8h_1a40875869968ff659f747c1f879a2d704" prot="public" static="no">
+        <name>XCERT_LEN_OF_VALUE_OF_VERSION</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Length of Version field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a564ad20792ccfd8444e0d2aabb21769d" prot="public" static="no">
+        <name>XCERT_LEN_OF_VALUE_OF_SERIAL</name>
+        <initializer>(0x14U)</initializer>
+        <briefdescription>
+<para>Length of Serial field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a9e1db5f2f45495764d21622927af60b0" prot="public" static="no">
+        <name>XCERT_LEN_OF_VALUE_OF_BOOLEAN</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Length of ASN.1 Boolean. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a852b94074e16d46b069c83f6a2cd4759" prot="public" static="no">
+        <name>XCERT_LEN_OF_VALUE_OF_PATH_LEN_CONSTRAINT</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Length of Path Length Constraint field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1af6460adf7e4271037eef72014177555a" prot="public" static="no">
+        <name>XCERT_VERSION_VALUE_V1</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Value of Version 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a9f89e4799b6556c94e39dc04ff40ed68" prot="public" static="no">
+        <name>XCERT_VERSION_VALUE_V3</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>Value of Version 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1ad36fe92f2db537ddcd528007bcf7097e" prot="public" static="no">
+        <name>XCERT_NULL_VALUE</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+<para>Value of NULL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a51282aaa1c661491fef6d9750a682ba5" prot="public" static="no">
+        <name>XCERT_PATH_LEN_CONSTRAINT_VALUE_0x0</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Value of Path Length Constraint - 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a2155d1aa202a7cdc79333a96f989b2a4" prot="public" static="no">
+        <name>XCERT_BOOLEAN_TRUE</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Value of Boolean TRUE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1ad5aa03d0d4edad91798704dc0ffa3557" prot="public" static="no">
+        <name>XCERT_BOOLEAN_FALSE</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Value of Boolean FALSE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a308db587bda7dab3d2c11f408c771faa" prot="public" static="no">
+        <name>XCERT_LEN_OF_VERSION_FIELD</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>Length of Version field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1adb9d9dbb1d48e1caff55695be6c2a1e1" prot="public" static="no">
+        <name>XCERT_LOWER_NIBBLE_MASK</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+<para>Mask to get lower nibble. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a5dbe6d669fa5c75b05c83c44818b5829" prot="public" static="no">
+        <name>XCERT_WORD_LEN</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>Length of word in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a4b15482c731266d2ab079970e8fd5056" prot="public" static="no">
+        <name>XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES</name>
+        <initializer>(127U)</initializer>
+        <briefdescription>
+<para>Max length for which short form encoding of length is used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a19b81db17de27d0ae1f2976a29b4d0ee" prot="public" static="no">
+        <name>XCERT_TLVHDRLEN</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Length of Tag + Length + Value fields in TLV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1aeab512b3ad100327d8b32b13573c42a0" prot="public" static="no">
+        <name>XCERT_BYTE_LEN</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Length of byte in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a5a0db14ff9bb7c7e7071655d77549826" prot="public" static="no">
+        <name>XCERT_SERIAL_DATA_HDR_LEN</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Length of Serial Data Header. </para>        </briefdescription>
+        <detaileddescription>
+<para>Calculates pointer difference as u8. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1ac5ef4ab2673d307570a050c75c9b2aa3" prot="public" static="no">
+        <name>XCERT_PTR_DIFF_U8</name>
+        <param><defname>End</defname></param>
+        <param><defname>Start</defname></param>
+        <initializer>((u8)((UINTPTR)(End) - (UINTPTR)(Start)))</initializer>
+        <briefdescription>
+<para>Calculates pointer difference as u32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1a22e7e4649143ca93f86b83b7f492a72d" prot="public" static="no">
+        <name>XCERT_PTR_DIFF_U32</name>
+        <param><defname>End</defname></param>
+        <param><defname>Start</defname></param>
+        <initializer>((u32)((UINTPTR)(End) - (UINTPTR)(Start)))</initializer>
+        <briefdescription>
+<para>Checks buffer length; sets Status to XCERT_ERR_X509_INSUFFICIENT_MEMORY and jumps to exit if insufficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xcert__createfield_8h_1ac42f9d08c2ef1c14c12fac41472270f6" prot="public" static="no">
+        <name>XCERT_CHECK_BUFFER_LENGTH</name>
+        <param><defname>BufLen</defname></param>
+        <param><defname>RequiredLen</defname></param>
+        <param><defname>Status</defname></param>
+        <param><defname>Exit</defname></param>
+        <initializer>do { \
+		if ((BufLen) &lt; (RequiredLen)) { \
+			Status = (int)<ref refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42a17096c7777a5e6cbf59f342c5d4e3eae" kindref="member">XCERT_ERR_X509_INSUFFICIENT_MEMORY</ref>; \
+			goto Exit; \
+		} \
+	} while (0U != 0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xcert__createfield_8h_1ae9b03e271dcbf202ea915a392d4dce61" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XCert_AdvanceOffset</definition>
+        <argsstring>(XCert_X509CertInfo *Info, u32 Bytes)</argsstring>
+        <name>XCert_AdvanceOffset</name>
+        <param>
+          <type><ref refid="struct_x_cert___x509_cert_info" kindref="compound">XCert_X509CertInfo</ref> *</type>
+          <declname>Info</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" bodystart="138" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1aa59acb204ddc07bf74e6e0a62404e07f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_CreateInteger</definition>
+        <argsstring>(const u8 *IntegerVal, u32 IntegerLen)</argsstring>
+        <name>XCert_CreateInteger</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>IntegerVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntegerLen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1afa61f5de29785ac00c9ea1ee33f3b6d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_CreateBitString</definition>
+        <argsstring>(const u8 *BitStringVal, u32 BitStringLen, u32 IsLastByteFull)</argsstring>
+        <name>XCert_CreateBitString</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>BitStringVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitStringLen</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsLastByteFull</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a054f6825619e64116c8a5633bc18e814" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_CreateOctetString</definition>
+        <argsstring>(const u8 *OctetStringVal, u32 OctetStringLen)</argsstring>
+        <name>XCert_CreateOctetString</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>OctetStringVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>OctetStringLen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="146" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1ad96800bb4ec551b83834c939d01bd97c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_CreateRawDataFromByteArray</definition>
+        <argsstring>(const u8 *RawData, const u32 LenOfRawDataVal)</argsstring>
+        <name>XCert_CreateRawDataFromByteArray</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>RawData</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>LenOfRawDataVal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="147" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a8864bf97f72636b54c5accee258556fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_CreateBoolean</definition>
+        <argsstring>(const u8 BooleanVal)</argsstring>
+        <name>XCert_CreateBoolean</name>
+        <param>
+          <type>const u8</type>
+          <declname>BooleanVal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a58604b6804b4f57a75f931aa5fcd3ae0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_UpdateEncodedLength</definition>
+        <argsstring>(u8 *LenIdx, u32 Len, u8 *ValIdx)</argsstring>
+        <name>XCert_UpdateEncodedLength</name>
+        <param>
+          <type>u8 *</type>
+          <declname>LenIdx</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ValIdx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="150" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a39b19c94769dc2efd1a8ea2984a440d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_CreateIntegerFieldFromByteArray</definition>
+        <argsstring>(const u8 *IntegerVal, u32 IntegerLen)</argsstring>
+        <name>XCert_CreateIntegerFieldFromByteArray</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>IntegerVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntegerLen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1ae902141fc88113608bc38c6ea16eed27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_BuildPlmVersionAndCreateRawField</definition>
+        <argsstring>(const u32 IntegerVal)</argsstring>
+        <name>XCert_BuildPlmVersionAndCreateRawField</name>
+        <param>
+          <type>const u32</type>
+          <declname>IntegerVal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="153" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a2affb2a614e7df86123a231f956ca494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_cert___x509_cert_info" kindref="compound">XCert_X509CertInfo</ref> *</type>
+        <definition>XCert_X509CertInfo* XCert_GetX509CertInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XCert_GetX509CertInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="154" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a293805ec3bb4986f2066370cf2fab551" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_UpdateTLVField</definition>
+        <argsstring>(u32 Tag, u8 **Len, u8 **Val)</argsstring>
+        <name>XCert_UpdateTLVField</name>
+        <param>
+          <type>u32</type>
+          <declname>Tag</declname>
+        </param>
+        <param>
+          <type>u8 **</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 **</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="155" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xcert__createfield_8h_1a70a08f028ab1e5ddc93ba68e5ce152ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_UpdateByteField</definition>
+        <argsstring>(u8 data)</argsstring>
+        <name>XCert_UpdateByteField</name>
+        <param>
+          <type>u8</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h" line="156" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the interface functions for creating DER encoded ASN.1 structures. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+----- ---- ---------- -------------------------------------------------------
+1.0   har  01/09/2023 Initial release
+1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
+      kpt  02/21/2024 Added support for DME extension
+      kpt  11/19/2024 Add UTF8 encoding support for version field
+1.6   rmv  01/30/2026 Renamed OCP keymanagement macro
+      tbk  05/03/2026 Add validation for xcert remaining buffer before writing field</preformatted></para><para><preformatted></preformatted> <simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023,<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XCERT_CREATEFIELD_H</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_CREATEFIELD_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_OCP_NATIVE_KEY_MGMT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcert__genx509cert_8h" kindref="compound">xcert_genx509cert.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="51" refid="xcert__createfield_8h_1a4ee6526c48f762e4ff554b768dd5e63b" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_BOOLEAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_INTEGER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_BITSTRING<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03U)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_OCTETSTRING<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_NULL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x05U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_SEQUENCE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x30U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCERT_ASN1_TAG_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x31U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xcert__createfield_8h_1a40875869968ff659f747c1f879a2d704" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_LEN_OF_VALUE_OF_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="xcert__createfield_8h_1a564ad20792ccfd8444e0d2aabb21769d" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_LEN_OF_VALUE_OF_SERIAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xcert__createfield_8h_1a9e1db5f2f45495764d21622927af60b0" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_LEN_OF_VALUE_OF_BOOLEAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="xcert__createfield_8h_1a852b94074e16d46b069c83f6a2cd4759" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_LEN_OF_VALUE_OF_PATH_LEN_CONSTRAINT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xcert__createfield_8h_1af6460adf7e4271037eef72014177555a" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_VERSION_VALUE_V1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="xcert__createfield_8h_1a9f89e4799b6556c94e39dc04ff40ed68" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_VERSION_VALUE_V3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73" refid="xcert__createfield_8h_1ad36fe92f2db537ddcd528007bcf7097e" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_NULL_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="xcert__createfield_8h_1a51282aaa1c661491fef6d9750a682ba5" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_PATH_LEN_CONSTRAINT_VALUE_0x0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="xcert__createfield_8h_1a2155d1aa202a7cdc79333a96f989b2a4" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_BOOLEAN_TRUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xcert__createfield_8h_1ad5aa03d0d4edad91798704dc0ffa3557" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_BOOLEAN_FALSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="xcert__createfield_8h_1a308db587bda7dab3d2c11f408c771faa" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_LEN_OF_VERSION_FIELD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="xcert__createfield_8h_1adb9d9dbb1d48e1caff55695be6c2a1e1" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_LOWER_NIBBLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="xcert__createfield_8h_1a5dbe6d669fa5c75b05c83c44818b5829" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_WORD_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="xcert__createfield_8h_1a4b15482c731266d2ab079970e8fd5056" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(127U)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="xcert__createfield_8h_1a19b81db17de27d0ae1f2976a29b4d0ee" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_TLVHDRLEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="xcert__createfield_8h_1aeab512b3ad100327d8b32b13573c42a0" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_BYTE_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94" refid="xcert__createfield_8h_1a5a0db14ff9bb7c7e7071655d77549826" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_SERIAL_DATA_HDR_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98" refid="xcert__createfield_8h_1ac5ef4ab2673d307570a050c75c9b2aa3" refkind="member"><highlight class="preprocessor">#define<sp/>XCERT_PTR_DIFF_U8(End,<sp/>Start)<sp/>\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)((UINTPTR)(End)<sp/>-<sp/>(UINTPTR)(Start)))</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XCERT_PTR_DIFF_U32(End,<sp/>Start)<sp/>\</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)((UINTPTR)(End)<sp/>-<sp/>(UINTPTR)(Start)))</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XCERT_CHECK_BUFFER_LENGTH(BufLen,<sp/>RequiredLen,<sp/>Status,<sp/>Exit)<sp/>\</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((BufLen)<sp/>&lt;<sp/>(RequiredLen))<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XCERT_ERR_X509_INSUFFICIENT_MEMORY;<sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>goto<sp/>Exit;<sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>while<sp/>(0U<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="124"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Buff;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*CurrOffset;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RemainingBytes;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}<sp/><ref refid="struct_x_cert___x509_cert_info" kindref="compound">XCert_X509CertInfo</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="struct_x_cert___x509_cert_info" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="struct_x_cert___x509_cert_info_1a3bd7c31c7a0a51bf1cddc4c54199b9a3" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Helper<sp/>Functions<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="struct_x_cert___x509_cert_info_1a8dad13d50b7fde8ce15cf7a01afa19b2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XCert_AdvanceOffset(<ref refid="struct_x_cert___x509_cert_info" kindref="compound">XCert_X509CertInfo</ref><sp/>*Info,<sp/>u32<sp/>Bytes)</highlight></codeline>
+<codeline lineno="133" refid="struct_x_cert___x509_cert_info_1a77c131b5e8540bbbed931137989863dc" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Info-&gt;<ref refid="struct_x_cert___x509_cert_info_1a8dad13d50b7fde8ce15cf7a01afa19b2" kindref="member">CurrOffset</ref><sp/>+=<sp/>Bytes;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Info-&gt;<ref refid="struct_x_cert___x509_cert_info_1a77c131b5e8540bbbed931137989863dc" kindref="member">RemainingBytes</ref><sp/>-=<sp/>Bytes;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_CreateInteger(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*IntegerVal,<sp/>u32<sp/>IntegerLen);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_CreateBitString(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*BitStringVal,<sp/>u32<sp/>BitStringLen,<sp/>u32<sp/>IsLastByteFull);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_CreateOctetString(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*OctetStringVal,<sp/>u32<sp/>OctetStringLen);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_CreateRawDataFromByteArray(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RawData,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>LenOfRawDataVal);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_CreateBoolean(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>BooleanVal);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_UpdateEncodedLength(u8<sp/>*LenIdx,<sp/>u32<sp/>Len,<sp/>u8<sp/>*ValIdx);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_CreateIntegerFieldFromByteArray(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*IntegerVal,<sp/>u32<sp/>IntegerLen);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_BuildPlmVersionAndCreateRawField(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>IntegerVal);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><ref refid="struct_x_cert___x509_cert_info" kindref="compound">XCert_X509CertInfo</ref><sp/>*XCert_GetX509CertInstance(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_UpdateTLVField(u32<sp/>Tag,<sp/>u8<sp/>**Len,<sp/>u8<sp/>**Val);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XCert_UpdateByteField(u8<sp/>data);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>PLM_OCP_NATIVE_KEY_MGMT<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XCERT_CREATEFIELD_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_createfield.h"/>
+  </compounddef>
+</doxygen>

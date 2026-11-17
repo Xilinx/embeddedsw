@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_frmbuf_wr</title>
+    <detaileddescription>
+<para>This header file contains layer 2 API&apos;s of the frame buffer write core driver.The functions contained herein provides a high level implementation of features provided by the IP, abstracting away the register level details from the user</para><para><bold>Frame Buffer Write IP Features </bold></para><para>The Frame Buffer Write IP supports following features<itemizedlist>
+<listitem><para>AXI4-Stream Input</para></listitem><listitem><para>1, 2, or 4 pixel-wide video interface</para></listitem><listitem><para>8/10 bits per component</para></listitem><listitem><para>Up to 16 different memory color formats (user configurable)</para></listitem></itemizedlist>
+</para><para><bold>Dependency</bold></para><para>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</para><para><bold>Initialization &amp; Configuration</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate with the frame buffer write core.</para><para>Driver is built with layered architecture<itemizedlist>
+<listitem><para>Layer 1 provides API&apos;s to peek/poke registers at HW level.</para></listitem><listitem><para>Layer 2 provides API&apos;s that abstract sub-core functionality, providing an easy to use feature interface</para></listitem></itemizedlist>
+</para><para>Before using the layer-2 API&apos;s user must initialize the core by calling API <ref refid="group__v__frmbuf__wr_1ga7168bd4d28a15731f7c8c64d00785464" kindref="member">XVFrmbufWr_Initialize()</ref>. This function will look for a configuration structure for the device and initialize it to defined HW settings. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API&apos;s that perform low level register peek/poke.</para><para><bold>Pre-Requisite&apos;s</bold></para><para><itemizedlist>
+<listitem><para>Application must set the memory address using provided API Address must be aligned to memory width. This can be computed with following equation Align = 2 * PPC * 4 Bytes (where PPC is the Pixels/Clock selected in IP configuration)</para></listitem><listitem><para>The Stride must be provided in Bytes and must be aligned to memory width. This can be computed with following equation StrideInBytes = 2 * PPC * 4 Bytes (where PPC is the Pixels/Clock selected in IP configuration)</para></listitem></itemizedlist>
+</para><para><bold> Interrupts </bold></para><para>Driver is configured to operate both in polling as well as interrupt mode.<itemizedlist>
+<listitem><para>To use interrupt based processing, application must set up the system&apos;s interrupt controller and connect the XVFrmbufWr_InterruptHandler function to service interrupts. Next interrupts must be enabled using the provided API. When an interrupt occurs, ISR will confirm if frame processing is is done/ready. If call back is registered such function will be called and application can apply new setting updates here. Subsequently next frame processing will be triggered with new settings.</para></listitem><listitem><para>To use polling method disable interrupts using the provided API. Doing so will configure the IP to keep processing frames without sw intervention.</para></listitem><listitem><para>Polling mode is the default configuration set during driver initialization</para></listitem></itemizedlist>
+</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  vyc   04/05/17   Initial Release
+2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+                       Add new memory formats BGRX8 and UYVY8
+3.00  vyc   04/04/18   Add interlaced support
+                       Add new memory format BGR8
+                       Add interrupt handler for ap_ready
+4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
+4.50  kp    12/07/21   Added new 3 planar video format Y_U_V8.
+4.60  kp    10/27/21   Added new 3 planar video format Y_U_V10.
+4.70  pg    05/23/23   Added new 3 planar video format Y_U_V8_420.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

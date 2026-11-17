@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___buffer_list" kind="struct" prot="public">
+    <compoundname>XPlmi_BufferList</compoundname>
+    <includes local="no">xplmi_generic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1a39a649f4c61fedb5f81c98f6ecbe1903" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BufferList::MaxBufferCount</definition>
+        <argsstring></argsstring>
+        <name>MaxBufferCount</name>
+        <briefdescription>
+<para>Maximum number of buffer entries the array can hold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaecabcbfd3bdb8170c37fddf9bc2b43a2" compoundref="xplmi__plat__cmd_8c" startline="101" endline="111">XPlmi_SetAddrBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1907" endline="1999">XPlmi_StoreBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1a99c9ac6ab6150c8315e02689bf6b22b4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BufferList::BufferCount</definition>
+        <argsstring></argsstring>
+        <name>BufferCount</name>
+        <briefdescription>
+<para>Current number of registered buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga180e0da7c5bf8b67eb38f54c3db12149" compoundref="server_2xplmi__generic_8c" startline="1620" endline="1667">XPlmi_MoveBuffer</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="216" endline="272">XPlmi_PsmSequence</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabff99cf415b44f557a2d16f59a382b69" compoundref="server_2xplmi__generic_8c" startline="1738" endline="1769">XPlmi_SearchBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1907" endline="1999">XPlmi_StoreBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1a6f0c57fd9a85d74a34980ec4250a22fc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BufferList::IsBufferMemAvailable</definition>
+        <argsstring></argsstring>
+        <name>IsBufferMemAvailable</name>
+        <briefdescription>
+<para>TRUE if a buffer memory pool has been assigned. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="216" endline="272">XPlmi_PsmSequence</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabff99cf415b44f557a2d16f59a382b69" compoundref="server_2xplmi__generic_8c" startline="1738" endline="1769">XPlmi_SearchBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaecabcbfd3bdb8170c37fddf9bc2b43a2" compoundref="xplmi__plat__cmd_8c" startline="101" endline="111">XPlmi_SetAddrBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga41032abddd7e456fbc149f2264f8bdef" compoundref="server_2xplmi__generic_8c" startline="1682" endline="1720">XPlmi_SetBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1907" endline="1999">XPlmi_StoreBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1aa631903e006232a141cab068bd2268d5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPlmi_BufferList::BufferMemSize</definition>
+        <argsstring></argsstring>
+        <name>BufferMemSize</name>
+        <briefdescription>
+<para>Total size of the buffer memory pool in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="216" endline="272">XPlmi_PsmSequence</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaecabcbfd3bdb8170c37fddf9bc2b43a2" compoundref="xplmi__plat__cmd_8c" startline="101" endline="111">XPlmi_SetAddrBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga41032abddd7e456fbc149f2264f8bdef" compoundref="server_2xplmi__generic_8c" startline="1682" endline="1720">XPlmi_SetBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1907" endline="1999">XPlmi_StoreBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1ac4739d089fcbdfbb7b350c2f8237ab67" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_plmi___buffer_data" kindref="compound">XPlmi_BufferData</ref> *</type>
+        <definition>XPlmi_BufferData* XPlmi_BufferList::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Pointer to the array of buffer entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaa20a30af40d98defadfd64c26242fe54" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="1063" endline="1104">XPlmi_GetBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga180e0da7c5bf8b67eb38f54c3db12149" compoundref="server_2xplmi__generic_8c" startline="1620" endline="1667">XPlmi_MoveBuffer</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="216" endline="272">XPlmi_PsmSequence</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabff99cf415b44f557a2d16f59a382b69" compoundref="server_2xplmi__generic_8c" startline="1738" endline="1769">XPlmi_SearchBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaecabcbfd3bdb8170c37fddf9bc2b43a2" compoundref="xplmi__plat__cmd_8c" startline="101" endline="111">XPlmi_SetAddrBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga41032abddd7e456fbc149f2264f8bdef" compoundref="server_2xplmi__generic_8c" startline="1682" endline="1720">XPlmi_SetBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1907" endline="1999">XPlmi_StoreBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds the list of registered data buffers and their capacity. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XPlmi_BufferData</label>
+        <link refid="struct_x_plmi___buffer_data"/>
+      </node>
+      <node id="7">
+        <label>XPlmi_BufferList</label>
+        <link refid="struct_x_plmi___buffer_list"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Data</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="105" bodyend="111"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___buffer_list_1a99c9ac6ab6150c8315e02689bf6b22b4" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>BufferCount</name></member>
+      <member refid="struct_x_plmi___buffer_list_1aa631903e006232a141cab068bd2268d5" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>BufferMemSize</name></member>
+      <member refid="struct_x_plmi___buffer_list_1ac4739d089fcbdfbb7b350c2f8237ab67" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>Data</name></member>
+      <member refid="struct_x_plmi___buffer_list_1a6f0c57fd9a85d74a34980ec4250a22fc" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>IsBufferMemAvailable</name></member>
+      <member refid="struct_x_plmi___buffer_list_1a39a649f4c61fedb5f81c98f6ecbe1903" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>MaxBufferCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

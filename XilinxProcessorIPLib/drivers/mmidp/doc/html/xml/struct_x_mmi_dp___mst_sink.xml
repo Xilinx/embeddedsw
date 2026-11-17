@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___mst_sink" kind="struct" prot="public">
+    <compoundname>XMmiDp_MstSink</compoundname>
+    <includes local="no">xmmidp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstSink::LinkCountTotal</definition>
+        <argsstring></argsstring>
+        <name>LinkCountTotal</name>
+        <briefdescription>
+<para>Hops from the source, incl. </para>        </briefdescription>
+        <detaileddescription>
+<para>the sink. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstSink::RelativeAddress[XMMIDP_MST_MAX_RAD]</definition>
+        <argsstring>[XMMIDP_MST_MAX_RAD]</argsstring>
+        <name>RelativeAddress</name>
+        <briefdescription>
+<para>Port per hop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_sink_1a6031928789eea71e3e972dc2619ddc63" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstSink::PeerDeviceType</definition>
+        <argsstring></argsstring>
+        <name>PeerDeviceType</name>
+        <briefdescription>
+<para>XMMIDP_PEER_DEVICE_*. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_sink_1ae0c59fc5046bb8b69954dce8d8fb0f68" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstSink::DpcdRev</definition>
+        <argsstring></argsstring>
+        <name>DpcdRev</name>
+        <briefdescription>
+<para>DPCD revision of the sink. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="406" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stream sink found during MST topology discovery. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="402" bodyend="407"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___mst_sink_1ae0c59fc5046bb8b69954dce8d8fb0f68" prot="public" virt="non-virtual"><scope>XMmiDp_MstSink</scope><name>DpcdRev</name></member>
+      <member refid="struct_x_mmi_dp___mst_sink_1a1a1d5cee67c9463e64daa14cf3fb51df" prot="public" virt="non-virtual"><scope>XMmiDp_MstSink</scope><name>LinkCountTotal</name></member>
+      <member refid="struct_x_mmi_dp___mst_sink_1a6031928789eea71e3e972dc2619ddc63" prot="public" virt="non-virtual"><scope>XMmiDp_MstSink</scope><name>PeerDeviceType</name></member>
+      <member refid="struct_x_mmi_dp___mst_sink_1ae515360ef5c189ce0b63788a26a8395d" prot="public" virt="non-virtual"><scope>XMmiDp_MstSink</scope><name>RelativeAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

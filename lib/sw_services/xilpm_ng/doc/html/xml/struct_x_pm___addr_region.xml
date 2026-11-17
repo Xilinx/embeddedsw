@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___addr_region" kind="struct" prot="public">
+    <compoundname>XPm_AddrRegion</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___addr_region_1aa2947dd1da6a6a3a278bfc42b08a01ce" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPm_AddrRegion::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___addr_region_1a0faa38ecb601723fec5d167e00923055" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPm_AddrRegion::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h" bodystart="47" bodyend="50"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___addr_region_1aa2947dd1da6a6a3a278bfc42b08a01ce" prot="public" virt="non-virtual"><scope>XPm_AddrRegion</scope><name>Address</name></member>
+      <member refid="struct_x_pm___addr_region_1a0faa38ecb601723fec5d167e00923055" prot="public" virt="non-virtual"><scope>XPm_AddrRegion</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

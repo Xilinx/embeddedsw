@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___mem_device" kind="struct" prot="public">
+    <compoundname>XPm_MemDevice</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___mem_device_1af451783aec3a3e29ccb55d6c08822e03" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref></type>
+        <definition>XPm_Device XPm_MemDevice::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_device_1afef20f828cb68cea58e9d3266addd3d3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_MemDevice::StartAddress</definition>
+        <argsstring></argsstring>
+        <name>StartAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___mem_device_1a12d7510c20552c6ab758d4479cdc959b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_MemDevice::EndAddress</definition>
+        <argsstring></argsstring>
+        <name>EndAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="143">
+        <label>XPm_PendSuspCb</label>
+        <link refid="struct_x_pm___pend_susp_cb"/>
+      </node>
+      <node id="141">
+        <label>XPm_ReqmInfo</label>
+        <link refid="struct_x_pm___reqm_info"/>
+      </node>
+      <node id="142">
+        <label>XPm_Subsystem</label>
+        <link refid="struct_x_pm___subsystem"/>
+        <childnode refid="142" relation="usage">
+          <edgelabel>NextSubsystem</edgelabel>
+        </childnode>
+        <childnode refid="140" relation="usage">
+          <edgelabel>Requirements</edgelabel>
+        </childnode>
+        <childnode refid="143" relation="usage">
+          <edgelabel>PendCb</edgelabel>
+        </childnode>
+      </node>
+      <node id="145">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="138" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>PwrDomain</edgelabel>
+        </childnode>
+      </node>
+      <node id="137">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="138" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>Power</edgelabel>
+        </childnode>
+        <childnode refid="140" relation="usage">
+          <edgelabel>PendingReqm</edgelabel>
+        </childnode>
+        <childnode refid="144" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="146" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="140">
+        <label>XPm_Reqm</label>
+        <link refid="struct_x_pm___reqm"/>
+        <childnode refid="137" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="141" relation="usage">
+          <edgelabel>Next</edgelabel>
+          <edgelabel>Curr</edgelabel>
+        </childnode>
+        <childnode refid="142" relation="usage">
+          <edgelabel>Subsystem</edgelabel>
+        </childnode>
+        <childnode refid="140" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextSubsystem</edgelabel>
+        </childnode>
+      </node>
+      <node id="146">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="137" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="147" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="146" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="147">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="138" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="146" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="136">
+        <label>XPm_MemDevice</label>
+        <childnode refid="137" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+      <node id="139">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="138" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="139" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="144">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="137" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="145" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="144" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="138">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_mem.h" bodystart="85" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___mem_device_1af451783aec3a3e29ccb55d6c08822e03" prot="public" virt="non-virtual"><scope>XPm_MemDevice</scope><name>Device</name></member>
+      <member refid="struct_x_pm___mem_device_1a12d7510c20552c6ab758d4479cdc959b" prot="public" virt="non-virtual"><scope>XPm_MemDevice</scope><name>EndAddress</name></member>
+      <member refid="struct_x_pm___mem_device_1afef20f828cb68cea58e9d3266addd3d3" prot="public" virt="non-virtual"><scope>XPm_MemDevice</scope><name>StartAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

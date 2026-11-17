@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_dma" kind="struct" prot="public">
+    <compoundname>XAxiDma</compoundname>
+    <includes local="no">xaxidma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_dma_1a6a5998bf39bd677a8de8398fe47adce9" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiDma::RegBase</definition>
+        <argsstring></argsstring>
+        <name>RegBase</name>
+        <briefdescription>
+<para>Virtual base address of the DMA engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="443" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" compoundref="xaxidma_8c" startline="697" endline="704">XAxiDma_Busy</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="283" endline="334">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga2d93bfcf1c3e34cb9fc4a22da6148dc5" compoundref="xaxidma_8c" startline="757" endline="776">XAxiDma_SelectCyclicMode</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5becc8b0f9945af34e372ced2b37aebb" compoundref="xaxidma_8c" startline="721" endline="741">XAxiDma_SelectKeyHole</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a2a3255b4c923d78f96fc7b49164ecf8c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::HasMm2S</definition>
+        <argsstring></argsstring>
+        <name>HasMm2S</name>
+        <briefdescription>
+<para>Has transmit channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="498" endline="550">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="283" endline="334">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="348" endline="386">XAxiDma_ResetIsDone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="565" endline="631">XAxiDma_Resume</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a75d10692e5c0d03d0e0206a8fcd1406c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::HasS2Mm</definition>
+        <argsstring></argsstring>
+        <name>HasS2Mm</name>
+        <briefdescription>
+<para>Has receive channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="498" endline="550">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="283" endline="334">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="348" endline="386">XAxiDma_ResetIsDone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="565" endline="631">XAxiDma_Resume</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a0b717775515d60e9b541ca833ef77a57" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::Initialized</definition>
+        <argsstring></argsstring>
+        <name>Initialized</name>
+        <briefdescription>
+<para>Driver has been initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="498" endline="550">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="565" endline="631">XAxiDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a3c5138c2ff12cff97f8d1444550735fd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::HasSg</definition>
+        <argsstring></argsstring>
+        <name>HasSg</name>
+        <briefdescription>
+<para>Has scatter gather support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a32a5ccf48497442af66f144e3eec7fb3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref></type>
+        <definition>XAxiDma_BdRing XAxiDma::TxBdRing</definition>
+        <argsstring></argsstring>
+        <name>TxBdRing</name>
+        <briefdescription>
+<para>BD container management for TX channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1af94c5b7900782398fbd065318c5b0fb6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref></type>
+        <definition>XAxiDma_BdRing XAxiDma::RxBdRing[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>RxBdRing</name>
+        <briefdescription>
+<para>BD container management for RX channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a66a036eb577236ee764d37db526d9636" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::TxNumChannels</definition>
+        <argsstring></argsstring>
+        <name>TxNumChannels</name>
+        <briefdescription>
+<para>Number of transmit channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="452" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a7fa157e5664aea2c332fd3bc19bf5cb5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::RxNumChannels</definition>
+        <argsstring></argsstring>
+        <name>RxNumChannels</name>
+        <briefdescription>
+<para>Number of receive channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="498" endline="550">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="283" endline="334">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="565" endline="631">XAxiDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a93f1a8501a700c7b7de3f2789d024016" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::MicroDmaMode</definition>
+        <argsstring></argsstring>
+        <name>MicroDmaMode</name>
+        <briefdescription>
+<para>Indicates whether Micro DMA mode is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma_1a663f5757eabe6b1b8813ed5fdb0d0edb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma::AddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AddrWidth</name>
+        <briefdescription>
+<para>Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds driver instance data for one DMA engine. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XAxiDma_BdRing</label>
+        <link refid="struct_x_axi_dma___bd_ring"/>
+      </node>
+      <node id="1">
+        <label>XAxiDma</label>
+        <link refid="struct_x_axi_dma"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>TxBdRing</edgelabel>
+          <edgelabel>RxBdRing</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma.h" bodystart="442" bodyend="456"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_dma_1a663f5757eabe6b1b8813ed5fdb0d0edb" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>AddrWidth</name></member>
+      <member refid="struct_x_axi_dma_1a2a3255b4c923d78f96fc7b49164ecf8c" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>HasMm2S</name></member>
+      <member refid="struct_x_axi_dma_1a75d10692e5c0d03d0e0206a8fcd1406c" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>HasS2Mm</name></member>
+      <member refid="struct_x_axi_dma_1a3c5138c2ff12cff97f8d1444550735fd" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>HasSg</name></member>
+      <member refid="struct_x_axi_dma_1a0b717775515d60e9b541ca833ef77a57" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>Initialized</name></member>
+      <member refid="struct_x_axi_dma_1a93f1a8501a700c7b7de3f2789d024016" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>MicroDmaMode</name></member>
+      <member refid="struct_x_axi_dma_1a6a5998bf39bd677a8de8398fe47adce9" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>RegBase</name></member>
+      <member refid="struct_x_axi_dma_1af94c5b7900782398fbd065318c5b0fb6" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>RxBdRing</name></member>
+      <member refid="struct_x_axi_dma_1a7fa157e5664aea2c332fd3bc19bf5cb5" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>RxNumChannels</name></member>
+      <member refid="struct_x_axi_dma_1a32a5ccf48497442af66f144e3eec7fb3" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>TxBdRing</name></member>
+      <member refid="struct_x_axi_dma_1a66a036eb577236ee764d37db526d9636" prot="public" virt="non-virtual"><scope>XAxiDma</scope><name>TxNumChannels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvprocss__g_8c" kind="file">
+    <compoundname>xvprocss_g.c</compoundname>
+    <includes refid="xvprocss_8h" local="yes">xvprocss.h</includes>
+    <incdepgraph>
+      <node id="202">
+        <label>xv_letterbox_l2.h</label>
+      </node>
+      <node id="187">
+        <label>xvprocss_g.c</label>
+        <link refid="xvprocss_g.c"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>xv_csc_l2.h</label>
+      </node>
+      <node id="194">
+        <label>xvprocss_log.h</label>
+        <link refid="xvprocss__log_8h"/>
+      </node>
+      <node id="190">
+        <label>xgpio.h</label>
+      </node>
+      <node id="200">
+        <label>xv_hscaler_l2.h</label>
+      </node>
+      <node id="191">
+        <label>xaxis_switch.h</label>
+      </node>
+      <node id="201">
+        <label>xv_vscaler_l2.h</label>
+      </node>
+      <node id="188">
+        <label>xvprocss.h</label>
+        <link refid="xvprocss_8h"/>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+      </node>
+      <node id="189">
+        <label>xstatus.h</label>
+      </node>
+      <node id="192">
+        <label>xvidc.h</label>
+      </node>
+      <node id="195">
+        <label>xparameters.h</label>
+      </node>
+      <node id="198">
+        <label>xv_hcresampler_l2.h</label>
+      </node>
+      <node id="199">
+        <label>xv_vcresampler_l2.h</label>
+      </node>
+      <node id="193">
+        <label>xaxivdma.h</label>
+      </node>
+      <node id="197">
+        <label>xv_deinterlacer_l2.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__vprocss_1ga4ac6a7ae1a97f447af863c667fa7bcac" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vproc_ss___config" kindref="compound">XVprocSs_Config</ref></type>
+        <definition>XVprocSs_Config XVprocSs_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XVprocSs_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_g.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_g.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvprocss_8h" kindref="compound">xvprocss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><ref refid="struct_x_vproc_ss___config" kindref="compound">XVprocSs_Config</ref><sp/>XVprocSs_ConfigTable[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.drvcfg_sec&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;xlnx,v-proc-ss-2.3&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>compatible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa0100000,<sp/></highlight><highlight class="comment">/*<sp/>reg<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa01fffff,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,highaddr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,topology<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,samples-per-clk<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-data-width<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,num-video-components<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xf00,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-cols<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x870,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-rows<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,deint-motion-adaptive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>rstaximm-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60000,<sp/></highlight><highlight class="comment">/*<sp/>rstaximm-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>rstaxis-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70000,<sp/></highlight><highlight class="comment">/*<sp/>rstaxis-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>vdma-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0,<sp/></highlight><highlight class="comment">/*<sp/>vdma-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>router-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa0000,<sp/></highlight><highlight class="comment">/*<sp/>router-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>csc-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000,<sp/></highlight><highlight class="comment">/*<sp/>csc-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>deint-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000,<sp/></highlight><highlight class="comment">/*<sp/>deint-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>hcrsmplr-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30000,<sp/></highlight><highlight class="comment">/*<sp/>hcrsmplr-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>hscale-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000,<sp/></highlight><highlight class="comment">/*<sp/>hscale-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>lbox-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50000,<sp/></highlight><highlight class="comment">/*<sp/>lbox-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>vcrsmplrin-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000,<sp/></highlight><highlight class="comment">/*<sp/>vcrsmplrin-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>vcrsmplrout-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90000,<sp/></highlight><highlight class="comment">/*<sp/>vcrsmplrout-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1,<sp/></highlight><highlight class="comment">/*<sp/>vscale-present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xb0000<sp/></highlight><highlight class="comment">/*<sp/>vscale-connected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_g.c"/>
+  </compounddef>
+</doxygen>

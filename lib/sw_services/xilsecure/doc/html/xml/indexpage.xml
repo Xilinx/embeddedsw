@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xilsecure</title>
+    <detaileddescription>
+<para>This file contains structures, constants and defines used in HSS provides interface to LMS operations <preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- ----------------------------------------------------------
+ 1.0  sak  08/015/23 Initial release
+ 5.7  tvp  11/20/25  Code refactoring for platform specific LMS functionality</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

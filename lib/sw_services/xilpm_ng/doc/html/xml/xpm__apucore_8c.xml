@@ -1,0 +1,663 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__apucore_8c" kind="file">
+    <compoundname>xpm_apucore.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xpm__apucore_8h" local="yes">xpm_apucore.h</includes>
+    <includes refid="xpm__core_8h" local="yes">xpm_core.h</includes>
+    <includes refid="xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <includes refid="xpm__psfpdomain_8h" local="yes">xpm_psfpdomain.h</includes>
+    <includes refid="xpm__defs_8h" local="yes">xpm_defs.h</includes>
+    <incdepgraph>
+      <node id="438">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="432" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
+        </childnode>
+      </node>
+      <node id="418">
+        <label>xil_io.h</label>
+      </node>
+      <node id="431">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="437">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="438" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+      </node>
+      <node id="436">
+        <label>xpm_debug.h</label>
+        <childnode refid="426" relation="include">
+        </childnode>
+      </node>
+      <node id="417">
+        <label>xpm_apucore.c</label>
+        <link refid="xpm_apucore.c"/>
+        <childnode refid="418" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+        <childnode refid="420" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="436" relation="include">
+        </childnode>
+        <childnode refid="437" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+      </node>
+      <node id="419">
+        <label>xpm_apucore.h</label>
+        <childnode refid="420" relation="include">
+        </childnode>
+      </node>
+      <node id="427">
+        <label>xil_util.h</label>
+      </node>
+      <node id="429">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="425">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="433">
+        <label>xpm_clock.h</label>
+        <childnode refid="426" relation="include">
+        </childnode>
+        <childnode refid="422" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+      </node>
+      <node id="439">
+        <label>xpm_rail.h</label>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+        <childnode refid="440" relation="include">
+        </childnode>
+      </node>
+      <node id="432">
+        <label>xpm_power.h</label>
+        <childnode refid="430" relation="include">
+        </childnode>
+        <childnode refid="422" relation="include">
+        </childnode>
+      </node>
+      <node id="426">
+        <label>xpm_common.h</label>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="418" relation="include">
+        </childnode>
+        <childnode refid="427" relation="include">
+        </childnode>
+        <childnode refid="428" relation="include">
+        </childnode>
+        <childnode refid="429" relation="include">
+        </childnode>
+        <childnode refid="430" relation="include">
+        </childnode>
+      </node>
+      <node id="422">
+        <label>xpm_node.h</label>
+        <childnode refid="423" relation="include">
+        </childnode>
+        <childnode refid="424" relation="include">
+        </childnode>
+        <childnode refid="425" relation="include">
+        </childnode>
+        <childnode refid="426" relation="include">
+        </childnode>
+      </node>
+      <node id="424">
+        <label>xstatus.h</label>
+      </node>
+      <node id="435">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="420">
+        <label>xpm_core.h</label>
+        <childnode refid="421" relation="include">
+        </childnode>
+        <childnode refid="435" relation="include">
+        </childnode>
+      </node>
+      <node id="423">
+        <label>xil_types.h</label>
+      </node>
+      <node id="430">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="423" relation="include">
+        </childnode>
+        <childnode refid="431" relation="include">
+        </childnode>
+      </node>
+      <node id="440">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="421">
+        <label>xpm_device.h</label>
+        <childnode refid="422" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="434" relation="include">
+        </childnode>
+      </node>
+      <node id="434">
+        <label>xpm_reset.h</label>
+        <childnode refid="422" relation="include">
+        </childnode>
+        <childnode refid="426" relation="include">
+        </childnode>
+      </node>
+      <node id="428">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="424" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__apucore_8c_1a8e21a0d1e0bcb699055aca80cc659e2d" prot="public" static="no">
+        <name>XPM_APU_MODE_MASK</name>
+        <param><defname>ClusterId</defname></param>
+        <initializer>BIT32(ClusterId)</initializer>
+        <briefdescription>
+<para>Build the APU cluster mode bit mask for a given cluster. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClusterId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>APU cluster identifier used as the bit position</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32-bit mask with the bit for the given cluster set </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__apucore_8c_1a1e5978ab01eddf372c726f97f6466eb2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmApuCore_AssignRegisterMask</definition>
+        <argsstring>(XPm_ApuCore *ApuCore, const u32 Id)</argsstring>
+        <name>XPmApuCore_AssignRegisterMask</name>
+        <param>
+          <type><ref refid="struct_x_pm___apu_core" kindref="compound">XPm_ApuCore</ref> *</type>
+          <declname>ApuCore</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Assigns the sleep, wakeup and power down register masks for the given APU core based on its node index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ApuCore</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the APU core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device node ID of the APU core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the masks were assigned, XST_FAILURE otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="147" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__apucore_8c_1aa239720a72b84b67a8a66ca752672701" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmApuCore_IsValidCoreInLockstep</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XPmApuCore_IsValidCoreInLockstep</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>XPmApuCore_IsValidCoreInLockstep() - Check if core is valid in lockstep mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of the APU core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+In lockstep mode, only core 0 of each cluster is valid, while core 1 is invalid and should not be allowed to wake up or power down.</para><para>Return: XST_SUCCESS if core is valid, XST_INVALID_PARAM or XST_FAILURE otherwise </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="46" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__apucore_8c_1a76270bc6c4cd6069063e8390ea3d0439" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmApuCore_WakeUp</definition>
+        <argsstring>(XPm_Core *Core, u32 SetAddress, u64 Address)</argsstring>
+        <name>XPmApuCore_WakeUp</name>
+        <param>
+          <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref> *</type>
+          <declname>Core</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SetAddress</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="79" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__apucore_8c_1acdace545da75f7cf568e346182e64d5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmApuCore_PwrDwn</definition>
+        <argsstring>(XPm_Core *Core)</argsstring>
+        <name>XPmApuCore_PwrDwn</name>
+        <param>
+          <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref> *</type>
+          <declname>Core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="100" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__apucore_8c_1adf0cfed8dcbd7b53ab382828e3688fe6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmApuCore_Init</definition>
+        <argsstring>(XPm_ApuCore *ApuCore, u32 Id, u32 Ipi, const u32 *BaseAddress, XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)</argsstring>
+        <name>XPmApuCore_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___apu_core" kindref="compound">XPm_ApuCore</ref> *</type>
+          <declname>ApuCore</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Ipi</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XPm_Power *</type>
+          <declname>Power</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+          <declname>Clock</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Reset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="122" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__apucore_8c_1a73db3aaf1866bbf499cbb4f1051ac544" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ApuGetOperMode</definition>
+        <argsstring>(const u32 DeviceId, u32 *Mode)</argsstring>
+        <name>XPm_ApuGetOperMode</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="230" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__apucore_8c_1add7265e5a26a0124b829d35bf71f40be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ApuSetOperMode</definition>
+        <argsstring>(const u32 DeviceId, const u32 Mode)</argsstring>
+        <name>XPm_ApuSetOperMode</name>
+        <param>
+          <type>const u32</type>
+          <declname>ClusterId</declname>
+          <defname>DeviceId</defname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Sets the operation mode (split or lockstep) for an APU cluster. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClusterId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier of the APU cluster </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation mode to set for the cluster</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c" bodystart="255" bodyend="279"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_apucore.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psfpdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__defs_8h" kindref="compound">xpm_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#define<sp/>XPM_APU_MODE_MASK(ClusterId)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT32(ClusterId)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmApuCore_AssignRegisterMask(<ref refid="struct_x_pm___apu_core" kindref="compound">XPm_ApuCore</ref><sp/>*ApuCore,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmApuCore_IsValidCoreInLockstep(u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OperMode<sp/>=<sp/>XPM_INVAL_OPER_MODE;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CoreNum;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>operation<sp/>mode<sp/>for<sp/>this<sp/>cluster<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_ApuGetOperMode(DeviceId,<sp/>&amp;OperMode);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>get<sp/>APU<sp/>operation<sp/>mode\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>in<sp/>split<sp/>mode,<sp/>all<sp/>cores<sp/>are<sp/>valid<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPM_APU_MODE_SPLIT<sp/>==<sp/>OperMode)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>In<sp/>lockstep<sp/>mode,<sp/>only<sp/>core<sp/>0<sp/>is<sp/>valid<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CoreNum<sp/>=<sp/>GET_APU_CORE_NUM(DeviceId);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xpm__versal__apis_1gad1c0fc957daee76c8dcbeee0ef7a90c1" kindref="member">XPM_DSTN_CORE_0</ref><sp/>!=<sp/>CoreNum)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>APU<sp/>core<sp/>0x%x<sp/>in<sp/>lockstep<sp/>mode\r\n&quot;</highlight><highlight class="normal">,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">XStatus<sp/>XPmApuCore_WakeUp(<ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref><sp/>*Core,<sp/>u32<sp/>SetAddress,<sp/>u64<sp/>Address)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>this<sp/>core<sp/>is<sp/>valid<sp/>in<sp/>lockstep<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmApuCore_IsValidCoreInLockstep(Core-&gt;<ref refid="struct_x_pm___core_1a39627620bcb34a46ff5aa06165d2baa7" kindref="member">Device</ref>.<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Core<sp/>wake<sp/>up<sp/>rejected:<sp/>invalid<sp/>core<sp/>in<sp/>lockstep<sp/>mode\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmCore_WakeUp(Core,<sp/>SetAddress,<sp/>Address);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Status<sp/>=<sp/>%x\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">XStatus<sp/>XPmApuCore_PwrDwn(<ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref><sp/>*Core)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmInfo(</highlight><highlight class="stringliteral">&quot;APU<sp/>PwrDwn\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>this<sp/>core<sp/>is<sp/>valid<sp/>in<sp/>lockstep<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmApuCore_IsValidCoreInLockstep(Core-&gt;<ref refid="struct_x_pm___core_1a39627620bcb34a46ff5aa06165d2baa7" kindref="member">Device</ref>.<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Core<sp/>power<sp/>down<sp/>rejected:<sp/>invalid<sp/>core<sp/>in<sp/>lockstep<sp/>mode\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmCore_PwrDwn(Core);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Status<sp/>=<sp/>%x\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">XStatus<sp/>XPmApuCore_Init(<ref refid="struct_x_pm___apu_core" kindref="compound">XPm_ApuCore</ref><sp/>*ApuCore,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Id,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Ipi,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*BaseAddress,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>*Power,<sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>*Clock,<sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Reset)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_UNDEFINED;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmCore_Init(&amp;ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>,<sp/>Id,<sp/>Power,<sp/>Clock,<sp/>Reset,<sp/>(u8)Ipi);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_CORE_INIT;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a59dad02276193e0527a7c2b7c7828064" kindref="member">FpdApuBaseAddr</ref><sp/>=<sp/>BaseAddress[0];</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmApuCore_AssignRegisterMask(ApuCore,<sp/>Id);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DbgErr<sp/>=<sp/>XPM_INT_ERR_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PrintDbgErr(Status,<sp/>DbgErr);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmApuCore_AssignRegisterMask(<ref refid="struct_x_pm___apu_core" kindref="compound">XPm_ApuCore</ref><sp/>*ApuCore,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(NODEINDEX(Id))<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_0_0:</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU0_CORE0_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU0_CORE0_MASK;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_0_PWRDWN;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_0_1:</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU0_CORE1_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU0_CORE1_MASK;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_1_PWRDWN;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_0_2:</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU0_CORE2_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU0_CORE2_MASK;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_2_PWRDWN;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_0_3:</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU0_CORE3_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU0_CORE3_MASK;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_3_PWRDWN;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_1_0:</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU1_CORE0_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU1_CORE0_MASK;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_4_PWRDWN;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_1_1:</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU1_CORE1_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU1_CORE1_MASK;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_5_PWRDWN;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_2_0:</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU2_CORE0_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU2_CORE0_MASK;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_8_PWRDWN;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_2_1:</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU2_CORE1_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU2_CORE1_MASK;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_9_PWRDWN;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_3_0:</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU3_CORE0_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU3_CORE0_MASK;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_12_PWRDWN;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(u32)XPM_NODEIDX_DEV_ACPU_3_1:</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.SleepMask<sp/>=<sp/>PSXC_LPX_SLCR_APU3_CORE1_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.WakeUpMask<sp/>=<sp/>PSXC_LPX_SLCR_WAKEUP0_IRQ_APU3_CORE1_MASK;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;PcilPwrDwnReg<sp/>=<sp/>APU_PCIL_CORE_13_PWRDWN;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApuCore-&gt;<ref refid="struct_x_pm___apu_core_1a5323fbf4eb106520a2d9676ae14fb3bf" kindref="member">Core</ref>.PwrDwnMask<sp/>=<sp/>APU_PCIL_CORE_PWRDWN_MASK;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal">XStatus<sp/>XPm_ApuGetOperMode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/>u32<sp/>*Mode)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___ps_fp_domain" kindref="compound">XPm_PsFpDomain</ref><sp/>*Fpd<sp/>=<sp/>(<ref refid="struct_x_pm___ps_fp_domain" kindref="compound">XPm_PsFpDomain</ref><sp/>*)XPmPower_GetById(PM_POWER_FPD);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClusterId<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga089e69d440095585bb255a2d1b7a296c" kindref="member">GET_APU_CLUSTER_ID</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Fpd)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Mode<sp/>=<sp/>XPM_INVAL_OPER_MODE;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(Fpd-&gt;<ref refid="struct_x_pm___ps_fp_domain_1ada3801873f8abfb36ff15b1baf429fdf" kindref="member">FpdSlcrBaseAddr</ref><sp/>+<sp/>FPX_SLCR_APU_CTRL_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>XPM_APU_MODE_MASK(ClusterId);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>Val)<sp/>{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Mode<sp/>=<sp/>XPM_APU_MODE_SPLIT;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Mode<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga9331aeee19f814c1c81456ca36a005a6" kindref="member">XPM_APU_MODE_LOCKSTEP</ref>;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal">XStatus<sp/>XPm_ApuSetOperMode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Mode)</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___ps_fp_domain" kindref="compound">XPm_PsFpDomain</ref><sp/>*Fpd<sp/>=<sp/>(<ref refid="struct_x_pm___ps_fp_domain" kindref="compound">XPm_PsFpDomain</ref><sp/>*)XPmPower_GetById(PM_POWER_FPD);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClusterId<sp/>=<sp/><ref refid="group__xpm__versal__apis_1ga089e69d440095585bb255a2d1b7a296c" kindref="member">GET_APU_CLUSTER_ID</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Fpd)<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(Fpd-&gt;<ref refid="struct_x_pm___ps_fp_domain_1ada3801873f8abfb36ff15b1baf429fdf" kindref="member">FpdSlcrBaseAddr</ref><sp/>+<sp/>FPX_SLCR_APU_CTRL_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mode<sp/>==<sp/>XPM_APU_MODE_SPLIT)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>~(Mode<sp/>&lt;&lt;<sp/>ClusterId);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mode<sp/>==<sp/><ref refid="group__xpm__versal__apis_1ga9331aeee19f814c1c81456ca36a005a6" kindref="member">XPM_APU_MODE_LOCKSTEP</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>(Mode<sp/>&lt;&lt;<sp/>ClusterId);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>No<sp/>action<sp/>required<sp/>for<sp/>unsupported<sp/>APU<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(Fpd-&gt;<ref refid="struct_x_pm___ps_fp_domain_1ada3801873f8abfb36ff15b1baf429fdf" kindref="member">FpdSlcrBaseAddr</ref><sp/>+<sp/>FPX_SLCR_APU_CTRL_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c"/>
+  </compounddef>
+</doxygen>

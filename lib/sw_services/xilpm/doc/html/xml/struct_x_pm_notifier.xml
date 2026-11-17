@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_notifier" kind="struct" prot="public">
+    <compoundname>XPmNotifier</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_notifier_1aede0cb24aceafa5365f0bc582e876753" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::SubsystemId</definition>
+        <argsstring></argsstring>
+        <name>SubsystemId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_notifier_1a2233197543ed2b935691eae6e5f50249" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::NodeId</definition>
+        <argsstring></argsstring>
+        <name>NodeId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_notifier_1a01b8f9bff7a496c3cdb1502fd0839530" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::EventMask</definition>
+        <argsstring></argsstring>
+        <name>EventMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_notifier_1a9929d440ccb4a9e63b4c55bf71357366" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::WakeMask</definition>
+        <argsstring></argsstring>
+        <name>WakeMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_notifier_1a4de77285791c4705fecdafb6f77ff5e8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::IpiMask</definition>
+        <argsstring></argsstring>
+        <name>IpiMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_notifier_1a4ecc066624f1e73b3155f07c49d64cdc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::PendEvent</definition>
+        <argsstring></argsstring>
+        <name>PendEvent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_notifier_1a6d953dca4a992102b773f8ba70d322f1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmNotifier::PendEventCnt</definition>
+        <argsstring></argsstring>
+        <name>PendEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="55" bodyend="63"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_notifier_1a01b8f9bff7a496c3cdb1502fd0839530" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>EventMask</name></member>
+      <member refid="struct_x_pm_notifier_1a4de77285791c4705fecdafb6f77ff5e8" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>IpiMask</name></member>
+      <member refid="struct_x_pm_notifier_1a2233197543ed2b935691eae6e5f50249" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>NodeId</name></member>
+      <member refid="struct_x_pm_notifier_1a4ecc066624f1e73b3155f07c49d64cdc" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>PendEvent</name></member>
+      <member refid="struct_x_pm_notifier_1a6d953dca4a992102b773f8ba70d322f1" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>PendEventCnt</name></member>
+      <member refid="struct_x_pm_notifier_1aede0cb24aceafa5365f0bc582e876753" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>SubsystemId</name></member>
+      <member refid="struct_x_pm_notifier_1a9929d440ccb4a9e63b4c55bf71357366" prot="public" virt="non-virtual"><scope>XPmNotifier</scope><name>WakeMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

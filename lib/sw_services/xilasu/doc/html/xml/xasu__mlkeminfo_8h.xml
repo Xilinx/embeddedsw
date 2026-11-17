@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__mlkeminfo_8h" kind="file">
+    <compoundname>xasu_mlkeminfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__keymanager_8c" local="yes">xasu_keymanager.c</includedby>
+    <includedby refid="xasu__mlkem_8h" local="yes">xasu_mlkem.h</includedby>
+    <includedby refid="xasu__keymanager__common_8c" local="yes">xasu_keymanager_common.c</includedby>
+    <includedby refid="xasu__mlkem__common_8h" local="yes">xasu_mlkem_common.h</includedby>
+    <incdepgraph>
+      <node id="1096">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1095">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1094">
+        <label>xasu_mlkeminfo.h</label>
+        <link refid="xasu_mlkeminfo.h"/>
+        <childnode refid="1095" relation="include">
+        </childnode>
+        <childnode refid="1096" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1101">
+        <label>xasu_mlkem_example.c</label>
+        <link refid="xasu__mlkem__example_8c"/>
+      </node>
+      <node id="1098">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="1100">
+        <label>xasu_mlkem.c</label>
+        <link refid="xasu__mlkem_8c"/>
+      </node>
+      <node id="1099">
+        <label>xasu_mlkem.h</label>
+        <link refid="xasu__mlkem_8h"/>
+        <childnode refid="1100" relation="include">
+        </childnode>
+        <childnode refid="1101" relation="include">
+        </childnode>
+      </node>
+      <node id="1104">
+        <label>xasu_mlkem_common.c</label>
+        <link refid="xasu__mlkem__common_8c"/>
+      </node>
+      <node id="1103">
+        <label>xasu_mlkem_common.h</label>
+        <link refid="xasu__mlkem__common_8h"/>
+        <childnode refid="1100" relation="include">
+        </childnode>
+        <childnode refid="1104" relation="include">
+        </childnode>
+      </node>
+      <node id="1102">
+        <label>xasu_keymanager_common.c</label>
+        <link refid="xasu__keymanager__common_8c"/>
+      </node>
+      <node id="1097">
+        <label>xasu_mlkeminfo.h</label>
+        <link refid="xasu_mlkeminfo.h"/>
+        <childnode refid="1098" relation="include">
+        </childnode>
+        <childnode refid="1099" relation="include">
+        </childnode>
+        <childnode refid="1102" relation="include">
+        </childnode>
+        <childnode refid="1103" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___mlkem_encaps_decaps_params" prot="public">XAsu_MlkemEncapsDecapsParams</innerclass>
+    <innerclass refid="struct_x_asu___mlkem_encaps_derand_params" prot="public">XAsu_MlkemEncapsDerandParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1ga00f994b389e6128c323612b67c086244" prot="public" static="no">
+        <name>XASU_MLKEM_ENCAPS_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for ML-KEM encapsulation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga73b1f809f2527aeb77ed904a05321033" compoundref="xasu__mlkem_8c" startline="61" endline="99">XAsu_MlkemEncapsulate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacb98abdca05a8444d1e9a0d08f1bc225" prot="public" static="no">
+        <name>XASU_MLKEM_DECAPS_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for ML-KEM decapsulation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga009b4223afa377d6baad06b99a43c326" compoundref="xasu__mlkem_8c" startline="186" endline="224">XAsu_MlkemDecapsulate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae3d7c69ecafc8fcc40cd62198d529444" prot="public" static="no">
+        <name>XASU_MLKEM_KAT_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for ML-KEM Known Answer Test. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga34f74d822a703aa70ebc3e9c86747366" compoundref="xasu__mlkem_8c" startline="243" endline="271">XAsu_MlkemKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga76010a282b099a2fa3dd20ed8586bff2" prot="public" static="no">
+        <name>XASU_MLKEM_ENCAPS_DERAND_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for derandomized encapsulation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga97590390a73ef98d4f689ec13904be9a" compoundref="xasu__mlkem_8c" startline="123" endline="161">XAsu_MlkemEncapsulateDerand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf4833b24b8e4b5291e6a22a2935792d4" prot="public" static="no">
+        <name>XASU_MLKEM_MAX_CMDS</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Maximum commands supported by ML-KEM module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga624cf0e1e83f263420f0bc428e61e25c" prot="public" static="no">
+        <name>XASU_MLKEM_SHARED_SECRET_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shared secret length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaaa8947c2c5ee124579961461e18b162e" prot="public" static="no">
+        <name>XASU_MLKEM_KEYGEN_SEED_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>KeyGen seed length (d || z) in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" compoundref="xasu__keymanager__common_8c" startline="478" endline="514">XAsu_KmValidateMlkemKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaaef1d2229646653ed1a2e26cba386897" prot="public" static="no">
+        <name>XASU_MLKEM_ENCAPS_SEED_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Encaps message/randomness (m) length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga81f6b407fcdb5b6026791127fb0521d3" prot="public" static="no">
+        <name>XASU_MLKEM_512_PUB_KEY_LEN</name>
+        <initializer>(800U)</initializer>
+        <briefdescription>
+<para>ML-KEM-512 public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9fbdbf59cbdc8003a090c25cdc50b8f3" prot="public" static="no">
+        <name>XASU_MLKEM_512_PRIV_KEY_LEN</name>
+        <initializer>(1632U)</initializer>
+        <briefdescription>
+<para>ML-KEM-512 secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga45f9071b689d09c378c3c13498bb9fed" prot="public" static="no">
+        <name>XASU_MLKEM_512_CT_LEN</name>
+        <initializer>(768U)</initializer>
+        <briefdescription>
+<para>ML-KEM-512 ciphertext length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga402ab624798d7d1662ef71cbdf3195f3" prot="public" static="no">
+        <name>XASU_MLKEM_768_PUB_KEY_LEN</name>
+        <initializer>(1184U)</initializer>
+        <briefdescription>
+<para>ML-KEM-768 public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga46f1ece9a25d196cdca4f0fc6ccc0bd2" prot="public" static="no">
+        <name>XASU_MLKEM_768_PRIV_KEY_LEN</name>
+        <initializer>(2400U)</initializer>
+        <briefdescription>
+<para>ML-KEM-768 secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae5788ffb06aa8e1f6d43015946cf2298" prot="public" static="no">
+        <name>XASU_MLKEM_768_CT_LEN</name>
+        <initializer>(1088U)</initializer>
+        <briefdescription>
+<para>ML-KEM-768 ciphertext length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa72129ca722086b1defcf1e239a8bcb5" prot="public" static="no">
+        <name>XASU_MLKEM_1024_PUB_KEY_LEN</name>
+        <initializer>(1568U)</initializer>
+        <briefdescription>
+<para>ML-KEM-1024 public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga0df320506be0454831176b1972f4b456" prot="public" static="no">
+        <name>XASU_MLKEM_1024_PRIV_KEY_LEN</name>
+        <initializer>(3168U)</initializer>
+        <briefdescription>
+<para>ML-KEM-1024 secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga26c9ec64f981596acc8bf918795be24c" compoundref="xasu__keymanager__common_8c" startline="333" endline="358">XAsu_KmGetMlkemKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7afdafd53732e7bc81d95fde385307a7" prot="public" static="no">
+        <name>XASU_MLKEM_1024_CT_LEN</name>
+        <initializer>(1568U)</initializer>
+        <briefdescription>
+<para>ML-KEM-1024 ciphertext length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga351b5e56e09b58d3ffb1d6b6a37db45e" prot="public" static="no">
+        <name>XASU_MLKEM_MAX_PUB_KEY_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gaa72129ca722086b1defcf1e239a8bcb5" kindref="member">XASU_MLKEM_1024_PUB_KEY_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Max public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf7e9087edbf9e48b190c2631a76e537d" prot="public" static="no">
+        <name>XASU_MLKEM_MAX_PRIV_KEY_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga0df320506be0454831176b1972f4b456" kindref="member">XASU_MLKEM_1024_PRIV_KEY_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Max secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad8059867327bc81a41487ebba1f41226" prot="public" static="no">
+        <name>XASU_MLKEM_MAX_CT_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga7afdafd53732e7bc81d95fde385307a7" kindref="member">XASU_MLKEM_1024_CT_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Max ciphertext length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xasu__common__defs_1ga8e8b750c7772ca1546cd48fc7d28ad74" prot="public" static="no">
+        <name>XAsu_MlkemParamSet</name>
+        <enumvalue id="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a0ad5702ab7daeec153b6a06e3c3ff585" prot="public">
+          <name>XASU_MLKEM_512</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>ML-KEM-512 (NIST security category 1) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a7b108c35fdbef643fe0774aca297538a" prot="public">
+          <name>XASU_MLKEM_768</name>
+          <briefdescription>
+<para>ML-KEM-768 (NIST security category 3) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" prot="public">
+          <name>XASU_MLKEM_1024</name>
+          <briefdescription>
+<para>ML-KEM-1024 (NIST security category 5) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enum lists the supported ML-KEM parameter sets (FIPS 203). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="88" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ML-KEM (FIPS 203) definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/20/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_MLKEMINFO_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEMINFO_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>ML-KEM<sp/>module<sp/>command<sp/>IDs.<sp/>Key<sp/>pair<sp/>generation<sp/>is<sp/>not<sp/>one<sp/>of<sp/>them:<sp/>it<sp/>is<sp/>reached<sp/>only<sp/>through</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>the<sp/>key<sp/>manager&apos;s<sp/>XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID,<sp/>so<sp/>that<sp/>a<sp/>generated<sp/>decapsulation<sp/>key<sp/>can</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>be<sp/>placed<sp/>in<sp/>the<sp/>key<sp/>vault<sp/>rather<sp/>than<sp/>handed<sp/>back<sp/>to<sp/>the<sp/>caller.</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1ga00f994b389e6128c323612b67c086244" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_ENCAPS_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gacb98abdca05a8444d1e9a0d08f1bc225" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_DECAPS_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xasu__common__defs_1gae3d7c69ecafc8fcc40cd62198d529444" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>Derandomized<sp/>encapsulation,<sp/>for<sp/>algorithm<sp/>validation<sp/>only.<sp/>FIPS<sp/>203<sp/>draws<sp/>the<sp/>message<sp/>m<sp/>of<sp/>an</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>approved<sp/>ML-KEM.Encaps<sp/>from<sp/>an<sp/>approved<sp/>RBG,<sp/>so<sp/>encapsulating<sp/>from<sp/>a<sp/>caller-supplied<sp/>m<sp/>is<sp/>the</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>standard&apos;s<sp/>internal<sp/>testing<sp/>function<sp/>rather<sp/>than<sp/>an<sp/>approved<sp/>service.<sp/>ASUFW<sp/>therefore<sp/>serves</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>this<sp/>command<sp/>only<sp/>when<sp/>built<sp/>with<sp/>XASU_ENABLE_CAVP_SUPPORT;<sp/>a<sp/>production<sp/>build<sp/>rejects<sp/>it<sp/>with</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED.<sp/>The<sp/>ID<sp/>is<sp/>defined<sp/>unconditionally<sp/>so<sp/>that<sp/>both</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>builds<sp/>agree<sp/>on<sp/>XASU_MLKEM_MAX_CMDS<sp/>and<sp/>on<sp/>the<sp/>module<sp/>table<sp/>layout.</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58" refid="group__xasu__common__defs_1ga76010a282b099a2fa3dd20ed8586bff2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_ENCAPS_DERAND_CMD_ID<sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xasu__common__defs_1gaf4833b24b8e4b5291e6a22a2935792d4" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ML-KEM<sp/>shared<sp/>secret<sp/>length<sp/>is<sp/>32<sp/>bytes<sp/>for<sp/>all<sp/>parameter<sp/>sets<sp/>(FIPS<sp/>203)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="group__xasu__common__defs_1ga624cf0e1e83f263420f0bc428e61e25c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_SHARED_SECRET_LEN<sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Derandomization<sp/>seed<sp/>lengths<sp/>(FIPS<sp/>203),<sp/>same<sp/>for<sp/>all<sp/>parameter<sp/>sets<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="group__xasu__common__defs_1gaaa8947c2c5ee124579961461e18b162e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_KEYGEN_SEED_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1gaaef1d2229646653ed1a2e26cba386897" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_ENCAPS_SEED_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Per<sp/>parameter-set<sp/>sizes<sp/>in<sp/>bytes<sp/>(FIPS<sp/>203)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__xasu__common__defs_1ga81f6b407fcdb5b6026791127fb0521d3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_512_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(800U)<sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xasu__common__defs_1ga9fbdbf59cbdc8003a090c25cdc50b8f3" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_512_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/>(1632U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xasu__common__defs_1ga45f9071b689d09c378c3c13498bb9fed" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_512_CT_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(768U)<sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xasu__common__defs_1ga402ab624798d7d1662ef71cbdf3195f3" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_768_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(1184U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__common__defs_1ga46f1ece9a25d196cdca4f0fc6ccc0bd2" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_768_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/>(2400U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xasu__common__defs_1gae5788ffb06aa8e1f6d43015946cf2298" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_768_CT_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1088U)<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xasu__common__defs_1gaa72129ca722086b1defcf1e239a8bcb5" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_1024_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/>(1568U)<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__xasu__common__defs_1ga0df320506be0454831176b1972f4b456" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_1024_PRIV_KEY_LEN<sp/><sp/><sp/><sp/>(3168U)<sp/></highlight></codeline>
+<codeline lineno="79" refid="group__xasu__common__defs_1ga7afdafd53732e7bc81d95fde385307a7" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_1024_CT_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1568U)<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>sizes<sp/>across<sp/>all<sp/>supported<sp/>parameter<sp/>sets<sp/>(used<sp/>for<sp/>buffer<sp/>sizing)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="group__xasu__common__defs_1ga351b5e56e09b58d3ffb1d6b6a37db45e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_MAX_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(XASU_MLKEM_1024_PUB_KEY_LEN)<sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="group__xasu__common__defs_1gaf7e9087edbf9e48b190c2631a76e537d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_MAX_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/>(XASU_MLKEM_1024_PRIV_KEY_LEN)<sp/></highlight></codeline>
+<codeline lineno="84" refid="group__xasu__common__defs_1gad8059867327bc81a41487ebba1f41226" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLKEM_MAX_CT_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_MLKEM_1024_CT_LEN)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="group__xasu__common__defs_1ga8e8b750c7772ca1546cd48fc7d28ad74" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="89" refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a0ad5702ab7daeec153b6a06e3c3ff585" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a0ad5702ab7daeec153b6a06e3c3ff585" kindref="member">XASU_MLKEM_512</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a7b108c35fdbef643fe0774aca297538a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a7b108c35fdbef643fe0774aca297538a" kindref="member">XASU_MLKEM_768</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" kindref="member">XASU_MLKEM_1024</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<sp/><ref refid="group__xasu__common__defs_1ga8e8b750c7772ca1546cd48fc7d28ad74" kindref="member">XAsu_MlkemParamSet</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="struct_x_asu___mlkem_encaps_decaps_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105" refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" kindref="member">KeyAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" kindref="member">CtAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" kindref="member">SharedSecretAddr</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" kindref="member">KeyLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_asu___mlkem_encaps_decaps_params_1a22bb9f52eb399fc2c7bc44d19159a37f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a22bb9f52eb399fc2c7bc44d19159a37f" kindref="member">CtLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" kindref="member">SharedSecretLen</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" kindref="member">KeyId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" kindref="member">ParamSet</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_asu___mlkem_encaps_decaps_params_1a59d911bd26290dc76841e3750240ad5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Reserved[7];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}<sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="struct_x_asu___mlkem_encaps_derand_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128" refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref><sp/><ref refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" kindref="member">EncapsParams</ref>;<sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" kindref="member">SeedAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" kindref="member">SeedLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_x_asu___mlkem_encaps_derand_params_1ac8d8dcdc18dfedc7d7325bfcae56d684" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Reserved[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}<sp/><ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_MLKEMINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h"/>
+  </compounddef>
+</doxygen>

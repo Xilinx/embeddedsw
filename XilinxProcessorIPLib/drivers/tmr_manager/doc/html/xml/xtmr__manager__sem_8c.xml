@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtmr__manager__sem_8c" kind="file">
+    <compoundname>xtmr_manager_sem.c</compoundname>
+    <includes refid="xtmr__manager_8h" local="yes">xtmr_manager.h</includes>
+    <includes refid="xtmr__manager__i_8h" local="yes">xtmr_manager_i.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <incdepgraph>
+      <node id="149">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="151">
+        <label>xtmr_manager_i.h</label>
+        <link refid="xtmr__manager__i_8h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>xil_io.h</label>
+      </node>
+      <node id="152">
+        <label>xtmr_manager_l.h</label>
+        <link refid="xtmr__manager__l_8h"/>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>xstatus.h</label>
+      </node>
+      <node id="148">
+        <label>xil_types.h</label>
+      </node>
+      <node id="146">
+        <label>xtmr_manager_sem.c</label>
+        <link refid="xtmr_manager_sem.c"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>xtmr_manager.h</label>
+        <link refid="xtmr__manager_8h"/>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTMR_Manager_SetHandler</definition>
+        <argsstring>(XTMR_Manager *InstancePtr, XTMR_Manager_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XTMR_Manager_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kindref="member">XTMR_Manager_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Sets the handler that will be called when an interrupt event occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_intr.c" bodystart="54" bodyend="67"/>
+        <references refid="struct_x_t_m_r___manager_1afd72080a3e684a34516743136f0f4d80" compoundref="xtmr__manager_8h" startline="181">XTMR_Manager::CallBackRef</references>
+        <references refid="struct_x_t_m_r___manager_1aaf6e0ead681cf5b466c1cb5cbc1817bc" compoundref="xtmr__manager_8h" startline="180">XTMR_Manager::Handler</references>
+        <references refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" compoundref="xtmr__manager_8h" startline="164">XTMR_Manager::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gabd9c760a09f6060be524c4724149aeb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTMR_Manager_DisableInterrupt</definition>
+        <argsstring>(XTMR_Manager *InstancePtr)</argsstring>
+        <name>XTMR_Manager_DisableInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables the core interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_intr.c" bodystart="110" bodyend="121"/>
+        <references refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" compoundref="xtmr__manager_8h" startline="164">XTMR_Manager::IsReady</references>
+        <references refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" compoundref="xtmr__manager_8h" startline="163">XTMR_Manager::RegBaseAddress</references>
+        <references refid="struct_x_t_m_r___manager_1ac5fd5d597db81fc4b33df4ccf308c1ed" compoundref="xtmr__manager_8h" startline="170">XTMR_Manager::SemImr</references>
+        <references refid="group___overview_1ga2a0bf4e75668b4ed345b443b18e95ad3" compoundref="xtmr__manager__l_8h" startline="55">XTM_SEMIMR_OFFSET</references>
+        <references refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" compoundref="xtmr__manager__l_8h" startline="137">XTMR_Manager_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTMR_Manager_EnableInterrupt</definition>
+        <argsstring>(XTMR_Manager *InstancePtr, u32 mask)</argsstring>
+        <name>XTMR_Manager_EnableInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>mask</declname>
+        </param>
+        <briefdescription>
+<para>Enables the core interrupt such that an interrupt will occur when any of the unmasked SEM status signals change value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bitmask indicating which SEM signals trigger an interrupt. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_intr.c" bodystart="128" bodyend="139"/>
+        <references refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" compoundref="xtmr__manager_8h" startline="164">XTMR_Manager::IsReady</references>
+        <references refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" compoundref="xtmr__manager_8h" startline="163">XTMR_Manager::RegBaseAddress</references>
+        <references refid="struct_x_t_m_r___manager_1ac5fd5d597db81fc4b33df4ccf308c1ed" compoundref="xtmr__manager_8h" startline="170">XTMR_Manager::SemImr</references>
+        <references refid="group___overview_1ga2a0bf4e75668b4ed345b443b18e95ad3" compoundref="xtmr__manager__l_8h" startline="55">XTM_SEMIMR_OFFSET</references>
+        <references refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" compoundref="xtmr__manager__l_8h" startline="137">XTMR_Manager_WriteReg</references>
+        <referencedby refid="xtmr__manager__intr__example_8c_1afac56f7c06b7f49ccc240019cd8db0fe" compoundref="xtmr__manager__intr__example_8c" startline="153" endline="208">TMR_ManagerIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmr__manager_8h" kindref="compound">xtmr_manager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmr__manager__i_8h" kindref="compound">xtmr_manager_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="xtmr__manager__intr__example_8c_1a21a7a73972d104250d2d5e3b26f083e6" kindref="member">Handler</ref>)(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="59"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" kindref="member">XTMR_Manager_SetHandler</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kindref="member">XTMR_Manager_Handler</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1aaf6e0ead681cf5b466c1cb5cbc1817bc" kindref="member">Handler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1afd72080a3e684a34516743136f0f4d80" kindref="member">CallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="82"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" kindref="member">XTMR_Manager_DisableInterrupt</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>control<sp/>register<sp/>to<sp/>disable<sp/>the<sp/>interrupts.</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" kindref="member">RegBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2a0bf4e75668b4ed345b443b18e95ad3" kindref="member">XTM_SEMIMR_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="103"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" kindref="member">XTMR_Manager_EnableInterrupt</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/>u32<sp/>mask)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>control<sp/>register<sp/>to<sp/>enable<sp/>the<sp/>interrupts.</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" kindref="member">RegBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2a0bf4e75668b4ed345b443b18e95ad3" kindref="member">XTM_SEMIMR_OFFSET</ref>,<sp/>mask);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_sem.c"/>
+  </compounddef>
+</doxygen>

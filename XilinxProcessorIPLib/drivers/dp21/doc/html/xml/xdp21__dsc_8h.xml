@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp21__dsc_8h" kind="file">
+    <compoundname>xdp21_dsc.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xdp_8h" local="yes">xdp.h</includedby>
+    <includedby refid="xdp21__dsc_8c" local="yes">xdp21_dsc.c</includedby>
+    <includedby refid="xdp21__dsc__fec__utils_8c" local="yes">xdp21_dsc_fec_utils.c</includedby>
+    <includedby refid="xdp21__dsc__fec__vbid__pps__extraction_8h" local="yes">xdp21_dsc_fec_vbid_pps_extraction.h</includedby>
+    <includedby refid="xdp21__dsc__tu_8h" local="yes">xdp21_dsc_tu.h</includedby>
+    <incdepgraph>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+      <node id="42">
+        <label>xparameters.h</label>
+      </node>
+      <node id="41">
+        <label>xdp21_dsc.h</label>
+        <link refid="xdp21_dsc.h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="57">
+        <label>xdp21_dsc_fec_utils.c</label>
+        <link refid="xdp21__dsc__fec__utils_8c"/>
+      </node>
+      <node id="50">
+        <label>xdp_edid.c</label>
+        <link refid="xdp__edid_8c"/>
+      </node>
+      <node id="52">
+        <label>xdp_mst.c</label>
+        <link refid="xdp__mst_8c"/>
+      </node>
+      <node id="53">
+        <label>xdp_selftest.c</label>
+        <link refid="xdp__selftest_8c"/>
+      </node>
+      <node id="54">
+        <label>xdp_sinit.c</label>
+        <link refid="xdp__sinit_8c"/>
+      </node>
+      <node id="46">
+        <label>xdp.c</label>
+        <link refid="xdp_8c"/>
+      </node>
+      <node id="45">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xdp_spm.c</label>
+        <link refid="xdp__spm_8c"/>
+      </node>
+      <node id="47">
+        <label>xdp21_dsc_fec_vbid_pps_extraction.c</label>
+        <link refid="xdp21__dsc__fec__vbid__pps__extraction_8c"/>
+      </node>
+      <node id="58">
+        <label>xdp21_dsc_fec_vbid_pps_extraction.h</label>
+        <link refid="xdp21__dsc__fec__vbid__pps__extraction_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xdp21_dsc_tu.c</label>
+      </node>
+      <node id="48">
+        <label>xdp21_dsc_tu.h</label>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xdp_intr.c</label>
+        <link refid="xdp__intr_8c"/>
+      </node>
+      <node id="56">
+        <label>xdp21_dsc.c</label>
+        <link refid="xdp21__dsc_8c"/>
+      </node>
+      <node id="44">
+        <label>xdp21_dsc.h</label>
+        <link refid="xdp21_dsc.h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>Picture Parameter Set types and Display Stream Compression feature selection for the DisplayPort 2.1 core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XDP21_DSC_H_</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_DSC_H_</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>The<sp/>value<sp/>selects<sp/>the<sp/>build,<sp/>not<sp/>the<sp/>presence<sp/>of<sp/>the<sp/>macro.<sp/>A<sp/>design<sp/>that</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>builds<sp/>the<sp/>Display<sp/>Stream<sp/>Compression<sp/>blocks<sp/>in<sp/>reports<sp/>one,<sp/>and<sp/>the<sp/>macro</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>is<sp/>also<sp/>generated<sp/>as<sp/>zero<sp/>whenever<sp/>the<sp/>device<sp/>tree<sp/>carries<sp/>xlnx,enable-dsc</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>with<sp/>that<sp/>value,<sp/>so<sp/>testing<sp/>only<sp/>whether<sp/>it<sp/>is<sp/>defined<sp/>would<sp/>compile<sp/>the</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/>compression<sp/>code<sp/>into<sp/>designs<sp/>that<sp/>cannot<sp/>use<sp/>it.<sp/>An<sp/>undefined<sp/>macro</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>evaluates<sp/>to<sp/>zero<sp/>here,<sp/>which<sp/>covers<sp/>the<sp/>designs<sp/>whose<sp/>device<sp/>tree<sp/>omits</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>the<sp/>property<sp/>entirely.<sp/>Both<sp/>core<sp/>indices<sp/>are<sp/>tested<sp/>because<sp/>a<sp/>passthrough</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*<sp/>design<sp/>instantiates<sp/>a<sp/>transmit<sp/>and<sp/>a<sp/>receive<sp/>core<sp/>and<sp/>either<sp/>of<sp/>them<sp/>may</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*<sp/>carry<sp/>the<sp/>DSC<sp/>blocks.</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>This<sp/>is<sp/>the<sp/>one<sp/>place<sp/>the<sp/>feature<sp/>is<sp/>selected.<sp/>It<sp/>lives<sp/>in<sp/>the<sp/>leaf<sp/>DSC</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/>header<sp/>so<sp/>that<sp/>xdp.h<sp/>can<sp/>include<sp/>it<sp/>for<sp/>both<sp/>the<sp/>macro<sp/>and<sp/>the<sp/>PPS<sp/>type</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/>without<sp/>the<sp/>two<sp/>headers<sp/>depending<sp/>on<sp/>each<sp/>other.</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XDP_0_ENABLE_DSC<sp/>||<sp/>XPAR_XDP_1_ENABLE_DSC</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_USE_DSC</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDP_USE_DSC</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>dsc_version_major;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>dsc_version_minor;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>pps_identifier;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>bits_per_component;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>linebuf_depth;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>block_pred_enable;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>convert_rgb;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>simple_422;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>vbr_enable;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>bits_per_pixel_low;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>bits_per_pixel_high;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>pic_height;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>pic_width;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>slice_height;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>slice_width;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>chunk_size;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>initial_xmit_delay_high;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>initial_xmit_delay_low;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>initial_dec_delay;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>initial_scale_value;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>scale_increment_interval;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>scale_decrement_interval_high;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>scale_decrement_interval_low;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>first_line_bpg_offset;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>nfl_bpg_offset;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>slice_bpg_offset;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>initial_offset;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>final_offset;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>flatness_min_qp;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>flatness_max_qp;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>rc_model_size;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_edge_factor;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_quant_incr_limit0;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_quant_incr_limit1;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_tgt_offset_high;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_tgt_offset_low;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_buf_thresh[14];</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>rc_range_parameters[30];</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>native_420;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>native_422;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>second_line_bpg_offset;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>nsl_bpg_offset;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>second_line_offset_adj;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>pps_crc[2];</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}<sp/>XDp21_DscPps;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDP21_FEC_CAPABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_FEC_UNCORRECTED_BLOCK_ERR<sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_FEC_CORRECTED_BLOCK_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>2)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_FEC_BIT_ERR_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>3)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_DSC_PPS_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>fec_capable;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>fec_ready;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>fec_decode_enable;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>fec_decode_disable;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>fec_error_count_uncorrected;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>fec_error_count_corrected;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>fec_bit_error_count;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}<sp/>XDp21_FecConfig;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>XDp21_DscPps<sp/>pps_data;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>dsc_passthrough_enable;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>pps_valid;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>XDp21_FecConfig<sp/>fec_config;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}<sp/>XDp21_DscContext;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscParsePps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*pps_buffer,<sp/>XDp21_DscPps<sp/>*pps_data);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscEncodePps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*pps_data,<sp/>u8<sp/>*pps_buffer);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscValidatePps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*pps_data);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDp21_DscInitContext(XDp21_DscContext<sp/>*ctx);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp21_dsc.h"/>
+  </compounddef>
+</doxygen>

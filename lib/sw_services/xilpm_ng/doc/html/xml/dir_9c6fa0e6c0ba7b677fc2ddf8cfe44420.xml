@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9c6fa0e6c0ba7b677fc2ddf8cfe44420" kind="dir">
+    <compoundname>versal_2ve_2vm</compoundname>
+    <innerfile refid="xpm__abist_8c">xpm_abist.c</innerfile>
+    <innerfile refid="xpm__abist_8h">xpm_abist.h</innerfile>
+    <innerfile refid="xpm__aie_8c">xpm_aie.c</innerfile>
+    <innerfile refid="xpm__aie_8h">xpm_aie.h</innerfile>
+    <innerfile refid="xpm__aiedevice_8c">xpm_aiedevice.c</innerfile>
+    <innerfile refid="xpm__aiedevice_8h">xpm_aiedevice.h</innerfile>
+    <innerfile refid="xpm__ams__trim_8c">xpm_ams_trim.c</innerfile>
+    <innerfile refid="xpm__ams__trim_8h">xpm_ams_trim.h</innerfile>
+    <innerfile refid="xpm__api_8c">xpm_api.c</innerfile>
+    <innerfile refid="xpm__api_8h">xpm_api.h</innerfile>
+    <innerfile refid="xpm__apucore_8c">xpm_apucore.c</innerfile>
+    <innerfile refid="xpm__apucore_8h">xpm_apucore.h</innerfile>
+    <innerfile refid="xpm__asucore_8c">xpm_asucore.c</innerfile>
+    <innerfile refid="xpm__asucore_8h">xpm_asucore.h</innerfile>
+    <innerfile refid="xpm__clock_8c">xpm_clock.c</innerfile>
+    <innerfile refid="xpm__clock_8h">xpm_clock.h</innerfile>
+    <innerfile refid="xpm__common_8c">xpm_common.c</innerfile>
+    <innerfile refid="xpm__common_8h">xpm_common.h</innerfile>
+    <innerfile refid="xpm__core_8c">xpm_core.c</innerfile>
+    <innerfile refid="xpm__core_8h">xpm_core.h</innerfile>
+    <innerfile refid="xpm__debug_8h">xpm_debug.h</innerfile>
+    <innerfile refid="xpm__device_8c">xpm_device.c</innerfile>
+    <innerfile refid="xpm__device_8h">xpm_device.h</innerfile>
+    <innerfile refid="xpm__domain__iso_8c">xpm_domain_iso.c</innerfile>
+    <innerfile refid="xpm__domain__iso_8h">xpm_domain_iso.h</innerfile>
+    <innerfile refid="xpm__domainctrl_8c">xpm_domainctrl.c</innerfile>
+    <innerfile refid="xpm__domainctrl_8h">xpm_domainctrl.h</innerfile>
+    <innerfile refid="xpm__mem_8c">xpm_mem.c</innerfile>
+    <innerfile refid="xpm__mem_8h">xpm_mem.h</innerfile>
+    <innerfile refid="xpm__mem__tcm_8c">xpm_mem_tcm.c</innerfile>
+    <innerfile refid="xpm__mem__tcm_8h">xpm_mem_tcm.h</innerfile>
+    <innerfile refid="xpm__node_8c">xpm_node.c</innerfile>
+    <innerfile refid="xpm__node_8h">xpm_node.h</innerfile>
+    <innerfile refid="xpm__npdomain_8c">xpm_npdomain.c</innerfile>
+    <innerfile refid="xpm__npdomain_8h">xpm_npdomain.h</innerfile>
+    <innerfile refid="xpm__periph_8c">xpm_periph.c</innerfile>
+    <innerfile refid="xpm__periph_8h">xpm_periph.h</innerfile>
+    <innerfile refid="xpm__pin_8c">xpm_pin.c</innerfile>
+    <innerfile refid="xpm__pin_8h">xpm_pin.h</innerfile>
+    <innerfile refid="xpm__pldevice_8c">xpm_pldevice.c</innerfile>
+    <innerfile refid="xpm__pldevice_8h">xpm_pldevice.h</innerfile>
+    <innerfile refid="xpm__pldomain_8c">xpm_pldomain.c</innerfile>
+    <innerfile refid="xpm__pldomain_8h">xpm_pldomain.h</innerfile>
+    <innerfile refid="xpm__pll_8c">xpm_pll.c</innerfile>
+    <innerfile refid="xpm__pll_8h">xpm_pll.h</innerfile>
+    <innerfile refid="xpm__pmc_8c">xpm_pmc.c</innerfile>
+    <innerfile refid="xpm__pmc_8h">xpm_pmc.h</innerfile>
+    <innerfile refid="xpm__pmcdomain_8c">xpm_pmcdomain.c</innerfile>
+    <innerfile refid="xpm__pmcdomain_8h">xpm_pmcdomain.h</innerfile>
+    <innerfile refid="xpm__power_8c">xpm_power.c</innerfile>
+    <innerfile refid="xpm__power_8h">xpm_power.h</innerfile>
+    <innerfile refid="xpm__power__core_8c">xpm_power_core.c</innerfile>
+    <innerfile refid="xpm__power__core_8h">xpm_power_core.h</innerfile>
+    <innerfile refid="xpm__powerdomain_8c">xpm_powerdomain.c</innerfile>
+    <innerfile refid="xpm__powerdomain_8h">xpm_powerdomain.h</innerfile>
+    <innerfile refid="xpm__psfpdomain_8c">xpm_psfpdomain.c</innerfile>
+    <innerfile refid="xpm__psfpdomain_8h">xpm_psfpdomain.h</innerfile>
+    <innerfile refid="xpm__pslpdomain_8c">xpm_pslpdomain.c</innerfile>
+    <innerfile refid="xpm__pslpdomain_8h">xpm_pslpdomain.h</innerfile>
+    <innerfile refid="xpm__rail_8c">xpm_rail.c</innerfile>
+    <innerfile refid="xpm__rail_8h">xpm_rail.h</innerfile>
+    <innerfile refid="xpm__regnode_8c">xpm_regnode.c</innerfile>
+    <innerfile refid="xpm__regnode_8h">xpm_regnode.h</innerfile>
+    <innerfile refid="xpm__regs_8h">xpm_regs.h</innerfile>
+    <innerfile refid="xpm__regulator_8c">xpm_regulator.c</innerfile>
+    <innerfile refid="xpm__regulator_8h">xpm_regulator.h</innerfile>
+    <innerfile refid="xpm__repair_8c">xpm_repair.c</innerfile>
+    <innerfile refid="xpm__repair_8h">xpm_repair.h</innerfile>
+    <innerfile refid="xpm__repair__bram__uram_8c">xpm_repair_bram_uram.c</innerfile>
+    <innerfile refid="xpm__repair__ddrmc5e_8c">xpm_repair_ddrmc5e.c</innerfile>
+    <innerfile refid="xpm__repair__eio_8c">xpm_repair_eio.c</innerfile>
+    <innerfile refid="xpm__repair__gtm__gty__gtyp_8c">xpm_repair_gtm_gty_gtyp.c</innerfile>
+    <innerfile refid="xpm__repair__hardblock_8c">xpm_repair_hardblock.c</innerfile>
+    <innerfile refid="xpm__repair__isp2_8c">xpm_repair_isp2.c</innerfile>
+    <innerfile refid="xpm__repair__lpd__fpd__pmxc_8c">xpm_repair_lpd_fpd_pmxc.c</innerfile>
+    <innerfile refid="xpm__repair__me2ps_8c">xpm_repair_me2ps.c</innerfile>
+    <innerfile refid="xpm__repair__mmi_8c">xpm_repair_mmi.c</innerfile>
+    <innerfile refid="xpm__repair__regs_8h">xpm_repair_regs.h</innerfile>
+    <innerfile refid="xpm__repair__vcu2_8c">xpm_repair_vcu2.c</innerfile>
+    <innerfile refid="xpm__repair__vip_8c">xpm_repair_vip.c</innerfile>
+    <innerfile refid="xpm__reset_8c">xpm_reset.c</innerfile>
+    <innerfile refid="xpm__reset_8h">xpm_reset.h</innerfile>
+    <innerfile refid="xpm__rpucore_8c">xpm_rpucore.c</innerfile>
+    <innerfile refid="xpm__rpucore_8h">xpm_rpucore.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/"/>
+  </compounddef>
+</doxygen>

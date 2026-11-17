@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__psm__api__plat_8h" kind="file">
+    <compoundname>server/xpm_psm_api_plat.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="7602">
+        <label>xstatus.h</label>
+      </node>
+      <node id="7601">
+        <label>xil_types.h</label>
+      </node>
+      <node id="7600">
+        <label>xpm_psm_api_plat.h</label>
+        <link refid="server/xpm_psm_api_plat.h"/>
+        <childnode refid="7601" relation="include">
+        </childnode>
+        <childnode refid="7602" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2xpm__psm__api__plat_8h_1af853f7c21bc53065927d115c62c1e9f0" prot="public" static="no">
+        <name>MIN_LPD_USE_COUNT</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>PMC subsystem uses LPD devices like IPI, PSM_PROC and UART0. </para>        </briefdescription>
+        <detaileddescription>
+<para>When no one using LPD devices, its minimum use count will be 3 as these devices are requested by PMC subsystem. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40bea" prot="public" static="no">
+        <name>ProcDeviceId</name>
+        <enumvalue id="server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaccc6d2c15740d69c40764ccbd184c832" prot="public">
+          <name>ACPU_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa53d385e581211099350c88866ef0e05a" prot="public">
+          <name>ACPU_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa6c2212ded02b1d69e943092a44f1086c" prot="public">
+          <name>RPU0_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa987b63ff8331f244f1fbb55b42eeee74" prot="public">
+          <name>RPU0_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaa2f5edfb1e382871b2d1314e671d1867" prot="public">
+          <name>PROC_DEV_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaccc6d2c15740d69c40764ccbd184c832" prot="public">
+          <name>ACPU_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa53d385e581211099350c88866ef0e05a" prot="public">
+          <name>ACPU_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa6a9db3043f0c99ff14516a778f354c4c" prot="public">
+          <name>ACPU_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa7258099a991904fed3b039d66663ce3d" prot="public">
+          <name>ACPU_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa3ada6d626326481c6097b3806ba23021" prot="public">
+          <name>ACPU_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa72b5000fb0c54c00555615779369b636" prot="public">
+          <name>ACPU_5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa74f2f779f25237b9ad8f311f5eb7bf4d" prot="public">
+          <name>ACPU_6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaac5790e7e5aedc9d6b6883ab243c9dd51" prot="public">
+          <name>ACPU_7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa0e0a042dd46a1387b8832985f5784811" prot="public">
+          <name>ACPU_8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaad29d8010feb5fe527bcf0faaf8bb0205" prot="public">
+          <name>ACPU_9</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa981e33952d3149b5ee0967a564a11619" prot="public">
+          <name>ACPU_10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaaf8cd561188d2fc7137c0320851d8fe9" prot="public">
+          <name>ACPU_11</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaf49d2f01151666934568090a0cfcf863" prot="public">
+          <name>ACPU_12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa06c83658c2998fc7256d9814457fe6ea" prot="public">
+          <name>ACPU_13</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaca8b084df53fb3a6e7f1612c8808247f" prot="public">
+          <name>ACPU_14</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaab3aa015afbaa6c47d5ed2b5216cb7853" prot="public">
+          <name>ACPU_15</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa6c2212ded02b1d69e943092a44f1086c" prot="public">
+          <name>RPU0_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa987b63ff8331f244f1fbb55b42eeee74" prot="public">
+          <name>RPU0_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa0140ca368b533ed3a6bbf481de069743" prot="public">
+          <name>RPU1_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaa77dd0d8b7a6e309513a21d70503aed13" prot="public">
+          <name>RPU1_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="net_2server_2xpm__psm__api__plat_8h_1a01db2271504aea63f2c5f36f9cb40beaaa2f5edfb1e382871b2d1314e671d1867" prot="public">
+          <name>PROC_DEV_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" bodystart="25" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__psm__api__plat_8h_1afedd895d632c7831772d5f73c0f5857b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_CCIXEnEvent</definition>
+        <argsstring>(u32 PowerId)</argsstring>
+        <name>XPm_CCIXEnEvent</name>
+        <param>
+          <type>u32</type>
+          <declname>PowerId</declname>
+        </param>
+        <briefdescription>
+<para>This Function sends a CCIX_EN IPI to PSM if it design used is a valid CPM CCIX design. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PowerId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId of CPM Power Domain</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.c" bodystart="84" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__psm__api__plat_8h_1a4cc863b0535fe5a2204c6cd5f1cf1425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus ReleaseDeviceLpd</definition>
+        <argsstring>(void)</argsstring>
+        <name>ReleaseDeviceLpd</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.c" bodystart="29" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__psm__api__plat_8h_1a7e3aefaa098e6d9f56c1ea8241d81259" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_DirectPwrUp</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_DirectPwrUp</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This Function will power up processor by sending IPI to PSM for performing direct power up operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of processor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.c" bodystart="149" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__psm__api__plat_8h_1a8b007ba73df1624e6f9fedc2da7ad68d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_DirectPwrDwn</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_DirectPwrDwn</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This Function will power down processor by sending IPI to PSM for performing direct power down operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of processor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.c" bodystart="180" bodyend="197"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PSM_API_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PSM_API_PLAT_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#define<sp/>MIN_LPD_USE_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>ProcDeviceId<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACPU_0,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACPU_1,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPU0_0,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPU0_1,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PROC_DEV_MAX,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">XStatus<sp/>XPm_CCIXEnEvent(u32<sp/>PowerId);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">XStatus<sp/>ReleaseDeviceLpd(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">XStatus<sp/>XPm_DirectPwrUp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">XStatus<sp/>XPm_DirectPwrDwn(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PSM_API_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_psm_api_plat.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_26f9d72e1939948dc5f51ebd3b205177" kind="dir">
+    <compoundname>versal_2vp_p</compoundname>
+    <innerfile refid="versal__2vp__p_2xocp__hw_8h">versal_2vp_p/xocp_hw.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilocp/src/server/versal_2vp_p/"/>
+  </compounddef>
+</doxygen>

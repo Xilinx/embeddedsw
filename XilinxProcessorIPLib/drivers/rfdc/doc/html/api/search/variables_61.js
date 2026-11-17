@@ -1,0 +1,18 @@
+var searchData=
+[
+  ['adc4gsps',['ADC4GSPS',['../struct_x_r_fdc.html#aa7a654daf6d63b40d317526b63266723',1,'XRFdc']]],
+  ['adc_5ftile',['ADC_Tile',['../struct_x_r_fdc.html#a12ddfd871ba4d1261a01e8c4a1b7ee1d',1,'XRFdc']]],
+  ['adcblock_5fanalog_5fconfig',['ADCBlock_Analog_Config',['../struct_x_r_fdc___a_d_c_tile___config.html#a0ef083b0fb7ebef7535a9f1505bbffc4',1,'XRFdc_ADCTile_Config']]],
+  ['adcblock_5fanalog_5fdatapath',['ADCBlock_Analog_Datapath',['../struct_x_r_fdc___a_d_c___tile.html#a3e2550bed41129eaa67ad77244d1a4f8',1,'XRFdc_ADC_Tile']]],
+  ['adcblock_5fdigital_5fconfig',['ADCBlock_Digital_Config',['../struct_x_r_fdc___a_d_c_tile___config.html#a910f28bc586d204fa7b442da385e963e',1,'XRFdc_ADCTile_Config']]],
+  ['adcblock_5fdigital_5fdatapath',['ADCBlock_Digital_Datapath',['../struct_x_r_fdc___a_d_c___tile.html#a9186bfa27699a15928a260e428e0960a',1,'XRFdc_ADC_Tile']]],
+  ['adcsysrefsource',['ADCSysRefSource',['../struct_x_r_fdc___config.html#ae89c65f14c3fc85eefe80156229cd2a7',1,'XRFdc_Config']]],
+  ['adctile_5fconfig',['ADCTile_Config',['../struct_x_r_fdc___config.html#a8205a3335cbcb1b87dc28e6b8224c350',1,'XRFdc_Config']]],
+  ['adctilestatus',['ADCTileStatus',['../struct_x_r_fdc___i_p_status.html#a2185105d19be9512b2c5a54c1e6123f9',1,'XRFdc_IPStatus']]],
+  ['adctype',['ADCType',['../struct_x_r_fdc___config.html#ae75323c6b9a6575d7a51e4a559e7f81a',1,'XRFdc_Config']]],
+  ['adderenable',['AdderEnable',['../struct_x_r_fdc___d_a_c_block___digital_data_path___config.html#aa667cf653abe9fe7976856c69af3cc62',1,'XRFdc_DACBlock_DigitalDataPath_Config']]],
+  ['analogdatapathstatus',['AnalogDataPathStatus',['../struct_x_r_fdc___block_status.html#ab28793c99543e63998f1db5be6ae387e',1,'XRFdc_BlockStatus']]],
+  ['analogpathavailable',['AnalogPathAvailable',['../struct_x_r_fdc___d_a_c_block___analog_data_path.html#afd1b8976b21f9d92d5fe815277aba474',1,'XRFdc_DACBlock_AnalogDataPath::AnalogPathAvailable()'],['../struct_x_r_fdc___a_d_c_block___analog_data_path.html#a31d0397eba15852e4571abfa4d2c04ce',1,'XRFdc_ADCBlock_AnalogDataPath::AnalogPathAvailable()']]],
+  ['analogpathenabled',['AnalogPathEnabled',['../struct_x_r_fdc___d_a_c_block___analog_data_path.html#ab432da253c294106820de6d05ad06b9e',1,'XRFdc_DACBlock_AnalogDataPath::AnalogPathEnabled()'],['../struct_x_r_fdc___a_d_c_block___analog_data_path.html#a2006458652fb6f39b235fe7671563918',1,'XRFdc_ADCBlock_AnalogDataPath::AnalogPathEnabled()']]],
+  ['attenuation',['Attenuation',['../struct_x_r_fdc___d_s_a___settings.html#aa801bed2dfaa611d39220640a4424362',1,'XRFdc_DSA_Settings']]]
+];

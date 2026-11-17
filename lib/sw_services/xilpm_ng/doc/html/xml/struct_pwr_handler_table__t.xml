@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pwr_handler_table__t" kind="struct" prot="public">
+    <compoundname>PwrHandlerTable_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pwr_handler_table__t_1a6ec516b46873fa5cafc62b10ae2d268d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PwrHandlerTable_t::PwrUpMask</definition>
+        <argsstring></argsstring>
+        <name>PwrUpMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pwr_handler_table__t_1a645048b067cee2701df0e692e4fd8045" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PwrHandlerTable_t::PwrDwnMask</definition>
+        <argsstring></argsstring>
+        <name>PwrDwnMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pwr_handler_table__t_1a551c9fe640313a4c28e51f145f6f4d48" prot="public" static="no" mutable="no">
+        <type>struct XPmFwPwrCtrl_t *</type>
+        <definition>struct XPmFwPwrCtrl_t* PwrHandlerTable_t::Args</definition>
+        <argsstring></argsstring>
+        <name>Args</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="159" bodyend="163"/>
+    <listofallmembers>
+      <member refid="struct_pwr_handler_table__t_1a551c9fe640313a4c28e51f145f6f4d48" prot="public" virt="non-virtual"><scope>PwrHandlerTable_t</scope><name>Args</name></member>
+      <member refid="struct_pwr_handler_table__t_1a645048b067cee2701df0e692e4fd8045" prot="public" virt="non-virtual"><scope>PwrHandlerTable_t</scope><name>PwrDwnMask</name></member>
+      <member refid="struct_pwr_handler_table__t_1a6ec516b46873fa5cafc62b10ae2d268d" prot="public" virt="non-virtual"><scope>PwrHandlerTable_t</scope><name>PwrUpMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

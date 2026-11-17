@@ -1,0 +1,445 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xscuwdt__hw_8h" kind="file">
+    <compoundname>xscuwdt_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includedby refid="xscuwdt_8h" local="yes">xscuwdt.h</includedby>
+    <incdepgraph>
+      <node id="37">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="36">
+        <label>xil_io.h</label>
+      </node>
+      <node id="34">
+        <label>xscuwdt_hw.h</label>
+        <link refid="xscuwdt_hw.h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="42">
+        <label>xscuwdt_selftest.c</label>
+        <link refid="xscuwdt__selftest_8c"/>
+      </node>
+      <node id="44">
+        <label>xscuwdt_intr_example.c</label>
+        <link refid="xscuwdt__intr__example_8c"/>
+      </node>
+      <node id="43">
+        <label>xscuwdt_sinit.c</label>
+        <link refid="xscuwdt__sinit_8c"/>
+      </node>
+      <node id="45">
+        <label>xscuwdt_polled_example.c</label>
+        <link refid="xscuwdt__polled__example_8c"/>
+      </node>
+      <node id="38">
+        <label>xscuwdt_hw.h</label>
+        <link refid="xscuwdt_hw.h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xscuwdt.c</label>
+        <link refid="xscuwdt_8c"/>
+      </node>
+      <node id="39">
+        <label>xscuwdt.h</label>
+        <link refid="xscuwdt_8h"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xscuwdt_g.c</label>
+        <link refid="xscuwdt__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Offsets of registers from the start of the device.</para><para>The WDT registers start at an offset 0x20. </para></description>
+      <memberdef kind="define" id="group___overview_1ga0ed3512c06a5468c1a1e156485c89b05" prot="public" static="no">
+        <name>XSCUWDT_LOAD_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Watchdog Load Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="62" endline="108">XScuWdt_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3baeac323b13ac9c8fb14b26ecb1080b" prot="public" static="no">
+        <name>XSCUWDT_COUNTER_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Watchdog Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="62" endline="108">XScuWdt_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabb582c48f399b333543c54e0563809d5" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_OFFSET</name>
+        <initializer>0x08U</initializer>
+        <briefdescription>
+<para>Watchdog Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="126" endline="154">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="164" endline="192">XScuWdt_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga51a62e1dedd6b0f5f45cd19305f09440" prot="public" static="no">
+        <name>XSCUWDT_ISR_OFFSET</name>
+        <initializer>0x0CU</initializer>
+        <briefdescription>
+<para>Watchdog Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="163" endline="341">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga265a4196811ab4b4ac12954d02461520" prot="public" static="no">
+        <name>XSCUWDT_RST_STS_OFFSET</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Watchdog Reset Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8322daafd0ea0ea44c59f69523b19f66" prot="public" static="no">
+        <name>XSCUWDT_DISABLE_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+<para>Watchdog Disable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Watchdog Control register</header>
+      <description><para>The bits of this register control the prescaler, WD/Timer mode, interrupt enable, auto-reload, and watchdog enable. </para></description>
+      <memberdef kind="define" id="group___overview_1gae0774dc548157f183fa5c365fcc8f251" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_PRESCALER_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Prescaler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac19052eae87df391ecfc92476c6be092" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_PRESCALER_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Prescaler shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7c5148db8727a2fdbab1c7dba9296f77" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_WD_MODE_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Watchdog/Timer mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga88489f11e8c766bd4ba2c725087b16fc" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_IT_ENABLE_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Interrupt enable (in timer mode). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="163" endline="341">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3432c3b19bc44d4283ec4520b6e347d2" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_AUTO_RELOAD_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Auto-reload (in timer mode). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafd4c1f9ff31d9c47028759d68d945a8c" prot="public" static="no">
+        <name>XSCUWDT_CONTROL_WD_ENABLE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Watchdog enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="62" endline="108">XScuWdt_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="126" endline="154">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="164" endline="192">XScuWdt_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status register</header>
+      <description><para>This register indicates the Counter register has reached zero in Counter mode. </para></description>
+      <memberdef kind="define" id="group___overview_1ga48a52ba61af3b86522de83206703b0cf" prot="public" static="no">
+        <name>XSCUWDT_ISR_EVENT_FLAG_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Event flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="163" endline="341">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Reset Status register</header>
+      <description><para>This register indicates the Counter register has reached zero in Watchdog mode and a reset request is sent. </para></description>
+      <memberdef kind="define" id="group___overview_1ga09ce6fd05a79f896111beab252e792f5" prot="public" static="no">
+        <name>XSCUWDT_RST_STS_RESET_FLAG_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Time out occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Disable register</header>
+      <description><para>Writes to this register switch from watchdog mode to timer mode.</para><para>The software must write 0x12345678 and 0x87654321 successively to the Watchdog Disable Register so that the watchdog mode bit in the Watchdog Control Register is set to zero. </para></description>
+      <memberdef kind="define" id="group___overview_1gaafdd114ae5e1835ff15037e617464de2" prot="public" static="no">
+        <name>XSCUWDT_DISABLE_VALUE1</name>
+        <initializer>0x12345678U</initializer>
+        <briefdescription>
+<para>Watchdog mode disable value 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3637e7d6bc621bbe36942a1bc9543f2f" prot="public" static="no">
+        <name>XSCUWDT_DISABLE_VALUE2</name>
+        <initializer>0x87654321U</initializer>
+        <briefdescription>
+<para>Watchdog mode disable value 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" prot="public" static="no">
+        <name>XScuWdt_ReadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddr) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>Reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kindref="member">XScuWdt_ReadReg(u32 BaseAddr, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="62" endline="108">XScuWdt_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="126" endline="154">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="164" endline="192">XScuWdt_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga396641b45a7213c8c18a19485759fee4" prot="public" static="no">
+        <name>XScuWdt_WriteReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddr) + ((u32)RegOffset), ((u32)Data))</initializer>
+        <briefdescription>
+<para>Writes the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kindref="member">XScuWdt_WriteReg(u32 BaseAddr, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="163" endline="341">ScuWdtIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="126" endline="154">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="164" endline="192">XScuWdt_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the hardware interface of the SCU watchdog timer driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the hardware interface to the Xilinx SCU private Watch Dog Timer (XSCUWDT).</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00a sdm 01/15/10 First release
+1.01a bss 02/27/12 Updated the register offsets to start at 0x0 instead
+                   of 0x20 as the base address obtained from the tools
+             starts at 0x20.
+1.02a  sg 07/17/12 Included xil_assert.h for CR 667947. This is an issue
+             when the xstatus.h in the common driver overwrites
+             the xstatus.h of the standalone BSP during the
+             libgen.
+2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+2.8   vn  07/30/26 Fix Doxygen warnings
+2.8   vn  09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XSCUWDT_HW_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUWDT_HW_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="group___overview_1ga0ed3512c06a5468c1a1e156485c89b05" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_LOAD_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00U<sp/></highlight></codeline>
+<codeline lineno="61" refid="group___overview_1ga3baeac323b13ac9c8fb14b26ecb1080b" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_COUNTER_OFFSET<sp/><sp/>0x04U<sp/></highlight></codeline>
+<codeline lineno="62" refid="group___overview_1gabb582c48f399b333543c54e0563809d5" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_OFFSET<sp/><sp/>0x08U<sp/></highlight></codeline>
+<codeline lineno="64" refid="group___overview_1ga51a62e1dedd6b0f5f45cd19305f09440" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x0CU</highlight></codeline>
+<codeline lineno="65" refid="group___overview_1ga265a4196811ab4b4ac12954d02461520" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUWDT_RST_STS_OFFSET<sp/><sp/>0x10U<sp/></highlight></codeline>
+<codeline lineno="66" refid="group___overview_1ga8322daafd0ea0ea44c59f69523b19f66" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_DISABLE_OFFSET<sp/><sp/>0x14U<sp/></highlight></codeline>
+<codeline lineno="75" refid="group___overview_1gae0774dc548157f183fa5c365fcc8f251" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_PRESCALER_MASK<sp/><sp/><sp/>0x0000FF00U<sp/></highlight></codeline>
+<codeline lineno="76" refid="group___overview_1gac19052eae87df391ecfc92476c6be092" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_PRESCALER_SHIFT<sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="78" refid="group___overview_1ga7c5148db8727a2fdbab1c7dba9296f77" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_WD_MODE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000008U</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="group___overview_1ga88489f11e8c766bd4ba2c725087b16fc" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_IT_ENABLE_MASK<sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="group___overview_1ga3432c3b19bc44d4283ec4520b6e347d2" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_AUTO_RELOAD_MASK<sp/>0x00000002U</highlight></codeline>
+<codeline lineno="83" refid="group___overview_1gafd4c1f9ff31d9c47028759d68d945a8c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUWDT_CONTROL_WD_ENABLE_MASK<sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="92" refid="group___overview_1ga48a52ba61af3b86522de83206703b0cf" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_ISR_EVENT_FLAG_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="102" refid="group___overview_1ga09ce6fd05a79f896111beab252e792f5" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_RST_STS_RESET_FLAG_MASK<sp/>0x00000001U</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="group___overview_1gaafdd114ae5e1835ff15037e617464de2" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_DISABLE_VALUE1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12345678U</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115" refid="group___overview_1ga3637e7d6bc621bbe36942a1bc9543f2f" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUWDT_DISABLE_VALUE2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x87654321U</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="136" refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_ReadReg(BaseAddr,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddr)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="152" refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" refkind="member"><highlight class="preprocessor">#define<sp/>XScuWdt_WriteReg(BaseAddr,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddr)<sp/>+<sp/>((u32)RegOffset),<sp/>((u32)Data))</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt_hw.h"/>
+  </compounddef>
+</doxygen>

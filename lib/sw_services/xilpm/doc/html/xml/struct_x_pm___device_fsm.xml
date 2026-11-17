@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___device_fsm" kind="struct" prot="public">
+    <compoundname>XPm_DeviceFsm</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___device_fsm_1abc2301dcb289008ff07a83b2523f2d23" prot="public" static="no" mutable="no">
+        <type>const XPm_StateCap *const</type>
+        <definition>const XPm_StateCap* const XPm_DeviceFsm::States</definition>
+        <argsstring></argsstring>
+        <name>States</name>
+        <briefdescription>
+<para>Pointer to states array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_fsm_1adcb7748872b3406821b9f309d3c954c7" prot="public" static="no" mutable="no">
+        <type>XStatus(*const</type>
+        <definition>XStatus(*const XPm_DeviceFsm::EnterState)(XPm_Device *const Device, const u32 NextState)</definition>
+        <argsstring>)(XPm_Device *const Device, const u32 NextState)</argsstring>
+        <name>EnterState</name>
+        <briefdescription>
+<para>Pointer to a function that executes FSM actions to enter a state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_fsm_1ae50027b7fe1d438c05d5018e00978001" prot="public" static="no" mutable="no">
+        <type>const XPm_StateTran *const</type>
+        <definition>const XPm_StateTran* const XPm_DeviceFsm::Trans</definition>
+        <argsstring></argsstring>
+        <name>Trans</name>
+        <briefdescription>
+<para>Pointer to array of transitions of the FSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_fsm_1a6490b02d7ff2a78f8731b8bf1c2516df" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPm_DeviceFsm::StatesCnt</definition>
+        <argsstring></argsstring>
+        <name>StatesCnt</name>
+        <briefdescription>
+<para>Number of elements in states array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_fsm_1ae29cb741026ee99c83d9b8c74b102251" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPm_DeviceFsm::TransCnt</definition>
+        <argsstring></argsstring>
+        <name>TransCnt</name>
+        <briefdescription>
+<para>Number of elements in transition array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_device.h" bodystart="89" bodyend="97"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___device_fsm_1adcb7748872b3406821b9f309d3c954c7" prot="public" virt="non-virtual"><scope>XPm_DeviceFsm</scope><name>EnterState</name></member>
+      <member refid="struct_x_pm___device_fsm_1abc2301dcb289008ff07a83b2523f2d23" prot="public" virt="non-virtual"><scope>XPm_DeviceFsm</scope><name>States</name></member>
+      <member refid="struct_x_pm___device_fsm_1a6490b02d7ff2a78f8731b8bf1c2516df" prot="public" virt="non-virtual"><scope>XPm_DeviceFsm</scope><name>StatesCnt</name></member>
+      <member refid="struct_x_pm___device_fsm_1ae50027b7fe1d438c05d5018e00978001" prot="public" virt="non-virtual"><scope>XPm_DeviceFsm</scope><name>Trans</name></member>
+      <member refid="struct_x_pm___device_fsm_1ae29cb741026ee99c83d9b8c74b102251" prot="public" virt="non-virtual"><scope>XPm_DeviceFsm</scope><name>TransCnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

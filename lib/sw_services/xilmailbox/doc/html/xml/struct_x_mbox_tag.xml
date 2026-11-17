@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mbox_tag" kind="struct" prot="public">
+    <compoundname>XMboxTag</compoundname>
+    <includes local="no">xilmailbox.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mbox_tag_1ac988653f4102330b66dffc80008e5947" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XMboxTag::XMbox_IPI_Send)(struct XMboxTag *InstancePtr, u8 Is_Blocking)</definition>
+        <argsstring>)(struct XMboxTag *InstancePtr, u8 Is_Blocking)</argsstring>
+        <name>XMbox_IPI_Send</name>
+        <briefdescription>
+<para>Triggers an IPI to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1ad2979174f02c95bba9e1a9a82da86eb6" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XMboxTag::XMbox_IPI_SendData)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</definition>
+        <argsstring>)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</argsstring>
+        <name>XMbox_IPI_SendData</name>
+        <briefdescription>
+<para>Sends an IPI message to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1acfc620b1b6bee8a53e35bd937d01ef9a" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XMboxTag::XMbox_IPI_Recv)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType)</definition>
+        <argsstring>)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType)</argsstring>
+        <name>XMbox_IPI_Recv</name>
+        <briefdescription>
+<para>Reads an IPI message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1a1687a2438f51998be0cafbc559e09186" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XMboxTag::XMbox_IPI_SendById)(struct XMboxTag *InstancePtr, u32 RemoteId, u8 Is_Blocking)</definition>
+        <argsstring>)(struct XMboxTag *InstancePtr, u32 RemoteId, u8 Is_Blocking)</argsstring>
+        <name>XMbox_IPI_SendById</name>
+        <briefdescription>
+<para>Triggers an IPI to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+        <referencedby refid="group__xilmailbox_1ga3b1215935d7ba605846e3a13f015e956" compoundref="xilmailbox_8c" startline="63" endline="74">XMailbox_Send</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1af9d549f3ca388507298b27e82a714130" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XMboxTag::XMbox_IPI_SendDataById)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking)</definition>
+        <argsstring>)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking)</argsstring>
+        <name>XMbox_IPI_SendDataById</name>
+        <briefdescription>
+<para>Sends an IPI message to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" compoundref="xilmailbox_8c" startline="95" endline="116">XMailbox_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1af3f752913cc2e1c824a969a5a0703066" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XMboxTag::XMbox_IPI_RecvById)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u32 SourceId, u8 BufferType)</definition>
+        <argsstring>)(struct XMboxTag *InstancePtr, void *BufferPtr, u32 MsgLen, u32 SourceId, u8 BufferType)</argsstring>
+        <name>XMbox_IPI_RecvById</name>
+        <briefdescription>
+<para>Reads an IPI message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+        <referencedby refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" compoundref="xilmailbox_8c" startline="135" endline="160">XMailbox_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1a19abe88291a590c4043f0c14f3abbea6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilmailbox_1ga8c6dc8e77b4ca1440fff62efadefa502" kindref="member">XMailbox_RecvHandler</ref></type>
+        <definition>XMailbox_RecvHandler XMboxTag::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+<para>Receive handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" compoundref="xilmailbox__ipips__control_8c" startline="341" endline="354">XIpiPs_IntrHandler</referencedby>
+        <referencedby refid="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" compoundref="xilmailbox_8c" startline="189" endline="217">XMailbox_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1a94ad8c15322f8aa87898da64c12d680c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilmailbox_1ga2dd8ee990e164df828207776499cf9bc" kindref="member">XMailbox_ErrorHandler</ref></type>
+        <definition>XMailbox_ErrorHandler XMboxTag::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+<para>Callback for rx IPI event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga3f7e6c0a58db61bda83ef28be9acba71" compoundref="xilmailbox__ipips__control_8c" startline="364" endline="376">XIpiPs_ErrorIntrHandler</referencedby>
+        <referencedby refid="xilmailbox__example_8c_1addd368c43de7b39b14e97fc7a8b61551" compoundref="xilmailbox__example_8c" startline="158" endline="260">XMailbox_Example</referencedby>
+        <referencedby refid="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" compoundref="xilmailbox_8c" startline="189" endline="217">XMailbox_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1a28ee974b8253aed6cd98a41d017e92b5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMboxTag::ErrorRefPtr</definition>
+        <argsstring></argsstring>
+        <name>ErrorRefPtr</name>
+        <briefdescription>
+<para>Reference passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga3f7e6c0a58db61bda83ef28be9acba71" compoundref="xilmailbox__ipips__control_8c" startline="364" endline="376">XIpiPs_ErrorIntrHandler</referencedby>
+        <referencedby refid="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" compoundref="xilmailbox_8c" startline="189" endline="217">XMailbox_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1acd81ebeec1ff8eb6bbd4b62922688353" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMboxTag::RecvRefPtr</definition>
+        <argsstring></argsstring>
+        <name>RecvRefPtr</name>
+        <briefdescription>
+<para>Reference passed to the receive interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" compoundref="xilmailbox__ipips__control_8c" startline="341" endline="354">XIpiPs_IntrHandler</referencedby>
+        <referencedby refid="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" compoundref="xilmailbox_8c" startline="189" endline="217">XMailbox_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref></type>
+        <definition>XMailbox_Agent XMboxTag::Agent</definition>
+        <argsstring></argsstring>
+        <name>Agent</name>
+        <briefdescription>
+<para>Agent that stores the IPI channel information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" compoundref="xilmailbox__ipips__control_8c" startline="67" endline="110">XIpiPs_Init</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" compoundref="xilmailbox__ipips__control_8c" startline="341" endline="354">XIpiPs_IntrHandler</referencedby>
+        <referencedby refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" compoundref="xilmailbox__ipips__intr_8c" startline="65" endline="90">XIpiPs_PollforDone</referencedby>
+        <referencedby refid="group__xilmailbox_1ga8102ed0d9a2448e2754d4036b0aeebac" compoundref="xilmailbox__ipips__intr_8c" startline="105" endline="130">XIpiPs_PollforDoneById</referencedby>
+        <referencedby refid="group__xilmailbox_1ga56a6cdab3dba08f469f27b341aa3c178" compoundref="xilmailbox__ipips__control_8c" startline="293" endline="303">XIpiPs_RecvData</referencedby>
+        <referencedby refid="group__xilmailbox_1ga76681a9ebd3706299aa0fa85874c0b40" compoundref="xilmailbox__ipips__control_8c" startline="321" endline="331">XIpiPs_RecvDataById</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" compoundref="xilmailbox__ipips__intr_8c" startline="156" endline="250">XIpiPs_RegisterIrq</referencedby>
+        <referencedby refid="group__xilmailbox_1gafe03d42ebcf3d3e93c2fb709de6e9142" compoundref="xilmailbox__ipips__control_8c" startline="129" endline="146">XIpiPs_Send</referencedby>
+        <referencedby refid="group__xilmailbox_1ga0fd5f2755e0951d389b6b83c619e21c6" compoundref="xilmailbox__ipips__control_8c" startline="162" endline="179">XIpiPs_SendById</referencedby>
+        <referencedby refid="group__xilmailbox_1gae6a5843a165afbc782fb45ab48e8b77d" compoundref="xilmailbox__ipips__control_8c" startline="202" endline="227">XIpiPs_SendData</referencedby>
+        <referencedby refid="group__xilmailbox_1gaecaec4da5fe63fb55a3a71eba12b8e05" compoundref="xilmailbox__ipips__control_8c" startline="247" endline="272">XIpiPs_SendDataById</referencedby>
+        <referencedby refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" compoundref="xilmailbox_8c" startline="135" endline="160">XMailbox_Recv</referencedby>
+        <referencedby refid="group__xilmailbox_1ga3b1215935d7ba605846e3a13f015e956" compoundref="xilmailbox_8c" startline="63" endline="74">XMailbox_Send</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" compoundref="xilmailbox_8c" startline="95" endline="116">XMailbox_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mbox_tag_1a7807e734780a6c78cf0129b065d8a0b3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mailbox___ipi_shared_mem" kindref="compound">XMailbox_IpiSharedMem</ref></type>
+        <definition>XMailbox_IpiSharedMem XMboxTag::SharedMem</definition>
+        <argsstring></argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+<para>Shared memory segment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga4c4631ec46d933f1fff9ce944c3b82d6" compoundref="xilmailbox_8c" startline="262" endline="275">XMailbox_GetSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1gae18bdfda3723a66063211be38ad0a541" compoundref="xilmailbox_8c" startline="289" endline="302">XMailbox_ReleaseSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1ga5a04406fa4d00d2acad6a32ff7a4230b" compoundref="xilmailbox_8c" startline="233" endline="248">XMailbox_SetSharedMem</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the XilMailbox instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="attention"><para>The XMbox_IPI_Send, XMbox_IPI_SendData, and XMbox_IPI_Recv function pointers are deprecated in 2026.2 and become obsolete in the 2027.1 release. </para></simplesect>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XMboxTag</label>
+        <link refid="struct_x_mbox_tag"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>SharedMem</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Agent</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XMailbox_Agent</label>
+        <link refid="struct_x_mailbox___agent"/>
+      </node>
+      <node id="6">
+        <label>XMailbox_IpiSharedMem</label>
+        <link refid="struct_x_mailbox___ipi_shared_mem"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="170" bodyend="200"/>
+    <listofallmembers>
+      <member refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>Agent</name></member>
+      <member refid="struct_x_mbox_tag_1a94ad8c15322f8aa87898da64c12d680c" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_mbox_tag_1a28ee974b8253aed6cd98a41d017e92b5" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>ErrorRefPtr</name></member>
+      <member refid="struct_x_mbox_tag_1a19abe88291a590c4043f0c14f3abbea6" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_mbox_tag_1acd81ebeec1ff8eb6bbd4b62922688353" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>RecvRefPtr</name></member>
+      <member refid="struct_x_mbox_tag_1a7807e734780a6c78cf0129b065d8a0b3" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>SharedMem</name></member>
+      <member refid="struct_x_mbox_tag_1acfc620b1b6bee8a53e35bd937d01ef9a" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>XMbox_IPI_Recv</name></member>
+      <member refid="struct_x_mbox_tag_1af3f752913cc2e1c824a969a5a0703066" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>XMbox_IPI_RecvById</name></member>
+      <member refid="struct_x_mbox_tag_1ac988653f4102330b66dffc80008e5947" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>XMbox_IPI_Send</name></member>
+      <member refid="struct_x_mbox_tag_1a1687a2438f51998be0cafbc559e09186" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>XMbox_IPI_SendById</name></member>
+      <member refid="struct_x_mbox_tag_1ad2979174f02c95bba9e1a9a82da86eb6" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>XMbox_IPI_SendData</name></member>
+      <member refid="struct_x_mbox_tag_1af9d549f3ca388507298b27e82a714130" prot="public" virt="non-virtual"><scope>XMboxTag</scope><name>XMbox_IPI_SendDataById</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

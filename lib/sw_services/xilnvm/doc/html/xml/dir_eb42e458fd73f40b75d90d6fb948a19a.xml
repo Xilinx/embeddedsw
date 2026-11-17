@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_eb42e458fd73f40b75d90d6fb948a19a" kind="dir">
+    <compoundname>versal_next</compoundname>
+    <innerdir refid="dir_4d8bb02f6d6c849c6c4daae82edcaf47">client</innerdir>
+    <innerdir refid="dir_fe2d5b0a58f3c6a5b1c2010938d2d97b">common</innerdir>
+    <innerdir refid="dir_ef70dadbfa93bf958a93d0a79707c36d">server</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/"/>
+  </compounddef>
+</doxygen>

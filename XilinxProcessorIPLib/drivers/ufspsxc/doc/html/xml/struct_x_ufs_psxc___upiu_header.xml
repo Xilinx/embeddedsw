@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___upiu_header" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_UpiuHeader</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a95a547e286febbd05cc6e9e8d93eeff4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::TransactionType</definition>
+        <argsstring></argsstring>
+        <name>TransactionType</name>
+        <briefdescription>
+<para>UPIU type (CMD/QUERY/NOP/etc.). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a39ebfb1bcce2e4ce6bdc6a1368b0d89e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Read/Write direction flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a6feda33a64964d5ed83ef99f30b19bc2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::LUN</definition>
+        <argsstring></argsstring>
+        <name>LUN</name>
+        <briefdescription>
+<para>Target Logical Unit Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="243" endline="309">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="324" endline="381">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="353" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga7c53c0273b0baaf8c7dd90cf484eb5b8" compoundref="xufspsxc__init_8c" startline="805" endline="829">XUfsPsxc_WaitTestUnitReady</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="435" endline="489">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a3373e10f96ee2f5d982b01dacf7b2838" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::TaskTag</definition>
+        <argsstring></argsstring>
+        <name>TaskTag</name>
+        <briefdescription>
+<para>Tag for request/response matching. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga5f290332136d2b1496f06f1b0ba72312" compoundref="xufspsxc__init_8c" startline="869" endline="886">XUfsPsxc_EvaluateUpiuResponse</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a4cf603cdf744a93af088886e6db817a4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::IID_Cmd_Type</definition>
+        <argsstring></argsstring>
+        <name>IID_Cmd_Type</name>
+        <briefdescription>
+<para>Initiator ID and command type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a8a9977a8711c9fd880d5c2c4950e0d65" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::Query_Task_Mang_Fn</definition>
+        <argsstring></argsstring>
+        <name>Query_Task_Mang_Fn</name>
+        <briefdescription>
+<para>Query or task management function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a0287744c268c4a35defba755f5450d25" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::Response</definition>
+        <argsstring></argsstring>
+        <name>Response</name>
+        <briefdescription>
+<para>Device response code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga5f290332136d2b1496f06f1b0ba72312" compoundref="xufspsxc__init_8c" startline="869" endline="886">XUfsPsxc_EvaluateUpiuResponse</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga88763b7077bb9b4880c84156663dc1cb" compoundref="xufspsxc__hw_8c" startline="495" endline="525">XUfsPsxc_FillAttrUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1gac6c05905f6fcef83ac0da3b72887164b" compoundref="xufspsxc__hw_8c" startline="446" endline="479">XUfsPsxc_FillDescUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga4f01785053f7c891ffceab509d137b1e" compoundref="xufspsxc__hw_8c" startline="395" endline="428">XUfsPsxc_FillFlagUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga033076869a57d47e1742f555bb6a0276" compoundref="xufspsxc__hw_8c" startline="183" endline="198">XUfsPsxc_FillNopOutUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="243" endline="309">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1gafd68bf712ad71a509ba5e9715d8b2827" compoundref="xufspsxc__hw_8c" startline="210" endline="228">XUfsPsxc_FillTestUnitRdyUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="324" endline="381">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a23376fa8481c7e1134df180b86239942" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <briefdescription>
+<para>Command completion status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga5f290332136d2b1496f06f1b0ba72312" compoundref="xufspsxc__init_8c" startline="869" endline="886">XUfsPsxc_EvaluateUpiuResponse</referencedby>
+        <referencedby refid="group__ufspsxc__api_1gafd68bf712ad71a509ba5e9715d8b2827" compoundref="xufspsxc__hw_8c" startline="210" endline="228">XUfsPsxc_FillTestUnitRdyUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga7c53c0273b0baaf8c7dd90cf484eb5b8" compoundref="xufspsxc__init_8c" startline="805" endline="829">XUfsPsxc_WaitTestUnitReady</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a061babd4bb2c31a66272222cb5c3d8fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::TotalEHSLen</definition>
+        <argsstring></argsstring>
+        <name>TotalEHSLen</name>
+        <briefdescription>
+<para>Extended Header Segment length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1afd2e2c7e2fc86fd958c71f0e85cb0593" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UpiuHeader::DeviceInfo</definition>
+        <argsstring></argsstring>
+        <name>DeviceInfo</name>
+        <briefdescription>
+<para>Device-specific information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___upiu_header_1a0101ce69dc20596907e8c7b3c98bcc3b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUfsPsxc_UpiuHeader::DataSegmentLen</definition>
+        <argsstring></argsstring>
+        <name>DataSegmentLen</name>
+        <briefdescription>
+<para>Data segment length (Big Endian). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds a UPIU header. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="93" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a0101ce69dc20596907e8c7b3c98bcc3b" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>DataSegmentLen</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1afd2e2c7e2fc86fd958c71f0e85cb0593" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>DeviceInfo</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a39ebfb1bcce2e4ce6bdc6a1368b0d89e" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>Flags</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a4cf603cdf744a93af088886e6db817a4" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>IID_Cmd_Type</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a6feda33a64964d5ed83ef99f30b19bc2" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>LUN</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a8a9977a8711c9fd880d5c2c4950e0d65" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>Query_Task_Mang_Fn</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a0287744c268c4a35defba755f5450d25" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>Response</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a23376fa8481c7e1134df180b86239942" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>Status</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a3373e10f96ee2f5d982b01dacf7b2838" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>TaskTag</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a061babd4bb2c31a66272222cb5c3d8fa" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>TotalEHSLen</name></member>
+      <member refid="struct_x_ufs_psxc___upiu_header_1a95a547e286febbd05cc6e9e8d93eeff4" prot="public" virt="non-virtual"><scope>XUfsPsxc_UpiuHeader</scope><name>TransactionType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2068 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__spips__api" kind="group">
+    <compoundname>spips_api</compoundname>
+    <title>SPIPS APIs</title>
+    <innerclass refid="struct_options_map" prot="public">OptionsMap</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets from the base address of an SPI device. </para></description>
+      <memberdef kind="define" id="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" prot="public" static="no">
+        <name>XSPIPS_CR_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="292" endline="306">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="195" endline="221">XSpiPs_GetOptions</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" prot="public" static="no">
+        <name>XSPIPS_SR_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Interrupt Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gafe78a9665edf16e3114ff9c54f4b2adf" prot="public" static="no">
+        <name>XSPIPS_IER_OFFSET</name>
+        <initializer>0x08U</initializer>
+        <briefdescription>
+<para>Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga7c019fcf06dccd6efc0026238755e9bb" prot="public" static="no">
+        <name>XSPIPS_IDR_OFFSET</name>
+        <initializer>0x0CU</initializer>
+        <briefdescription>
+<para>Interrupt Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga809c89538cb8210bb76e00641226e3ae" prot="public" static="no">
+        <name>XSPIPS_IMR_OFFSET</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Interrupt Enabled Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga96a2524f86a513015b982462f7a6ffcb" prot="public" static="no">
+        <name>XSPIPS_ER_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+<para>Enable/Disable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaf8f2af4e1987e431a3a4510641c475e7" prot="public" static="no">
+        <name>XSPIPS_DR_OFFSET</name>
+        <initializer>0x18U</initializer>
+        <briefdescription>
+<para>Delay Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga3720b391032e33eb4cdb6b114943abbd" prot="public" static="no">
+        <name>XSPIPS_TXD_OFFSET</name>
+        <initializer>0x1CU</initializer>
+        <briefdescription>
+<para>Data Transmit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga63d53a4c31627791748d8b77d3c24cac" prot="public" static="no">
+        <name>XSPIPS_RXD_OFFSET</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+<para>Data Receive Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga4498f0a85ffc367f14d705f37a2dcc11" prot="public" static="no">
+        <name>XSPIPS_SICR_OFFSET</name>
+        <initializer>0x24U</initializer>
+        <briefdescription>
+<para>Slave Idle Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga82b0c7855556fbb3d13b1d0fc3f7ae24" prot="public" static="no">
+        <name>XSPIPS_TXWR_OFFSET</name>
+        <initializer>0x28U</initializer>
+        <briefdescription>
+<para>Transmit FIFO Watermark. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga708b416f4994dca83b3d50a464552286" prot="public" static="no">
+        <name>XSPIPS_RXWR_OFFSET</name>
+        <initializer>0x2CU</initializer>
+        <briefdescription>
+<para>Receive FIFO Watermark. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Configuration Register</header>
+      <description><para>This register contains various control bits that affects the operation of an SPI device.</para><para>Read/Write. </para></description>
+      <memberdef kind="define" id="group__spips__api_1ga8a86973f92b39e1091cdc8a1ab80dc51" prot="public" static="no">
+        <name>XSPIPS_CR_MODF_GEN_EN_MASK</name>
+        <initializer>0x00020000U</initializer>
+        <briefdescription>
+<para>Modefail Generation Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gab767a5fe469912c633373f607a106f7e" prot="public" static="no">
+        <name>XSPIPS_CR_MANSTRT_MASK</name>
+        <initializer>0x00010000U</initializer>
+        <briefdescription>
+<para>Manual Transmission Start. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaff958edcef4502a9c897bd5886fc63cb" prot="public" static="no">
+        <name>XSPIPS_CR_MANSTRTEN_MASK</name>
+        <initializer>0x00008000U</initializer>
+        <briefdescription>
+<para>Manual Transmission Start Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga639a4d2ccc6f03518062a17c45d9ba0c" prot="public" static="no">
+        <name>XSPIPS_CR_SSFORCE_MASK</name>
+        <initializer>0x00004000U</initializer>
+        <briefdescription>
+<para>Force Slave Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" prot="public" static="no">
+        <name>XSPIPS_CR_SSCTRL_MASK</name>
+        <initializer>0x00003C00U</initializer>
+        <briefdescription>
+<para>Slave Select Decode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="796" endline="832">XSpiPs_GetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaca12200356700e8fcd67716aea4aa283" prot="public" static="no">
+        <name>XSPIPS_CR_SSCTRL_SHIFT</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>Slave Select Decode shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="796" endline="832">XSpiPs_GetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaf018d47444763ba551c4bded4dcbdda5" prot="public" static="no">
+        <name>XSPIPS_CR_SSCTRL_MAXIMUM</name>
+        <initializer>0xFU</initializer>
+        <briefdescription>
+<para>Slave Select maximum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="796" endline="832">XSpiPs_GetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga78439588630680bd62e34be7a0674ce3" prot="public" static="no">
+        <name>XSPIPS_CR_SSDECEN_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>Slave Select Decode Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gad2920edca049dac6e9cf45496fa5ea5a" prot="public" static="no">
+        <name>XSPIPS_CR_PRESC_MASK</name>
+        <initializer>0x00000038U</initializer>
+        <briefdescription>
+<para>Prescaler Setting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="292" endline="306">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga89ff9aa9c710a64a2ea00031fa3e38e5" prot="public" static="no">
+        <name>XSPIPS_CR_PRESC_SHIFT</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Prescaler shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="292" endline="306">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga5c36cba75a4a522d258ad5cd668d39da" prot="public" static="no">
+        <name>XSPIPS_CR_PRESC_MAXIMUM</name>
+        <initializer>0x07U</initializer>
+        <briefdescription>
+<para>Prescaler maximum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga4a6535d62a7cad8209d615146f5f050c" prot="public" static="no">
+        <name>XSPIPS_CR_CPHA_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Phase Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gad085464580e29731d0eafc1b6eb4bdb0" prot="public" static="no">
+        <name>XSPIPS_CR_CPOL_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Polarity Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga134064afeaf8e1a72b0f927d6686794f" prot="public" static="no">
+        <name>XSPIPS_CR_MSTREN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Master Mode Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaec8a40193324debd139e5f47fbb2c943" prot="public" static="no">
+        <name>XSPIPS_CR_RESET_STATE</name>
+        <initializer>0x00020000U</initializer>
+        <briefdescription>
+<para>Mode Fail Generation Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Interrupt Registers</header>
+      <description><para><bold>SPI Status Register</bold></para><para>This register holds the interrupt status flags for an SPI device. Some of the flags are level triggered, which means that they are set as long as the interrupt condition exists. Other flags are edge triggered, which means they are set once the interrupt condition occurs and remain set until they are cleared by software. The interrupts are cleared by writing a &apos;1&apos; to the interrupt bit position in the Status Register. Read/Write.</para><para><bold>SPI Interrupt Enable Register</bold></para><para>This register enables chosen interrupts for an SPI device. Writing a &apos;1&apos; to a bit in this register sets the corresponding bit in the SPI Interrupt Mask register. Write only.</para><para><bold>SPI Interrupt Disable Register </bold></para><para>This register disables chosen interrupts for an SPI device. Writing a &apos;1&apos; to a bit in this register clears the corresponding bit in the SPI Interrupt Mask register. Write only.</para><para><bold>SPI Interrupt Mask Register</bold></para><para>This register shows the enabled/disabled interrupts of an SPI device. Read only.</para><para>All four registers have the same bit definitions. They are only defined once for each of the Interrupt Enable Register, Interrupt Disable Register, Interrupt Mask Register, and Channel Interrupt Status Register </para></description>
+      <memberdef kind="define" id="group__spips__api_1ga7e7034f3e256ec752fe7cdef9b090ff6" prot="public" static="no">
+        <name>XSPIPS_IXR_TXUF_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Tx FIFO Underflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga9fc7edf6f528d10a32f847f7cb6177cd" prot="public" static="no">
+        <name>XSPIPS_IXR_RXFULL_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Rx FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga72359f1b9dc7e5c5f0c5fdb3f6d62fc4" prot="public" static="no">
+        <name>XSPIPS_IXR_RXNEMPTY_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Rx FIFO Not Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga8553285ef54073a9aa160bbd2035ce2e" prot="public" static="no">
+        <name>XSPIPS_IXR_TXFULL_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Tx FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gad8525498172f10882b4a7cf59c660577" prot="public" static="no">
+        <name>XSPIPS_IXR_TXOW_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Tx FIFO Overwater. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga1f3e107983ccd2aa609a61691a4acbd5" prot="public" static="no">
+        <name>XSPIPS_IXR_MODF_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Mode Fault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga04768ee339e209d5134491b7dc5291f7" prot="public" static="no">
+        <name>XSPIPS_IXR_RXOVR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Rx FIFO Overrun. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga8ecb6f78f0e0f71ac85462071015353d" prot="public" static="no">
+        <name>XSPIPS_IXR_DFLT_MASK</name>
+        <initializer>0x00000027U</initializer>
+        <briefdescription>
+<para>Default interrupts mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaefc16123501616910c471781dc5a6763" prot="public" static="no">
+        <name>XSPIPS_IXR_WR_TO_CLR_MASK</name>
+        <initializer>0x00000043U</initializer>
+        <briefdescription>
+<para>Interrupts which need write to clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gad01d887bc3e3b00c6a25ed26b3f71c4a" prot="public" static="no">
+        <name>XSPIPS_ISR_RESET_STATE</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Default to tx/rx reg empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga58051be9e1582d618f4c75be29a32734" prot="public" static="no">
+        <name>XSPIPS_IXR_DISABLE_ALL_MASK</name>
+        <initializer>0x00000043U</initializer>
+        <briefdescription>
+<para>Disable all interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Enable Register</header>
+      <description><para>This register enables or disables an SPI device.</para><para>Read/Write </para></description>
+      <memberdef kind="define" id="group__spips__api_1gaa31de4b8fd2bc4cd055be77a535f9048" prot="public" static="no">
+        <name>XSPIPS_ER_ENABLE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>SPI Enable Bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Delay Register</header>
+      <description><para>This register programs timing delays in slave mode.</para><para>Read/Write </para></description>
+      <memberdef kind="define" id="group__spips__api_1ga2cfead0ca3e714dae4cd98538575e723" prot="public" static="no">
+        <name>XSPIPS_DR_NSS_MASK</name>
+        <initializer>0xFF000000U</initializer>
+        <briefdescription>
+<para>Delay for slave select de-assertion between word transfers mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga2d56d5e1023b1e2f11b67d0cfc4dac3e" prot="public" static="no">
+        <name>XSPIPS_DR_NSS_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Delay for slave select de-assertion between word transfers shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gad21ad068d7d43fe94abb40c5d40a1bd0" prot="public" static="no">
+        <name>XSPIPS_DR_BTWN_MASK</name>
+        <initializer>0x00FF0000U</initializer>
+        <briefdescription>
+<para>Delay Between Transfers mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga8ff0e7a46a2566b4558a3a5f39819591" prot="public" static="no">
+        <name>XSPIPS_DR_BTWN_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Delay Between Transfers shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga4a6fad4316227a5337c49e2af28ee8ef" prot="public" static="no">
+        <name>XSPIPS_DR_AFTER_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Delay After Transfers mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga56b1f2b236db35a9be0c75eb8bedb289" prot="public" static="no">
+        <name>XSPIPS_DR_AFTER_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Delay After Transfers shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga1c61ee31777ca9fc61bb50dd86d45598" prot="public" static="no">
+        <name>XSPIPS_DR_INIT_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Delay Initially mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Slave Idle Count Registers</header>
+      <description><para>This register defines the number of pclk cycles the slave waits for a the SPI clock to become stable in quiescent state before it can detect the start of the next transfer in CPHA = 1 mode.</para><para>Read/Write </para></description>
+      <memberdef kind="define" id="group__spips__api_1gae6d909341b39d857ea6e955e076e9024" prot="public" static="no">
+        <name>XSPIPS_SICR_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Slave Idle Count Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transmit FIFO Watermark Register</header>
+      <description><para>This register defines the watermark setting for the Transmit FIFO.</para><para>The transmit FIFO is 128 bytes deep, so the register is 7 bits. Valid values are 1 to 128. </para></description>
+      <memberdef kind="define" id="group__spips__api_1gac3beb6059f26dbf07ad7f2e8f1b8449c" prot="public" static="no">
+        <name>XSPIPS_TXWR_MASK</name>
+        <initializer>0x0000007FU</initializer>
+        <briefdescription>
+<para>Transmit Watermark Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga7a9a7acd83ec76540bc267398ee3bb20" prot="public" static="no">
+        <name>XSPIPS_TXWR_RESET_VALUE</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Transmit Watermark register reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Receive FIFO Watermark Register</header>
+      <description><para>This register defines the watermark setting for the Receive FIFO.</para><para>The receive FIFO is 128 bytes deep, so the register is 7 bits. Valid values are 1 to 128. </para></description>
+      <memberdef kind="define" id="group__spips__api_1ga8e6d59478b0789f6ea58abbc85fc1947" prot="public" static="no">
+        <name>XSPIPS_RXWR_MASK</name>
+        <initializer>0x0000007FU</initializer>
+        <briefdescription>
+<para>Receive Watermark Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gab806ad4fc5536152742b74aa67f91cc7" prot="public" static="no">
+        <name>XSPIPS_RXWR_RESET_VALUE</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Receive Watermark register reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>FIFO Depth</header>
+      <description><para>Provides the depth of transmit FIFO and receive FIFO. </para></description>
+      <memberdef kind="define" id="group__spips__api_1gad82a11ae1f014d578834f1522a8a94ca" prot="public" static="no">
+        <name>XSPIPS_FIFO_DEPTH</name>
+        <initializer>128U</initializer>
+        <briefdescription>
+<para>FIFO depth of Tx and Rx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gadcf52e36c82b285657e30b7c5d0fd091" prot="public" static="no">
+        <name>XSPIPS_MAX_FIFO_DEPTH</name>
+        <initializer>256U</initializer>
+        <briefdescription>
+<para>Largest supported FIFO depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__spips__api_1ga911607d6e9946f277bc01a02c53083ed" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_spi_ps___config" kindref="compound">XSpiPs_Config</ref></type>
+        <definition>XSpiPs_Config XSpiPs_ConfigTable[XPAR_XSPIPS_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XSPIPS_NUM_INSTANCES]</argsstring>
+        <name>XSpiPs_ConfigTable</name>
+        <initializer>= {
+	{
+		(u16)XPAR_XSPIPS_0_DEVICE_ID,
+		(u32)XPAR_XSPIPS_0_BASEADDR,
+		(u32)XPAR_XSPIPS_0_SPI_CLK_FREQ_HZ
+	},
+
+
+
+
+
+
+
+}</initializer>
+        <briefdescription>
+<para>Holds the configuration information for each SPI device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_g.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_g.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__spips__api_1gabc5db3dcd7184b5e18386c2eec6c9140" prot="public" static="yes" mutable="no">
+        <type>OptionsMap</type>
+        <definition>OptionsMap OptionsTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OptionsTable</name>
+        <initializer>= {
+	{<ref refid="group__spips_1ga1fbe2203de88e79aa3a6c7e70e2f3436" kindref="member">XSPIPS_MASTER_OPTION</ref>, <ref refid="group__spips__api_1ga134064afeaf8e1a72b0f927d6686794f" kindref="member">XSPIPS_CR_MSTREN_MASK</ref>},
+	{<ref refid="group__spips_1ga0aab1b9650381f6e5c64f424ec67844d" kindref="member">XSPIPS_CLK_ACTIVE_LOW_OPTION</ref>, <ref refid="group__spips__api_1gad085464580e29731d0eafc1b6eb4bdb0" kindref="member">XSPIPS_CR_CPOL_MASK</ref>},
+	{<ref refid="group__spips_1ga25ffb7f933bd33275a89e6d1d0d340ad" kindref="member">XSPIPS_CLK_PHASE_1_OPTION</ref>, <ref refid="group__spips__api_1ga4a6535d62a7cad8209d615146f5f050c" kindref="member">XSPIPS_CR_CPHA_MASK</ref>},
+	{<ref refid="group__spips_1ga33e1010355cd9aca2d607fd41140fdce" kindref="member">XSPIPS_DECODE_SSELECT_OPTION</ref>, <ref refid="group__spips__api_1ga78439588630680bd62e34be7a0674ce3" kindref="member">XSPIPS_CR_SSDECEN_MASK</ref>},
+	{<ref refid="group__spips_1gaf0a0da0e20b70ee21a3998117785638e" kindref="member">XSPIPS_FORCE_SSELECT_OPTION</ref>, <ref refid="group__spips__api_1ga639a4d2ccc6f03518062a17c45d9ba0c" kindref="member">XSPIPS_CR_SSFORCE_MASK</ref>},
+	{<ref refid="group__spips_1ga7e6e32f2a23f47aa9f69c6adccbd2ba3" kindref="member">XSPIPS_MANUAL_START_OPTION</ref>, <ref refid="group__spips__api_1gaff958edcef4502a9c897bd5886fc63cb" kindref="member">XSPIPS_CR_MANSTRTEN_MASK</ref>}
+}</initializer>
+        <briefdescription>
+<para>Maps the driver options to the configuration register masks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__spips__api_1gaaf9da6d694ce7e51969d96deb7a7ea76" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_spi_ps___config" kindref="compound">XSpiPs_Config</ref></type>
+        <definition>XSpiPs_Config XSpiPs_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XSpiPs_ConfigTable</name>
+        <briefdescription>
+<para>Holds the configuration information for each SPI device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_sinit.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_g.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spips__api_1gae4eb4034ccdc023674e9b496c7f0aad3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StubStatusHandler</definition>
+        <argsstring>(const void *CallBackRef, u32 StatusEvent, u32 ByteCount)</argsstring>
+        <name>StubStatusHandler</name>
+        <param>
+          <type>const void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Implements a stub for the status callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>The stub is here in case the upper layers forget to set the handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the upper layer callback reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event that just occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes transferred up until the event occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="901" bodyend="909"/>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gabfabf86279474d10c04bfe97f3386a64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_CfgInitialize</definition>
+        <argsstring>(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr, u32 EffectiveAddr)</argsstring>
+        <name>XSpiPs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps___config" kindref="compound">XSpiPs_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance such that the driver is ready to use. </para>        </briefdescription>
+        <detaileddescription>
+<para>The state of the device after initialization is:<itemizedlist>
+<listitem><para>Device is disabled</para></listitem><listitem><para>Slave mode</para></listitem><listitem><para>Active high clock polarity</para></listitem><listitem><para>Clock phase 0</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. Must be zero-initialized before calling this function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to a structure containing information about a specific SPI device. The function initializes an InstancePtr object for a specific device specified by the contents of Config. The function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use ConfigPtr-&gt;Config.BaseAddress for this device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is already started. It must be stopped to re-initialize. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="171" bodyend="222"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps___config_1a4b10fed8a3c744dde2ec8b80a8cdbaf0" compoundref="xspips_8h" startline="403">XSpiPs_Config::FifoDepth</references>
+        <references refid="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" compoundref="xspips_8h" startline="433">XSpiPs::FifoDepth</references>
+        <references refid="struct_x_spi_ps_1aacd3809d776effaef3ef67aefc2fc800" compoundref="xspips_8h" startline="434">XSpiPs::FifoWidth</references>
+        <references refid="struct_x_spi_ps___config_1affb5ebe3e4dce28bb91536500dcc3d7b" compoundref="xspips_8h" startline="402">XSpiPs_Config::InputClockHz</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a4c8a252eaab49a4fa19fcd688f36fea6" compoundref="xspips_8h" startline="424">XSpiPs::RecvBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a5b08cdc0b7c5492d46a8e170941ba257" compoundref="xspips_8h" startline="426">XSpiPs::RemainingBytes</references>
+        <references refid="struct_x_spi_ps_1a85a5e324de43e019ef15666bdc0685cd" compoundref="xspips_8h" startline="425">XSpiPs::RequestedBytes</references>
+        <references refid="struct_x_spi_ps_1a827b441c0132c3ab87377efb81a027f2" compoundref="xspips_8h" startline="423">XSpiPs::SendBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a860dddb87083c72fdc1b8de7c3ad4425" compoundref="xspips_8h" startline="431">XSpiPs::StatusHandler</references>
+        <references refid="group__spips__api_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__eeprom__polled__example_1gaf156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="230" endline="312">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__polled__example_1gaa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="239" endline="413">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="group__xspips__selftest__example_1ga78ca9c2607cd3ea29c908634e0877a8c" compoundref="xspips__selftest__example_8c" startline="128" endline="160">SpiPsSelfTestExample</referencedby>
+        <referencedby refid="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="161" endline="201">SpiPsSlavePolledExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gad3abd2456cfa67bc8d24dd255ba7de51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_Reset</definition>
+        <argsstring>(XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_Reset</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reset must only be called after the driver has been initialized. The configuration of the device after reset is the same as its configuration after initialization. Any data transfer that is in progress is aborted.</para><para>The upper layer software is responsible for re-configuring (if necessary) and restarting the SPI device after the reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="241" bodyend="259"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1gaec8a40193324debd139e5f47fbb2c943" compoundref="xspips__hw_8h" startline="109">XSPIPS_CR_RESET_STATE</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga747939dd62eb9c82ed185611e95211c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_Transfer</definition>
+        <argsstring>(XSpiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr, u32 ByteCount)</argsstring>
+        <name>XSpiPs_Transfer</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SendBufPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RecvBufPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Transfers specified data on the SPI bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the SPI device is configured as a master, this function initiates bus communication and sends/receives the data to/from the selected SPI slave. If the SPI device is configured as a slave, this function prepares the buffers to be sent/received when selected by a master. For every byte sent, a byte is received. The function performs interrupt based transfers.</para><para>The caller has the option of providing two different buffers for send and receive, or one buffer for both send and receive, or no buffer for receive. The receive buffer must be at least as big as the send buffer to prevent unwanted memory writes. This implies that the byte count passed in as an argument must be the smaller of the two buffers if they differ in size. Here are some sample usages: <preformatted>
+  XSpiPs_Transfer(InstancePtr, SendBuf, RecvBuf, ByteCount)
+      The caller wishes to send and receive, and provides two different
+      buffers for send and receive.</preformatted></para><para><preformatted>  XSpiPs_Transfer(InstancePtr, SendBuf, NULL, ByteCount)
+      The caller wishes only to send and does not care about the received
+      data. The driver ignores the received data in this case.</preformatted></para><para><preformatted>  XSpiPs_Transfer(InstancePtr, SendBuf, SendBuf, ByteCount)
+      The caller wishes to send and receive, but provides the same buffer
+      for doing both. The driver sends the data and overwrites the send
+      buffer with received data as it transfers the data.</preformatted></para><para><preformatted>  XSpiPs_Transfer(InstancePtr, RecvBuf, RecvBuf, ByteCount)
+      The caller wishes to only receive and does not care about sending
+      data.  In this case, the caller must still provide a send buffer, but
+      it can be the same as the receive buffer if the caller does not care
+      what it sends.  The device must send N bytes of data if it wishes to
+      receive N bytes of data.
+</preformatted> Although this function takes entire buffers as arguments, the driver can only transfer a limited number of bytes at a time, limited by the size of the FIFO. A call to this function only starts the transfer, then subsequent transfers of the data is performed by the interrupt service routine until the entire buffer has been transferred. The status callback function is called when the entire buffer has been sent/received.</para><para>The function is non-blocking. As a master, the SetSlaveSelect function must be called prior to this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SendBufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer of data for sending. This buffer must not be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RecvBufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer for received data. This argument can be NULL if do not care about receiving. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to send/receive. The number of bytes received always equals the number of bytes sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the buffers are successfully handed off to the device for transfer.</para></listitem><listitem><para>XST_DEVICE_BUSY indicates that a data transfer is already in progress. This is determined by the driver.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The function is not thread-safe. The higher layer software must ensure that no two threads are transferring data on the SPI bus at the same time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="330" bodyend="439"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" compoundref="xspips_8h" startline="433">XSpiPs::FifoDepth</references>
+        <references refid="struct_x_spi_ps_1aacd3809d776effaef3ef67aefc2fc800" compoundref="xspips_8h" startline="434">XSpiPs::FifoWidth</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a4c8a252eaab49a4fa19fcd688f36fea6" compoundref="xspips_8h" startline="424">XSpiPs::RecvBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a5b08cdc0b7c5492d46a8e170941ba257" compoundref="xspips_8h" startline="426">XSpiPs::RemainingBytes</references>
+        <references refid="struct_x_spi_ps_1a85a5e324de43e019ef15666bdc0685cd" compoundref="xspips_8h" startline="425">XSpiPs::RequestedBytes</references>
+        <references refid="struct_x_spi_ps_1a827b441c0132c3ab87377efb81a027f2" compoundref="xspips_8h" startline="423">XSpiPs::SendBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a8d79fad73f829520b891e94b6e4536e1" compoundref="xspips_8h" startline="428">XSpiPs::SlaveSelect</references>
+        <references refid="group__spips__api_1gab767a5fe469912c633373f607a106f7e" compoundref="xspips__hw_8h" startline="91">XSPIPS_CR_MANSTRT_MASK</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips_1ga7b3a41972453b0dfb7ec90f3972ddc74" compoundref="xspips_8h" startline="646">XSpiPs_Enable</references>
+        <references refid="group__spips__api_1gafe78a9665edf16e3114ff9c54f4b2adf" compoundref="xspips__hw_8h" startline="70">XSPIPS_IER_OFFSET</references>
+        <references refid="group__spips_1gad81e68ddd78fbf85a0b328e31ca8c609" compoundref="xspips_8h" startline="475">XSpiPs_IsManualChipSelect</references>
+        <references refid="group__spips_1ga22cf03a11dbb07aa774936b3afb6306b" compoundref="xspips_8h" startline="455">XSpiPs_IsManualStart</references>
+        <references refid="group__spips_1ga0ed699bda6f68affc21d70f4fdbbb131" compoundref="xspips_8h" startline="515">XSpiPs_IsMaster</references>
+        <references refid="group__spips__api_1ga8ecb6f78f0e0f71ac85462071015353d" compoundref="xspips__hw_8h" startline="154">XSPIPS_IXR_DFLT_MASK</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1ga213e0ea6c896e8d8351bfc3a9499345a" compoundref="xspips_8c" startline="107">XSpiPs_SendByte</references>
+        <references refid="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="69">XSPIPS_SR_OFFSET</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1ga1d9197ec4b9bd96eae501456b5b12cd5" compoundref="xspips__eeprom__intr__example_8c" startline="435" endline="460">EepromRead</referencedby>
+        <referencedby refid="group__xspips__eeprom__intr__example_1ga2f23357b0cfe111d80824b3bfacb8b22" compoundref="xspips__eeprom__intr__example_8c" startline="479" endline="560">EepromWrite</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga94490f99431c92c2a9a54cc41d4abe71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_PolledTransfer</definition>
+        <argsstring>(XSpiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr, u32 ByteCount)</argsstring>
+        <name>XSpiPs_PolledTransfer</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SendBufPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RecvBufPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Transfers specified data on the SPI bus in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The caller has the option of providing two different buffers for send and receive, or one buffer for both send and receive, or no buffer for receive. The receive buffer must be at least as big as the send buffer to prevent unwanted memory writes. This implies that the byte count passed in as an argument must be the smaller of the two buffers if they differ in size. Here are some sample usages: <preformatted>
+  XSpiPs_PolledTransfer(InstancePtr, SendBuf, RecvBuf, ByteCount)
+      The caller wishes to send and receive, and provides two different
+      buffers for send and receive.</preformatted></para><para><preformatted>  XSpiPs_PolledTransfer(InstancePtr, SendBuf, NULL, ByteCount)
+      The caller wishes only to send and does not care about the received
+      data. The driver ignores the received data in this case.</preformatted></para><para><preformatted>  XSpiPs_PolledTransfer(InstancePtr, SendBuf, SendBuf, ByteCount)
+      The caller wishes to send and receive, but provides the same buffer
+      for doing both. The driver sends the data and overwrites the send
+      buffer with received data as it transfers the data.</preformatted></para><para><preformatted>  XSpiPs_PolledTransfer(InstancePtr, RecvBuf, RecvBuf, ByteCount)
+      The caller wishes to only receive and does not care about sending
+      data.  In this case, the caller must still provide a send buffer, but
+      it can be the same as the receive buffer if the caller does not care
+      what it sends.  The device must send N bytes of data if it wishes to
+      receive N bytes of data.</preformatted></para><para><preformatted></preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SendBufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer of data for sending. This buffer must not be NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RecvBufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer for received data. This argument can be NULL if do not care about receiving. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to send/receive. The number of bytes received always equals the number of bytes sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the buffers are successfully handed off to the device for transfer.</para></listitem><listitem><para>XST_DEVICE_BUSY indicates that a data transfer is already in progress. This is determined by the driver.</para></listitem><listitem><para>XST_SEND_ERROR if a mode fault occurs.</para></listitem><listitem><para>XST_FAILURE if, in master mode, the TX FIFO does not empty within XSPIPS_POLL_TIMEOUT_US.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The function is not thread-safe. The higher layer software must ensure that no two threads are transferring data on the SPI bus at the same time. In slave mode the function waits until the external master clocks the data out; this wait has no timeout. After XST_SEND_ERROR or XST_FAILURE the device is disabled, but data left in the TX FIFO can be sent when the device is next enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="502" bodyend="701"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" compoundref="xspips_8h" startline="433">XSpiPs::FifoDepth</references>
+        <references refid="struct_x_spi_ps_1aacd3809d776effaef3ef67aefc2fc800" compoundref="xspips_8h" startline="434">XSpiPs::FifoWidth</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a4c8a252eaab49a4fa19fcd688f36fea6" compoundref="xspips_8h" startline="424">XSpiPs::RecvBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a5b08cdc0b7c5492d46a8e170941ba257" compoundref="xspips_8h" startline="426">XSpiPs::RemainingBytes</references>
+        <references refid="struct_x_spi_ps_1a85a5e324de43e019ef15666bdc0685cd" compoundref="xspips_8h" startline="425">XSpiPs::RequestedBytes</references>
+        <references refid="struct_x_spi_ps_1a827b441c0132c3ab87377efb81a027f2" compoundref="xspips_8h" startline="423">XSpiPs::SendBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a8d79fad73f829520b891e94b6e4536e1" compoundref="xspips_8h" startline="428">XSpiPs::SlaveSelect</references>
+        <references refid="group__spips__api_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</references>
+        <references refid="group__spips__api_1gab767a5fe469912c633373f607a106f7e" compoundref="xspips__hw_8h" startline="91">XSPIPS_CR_MANSTRT_MASK</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips_1gae33752db88677fe0580abb65d6ba70cf" compoundref="xspips_8h" startline="662">XSpiPs_Disable</references>
+        <references refid="group__spips_1ga7b3a41972453b0dfb7ec90f3972ddc74" compoundref="xspips_8h" startline="646">XSpiPs_Enable</references>
+        <references refid="group__spips_1gad81e68ddd78fbf85a0b328e31ca8c609" compoundref="xspips_8h" startline="475">XSpiPs_IsManualChipSelect</references>
+        <references refid="group__spips_1ga22cf03a11dbb07aa774936b3afb6306b" compoundref="xspips_8h" startline="455">XSpiPs_IsManualStart</references>
+        <references refid="group__spips_1ga0ed699bda6f68affc21d70f4fdbbb131" compoundref="xspips_8h" startline="515">XSpiPs_IsMaster</references>
+        <references refid="group__spips__api_1ga1f3e107983ccd2aa609a61691a4acbd5" compoundref="xspips__hw_8h" startline="152">XSPIPS_IXR_MODF_MASK</references>
+        <references refid="group__spips__api_1gad8525498172f10882b4a7cf59c660577" compoundref="xspips__hw_8h" startline="151">XSPIPS_IXR_TXOW_MASK</references>
+        <references refid="group__spips__api_1gac859d02a56eeb162666ae11b0daabbf2" compoundref="xspips_8c" startline="83">XSPIPS_POLL_TIMEOUT_US</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1gaa16f1269388412a12617f154b7d8b47a" compoundref="xspips_8c" startline="126">XSpiPs_RecvByte</references>
+        <references refid="group__spips__api_1ga213e0ea6c896e8d8351bfc3a9499345a" compoundref="xspips_8c" startline="107">XSpiPs_SendByte</references>
+        <references refid="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="69">XSPIPS_SR_OFFSET</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="161" endline="201">SpiPsSlavePolledExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga1ef5af2211095df5692567fa4721a8d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_SetSlaveSelect</definition>
+        <argsstring>(XSpiPs *InstancePtr, u8 SlaveSel)</argsstring>
+        <name>XSpiPs_SetSlaveSelect</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SlaveSel</declname>
+        </param>
+        <briefdescription>
+<para>Selects or deselects the slave with which the master communicates. </para>        </briefdescription>
+        <detaileddescription>
+<para>This setting affects the SPI_ss_outN signals. The behavior depends on the setting of the CR_SSDECEN bit. If CR_SSDECEN is 0, the SPI_ss_outN bits are output with a single signal low. If CR_SSDECEN is 1, the SPI_ss_outN bits reflect the value set.</para><para>The user is not allowed to deselect the slave while a transfer is in progress. If no transfer is in progress, the user can select a new slave, which implicitly deselects the current slave. In order to explicitly deselect the current slave, a value of all 1&apos;s, 0x0F can be passed in as the argument to the function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SlaveSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slave number to be selected. Normally, 3 slaves can be selected with values 0-2. In case, 3-8 decode option is set, then up to 8 slaves can be selected. Only one slave can be selected at a time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the slave is selected or deselected successfully.</para></listitem><listitem><para>XST_DEVICE_BUSY if a transfer is in progress, slave cannot be changed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The function only sets the slave which is selected when a transfer occurs. The slave is not selected when the SPI is idle. The slave select has no affect when the device is configured as a slave. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="737" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="737" bodyend="784"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a8d79fad73f829520b891e94b6e4536e1" compoundref="xspips_8h" startline="428">XSpiPs::SlaveSelect</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips__api_1gaf018d47444763ba551c4bded4dcbdda5" compoundref="xspips__hw_8h" startline="98">XSPIPS_CR_SSCTRL_MAXIMUM</references>
+        <references refid="group__spips__api_1gaca12200356700e8fcd67716aea4aa283" compoundref="xspips__hw_8h" startline="97">XSPIPS_CR_SSCTRL_SHIFT</references>
+        <references refid="group__spips_1ga05ee9513be17c6fab0954ab23645a316" compoundref="xspips_8h" startline="495">XSpiPs_IsDecodeSSelect</references>
+        <references refid="group__spips_1gad81e68ddd78fbf85a0b328e31ca8c609" compoundref="xspips_8h" startline="475">XSpiPs_IsManualChipSelect</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__eeprom__polled__example_1gaf156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="230" endline="312">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__polled__example_1gaa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="239" endline="413">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga1876554128f1d1a8654d72a619fe491d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XSpiPs_GetSlaveSelect</definition>
+        <argsstring>(const XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_GetSlaveSelect</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current slave select setting for the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The slave number selected (starting from 0). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="796" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="796" bodyend="832"/>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a8d79fad73f829520b891e94b6e4536e1" compoundref="xspips_8h" startline="428">XSpiPs::SlaveSelect</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips__api_1gaf018d47444763ba551c4bded4dcbdda5" compoundref="xspips__hw_8h" startline="98">XSPIPS_CR_SSCTRL_MAXIMUM</references>
+        <references refid="group__spips__api_1gaca12200356700e8fcd67716aea4aa283" compoundref="xspips__hw_8h" startline="97">XSPIPS_CR_SSCTRL_SHIFT</references>
+        <references refid="group__spips_1ga05ee9513be17c6fab0954ab23645a316" compoundref="xspips_8h" startline="495">XSpiPs_IsDecodeSSelect</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gacafc99130a16e99abb3d86e682f1de09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_SetStatusHandler</definition>
+        <argsstring>(XSpiPs *InstancePtr, void *CallBackRef, XSpiPs_StatusHandler FunctionPtr)</argsstring>
+        <name>XSpiPs_SetStatusHandler</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type><ref refid="group__spips_1ga29aca8b8f36192cba8b4984b177fea6b" kindref="member">XSpiPs_StatusHandler</ref></type>
+          <declname>FunctionPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the status callback function for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The status handler is called by the driver when it encounters conditions that should be reported to upper layer software. The handler executes in an interrupt context, so it must minimize the amount of processing performed. One of the following status events is passed to the status handler.</para><para><preformatted>
+XST_SPI_MODE_FAULT              A mode fault error occurred, meaning the device
+                        is selected as slave while being a master.</preformatted></para><para><preformatted>XST_SPI_TRANSFER_DONE           The requested data transfer is done</preformatted></para><para><preformatted>XST_SPI_TRANSMIT_UNDERRUN       As a slave device, the master clocked data
+                        but there were none available in the transmit
+                        register/FIFO. This typically means the slave
+                        application did not issue a transfer request
+                        fast enough, or the processor/driver could not
+                        fill the transmit register/FIFO fast enough.</preformatted></para><para><preformatted>XST_SPI_RECEIVE_OVERRUN The SPI device lost data. Data was received
+                        but the receive data register/FIFO was full.</preformatted></para><para><preformatted>XST_SPI_SLAVE_MODE_FAULT        A slave SPI device was selected as a slave
+                        while it was disabled. This indicates the
+                        master is already transferring data (which is
+                        being dropped until the slave application
+                        issues a transfer).
+</preformatted> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FunctionPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The handler is called within interrupt context, so it should do its work quickly and queue potentially time-consuming work to a task-level thread. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="877" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="877" bodyend="886"/>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a860dddb87083c72fdc1b8de7c3ad4425" compoundref="xspips_8h" startline="431">XSpiPs::StatusHandler</references>
+        <references refid="struct_x_spi_ps_1a012e4128cb1e93e765a8551512d91a77" compoundref="xspips_8h" startline="432">XSpiPs::StatusRef</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gac57ccd3fab9a25399bdb8bc234fecc66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_InterruptHandler</definition>
+        <argsstring>(XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Handles the SPI interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>The interrupt handler must be connected by the user to an interrupt controller.</para><para>The interrupts that are handled are:</para><para><itemizedlist>
+<listitem><para>Mode Fault Error. This interrupt is generated if this device is selected as a slave when it is configured as a master. The driver aborts any data transfer that is in progress by resetting FIFOs (if present) and resetting its buffer pointers. The upper layer software is informed of the error.</para></listitem><listitem><para>Data Transmit Register (FIFO) Empty. This interrupt is generated when the transmit register or FIFO is empty. The driver uses this interrupt during a transmission to continually send/receive data until the transfer is done.</para></listitem><listitem><para>Data Transmit Register (FIFO) Underflow. This interrupt is generated when the SPI device, when configured as a slave, attempts to read an empty DTR/FIFO. An empty DTR/FIFO usually means that software is not giving the device data in a timely manner. No action is taken by the driver other than to inform the upper layer software of the error.</para></listitem><listitem><para>Data Receive Register (FIFO) Overflow. This interrupt is generated when the SPI device attempts to write a received byte to an already full DRR/FIFO. A full DRR/FIFO usually means software is not emptying the data in a timely manner. No action is taken by the driver other than to inform the upper layer software of the error.</para></listitem><listitem><para>Slave Mode Fault Error. This interrupt is generated if a slave device is selected as a slave while it is disabled. No action is taken by the driver other than to inform the upper layer software of the error.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The slave select register is being set to deselect the slave when a transfer is complete. This is being done regardless of whether it is a slave or a master since the hardware does not drive the slave select as a slave. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="954" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="954" bodyend="1178"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" compoundref="xspips_8h" startline="433">XSpiPs::FifoDepth</references>
+        <references refid="struct_x_spi_ps_1aacd3809d776effaef3ef67aefc2fc800" compoundref="xspips_8h" startline="434">XSpiPs::FifoWidth</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="struct_x_spi_ps_1a4c8a252eaab49a4fa19fcd688f36fea6" compoundref="xspips_8h" startline="424">XSpiPs::RecvBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a5b08cdc0b7c5492d46a8e170941ba257" compoundref="xspips_8h" startline="426">XSpiPs::RemainingBytes</references>
+        <references refid="struct_x_spi_ps_1a85a5e324de43e019ef15666bdc0685cd" compoundref="xspips_8h" startline="425">XSpiPs::RequestedBytes</references>
+        <references refid="struct_x_spi_ps_1a827b441c0132c3ab87377efb81a027f2" compoundref="xspips_8h" startline="423">XSpiPs::SendBufferPtr</references>
+        <references refid="struct_x_spi_ps_1a860dddb87083c72fdc1b8de7c3ad4425" compoundref="xspips_8h" startline="431">XSpiPs::StatusHandler</references>
+        <references refid="struct_x_spi_ps_1a012e4128cb1e93e765a8551512d91a77" compoundref="xspips_8h" startline="432">XSpiPs::StatusRef</references>
+        <references refid="group__spips__api_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</references>
+        <references refid="group__spips__api_1gab767a5fe469912c633373f607a106f7e" compoundref="xspips__hw_8h" startline="91">XSPIPS_CR_MANSTRT_MASK</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips_1gae33752db88677fe0580abb65d6ba70cf" compoundref="xspips_8h" startline="662">XSpiPs_Disable</references>
+        <references refid="group__spips__api_1ga7c019fcf06dccd6efc0026238755e9bb" compoundref="xspips__hw_8h" startline="71">XSPIPS_IDR_OFFSET</references>
+        <references refid="group__spips__api_1gafe78a9665edf16e3114ff9c54f4b2adf" compoundref="xspips__hw_8h" startline="70">XSPIPS_IER_OFFSET</references>
+        <references refid="group__spips_1gad81e68ddd78fbf85a0b328e31ca8c609" compoundref="xspips_8h" startline="475">XSpiPs_IsManualChipSelect</references>
+        <references refid="group__spips_1ga22cf03a11dbb07aa774936b3afb6306b" compoundref="xspips_8h" startline="455">XSpiPs_IsManualStart</references>
+        <references refid="group__spips_1ga0ed699bda6f68affc21d70f4fdbbb131" compoundref="xspips_8h" startline="515">XSpiPs_IsMaster</references>
+        <references refid="group__spips__api_1ga8ecb6f78f0e0f71ac85462071015353d" compoundref="xspips__hw_8h" startline="154">XSPIPS_IXR_DFLT_MASK</references>
+        <references refid="group__spips__api_1ga1f3e107983ccd2aa609a61691a4acbd5" compoundref="xspips__hw_8h" startline="152">XSPIPS_IXR_MODF_MASK</references>
+        <references refid="group__spips__api_1ga04768ee339e209d5134491b7dc5291f7" compoundref="xspips__hw_8h" startline="153">XSPIPS_IXR_RXOVR_MASK</references>
+        <references refid="group__spips__api_1gad8525498172f10882b4a7cf59c660577" compoundref="xspips__hw_8h" startline="151">XSPIPS_IXR_TXOW_MASK</references>
+        <references refid="group__spips__api_1ga7e7034f3e256ec752fe7cdef9b090ff6" compoundref="xspips__hw_8h" startline="147">XSPIPS_IXR_TXUF_MASK</references>
+        <references refid="group__spips__api_1gaefc16123501616910c471781dc5a6763" compoundref="xspips__hw_8h" startline="157">XSPIPS_IXR_WR_TO_CLR_MASK</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1gaa16f1269388412a12617f154b7d8b47a" compoundref="xspips_8c" startline="126">XSpiPs_RecvByte</references>
+        <references refid="group__spips__api_1ga213e0ea6c896e8d8351bfc3a9499345a" compoundref="xspips_8c" startline="107">XSpiPs_SendByte</references>
+        <references refid="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="69">XSPIPS_SR_OFFSET</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga1f40732e67f63579b811af115f2c575c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_Abort</definition>
+        <argsstring>(XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_Abort</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Aborts a transfer in progress by disabling the device and resetting the FIFOs if present. </para>        </briefdescription>
+        <detaileddescription>
+<para>The byte counts are cleared, the busy flag is cleared, and mode fault is cleared.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The function does a read/modify/write of the Config register. The user of this function needs to take care of critical sections. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="1196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="1196" bodyend="1240"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" compoundref="xspips_8h" startline="433">XSpiPs::FifoDepth</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a5b08cdc0b7c5492d46a8e170941ba257" compoundref="xspips_8h" startline="426">XSpiPs::RemainingBytes</references>
+        <references refid="struct_x_spi_ps_1a85a5e324de43e019ef15666bdc0685cd" compoundref="xspips_8h" startline="425">XSpiPs::RequestedBytes</references>
+        <references refid="group__spips_1gae33752db88677fe0580abb65d6ba70cf" compoundref="xspips_8h" startline="662">XSpiPs_Disable</references>
+        <references refid="group__spips__api_1ga1f3e107983ccd2aa609a61691a4acbd5" compoundref="xspips__hw_8h" startline="152">XSPIPS_IXR_MODF_MASK</references>
+        <references refid="group__spips__api_1ga72359f1b9dc7e5c5f0c5fdb3f6d62fc4" compoundref="xspips__hw_8h" startline="149">XSPIPS_IXR_RXNEMPTY_MASK</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1gaa16f1269388412a12617f154b7d8b47a" compoundref="xspips_8c" startline="126">XSpiPs_RecvByte</references>
+        <references refid="group__spips__api_1ga63d53a4c31627791748d8b77d3c24cac" compoundref="xspips__hw_8h" startline="76">XSPIPS_RXD_OFFSET</references>
+        <references refid="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="69">XSPIPS_SR_OFFSET</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_ResetHw</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XSpiPs_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Resets the SPI module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.c" bodystart="63" bodyend="126"/>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1gaec8a40193324debd139e5f47fbb2c943" compoundref="xspips__hw_8h" startline="109">XSPIPS_CR_RESET_STATE</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips__api_1ga96a2524f86a513015b982462f7a6ffcb" compoundref="xspips__hw_8h" startline="73">XSPIPS_ER_OFFSET</references>
+        <references refid="group__spips__api_1gad82a11ae1f014d578834f1522a8a94ca" compoundref="xspips__hw_8h" startline="246">XSPIPS_FIFO_DEPTH</references>
+        <references refid="group__spips__api_1ga7c019fcf06dccd6efc0026238755e9bb" compoundref="xspips__hw_8h" startline="71">XSPIPS_IDR_OFFSET</references>
+        <references refid="group__spips__api_1ga58051be9e1582d618f4c75be29a32734" compoundref="xspips__hw_8h" startline="163">XSPIPS_IXR_DISABLE_ALL_MASK</references>
+        <references refid="group__spips__api_1ga72359f1b9dc7e5c5f0c5fdb3f6d62fc4" compoundref="xspips__hw_8h" startline="149">XSPIPS_IXR_RXNEMPTY_MASK</references>
+        <references refid="group__spips__api_1gaefc16123501616910c471781dc5a6763" compoundref="xspips__hw_8h" startline="157">XSPIPS_IXR_WR_TO_CLR_MASK</references>
+        <references refid="group__spips__api_1gadcf52e36c82b285657e30b7c5d0fd091" compoundref="xspips__hw_8h" startline="247">XSPIPS_MAX_FIFO_DEPTH</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1ga63d53a4c31627791748d8b77d3c24cac" compoundref="xspips__hw_8h" startline="76">XSPIPS_RXD_OFFSET</references>
+        <references refid="group__spips__api_1ga8e6d59478b0789f6ea58abbc85fc1947" compoundref="xspips__hw_8h" startline="234">XSPIPS_RXWR_MASK</references>
+        <references refid="group__spips__api_1ga708b416f4994dca83b3d50a464552286" compoundref="xspips__hw_8h" startline="79">XSPIPS_RXWR_OFFSET</references>
+        <references refid="group__spips__api_1gab806ad4fc5536152742b74aa67f91cc7" compoundref="xspips__hw_8h" startline="235">XSPIPS_RXWR_RESET_VALUE</references>
+        <references refid="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="69">XSPIPS_SR_OFFSET</references>
+        <references refid="group__spips__api_1gac3beb6059f26dbf07ad7f2e8f1b8449c" compoundref="xspips__hw_8h" startline="220">XSPIPS_TXWR_MASK</references>
+        <references refid="group__spips__api_1ga82b0c7855556fbb3d13b1d0fc3f7ae24" compoundref="xspips__hw_8h" startline="78">XSPIPS_TXWR_OFFSET</references>
+        <references refid="group__spips__api_1ga7a9a7acd83ec76540bc267398ee3bb20" compoundref="xspips__hw_8h" startline="221">XSPIPS_TXWR_RESET_VALUE</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_SetOptions</definition>
+        <argsstring>(const XSpiPs *InstancePtr, u32 Options)</argsstring>
+        <name>XSpiPs_SetOptions</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>Sets the options for the SPI device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options control how the device behaves relative to the SPI bus. The device must be idle rather than busy transferring data before setting these device options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The specified options to be set. This is a bit mask where a 1 means to turn the option on, and a 0 means to turn the option off. One or more bit values may be contained in the mask. See the bit definitions named XSPIPS_*_OPTIONS in the file <ref refid="xspips_8h" kindref="compound">xspips.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The function is not thread-safe. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="108" bodyend="178"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1ga4a6535d62a7cad8209d615146f5f050c" compoundref="xspips__hw_8h" startline="105">XSPIPS_CR_CPHA_MASK</references>
+        <references refid="group__spips__api_1gad085464580e29731d0eafc1b6eb4bdb0" compoundref="xspips__hw_8h" startline="106">XSPIPS_CR_CPOL_MASK</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips_1gae33752db88677fe0580abb65d6ba70cf" compoundref="xspips_8h" startline="662">XSpiPs_Disable</references>
+        <references refid="group__spips_1ga7b3a41972453b0dfb7ec90f3972ddc74" compoundref="xspips_8h" startline="646">XSpiPs_Enable</references>
+        <references refid="group__spips__api_1ga7c4848f8ba03351f004a99021099759d" compoundref="xspips__options_8c" startline="82">XSPIPS_NUM_OPTIONS</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__eeprom__polled__example_1gaf156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="230" endline="312">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__polled__example_1gaa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="239" endline="413">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga95e9f2a440a68b4e55694bd593d6c810" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSpiPs_GetOptions</definition>
+        <argsstring>(const XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_GetOptions</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the options for the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options control how the device behaves relative to the SPI bus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The options currently set. This is a bit value where a 1 means the option is on, and a 0 means the option is off. See the bit definitions named XSPIPS_*_OPTIONS in file <ref refid="xspips_8h" kindref="compound">xspips.h</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="195" bodyend="221"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1ga7c4848f8ba03351f004a99021099759d" compoundref="xspips__options_8c" startline="82">XSPIPS_NUM_OPTIONS</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_SetClkPrescaler</definition>
+        <argsstring>(const XSpiPs *InstancePtr, u8 Prescaler)</argsstring>
+        <name>XSpiPs_SetClkPrescaler</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>Sets the clock prescaler for an SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device must be idle rather than busy transferring data before setting these device options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value that determine how much the clock should be divided by. Use the XSPIPS_CLK_PRESCALE_* constants defined in <ref refid="xspips_8h" kindref="compound">xspips.h</ref> for this setting.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The function is not thread-safe. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="244" bodyend="280"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1gad2920edca049dac6e9cf45496fa5ea5a" compoundref="xspips__hw_8h" startline="101">XSPIPS_CR_PRESC_MASK</references>
+        <references refid="group__spips__api_1ga5c36cba75a4a522d258ad5cd668d39da" compoundref="xspips__hw_8h" startline="103">XSPIPS_CR_PRESC_MAXIMUM</references>
+        <references refid="group__spips__api_1ga89ff9aa9c710a64a2ea00031fa3e38e5" compoundref="xspips__hw_8h" startline="102">XSPIPS_CR_PRESC_SHIFT</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__eeprom__polled__example_1gaf156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="230" endline="312">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__polled__example_1gaa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="239" endline="413">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XSpiPs_GetClkPrescaler</definition>
+        <argsstring>(const XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_GetClkPrescaler</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the clock prescaler of an SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The prescaler value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="292" bodyend="306"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1gad2920edca049dac6e9cf45496fa5ea5a" compoundref="xspips__hw_8h" startline="101">XSPIPS_CR_PRESC_MASK</references>
+        <references refid="group__spips__api_1ga89ff9aa9c710a64a2ea00031fa3e38e5" compoundref="xspips__hw_8h" startline="102">XSPIPS_CR_PRESC_SHIFT</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_SetDelays</definition>
+        <argsstring>(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn, u8 DelayAfter, u8 DelayInit)</argsstring>
+        <name>XSpiPs_SetDelays</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayNss</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayBtwn</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayAfter</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayInit</declname>
+        </param>
+        <briefdescription>
+<para>Sets the delay register for the SPI device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The delay register controls the Delay Between Transfers, Delay After Transfers, and the Delay Initially. The default value is 0x0. The range of each delay value is 0-255.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DelayNss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The delay for which the chip select outputs are de-asserted between words when CPHA=0. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DelayBtwn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The delay between one Slave Select being de-activated and the activation of another slave. The delay is the number of master clock periods given by DelayBtwn + 2. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DelayAfter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Define the delay between the last bit of the current byte transfer and the first bit of the next byte transfer. The delay in number of master clock periods is given as: CPHA=0:DelayInit+DelayAfter+3 CPHA=1:DelayAfter+1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DelayInit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The delay between asserting the slave select signal and the first bit transfer. The delay int number of master clock periods is DelayInit+1.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if delays are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="338" bodyend="367"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" compoundref="xspips_8h" startline="427">XSpiPs::IsBusy</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1ga56b1f2b236db35a9be0c75eb8bedb289" compoundref="xspips__hw_8h" startline="196">XSPIPS_DR_AFTER_SHIFT</references>
+        <references refid="group__spips__api_1ga8ff0e7a46a2566b4558a3a5f39819591" compoundref="xspips__hw_8h" startline="194">XSPIPS_DR_BTWN_SHIFT</references>
+        <references refid="group__spips__api_1ga2d56d5e1023b1e2f11b67d0cfc4dac3e" compoundref="xspips__hw_8h" startline="188">XSPIPS_DR_NSS_SHIFT</references>
+        <references refid="group__spips__api_1gaf8f2af4e1987e431a3a4510641c475e7" compoundref="xspips__hw_8h" startline="74">XSPIPS_DR_OFFSET</references>
+        <references refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="289">XSpiPs_WriteReg</references>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_GetDelays</definition>
+        <argsstring>(const XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn, u8 *DelayAfter, u8 *DelayInit)</argsstring>
+        <name>XSpiPs_GetDelays</name>
+        <param>
+          <type>const <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayNss</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayBtwn</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayAfter</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayInit</declname>
+        </param>
+        <briefdescription>
+<para>Gets the delay settings for an SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The delay register controls the Delay Between Transfers, Delay After Transfers, and the Delay Initially. The default value is 0x0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DelayNss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the delay for which the chip select outputs are de-asserted between words when CPHA=0. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DelayBtwn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Delay Between transfers value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DelayAfter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Delay After transfer value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DelayInit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Delay Initially value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="385" bodyend="407"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1ga4a6fad4316227a5337c49e2af28ee8ef" compoundref="xspips__hw_8h" startline="195">XSPIPS_DR_AFTER_MASK</references>
+        <references refid="group__spips__api_1ga56b1f2b236db35a9be0c75eb8bedb289" compoundref="xspips__hw_8h" startline="196">XSPIPS_DR_AFTER_SHIFT</references>
+        <references refid="group__spips__api_1gad21ad068d7d43fe94abb40c5d40a1bd0" compoundref="xspips__hw_8h" startline="193">XSPIPS_DR_BTWN_MASK</references>
+        <references refid="group__spips__api_1ga8ff0e7a46a2566b4558a3a5f39819591" compoundref="xspips__hw_8h" startline="194">XSPIPS_DR_BTWN_SHIFT</references>
+        <references refid="group__spips__api_1ga1c61ee31777ca9fc61bb50dd86d45598" compoundref="xspips__hw_8h" startline="197">XSPIPS_DR_INIT_MASK</references>
+        <references refid="group__spips__api_1ga2cfead0ca3e714dae4cd98538575e723" compoundref="xspips__hw_8h" startline="183">XSPIPS_DR_NSS_MASK</references>
+        <references refid="group__spips__api_1ga2d56d5e1023b1e2f11b67d0cfc4dac3e" compoundref="xspips__hw_8h" startline="188">XSPIPS_DR_NSS_SHIFT</references>
+        <references refid="group__spips__api_1gaf8f2af4e1987e431a3a4510641c475e7" compoundref="xspips__hw_8h" startline="74">XSPIPS_DR_OFFSET</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_SelfTest</definition>
+        <argsstring>(XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The self-test is destructive in that a reset of the device is performed in order to check the reset values of the registers and to get the device into a known state.</para><para>Upon successful return from the self-test, the device is reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_REGISTER_ERROR indicates a register did not read or write correctly. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_selftest.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_selftest.c" bodystart="75" bodyend="147"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="420">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="421">XSpiPs::IsReady</references>
+        <references refid="group__spips__api_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="68">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips__api_1gaec8a40193324debd139e5f47fbb2c943" compoundref="xspips__hw_8h" startline="109">XSPIPS_CR_RESET_STATE</references>
+        <references refid="group__spips__api_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="96">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</references>
+        <references refid="group__spips__api_1gad01d887bc3e3b00c6a25ed26b3f71c4a" compoundref="xspips__hw_8h" startline="160">XSPIPS_ISR_RESET_STATE</references>
+        <references refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="272">XSpiPs_ReadReg</references>
+        <references refid="group__spips__api_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</references>
+        <references refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</references>
+        <references refid="group__spips__api_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="69">XSPIPS_SR_OFFSET</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__eeprom__polled__example_1gaf156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="230" endline="312">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__polled__example_1gaa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="239" endline="413">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="group__xspips__selftest__example_1ga78ca9c2607cd3ea29c908634e0877a8c" compoundref="xspips__selftest__example_8c" startline="128" endline="160">SpiPsSelfTestExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__spips__api_1gaec4120d0ba36c1bcf7b17520ea43d761" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_spi_ps___config" kindref="compound">XSpiPs_Config</ref> *</type>
+        <definition>XSpiPs_Config* XSpiPs_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSpiPs_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XSpiPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xspips_8h" kindref="compound">xspips.h</ref> for the definition of <ref refid="struct_x_spi_ps___config" kindref="compound">XSpiPs_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up based on DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_sinit.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_sinit.c" bodystart="94" bodyend="108"/>
+        <references refid="struct_x_spi_ps___config_1a02a3ee78ece469f23018c54893adea6d" compoundref="xspips_8h" startline="398">XSpiPs_Config::Name</references>
+        <referencedby refid="group__xspips__eeprom__intr__example_1gadd210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="265" endline="387">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="group__xspips__eeprom__polled__example_1gaf156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="230" endline="312">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="group__xspips__flash__polled__example_1gaa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="239" endline="413">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="group__xspips__selftest__example_1ga78ca9c2607cd3ea29c908634e0877a8c" compoundref="xspips__selftest__example_8c" startline="128" endline="160">SpiPsSelfTestExample</referencedby>
+        <referencedby refid="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="161" endline="201">SpiPsSlavePolledExample</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__spips__api_1gac859d02a56eeb162666ae11b0daabbf2" prot="public" static="no">
+        <name>XSPIPS_POLL_TIMEOUT_US</name>
+        <initializer>1000000U</initializer>
+        <briefdescription>
+<para>Master mode TX FIFO wait limit in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga213e0ea6c896e8d8351bfc3a9499345a" prot="public" static="no">
+        <name>XSpiPs_SendByte</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__spips__api_1ga4653011b7ebe73cb7762821e58d54f4a" kindref="member">XSpiPs_Out32</ref>((BaseAddress) + (u32)<ref refid="group__spips__api_1ga3720b391032e33eb4cdb6b114943abbd" kindref="member">XSPIPS_TXD_OFFSET</ref>, (u32)(Data))</initializer>
+        <briefdescription>
+<para>Sends one byte to the currently selected slave. </para>        </briefdescription>
+        <detaileddescription>
+<para>A byte of data is written to transmit FIFO/register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The data to be written to the transmit FIFO/register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__spips__api_1ga213e0ea6c896e8d8351bfc3a9499345a" kindref="member">XSpiPs_SendByte(u32 BaseAddress, u8 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gaa16f1269388412a12617f154b7d8b47a" prot="public" static="no">
+        <name>XSpiPs_RecvByte</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__spips__api_1gad7b9b7214de9eb2a51eb559b837de31e" kindref="member">XSpiPs_In32</ref>((u32)((BaseAddress) + (u32)<ref refid="group__spips__api_1ga63d53a4c31627791748d8b77d3c24cac" kindref="member">XSPIPS_RXD_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>Receives one byte from the device&apos;s receive FIFO/register. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is assumed that the byte is already available.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte retrieved from the receive FIFO/register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature u8 <ref refid="group__spips__api_1gaa16f1269388412a12617f154b7d8b47a" kindref="member">XSpiPs_RecvByte(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.c" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1gad7b9b7214de9eb2a51eb559b837de31e" prot="public" static="no">
+        <name>XSpiPs_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Reads a 32-bit register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga4653011b7ebe73cb7762821e58d54f4a" prot="public" static="no">
+        <name>XSpiPs_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Writes a 32-bit register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" prot="public" static="no">
+        <name>XSpiPs_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__spips__api_1gad7b9b7214de9eb2a51eb559b837de31e" kindref="member">XSpiPs_In32</ref>((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Reads a register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset from the 1st register of the device to the target register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature u32 <ref refid="group__spips__api_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg(u32 BaseAddress, int RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="292" endline="306">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="195" endline="221">XSpiPs_GetOptions</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" prot="public" static="no">
+        <name>XSpiPs_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer><ref refid="group__spips__api_1ga4653011b7ebe73cb7762821e58d54f4a" kindref="member">XSpiPs_Out32</ref>((BaseAddress) + (RegOffset), (RegisterValue))</initializer>
+        <briefdescription>
+<para>Writes to a register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset from the 1st register of the device to target register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__spips__api_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg(u32 BaseAddress, int RegOffset, u32 RegisterValue)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips__api_1gab466a4718bbee60293dc226ca043d5b5" compoundref="xspips__hw_8c" startline="63" endline="126">XSpiPs_ResetHw</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spips__api_1ga7c4848f8ba03351f004a99021099759d" prot="public" static="no">
+        <name>XSPIPS_NUM_OPTIONS</name>
+        <initializer>(sizeof(OptionsTable) / sizeof(OptionsMap))</initializer>
+        <briefdescription>
+<para>Number of entries in the options table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_options.c" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__spips__api_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="195" endline="221">XSpiPs_GetOptions</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

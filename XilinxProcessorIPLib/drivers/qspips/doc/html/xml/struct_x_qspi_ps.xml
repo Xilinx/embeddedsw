@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_qspi_ps" kind="struct" prot="public">
+    <compoundname>XQspiPs</compoundname>
+    <includes local="no">xqspips.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_qspi_ps___config" kindref="compound">XQspiPs_Config</ref></type>
+        <definition>XQspiPs_Config XQspiPs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="523" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="312" endline="356">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips__api_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="291" endline="304">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips__api_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="380" endline="401">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips__api_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="188" endline="223">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga5e488f0da6981f817242eee92e238d69" compoundref="xqspips_8c" startline="274" endline="296">XQspiPs_Reset</referencedby>
+        <referencedby refid="group__qspips__api_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="246" endline="279">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips__api_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="336" endline="362">XQspiPs_SetDelays</referencedby>
+        <referencedby refid="group__qspips__api_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="109" endline="172">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1160" endline="1185">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="524" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips__api_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="291" endline="304">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips__api_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="380" endline="401">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips__api_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="188" endline="223">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gacbdefc29998bb7b4a61e62f8ef3ed127" compoundref="xqspips_8c" startline="1104" endline="1138">XQspiPs_LqspiRead</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga5e488f0da6981f817242eee92e238d69" compoundref="xqspips_8c" startline="274" endline="296">XQspiPs_Reset</referencedby>
+        <referencedby refid="group__qspips__api_1ga0975016f42a8249235098408ab0c9da6" compoundref="xqspips__selftest_8c" startline="66" endline="115">XQspiPs_SelfTest</referencedby>
+        <referencedby refid="group__qspips__api_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="246" endline="279">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips__api_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="336" endline="362">XQspiPs_SetDelays</referencedby>
+        <referencedby refid="group__qspips__api_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="109" endline="172">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1160" endline="1185">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1ga8a32d080acfe312fee511493a5bbb040" compoundref="xqspips_8c" startline="1223" endline="1232">XQspiPs_SetStatusHandler</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1a7356f0fa57545532428d565647adacb6" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPs::SendBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>SendBufferPtr</name>
+        <briefdescription>
+<para>Buffer to send (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="526" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1afaa668200ff4c8060a99909dfd9e1916" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPs::RecvBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>RecvBufferPtr</name>
+        <briefdescription>
+<para>Buffer to receive (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="527" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1a1b140d53f85afb3367a0864d7bbf4f9e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XQspiPs::RequestedBytes</definition>
+        <argsstring></argsstring>
+        <name>RequestedBytes</name>
+        <briefdescription>
+<para>Number of bytes to transfer (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="528" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="312" endline="356">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1ac0b1a46366cd1e6503f4bc7ecd1ff7ba" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XQspiPs::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+<para>Number of bytes left to transfer(state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="529" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="312" endline="356">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPs::IsBusy</definition>
+        <argsstring></argsstring>
+        <name>IsBusy</name>
+        <briefdescription>
+<para>A transfer is in progress (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="530" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="312" endline="356">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips__api_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="246" endline="279">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips__api_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="336" endline="362">XQspiPs_SetDelays</referencedby>
+        <referencedby refid="group__qspips__api_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="109" endline="172">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1160" endline="1185">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1a93d99af7c25270dea6901d5303e10aa3" prot="public" static="no" mutable="no">
+        <type><ref refid="group__qspips_1ga92ee723d2213140b651f835b6a9afc81" kindref="member">XQspiPs_StatusHandler</ref></type>
+        <definition>XQspiPs_StatusHandler XQspiPs::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Status callback handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="531" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga1ff5824cad5bd01fc1a60f211aa6a930" compoundref="xqspips_8c" startline="218" endline="258">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga8a32d080acfe312fee511493a5bbb040" compoundref="xqspips_8c" startline="1223" endline="1232">XQspiPs_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1acb2b967c48eea7164860e726d2f28545" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XQspiPs::StatusRef</definition>
+        <argsstring></argsstring>
+        <name>StatusRef</name>
+        <briefdescription>
+<para>Callback reference for status handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="532" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1289" endline="1541">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga8a32d080acfe312fee511493a5bbb040" compoundref="xqspips_8c" startline="1223" endline="1232">XQspiPs_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_1ae46299d271d034c3ed877f6152b75327" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPs::ShiftReadData</definition>
+        <argsstring></argsstring>
+        <name>ShiftReadData</name>
+        <briefdescription>
+<para>Flag to indicate whether the data read from the Rx FIFO needs to be shifted in cases where the data is less than 4 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="533" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="423" endline="669">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every QSPI device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XQspiPs_Config</label>
+        <link refid="struct_x_qspi_ps___config"/>
+      </node>
+      <node id="5">
+        <label>XQspiPs</label>
+        <link refid="struct_x_qspi_ps"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="522" bodyend="538"/>
+    <listofallmembers>
+      <member refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>Config</name></member>
+      <member refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>IsBusy</name></member>
+      <member refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>IsReady</name></member>
+      <member refid="struct_x_qspi_ps_1afaa668200ff4c8060a99909dfd9e1916" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>RecvBufferPtr</name></member>
+      <member refid="struct_x_qspi_ps_1ac0b1a46366cd1e6503f4bc7ecd1ff7ba" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>RemainingBytes</name></member>
+      <member refid="struct_x_qspi_ps_1a1b140d53f85afb3367a0864d7bbf4f9e" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>RequestedBytes</name></member>
+      <member refid="struct_x_qspi_ps_1a7356f0fa57545532428d565647adacb6" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>SendBufferPtr</name></member>
+      <member refid="struct_x_qspi_ps_1ae46299d271d034c3ed877f6152b75327" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>ShiftReadData</name></member>
+      <member refid="struct_x_qspi_ps_1a93d99af7c25270dea6901d5303e10aa3" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_qspi_ps_1acb2b967c48eea7164860e726d2f28545" prot="public" virt="non-virtual"><scope>XQspiPs</scope><name>StatusRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

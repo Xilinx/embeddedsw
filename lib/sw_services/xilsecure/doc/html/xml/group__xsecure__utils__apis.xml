@@ -1,0 +1,537 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__utils__apis" kind="group">
+    <compoundname>xsecure_utils_apis</compoundname>
+    <title>XilSecure Utility APIs</title>
+      <sectiondef kind="user-defined">
+      <header>Definition of asserts if macro is defined</header>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" prot="public" static="no">
+        <name>XSecure_AssertVoid</name>
+        <param><defname>Expression</defname></param>
+        <briefdescription>
+<para>&lt; All asserts are under XSECDEBUG macro now </para>        </briefdescription>
+        <detaileddescription>
+<para>Assert for void return functions </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="95" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga774447986423f485385d95049c6b3a49" prot="public" static="no">
+        <name>XSecure_AssertVoidAlways</name>
+        <param></param>
+        <briefdescription>
+<para>Asserts always for void functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga657be42526bc347684ea0fc03d71fb71" prot="public" static="no">
+        <name>XSecure_AssertNonvoid</name>
+        <param><defname>Expression</defname></param>
+        <briefdescription>
+<para>Asserts for non-void functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gac27187d674d1eaa7d1a02d1ab14f6bbd" prot="public" static="no">
+        <name>XSecure_AssertNonvoidAlways</name>
+        <param></param>
+        <briefdescription>
+<para>Asserts always for non-void functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__utils__apis_1gafa9d0a73fafd47603b9c077cd0ac90ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_ReleaseReset</definition>
+        <argsstring>(u32 BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_ReleaseReset</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function takes the hardware core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="59" bodyend="63"/>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" compoundref="core_2util_2xsecure__utils_8h" startline="51">XSECURE_RESET_UNSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga97ae74348a2015f022bb5175337dda0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_SetReset</definition>
+        <argsstring>(u32 BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_SetReset</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function places the hardware core into the reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="73" bodyend="76"/>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_MemCpy64</definition>
+        <argsstring>(u64 DstAddr, u64 SrcAddr, u32 Cnt)</argsstring>
+        <name>XSecure_MemCpy64</name>
+        <param>
+          <type>u64</type>
+          <declname>DstAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cnt</declname>
+        </param>
+        <briefdescription>
+<para>This function copies data from 64 bit address Src to 64 bit address Dst. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DstAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 64 bit destination address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 64 bit source address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes of data to be copied </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="88" bodyend="109"/>
+        <references refid="group__xsecure__generic__server__apis_1ga5d090a399a2fe568bea608504ae2b586" compoundref="core_2util_2xsecure__utils_8h" startline="56">XSECURE_WORD_ALIGN_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga3f7fe918bc7bc235cba30696d0d65f9d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_ReadReg</definition>
+        <argsstring>(u32 BaseAddress, u16 RegOffset)</argsstring>
+        <name>XSecure_ReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Read from the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the offset from the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="113" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga709e87e680c9bac038fc6d1e6a0811a7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_WriteReg</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset, u32 RegisterValue)</argsstring>
+        <name>XSecure_WriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterValue</declname>
+        </param>
+        <briefdescription>
+<para>Write to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the offset from the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Is the value to be written to the register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="128" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1gadb8f605fc7e0699a62c0a77912eaea58" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_In64</definition>
+        <argsstring>(u64 Addr)</argsstring>
+        <name>XSecure_In64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads data from 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="141" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga9e32fcf66a5a42db44d6fed8f9a38402" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XSecure_InByte64</definition>
+        <argsstring>(u64 Addr)</argsstring>
+        <name>XSecure_InByte64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a byte from 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="159" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga6e7833d733836dd3fad80eed9a76e76b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_Out64</definition>
+        <argsstring>(u64 Addr, u32 Data)</argsstring>
+        <name>XSecure_Out64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes data to 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="178" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga192d3ba15ccedc82c6e30c8ab6282835" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_OutWord64</definition>
+        <argsstring>(u64 Addr, u32 Data)</argsstring>
+        <name>XSecure_OutWord64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes 32 bit data to 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="195" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga0c94c2fa5ed4aaa7bfddc26f808c2611" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_OutByte64</definition>
+        <argsstring>(u64 Addr, u8 Data)</argsstring>
+        <name>XSecure_OutByte64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a byte to a 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="212" bodyend="219"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" prot="public" static="no">
+        <name>XSECURE_RESET_SET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>To set the core into reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga887e3d01831123de7f307e6dbea2a86b" prot="public" static="no">
+        <name>XSECURE_RESET_UNSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>To take the core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" prot="public" static="no">
+        <name>XSECURE_WORD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>WORD size in BYTES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" prot="public" static="no">
+        <name>XSECURE_QWORD_SIZE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>QWORD size in BYTES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" prot="public" static="no">
+        <name>XSECURE_WORD_IN_BITS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>WORD size in BITS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga5d090a399a2fe568bea608504ae2b586" prot="public" static="no">
+        <name>XSECURE_WORD_ALIGN_MASK</name>
+        <initializer>(<ref refid="group__xsecure__utils__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" kindref="member">XSECURE_WORD_SIZE</ref> - 1U)</initializer>
+        <briefdescription>
+<para>WORD alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga3d5f1bc7790c89b72c761985d4ebd02b" prot="public" static="no">
+        <name>XSecure_MemCpy</name>
+        <initializer>Xil_MemCpy</initializer>
+        <briefdescription>
+<para>Backward compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga4e695dfc0e718c61fc93d707a9578f54" prot="public" static="no">
+        <name>XSecure_In32</name>
+        <initializer>(Xil_In32)</initializer>
+        <briefdescription>
+<para>Reads data from 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gae500e79a22c37a14027ce0ad88a8cafe" prot="public" static="no">
+        <name>XSecure_Out32</name>
+        <initializer>(Xil_Out32)</initializer>
+        <briefdescription>
+<para>Writes data to 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" prot="public" static="no">
+        <name>XSecure_SecureOut32</name>
+        <initializer>(Xil_SecureOut32)</initializer>
+        <briefdescription>
+<para>Writes data to 32-bit address and checks for blind writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

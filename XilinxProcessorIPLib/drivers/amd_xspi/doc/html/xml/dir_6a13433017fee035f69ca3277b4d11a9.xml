@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6a13433017fee035f69ca3277b4d11a9" kind="dir">
+    <compoundname>amd_xspi</compoundname>
+    <innerdir refid="dir_8ae9adf91ea175a60c6dc8ce3bf81861">examples</innerdir>
+    <innerdir refid="dir_b32b73ca32e3f72367073df7a0f1c8ec">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/"/>
+  </compounddef>
+</doxygen>

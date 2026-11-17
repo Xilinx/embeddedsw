@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_clock___generic_topology_desc" kind="struct" prot="public">
+    <compoundname>XPmClock_GenericTopologyDesc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_clock___generic_topology_desc_1a692b7b7c349aeaba46367d5c68214562" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmClock_GenericTopologyDesc::TopologyType</definition>
+        <argsstring></argsstring>
+        <name>TopologyType</name>
+        <briefdescription>
+<para>Generic topology identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_clock___generic_topology_desc_1aafa228f89fbd6d880b7f8984a5656cd9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmClock_GenericTopologyDesc::NumNodes</definition>
+        <argsstring></argsstring>
+        <name>NumNodes</name>
+        <briefdescription>
+<para>Number of entries used in NodeTypes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_clock___generic_topology_desc_1ac93cd0c58cb758829a83d6cfb4c9e90d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmClock_GenericTopologyDesc::NodeTypes[3U]</definition>
+        <argsstring>[3U]</argsstring>
+        <name>NodeTypes</name>
+        <briefdescription>
+<para>Ordered mux, divider and gate node types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_clock___generic_topology_desc_1a4cf84c38d7afa206bc7d55f1fc6e3be6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmClock_GenericTopologyDesc::GateId</definition>
+        <argsstring></argsstring>
+        <name>GateId</name>
+        <briefdescription>
+<para>Gate field used when the topology includes a gate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Description of a shared generic clock topology. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="26" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_clock___generic_topology_desc_1a4cf84c38d7afa206bc7d55f1fc6e3be6" prot="public" virt="non-virtual"><scope>XPmClock_GenericTopologyDesc</scope><name>GateId</name></member>
+      <member refid="struct_x_pm_clock___generic_topology_desc_1ac93cd0c58cb758829a83d6cfb4c9e90d" prot="public" virt="non-virtual"><scope>XPmClock_GenericTopologyDesc</scope><name>NodeTypes</name></member>
+      <member refid="struct_x_pm_clock___generic_topology_desc_1aafa228f89fbd6d880b7f8984a5656cd9" prot="public" virt="non-virtual"><scope>XPmClock_GenericTopologyDesc</scope><name>NumNodes</name></member>
+      <member refid="struct_x_pm_clock___generic_topology_desc_1a692b7b7c349aeaba46367d5c68214562" prot="public" virt="non-virtual"><scope>XPmClock_GenericTopologyDesc</scope><name>TopologyType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

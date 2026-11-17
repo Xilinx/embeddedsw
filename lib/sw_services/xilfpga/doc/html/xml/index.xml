@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_fpga___read" kind="struct"><name>XFpga_Read</name>
+    <member refid="struct_x_fpga___read_1a0e110b519fc49ce6808e4c5980677417" kind="variable"><name>ReadbackAddr</name></member>
+    <member refid="struct_x_fpga___read_1a22e9adb2868545f4c309e8eefacd0673" kind="variable"><name>ConfigReg_NumFrames</name></member>
+  </compound>
+  <compound refid="struct_x_fpga___write" kind="struct"><name>XFpga_Write</name>
+    <member refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" kind="variable"><name>BitstreamAddr</name></member>
+    <member refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" kind="variable"><name>KeyAddr</name></member>
+    <member refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" kind="variable"><name>Size</name></member>
+    <member refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" kind="variable"><name>Flags</name></member>
+  </compound>
+  <compound refid="struct_x_fpgatag" kind="struct"><name>XFpgatag</name>
+    <member refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" kind="variable"><name>XFpga_ValidateBitstream</name></member>
+    <member refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" kind="variable"><name>XFpga_PreConfig</name></member>
+    <member refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" kind="variable"><name>XFpga_WriteToPl</name></member>
+    <member refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" kind="variable"><name>XFpga_PostConfig</name></member>
+    <member refid="struct_x_fpgatag_1a088ada7ce0d61319dafb5bfd85290cb1" kind="variable"><name>XFpga_GetFeatureList</name></member>
+    <member refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" kind="variable"><name>XFpga_GetInterfaceStatus</name></member>
+    <member refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" kind="variable"><name>XFpga_GetConfigReg</name></member>
+    <member refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" kind="variable"><name>XFpga_GetConfigData</name></member>
+    <member refid="struct_x_fpgatag_1a95e48f781a288df71e5ee599d78532b6" kind="variable"><name>PLInfo</name></member>
+    <member refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" kind="variable"><name>ReadInfo</name></member>
+    <member refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" kind="variable"><name>WriteInfo</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="src_2interface_2versal_2_c_make_lists_8txt" kind="file"><name>src/interface/versal/CMakeLists.txt</name>
+  </compound>
+  <compound refid="src_2interface_2zynqmp_2_c_make_lists_8txt" kind="file"><name>src/interface/zynqmp/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="xfpga__load__bitstream__example_8c" kind="file"><name>xfpga_load_bitstream_example.c</name>
+    <member refid="xfpga__load__bitstream__example_8c_1a0b529249c076e68ac115f9d1b0dae028" kind="define"><name>BITSTREAM_SIZE</name></member>
+    <member refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xfpga__partialbitstream__load__example_8c" kind="file"><name>xfpga_partialbitstream_load_example.c</name>
+    <member refid="xfpga__partialbitstream__load__example_8c_1a0b529249c076e68ac115f9d1b0dae028" kind="define"><name>BITSTREAM_SIZE</name></member>
+    <member refid="xfpga__partialbitstream__load__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xfpga__readback__example_8c" kind="file"><name>xfpga_readback_example.c</name>
+    <member refid="xfpga__readback__example_8c_1a51a51480d875f80355412fa95fd48c6c" kind="define"><name>FRAMES</name></member>
+    <member refid="xfpga__readback__example_8c_1a022f9afc98868e9ca615ec44fe469585" kind="define"><name>WORDS_PER_FRAME</name></member>
+    <member refid="xfpga__readback__example_8c_1a71e1b870445682569e87146dfdd52956" kind="define"><name>PAD_FRAMES</name></member>
+    <member refid="xfpga__readback__example_8c_1a8015f34b7ddbd9d2d83baa00e055eee5" kind="variable"><name>readback_buffer</name></member>
+    <member refid="xfpga__readback__example_8c_1a93fc2bc334e989dde953eaf75fbf9e5d" kind="function"><name>XFpga_ReadExample</name></member>
+    <member refid="xfpga__readback__example_8c_1ace0f07699e5222a5e238254b3dd32021" kind="function"><name>PrintBitStream</name></member>
+    <member refid="xfpga__readback__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xfpga__reg__readback__example_8c" kind="file"><name>xfpga_reg_readback_example.c</name>
+    <member refid="xfpga__reg__readback__example_8c_1aa5c63d0c478a978655c6873c396f7db3" kind="define"><name>IDCODE_MASK</name></member>
+    <member refid="xfpga__reg__readback__example_8c_1adac8daddf672dfc657477f006d531a02" kind="function"><name>Xfpga_RegReadExample</name></member>
+    <member refid="xfpga__reg__readback__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xilfpga_8c" kind="file"><name>xilfpga.c</name>
+    <member refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" kind="function"><name>XFpga_BitStream_Load</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" kind="function"><name>XFpga_ValidateImage</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" kind="function"><name>XFpga_PL_Preconfig</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" kind="function"><name>XFpga_Write_Pl</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" kind="function"><name>XFpga_PL_PostConfig</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" kind="function"><name>XFpga_GetPlConfigData</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" kind="function"><name>XFpga_GetPlConfigReg</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" kind="function"><name>XFpga_InterfaceStatus</name></member>
+  </compound>
+  <compound refid="xilfpga_8h" kind="file"><name>xilfpga.h</name>
+    <member refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kind="typedef"><name>XFpga</name></member>
+    <member refid="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kind="function"><name>XFpga_Initialize</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" kind="function"><name>XFpga_ValidateImage</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" kind="function"><name>XFpga_BitStream_Load</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" kind="function"><name>XFpga_PL_Preconfig</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" kind="function"><name>XFpga_Write_Pl</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" kind="function"><name>XFpga_PL_PostConfig</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" kind="function"><name>XFpga_GetPlConfigData</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" kind="function"><name>XFpga_GetPlConfigReg</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" kind="function"><name>XFpga_InterfaceStatus</name></member>
+  </compound>
+  <compound refid="xilfpga__ipi__pcap_8c" kind="file"><name>xilfpga_ipi_pcap.c</name>
+    <member refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kind="function"><name>XFpga_Initialize</name></member>
+  </compound>
+  <compound refid="xilfpga__pcap_8c" kind="file"><name>xilfpga_pcap.c</name>
+    <member refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kind="function"><name>XFpga_Initialize</name></member>
+    <member refid="group__xilfpga__zynq_1gae8642cc345ef7548c801a1e358ce15c6" kind="function"><name>XFpga_ValidateBitstreamImage</name></member>
+    <member refid="group__xilfpga__zynq_1ga7007e94d77d4d6d6a022b3500388a563" kind="function"><name>XFpga_PreConfigPcap</name></member>
+    <member refid="group__xilfpga__zynq_1ga672b4ebf807b7e3e943bd5d31afa1295" kind="function"><name>XFpga_WriteToPlPcap</name></member>
+    <member refid="group__xilfpga__zynq_1gacc2c75683f130e8e5f483cc62e0dbd3b" kind="function"><name>XFpga_PostConfigPcap</name></member>
+    <member refid="group__xilfpga__zynq_1ga5aab53fbd090ced60781bbb4f6d09604" kind="function"><name>XFpga_PcapInit</name></member>
+    <member refid="group__xilfpga__zynq_1ga0ec27305eb62945237e3b7c851ee0df1" kind="function"><name>XFpga_PcapWaitForDone</name></member>
+    <member refid="group__xilfpga__zynq_1ga7a7eeda571656593e0ba77a1cd2e7fcb" kind="function"><name>XFpga_WriteToPcap</name></member>
+    <member refid="group__xilfpga__zynq_1gaf8c3c38ec23944daa13bae732b3df8f1" kind="function"><name>XFpga_ValidateCryptoFlags</name></member>
+    <member refid="group__xilfpga__zynq_1gab15d56d4110595a6f6a9f3b86a210cea" kind="function"><name>XFpga_PLWaitForDone</name></member>
+    <member refid="group__xilfpga__zynq_1ga340b5a812e878ddfb1ff8a24cf8fd256" kind="function"><name>XFpga_PowerUpPl</name></member>
+    <member refid="group__xilfpga__zynq_1ga19879797855f880204cf851de1a0a3a2" kind="function"><name>XFpga_IsolationRestore</name></member>
+    <member refid="group__xilfpga__zynq_1ga69657b2615c8c1cec479cdef645637e7" kind="function"><name>XFpga_PsPlGpioResetsLow</name></member>
+    <member refid="group__xilfpga__zynq_1gab928e7bd987cf297d1f7c5726b83b946" kind="function"><name>XFpga_PsPlGpioResetsHigh</name></member>
+    <member refid="group__xilfpga__zynq_1ga4b0a375fc15efbf7fd923867d819dcbf" kind="function"><name>XFpga_PcapStatus</name></member>
+    <member refid="group__xilfpga__zynq_1ga4a0017ca5086004ebd039795197f6110" kind="function"><name>XFpga_SetFirmwareState</name></member>
+    <member refid="group__xilfpga__zynq_1ga922c198ec7f741888a44e9cfaf083133" kind="function"><name>XFpga_SelectEndianess</name></member>
+  </compound>
+  <compound refid="xilfpga__pcap_8h" kind="file"><name>xilfpga_pcap.h</name>
+  </compound>
+  <compound refid="xilfpga__pcap__common_8h" kind="file"><name>xilfpga_pcap_common.h</name>
+  </compound>
+  <compound refid="xilfpga__versal_8c" kind="file"><name>xilfpga_versal.c</name>
+    <member refid="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kind="function"><name>XFpga_Initialize</name></member>
+  </compound>
+  <compound refid="xilfpga__versal_8h" kind="file"><name>xilfpga_versal.h</name>
+  </compound>
+  <compound refid="group__xilfpga__zynq__versal" kind="group"><name>xilfpga_zynq_versal</name>
+    <member refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" kind="function"><name>XFpga_BitStream_Load</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" kind="function"><name>XFpga_ValidateImage</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" kind="function"><name>XFpga_PL_Preconfig</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" kind="function"><name>XFpga_Write_Pl</name></member>
+    <member refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" kind="function"><name>XFpga_PL_PostConfig</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" kind="function"><name>XFpga_GetPlConfigData</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" kind="function"><name>XFpga_GetPlConfigReg</name></member>
+    <member refid="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" kind="function"><name>XFpga_InterfaceStatus</name></member>
+  </compound>
+  <compound refid="group__xilfpga__versal" kind="group"><name>xilfpga_versal</name>
+    <member refid="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kind="function"><name>XFpga_Initialize</name></member>
+  </compound>
+  <compound refid="group__xilfpga__zynq" kind="group"><name>xilfpga_zynq</name>
+    <member refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kind="function"><name>XFpga_Initialize</name></member>
+    <member refid="group__xilfpga__zynq_1gae8642cc345ef7548c801a1e358ce15c6" kind="function"><name>XFpga_ValidateBitstreamImage</name></member>
+    <member refid="group__xilfpga__zynq_1ga7007e94d77d4d6d6a022b3500388a563" kind="function"><name>XFpga_PreConfigPcap</name></member>
+    <member refid="group__xilfpga__zynq_1ga672b4ebf807b7e3e943bd5d31afa1295" kind="function"><name>XFpga_WriteToPlPcap</name></member>
+    <member refid="group__xilfpga__zynq_1gacc2c75683f130e8e5f483cc62e0dbd3b" kind="function"><name>XFpga_PostConfigPcap</name></member>
+    <member refid="group__xilfpga__zynq_1ga5aab53fbd090ced60781bbb4f6d09604" kind="function"><name>XFpga_PcapInit</name></member>
+    <member refid="group__xilfpga__zynq_1ga0ec27305eb62945237e3b7c851ee0df1" kind="function"><name>XFpga_PcapWaitForDone</name></member>
+    <member refid="group__xilfpga__zynq_1ga7a7eeda571656593e0ba77a1cd2e7fcb" kind="function"><name>XFpga_WriteToPcap</name></member>
+    <member refid="group__xilfpga__zynq_1gaf8c3c38ec23944daa13bae732b3df8f1" kind="function"><name>XFpga_ValidateCryptoFlags</name></member>
+    <member refid="group__xilfpga__zynq_1gab15d56d4110595a6f6a9f3b86a210cea" kind="function"><name>XFpga_PLWaitForDone</name></member>
+    <member refid="group__xilfpga__zynq_1ga340b5a812e878ddfb1ff8a24cf8fd256" kind="function"><name>XFpga_PowerUpPl</name></member>
+    <member refid="group__xilfpga__zynq_1ga19879797855f880204cf851de1a0a3a2" kind="function"><name>XFpga_IsolationRestore</name></member>
+    <member refid="group__xilfpga__zynq_1ga69657b2615c8c1cec479cdef645637e7" kind="function"><name>XFpga_PsPlGpioResetsLow</name></member>
+    <member refid="group__xilfpga__zynq_1gab928e7bd987cf297d1f7c5726b83b946" kind="function"><name>XFpga_PsPlGpioResetsHigh</name></member>
+    <member refid="group__xilfpga__zynq_1ga4b0a375fc15efbf7fd923867d819dcbf" kind="function"><name>XFpga_PcapStatus</name></member>
+    <member refid="group__xilfpga__zynq_1ga4a0017ca5086004ebd039795197f6110" kind="function"><name>XFpga_SetFirmwareState</name></member>
+    <member refid="group__xilfpga__zynq_1ga922c198ec7f741888a44e9cfaf083133" kind="function"><name>XFpga_SelectEndianess</name></member>
+  </compound>
+  <compound refid="dir_de0617aa14519224cb56a64dcb937def" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_8edaccb0267e4eb726ea2b32557db889" kind="dir"><name>interface</name>
+  </compound>
+  <compound refid="dir_7ccfa30a70a9c2150023b0bca3e4b86f" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_40e968c1a6009434cda00dc518a28812" kind="dir"><name>versal</name>
+  </compound>
+  <compound refid="dir_0c0b4fe51c9c3e44d9391337c33145df" kind="dir"><name>xilfpga</name>
+  </compound>
+  <compound refid="dir_3293408c4696587805a42f4254ab1555" kind="dir"><name>zynqmp</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

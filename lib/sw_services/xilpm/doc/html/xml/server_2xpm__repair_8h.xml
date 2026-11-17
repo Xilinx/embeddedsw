@@ -1,0 +1,832 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__repair_8h" kind="file">
+    <compoundname>server/xpm_repair.h</compoundname>
+    <includes refid="xpm__bisr_8h" local="yes">xpm_bisr.h</includes>
+    <includes refid="server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includes>
+    <includedby refid="server_2xpm__repair_8c" local="yes">xpm_repair.c</includedby>
+    <incdepgraph>
+      <node id="8367">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="8368" relation="include">
+        </childnode>
+        <childnode refid="8374" relation="include">
+        </childnode>
+        <childnode refid="8381" relation="include">
+        </childnode>
+        <childnode refid="8382" relation="include">
+        </childnode>
+      </node>
+      <node id="8376">
+        <label>xpm_api.h</label>
+        <childnode refid="8371" relation="include">
+        </childnode>
+        <childnode refid="8357" relation="include">
+        </childnode>
+        <childnode refid="8369" relation="include">
+        </childnode>
+        <childnode refid="8360" relation="include">
+        </childnode>
+        <childnode refid="8377" relation="include">
+        </childnode>
+        <childnode refid="8378" relation="include">
+        </childnode>
+      </node>
+      <node id="8365">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="8358">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8370">
+        <label>xpm_node.h</label>
+        <childnode refid="8371" relation="include">
+        </childnode>
+        <childnode refid="8357" relation="include">
+        </childnode>
+        <childnode refid="8372" relation="include">
+        </childnode>
+        <childnode refid="8356" relation="include">
+        </childnode>
+      </node>
+      <node id="8383">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="8360">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8363">
+        <label>xpm_bisr_plat.h</label>
+      </node>
+      <node id="8382">
+        <label>xpm_rail.h</label>
+        <childnode refid="8357" relation="include">
+        </childnode>
+        <childnode refid="8383" relation="include">
+        </childnode>
+      </node>
+      <node id="8374">
+        <label>xpm_reset.h</label>
+        <childnode refid="8370" relation="include">
+        </childnode>
+        <childnode refid="8356" relation="include">
+        </childnode>
+        <childnode refid="8375" relation="include">
+        </childnode>
+        <childnode refid="8380" relation="include">
+        </childnode>
+      </node>
+      <node id="8354">
+        <label>xpm_repair.h</label>
+        <link refid="server/xpm_repair.h"/>
+        <childnode refid="8355" relation="include">
+        </childnode>
+        <childnode refid="8364" relation="include">
+        </childnode>
+        <childnode refid="8367" relation="include">
+        </childnode>
+      </node>
+      <node id="8359">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8361">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8375">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8376" relation="include">
+        </childnode>
+        <childnode refid="8369" relation="include">
+        </childnode>
+        <childnode refid="8357" relation="include">
+        </childnode>
+        <childnode refid="8379" relation="include">
+        </childnode>
+      </node>
+      <node id="8373">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="8369">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8379">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8368">
+        <label>xpm_power.h</label>
+        <childnode refid="8369" relation="include">
+        </childnode>
+        <childnode refid="8370" relation="include">
+        </childnode>
+        <childnode refid="8373" relation="include">
+        </childnode>
+        <childnode refid="8366" relation="include">
+        </childnode>
+      </node>
+      <node id="8380">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8357">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8356">
+        <label>xpm_common.h</label>
+        <childnode refid="8357" relation="include">
+        </childnode>
+        <childnode refid="8358" relation="include">
+        </childnode>
+        <childnode refid="8359" relation="include">
+        </childnode>
+        <childnode refid="8360" relation="include">
+        </childnode>
+        <childnode refid="8361" relation="include">
+        </childnode>
+        <childnode refid="8362" relation="include">
+        </childnode>
+      </node>
+      <node id="8372">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8381">
+        <label>xpm_domain_iso.h</label>
+        <childnode refid="8370" relation="include">
+        </childnode>
+        <childnode refid="8356" relation="include">
+        </childnode>
+      </node>
+      <node id="8377">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8371">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8362">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8366">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="8378">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="8364">
+        <label>xpm_regs.h</label>
+        <childnode refid="8365" relation="include">
+        </childnode>
+        <childnode refid="8366" relation="include">
+        </childnode>
+      </node>
+      <node id="8355">
+        <label>xpm_bisr.h</label>
+        <childnode refid="8356" relation="include">
+        </childnode>
+        <childnode refid="8363" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8385">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="8384">
+        <label>xpm_repair.h</label>
+        <link refid="server/xpm_repair.h"/>
+        <childnode refid="8385" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffa" prot="public" static="no">
+        <name>Bisr_Repair_Status</name>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa8d6c84aca0104b09fb133700d29b27a6" prot="public">
+          <name>PMC_EFUSE_BISR_STATUS_PASSED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa9531beb7ac645a9329dadb79080bf54e" prot="public">
+          <name>PMC_EFUSE_BISR_STATUS_NOREPAIR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa629339e6d4ed02b251c2c0ecc250f41d" prot="public">
+          <name>PMC_EFUSE_BISR_STATUS_NOT_RUN</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa3c9eec38b8043218fcc2678063f88a46" prot="public">
+          <name>ERRSTS_REPAIR_TIMEOUT</name>
+          <initializer>= 0x93</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaaf9c9e3434cd1320f9351605069e0a0d2" prot="public">
+          <name>ERRSTS_REPAIR_FUNCTION_FAILED</name>
+          <initializer>= 0x94</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa08f66d01089f61b41ced5fa58afa2378" prot="public">
+          <name>ERRSTS_REPAIR_INVALID_TAGID</name>
+          <initializer>= 0x95</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa6acb97a4486dffee36d7a949100d2dd7" prot="public">
+          <name>ERRSTS_REPAIR_INIT_FAIL</name>
+          <initializer>= 0x96</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaaece7810d5f4f9bd5b91280f1c656c176" prot="public">
+          <name>ERRSTS_REPAIR_UNSUPPORT_TAGID</name>
+          <initializer>= 0x97</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaa08cb414bf278dc76609ec29ea27d3a86" prot="public">
+          <name>ERRSTS_REPAIR_BAD_TAG_SIZE</name>
+          <initializer>= 0x98</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="server_2xpm__repair_8h_1a1fde7329bb420787934cd55ff05eeffaac1346889b37da1eac751ca364e36fd55" prot="public">
+          <name>ERRSTS_REPAIR_TAGID_OUTOFRANGE</name>
+          <initializer>= 0x99</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="92" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a36ed1b7c1fa4f8d56832c3f920b60ae3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmRepair_Cpm5n</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Cpm5n</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="18" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1aaf0815f7a813626e32af7c8c74fd747d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmRepair_Lpx</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Lpx</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="29" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1aeaf56afa04365c1c081964aeaae173a6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmRepair_Fpx</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Fpx</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="40" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1ac7a93a711997ad2623add8df776278ee" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmRepair_Hnicx_Nthub</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Hnicx_Nthub</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="51" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a5a4300a9e8ed7965cb705541886a8d6f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmRepair_Hnicx_Dpu</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Hnicx_Dpu</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="62" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a25700dec289e878126dd998cdaeba058" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmRepair_Hnicx_Lcs</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, const u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Hnicx_Lcs</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" bodystart="73" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a7f56c5f4408794b484a4972d2689f660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Vdu</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Vdu</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.c" bodystart="264" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a4f2b6dbf75bf63a4cb52ab8f9f828090" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Bfrb</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Bfrb</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.c" bodystart="304" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a1657e620a1f9d4f3a4a766204362a4d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Ddrmc5_Crypto</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Ddrmc5_Crypto</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.c" bodystart="516" bodyend="546"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1a5a6f09d5b1140f4bef94045cd529f13a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Ddrmc5_Main</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Ddrmc5_Main</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.c" bodystart="484" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1aa4d21be1b3cee35ff258404e6f2fb197" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Cpm6</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Cpm6</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>Run the CPM6 SLCR BISR memory repair sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EfuseTagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the eFuse BISR tag word </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of repair-data words following the tag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagOptional</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tag optional field (unused for CPM6) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returns the eFuse address following the repair data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the repair completed and passed; ERRSTS_REPAIR_BAD_TAG_SIZE, ERRSTS_REPAIR_TIMEOUT or ERRSTS_REPAIR_FUNCTION_FAILED otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.c" bodystart="561" bodyend="606"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__repair_8h_1ae03e8de20a0005fa5fd06a0e33e522ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Gtmpw</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Gtmpw</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>Run the CPM6 GTMPW NPI BISR memory repair sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EfuseTagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the eFuse BISR tag word </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of repair-data words following the tag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagOptional</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper 16 bits of the GTMPW NPI module base address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TagDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returns the eFuse address following the repair data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the repair completed and passed; ERRSTS_REPAIR_BAD_TAG_SIZE, ERRSTS_REPAIR_TIMEOUT or ERRSTS_REPAIR_FUNCTION_FAILED otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.c" bodystart="621" bodyend="664"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_REPAIR_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_REPAIR_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_bisr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_powerdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_Cpm5n(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EfuseTagAddr;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagSize;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagDataAddr;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_Lpx(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EfuseTagAddr;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagSize;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagDataAddr;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_Fpx(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EfuseTagAddr;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagSize;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagDataAddr;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_Hnicx_Nthub(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EfuseTagAddr;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagSize;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagDataAddr;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_Hnicx_Dpu(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EfuseTagAddr;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagSize;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagDataAddr;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_Hnicx_Lcs(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EfuseTagAddr;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagSize;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagDataAddr;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">XStatus<sp/>XPmRepair_Vdu(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">XStatus<sp/>XPmRepair_Bfrb(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">XStatus<sp/>XPmRepair_Ddrmc5_Crypto(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">XStatus<sp/>XPmRepair_Ddrmc5_Main(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">XStatus<sp/>XPmRepair_Cpm6(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">XStatus<sp/>XPmRepair_Gtmpw(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_EFUSE_BISR_STATUS_PASSED<sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>BISR<sp/>for<sp/>TAGID<sp/>has<sp/>run<sp/>and<sp/>passed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_EFUSE_BISR_STATUS_NOREPAIR<sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>There<sp/>is<sp/>no<sp/>BISR<sp/>Repair<sp/>data<sp/>for<sp/>TAGID</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_EFUSE_BISR_STATUS_NOT_RUN<sp/>=<sp/>5,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>eFuse<sp/>Sorted,<sp/>The<sp/>TAG<sp/>hasn&apos;t<sp/>run<sp/>the<sp/>Bisr<sp/>Repair</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x93,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_TIMEOUT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_FUNCTION_FAILED<sp/>=<sp/>0x94,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_FUNCTION_FAILED,<sp/>Repair<sp/>Done<sp/>but<sp/>not<sp/>Pass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_INVALID_TAGID<sp/><sp/><sp/>=<sp/>0x95,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_INVALID_TAGID,<sp/>TagID<sp/>defined,<sp/>but<sp/>not<sp/>valid<sp/>for<sp/>device</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_INIT_FAIL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x96,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_INIT_FAIL,<sp/>may<sp/>due<sp/>to<sp/>isolation<sp/>or<sp/>other<sp/>reason</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_UNSUPPORT_TAGID<sp/>=<sp/>0x97,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_UNSUPPORT_TAGID,<sp/>Valid<sp/>TagID,<sp/>but<sp/>not<sp/>support<sp/>by<sp/>GOQ<sp/>FW</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_BAD_TAG_SIZE<sp/><sp/><sp/><sp/>=<sp/>0x98,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_BAD_TAG_SIZE,<sp/>BISR_SIZE<sp/>error.<sp/>for<sp/>HardBlock<sp/>repair,<sp/>the<sp/>tag<sp/>size<sp/>is<sp/>unexpected<sp/>(must<sp/>be<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERRSTS_REPAIR_TAGID_OUTOFRANGE<sp/>=<sp/>0x99,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ERRSTS_PMC2ATE_REPAIR_TAGID_OUTOFRANGE.<sp/>can&apos;t<sp/>be<sp/>written<sp/>into<sp/>st_BisrTagsTable.status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/>Bisr_Repair_Status;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XCVR1602)<sp/>||<sp/>defined(XCVR1652)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>XPmRepair_Cram_CacheType_SDFEC(u32<sp/>*<sp/>EfuseRowTagPtr,<sp/>u32<sp/>*EfuseNextAddr);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">//<sp/>BISR<sp/>Error<sp/>Bit<sp/>used<sp/>in<sp/>bit<sp/>29:0<sp/>in<sp/>PMC_GLOBAL_PMC_GSW_ERR.<sp/>set<sp/>by<sp/>XPmBisr_SwError()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_GSW_ERR_BISR_UNKN_TAG_ID<sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Tag<sp/>ID<sp/>requested<sp/>to<sp/>repair<sp/><sp/>is<sp/>not<sp/>in<sp/>XPmTagIdWhiteList[]</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_GSW_ERR_BISR_INVLD_TAG_SIZE<sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>BISR<sp/>data<sp/>size<sp/>for<sp/>the<sp/>tag<sp/>is<sp/>invalid<sp/>(unexpected<sp/>number<sp/>of<sp/>words)</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_GSW_ERR_BISR_BAD_TAG_TYPE<sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>tag<sp/><sp/><sp/><sp/><sp/>in<sp/>XPmTagIdWhiteList[],<sp/>but<sp/>not<sp/>support<sp/>by<sp/>current<sp/>FW</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_GSW_ERR_BISR_UNSUPPORTED_ID<sp/><sp/><sp/>0x4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>eFuse<sp/>has<sp/>TagID<sp/>not<sp/>in<sp/>XPmTagIdWhiteList[]</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XCVP1902</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XPmRepair_Laguna_vp1902(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_REPAIR_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_repair.h"/>
+  </compounddef>
+</doxygen>

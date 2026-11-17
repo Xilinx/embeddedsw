@@ -1,0 +1,929 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__hbmon__subsys_8c" kind="file">
+    <compoundname>xpm_runtime_hbmon_subsys.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xplmi_scheduler.h</includes>
+    <includes local="yes">xplmi_err.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes refid="xpm__alloc_8h" local="yes">xpm_alloc.h</includes>
+    <includes refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includes>
+    <includes refid="xpm__runtime__device_8h" local="yes">xpm_runtime_device.h</includes>
+    <includes refid="xpm__device__fsm_8h" local="yes">xpm_device_fsm.h</includes>
+    <includes refid="xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__runtime__api_8h" local="yes">xpm_runtime_api.h</includes>
+    <incdepgraph>
+      <node id="4715">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4707">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4700">
+        <label>xplmi.h</label>
+      </node>
+      <node id="4716">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4717">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4701">
+        <label>xplmi_scheduler.h</label>
+      </node>
+      <node id="4704">
+        <label>xpm_api.h</label>
+        <childnode refid="4705" relation="include">
+        </childnode>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4706" relation="include">
+        </childnode>
+        <childnode refid="4708" relation="include">
+        </childnode>
+        <childnode refid="4709" relation="include">
+        </childnode>
+        <childnode refid="4710" relation="include">
+        </childnode>
+      </node>
+      <node id="4713">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4719">
+        <label>xpm_clock.h</label>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4712" relation="include">
+        </childnode>
+        <childnode refid="4718" relation="include">
+        </childnode>
+      </node>
+      <node id="4730">
+        <label>xpm_runtime_api.h</label>
+        <childnode refid="4711" relation="include">
+        </childnode>
+        <childnode refid="4710" relation="include">
+        </childnode>
+        <childnode refid="4699" relation="include">
+        </childnode>
+      </node>
+      <node id="4718">
+        <label>xpm_power.h</label>
+        <childnode refid="4706" relation="include">
+        </childnode>
+        <childnode refid="4712" relation="include">
+        </childnode>
+      </node>
+      <node id="4727">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="4711" relation="include">
+        </childnode>
+        <childnode refid="4703" relation="include">
+        </childnode>
+        <childnode refid="4726" relation="include">
+        </childnode>
+        <childnode refid="4718" relation="include">
+        </childnode>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4724" relation="include">
+        </childnode>
+        <childnode refid="4704" relation="include">
+        </childnode>
+      </node>
+      <node id="4723">
+        <label>xpm_alloc.h</label>
+        <childnode refid="4705" relation="include">
+        </childnode>
+        <childnode refid="4699" relation="include">
+        </childnode>
+      </node>
+      <node id="4724">
+        <label>xpm_requirement.h</label>
+        <childnode refid="4711" relation="include">
+        </childnode>
+        <childnode refid="4703" relation="include">
+        </childnode>
+        <childnode refid="4725" relation="include">
+        </childnode>
+      </node>
+      <node id="4714">
+        <label>xpm_common.h</label>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4715" relation="include">
+        </childnode>
+        <childnode refid="4716" relation="include">
+        </childnode>
+        <childnode refid="4708" relation="include">
+        </childnode>
+        <childnode refid="4717" relation="include">
+        </childnode>
+        <childnode refid="4706" relation="include">
+        </childnode>
+      </node>
+      <node id="4710">
+        <label>xpm_mem.h</label>
+        <childnode refid="4711" relation="include">
+        </childnode>
+      </node>
+      <node id="4712">
+        <label>xpm_node.h</label>
+        <childnode refid="4705" relation="include">
+        </childnode>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4713" relation="include">
+        </childnode>
+        <childnode refid="4714" relation="include">
+        </childnode>
+      </node>
+      <node id="4699">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4729">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="4705">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4726">
+        <label>xpm_fsm.h</label>
+        <childnode refid="4705" relation="include">
+        </childnode>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4711" relation="include">
+        </childnode>
+      </node>
+      <node id="4706">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4705" relation="include">
+        </childnode>
+        <childnode refid="4707" relation="include">
+        </childnode>
+      </node>
+      <node id="4702">
+        <label>xplmi_err.h</label>
+      </node>
+      <node id="4698">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+        <link refid="xpm_runtime_hbmon_subsys.c"/>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4700" relation="include">
+        </childnode>
+        <childnode refid="4701" relation="include">
+        </childnode>
+        <childnode refid="4702" relation="include">
+        </childnode>
+        <childnode refid="4703" relation="include">
+        </childnode>
+        <childnode refid="4723" relation="include">
+        </childnode>
+        <childnode refid="4724" relation="include">
+        </childnode>
+        <childnode refid="4727" relation="include">
+        </childnode>
+        <childnode refid="4728" relation="include">
+        </childnode>
+        <childnode refid="4729" relation="include">
+        </childnode>
+        <childnode refid="4730" relation="include">
+        </childnode>
+      </node>
+      <node id="4721">
+        <label>xpm_list.h</label>
+        <childnode refid="4722" relation="include">
+        </childnode>
+      </node>
+      <node id="4728">
+        <label>xpm_device_fsm.h</label>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4726" relation="include">
+        </childnode>
+      </node>
+      <node id="4725">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="4705" relation="include">
+        </childnode>
+      </node>
+      <node id="4703">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4704" relation="include">
+        </childnode>
+        <childnode refid="4706" relation="include">
+        </childnode>
+        <childnode refid="4699" relation="include">
+        </childnode>
+        <childnode refid="4721" relation="include">
+        </childnode>
+        <childnode refid="4724" relation="include">
+        </childnode>
+        <childnode refid="4726" relation="include">
+        </childnode>
+      </node>
+      <node id="4711">
+        <label>xpm_device.h</label>
+        <childnode refid="4712" relation="include">
+        </childnode>
+        <childnode refid="4718" relation="include">
+        </childnode>
+        <childnode refid="4719" relation="include">
+        </childnode>
+        <childnode refid="4720" relation="include">
+        </childnode>
+      </node>
+      <node id="4720">
+        <label>xpm_reset.h</label>
+        <childnode refid="4712" relation="include">
+        </childnode>
+        <childnode refid="4714" relation="include">
+        </childnode>
+      </node>
+      <node id="4709">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="4708">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4699" relation="include">
+        </childnode>
+      </node>
+      <node id="4722">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="4723" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__runtime__hbmon__subsys_8c_1ac79f259603d5ab1711a80bffe5411051" prot="public" static="no">
+        <name>HBMON_SCHED_PERIOD</name>
+        <initializer>(100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__hbmon__subsys_8c_1a8d41816bd3e7887612d42f0005c24d7b" prot="public" static="no">
+        <name>HB_MON_SW_ERR_MASK</name>
+        <param><defname>Idx</defname></param>
+        <initializer>(((Idx) &lt; (u32)XPM_NODEIDX_DEV_HB_MON_4) ? \
+	 ((u32)1U &lt;&lt; (Idx)) : ((u32)1U &lt;&lt; ((Idx) + 6U)))</initializer>
+        <briefdescription>
+<para>For HBMon[0:3], map to SW error events bit 0-3 For HBMon[4:7], map to SW error events bit 10-13. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__hbmon__subsys_8c_1a55b81ed0fd9185d7fa410aa4327a7f8b" prot="public" static="no">
+        <name>DEFINE_DEV_STATES</name>
+        <param><defname>S</defname></param>
+        <initializer>.States = (S), \
+				.StatesCnt = ARRAY_SIZE(S)</initializer>
+        <briefdescription>
+<para>Sets the state table and its entry count in an FSM initialiser. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>S</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State table to install </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="398" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__hbmon__subsys_8c_1a4bffabf125c1dea458299d1d03e9faeb" prot="public" static="no">
+        <name>DEFINE_DEV_TRANS</name>
+        <param><defname>T</defname></param>
+        <initializer>.Trans = (T), \
+				.TransCnt = ARRAY_SIZE(T)</initializer>
+        <briefdescription>
+<para>Sets the transition table and its entry count in an FSM initialiser. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Transition table to install </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__runtime__hbmon__subsys_8c_1ad7a9b22ac81e50ac16eb637361c72547" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 HbMon_IsSchedRunning</definition>
+        <argsstring></argsstring>
+        <name>HbMon_IsSchedRunning</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__runtime__hbmon__subsys_8c_1a667315f9c17679967e9a9b13f7863934" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 HbMon_TimeoutList[XPM_NODEIDX_DEV_HB_MON_MAX]</definition>
+        <argsstring>[XPM_NODEIDX_DEV_HB_MON_MAX]</argsstring>
+        <name>HbMon_TimeoutList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__runtime__hbmon__subsys_8c_1af70048bc2b5f19a1f690651bdc73962c" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 HbMon_SchedFreq</definition>
+        <argsstring></argsstring>
+        <name>HbMon_SchedFreq</name>
+        <initializer>= HBMON_SCHED_PERIOD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__runtime__hbmon__subsys_8c_1acaf54bccdcad029c2d6c2f9630c8b907" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 HbMon_SchedId</definition>
+        <argsstring></argsstring>
+        <name>HbMon_SchedId</name>
+        <initializer>= <ref refid="group__xilpmdvcnodes_1gab8877f852f0cc20ea61aa542f89f7c73" kindref="member">PM_DEV_HB_MON_0</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__runtime__hbmon__subsys_8c_1acff22f83e3a6afb9371aab7f0f131c9c" prot="public" static="yes" mutable="no">
+        <type>const XPmFsm_StateCap</type>
+        <definition>const XPmFsm_StateCap XPmHbMonDeviceStates[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XPmHbMonDeviceStates</name>
+        <initializer>= {
+	{
+		.State = (u8)XPM_DEVSTATE_UNUSED,
+		.Cap = XPM_MIN_CAPABILITY,
+	}, {
+		.State = (u8)XPM_DEVSTATE_RUNNING,
+		.Cap = (u32)<ref refid="group__xpm__versal__apis_1gga477f5fd60568142a06229c6d2852b033a9df302c801401884ed9100fca34d3305" kindref="member">PM_CAP_ACCESS</ref>,
+	},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__runtime__hbmon__subsys_8c_1a1e6f586ec8f1dc4d83684bacd55fac4c" prot="public" static="yes" mutable="no">
+        <type>const XPmFsm_Tran</type>
+        <definition>const XPmFsm_Tran XPmHbMonDevEventTransitions[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XPmHbMonDevEventTransitions</name>
+        <initializer>= {
+	{
+	.Event = (u32)XPM_DEVEVENT_BRINGUP_ALL,
+	.FromState = (u8)XPM_DEVSTATE_UNUSED,
+	.ToState = (u8)XPM_DEVSTATE_RUNNING,
+	.Latency = XPM_DEF_LATENCY,
+	.Action = &amp;ActionStart,
+	}, {
+	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
+	.FromState = (u8)XPM_DEVSTATE_RUNNING,
+	.ToState = (u8)XPM_DEVSTATE_UNUSED,
+	.Latency = XPM_DEF_LATENCY,
+	.Action = &amp;ActionStop,
+	},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__hbmon__subsys_8c_1a46e3ffb62e7de7d3c90dc220162c3355" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int HbMon_Scheduler</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>HbMon_Scheduler</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Handler for the scheduled task. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    This will be called periodically every &apos;HbMon_SchedFreq&apos; ms.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused callback argument</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Extract the timeout value from the requirement structure. It is assumed that this node will not be shared with any subsystem, so there should be only one requirement</para><para>Clear pending idle callback status. In case of Linux hang, Linux will not clear IPI ISR register. So clear from here to re-send idle callback to TF-A.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="116" bodyend="230"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__hbmon__subsys_8c_1a34fd0de5fbccc6df1f3aa649327f24e4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus HbMon_StartTimer</definition>
+        <argsstring>(u32 HbMonIdx, u32 TimeoutVal)</argsstring>
+        <name>HbMon_StartTimer</name>
+        <param>
+          <type>u32</type>
+          <declname>HbMonIdx</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TimeoutVal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="55" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__hbmon__subsys_8c_1a5e8449f338187d6d0f12d8c1487c9c4e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void HbMon_StopTimer</definition>
+        <argsstring>(u32 HbMonIdx)</argsstring>
+        <name>HbMon_StopTimer</name>
+        <param>
+          <type>u32</type>
+          <declname>HbMonIdx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="101" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__hbmon__subsys_8c_1ad0e8ab034a98ffc8d55fe44ddf9b29f2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus ActionStart</definition>
+        <argsstring>(XPm_Device *const Device)</argsstring>
+        <name>ActionStart</name>
+        <param>
+          <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *const</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+<para>Start monitoring for a Healthy Boot Monitor device transition. </para>        </briefdescription>
+        <detaileddescription>
+<para>Validates the monitor index and its pending requirement, starts the timeout using the requirement&apos;s current QoS, associates the corresponding software error with the requesting subsystem, records the pending power use count, and requests power-up from the device&apos;s power domain.</para><para>The timer and error-subsystem association are established before the power event is issued and are not rolled back if that event fails.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Healthy Boot Monitor device entering the running state. The device and its power-domain association must be valid.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if monitoring was started and any power-up event completed successfully. </para><simplesectsep/><para>XST_FAILURE if the monitor index or pending requirement is invalid. </para><simplesectsep/><para>An error status returned while starting the timer or handling the power-up event. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="256" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__hbmon__subsys_8c_1a93a38b78491492de79aacb24763aa414" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus ActionStop</definition>
+        <argsstring>(XPm_Device *const Device)</argsstring>
+        <name>ActionStop</name>
+        <param>
+          <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *const</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+<para>Stop monitoring for a Healthy Boot Monitor device transition. </para>        </briefdescription>
+        <detaileddescription>
+<para>Validates the monitor index, clears its timeout, and, when the device has an associated power domain, requests a power-down event. The cleared timeout is not restored if power-down fails.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Healthy Boot Monitor device leaving the running state. Must not be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the timer was stopped and any power-down event completed successfully. </para><simplesectsep/><para>XST_FAILURE if the monitor index is outside the timeout table. </para><simplesectsep/><para>An error status returned by the power-down event handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="336" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__hbmon__subsys_8c_1aa095a8a909e9a45330aa70ec35cabb48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPm_Fsm *</type>
+        <definition>XPm_Fsm* XPmSubsystem_GetHbMonFsm</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmSubsystem_GetHbMonFsm</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Return the FSM describing the Healthy Boot Monitor device states. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to the Healthy Boot Monitor FSM </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c" bodystart="418" bodyend="426"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/><sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_scheduler.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_err.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_alloc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device_fsm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>HBMon<sp/>Scheduler<sp/>interval<sp/>in<sp/>ms</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HBMON_SCHED_PERIOD<sp/><sp/><sp/><sp/><sp/><sp/>(100U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#define<sp/>HB_MON_SW_ERR_MASK(Idx)<sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Idx)<sp/>&lt;<sp/>(u32)XPM_NODEIDX_DEV_HB_MON_4)<sp/>?<sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>(Idx))<sp/>:<sp/>((u32)1U<sp/>&lt;&lt;<sp/>((Idx)<sp/>+<sp/>6U)))</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>***************************************************************</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>Healthy<sp/>Boot<sp/>Scheduler<sp/>related<sp/>global<sp/>variable<sp/>Initialization</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>***************************************************************</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/><sp/>HbMon_IsSchedRunning<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*<sp/>Timeout<sp/>(in<sp/>ms)<sp/>List<sp/>for<sp/>each<sp/>Healthy<sp/>boot<sp/>node<sp/>when<sp/>its</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*<sp/>active<sp/>(0<sp/>if<sp/>not<sp/>active)</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>HbMon_TimeoutList[XPM_NODEIDX_DEV_HB_MON_MAX];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Scheduler<sp/>Interval<sp/>in<sp/>ms<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HbMon_SchedFreq<sp/>=<sp/>HBMON_SCHED_PERIOD;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>Unique<sp/>Owner<sp/>ID.<sp/>Keep<sp/>it<sp/>same<sp/>as<sp/>Node<sp/>id<sp/>of<sp/>first<sp/>HBMon<sp/>node.</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HbMon_SchedId<sp/>=<sp/><ref refid="group__xilpmdvcnodes_1gab8877f852f0cc20ea61aa542f89f7c73" kindref="member">PM_DEV_HB_MON_0</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Function<sp/>prototypes<sp/>for<sp/>scheduler<sp/>and<sp/>timers*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HbMon_Scheduler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>HbMon_StartTimer(u32<sp/>HbMonIdx,<sp/>u32<sp/>TimeoutVal)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;HbMon_StartTimer:<sp/>HbMonIdx=%lu,<sp/>TimeoutVal=%lu<sp/>ms\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMonIdx,<sp/>TimeoutVal);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TimeoutVal<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>Timeout<sp/>value<sp/>of<sp/>%lu<sp/>ms<sp/>for<sp/>HbMon[%lu]\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeoutVal,<sp/>HbMonIdx);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>HbMon_IsSchedRunning)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>scheduler<sp/>if<sp/>not<sp/>running</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;Starting<sp/>the<sp/>scheduler<sp/>for<sp/>Healthy<sp/>Boot<sp/>Monitors\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_SchedulerAddTask(HbMon_SchedId,<sp/>&amp;HbMon_Scheduler,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/>HbMon_SchedFreq,<sp/>XPLM_TASK_PRIORITY_0,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/>XPLMI_PERIODIC_TASK);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_IsSchedRunning<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Timeout<sp/>in<sp/>milliseconds.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_TimeoutList[HbMonIdx]<sp/>=<sp/>TimeoutVal;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>To<sp/>ensure<sp/>minimum<sp/>time<sp/>before<sp/>triggering<sp/>recovery,</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>absorb<sp/>the<sp/>possible<sp/>100ms<sp/>margin<sp/>of<sp/>error<sp/>(task<sp/>can<sp/>be<sp/>triggered</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>100ms<sp/>faster<sp/>than<sp/>expected,<sp/>if<sp/>this<sp/>is<sp/>not<sp/>done)<sp/>by<sp/>adding<sp/>100<sp/>to</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>timeout<sp/>value.<sp/>Also<sp/>check<sp/>the<sp/>overflow<sp/>condition.</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TimeoutVal<sp/>&lt;=<sp/>(UINT32_MAX<sp/>-<sp/>HbMon_SchedFreq))<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_TimeoutList[HbMonIdx]<sp/>+=<sp/>HbMon_SchedFreq;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>HbMon_StopTimer(u32<sp/>HbMonIdx)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_TimeoutList[HbMonIdx]<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HbMon_Scheduler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)data;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*<ref refid="struct_x_pm___reqm_1ad483b58ba7bb988d2625b132954e7845" kindref="member">Device</ref>,<sp/>*Ipi;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*<ref refid="struct_x_pm___reqm_1a9715836095551ebd185b71dce832bc68" kindref="member">Subsystem</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmRuntime_DeviceOps<sp/>*DevOps<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActiveMonitors<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsAllocated<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Idx,<sp/>Timeout,<sp/>NodeId,<sp/>IpiIsrVal;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>(u32)XPM_NODEIDX_DEV_HB_MON_0;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>&lt;<sp/>(u32)XPM_NODEIDX_DEV_HB_MON_MAX;<sp/>Idx++)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HbMon_TimeoutList[Idx]<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveMonitors++;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HbMon_TimeoutList[Idx]<sp/>&lt;=<sp/>HbMon_SchedFreq)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Device<sp/>=<sp/>XPmDevice_GetHbMonDeviceByIndex(Idx);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Device)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Device<sp/>is<sp/>NULL<sp/>-<sp/>active<sp/>HB<sp/>Mon<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Idx);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DevOps<sp/>=<sp/>XPm_GetDevOps_ById(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>==<sp/>DevOps)<sp/>||<sp/>(NULL<sp/>==<sp/>DevOps-&gt;PendingReqm))<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;DeviceOps/PendingReqm<sp/>is<sp/>NULL<sp/>-<sp/>active<sp/>HB<sp/>Mon<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Idx);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem<sp/>=<sp/>DevOps-&gt;PendingReqm-&gt;Subsystem;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsAllocated<sp/>=<sp/>DevOps-&gt;PendingReqm-&gt;Allocated;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>!=<sp/>IsAllocated)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;PendingReqm<sp/>is<sp/>not<sp/>allocated<sp/>-<sp/>active<sp/>HB<sp/>Mon<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Idx);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((((u8)PENDING_RESTART<sp/>==<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a1160acd436cf3e267f5b9ff695fb00f3" kindref="member">State</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)PENDING_POWER_OFF<sp/>==<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a1160acd436cf3e267f5b9ff695fb00f3" kindref="member">State</ref>))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>==<sp/>IsAllocated)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U<sp/>==<sp/>(Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a303c051eb659d05cbef398ad2bdbf9cd" kindref="member">Flags</ref><sp/>&amp;<sp/>(u8)SUBSYSTEM_IDLE_CB_IS_SENT)))<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a303c051eb659d05cbef398ad2bdbf9cd" kindref="member">Flags</ref><sp/>|=<sp/>(u8)SUBSYSTEM_IDLE_CB_IS_SENT;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout<sp/>=<sp/>DevOps-&gt;PendingReqm-&gt;PreallocQoS;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;Extracted<sp/>timeout<sp/>%lu<sp/>ms<sp/>for<sp/>HbMon[%lu]<sp/>before<sp/>idle<sp/>callback\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout,<sp/>Idx);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;Sending<sp/>idle<sp/>callback<sp/>to<sp/>Subsystem<sp/>0x%x<sp/>(again)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>HbMon_StartTimer(Idx,<sp/>Timeout);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(NodeId<sp/>=<sp/>PM_DEV_IPI_0;<sp/>NodeId<sp/>&lt;=<sp/>PM_DEV_IPI_6;<sp/>NodeId++)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ipi<sp/>=<sp/>XPmDevice_GetById(NodeId);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Ipi)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiIsrVal<sp/>=<sp/>XPm_Read32(Ipi-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IPI_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(IpiIsrVal<sp/>&amp;<sp/>PMC_IPI_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Write32(Ipi-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" kindref="member">BaseAddress</ref><sp/>+<sp/>IPI_ISR_OFFSET,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IpiIsrVal<sp/>&amp;<sp/>PMC_IPI_MASK));</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_SubsystemIdleCores(Subsystem);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Healthy<sp/>Boot<sp/>Timer<sp/>%lu<sp/>Expired.<sp/>Triggering<sp/>recovery\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_TimeoutList[Idx]<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HB_MON_SW_ERR_MASK(Idx));</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_TimeoutList[Idx]<sp/>=<sp/>HbMon_TimeoutList[Idx]<sp/>-<sp/>HbMon_SchedFreq;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>scheduler<sp/>if<sp/>no<sp/>monitors<sp/>were<sp/>active<sp/>during<sp/>this<sp/>pass.</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>We<sp/>are<sp/>waiting<sp/>for<sp/>next<sp/>pass,<sp/>even<sp/>when<sp/>the<sp/>action<sp/>is<sp/>triggered</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>during<sp/>this<sp/>pass.</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveMonitors<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;No<sp/>active<sp/>Healthy<sp/>Boot<sp/>Monitors.<sp/>Stopping<sp/>the<sp/>scheduler\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_SchedulerRemoveTask(HbMon_SchedId,<sp/>&amp;HbMon_Scheduler,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_SchedFreq,<sp/>NULL);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>==<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_IsSchedRunning<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Removal<sp/>of<sp/>scheduler<sp/>failed.<sp/>Assuming<sp/>it<sp/>is<sp/>still<sp/>running<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Status;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="256"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>ActionStart(<ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Device)</highlight></codeline>
+<codeline lineno="257"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HbMon_Id<sp/>=<sp/>NODEINDEX(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmRuntime_DeviceOps<sp/>*DevOps<sp/>=<sp/>XPm_GetDevOps_ById(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;%s:<sp/>HB<sp/>Mon[%lu]\r\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>HbMon_Id);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Node<sp/>index<sp/>comes<sp/>from<sp/>a<sp/>topology<sp/>supplied<sp/>node<sp/>ID;<sp/>validate<sp/>it</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>against<sp/>the<sp/>size<sp/>of<sp/>the<sp/>healthy<sp/>boot<sp/>monitor<sp/>timeout<sp/>list.</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)XPM_NODEIDX_DEV_HB_MON_MAX<sp/>&lt;=<sp/>HbMon_Id)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>HB<sp/>Mon<sp/>index<sp/>%lu\r\n&quot;</highlight><highlight class="normal">,<sp/>HbMon_Id);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Require<sp/>runtime<sp/>operations<sp/>and<sp/>a<sp/>requirement<sp/>record<sp/>before<sp/>inspecting<sp/>it<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>==<sp/>DevOps)<sp/>||<sp/>(NULL<sp/>==<sp/>DevOps-&gt;PendingReqm))<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;DeviceOps/PendingReqm<sp/>is<sp/>NULL<sp/>-<sp/>HB<sp/>Mon\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DevOps-&gt;PendingReqm-&gt;IsPending<sp/>!=<sp/>1U)<sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;PendingReqm<sp/>is<sp/>not<sp/>pending<sp/>-<sp/>HB<sp/>Mon\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Extract<sp/>the<sp/>timeout<sp/>value<sp/>from<sp/>the<sp/>requirement</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>structure.<sp/>It<sp/>is<sp/>assumed<sp/>that<sp/>this<sp/>node</highlight></codeline>
+<codeline lineno="285"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>will<sp/>not<sp/>be<sp/>shared<sp/>with<sp/>any<sp/>subsystem,<sp/>so</highlight></codeline>
+<codeline lineno="286"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>there<sp/>should<sp/>be<sp/>only<sp/>one<sp/>requirement</highlight></codeline>
+<codeline lineno="287"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/>DevOps-&gt;PendingReqm-&gt;Curr.QoS;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Arm<sp/>the<sp/>monitor<sp/>before<sp/>associating<sp/>its<sp/>error<sp/>with<sp/>the<sp/>subsystem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>HbMon_StartTimer(HbMon_Id,<sp/>Timeout);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>subsystemId<sp/>for<sp/>the<sp/>error<sp/>node.</highlight></codeline>
+<codeline lineno="298"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>is<sp/>required<sp/>for<sp/>subsystem<sp/>restart<sp/>action</highlight></codeline>
+<codeline lineno="299"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>configuration<sp/>in<sp/>the<sp/>error<sp/>node.</highlight></codeline>
+<codeline lineno="300"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_UpdateErrorSubsystemId(XIL_NODETYPE_EVENT_ERROR_SW_ERR,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HB_MON_SW_ERR_MASK(HbMon_Id),</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DevOps-&gt;PendingReqm-&gt;Subsystem-&gt;Id);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>use<sp/>count.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a0a55e759bdc88f98c38235cb4c29ab06" kindref="member">WfPwrUseCnt</ref><sp/>=<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>-&gt;UseCount<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>-&gt;HandleEvent(&amp;Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>-&gt;Node,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPM_POWER_EVENT_PWR_UP);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="336"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>ActionStop(<ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Device)</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HbMon_Id<sp/>=<sp/>NODEINDEX(Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;%s:<sp/>HB<sp/>Mon[%lu]\r\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>HbMon_Id);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Node<sp/>index<sp/>comes<sp/>from<sp/>a<sp/>topology<sp/>supplied<sp/>node<sp/>ID;<sp/>validate<sp/>it</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>against<sp/>the<sp/>size<sp/>of<sp/>the<sp/>healthy<sp/>boot<sp/>monitor<sp/>timeout<sp/>list.</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)XPM_NODEIDX_DEV_HB_MON_MAX<sp/>&lt;=<sp/>HbMon_Id)<sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>HB<sp/>Mon<sp/>index<sp/>%lu\r\n&quot;</highlight><highlight class="normal">,<sp/>HbMon_Id);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HbMon_StopTimer(HbMon_Id);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>use<sp/>count.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>-&gt;HandleEvent(&amp;Device-&gt;<ref refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" kindref="member">Power</ref>-&gt;Node,</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPM_POWER_EVENT_PWR_DOWN);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFsm_StateCap<sp/>XPmHbMonDeviceStates[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.State<sp/>=<sp/>(u8)XPM_DEVSTATE_UNUSED,</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Cap<sp/>=<sp/>XPM_MIN_CAPABILITY,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>{</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.State<sp/>=<sp/>(u8)XPM_DEVSTATE_RUNNING,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Cap<sp/>=<sp/>(u32)<ref refid="group__xpm__versal__apis_1gga477f5fd60568142a06229c6d2852b033a9df302c801401884ed9100fca34d3305" kindref="member">PM_CAP_ACCESS</ref>,</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFsm_Tran<sp/>XPmHbMonDevEventTransitions[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Event<sp/>=<sp/>(u32)XPM_DEVEVENT_BRINGUP_ALL,</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.FromState<sp/>=<sp/>(u8)XPM_DEVSTATE_UNUSED,</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ToState<sp/>=<sp/>(u8)XPM_DEVSTATE_RUNNING,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Latency<sp/>=<sp/>XPM_DEF_LATENCY,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Action<sp/>=<sp/>&amp;ActionStart,</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},<sp/>{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Event<sp/>=<sp/>(u32)XPM_DEVEVENT_SHUTDOWN,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.FromState<sp/>=<sp/>(u8)XPM_DEVSTATE_RUNNING,</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ToState<sp/>=<sp/>(u8)XPM_DEVSTATE_UNUSED,</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Latency<sp/>=<sp/>XPM_DEF_LATENCY,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Action<sp/>=<sp/>&amp;ActionStop,</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor">#define<sp/>DEFINE_DEV_STATES(S)<sp/><sp/><sp/><sp/>.States<sp/>=<sp/>(S),<sp/>\</highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.StatesCnt<sp/>=<sp/>ARRAY_SIZE(S)</highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor">#define<sp/>DEFINE_DEV_TRANS(T)<sp/><sp/><sp/><sp/><sp/>.Trans<sp/>=<sp/>(T),<sp/>\</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.TransCnt<sp/>=<sp/>ARRAY_SIZE(T)</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="418"><highlight class="normal">XPm_Fsm<sp/>*XPmSubsystem_GetHbMonFsm(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Fsm<sp/>XPmHbMonDeviceFsm<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFINE_DEV_STATES(XPmHbMonDeviceStates),</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFINE_DEV_TRANS(XPmHbMonDevEventTransitions),</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmWarn(</highlight><highlight class="stringliteral">&quot;Getting<sp/>Healthy<sp/>Boot<sp/>Monitor<sp/>FSM\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XPm_Fsm<sp/>*)&amp;XPmHbMonDeviceFsm;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_hbmon_subsys.c"/>
+  </compounddef>
+</doxygen>

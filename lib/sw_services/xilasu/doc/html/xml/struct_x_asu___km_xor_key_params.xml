@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___km_xor_key_params" kind="struct" prot="public">
+    <compoundname>XAsu_KmXorKeyParams</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___km_xor_key_params_1a14f3e6244876977d10259f5008ea261e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___key_manager_key_metadata" kindref="compound">XAsu_KeyManagerKeyMetadata</ref></type>
+        <definition>XAsu_KeyManagerKeyMetadata XAsu_KmXorKeyParams::OutKeyMetadata</definition>
+        <argsstring></argsstring>
+        <name>OutKeyMetadata</name>
+        <briefdescription>
+<para>Metadata of the combined key. </para>        </briefdescription>
+        <detaileddescription>
+<para>Its CompositeKeyId gives the destination vault and the AES sub-vault, and the slot within it, or 0 to auto-assign the first free slot. Length shall match the length of the input key splits. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gabc12756dda306cfd187eaf77638c255b" compoundref="xasu__provision__common_8c" startline="441" endline="460">XAsu_ProvisionValidateXorParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___km_xor_key_params_1ab283fac111073a97c76265dc5e3fc4bb" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KmXorKeyParams::OutKeyIdAddr</definition>
+        <argsstring></argsstring>
+        <name>OutKeyIdAddr</name>
+        <briefdescription>
+<para>Address where the composite key ID of the combined key is stored. </para>        </briefdescription>
+        <detaileddescription>
+<para>Required when the destination slot in CompositeKeyId is 0, which requests an auto-assigned slot. Shall be 0 when a slot is selected, as the composite key ID is then already known. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="441" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gacd1ebc0c0c12895775a2073502c71e6e" compoundref="xasu__keymanager_8c" startline="1108" endline="1161">XAsu_KmXorKeys</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gabc12756dda306cfd187eaf77638c255b" compoundref="xasu__provision__common_8c" startline="441" endline="460">XAsu_ProvisionValidateXorParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___km_xor_key_params_1a2f59f9df1fd7907842d6a3fd72de71bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KmXorKeyParams::SplitKeyId1</definition>
+        <argsstring></argsstring>
+        <name>SplitKeyId1</name>
+        <briefdescription>
+<para>Key ID of the first input AES key split. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gabc12756dda306cfd187eaf77638c255b" compoundref="xasu__provision__common_8c" startline="441" endline="460">XAsu_ProvisionValidateXorParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___km_xor_key_params_1aead88aec4d7497026530ec5316cda4b9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KmXorKeyParams::SplitKeyId2</definition>
+        <argsstring></argsstring>
+        <name>SplitKeyId2</name>
+        <briefdescription>
+<para>Key ID of the second input AES key split. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gabc12756dda306cfd187eaf77638c255b" compoundref="xasu__provision__common_8c" startline="441" endline="460">XAsu_ProvisionValidateXorParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains info for combining two AES key splits using XOR. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="101">
+        <label>XAsu_KmXorKeyParams</label>
+        <link refid="struct_x_asu___km_xor_key_params"/>
+        <childnode refid="102" relation="usage">
+          <edgelabel>OutKeyMetadata</edgelabel>
+        </childnode>
+      </node>
+      <node id="102">
+        <label>XAsu_KeyManagerKeyMetadata</label>
+        <link refid="struct_x_asu___key_manager_key_metadata"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="434" bodyend="447"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___km_xor_key_params_1ab283fac111073a97c76265dc5e3fc4bb" prot="public" virt="non-virtual"><scope>XAsu_KmXorKeyParams</scope><name>OutKeyIdAddr</name></member>
+      <member refid="struct_x_asu___km_xor_key_params_1a14f3e6244876977d10259f5008ea261e" prot="public" virt="non-virtual"><scope>XAsu_KmXorKeyParams</scope><name>OutKeyMetadata</name></member>
+      <member refid="struct_x_asu___km_xor_key_params_1a2f59f9df1fd7907842d6a3fd72de71bf" prot="public" virt="non-virtual"><scope>XAsu_KmXorKeyParams</scope><name>SplitKeyId1</name></member>
+      <member refid="struct_x_asu___km_xor_key_params_1aead88aec4d7497026530ec5316cda4b9" prot="public" virt="non-virtual"><scope>XAsu_KmXorKeyParams</scope><name>SplitKeyId2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

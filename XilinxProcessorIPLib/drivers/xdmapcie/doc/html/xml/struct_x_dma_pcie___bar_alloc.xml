@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_pcie___bar_alloc" kind="struct" prot="public">
+    <compoundname>XDmaPcie_BarAlloc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_pcie___bar_alloc_1a612c912ee3fa427c2d22b2f599a0675e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPcie_BarAlloc::BarAdd</definition>
+        <argsstring></argsstring>
+        <name>BarAdd</name>
+        <briefdescription>
+<para>Size of the memory requested by the BAR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___bar_alloc_1a8447504b471e134d2c7c2670f481ed18" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPcie_BarAlloc::BarNo</definition>
+        <argsstring></argsstring>
+        <name>BarNo</name>
+        <briefdescription>
+<para>Index of the BAR within the configuration header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds a BAR size and index pair while the BAR list is being sorted. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.c" bodystart="34" bodyend="37"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_pcie___bar_alloc_1a612c912ee3fa427c2d22b2f599a0675e" prot="public" virt="non-virtual"><scope>XDmaPcie_BarAlloc</scope><name>BarAdd</name></member>
+      <member refid="struct_x_dma_pcie___bar_alloc_1a8447504b471e134d2c7c2670f481ed18" prot="public" virt="non-virtual"><scope>XDmaPcie_BarAlloc</scope><name>BarNo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

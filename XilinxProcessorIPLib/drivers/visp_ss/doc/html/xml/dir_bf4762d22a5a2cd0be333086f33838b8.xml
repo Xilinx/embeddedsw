@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_bf4762d22a5a2cd0be333086f33838b8" kind="dir">
+    <compoundname>hdmi_display</compoundname>
+    <innerfile refid="audiogen__drv_8c">audiogen_drv.c</innerfile>
+    <innerfile refid="audiogen__drv_8h">audiogen_drv.h</innerfile>
+    <innerfile refid="idt__8t49n24x_8c">idt_8t49n24x.c</innerfile>
+    <innerfile refid="idt__8t49n24x_8h">idt_8t49n24x.h</innerfile>
+    <innerfile refid="onsemi__nb7nq621m_8c">onsemi_nb7nq621m.c</innerfile>
+    <innerfile refid="onsemi__nb7nq621m_8h">onsemi_nb7nq621m.h</innerfile>
+    <innerfile refid="rc21008adrv_8c">rc21008adrv.c</innerfile>
+    <innerfile refid="rc21008adrv_8h">rc21008adrv.h</innerfile>
+    <innerfile refid="si5344drv_8c">si5344drv.c</innerfile>
+    <innerfile refid="si5344drv_8h">si5344drv.h</innerfile>
+    <innerfile refid="ti__lmk03318_8c">ti_lmk03318.c</innerfile>
+    <innerfile refid="ti__lmk03318_8h">ti_lmk03318.h</innerfile>
+    <innerfile refid="ti__tmds1204_8c">ti_tmds1204.c</innerfile>
+    <innerfile refid="ti__tmds1204_8h">ti_tmds1204.h</innerfile>
+    <innerfile refid="video__fmc_8c">video_fmc.c</innerfile>
+    <innerfile refid="video__fmc_8h">video_fmc.h</innerfile>
+    <innerfile refid="vmix__hdmi__bridge_8c">vmix_hdmi_bridge.c</innerfile>
+    <innerfile refid="vmix__hdmi__bridge_8h">vmix_hdmi_bridge.h</innerfile>
+    <innerfile refid="xhdmi__edid_8c">xhdmi_edid.c</innerfile>
+    <innerfile refid="xhdmi__edid_8h">xhdmi_edid.h</innerfile>
+    <innerfile refid="xhdmi__exdes__sm__tx_8c">xhdmi_exdes_sm_tx.c</innerfile>
+    <innerfile refid="xhdmi__exdes__sm__tx_8h">xhdmi_exdes_sm_tx.h</innerfile>
+    <innerfile refid="xhdmi__intr_8c">xhdmi_intr.c</innerfile>
+    <innerfile refid="xhdmi__intr_8h">xhdmi_intr.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/"/>
+  </compounddef>
+</doxygen>

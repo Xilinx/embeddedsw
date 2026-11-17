@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_domain_op_hooks" kind="struct" prot="public">
+    <compoundname>XPm_AieDomainOpHooks</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_domain_op_hooks_1a08ce4ccee611933c98282c4952a49d1b" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_AieDomainOpHooks::PostScanClearHook)(const XPm_AieDomain *AieDomain, u32 BaseAddress)</definition>
+        <argsstring>)(const XPm_AieDomain *AieDomain, u32 BaseAddress)</argsstring>
+        <name>PostScanClearHook</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_domain_op_hooks_1abdfc93ac2c9eb4122c4eda0bb1eb53fe" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_AieDomainOpHooks::PreBisrHook)(const XPm_AieDomain *AieDomain, u32 BaseAddress)</definition>
+        <argsstring>)(const XPm_AieDomain *AieDomain, u32 BaseAddress)</argsstring>
+        <name>PreBisrHook</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_aie.h" bodystart="74" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_domain_op_hooks_1a08ce4ccee611933c98282c4952a49d1b" prot="public" virt="non-virtual"><scope>XPm_AieDomainOpHooks</scope><name>PostScanClearHook</name></member>
+      <member refid="struct_x_pm___aie_domain_op_hooks_1abdfc93ac2c9eb4122c4eda0bb1eb53fe" prot="public" virt="non-virtual"><scope>XPm_AieDomainOpHooks</scope><name>PreBisrHook</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

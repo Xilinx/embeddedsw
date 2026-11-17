@@ -1,0 +1,1741 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="amd__xspi__hw_8h" kind="file">
+    <compoundname>amd_xspi_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="amd__xspi_8h" local="yes">amd_xspi.h</includedby>
+    <incdepgraph>
+      <node id="70">
+        <label>xil_io.h</label>
+      </node>
+      <node id="68">
+        <label>amd_xspi_hw.h</label>
+        <link refid="amd_xspi_hw.h"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="83">
+        <label>amd_xspi_hyperbus_hyperram_polled_example.c</label>
+        <link refid="amd__xspi__hyperbus__hyperram__polled__example_8c"/>
+      </node>
+      <node id="73">
+        <label>amd_xspi.c</label>
+        <link refid="amd__xspi_8c"/>
+      </node>
+      <node id="72">
+        <label>amd_xspi.h</label>
+        <link refid="amd__xspi_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>amd_xspi_g.c</label>
+        <link refid="amd__xspi__g_8c"/>
+      </node>
+      <node id="78">
+        <label>amd_xspi_xfer.c</label>
+        <link refid="amd__xspi__xfer_8c"/>
+      </node>
+      <node id="75">
+        <label>amd_xspi_control.c</label>
+        <link refid="amd__xspi__control_8c"/>
+      </node>
+      <node id="74">
+        <label>amd_xspi_control.h</label>
+        <link refid="amd__xspi__control_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>amd_xspi_hw.c</label>
+        <link refid="amd__xspi__hw_8c"/>
+      </node>
+      <node id="71">
+        <label>amd_xspi_hw.h</label>
+        <link refid="amd_xspi_hw.h"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>amd_xspi_options.c</label>
+        <link refid="amd__xspi__options_8c"/>
+      </node>
+      <node id="82">
+        <label>amd_xspi_hyperbus_hyperram_intr_example.c</label>
+        <link refid="amd__xspi__hyperbus__hyperram__intr__example_8c"/>
+      </node>
+      <node id="80">
+        <label>amd_xspi_sinit.c</label>
+        <link refid="amd__xspi__sinit_8c"/>
+      </node>
+      <node id="81">
+        <label>amd_xspi_hyperbus_config.h</label>
+        <link refid="amd__xspi__hyperbus__config_8h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Offsets</header>
+      <memberdef kind="define" id="group__amd__xspi_1gadf6c398a947723483692c71451576696" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_OFFSET</name>
+        <initializer>0x0000U</initializer>
+        <briefdescription>
+<para>Version Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga38d9db9f40ede9b706ae7aeb4449c294" prot="public" static="no">
+        <name>AMD_XSPI_IDENTIFIER_OFFSET</name>
+        <initializer>0x0004U</initializer>
+        <briefdescription>
+<para>Identifier Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga90c5f7830b32650a4b55dbf822d7fbaf" prot="public" static="no">
+        <name>AMD_XSPI_RSVD1_OFFSET</name>
+        <initializer>0x0008U</initializer>
+        <briefdescription>
+<para>Reserved Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga7a207baf291980a92323ccc4de96a114" prot="public" static="no">
+        <name>AMD_XSPI_RSVD2_OFFSET</name>
+        <initializer>0x000CU</initializer>
+        <briefdescription>
+<para>Reserved Register 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga838f702491b494cbfe011e6e1a7ecd35" prot="public" static="no">
+        <name>AMD_XSPI_CONTROL_OFFSET</name>
+        <initializer>0x0010U</initializer>
+        <briefdescription>
+<para>Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gab7d21cce25e7744b67499bea39473c67" prot="public" static="no">
+        <name>AMD_XSPI_TARGET_SELECT_OFFSET</name>
+        <initializer>0x0014U</initializer>
+        <briefdescription>
+<para>Target Select Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1ga7d21c9f6b7cc656b8a6f966cfa7b43b0" compoundref="amd__xspi__options_8c" startline="120" endline="144">AmdXspi_SetSlaveSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga43ed948c3e7af928eaef324fdf2bdda3" prot="public" static="no">
+        <name>AMD_XSPI_TRANSMIT_OFFSET</name>
+        <initializer>0x0018U</initializer>
+        <briefdescription>
+<para>Transmit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga588b75c12944deaef47fe9c8943c8cfd" prot="public" static="no">
+        <name>AMD_XSPI_RECEIVE_OFFSET</name>
+        <initializer>0x001CU</initializer>
+        <briefdescription>
+<para>Receive Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gab471636f8f53b851d371e931ae030f29" prot="public" static="no">
+        <name>AMD_XSPI_IER_OFFSET</name>
+        <initializer>0x0020U</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga840fb09ff9c9a5aeb78b18fbf3fd407b" prot="public" static="no">
+        <name>AMD_XSPI_ISR_OFFSET</name>
+        <initializer>0x0024U</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaebaa5c0770d8e2b8e43a6310746dfc70" prot="public" static="no">
+        <name>AMD_XSPI_INT_EVT_OFFSET</name>
+        <initializer>0x0028U</initializer>
+        <briefdescription>
+<para>Interrupt Event Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga3bc45dc8f63878c4a06b9594f53efbcb" prot="public" static="no">
+        <name>AMD_XSPI_TX_OCY_OFFSET</name>
+        <initializer>0x002CU</initializer>
+        <briefdescription>
+<para>TX FIFO Occupancy Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga94c1ff340bbb36cc7a3d57b97412f7a6" prot="public" static="no">
+        <name>AMD_XSPI_RX_OCY_OFFSET</name>
+        <initializer>0x0030U</initializer>
+        <briefdescription>
+<para>RX FIFO Occupancy Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Version Register bit definitions</header>
+      <memberdef kind="define" id="group__amd__xspi_1ga04115dd227582542585618783ee880d7" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_MAJOR_MASK</name>
+        <initializer>0xFF000000U</initializer>
+        <briefdescription>
+<para>Core major version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gafea2df7e759919fe262fdea280a9e31a" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_MAJOR_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Core major version shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga7284a0841510f37a7542d3515dec202c" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_MINOR_MASK</name>
+        <initializer>0x00FF0000U</initializer>
+        <briefdescription>
+<para>Core minor version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga4639a32ceeaade4bd4b1a9a0ff8bf963" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_MINOR_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Core minor version shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga6b6f16a66b34a73ddac2c95b731e06e1" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_REVISION_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Core revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga1218ad6ed51616e43aa8d278bc7f07a4" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_REVISION_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Core revision shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga653b3178c768cb748d83d5e20bbd12b4" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_PATCH_MASK</name>
+        <initializer>0x000000F0U</initializer>
+        <briefdescription>
+<para>Patch revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gabbefb1ef6bbec465771a6756e0b4b251" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_PATCH_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Patch revision shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa95ac779c0fea1522c2671845872483d" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_INTERNAL_MASK</name>
+        <initializer>0x0000000EU</initializer>
+        <briefdescription>
+<para>Internal revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga673c8e8c44b005ca175b019e6dc33f60" prot="public" static="no">
+        <name>AMD_XSPI_VERSION_INTERNAL_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Internal revision shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control Register bit definitions</header>
+      <memberdef kind="define" id="group__amd__xspi_1ga3a1811f0bd8f9b72ed580db62b163789" prot="public" static="no">
+        <name>AMD_XSPI_CR_INJ_2BE_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Inject 2-bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gab1b8c23cd6f5d28b56cbdbca6599e497" prot="public" static="no">
+        <name>AMD_XSPI_CR_INJ_1BE_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Inject 1-bit ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gabbfd1772735fd52e7ec658a1accea2b5" prot="public" static="no">
+        <name>AMD_XSPI_CR_CPOL_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Clock Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga8d5bc2086c6348ac7ef0d454e9424da1" prot="public" static="no">
+        <name>AMD_XSPI_CR_CPHA_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Clock Phase. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa29ae9bf3bf52a45e62c8b964d8d66d8" prot="public" static="no">
+        <name>AMD_XSPI_CR_RXFIFO_RESET_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>RX FIFO Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga45bca4be6e06b5cc81478cac75a008bc" prot="public" static="no">
+        <name>AMD_XSPI_CR_TXFIFO_RESET_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>TX FIFO Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga8f067bd0c9fa532e7e18bc39604167af" prot="public" static="no">
+        <name>AMD_XSPI_CR_ABORT_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Abort Transaction. </para>        </briefdescription>
+        <detaileddescription>
+<para>Not implemented by this core; a running transaction is torn down with SOFT_RESET instead. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga0c7743fbb8b7367be1618d05ae8d6b63" prot="public" static="no">
+        <name>AMD_XSPI_CR_ENABLE_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Core Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga31630d79f9fea39606606b416baf212f" prot="public" static="no">
+        <name>AMD_XSPI_CR_SOFT_RESET_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Soft Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Target Select Register bit definitions</header>
+      <memberdef kind="define" id="group__amd__xspi_1ga8d55f6de16db49d82bb0b481b4095ec0" prot="public" static="no">
+        <name>AMD_XSPI_TSR_CHIP_SEL_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Chip Select (active-high, one-hot). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transmit Register bit definitions</header>
+      <memberdef kind="define" id="group__amd__xspi_1gae5d451f1ac510b294251365758f55dfe" prot="public" static="no">
+        <name>AMD_XSPI_TX_DATA_MASK</name>
+        <initializer>0x0003FFFFU</initializer>
+        <briefdescription>
+<para>TX Data (18-bit). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Receive Register bit definitions</header>
+      <memberdef kind="define" id="group__amd__xspi_1ga3297bce1c3d76e8390be027b7308b268" prot="public" static="no">
+        <name>AMD_XSPI_RX_DATA_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>RX Data (16-bit). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Enable/Status/Event Register bit definitions</header>
+      <description><para>The same bit positions are used by all three registers, but they do not behave alike.</para><para>AMD_XSPI_ISR reports each condition as a live level, independently of what AMD_XSPI_IER enables, so it can be polled directly and needs no acknowledgement. AMD_XSPI_INT_EVT latches an event only if the matching IER bit was set when the condition fired, and holds it until it is written back.</para><para>The polled paths rely on the live behavior. They test AMD_XSPI_ISR once per message without clearing anything between messages. That is only correct because a bit there tracks the current condition rather than remaining set from an earlier transaction. </para></description>
+      <memberdef kind="define" id="group__amd__xspi_1ga5ffc3a535671cc58fab73bf9829a883b" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_HALF_FULL_MASK</name>
+        <initializer>0x00010000U</initializer>
+        <briefdescription>
+<para>RX FIFO Half Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga3743a12ee5688e4a79af3a38e36bf5e5" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_FULL_MASK</name>
+        <initializer>0x00008000U</initializer>
+        <briefdescription>
+<para>TX FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga326bc9ef908db96f4a38d0c5ef32f82f" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TXN_COMPLETE_MASK</name>
+        <initializer>0x00004000U</initializer>
+        <briefdescription>
+<para>Transaction Complete (Lite mode). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gafce38ef18fee0693a956d70a4bafc1d0" prot="public" static="no">
+        <name>AMD_XSPI_INTR_INIT_DONE_MASK</name>
+        <initializer>0x00002000U</initializer>
+        <briefdescription>
+<para>Initialization Done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TXN_ERROR_MASK</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Transaction Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga97e10fa1c4bc713b5944db141299eb27" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_FIFO_ECC_2BE_MASK</name>
+        <initializer>0x00000800U</initializer>
+        <briefdescription>
+<para>RX FIFO 2-bit ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga8ff66be0dedacca987dcf48bbb4147eb" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_FIFO_ECC_1BE_MASK</name>
+        <initializer>0x00000400U</initializer>
+        <briefdescription>
+<para>RX FIFO 1-bit ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga9266f8ab3bb25d6f565cc0372cec2b5b" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_FIFO_ECC_2BE_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>TX FIFO 2-bit ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga703337c127697ef43c3fa787e3ee52f4" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_FIFO_ECC_1BE_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>TX FIFO 1-bit ECC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaf2384e3ca10fabcf2dd0d55218a8095a" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_ALMOST_FULL_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>TX FIFO Almost Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga0bfe333422f5f374ec8074cf4fc178d7" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_HALF_FULL_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>TX FIFO Half Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga0d00a8b7dece45d8d5c73268d79a3714" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_ALMOST_EMPTY_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>TX FIFO Almost Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga84f0bc66e43ddaf1491dad2ba9a3a305" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_EMPTY_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>TX FIFO Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gafe091a3735d4da29b0d3c26b8ef5b081" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_ALMOST_FULL_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>RX FIFO Almost Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gad638f4e7912752148c6fb9b8296de0a7" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_FULL_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>RX FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga396567f8ccd29d56aebf4b4fde412bb7" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_ALMOST_EMPTY_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>RX FIFO Almost Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga662f5e57046fa7031034ec0139c674c7" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_EMPTY_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>RX FIFO Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaaca429929bf6e7a02fc42a1ef0b71438" prot="public" static="no">
+        <name>AMD_XSPI_INTR_ALL_MASK</name>
+        <initializer>0x0001FFFFU</initializer>
+        <briefdescription>
+<para>All Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga490a2738baaeecbc94b1a74e5114c746" prot="public" static="no">
+        <name>AMD_XSPI_INTR_ERROR_MASK</name>
+        <initializer>(<ref refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" kindref="member">AMD_XSPI_INTR_TXN_ERROR_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1ga97e10fa1c4bc713b5944db141299eb27" kindref="member">AMD_XSPI_INTR_RX_FIFO_ECC_2BE_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1ga8ff66be0dedacca987dcf48bbb4147eb" kindref="member">AMD_XSPI_INTR_RX_FIFO_ECC_1BE_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1ga9266f8ab3bb25d6f565cc0372cec2b5b" kindref="member">AMD_XSPI_INTR_TX_FIFO_ECC_2BE_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1ga703337c127697ef43c3fa787e3ee52f4" kindref="member">AMD_XSPI_INTR_TX_FIFO_ECC_1BE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Every interrupt that reports a fault rather than progress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa46cc217305ddf9e1501d3e50e22b19a" prot="public" static="no">
+        <name>AMD_XSPI_INTR_RX_THRESHOLD_MASK</name>
+        <initializer>(<ref refid="group__amd__xspi_1ga5ffc3a535671cc58fab73bf9829a883b" kindref="member">AMD_XSPI_INTR_RX_HALF_FULL_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1gafe091a3735d4da29b0d3c26b8ef5b081" kindref="member">AMD_XSPI_INTR_RX_ALMOST_FULL_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1gad638f4e7912752148c6fb9b8296de0a7" kindref="member">AMD_XSPI_INTR_RX_FULL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>RX fill-level events used to drain receive data while a transaction is still in progress, so a read is not limited to one FIFO load. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gafc396c18ac6dc7f519114c2c55698462" prot="public" static="no">
+        <name>AMD_XSPI_INTR_TX_THRESHOLD_MASK</name>
+        <initializer>(<ref refid="group__amd__xspi_1ga0bfe333422f5f374ec8074cf4fc178d7" kindref="member">AMD_XSPI_INTR_TX_HALF_FULL_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1ga0d00a8b7dece45d8d5c73268d79a3714" kindref="member">AMD_XSPI_INTR_TX_ALMOST_EMPTY_MASK</ref> | \
+						 <ref refid="group__amd__xspi_1ga84f0bc66e43ddaf1491dad2ba9a3a305" kindref="member">AMD_XSPI_INTR_TX_EMPTY_MASK</ref>)</initializer>
+        <briefdescription>
+<para>TX fill-level events used to top the transmit FIFO up while a transaction is still in progress. </para>        </briefdescription>
+        <detaileddescription>
+<para>So a write is not limited to one FIFO load.</para><para>These are the empty-side events, because for the transmit FIFO it is draining that creates the room to write more. This mirrors the RX mask above. Half full is included so the refill starts while the core still has data to clock out. Waiting for empty alone would let it run dry and spend the tCSM budget waiting. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>FIFO Occupancy Register bit definitions</header>
+      <memberdef kind="define" id="group__amd__xspi_1gaff527373d72583e82fbde7c1f16281e8" prot="public" static="no">
+        <name>AMD_XSPI_FIFO_OCY_MASK</name>
+        <initializer>0x000003FFU</initializer>
+        <briefdescription>
+<para>FIFO Occupancy (10-bit). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="233" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Clock Mode definitions (CPOL/CPHA)</header>
+      <description><para>For xSPI modes only Mode 0 (CPOL=0, CPHA=0) is supported. </para></description>
+      <memberdef kind="define" id="group__amd__xspi_1gac9c3678f38bfdddef7bca1cbbf5da167" prot="public" static="no">
+        <name>AMD_XSPI_CLK_MODE_0</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>CPOL=0, CPHA=0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga558fcbcee380d2acc66bc498998419dd" prot="public" static="no">
+        <name>AMD_XSPI_CLK_MODE_1</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>CPOL=0, CPHA=1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga39b04bf1766cbf79de86d5c58224bff7" prot="public" static="no">
+        <name>AMD_XSPI_CLK_MODE_2</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>CPOL=1, CPHA=0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa232a2dd80e43b103bbe30f0d31dbd3f" prot="public" static="no">
+        <name>AMD_XSPI_CLK_MODE_3</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>CPOL=1, CPHA=1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>XSPI Controller Operating Mode definitions (C_SPI_MODE)</header>
+      <description><para>These modes define the data transfer protocol used by the controller. </para></description>
+      <memberdef kind="define" id="group__amd__xspi_1ga7cd4fa5c8f6cef3983c2a67c32030fcf" prot="public" static="no">
+        <name>AMD_XSPI_MODE_STANDARD_HALF_DUPLEX</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Standard SPI half-duplex (io0 only). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaf735d685938831f80f63e074f4026150" prot="public" static="no">
+        <name>AMD_XSPI_MODE_STANDARD</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Standard SPI (io0=MOSI, io1=MISO). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga4548094e6be5b5a61fa16b8d213e036c" prot="public" static="no">
+        <name>AMD_XSPI_MODE_DUAL</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Dual SPI (io0-io1). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa789c64ac589cac0d152ae36be1ff69f" prot="public" static="no">
+        <name>AMD_XSPI_MODE_QUAD</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Quad SPI (io0-io3). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga11ce36bbce1afaf2c75d9918b1f05b71" prot="public" static="no">
+        <name>AMD_XSPI_MODE_XSPI_PROFILE_1_0</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>xSPI Profile 1.0 (Octal, io0-io7). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gae94fecf032e6ffb0e2f820befe2e0d0f" prot="public" static="no">
+        <name>AMD_XSPI_MODE_XSPI_PROFILE_2_0</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+<para>xSPI Profile 2.0 (HyperBus). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transmit Register Instruction Format bit definitions</header>
+      <description><para>In Lite mode, the Transmit Register uses a 32-bit instruction format.</para><para>User writes instruction first (in 2 AXI-Lite transactions with flags), then command/address/data bytes. </para></description>
+      <memberdef kind="define" id="group__amd__xspi_1ga62f029021a5ed8297b983d7174b88f6c" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_CMD_ADDR_BYTES_MASK</name>
+        <initializer>0x30000000U</initializer>
+        <briefdescription>
+<para>No of cmd+addr bytes [29:28]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaffebf68d2ddbfa67fa24a9953c282cc7" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_CMD_ADDR_BYTES_SHIFT</name>
+        <initializer>28U</initializer>
+        <briefdescription>
+<para>No of cmd+addr bytes shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga3bd01a2e50cad832be9212e6895269c6" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_DATA_BYTES_MASK</name>
+        <initializer>0x03FF0000U</initializer>
+        <briefdescription>
+<para>No of Rd/Wr bytes [25:16]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga8df9eedd55dfa53b97c60e426195a45d" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_DATA_BYTES_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>No of Rd/Wr bytes shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gae902e3a9a401c7f50f5f6094b3a03f78" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_RW_MASK</name>
+        <initializer>0x00008000U</initializer>
+        <briefdescription>
+<para>R/W bit [15]: 0=Write, 1=Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga105ec73a9b513f38727547873f246745" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_DUMMY_CYCLES_MASK</name>
+        <initializer>0x00003F00U</initializer>
+        <briefdescription>
+<para>Dummy/latency cycles [13:8]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa54ca0743de3122a5fcb1a4863385df4" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_DUMMY_CYCLES_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Dummy/latency cycles shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gada830ef43c3c82dfc9bc940c34c7409a" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_IO_FORMAT_MASK</name>
+        <initializer>0x00000070U</initializer>
+        <briefdescription>
+<para>IO Format [6:4]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="289" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaf39382482c36d22660d47694036f7e0b" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_IO_FORMAT_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>IO Format shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga6181d6b8eaf5d569b1c2054f3a2756a4" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_FRAME_FORMAT_MASK</name>
+        <initializer>0x00000007U</initializer>
+        <briefdescription>
+<para>Frame Format [2:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga1a80bce1983b349a661c50b0368e21f9" prot="public" static="no">
+        <name>AMD_XSPI_INSTR_FRAME_FORMAT_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Frame Format shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Command/Address Bytes encoding [29:28]</header>
+      <memberdef kind="define" id="group__amd__xspi_1gaca6bf0d355506f0fc44139ea19d91fe7" prot="public" static="no">
+        <name>AMD_XSPI_CMD_ADDR_1_OR_2_BYTES</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>1 or 2 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaf3ec07935e9a1945482a76671597d818" prot="public" static="no">
+        <name>AMD_XSPI_CMD_ADDR_4_BYTES</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>4 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga5104cb726d6d755e07ef40b2b8825920" prot="public" static="no">
+        <name>AMD_XSPI_CMD_ADDR_5_BYTES</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>5 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga7023856720adc0192c75e756bff97c73" prot="public" static="no">
+        <name>AMD_XSPI_CMD_ADDR_6_BYTES</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>6 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" prot="public" static="no">
+        <name>AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</name>
+        <param><defname>Mode</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer>(((Mode) == <ref refid="group__amd__xspi_1gae94fecf032e6ffb0e2f820befe2e0d0f" kindref="member">AMD_XSPI_MODE_XSPI_PROFILE_2_0</ref>) ? ((Bytes) == 6U) :	\
+	 (((Bytes) == 1U) || ((Bytes) == 2U) || ((Bytes) == 4U) ||	\
+	  ((Bytes) == 5U) || ((Bytes) == 6U)))</initializer>
+        <briefdescription>
+<para>Checks whether a command/address byte count is valid for the core mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The valid counts depend on the mode the core is built in as well as on the field above.</para><para>On an xSPI Profile 2.0 core the frame is HyperBus, whose command/address word is always 48 bits, so 6 is the only count the protocol admits. On any other core the count is 1, 2, 4, 5 or 6: one command byte, optionally a command extension byte, and a 3 or 4 byte address. A count of 3, a count of 0 and anything above 6 have no encoding in the field at all. So callers must reject them rather than let them widen to the 6 byte encoding.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SPI mode the core is built in. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command/address byte count to check.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Nonzero if the count is valid, otherwise 0.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" kindref="member">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES(u32 Mode, u32 Bytes)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaec139ee879c209baf997a60fb56a5d07" prot="public" static="no">
+        <name>AMD_XSPI_MAX_DATA_BYTES</name>
+        <initializer>512U</initializer>
+        <briefdescription>
+<para>Data bytes per transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gae82659a7c8662b1f97b350e9e6499e95" prot="public" static="no">
+        <name>AMD_XSPI_MAX_DUMMY_CYCLES</name>
+        <initializer>63U</initializer>
+        <briefdescription>
+<para>Dummy/latency cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Frame Format encoding [2:0]</header>
+      <memberdef kind="define" id="group__amd__xspi_1ga468834fcba51c5b76b4ad8e2ba122002" prot="public" static="no">
+        <name>AMD_XSPI_FRAME_READ_WITH_LATENCY</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Read with latency/dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga205e2f7fc04b397558c6e62d4d2b12ab" prot="public" static="no">
+        <name>AMD_XSPI_FRAME_WRITE_WITH_LATENCY</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Write with latency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="346" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga2e458a6efd6bfd43e4394588b4d63b28" prot="public" static="no">
+        <name>AMD_XSPI_FRAME_WRITE_NO_LATENCY</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Write with no latency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="348" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga0689ffe82256e19f3df5965dbbf47849" prot="public" static="no">
+        <name>AMD_XSPI_FRAME_READ_NO_LATENCY</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Read with no latency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="349" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>IO Format encoding [6:4] for Dual/Quad modes</header>
+      <description><para><itemizedlist>
+<listitem><para>For Standard modes: always 1-1-1 (do not care).</para></listitem><listitem><para>For xSPI HyperBus: always 8D-8D-8D (do not care).</para></listitem><listitem><para>For xSPI Octal: B3=0 for 8D-8D-8D, B3=1 for 1S-1S-1S. </para></listitem></itemizedlist>
+</para></description>
+      <memberdef kind="define" id="group__amd__xspi_1ga5f5b5e293ba88fa996a45178c39de8c0" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_1_1_1</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>1-1-1 (cmd-addr-data all single). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="359" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga4a55b07d32645cff2f58fd1f75494971" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_1_1_2</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>1-1-2 (data dual). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="361" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga45d9e4f20d77f862efed0c27b4a34844" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_1_2_2</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>1-2-2 (addr+data dual). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="363" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga431c109e542ec3bf66761433de890bb0" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_2_2_2</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>2-2-2 (all dual). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga2e7cc57a29f590684aac695e65430611" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_1_1_4</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>1-1-4 (data quad). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="367" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gad0b36193473d6700fb5ac3ab33696110" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_1_4_4</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+<para>1-4-4 (addr+data quad). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="369" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaac64a755d88447edec95897c174d2f32" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_4_4_4</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>4-4-4 (all quad). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga26ef48ae36784d454be4014432481295" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_8D_8D_8D</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>8D-8D-8D for xSPI (B3=0). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="373" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga47c4a80ba152c32cba88b22d4e2782ed" prot="public" static="no">
+        <name>AMD_XSPI_IO_FORMAT_1S_1S_1S</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>1S-1S-1S for xSPI octal (B3=1). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="375" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transmit Register Flag bits (MSB 2 bits of 18-bit FIFO entry)</header>
+      <description><para>The TX FIFO is 18 bits wide with MSB 2 bits as flag bits. </para></description>
+      <memberdef kind="define" id="group__amd__xspi_1ga573e8a9cf8b71f7fe87b80086b8314c5" prot="public" static="no">
+        <name>AMD_XSPI_TX_FLAG_INSTR_LSB</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Flag 01: LSB 16-bit instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1gaa5fd064dcda9c94d513132366e398b13" prot="public" static="no">
+        <name>AMD_XSPI_TX_FLAG_INSTR_MSB</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>Flag 10: MSB instruction bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="385" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga50118e577e87a180911c5fc5caa884a2" prot="public" static="no">
+        <name>AMD_XSPI_TX_FLAG_DATA</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+<para>Flag 11: Data bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="387" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__amd__xspi_1gac0312b2cf69e6c3125a061616b415fac" prot="public" static="no">
+        <name>AmdXspi_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>Reads a register value from the AXI XSPI core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the AXI XSPI core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the register to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__amd__xspi_1gac0312b2cf69e6c3125a061616b415fac" kindref="member">AmdXspi_ReadReg(UINTPTR BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="408" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__amd__xspi_1ga46d797b7b5c05d5b3e4bbed78d62bdca" prot="public" static="no">
+        <name>AmdXspi_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Writes a value to a register in the AXI XSPI core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the AXI XSPI core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the register to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void AmdXspi_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" line="425" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+        <referencedby refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+        <referencedby refid="group__amd__xspi_1ga7d21c9f6b7cc656b8a6f966cfa7b43b0" compoundref="amd__xspi__options_8c" startline="120" endline="144">AmdXspi_SetSlaveSelect</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the hardware registers and macros for the AXI XSPI controller. </para>    </briefdescription>
+    <detaileddescription>
+<para>This header file contains the hardware register definitions and macros for the AXI XSPI controller. This driver supports AXI-Lite mode only.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   akm  07/29/26 Initial release
+1.0   vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>AMD_XSPI_HW_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_HW_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="group__amd__xspi_1gadf6c398a947723483692c71451576696" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000U</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51" refid="group__amd__xspi_1ga38d9db9f40ede9b706ae7aeb4449c294" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IDENTIFIER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0004U</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53" refid="group__amd__xspi_1ga90c5f7830b32650a4b55dbf822d7fbaf" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_RSVD1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008U</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55" refid="group__amd__xspi_1ga7a207baf291980a92323ccc4de96a114" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_RSVD2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000CU</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="group__amd__xspi_1ga838f702491b494cbfe011e6e1a7ecd35" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CONTROL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0010U</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="group__amd__xspi_1gab7d21cce25e7744b67499bea39473c67" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TARGET_SELECT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0014U</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61" refid="group__amd__xspi_1ga43ed948c3e7af928eaef324fdf2bdda3" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TRANSMIT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0018U</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="group__amd__xspi_1ga588b75c12944deaef47fe9c8943c8cfd" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_RECEIVE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x001CU</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="group__amd__xspi_1gab471636f8f53b851d371e931ae030f29" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0020U</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__amd__xspi_1ga840fb09ff9c9a5aeb78b18fbf3fd407b" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0024U</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__amd__xspi_1gaebaa5c0770d8e2b8e43a6310746dfc70" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INT_EVT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0028U</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="group__amd__xspi_1ga3bc45dc8f63878c4a06b9594f53efbcb" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TX_OCY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x002CU</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73" refid="group__amd__xspi_1ga94c1ff340bbb36cc7a3d57b97412f7a6" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_RX_OCY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0030U</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="group__amd__xspi_1ga04115dd227582542585618783ee880d7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_MAJOR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000U</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="group__amd__xspi_1gafea2df7e759919fe262fdea280a9e31a" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_MAJOR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24U</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="group__amd__xspi_1ga7284a0841510f37a7542d3515dec202c" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_MINOR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000U</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="group__amd__xspi_1ga4639a32ceeaade4bd4b1a9a0ff8bf963" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_MINOR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="group__amd__xspi_1ga6b6f16a66b34a73ddac2c95b731e06e1" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_REVISION_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00U</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="group__amd__xspi_1ga1218ad6ed51616e43aa8d278bc7f07a4" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_REVISION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="group__amd__xspi_1ga653b3178c768cb748d83d5e20bbd12b4" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_PATCH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000F0U</highlight></codeline>
+<codeline lineno="93" refid="group__amd__xspi_1gabbefb1ef6bbec465771a6756e0b4b251" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_PATCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__amd__xspi_1gaa95ac779c0fea1522c2671845872483d" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_INTERNAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000EU</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97" refid="group__amd__xspi_1ga673c8e8c44b005ca175b019e6dc33f60" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_VERSION_INTERNAL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="group__amd__xspi_1ga3a1811f0bd8f9b72ed580db62b163789" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_INJ_2BE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106" refid="group__amd__xspi_1gab1b8c23cd6f5d28b56cbdbca6599e497" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_INJ_1BE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="group__amd__xspi_1gabbfd1772735fd52e7ec658a1accea2b5" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_CPOL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="109" refid="group__amd__xspi_1ga8d5bc2086c6348ac7ef0d454e9424da1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_CPHA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="111" refid="group__amd__xspi_1gaa29ae9bf3bf52a45e62c8b964d8d66d8" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_RXFIFO_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="group__amd__xspi_1ga45bca4be6e06b5cc81478cac75a008bc" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_TXFIFO_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118" refid="group__amd__xspi_1ga8f067bd0c9fa532e7e18bc39604167af" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_ABORT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="group__amd__xspi_1ga0c7743fbb8b7367be1618d05ae8d6b63" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="121" refid="group__amd__xspi_1ga31630d79f9fea39606606b416baf212f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_CR_SOFT_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="128" refid="group__amd__xspi_1ga8d55f6de16db49d82bb0b481b4095ec0" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TSR_CHIP_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135" refid="group__amd__xspi_1gae5d451f1ac510b294251365758f55dfe" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TX_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0003FFFFU</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142" refid="group__amd__xspi_1ga3297bce1c3d76e8390be027b7308b268" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_RX_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162" refid="group__amd__xspi_1ga5ffc3a535671cc58fab73bf9829a883b" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_HALF_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000U</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="164" refid="group__amd__xspi_1ga3743a12ee5688e4a79af3a38e36bf5e5" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000U</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166" refid="group__amd__xspi_1ga326bc9ef908db96f4a38d0c5ef32f82f" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TXN_COMPLETE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004000U</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168" refid="group__amd__xspi_1gafce38ef18fee0693a956d70a4bafc1d0" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_INIT_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000U</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="170" refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TXN_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="172" refid="group__amd__xspi_1ga97e10fa1c4bc713b5944db141299eb27" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_FIFO_ECC_2BE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="174" refid="group__amd__xspi_1ga8ff66be0dedacca987dcf48bbb4147eb" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_FIFO_ECC_1BE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176" refid="group__amd__xspi_1ga9266f8ab3bb25d6f565cc0372cec2b5b" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_FIFO_ECC_2BE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="178" refid="group__amd__xspi_1ga703337c127697ef43c3fa787e3ee52f4" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_FIFO_ECC_1BE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="180" refid="group__amd__xspi_1gaf2384e3ca10fabcf2dd0d55218a8095a" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_ALMOST_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182" refid="group__amd__xspi_1ga0bfe333422f5f374ec8074cf4fc178d7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_HALF_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184" refid="group__amd__xspi_1ga0d00a8b7dece45d8d5c73268d79a3714" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_ALMOST_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186" refid="group__amd__xspi_1ga84f0bc66e43ddaf1491dad2ba9a3a305" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="188" refid="group__amd__xspi_1gafe091a3735d4da29b0d3c26b8ef5b081" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_ALMOST_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="190" refid="group__amd__xspi_1gad638f4e7912752148c6fb9b8296de0a7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="192" refid="group__amd__xspi_1ga396567f8ccd29d56aebf4b4fde412bb7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_ALMOST_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194" refid="group__amd__xspi_1ga662f5e57046fa7031034ec0139c674c7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197" refid="group__amd__xspi_1gaaca429929bf6e7a02fc42a1ef0b71438" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001FFFFU</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="200" refid="group__amd__xspi_1ga490a2738baaeecbc94b1a74e5114c746" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(AMD_XSPI_INTR_TXN_ERROR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_RX_FIFO_ECC_2BE_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_RX_FIFO_ECC_1BE_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_TX_FIFO_ECC_2BE_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_TX_FIFO_ECC_1BE_MASK)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="210" refid="group__amd__xspi_1gaa46cc217305ddf9e1501d3e50e22b19a" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_RX_THRESHOLD_MASK<sp/>(AMD_XSPI_INTR_RX_HALF_FULL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_RX_ALMOST_FULL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_RX_FULL_MASK)</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="224" refid="group__amd__xspi_1gafc396c18ac6dc7f519114c2c55698462" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INTR_TX_THRESHOLD_MASK<sp/>(AMD_XSPI_INTR_TX_HALF_FULL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_TX_ALMOST_EMPTY_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMD_XSPI_INTR_TX_EMPTY_MASK)</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="233" refid="group__amd__xspi_1gaff527373d72583e82fbde7c1f16281e8" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_FIFO_OCY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000003FFU</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240" refid="group__amd__xspi_1gac9c3678f38bfdddef7bca1cbbf5da167" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CLK_MODE_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="241" refid="group__amd__xspi_1ga558fcbcee380d2acc66bc498998419dd" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CLK_MODE_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="242" refid="group__amd__xspi_1ga39b04bf1766cbf79de86d5c58224bff7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CLK_MODE_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="243" refid="group__amd__xspi_1gaa232a2dd80e43b103bbe30f0d31dbd3f" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CLK_MODE_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="251" refid="group__amd__xspi_1ga7cd4fa5c8f6cef3983c2a67c32030fcf" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MODE_STANDARD_HALF_DUPLEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="253" refid="group__amd__xspi_1gaf735d685938831f80f63e074f4026150" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MODE_STANDARD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="255" refid="group__amd__xspi_1ga4548094e6be5b5a61fa16b8d213e036c" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MODE_DUAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257" refid="group__amd__xspi_1gaa789c64ac589cac0d152ae36be1ff69f" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MODE_QUAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="259" refid="group__amd__xspi_1ga11ce36bbce1afaf2c75d9918b1f05b71" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MODE_XSPI_PROFILE_1_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="261" refid="group__amd__xspi_1gae94fecf032e6ffb0e2f820befe2e0d0f" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MODE_XSPI_PROFILE_2_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="270"><highlight class="comment">/*<sp/>Bits<sp/>31:30<sp/>-<sp/>Reserved<sp/>*/</highlight></codeline>
+<codeline lineno="272" refid="group__amd__xspi_1ga62f029021a5ed8297b983d7174b88f6c" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_CMD_ADDR_BYTES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30000000U</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274" refid="group__amd__xspi_1gaffebf68d2ddbfa67fa24a9953c282cc7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_CMD_ADDR_BYTES_SHIFT<sp/><sp/><sp/><sp/><sp/>28U</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Bits<sp/>27:26<sp/>-<sp/>Reserved<sp/>*/</highlight></codeline>
+<codeline lineno="277" refid="group__amd__xspi_1ga3bd01a2e50cad832be9212e6895269c6" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_DATA_BYTES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03FF0000U</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="279" refid="group__amd__xspi_1ga8df9eedd55dfa53b97c60e426195a45d" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_DATA_BYTES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="281" refid="group__amd__xspi_1gae902e3a9a401c7f50f5f6094b3a03f78" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_RW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000U</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Bit<sp/>14<sp/>-<sp/>Reserved<sp/>*/</highlight></codeline>
+<codeline lineno="284" refid="group__amd__xspi_1ga105ec73a9b513f38727547873f246745" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_DUMMY_CYCLES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00003F00U</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="286" refid="group__amd__xspi_1gaa54ca0743de3122a5fcb1a4863385df4" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_DUMMY_CYCLES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Bit<sp/>7<sp/>-<sp/>Reserved<sp/>*/</highlight></codeline>
+<codeline lineno="289" refid="group__amd__xspi_1gada830ef43c3c82dfc9bc940c34c7409a" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_IO_FORMAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000070U</highlight></codeline>
+<codeline lineno="290" refid="group__amd__xspi_1gaf39382482c36d22660d47694036f7e0b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_IO_FORMAT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/></highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Bit<sp/>3<sp/>-<sp/>Reserved<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="293" refid="group__amd__xspi_1ga6181d6b8eaf5d569b1c2054f3a2756a4" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_FRAME_FORMAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007U</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="295" refid="group__amd__xspi_1ga1a80bce1983b349a661c50b0368e21f9" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_INSTR_FRAME_FORMAT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="301" refid="group__amd__xspi_1gaca6bf0d355506f0fc44139ea19d91fe7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CMD_ADDR_1_OR_2_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="302" refid="group__amd__xspi_1gaf3ec07935e9a1945482a76671597d818" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CMD_ADDR_4_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="303" refid="group__amd__xspi_1ga5104cb726d6d755e07ef40b2b8825920" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CMD_ADDR_5_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="304" refid="group__amd__xspi_1ga7023856720adc0192c75e756bff97c73" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_CMD_ADDR_6_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="329" refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IS_VALID_CMD_ADDR_BYTES(Mode,<sp/>Bytes)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Mode)<sp/>==<sp/>AMD_XSPI_MODE_XSPI_PROFILE_2_0)<sp/>?<sp/>((Bytes)<sp/>==<sp/>6U)<sp/>:<sp/>\</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Bytes)<sp/>==<sp/>1U)<sp/>||<sp/>((Bytes)<sp/>==<sp/>2U)<sp/>||<sp/>((Bytes)<sp/>==<sp/>4U)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Bytes)<sp/>==<sp/>5U)<sp/>||<sp/>((Bytes)<sp/>==<sp/>6U)))</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="335" refid="group__amd__xspi_1gaec139ee879c209baf997a60fb56a5d07" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MAX_DATA_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>512U</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="337" refid="group__amd__xspi_1gae82659a7c8662b1f97b350e9e6499e95" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_MAX_DUMMY_CYCLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>63U</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="344" refid="group__amd__xspi_1ga468834fcba51c5b76b4ad8e2ba122002" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_FRAME_READ_WITH_LATENCY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="346" refid="group__amd__xspi_1ga205e2f7fc04b397558c6e62d4d2b12ab" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_FRAME_WRITE_WITH_LATENCY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="348" refid="group__amd__xspi_1ga2e458a6efd6bfd43e4394588b4d63b28" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_FRAME_WRITE_NO_LATENCY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="349" refid="group__amd__xspi_1ga0689ffe82256e19f3df5965dbbf47849" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_FRAME_READ_NO_LATENCY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="359" refid="group__amd__xspi_1ga5f5b5e293ba88fa996a45178c39de8c0" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_1_1_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="360"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="361" refid="group__amd__xspi_1ga4a55b07d32645cff2f58fd1f75494971" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_1_1_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="363" refid="group__amd__xspi_1ga45d9e4f20d77f862efed0c27b4a34844" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_1_2_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="365" refid="group__amd__xspi_1ga431c109e542ec3bf66761433de890bb0" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_2_2_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="367" refid="group__amd__xspi_1ga2e7cc57a29f590684aac695e65430611" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_1_1_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="369" refid="group__amd__xspi_1gad0b36193473d6700fb5ac3ab33696110" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_1_4_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="371" refid="group__amd__xspi_1gaac64a755d88447edec95897c174d2f32" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_4_4_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="372"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="373" refid="group__amd__xspi_1ga26ef48ae36784d454be4014432481295" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_8D_8D_8D<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="374"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="375" refid="group__amd__xspi_1ga47c4a80ba152c32cba88b22d4e2782ed" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_IO_FORMAT_1S_1S_1S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="376"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="383" refid="group__amd__xspi_1ga573e8a9cf8b71f7fe87b80086b8314c5" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TX_FLAG_INSTR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="385" refid="group__amd__xspi_1gaa5fd064dcda9c94d513132366e398b13" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TX_FLAG_INSTR_MSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="387" refid="group__amd__xspi_1ga50118e577e87a180911c5fc5caa884a2" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TX_FLAG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="390"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="408" refid="group__amd__xspi_1gac0312b2cf69e6c3125a061616b415fac" refkind="member"><highlight class="preprocessor">#define<sp/>AmdXspi_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset))</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="425" refid="group__amd__xspi_1ga46d797b7b5c05d5b3e4bbed78d62bdca" refkind="member"><highlight class="preprocessor">#define<sp/>AmdXspi_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="427"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="433"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>AMD_XSPI_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_hw.h"/>
+  </compounddef>
+</doxygen>

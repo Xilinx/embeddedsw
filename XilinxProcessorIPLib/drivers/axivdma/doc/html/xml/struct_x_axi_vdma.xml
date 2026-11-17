@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_vdma" kind="struct" prot="public">
+    <compoundname>XAxiVdma</compoundname>
+    <includes local="no">xaxivdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a593206ce099f13c6a62e8c1c95f65b0c" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiVdma::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Memory address for this device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="483" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1ga9769479907cda3ef95ff1ed394de4629" compoundref="xaxivdma_8c" startline="434" endline="449">XAxiVdma_CurrFrameStore</referencedby>
+        <referencedby refid="group__axivdma_1ga24f182cf8678e4df6e0e2b19e2f50620" compoundref="xaxivdma_8c" startline="460" endline="463">XAxiVdma_GetVersion</referencedby>
+        <referencedby refid="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" compoundref="xaxivdma__selftest_8c" startline="62" endline="107">XAxiVdma_Selftest</referencedby>
+        <referencedby refid="group__axivdma_1gaf99dd7738b98367397831df26433843a" compoundref="xaxivdma_8c" startline="677" endline="739">XAxiVdma_StartParking</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1ad116974229d0e33b61767742f42d9584" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::HasSG</definition>
+        <argsstring></argsstring>
+        <name>HasSG</name>
+        <briefdescription>
+<para>Whether hardware has SG engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="484" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a8b4441757224aa73135d6ed334bacdb5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Whether driver is initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="485" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gabb2cecf1628ce8f7b42ffca3608bdf70" compoundref="xaxivdma_8c" startline="1107" endline="1146">XAxiVdma_GetFrameCounter</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="330" endline="366">XAxiVdma_SetCallBack</referencedby>
+        <referencedby refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" compoundref="xaxivdma_8c" startline="1046" endline="1095">XAxiVdma_SetFrameCounter</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1ac5420b0f3823998ce975acbaf1c174b2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::MaxNumFrames</definition>
+        <argsstring></argsstring>
+        <name>MaxNumFrames</name>
+        <briefdescription>
+<para>Number of frames to work on. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="487" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gaf331929e09bf1454dc2835b6ecc4ff30" compoundref="xaxivdma_8c" startline="1161" endline="1196">XAxiVdma_SetFrmStore</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1ac5806353d2211d78f4c963dd7b018ac9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::HasMm2S</definition>
+        <argsstring></argsstring>
+        <name>HasMm2S</name>
+        <briefdescription>
+<para>Whether hw build has read channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="488" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gacf7ed6b0ef406b80e49ff25634f6d5f1" compoundref="xaxivdma_8c" startline="617" endline="665">XAxiVdma_GenLockSourceSelect</referencedby>
+        <referencedby refid="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" compoundref="xaxivdma__selftest_8c" startline="62" endline="107">XAxiVdma_Selftest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a1d5c38336cb3bf54211299867efeef2e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::HasMm2SDRE</definition>
+        <argsstring></argsstring>
+        <name>HasMm2SDRE</name>
+        <briefdescription>
+<para>Whether read channel has DRE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a22a700bda0eb14878a0c343fbac77456" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::HasS2Mm</definition>
+        <argsstring></argsstring>
+        <name>HasS2Mm</name>
+        <briefdescription>
+<para>Whether hw build has write channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="490" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gacf7ed6b0ef406b80e49ff25634f6d5f1" compoundref="xaxivdma_8c" startline="617" endline="665">XAxiVdma_GenLockSourceSelect</referencedby>
+        <referencedby refid="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" compoundref="xaxivdma__selftest_8c" startline="62" endline="107">XAxiVdma_Selftest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1ac30944eb3c6ea9b1677f5fb916eb6e19" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::HasS2MmDRE</definition>
+        <argsstring></argsstring>
+        <name>HasS2MmDRE</name>
+        <briefdescription>
+<para>Whether write channel has DRE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a64be95b7a55ba43f997c7879ef23a492" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::EnableVIDParamRead</definition>
+        <argsstring></argsstring>
+        <name>EnableVIDParamRead</name>
+        <briefdescription>
+<para>Read enable for video parameters in direct register mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a2158cdab0215f4079c14741e1af43c5d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::UseFsync</definition>
+        <argsstring></argsstring>
+        <name>UseFsync</name>
+        <briefdescription>
+<para>Synchronizes DMA operations to frame sync. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="495" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gaa3376589f8781eec1f0d619e1a0d3078" compoundref="xaxivdma_8c" startline="552" endline="604">XAxiVdma_FsyncSrcSelect</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a3af417807133e29a55867f9c853fa25b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::InternalGenLock</definition>
+        <argsstring></argsstring>
+        <name>InternalGenLock</name>
+        <briefdescription>
+<para>Internal Gen Lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="496" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gacf7ed6b0ef406b80e49ff25634f6d5f1" compoundref="xaxivdma_8c" startline="617" endline="665">XAxiVdma_GenLockSourceSelect</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1ac2cdde8d751e11e934ecea898574e99a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_vdma___channel_call_back" kindref="compound">XAxiVdma_ChannelCallBack</ref></type>
+        <definition>XAxiVdma_ChannelCallBack XAxiVdma::ReadCallBack</definition>
+        <argsstring></argsstring>
+        <name>ReadCallBack</name>
+        <briefdescription>
+<para>Call back for read channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="497" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" compoundref="xaxivdma__intr_8c" startline="205" endline="253">XAxiVdma_ReadIntrHandler</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="330" endline="366">XAxiVdma_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1ae92ec1b3f2075167e0f552a75ecfde46" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_vdma___channel_call_back" kindref="compound">XAxiVdma_ChannelCallBack</ref></type>
+        <definition>XAxiVdma_ChannelCallBack XAxiVdma::WriteCallBack</definition>
+        <argsstring></argsstring>
+        <name>WriteCallBack</name>
+        <briefdescription>
+<para>Call back for write channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="498" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="330" endline="366">XAxiVdma_SetCallBack</referencedby>
+        <referencedby refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" compoundref="xaxivdma__intr_8c" startline="264" endline="312">XAxiVdma_WriteIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a1534da961a034f0aa6ea9fee0702e7f0" prot="public" static="no" mutable="no">
+        <type>XAxiVdma_Channel</type>
+        <definition>XAxiVdma_Channel XAxiVdma::ReadChannel</definition>
+        <argsstring></argsstring>
+        <name>ReadChannel</name>
+        <briefdescription>
+<para>Channel to read from memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="500" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="77" endline="91">XAxiVdma_GetChannel</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a606f7921a2a8cf10cfdcf34ee2e82d0a" prot="public" static="no" mutable="no">
+        <type>XAxiVdma_Channel</type>
+        <definition>XAxiVdma_Channel XAxiVdma::WriteChannel</definition>
+        <argsstring></argsstring>
+        <name>WriteChannel</name>
+        <briefdescription>
+<para>Channel to write to memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="501" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="77" endline="91">XAxiVdma_GetChannel</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_vdma_1a49f2cc215d38001d678803c690aa6dd5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiVdma::AddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AddrWidth</name>
+        <briefdescription>
+<para>Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="502" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="125" endline="333">XAxiVdma_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds driver instance data for a VDMA engine. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>XAxiVdma_ChannelCallBack</label>
+        <link refid="struct_x_axi_vdma___channel_call_back"/>
+      </node>
+      <node id="6">
+        <label>XAxiVdma</label>
+        <link refid="struct_x_axi_vdma"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>ReadCallBack</edgelabel>
+          <edgelabel>WriteCallBack</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="482" bodyend="503"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_vdma_1a49f2cc215d38001d678803c690aa6dd5" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>AddrWidth</name></member>
+      <member refid="struct_x_axi_vdma_1a593206ce099f13c6a62e8c1c95f65b0c" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_axi_vdma_1a64be95b7a55ba43f997c7879ef23a492" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>EnableVIDParamRead</name></member>
+      <member refid="struct_x_axi_vdma_1ac5806353d2211d78f4c963dd7b018ac9" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>HasMm2S</name></member>
+      <member refid="struct_x_axi_vdma_1a1d5c38336cb3bf54211299867efeef2e" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>HasMm2SDRE</name></member>
+      <member refid="struct_x_axi_vdma_1a22a700bda0eb14878a0c343fbac77456" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>HasS2Mm</name></member>
+      <member refid="struct_x_axi_vdma_1ac30944eb3c6ea9b1677f5fb916eb6e19" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>HasS2MmDRE</name></member>
+      <member refid="struct_x_axi_vdma_1ad116974229d0e33b61767742f42d9584" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>HasSG</name></member>
+      <member refid="struct_x_axi_vdma_1a3af417807133e29a55867f9c853fa25b" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>InternalGenLock</name></member>
+      <member refid="struct_x_axi_vdma_1a8b4441757224aa73135d6ed334bacdb5" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>IsReady</name></member>
+      <member refid="struct_x_axi_vdma_1ac5420b0f3823998ce975acbaf1c174b2" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>MaxNumFrames</name></member>
+      <member refid="struct_x_axi_vdma_1ac2cdde8d751e11e934ecea898574e99a" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>ReadCallBack</name></member>
+      <member refid="struct_x_axi_vdma_1a1534da961a034f0aa6ea9fee0702e7f0" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>ReadChannel</name></member>
+      <member refid="struct_x_axi_vdma_1a2158cdab0215f4079c14741e1af43c5d" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>UseFsync</name></member>
+      <member refid="struct_x_axi_vdma_1ae92ec1b3f2075167e0f552a75ecfde46" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>WriteCallBack</name></member>
+      <member refid="struct_x_axi_vdma_1a606f7921a2a8cf10cfdcf34ee2e82d0a" prot="public" virt="non-virtual"><scope>XAxiVdma</scope><name>WriteChannel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

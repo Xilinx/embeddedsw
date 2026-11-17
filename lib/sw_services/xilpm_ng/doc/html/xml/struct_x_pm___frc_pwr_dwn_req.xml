@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___frc_pwr_dwn_req" kind="struct" prot="public">
+    <compoundname>XPm_FrcPwrDwnReq</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___frc_pwr_dwn_req_1a7e3e9d0f28012530be96d39586ab903a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_FrcPwrDwnReq::AckType</definition>
+        <argsstring></argsstring>
+        <name>AckType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___frc_pwr_dwn_req_1adc771d0b713809ae185877d994efb160" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_FrcPwrDwnReq::InitiatorIpiMask</definition>
+        <argsstring></argsstring>
+        <name>InitiatorIpiMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="74" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___frc_pwr_dwn_req_1a7e3e9d0f28012530be96d39586ab903a" prot="public" virt="non-virtual"><scope>XPm_FrcPwrDwnReq</scope><name>AckType</name></member>
+      <member refid="struct_x_pm___frc_pwr_dwn_req_1adc771d0b713809ae185877d994efb160" prot="public" virt="non-virtual"><scope>XPm_FrcPwrDwnReq</scope><name>InitiatorIpiMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

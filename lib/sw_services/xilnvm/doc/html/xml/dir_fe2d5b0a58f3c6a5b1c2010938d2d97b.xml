@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fe2d5b0a58f3c6a5b1c2010938d2d97b" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="next_2common_2xnvm__defs_8h">next/common/xnvm_defs.h</innerfile>
+    <innerfile refid="next_2common_2xnvm__efuse__error__plat_8h">next/common/xnvm_efuse_error_plat.h</innerfile>
+    <innerfile refid="versal__gen_2versal__next_2common_2xnvm__efuse__hw_8h">versal_gen/versal_next/common/xnvm_efuse_hw.h</innerfile>
+    <innerfile refid="xnvm__validate_8c">xnvm_validate.c</innerfile>
+    <innerfile refid="xnvm__validate_8h">xnvm_validate.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/"/>
+  </compounddef>
+</doxygen>

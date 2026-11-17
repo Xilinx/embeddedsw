@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sd_fec_ldpc_parameters" kind="struct" prot="public">
+    <compoundname>XSdFecLdpcParameters</compoundname>
+    <includes local="no">xsdfec.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1ad5c4ce0e72f27b80372f308600096844" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::N</definition>
+        <argsstring></argsstring>
+        <name>N</name>
+        <briefdescription>
+<para>Codeword length N. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1af39820883562c8735a0701dc88e44904" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <briefdescription>
+<para>Information length K. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a46f7c54c0fae14119b4227e7f9a0e12e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::PSize</definition>
+        <argsstring></argsstring>
+        <name>PSize</name>
+        <briefdescription>
+<para>Sub-matrix size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1ae2ec62eeab6f4407167941d381b57ef5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NLayers</definition>
+        <argsstring></argsstring>
+        <name>NLayers</name>
+        <briefdescription>
+<para>Number of layers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+        <referencedby refid="group__sd__fec_1ga7ddc8f4d66431964d816d72e30fa071e" compoundref="xsdfec_8c" startline="140" endline="151">XSdFecShareTableSize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1aa56c0232abdc166de32c2aa206a9db34" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NQC</definition>
+        <argsstring></argsstring>
+        <name>NQC</name>
+        <briefdescription>
+<para>Number of QC entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+        <referencedby refid="group__sd__fec_1ga7ddc8f4d66431964d816d72e30fa071e" compoundref="xsdfec_8c" startline="140" endline="151">XSdFecShareTableSize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a040ced59607704251d88fd4fafc68d13" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NMQC</definition>
+        <argsstring></argsstring>
+        <name>NMQC</name>
+        <briefdescription>
+<para>Number of QC operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a89327e7a4d3974c29ba3317a697161fc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NM</definition>
+        <argsstring></argsstring>
+        <name>NM</name>
+        <briefdescription>
+<para>Number of circulants. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a82b60d72f8155a60b4034e1ab8a40150" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NormType</definition>
+        <argsstring></argsstring>
+        <name>NormType</name>
+        <briefdescription>
+<para>Normalization type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a65c41eda056a7c0756caa3cd069cd319" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NoPacking</definition>
+        <argsstring></argsstring>
+        <name>NoPacking</name>
+        <briefdescription>
+<para>Disable packing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a916fac05723499327fcc7790887d0fc7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::SpecialQC</definition>
+        <argsstring></argsstring>
+        <name>SpecialQC</name>
+        <briefdescription>
+<para>Special QC flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a00d637e1d780bb596e4a9c86fac6e6f7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::NoFinalParity</definition>
+        <argsstring></argsstring>
+        <name>NoFinalParity</name>
+        <briefdescription>
+<para>Disable final parity check. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a48e8e6cb3347612b8569a6a3ce034152" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFecLdpcParameters::MaxSchedule</definition>
+        <argsstring></argsstring>
+        <name>MaxSchedule</name>
+        <briefdescription>
+<para>Maximum schedule value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1a536c2840ea6387cee504d54fbadf8f3d" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XSdFecLdpcParameters::SCTable</definition>
+        <argsstring></argsstring>
+        <name>SCTable</name>
+        <briefdescription>
+<para>Pointer to the scale table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1ad9e3823a39ca9ba5e7f29eb1502176db" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XSdFecLdpcParameters::LATable</definition>
+        <argsstring></argsstring>
+        <name>LATable</name>
+        <briefdescription>
+<para>Pointer to the layered architecture table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_ldpc_parameters_1af30c48962d9323a4af8e990aa6641f21" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XSdFecLdpcParameters::QCTable</definition>
+        <argsstring></argsstring>
+        <name>QCTable</name>
+        <briefdescription>
+<para>Pointer to the QC table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds LDPC code parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>Member values are defined in the device specific header &quot;x&lt;ipinst_name&gt;_&lt;code_id&gt;_params.h&quot; as per IP GUI configuration. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="128" bodyend="144"/>
+    <listofallmembers>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1af39820883562c8735a0701dc88e44904" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>K</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1ad9e3823a39ca9ba5e7f29eb1502176db" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>LATable</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a48e8e6cb3347612b8569a6a3ce034152" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>MaxSchedule</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1ad5c4ce0e72f27b80372f308600096844" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>N</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1ae2ec62eeab6f4407167941d381b57ef5" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NLayers</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a89327e7a4d3974c29ba3317a697161fc" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NM</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a040ced59607704251d88fd4fafc68d13" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NMQC</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a00d637e1d780bb596e4a9c86fac6e6f7" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NoFinalParity</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a65c41eda056a7c0756caa3cd069cd319" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NoPacking</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a82b60d72f8155a60b4034e1ab8a40150" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NormType</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1aa56c0232abdc166de32c2aa206a9db34" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>NQC</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a46f7c54c0fae14119b4227e7f9a0e12e" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>PSize</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1af30c48962d9323a4af8e990aa6641f21" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>QCTable</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a536c2840ea6387cee504d54fbadf8f3d" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>SCTable</name></member>
+      <member refid="struct_x_sd_fec_ldpc_parameters_1a916fac05723499327fcc7790887d0fc7" prot="public" virt="non-virtual"><scope>XSdFecLdpcParameters</scope><name>SpecialQC</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

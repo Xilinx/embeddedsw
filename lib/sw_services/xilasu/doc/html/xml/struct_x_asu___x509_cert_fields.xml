@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___x509_cert_fields" kind="struct" prot="public">
+    <compoundname>XAsu_X509CertFields</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___x509_cert_fields_1aa31db3bff8b371245e554864a0039bd0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___x509_name" kindref="compound">XAsu_X509Name</ref></type>
+        <definition>XAsu_X509Name XAsu_X509CertFields::Subject</definition>
+        <argsstring></argsstring>
+        <name>Subject</name>
+        <briefdescription>
+<para>Subject distinguished name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_cert_fields_1ad73301c1b5f252b8a6c0d8285b2d847e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___x509_name" kindref="compound">XAsu_X509Name</ref></type>
+        <definition>XAsu_X509Name XAsu_X509CertFields::Issuer</definition>
+        <argsstring></argsstring>
+        <name>Issuer</name>
+        <briefdescription>
+<para><verbatim> Issuer distinguished name, which the user is
+</verbatim> required to supply </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_cert_fields_1a10af295d409103f0d7a95cbcb088410c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___x509_validity" kindref="compound">XAsu_X509Validity</ref></type>
+        <definition>XAsu_X509Validity XAsu_X509CertFields::Validity</definition>
+        <argsstring></argsstring>
+        <name>Validity</name>
+        <briefdescription>
+<para>Validity period. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_cert_fields_1a248cb85bb4624aad5e167351260a6a97" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_X509CertFields::KeyUsage</definition>
+        <argsstring></argsstring>
+        <name>KeyUsage</name>
+        <briefdescription>
+<para><verbatim> Bit wise OR of the XASU_X509_KEY_USAGE_*
+</verbatim> masks to be encoded in the Key Usage extension </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the user supplied certificate fields. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="183">
+        <label>XAsu_X509CertFields</label>
+        <link refid="struct_x_asu___x509_cert_fields"/>
+        <childnode refid="184" relation="usage">
+          <edgelabel>Validity</edgelabel>
+        </childnode>
+        <childnode refid="186" relation="usage">
+          <edgelabel>Issuer</edgelabel>
+          <edgelabel>Subject</edgelabel>
+        </childnode>
+      </node>
+      <node id="186">
+        <label>XAsu_X509Name</label>
+        <link refid="struct_x_asu___x509_name"/>
+      </node>
+      <node id="184">
+        <label>XAsu_X509Validity</label>
+        <link refid="struct_x_asu___x509_validity"/>
+        <childnode refid="185" relation="usage">
+          <edgelabel>NotAfter</edgelabel>
+          <edgelabel>NotBefore</edgelabel>
+        </childnode>
+      </node>
+      <node id="185">
+        <label>XAsu_X509Time</label>
+        <link refid="struct_x_asu___x509_time"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="187" bodyend="195"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___x509_cert_fields_1ad73301c1b5f252b8a6c0d8285b2d847e" prot="public" virt="non-virtual"><scope>XAsu_X509CertFields</scope><name>Issuer</name></member>
+      <member refid="struct_x_asu___x509_cert_fields_1a248cb85bb4624aad5e167351260a6a97" prot="public" virt="non-virtual"><scope>XAsu_X509CertFields</scope><name>KeyUsage</name></member>
+      <member refid="struct_x_asu___x509_cert_fields_1aa31db3bff8b371245e554864a0039bd0" prot="public" virt="non-virtual"><scope>XAsu_X509CertFields</scope><name>Subject</name></member>
+      <member refid="struct_x_asu___x509_cert_fields_1a10af295d409103f0d7a95cbcb088410c" prot="public" virt="non-virtual"><scope>XAsu_X509CertFields</scope><name>Validity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

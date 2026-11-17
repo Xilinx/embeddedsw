@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="xcpu__cortexa9_8h" kind="file"><name>xcpu_cortexa9.h</name>
+  </compound>
+  <compound refid="group__cpu__cortexa9" kind="group"><name>cpu_cortexa9</name>
+  </compound>
+  <compound refid="dir_fb1bd9447700dfddbf37fa451b2225a6" kind="dir"><name>cpu_cortexa9</name>
+  </compound>
+  <compound refid="dir_b4933bb4bfdc0abf51cc428efc7a469c" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

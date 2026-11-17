@@ -1,0 +1,579 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilflash__apis" kind="group">
+    <compoundname>xilflash_apis</compoundname>
+    <title>Library-APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilflash__apis_1gab4c908ad78f6ded9407d0dc7ed611370" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Initialize</definition>
+        <argsstring>(XFlash *InstancePtr, u32 BaseAddress, u8 BusWidth, int IsPlatformFlash)</argsstring>
+        <name>XFlash_Initialize</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BusWidth</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>IsPlatformFlash</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific XFlash instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The initialization entails:<itemizedlist>
+<listitem><para>Check the Device family type.</para></listitem><listitem><para>Issuing the CFI query command.</para></listitem><listitem><para>Get and translate relevant CFI query information.</para></listitem><listitem><para>Set default options for the instance.</para></listitem><listitem><para>Setup the VTable.</para></listitem><listitem><para>Call the family initialize function of the instance.</para></listitem><listitem><para>Initialize the Xilinx Platform Flash XL to Async mode if the application selects to use the Platform Flash XL in the MLD. The Platform Flash XL is an Intel CFI compliant device.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the flash memory. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BusWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total width of the flash memory, in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">IsPlatformFlash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to specify if the flash is a platform flash.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_PART_NOT_SUPPORTED if the command set algorithm or Layout is not supported by any flash family compiled into the system.</para></listitem><listitem><para>XFLASH_CFI_QUERY_ERROR if the device would not enter CFI query mode. Either the devices lack CFI support, the wrong BaseAddress param was used, an unsupported part layout exists, or a hardware problem exists with the part.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>BusWidth is not the width of an individual part. It is the total operating width. For example, if there are two 16-bit parts, with one tied to data lines D0-D15 and other tied to D16-D31, BusWidth would be (32 / 8) = 4. If a single 16-bit flash is in 8-bit mode, then BusWidth should be (8 / 8) = 1. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="757" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="112" bodyend="174"/>
+        <references refid="xilflash__cfi_8h_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="114" endline="758">XFlashCFI_ReadCommon</references>
+        <referencedby refid="xilflash__devicecontrol__example_8c_1a5fa72d691594e1137b534052172c88c8" compoundref="xilflash__devicecontrol__example_8c" startline="122" endline="260">FlashDeviceControlExample</referencedby>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+        <referencedby refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" compoundref="xilflash__readwrite__example_8c" startline="182" endline="280">FlashReadWriteExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1gacef8005e70142f8113fa163cb5a187f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Reset</definition>
+        <argsstring>(XFlash *InstancePtr)</argsstring>
+        <name>XFlash_Reset</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the flash device and places it in read mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_BUSY if the flash devices were in the middle of an operation and could not be reset.</para></listitem><listitem><para>XFLASH_ERROR if the devices have experienced an internal error during the operation. <ref refid="group__xilflash__apis_1gaee7e52b5702a9d346c97ceb56fd4829c" kindref="member">XFlash_DeviceControl()</ref> must be used to access the cause of the device specific error condition. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="386" bodyend="397"/>
+        <referencedby refid="xilflash__devicecontrol__example_8c_1a5fa72d691594e1137b534052172c88c8" compoundref="xilflash__devicecontrol__example_8c" startline="122" endline="260">FlashDeviceControlExample</referencedby>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+        <referencedby refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" compoundref="xilflash__readwrite__example_8c" startline="182" endline="280">FlashReadWriteExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1gaee7e52b5702a9d346c97ceb56fd4829c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_DeviceControl</definition>
+        <argsstring>(XFlash *InstancePtr, u32 Command, DeviceCtrlParam *Parameters)</argsstring>
+        <name>XFlash_DeviceControl</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>DeviceCtrlParam *</type>
+          <declname>Parameters</declname>
+        </param>
+        <briefdescription>
+<para>Executes device specific commands. </para>        </briefdescription>
+        <detaileddescription>
+<para>For a list of device specific commands, see <ref refid="xilflash_8h" kindref="compound">xilflash.h</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device specific command to issue. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">Parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies the arguments passed to the device control function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_NOT_SUPPORTED if the command is not recognized/supported by the devices. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="760" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="416" bodyend="429"/>
+        <referencedby refid="xilflash__devicecontrol__example_8c_1a5fa72d691594e1137b534052172c88c8" compoundref="xilflash__devicecontrol__example_8c" startline="122" endline="260">FlashDeviceControlExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1ga2b079c7388012f6bdbda754ea0d62641" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Read</definition>
+        <argsstring>(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)</argsstring>
+        <name>XFlash_Read</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>DestPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads data from the Flash device into the specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads the data from the Flash device and copies it into the specified destination buffer.</para><para>The source and destination addresses can be on any alignment supported by the processor.</para><para>The device is polled until an error or the operation completes successfully.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into the device address space from which to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to copy. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address to copy data to.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_ADDRESS_ERROR if the source address does not start within the addressable areas of the devices.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function allows the transfer of data past the end of the device&apos;s address space. If this occurs, then results are undefined. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="204" bodyend="215"/>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+        <referencedby refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" compoundref="xilflash__readwrite__example_8c" startline="182" endline="280">FlashReadWriteExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1gadeef4a4805428c7a14578bc0790d6bdc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Write</definition>
+        <argsstring>(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)</argsstring>
+        <name>XFlash_Write</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>SrcPtr</declname>
+        </param>
+        <briefdescription>
+<para>Programs the flash devices with data specified in the source buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>The source and destination address must be aligned to the width of the flash&apos;s data bus.</para><para>The device is polled until an error or the operation completes successfully.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into the device address space from which to begin programming. Must be aligned to the width of the flash&apos;s data bus. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to program. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address containing data to be programmed. Must be aligned to the width of the flash&apos;s data bus. The SrcPtr does not have to be aligned to the flash width if the processor supports unaligned access. But this library is generic, and some processors (for example, MicroBlaze) do not support unaligned access. So this API requires the SrcPtr to be aligned.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_ERROR if a write error occurred. This error is usually device specific. Use <ref refid="group__xilflash__apis_1gaee7e52b5702a9d346c97ceb56fd4829c" kindref="member">XFlash_DeviceControl()</ref> to retrieve specific error conditions. When this error is returned, it is possible that the target address range was only partially programmed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="763" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="248" bodyend="259"/>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+        <referencedby refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" compoundref="xilflash__readwrite__example_8c" startline="182" endline="280">FlashReadWriteExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1ga13e5d44757867a2f424f885ac51890c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Erase</definition>
+        <argsstring>(XFlash *InstancePtr, u32 Offset, u32 Bytes)</argsstring>
+        <name>XFlash_Erase</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>Erases the specified address range in the flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of bytes to erase can be any number as long as it is within the bounds of the devices.</para><para>The device is polled until an error or the operation completes successfully.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into the device address space from which to begin erasure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to erase.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_ADDRESS_ERROR if the destination address range is not completely within the addressable areas of the devices.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Due to flash memory design, the range actually erased may be larger than what was specified by the Offset &amp; Bytes parameters. This occurs if the parameters do not align to block boundaries. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="764" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="286" bodyend="297"/>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+        <referencedby refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" compoundref="xilflash__readwrite__example_8c" startline="182" endline="280">FlashReadWriteExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1ga61597f564c68519fd4449b9fe6c50339" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Lock</definition>
+        <argsstring>(XFlash *InstancePtr, u32 Offset, u32 Bytes)</argsstring>
+        <name>XFlash_Lock</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>Locks the blocks in the specified range of the flash devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device is polled until an error or the operation completes successfully.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into the device address space from which to begin block locking. The first three bytes of every block are reserved for a special purpose. The offset should be at least three bytes from the start of the block. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to lock in the block starting from Offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_ADDRESS_ERROR if the destination address range is not completely within the addressable areas of the devices.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Due to flash memory design, the range actually locked may be larger than what was specified by the Offset &amp; Bytes parameters. This occurs if the parameters do not align to block boundaries. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="765" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="324" bodyend="335"/>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1gad42077db3972cee5f052a5a5063fe538" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_Unlock</definition>
+        <argsstring>(XFlash *InstancePtr, u32 Offset, u32 Bytes)</argsstring>
+        <name>XFlash_Unlock</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>Unlocks the blocks in the specified range of the flash devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device is polled until an error or the operation completes successfully.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset into the device address space from which to begin block UnLocking. The first three bytes of every block are reserved for a special purpose. The offset should be at least three bytes from the start of the block. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to unlock in the block starting from Offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_ADDRESS_ERROR if the destination address range is not completely within the addressable areas of the devices. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="766" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="357" bodyend="368"/>
+        <referencedby refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" compoundref="xilflash__protection__example_8c" startline="177" endline="286">FlashProtectionExample</referencedby>
+        <referencedby refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" compoundref="xilflash__readwrite__example_8c" startline="182" endline="280">FlashReadWriteExample</referencedby>
+        <referencedby refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" compoundref="xilflash__platform__flash__example_8c" startline="146" endline="258">PlatformFlashReadWriteExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilflash__apis_1ga58e08e78cda5a44e67a7ec99fab303d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlash_IsReady</definition>
+        <argsstring>(XFlash *InstancePtr)</argsstring>
+        <name>XFlash_IsReady</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the device has been successfully initialized. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks the readiness of the device, which means it has been successfully initialized.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFlash instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if the device has been initialized (but not necessarily started), and FALSE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/include/xilflash.h" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilflash/src/xilflash.c" bodystart="444" bodyend="451"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the XFlash library interface for CFI flash memory devices. </para>    </briefdescription>
+    <detaileddescription>
+<para>This module implements the functionality for flash memory devices that conform to the &quot;Common Flash Interface&quot; (CFI) standard. CFI allows a single flash library to be used for an entire family of parts.</para><para>This is not a library for a specific device, but for a set of command read/write/erase algorithms. CFI allows the library to determine which algorithm to use at runtime.</para><para><bold>Library Initialization</bold></para><para>The application should call <ref refid="group__xilflash__apis_1gab4c908ad78f6ded9407d0dc7ed611370" kindref="member">XFlash_Initialize()</ref> before any other function in the library. The initialization function checks for the device family and initializes the XFlash instance with the family specific data. It sets up the VT table, which contains the function pointers to the family specific APIs, and calls the family specific initialization routine.</para><para><bold>Device Geometry</bold></para><para>The Device geometry varies for different flash device families. The following list describes geometry of different flash device families: <verbatim>    &lt;b&gt; Intel Flash Device Geometry &lt;/b&gt;
+
+    Flash memory space is segmented into areas called blocks. The size of
+    each block is based on a power of 2. A region is defined as a contiguous
+  set of blocks of the same size. Some parts have several regions while
+  others have one.
+
+  This module refers to the arrangement of blocks and regions as the
+  part&apos;s geometry. Some Intel flash supports multiple banks on the same
+  device. This library supports single and multiple bank flash devices.
+
+    &lt;b&gt; AMD Flash Device Geometry &lt;/b&gt;
+
+  Flash memory space is segmented into areas called banks and further
+  into regions and blocks. The size of each block is based on a power of
+  2. A region is defined as a contiguous set of blocks of the same size.
+  Some parts have several regions while others have one.
+
+  A bank is defined as a contiguous set of blocks. The bank may contain
+  blocks of different size. This module refers to the arrangement of
+  blocks, regions and banks as the part&apos;s geometry.
+
+    The cells within the part can be programmed from a logic 1 to a logic 0
+  and not the other way around. To change a cell back to a logic 1, the
+  entire block containing that cell must be erased. When a block is erased
+  all bytes contain the value 0xFF. The number of times a block can be
+  erased is finite. Eventually the block wears out and is no longer
+  capable of erasure. As of this writing, the typical flash block can
+  be erased 100,000 or more times.
+</verbatim></para><para><bold>Write Operation</bold></para><para>The write call writes a minimum of zero bytes and a maximum of the entire flash. An error is reported back to the caller if the Offset Address specified to write is out of flash. An error is also reported if the number of bytes specified from the Offset address exceeds flash boundaries. The write is blocking in nature: control returns to the caller only after the write operation completes successfully or an error is reported.</para><para><bold>Read Operation</bold></para><para>The read call reads a minimum of zero bytes and a maximum of the entire flash. If the Offset Address specified to read is out of flash boundary, an error is reported back to the caller. The read function reads memory locations beyond Flash boundary. Make sure that the Number of Bytes + Offset address is within the Flash address boundaries. The read is blocking in nature: control returns to the caller only after the read operation completes successfully or an error is reported.</para><para><bold>Erase Operation</bold></para><para>The erase operations erase a Block in the Flash memory. The erase call is blocking in nature: control returns to the caller only after the erase operation completes successfully or an error is reported.</para><para><bold>Sector Protection</bold></para><para>The Flash Device is divided into Blocks. Each Block can be protected individually from unwarranted writing/erasing.</para><para>Use the <ref refid="group__xilflash__apis_1ga61597f564c68519fd4449b9fe6c50339" kindref="member">XFlash_Lock()</ref> call to lock blocks. All the memory locations from the specified Offset address are locked. Use the <ref refid="group__xilflash__apis_1gad42077db3972cee5f052a5a5063fe538" kindref="member">XFlash_Unlock()</ref> call to unlock blocks. All the Blocks which are previously locked are unlocked.</para><para>The Lock and Unlock calls are blocking in nature: control returns to the caller only after the operation completes successfully or an error is reported.</para><para>The AMD flash device requires high voltage on the Reset pin to perform lock and unlock operations. Provide this high voltage (as defined in the datasheet) to the reset pin before calling the lock and unlock APIs for AMD flash devices. Lock and Unlock features are not tested for AMD flash devices.</para><para><bold>Device Control</bold></para><para>Functionalities specific to a Flash Device Family are implemented as Device Control.</para><para>The following are the Intel specific device control:<itemizedlist>
+<listitem><para>Retrieve the last error data.</para></listitem><listitem><para>Get Device geometry.</para></listitem><listitem><para>Get Device properties.<itemizedlist>
+<listitem><para>Set RYBY pin mode.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Set the Configuration register (Platform Flash only).</para></listitem></itemizedlist>
+</para><para>The following are the AMD specific device control:<itemizedlist>
+<listitem><para>Get Device geometry.</para></listitem><listitem><para>Get Device properties.</para></listitem><listitem><para>Erase Resume.<itemizedlist>
+<listitem><para>Erase Suspend.</para></listitem><listitem><para>Enter Extended Mode.</para></listitem><listitem><para>Exit Extended Mode.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Get Protection Status of Block Group.</para></listitem><listitem><para>Erase Chip.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para><bold>This library needs to know the type of EMC core (AXI or XPS) used to access the cfi flash, to map the correct APIs. Use this library with the emc driver, v3_01_a and above, so that this information can be automatically obtained from the emc driver.</bold> <linebreak/>
+<linebreak/>
+ This library is intended to be RTOS and processor independent. It works with physical addresses only. The layer above this library must satisfy any needs for dynamic memory management, threads, mutual exclusion, virtual memory, cache control, or HW write protection management. <linebreak/>
+<linebreak/>
+ All writes to flash occur in units of bus-width bytes. If more than one part exists on the data bus, then the parts are written in parallel. Reads from flash are performed in any width up to the width of the data bus. The library assumes that the flash bus controller or local bus supports these types of accesses.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date      Changes
+<hruler/>
+
+1.00a rmm  10/25/07 First release
+1.00a mta  10/25/07 Updated to flash library
+1.01a ksu  04/10/08 Added support for AMD CFI Interface
+1.02a ksu  06/16/09 Added support for multiple banks in Intel flash
+              Removed unused defines (XFL_MAX_NUM_BANKS, XFL_BANK1,
+              XFL_BANK2)
+              Added IOCTL to set configuration register of platform
+              flash
+1.03a ksu  10/07/09 Added support for large buffer size flash (CR535564)
+2.00a ktn  12/04/09 Updated to use the HAL processor APIs/macros
+2.01a ktn  03/31/10 Updated the AMD code to support uniform sector WP modes
+2.02a sdm  06/30/10 Updated to support AXI EMC with Little Endian Processor
+2.02a sdm  07/07/10 Updated XFlashAmd_Initialize() to NOT change the erase
+              region information of a top boot device, when the number
+              of erase regions is not more than 1.
+3.00a sdm  03/03/11 Removed static parameters in mld and updated code to
+              determine these parameters from the CFI data.
+3.00a sdm  03/23/11 Added two new parameters in mld for flash families. Users
+              can enable support for either of the flash devices or both
+              of them.
+3.01a srt  03/02/12 Added support for Micron G18 Flash device to fix
+              CRs 648372, 648282.
+              Modified XFlashIntel_Reset function to reset all the
+              partitions.
+              Added DATA_SYNC to fix the CR 644750.
+3.02a srt  05/30/12 Changed Implementation for Micron G18 Flash, which
+              fixes the CR 662317.
+              CR 662317 Description - Xilinx Platform Flash on ML605
+              fails to work.
+3.03a srt  11/04/12 Increased AMD maximum erase regions (CR 668730)
+                      Fixed CR 679937  -
+              Description: Non-word aligned data write to flash fails
+              with AXI interface.
+3.04a srt  02/18/13 Fixed CR 700553.
+4.1     nsk  06/06/12 Updated WriteBuffer programming for spansion
+              in <ref refid="xilflash__amd_8c" kindref="compound">xilflash_amd.c</ref> and added new definitions
+              as per AMD Spec in <ref refid="xilflash__amd_8h" kindref="compound">xilflash_amd.h</ref> (CR 781697).
+4.1     nsk  08/06/15 Fixed CR 835008 Modified <ref refid="xilflash__intel_8c" kindref="compound">xilflash_intel.c</ref>.
+4.2   nsk  01/07/15 Add Support to change Flash from Sync to Async Mode.
+                    Updated <ref refid="xilflash__readwrite__example_8c" kindref="compound">xilflash_readwrite_example.c</ref> file.
+                    Modified FLASH_BASE_ADDRESS in xilflash_readwrite
+                    _example.c to canonical name (CR 808007)
+4.3   ms   01/17/17 Fixed compilation warnings.
+4.4   ms   08/03/17 Added doxygen tags.
+4.5     tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
+4.6     akm  01/22/19 Fixed compilation errors (CR#1018603)
+4.7     akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
+                    in write operation(CR-1029074).
+4.7     akm  07/23/19 Initialized Status variable to XST_FAILURE.
+4.8     sne  04/23/21 Fixed doxygen warnings.
+4.10    akm  07/14/23 Added support for system device-tree flow.
+4.14 vn   08/26/26 Fix Doxygen warnings.
+4.14  vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__update_8h" kind="file">
+    <compoundname>xpm_update.h</compoundname>
+    <includedby refid="xpm__alloc_8c" local="yes">xpm_alloc.c</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__clock_8c" local="yes">xpm_clock.c</includedby>
+    <includedby refid="xpm__device_8c" local="yes">xpm_device.c</includedby>
+    <includedby refid="xpm__domain__iso_8c" local="yes">xpm_domain_iso.c</includedby>
+    <includedby refid="xpm__pin_8c" local="yes">xpm_pin.c</includedby>
+    <includedby refid="xpm__pldevice_8c" local="yes">xpm_pldevice.c</includedby>
+    <includedby refid="xpm__pldomain_8c" local="yes">xpm_pldomain.c</includedby>
+    <includedby refid="xpm__power_8c" local="yes">xpm_power.c</includedby>
+    <includedby refid="xpm__power__core_8c" local="yes">xpm_power_core.c</includedby>
+    <includedby refid="xpm__regnode_8c" local="yes">xpm_regnode.c</includedby>
+    <includedby refid="xpm__regulator_8c" local="yes">xpm_regulator.c</includedby>
+    <includedby refid="xpm__reset_8c" local="yes">xpm_reset.c</includedby>
+    <includedby refid="xpm__runtime__subsys_8c" local="yes">xpm_runtime_subsys.c</includedby>
+    <includedby refid="xpm__access_8c" local="yes">xpm_access.c</includedby>
+    <includedby refid="xpm__gic__proxy_8c" local="yes">xpm_gic_proxy.c</includedby>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__notifier_8c" local="yes">xpm_notifier.c</includedby>
+    <includedby refid="xpm__runtime__alloc_8c" local="yes">xpm_runtime_alloc.c</includedby>
+    <includedby refid="xpm__runtime__core_8c" local="yes">xpm_runtime_core.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <includedby refid="xpm__runtime__eemi_8c" local="yes">xpm_runtime_eemi.c</includedby>
+    <includedby refid="xpm__runtime__periph_8c" local="yes">xpm_runtime_periph.c</includedby>
+    <includedby refid="xpm__runtime__reset_8c" local="yes">xpm_runtime_reset.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <invincdepgraph>
+      <node id="5271">
+        <label>xpm_regulator.c</label>
+      </node>
+      <node id="5282">
+        <label>xpm_runtime_periph.c</label>
+      </node>
+      <node id="5275">
+        <label>xpm_gic_proxy.c</label>
+      </node>
+      <node id="5265">
+        <label>xpm_pin.c</label>
+      </node>
+      <node id="5274">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="5260">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="5258">
+        <label>xpm_update.h</label>
+        <link refid="xpm_update.h"/>
+        <childnode refid="5259" relation="include">
+        </childnode>
+        <childnode refid="5260" relation="include">
+        </childnode>
+        <childnode refid="5261" relation="include">
+        </childnode>
+        <childnode refid="5262" relation="include">
+        </childnode>
+        <childnode refid="5263" relation="include">
+        </childnode>
+        <childnode refid="5264" relation="include">
+        </childnode>
+        <childnode refid="5265" relation="include">
+        </childnode>
+        <childnode refid="5266" relation="include">
+        </childnode>
+        <childnode refid="5267" relation="include">
+        </childnode>
+        <childnode refid="5268" relation="include">
+        </childnode>
+        <childnode refid="5269" relation="include">
+        </childnode>
+        <childnode refid="5270" relation="include">
+        </childnode>
+        <childnode refid="5271" relation="include">
+        </childnode>
+        <childnode refid="5272" relation="include">
+        </childnode>
+        <childnode refid="5273" relation="include">
+        </childnode>
+        <childnode refid="5274" relation="include">
+        </childnode>
+        <childnode refid="5275" relation="include">
+        </childnode>
+        <childnode refid="5276" relation="include">
+        </childnode>
+        <childnode refid="5277" relation="include">
+        </childnode>
+        <childnode refid="5278" relation="include">
+        </childnode>
+        <childnode refid="5279" relation="include">
+        </childnode>
+        <childnode refid="5280" relation="include">
+        </childnode>
+        <childnode refid="5281" relation="include">
+        </childnode>
+        <childnode refid="5282" relation="include">
+        </childnode>
+        <childnode refid="5283" relation="include">
+        </childnode>
+        <childnode refid="5284" relation="include">
+        </childnode>
+      </node>
+      <node id="5276">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="5261">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="5262">
+        <label>xpm_clock.c</label>
+      </node>
+      <node id="5277">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="5268">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="5280">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="5279">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="5283">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="5269">
+        <label>xpm_power_core.c</label>
+      </node>
+      <node id="5273">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="5259">
+        <label>xpm_alloc.c</label>
+      </node>
+      <node id="5281">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="5264">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="5266">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="5267">
+        <label>xpm_pldomain.c</label>
+      </node>
+      <node id="5284">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="5263">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="5272">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="5270">
+        <label>xpm_regnode.c</label>
+      </node>
+      <node id="5278">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__update_8h_1aa5f984c3383e191abcc4cb96af2695be" prot="public" static="no">
+        <name>XPM_TOPOLOGY_DS_ID</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="8" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1ac21bc996642f4e6c37833cb4c33e1c10" prot="public" static="no">
+        <name>XPM_ALLOC_TOPO_MEM_DS_ID</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a7cba4e036aa41a95b4ba28867af2d8aa" prot="public" static="no">
+        <name>XPM_DEVICETABLE_DS_ID</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a81062deb38682bb18e6184e531808bce" prot="public" static="no">
+        <name>XPM_TOPOLOGY_DS_VERSION</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Topology and allocator-state version for the rebalanced pools. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a6c2ad1d3ef6fc6377ca37bc5686b37de" prot="public" static="no">
+        <name>XPM_TOPOLOGY_DS_LCVERSION</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Reject saved allocator pointers from the previous pool layout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a817583cfd9f1886115e5af2f3608a32c" prot="public" static="no">
+        <name>XPM_SUBSYSTEMPOOL_DS_ID</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1ac24a4fe496311b76b06adc69c866000c" prot="public" static="no">
+        <name>XPM_SUBSYSTEMPOOL_DS_VERSION</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Runtime pool-group version after moving its internal boundaries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a7b936f07833be8a220e3f7ef9c97a4a0" prot="public" static="no">
+        <name>XPM_SUBSYSTEMPOOL_DS_LCVERSION</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Reject runtime objects containing pointers into the old pools. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a1a9cea6e3e5c9da4102c7472766b7add" prot="public" static="no">
+        <name>XPM_BOARD_POOL_DS_ID</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a757e8bbdd650419ea1df115847e16b53" prot="public" static="no">
+        <name>XPM_BOARD_POOL_DS_VERSION</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a4d1a5c2520fe0b95765c20bc3b8e981f" prot="public" static="no">
+        <name>XPM_BOARD_POOL_DS_LCVERSION</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a8f20fded34572427cd05f965c841f829" prot="public" static="no">
+        <name>XPM_PLACE_IN</name>
+        <param><defname>SECTION</defname></param>
+        <initializer>__attribute__((section(SECTION)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1ad9c1e95d2f14466981bd03c8c34bfb6d" prot="public" static="no">
+        <name>XPM_INIT_DATA</name>
+        <param><defname>SECTION</defname></param>
+        <initializer>XPM_PLACE_IN(&quot;.RefTable.&quot; #SECTION)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_UPDATE_H</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_UPDATE_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_TOPOLOGY_DS_ID<sp/>0x1</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_ALLOC_TOPO_MEM_DS_ID<sp/>0x2</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_DEVICETABLE_DS_ID<sp/>0x3</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#define<sp/>XPM_TOPOLOGY_DS_VERSION<sp/>0x3</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#define<sp/>XPM_TOPOLOGY_DS_LCVERSION<sp/>0x3</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_SUBSYSTEMPOOL_DS_ID<sp/>0x4</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor">#define<sp/>XPM_SUBSYSTEMPOOL_DS_VERSION<sp/>0x2</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#define<sp/>XPM_SUBSYSTEMPOOL_DS_LCVERSION<sp/>0x2</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_BOARD_POOL_DS_ID<sp/>0x5</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_BOARD_POOL_DS_VERSION<sp/>0x1</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_BOARD_POOL_DS_LCVERSION<sp/>0x1</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PLACE_IN(SECTION)<sp/>__attribute__((section(SECTION)))</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_INIT_DATA(SECTION)<sp/>XPM_PLACE_IN(&quot;.RefTable.&quot;<sp/>#SECTION)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*XPM_UPDATE_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.h"/>
+  </compounddef>
+</doxygen>

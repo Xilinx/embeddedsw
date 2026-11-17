@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__seq_8c" kind="file">
+    <compoundname>mbox_seq.c</compoundname>
+    <includes refid="mbox__seq_8h" local="yes">mbox_seq.h</includes>
+    <includes refid="mbox__error__code_8h" local="yes">mbox_error_code.h</includes>
+    <includes local="yes">vlog.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">string.h</includes>
+    <incdepgraph>
+      <node id="6940">
+        <label>mbox_seq.h</label>
+        <link refid="mbox__seq_8h"/>
+        <childnode refid="6941" relation="include">
+        </childnode>
+        <childnode refid="6944" relation="include">
+        </childnode>
+      </node>
+      <node id="6942">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6945">
+        <label>stdint.h</label>
+      </node>
+      <node id="6941">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6942" relation="include">
+        </childnode>
+        <childnode refid="6943" relation="include">
+        </childnode>
+      </node>
+      <node id="6946">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6944">
+        <label>mbox_api.h</label>
+        <childnode refid="6942" relation="include">
+        </childnode>
+        <childnode refid="6945" relation="include">
+        </childnode>
+        <childnode refid="6941" relation="include">
+        </childnode>
+      </node>
+      <node id="6948">
+        <label>string.h</label>
+      </node>
+      <node id="6939">
+        <label>mbox_seq.c</label>
+        <link refid="mbox_seq.c"/>
+        <childnode refid="6940" relation="include">
+        </childnode>
+        <childnode refid="6946" relation="include">
+        </childnode>
+        <childnode refid="6947" relation="include">
+        </childnode>
+        <childnode refid="6945" relation="include">
+        </childnode>
+        <childnode refid="6948" relation="include">
+        </childnode>
+      </node>
+      <node id="6947">
+        <label>vlog.h</label>
+      </node>
+      <node id="6943">
+        <label>sys/_stdint.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structmbox__seq__state" prot="public">mbox_seq_state</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mbox__seq_8c_1a409768d6dd32d3ff211bfccfe4ecce45" prot="public" static="no">
+        <name>LOGTAG</name>
+        <initializer>&quot;MSEQ&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__seq_8c_1a9380447a4f0c993b8a9a795ed1655841" prot="public" static="no">
+        <name>MBOX_SEQ_MAX</name>
+        <initializer>INT32_MAX</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__seq_8c_1aef51c2d97c05f95fbab5ec65f9e55b53" prot="public" static="no">
+        <name>MBOX_SEQ_FORWARD_GAP_MAX</name>
+        <initializer>1024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__seq_8c_1a36fc5f923054c5d4e04daa0559937c1c" prot="public" static="no">
+        <name>MBOX_SEQ_MISMATCH_ESCALATE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="mbox__seq_8c_1ae0b406039215daad28d1e234f4c312ef" prot="public" static="no">
+        <type>struct mbox_seq_state</type>
+        <definition>typedef struct mbox_seq_state  mbox_seq_state_t</definition>
+        <argsstring></argsstring>
+        <name>mbox_seq_state_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="34" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mbox__seq_8c_1a30c601ec899b1e4eadc7effbae7f834d" prot="public" static="yes" mutable="no">
+        <type>mbox_seq_state_t</type>
+        <definition>mbox_seq_state_t seq_state[MBOX_CORE_MAX]</definition>
+        <argsstring>[MBOX_CORE_MAX]</argsstring>
+        <name>seq_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__seq_8c_1a1490dc05b0f68ce4348c25c6234ac3b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t mbox_seq_increment</definition>
+        <argsstring>(uint32_t seq)</argsstring>
+        <name>mbox_seq_increment</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>seq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8c_1aa6c27d9f82181c5bb3357b4685765b16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_seq_init_all</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_seq_init_all</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize sequence counter state for all mbox cores. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="43" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8c_1a0c3a4f3eaa90f1caa8b330ec29b2dc38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_seq_assign_outbound</definition>
+        <argsstring>(MboxCoreId remote_core_id, Payload_packet *payload)</argsstring>
+        <name>mbox_seq_assign_outbound</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>remote_core_id</declname>
+        </param>
+        <param>
+          <type><ref refid="mbox__fifo_8h_1afbb21034653fa377acc38d088c0d8704" kindref="member">Payload_packet</ref> *</type>
+          <declname>payload</declname>
+        </param>
+        <briefdescription>
+<para>Assign the next outbound sequence number to a payload. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>remote_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target remote core ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Payload_packet to stamp </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="48" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8c_1a222dac29e6b88c34147587bb68e021da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_seq_validate_inbound</definition>
+        <argsstring>(MboxCoreId remote_core_id, const MboxPostMsg *msg)</argsstring>
+        <name>mbox_seq_validate_inbound</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>remote_core_id</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Validate the sequence number of an inbound message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>remote_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source remote core ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to received <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS if valid/accepted, VPI_ERR_SEQ_MISMATCH otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="58" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__seq_8c_1a6ce339f8e45b2223bb0f072b76d02a7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_seq_mark_resync</definition>
+        <argsstring>(MboxCoreId remote_core_id)</argsstring>
+        <name>mbox_seq_mark_resync</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>remote_core_id</declname>
+        </param>
+        <briefdescription>
+<para>Force the inbound counter for a remote core to resync on next receive. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>remote_core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Remote core ID whose next message defines the new baseline </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="112" bodyend="118"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. </para>    </briefdescription>
+    <detaileddescription>
+<para>All Rights Reserved.</para><para>Mailbox per-core sequence counter integrity checks </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="8"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__seq_8h" kindref="compound">mbox_seq.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_error_code.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vlog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGTAG<sp/>&quot;MSEQ&quot;</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MBOX_SEQ_MAX<sp/>INT32_MAX</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>Bounds<sp/>for<sp/>the<sp/>&quot;unified<sp/>receiver<sp/>rule&quot;<sp/>shared<sp/>with<sp/>visp_mbox</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>a<sp/>small<sp/>forward<sp/>gap<sp/>is<sp/>normal<sp/>message<sp/>loss<sp/>and<sp/>is<sp/>accepted/resynced</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>immediately,<sp/>while<sp/>a<sp/>backward/stale<sp/>value<sp/>or<sp/>an<sp/>implausibly<sp/>large<sp/>gap<sp/>is</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>only<sp/>trusted<sp/>after<sp/>it<sp/>repeats,<sp/>so<sp/>a<sp/>forced<sp/>resync<sp/>only<sp/>happens<sp/>after<sp/>a<sp/>run</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>of<sp/>consecutive<sp/>irrecoverable<sp/>mismatches.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MBOX_SEQ_FORWARD_GAP_MAX<sp/>1024U</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MBOX_SEQ_MISMATCH_ESCALATE<sp/>8U</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">mbox_seq_state<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>inbound_seq;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>outbound_seq;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>seq_mismatch_count;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>seq_resync_pending;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}<sp/>mbox_seq_state_t;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>mbox_seq_state_t<sp/>seq_state[MBOX_CORE_MAX];</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint32_t<sp/>mbox_seq_increment(uint32_t<sp/>seq)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(seq<sp/>&gt;=<sp/>MBOX_SEQ_MAX)<sp/>?<sp/>0U<sp/>:<sp/>(seq<sp/>+<sp/>1U);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="mbox__seq_8c_1aa6c27d9f82181c5bb3357b4685765b16" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__seq_8h_1aa6c27d9f82181c5bb3357b4685765b16" kindref="member">mbox_seq_init_all</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(seq_state,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(seq_state));</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="mbox__seq_8c_1a0c3a4f3eaa90f1caa8b330ec29b2dc38" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__seq_8h_1a0c3a4f3eaa90f1caa8b330ec29b2dc38" kindref="member">mbox_seq_assign_outbound</ref>(MboxCoreId<sp/>remote_core_id,<sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*payload)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(remote_core_id<sp/>&gt;=<sp/>MBOX_CORE_MAX<sp/>||<sp/>!payload)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload-&gt;seq_counter<sp/>=<sp/>seq_state[remote_core_id].outbound_seq;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].outbound_seq<sp/>=</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_seq_increment(seq_state[remote_core_id].outbound_seq);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="mbox__seq_8c_1a222dac29e6b88c34147587bb68e021da" refkind="member"><highlight class="normal">int32_t<sp/><ref refid="mbox__seq_8h_1a222dac29e6b88c34147587bb68e021da" kindref="member">mbox_seq_validate_inbound</ref>(MboxCoreId<sp/>remote_core_id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>expected_seq;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>received_seq;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>gap;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(remote_core_id<sp/>&gt;=<sp/>MBOX_CORE_MAX<sp/>||<sp/>!msg)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>received_seq<sp/>=<sp/>msg-&gt;payload.seq_counter;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(seq_state[remote_core_id].seq_resync_pending)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_resync_pending<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].inbound_seq<sp/>=<sp/>mbox_seq_increment(received_seq);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>expected_seq<sp/>=<sp/>seq_state[remote_core_id].inbound_seq;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(received_seq<sp/>==<sp/>expected_seq)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].inbound_seq<sp/>=<sp/>mbox_seq_increment(received_seq);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Circular<sp/>forward<sp/>distance<sp/>from<sp/>expected<sp/>to<sp/>received<sp/>(handles<sp/>rollover).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gap<sp/>=<sp/>(received_seq<sp/>-<sp/>expected_seq)<sp/>&amp;<sp/>(uint32_t)MBOX_SEQ_MAX;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(gap<sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>gap<sp/>&lt;=<sp/>MBOX_SEQ_FORWARD_GAP_MAX)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGW(</highlight><highlight class="stringliteral">&quot;Mbox<sp/>sequence<sp/>gap<sp/>from<sp/>core<sp/>%d:<sp/>expected<sp/>%u<sp/>got<sp/>%u<sp/>(dropped<sp/>%u),<sp/>resyncing\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>remote_core_id,<sp/>expected_seq,<sp/>received_seq,<sp/>gap);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].inbound_seq<sp/>=<sp/>mbox_seq_increment(received_seq);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Backward/stale/huge-forward<sp/>gap:<sp/>escalate<sp/>to<sp/>a<sp/>forced<sp/>resync<sp/>only</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>after<sp/>repeated<sp/>mismatches<sp/>so<sp/>a<sp/>single<sp/>corrupted<sp/>value<sp/>can&apos;t<sp/>wedge</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>link,<sp/>but<sp/>a<sp/>real<sp/>desync<sp/>still<sp/>self-heals.</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count++;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(seq_state[remote_core_id].seq_mismatch_count<sp/>&gt;=<sp/>MBOX_SEQ_MISMATCH_ESCALATE)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Mbox<sp/>%u<sp/>consecutive<sp/>sequence<sp/>mismatches<sp/>from<sp/>core<sp/>%d,<sp/>forcing<sp/>resync<sp/>at<sp/>%u\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count,<sp/>remote_core_id,<sp/>received_seq);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].inbound_seq<sp/>=<sp/>mbox_seq_increment(received_seq);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Mbox<sp/>sequence<sp/>mismatch<sp/>from<sp/>core<sp/>%d:<sp/>expected<sp/>%u<sp/>got<sp/>%u<sp/>msg_id=%u<sp/>(count=%u)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>remote_core_id,<sp/>expected_seq,<sp/>received_seq,<sp/>msg-&gt;msg_id,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_mismatch_count);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_SEQ_MISMATCH;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="mbox__seq_8c_1a6ce339f8e45b2223bb0f072b76d02a7c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__seq_8h_1a6ce339f8e45b2223bb0f072b76d02a7c" kindref="member">mbox_seq_mark_resync</ref>(MboxCoreId<sp/>remote_core_id)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(remote_core_id<sp/>&gt;=<sp/>MBOX_CORE_MAX)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seq_state[remote_core_id].seq_resync_pending<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c"/>
+  </compounddef>
+</doxygen>

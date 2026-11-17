@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__requirement__info_8h" kind="file">
+    <compoundname>xpm_requirement_info.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includedby>
+    <incdepgraph>
+      <node id="3959">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3958">
+        <label>xpm_requirement_info.h</label>
+        <link refid="xpm_requirement_info.h"/>
+        <childnode refid="3959" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3989">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="3966">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="3969">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="3979">
+        <label>xpm_ioctl.h</label>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3966" relation="include">
+        </childnode>
+        <childnode refid="3969" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+      </node>
+      <node id="3972">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="3985">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="3984">
+        <label>xpm_notifier.h</label>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3985" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+      </node>
+      <node id="3963">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="3975">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="3974">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="3967">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="3962" relation="include">
+        </childnode>
+        <childnode refid="3963" relation="include">
+        </childnode>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3966" relation="include">
+        </childnode>
+        <childnode refid="3968" relation="include">
+        </childnode>
+        <childnode refid="3969" relation="include">
+        </childnode>
+        <childnode refid="3970" relation="include">
+        </childnode>
+        <childnode refid="3971" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+        <childnode refid="3973" relation="include">
+        </childnode>
+        <childnode refid="3974" relation="include">
+        </childnode>
+        <childnode refid="3975" relation="include">
+        </childnode>
+        <childnode refid="3976" relation="include">
+        </childnode>
+        <childnode refid="3977" relation="include">
+        </childnode>
+        <childnode refid="3978" relation="include">
+        </childnode>
+      </node>
+      <node id="3986">
+        <label>xpm_runtime_core.h</label>
+        <childnode refid="3985" relation="include">
+        </childnode>
+        <childnode refid="3987" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+        <childnode refid="3974" relation="include">
+        </childnode>
+        <childnode refid="3975" relation="include">
+        </childnode>
+      </node>
+      <node id="3978">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="3988">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3971" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+        <childnode refid="3974" relation="include">
+        </childnode>
+        <childnode refid="3975" relation="include">
+        </childnode>
+        <childnode refid="3976" relation="include">
+        </childnode>
+        <childnode refid="3978" relation="include">
+        </childnode>
+      </node>
+      <node id="3964">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="3970">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="3961">
+        <label>xpm_requirement.h</label>
+        <childnode refid="3962" relation="include">
+        </childnode>
+        <childnode refid="3963" relation="include">
+        </childnode>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3965" relation="include">
+        </childnode>
+        <childnode refid="3967" relation="include">
+        </childnode>
+        <childnode refid="3966" relation="include">
+        </childnode>
+        <childnode refid="3968" relation="include">
+        </childnode>
+        <childnode refid="3969" relation="include">
+        </childnode>
+        <childnode refid="3970" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+        <childnode refid="3975" relation="include">
+        </childnode>
+        <childnode refid="3976" relation="include">
+        </childnode>
+        <childnode refid="3977" relation="include">
+        </childnode>
+      </node>
+      <node id="3976">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="3973">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="3980">
+        <label>xpm_runtime_clock.h</label>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3968" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+        <childnode refid="3973" relation="include">
+        </childnode>
+        <childnode refid="3974" relation="include">
+        </childnode>
+        <childnode refid="3976" relation="include">
+        </childnode>
+      </node>
+      <node id="3977">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="3981">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="3962">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="3983">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="3982">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="3969" relation="include">
+        </childnode>
+        <childnode refid="3983" relation="include">
+        </childnode>
+        <childnode refid="3975" relation="include">
+        </childnode>
+      </node>
+      <node id="3968">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="3990">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="3960">
+        <label>xpm_requirement_info.h</label>
+        <link refid="xpm_requirement_info.h"/>
+        <childnode refid="3961" relation="include">
+        </childnode>
+      </node>
+      <node id="3991">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="3965">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="3962" relation="include">
+        </childnode>
+        <childnode refid="3964" relation="include">
+        </childnode>
+        <childnode refid="3966" relation="include">
+        </childnode>
+        <childnode refid="3961" relation="include">
+        </childnode>
+        <childnode refid="3967" relation="include">
+        </childnode>
+        <childnode refid="3979" relation="include">
+        </childnode>
+        <childnode refid="3980" relation="include">
+        </childnode>
+        <childnode refid="3981" relation="include">
+        </childnode>
+        <childnode refid="3982" relation="include">
+        </childnode>
+        <childnode refid="3984" relation="include">
+        </childnode>
+        <childnode refid="3986" relation="include">
+        </childnode>
+        <childnode refid="3988" relation="include">
+        </childnode>
+        <childnode refid="3971" relation="include">
+        </childnode>
+        <childnode refid="3972" relation="include">
+        </childnode>
+        <childnode refid="3973" relation="include">
+        </childnode>
+        <childnode refid="3975" relation="include">
+        </childnode>
+        <childnode refid="3976" relation="include">
+        </childnode>
+        <childnode refid="3989" relation="include">
+        </childnode>
+        <childnode refid="3990" relation="include">
+        </childnode>
+        <childnode refid="3978" relation="include">
+        </childnode>
+        <childnode refid="3991" relation="include">
+        </childnode>
+      </node>
+      <node id="3971">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+      <node id="3987">
+        <label>xpm_power_handlers.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___reqm_info" prot="public">XPm_ReqmInfo</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__requirement__info_8h_1afb2fe5e8b63996fd9446c18e530b5524" prot="public" static="no">
+        <name>REQ_INFO_CAPS_BIT_FIELD_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement__info_8h_1aab7a071ae0aa1b5b3a39c137e0777b17" prot="public" static="no">
+        <name>REQ_INFO_LATENCY_BIT_FIELD_SIZE</name>
+        <initializer>21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement__info_8h_1ad9c3598521a291383aa8b193bc0105b2" prot="public" static="no">
+        <name>REQ_INFO_RESERVED_BIT_FIELD_SIZE</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__requirement__info_8h_1a54db9d83d92293c367032013698e9f26" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref></type>
+        <definition>typedef struct XPm_ReqmInfo XPm_ReqmInfo</definition>
+        <argsstring></argsstring>
+        <name>XPm_ReqmInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_REQUIREMENT_INFO_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_REQUIREMENT_INFO_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Size<sp/>of<sp/>bit<sp/>fields<sp/>for<sp/>XPm_ReqmInfo<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REQ_INFO_CAPS_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REQ_INFO_LATENCY_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REQ_INFO_RESERVED_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref><sp/><ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref>;</highlight></codeline>
+<codeline lineno="24" refid="struct_x_pm___reqm_info" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref><sp/>{</highlight></codeline>
+<codeline lineno="25" refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref>:REQ_INFO_CAPS_BIT_FIELD_SIZE;<sp/></highlight></codeline>
+<codeline lineno="26" refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref>:REQ_INFO_LATENCY_BIT_FIELD_SIZE;<sp/></highlight></codeline>
+<codeline lineno="27" refid="struct_x_pm___reqm_info_1afe13d42b58d2f9f0caf03e0e6543514b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reqm_info_1afe13d42b58d2f9f0caf03e0e6543514b" kindref="member">Reserved</ref>:REQ_INFO_RESERVED_BIT_FIELD_SIZE;<sp/></highlight></codeline>
+<codeline lineno="28" refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref>;<sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_REQUIREMENT_INFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h"/>
+  </compounddef>
+</doxygen>

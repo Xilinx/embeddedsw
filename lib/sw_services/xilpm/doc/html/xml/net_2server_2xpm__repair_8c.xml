@@ -1,0 +1,1080 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__repair_8c" kind="file">
+    <compoundname>net/server/xpm_repair.c</compoundname>
+    <includes refid="net_2server_2xpm__repair_8h" local="yes">xpm_repair.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <incdepgraph>
+      <node id="8347">
+        <label>xpm_api.h</label>
+        <childnode refid="8335" relation="include">
+        </childnode>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8333" relation="include">
+        </childnode>
+        <childnode refid="8326" relation="include">
+        </childnode>
+        <childnode refid="8348" relation="include">
+        </childnode>
+        <childnode refid="8349" relation="include">
+        </childnode>
+      </node>
+      <node id="8343">
+        <label>xpm_clock.h</label>
+        <childnode refid="8322" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+        <childnode refid="8334" relation="include">
+        </childnode>
+        <childnode refid="8332" relation="include">
+        </childnode>
+      </node>
+      <node id="8344">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="8324">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8334">
+        <label>xpm_node.h</label>
+        <childnode refid="8335" relation="include">
+        </childnode>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8336" relation="include">
+        </childnode>
+        <childnode refid="8322" relation="include">
+        </childnode>
+      </node>
+      <node id="8340">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="8326">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8329">
+        <label>xpm_bisr_plat.h</label>
+      </node>
+      <node id="8339">
+        <label>xpm_rail.h</label>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8340" relation="include">
+        </childnode>
+      </node>
+      <node id="8345">
+        <label>xpm_reset.h</label>
+        <childnode refid="8334" relation="include">
+        </childnode>
+        <childnode refid="8322" relation="include">
+        </childnode>
+        <childnode refid="8346" relation="include">
+        </childnode>
+        <childnode refid="8351" relation="include">
+        </childnode>
+      </node>
+      <node id="8325">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8327">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8346">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8347" relation="include">
+        </childnode>
+        <childnode refid="8333" relation="include">
+        </childnode>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8350" relation="include">
+        </childnode>
+      </node>
+      <node id="8337">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="8333">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8350">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8352">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="8332">
+        <label>xpm_power.h</label>
+        <childnode refid="8333" relation="include">
+        </childnode>
+        <childnode refid="8334" relation="include">
+        </childnode>
+        <childnode refid="8337" relation="include">
+        </childnode>
+        <childnode refid="8338" relation="include">
+        </childnode>
+      </node>
+      <node id="8351">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8319">
+        <label>xpm_repair.c</label>
+        <link refid="net/server/xpm_repair.c"/>
+        <childnode refid="8320" relation="include">
+        </childnode>
+        <childnode refid="8342" relation="include">
+        </childnode>
+      </node>
+      <node id="8320">
+        <label>xpm_repair.h</label>
+        <childnode refid="8321" relation="include">
+        </childnode>
+        <childnode refid="8330" relation="include">
+        </childnode>
+        <childnode refid="8331" relation="include">
+        </childnode>
+        <childnode refid="8341" relation="include">
+        </childnode>
+      </node>
+      <node id="8323">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8322">
+        <label>xpm_common.h</label>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8324" relation="include">
+        </childnode>
+        <childnode refid="8325" relation="include">
+        </childnode>
+        <childnode refid="8326" relation="include">
+        </childnode>
+        <childnode refid="8327" relation="include">
+        </childnode>
+        <childnode refid="8328" relation="include">
+        </childnode>
+      </node>
+      <node id="8341">
+        <label>xpm_repair_regs.h</label>
+      </node>
+      <node id="8336">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8348">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8335">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8328">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8331">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="8332" relation="include">
+        </childnode>
+        <childnode refid="8339" relation="include">
+        </childnode>
+      </node>
+      <node id="8338">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="8349">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="8330">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="8342">
+        <label>xpm_device.h</label>
+        <childnode refid="8334" relation="include">
+        </childnode>
+        <childnode refid="8332" relation="include">
+        </childnode>
+        <childnode refid="8343" relation="include">
+        </childnode>
+        <childnode refid="8345" relation="include">
+        </childnode>
+        <childnode refid="8352" relation="include">
+        </childnode>
+      </node>
+      <node id="8321">
+        <label>xpm_bisr.h</label>
+        <childnode refid="8322" relation="include">
+        </childnode>
+        <childnode refid="8329" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a13f3cb8c154229c2d1915ff99c22c9aa" prot="public" static="no">
+        <name>NUM_OF_BISR_CACHE_DATA_REGIONS</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1afda26eab04f113fa3c8a8babcf79e5bb" prot="public" static="no">
+        <name>BISR_CACHE_SUB_SIZE</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a3607b7d3955c27640fdbded13a8dc8ab" prot="public" static="no">
+        <name>HNICX_LCS_INDIRECT_NPI_BISR_CACHE_DATA0</name>
+        <initializer>(0x0009C074U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a8bd9913c09fd100e037131f99dd946ae" prot="public" static="no">
+        <name>HNICX_DPU_INDIRECT_NPI_BISR_CACHE_DATA0</name>
+        <initializer>(0x30182500U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a0b88fd33be0e29450123a241b9a34a7e" prot="public" static="no">
+        <name>DDRMC5_NPI_CACHE_STATUS_MAIN_REGISTER_OFFSET</name>
+        <initializer>(0x00000254U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a7315a53c072766be08db474e0a094d29" prot="public" static="no">
+        <name>DDRMC5_NPI_CACHE_DATA_MAIN_REGISTER_OFFSET</name>
+        <initializer>(0x00000244U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1ac3df3df86c301c3ffee4b29a3bfe476c" prot="public" static="no">
+        <name>DDRMC5_NPI_PCSR_CONTROL_REGISTER_OFFSET</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1afdc8142054eeed9da2edcada1082a92f" prot="public" static="no">
+        <name>DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a1b272401758e19816720972fa1ceeb85" prot="public" static="no">
+        <name>DDRMC5_NPI_CACHE_STATUS_BISR_DONE_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a95bba483f4df415db99a691a86236984" prot="public" static="no">
+        <name>DDRMC5_NPI_CACHE_STATUS_BISR_PASS_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a975760de75a2d9ffc701832a4014acfa" prot="public" static="no">
+        <name>DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET</name>
+        <initializer>(0x00000238U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1ac87b3ec513f4dd9199f31536ad83e2b4" prot="public" static="no">
+        <name>DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1aec7ab8b8c0b71db3e75a98511145e111" prot="public" static="no">
+        <name>DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1a2e2ef003ad58784f2abad8999fe6b41a" prot="public" static="no">
+        <name>DDRMC5_NPI_CACHE_STATUS_CRYPTO_REGISTER_OFFSET</name>
+        <initializer>(0x00000414U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1af45eb0e116362ea0f1c476f7c7f961a4" prot="public" static="no">
+        <name>DDRMC5_NPI_CACHE_DATA_CRYPTO_REGISTER_OFFSET</name>
+        <initializer>(0x00000404U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1acd4768c614dcb6d85854c5e1a16c364f" prot="public" static="no">
+        <name>DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__repair_8c_1ab8f9dfff00ae5208251f8f36b269e42d" prot="public" static="no">
+        <name>DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1a65685c8a9cf9a29c009b4512aa52f4ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Lpx</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Lpx</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="32" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1ad774e97c2b03cace80fed529952aa696" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Fpx</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Fpx</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="77" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1ad75a59f426ad1b48c5bae471f0690702" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Hnicx_Nthub</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Hnicx_Nthub</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="154" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1a13a57e2417f2ff999552286d74826445" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Cpm5n</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Cpm5n</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="186" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1a5a6f09d5b1140f4bef94045cd529f13a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Ddrmc5_Main</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Ddrmc5_Main</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="233" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1a1657e620a1f9d4f3a4a766204362a4d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Ddrmc5_Crypto</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Ddrmc5_Crypto</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="266" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1a0553dde2967daf4b5ef1f631f3bdad7a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmRepair_WriteIndirectNpi</definition>
+        <argsstring>(u32 addr, u32 val)</argsstring>
+        <name>XPmRepair_WriteIndirectNpi</name>
+        <param>
+          <type>u32</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="299" bodyend="305"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1af95f266955ac94a4ac60dd8b31f89975" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPmRepair_CopyIndirectNpi</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr)</argsstring>
+        <name>XPmRepair_CopyIndirectNpi</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>BisrDataDestAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="307" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1a184135af8476dc55f582bb4f7d49008d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Hnicx_Lcs</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Hnicx_Lcs</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="330" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__repair_8c_1ad82b0f1a029048d24ecc82b112bdcb87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Hnicx_Dpu</definition>
+        <argsstring>(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Hnicx_Dpu</name>
+        <param>
+          <type>u32</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TagOptional</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c" bodystart="362" bodyend="393"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_repair.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>FPx<sp/>Repair<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_OF_BISR_CACHE_DATA_REGIONS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BISR_CACHE_SUB_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/*HNICX<sp/>Repair*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HNICX_LCS_INDIRECT_NPI_BISR_CACHE_DATA0<sp/>(0x0009C074U)</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HNICX_DPU_INDIRECT_NPI_BISR_CACHE_DATA0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x30182500U)</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DDRMC5<sp/>repair<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CACHE_STATUS_MAIN_REGISTER_OFFSET<sp/><sp/><sp/><sp/>(0x00000254U)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CACHE_DATA_MAIN_REGISTER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000244U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_PCSR_CONTROL_REGISTER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02000000U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CACHE_STATUS_BISR_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CACHE_STATUS_BISR_PASS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000238U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CACHE_STATUS_CRYPTO_REGISTER_OFFSET<sp/><sp/>(0x00000414U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_CACHE_DATA_CRYPTO_REGISTER_OFFSET<sp/><sp/><sp/><sp/>(0x00000404U)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04000000U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">XStatus<sp/>XPmRepair_Lpx(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>(u64)LPD_SLCR_BISR_CACHE_DATA_0;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_0,<sp/>LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK,<sp/>LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_0,<sp/>LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK,<sp/>0U);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard((u32)EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_1,<sp/>LPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK,<sp/>LPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_0,<sp/>LPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK,<sp/>LPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>repair<sp/>done<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(LPD_SLCR_BISR_CACHE_STATUS_DONE_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_DONE_4_MASK</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_DONE_3_MASK</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_DONE_2_MASK</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_DONE_1_MASK</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_DONE_0_MASK);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,<sp/>RegValue,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>repair<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(LPD_SLCR_BISR_CACHE_STATUS_PASS_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_PASS_4_MASK</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_PASS_3_MASK</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_PASS_2_MASK</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_PASS_1_MASK</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>LPD_SLCR_BISR_CACHE_STATUS_PASS_0_MASK);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,<sp/>RegValue,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">XStatus<sp/>XPmRepair_Fpx(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TempTagSize;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BISR<sp/>register<sp/>space<sp/>is<sp/>not<sp/>continuous<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr[NUM_OF_BISR_CACHE_DATA_REGIONS]<sp/>=<sp/>{<sp/>(u64)FPD_SLCR_BISR_CACHE_DATA_0,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)FPD_SLCR_BISR_CACHE_DATA_16,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)FPD_SLCR_BISR_CACHE_DATA_32,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)FPD_SLCR_BISR_CACHE_DATA_48,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)FPD_SLCR_BISR_CACHE_DATA_64<sp/>};</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reject<sp/>oversized<sp/>tags<sp/>that<sp/>would<sp/>index<sp/>past<sp/>the<sp/>destination<sp/>array<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(TagSize<sp/>&gt;<sp/>(NUM_OF_BISR_CACHE_DATA_REGIONS<sp/>*<sp/>BISR_CACHE_SUB_SIZE))<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(FPD_SLCR_BISR_CACHE_CTRL_0,<sp/>FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK,<sp/>FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(FPD_SLCR_BISR_CACHE_CTRL_0,<sp/>FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK,<sp/>0U);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>maximum<sp/>16<sp/>words<sp/>to<sp/>the<sp/>non-continuous<sp/>BISR_CACHE<sp/>register<sp/>space*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((0U<sp/>&lt;<sp/>TagSize)<sp/>&amp;&amp;<sp/>(i<sp/>&lt;<sp/>NUM_OF_BISR_CACHE_DATA_REGIONS))</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempTagSize<sp/>=<sp/>(BISR_CACHE_SUB_SIZE<sp/>&lt;=<sp/>TagSize)<sp/>?<sp/>BISR_CACHE_SUB_SIZE<sp/>:<sp/>TagSize;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard((u32)EfuseTagAddr,<sp/>TempTagSize,<sp/>BisrDataDestAddr[i]);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EfuseTagAddr<sp/>+=<sp/>(TempTagSize<sp/>*<sp/>4U);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TagSize<sp/>-=<sp/>TempTagSize;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i++;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(FPD_SLCR_BISR_CACHE_CTRL_1,<sp/>FPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK,<sp/>FPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(FPD_SLCR_BISR_CACHE_CTRL_0,<sp/>FPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK,<sp/>FPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>repair<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(FPD_SLCR_BISR_CACHE_STATUS1_PASS_20_MASK</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS1_PASS_19_MASK</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS1_PASS_18_MASK</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS1_PASS_17_MASK</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS1_PASS_16_MASK</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS1_PASS_15_MASK);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(FPD_SLCR_BISR_CACHE_STATUS1,<sp/>RegValue,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(FPD_SLCR_BISR_CACHE_STATUS0_PASS_MASK</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_14_MASK</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_13_MASK</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_12_MASK</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_11_MASK</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_10_MASK</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_9_MASK</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_8_MASK</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_7_MASK</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_6_MASK</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_5_MASK</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_4_MASK</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_3_MASK</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_2_MASK</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_1_MASK</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>FPD_SLCR_BISR_CACHE_STATUS0_PASS_0_MASK);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(FPD_SLCR_BISR_CACHE_STATUS0,<sp/>RegValue,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal">XStatus<sp/>XPmRepair_Hnicx_Nthub(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>HNICX_NPI_0_BISR_CACHE_DATA0;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard(EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(HNICX_NPI_0_BISR_CACHE_CNTRL,<sp/>HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_NTHUB_MASK,<sp/>HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_NTHUB_MASK);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(HNICX_NPI_0_BISR_CACHE_STATUS,<sp/>HNICX_NPI_0_BISR_CACHE_STATUS_BISR_DONE_NTHUB_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>BISR<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XPm_In32(HNICX_NPI_0_BISR_CACHE_STATUS);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegValue<sp/>&amp;<sp/>(u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_NTHUB_MASK)<sp/>!=<sp/>(u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_NTHUB_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal">XStatus<sp/>XPmRepair_Cpm5n(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>CPM5N_SLCR_BISR_CACHE_DATA_0;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>write<sp/>protection<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(CPM5N_SLCR_WPROTP,<sp/><sp/>0U);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard(EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>BISR<sp/>test<sp/>data<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(CPM5N_SLCR_BISR_CACHE_CTRL,<sp/>CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK,<sp/>CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(CPM5N_SLCR_BISR_CACHE_CTRL,<sp/>CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK,<sp/>~CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(CPM5N_SLCR_BISR_CACHE_CTRL_TRIGGER_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>CPM5N_SLCR_BISR_CACHE_CTRL_TRIGGER_DPU_MASK</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>CPM5N_SLCR_BISR_CACHE_CTRL_TRIGGER_PCIE_CDX_INTWRAP_MASK);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(CPM5N_SLCR_BISR_CACHE_CTRL,<sp/>RegValue,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(CPM5N_SLCR_BISR_CACHE_STATUS_DONE_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>CPM5N_SLCR_BISR_CACHE_STATUS_DONE_DPU_MASK</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>CPM5N_SLCR_BISR_CACHE_STATUS_DONE_PCIE_CDX_INTWRAP_MASK);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(CPM5N_SLCR_BISR_CACHE_STATUS,<sp/>RegValue,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>BISR<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(CPM5N_SLCR_BISR_CACHE_STATUS_PASS_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>CPM5N_SLCR_BISR_CACHE_STATUS_PASS_DPU_MASK</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>CPM5N_SLCR_BISR_CACHE_STATUS_PASS_PCIE_CDX_INTWRAP_MASK);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(CPM5N_SLCR_BISR_CACHE_STATUS,<sp/>RegValue,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(CPM5N_SLCR_WPROTP,<sp/>CPM5N_SLCR_WPROTP_DEFVAL);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal">XStatus<sp/>XPmRepair_Ddrmc5_Main(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr<sp/>=<sp/>NPI_FIXED_BASEADDR<sp/>|<sp/>(TagOptional<sp/>&lt;&lt;<sp/>NPI_EFUSE_ENDPOINT_SHIFT);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>BaseAddr<sp/>|<sp/>DDRMC5_NPI_CACHE_DATA_MAIN_REGISTER_OFFSET;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard((u32)EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>BISR<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK,<sp/>DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET,<sp/>DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK,<sp/>DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC5_NPI_PCSR_CONTROL_REGISTER_OFFSET,<sp/>DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK,<sp/>DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>be<sp/>done<sp/>and<sp/>check<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CACHE_STATUS_MAIN_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CACHE_STATUS_BISR_DONE_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status){</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CACHE_STATUS_MAIN_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CACHE_STATUS_BISR_PASS_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>BISR<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK,<sp/>~DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal">XStatus<sp/>XPmRepair_Ddrmc5_Crypto(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="268"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr<sp/>=<sp/>NPI_FIXED_BASEADDR<sp/>|<sp/>(TagOptional<sp/>&lt;&lt;<sp/>NPI_EFUSE_ENDPOINT_SHIFT);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>BaseAddr<sp/>|<sp/>DDRMC5_NPI_CACHE_DATA_CRYPTO_REGISTER_OFFSET;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard((u32)EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>BISR<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK,<sp/>DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET,DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK,<sp/>DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC5_NPI_PCSR_CONTROL_REGISTER_OFFSET,<sp/>DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK,<sp/>DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>be<sp/>done<sp/>and<sp/>check<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CACHE_STATUS_CRYPTO_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CACHE_STATUS_BISR_DONE_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status){</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CACHE_STATUS_CRYPTO_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CACHE_STATUS_BISR_PASS_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>BISR<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(BaseAddr<sp/>|<sp/>DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET,<sp/>DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK,<sp/>~DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRepair_WriteIndirectNpi(u32<sp/>addr,<sp/>u32<sp/>val)</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XPm_PollForMask(HNICX_NPI_0_NPI_CSR_WR_STATUS,<sp/>0,<sp/>1);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(HNICX_NPI_0_NPI_CSR_WDATA,<sp/>val);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Out32(HNICX_NPI_0_NPI_CSR_INST,<sp/>(addr<sp/>&amp;<sp/>0x3FFFFFFFU)<sp/>|<sp/>((u32)1&lt;&lt;30));</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPm_PollForMask(HNICX_NPI_0_NPI_CSR_WR_STATUS,<sp/>HNICX_NPI_0_NPI_CSR_WR_STATUS_BVALID_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XPmRepair_CopyIndirectNpi(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,<sp/>u64<sp/>BisrDataDestAddr)</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagData;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagDataAddr;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*EFUSE<sp/>tag<sp/>data<sp/>start<sp/>pos<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/>TagDataAddr<sp/>=<sp/>EfuseTagAddr+4;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Collect<sp/>repair<sp/>data<sp/>from<sp/>EFUSE<sp/>and<sp/>write<sp/>to<sp/>NPI<sp/>indirect<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(u32<sp/>TagRow<sp/>=<sp/>0;<sp/>TagRow&lt;TagSize;<sp/>TagRow++)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((TagDataAddr<sp/>==<sp/>EFUSE_CACHE_TBITS1_BISR_RSVD)<sp/>||<sp/>(TagDataAddr<sp/>==<sp/>EFUSE_CACHE_TBITS2_BISR_RSVD))</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TagDataAddr+=4;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TagData<sp/>=<sp/>XPm_In32(TagDataAddr);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TmpAddr<sp/>=<sp/>BisrDataDestAddr+(TagRow&lt;&lt;2);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XPmRepair_WriteIndirectNpi((u32)TmpAddr,<sp/>TagData);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TagDataAddr<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>TagDataAddr;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal">XStatus<sp/>XPmRepair_Hnicx_Lcs(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="332"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>HNICX_LCS_INDIRECT_NPI_BISR_CACHE_DATA0;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmRepair_CopyIndirectNpi(EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(HNICX_NPI_0_BISR_CACHE_CNTRL,<sp/>HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_LCS_MASK,<sp/>HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_LCS_MASK);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(HNICX_NPI_0_BISR_CACHE_STATUS,<sp/>HNICX_NPI_0_BISR_CACHE_STATUS_BISR_DONE_LCS_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>BISR<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XPm_In32(HNICX_NPI_0_BISR_CACHE_STATUS);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegValue<sp/>&amp;<sp/>(u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_LCS_MASK)<sp/>!=<sp/>(u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_LCS_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal">XStatus<sp/>XPmRepair_Hnicx_Dpu(u32<sp/>EfuseTagAddr,<sp/>u32<sp/>TagSize,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TagOptional,<sp/>u32<sp/>*TagDataAddr)</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>HNICX_DPU_INDIRECT_NPI_BISR_CACHE_DATA0;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TagOptional;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmRepair_CopyIndirectNpi(EfuseTagAddr,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(HNICX_NPI_0_BISR_CACHE_CNTRL,<sp/>HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_DPU_MASK,<sp/>HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_DPU_MASK);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(HNICX_NPI_0_BISR_CACHE_STATUS,<sp/>HNICX_NPI_0_BISR_CACHE_STATUS_BISR_DONE_DPU_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>BISR<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XPm_In32(HNICX_NPI_0_BISR_CACHE_STATUS);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegValue<sp/>&amp;<sp/>(u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_DPU_MASK)<sp/>!=</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_DPU_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="393"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_repair.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="deprecated" kind="page">
+    <compoundname>deprecated</compoundname>
+    <title>Deprecated List</title>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term><anchor id="deprecated_1_deprecated000004"/>Global <ref refid="group__uartps_1ga5c95471105535328ac929eafd723fb17" kindref="member">XUARTPS_MEDEMSR_CTSX</ref>  </term></varlistentry>
+<listitem><para>CTS alias.  </para></listitem>
+<varlistentry><term><anchor id="deprecated_1_deprecated000001"/>Global <ref refid="group__uartps_1ga265d603a9978cd7629ea5ef465d38b94" kindref="member">XUARTPS_MEDEMSR_DCDX</ref>  </term></varlistentry>
+<listitem><para>DCD alias.  </para></listitem>
+<varlistentry><term><anchor id="deprecated_1_deprecated000003"/>Global <ref refid="group__uartps_1ga1ea7cbbf85cd2215007963355ec6d2b2" kindref="member">XUARTPS_MEDEMSR_DSRX</ref>  </term></varlistentry>
+<listitem><para>DSR alias.  </para></listitem>
+<varlistentry><term><anchor id="deprecated_1_deprecated000002"/>Global <ref refid="group__uartps_1gabf3b4f7a9c4a5d236853f26119c84820" kindref="member">XUARTPS_MEDEMSR_RIX</ref>  </term></varlistentry>
+<listitem><para>RI alias. </para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

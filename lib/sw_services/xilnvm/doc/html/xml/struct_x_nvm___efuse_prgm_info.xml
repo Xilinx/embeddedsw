@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_prgm_info" kind="struct" prot="public">
+    <compoundname>XNvm_EfusePrgmInfo</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1abc08be527304a3abd02f49e411c2dee9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::StartRow</definition>
+        <argsstring></argsstring>
+        <name>StartRow</name>
+        <briefdescription>
+<para>Start row number of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1afc6cc9c3e733a22e50aef708dca1607b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::ColStart</definition>
+        <argsstring></argsstring>
+        <name>ColStart</name>
+        <briefdescription>
+<para>Start column number of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1ab4af75acb4eb6ea72944e7a099adf4bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::ColEnd</definition>
+        <argsstring></argsstring>
+        <name>ColEnd</name>
+        <briefdescription>
+<para>End column number of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1a257cabf7f1cf9b214c71857d8c7cc62b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::NumOfRows</definition>
+        <argsstring></argsstring>
+        <name>NumOfRows</name>
+        <briefdescription>
+<para>Number of rows of eFuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_prgm_info_1aedd98d5cf2455d9977bf91b949486f5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePrgmInfo::SkipVerify</definition>
+        <argsstring></argsstring>
+        <name>SkipVerify</name>
+        <briefdescription>
+<para>Flag to check if eFuse bit should be verified after programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse programming information </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="188" bodyend="194"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_prgm_info_1ab4af75acb4eb6ea72944e7a099adf4bf" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>ColEnd</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1afc6cc9c3e733a22e50aef708dca1607b" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>ColStart</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1a257cabf7f1cf9b214c71857d8c7cc62b" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>NumOfRows</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1aedd98d5cf2455d9977bf91b949486f5d" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>SkipVerify</name></member>
+      <member refid="struct_x_nvm___efuse_prgm_info_1abc08be527304a3abd02f49e411c2dee9" prot="public" virt="non-virtual"><scope>XNvm_EfusePrgmInfo</scope><name>StartRow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

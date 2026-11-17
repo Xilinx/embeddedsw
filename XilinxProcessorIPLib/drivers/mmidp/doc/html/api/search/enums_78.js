@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['xmmidp_5faudioclkmultfs',['XMmiDp_AudioClkMultFs',['../xmmidp_8h.html#a20d9129cb07e16b8f139b4cd989a22da',1,'xmmidp.h']]],
+  ['xmmidp_5faudiodatawidth',['XMmiDp_AudioDataWidth',['../xmmidp_8h.html#a4cda1076b1893694ba19d802ac530435',1,'xmmidp.h']]],
+  ['xmmidp_5faudiointerfacesel',['XMmiDp_AudioInterfaceSel',['../xmmidp_8h.html#ae69764e47190fd3fa808c434bdbdd268',1,'xmmidp.h']]],
+  ['xmmidp_5faudionumchannels',['XMmiDp_AudioNumChannels',['../xmmidp_8h.html#ad661635f5ed6bbabbf9dfed4bfde2e79',1,'xmmidp.h']]],
+  ['xmmidp_5fphybusy',['XMmiDp_PhyBusy',['../xmmidp_8h.html#af56e506bf5548847c2d1b3166ab600c3',1,'xmmidp.h']]],
+  ['xmmidp_5fphylanes',['XMmiDp_PhyLanes',['../xmmidp_8h.html#a87908243f791b86e296721175ca2bf70',1,'xmmidp.h']]],
+  ['xmmidp_5fphypreemp',['XMmiDp_PhyPreEmp',['../xmmidp_8h.html#a96a6c12db5b9bde44092222ce489e0be',1,'xmmidp.h']]],
+  ['xmmidp_5fphypwrdown',['XMmiDp_PhyPwrDown',['../xmmidp_8h.html#adc65cf448de8dcdacaa713a2fd3e814f',1,'xmmidp.h']]],
+  ['xmmidp_5fphyrate',['XMmiDp_PhyRate',['../xmmidp_8h.html#a682ad51689f681acd8f1d60342331e89',1,'xmmidp.h']]],
+  ['xmmidp_5fphytrainingpattern',['XMmiDp_PhyTrainingPattern',['../xmmidp_8h.html#aa8bfa39c54f83f39298fdc84adaee807',1,'xmmidp.h']]],
+  ['xmmidp_5fphyvswing',['XMmiDp_PhyVSwing',['../xmmidp_8h.html#a1ea6a82f75ed070e6bff9f3d05fcb5f4',1,'xmmidp.h']]],
+  ['xmmidp_5fphywidth',['XMmiDp_PhyWidth',['../xmmidp_8h.html#a86d9b3c381e31c166f06513440b613b9',1,'xmmidp.h']]],
+  ['xmmidp_5fphyxmiten',['XMmiDp_PhyXmitEn',['../xmmidp_8h.html#a16356a9e68a4cffa5b99572f143fa5ae',1,'xmmidp.h']]],
+  ['xmmidp_5fppc',['XMmiDp_PPC',['../xmmidp_8h.html#a2ecf7e476c9c9e00d10207425a8152e3',1,'xmmidp.h']]],
+  ['xmmidp_5ftrainingstate',['XMmiDp_TrainingState',['../xmmidp_8h.html#a4e54e964b9b19688fb8fa30547e0f331',1,'xmmidp.h']]],
+  ['xmmidp_5fvidmap',['XMmiDp_VidMap',['../xmmidp_8h.html#abee4a35cc70fb52b742eb912b7494324',1,'xmmidp.h']]]
+];

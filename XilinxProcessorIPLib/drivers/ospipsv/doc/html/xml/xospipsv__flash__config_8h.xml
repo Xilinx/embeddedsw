@@ -1,0 +1,1017 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xospipsv__flash__config_8h" kind="file">
+    <compoundname>xospipsv_flash_config.h</compoundname>
+    <includes refid="xospipsv_8h" local="yes">xospipsv.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includedby refid="xospipsv__flash__intr__example_8c" local="yes">xospipsv_flash_intr_example.c</includedby>
+    <includedby refid="xospipsv__flash__non__blocking__read__example_8c" local="yes">xospipsv_flash_non_blocking_read_example.c</includedby>
+    <includedby refid="xospipsv__flash__polled__example_8c" local="yes">xospipsv_flash_polled_example.c</includedby>
+    <incdepgraph>
+      <node id="59">
+        <label>xospipsv.h</label>
+        <link refid="xospipsv_8h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="63">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="61">
+        <label>xospipsv_hw.h</label>
+        <link refid="xospipsv__hw_8h"/>
+      </node>
+      <node id="64">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="58">
+        <label>xospipsv_flash_config.h</label>
+        <link refid="xospipsv_flash_config.h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="67">
+        <label>xospipsv_flash_non_blocking_read_example.c</label>
+        <link refid="xospipsv__flash__non__blocking__read__example_8c"/>
+      </node>
+      <node id="68">
+        <label>xospipsv_flash_polled_example.c</label>
+        <link refid="xospipsv__flash__polled__example_8c"/>
+      </node>
+      <node id="65">
+        <label>xospipsv_flash_config.h</label>
+        <link refid="xospipsv_flash_config.h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xospipsv_flash_intr_example.c</label>
+        <link refid="xospipsv__flash__intr__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_flash_info" prot="public">FlashInfo</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a076966d3a1aa7647c294802e9f76bb10" prot="public" static="no">
+        <name>WRITE_STATUS_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a12fe83d74a765a1b4ae033e22a23dafe" prot="public" static="no">
+        <name>WRITE_DISABLE_CMD</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Write disable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a778f641f7a12aabbe1ffd0c948f8e1f9" prot="public" static="no">
+        <name>WRITE_ENABLE_CMD</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1139" endline="1273">BulkErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1288" endline="1417">DieErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="577" endline="635">FlashLinearWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" compoundref="xospipsv__flash__intr__example_8c" startline="1833" endline="1906">FlashWriteCfgReg</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2375" endline="2492">MxConfigDummy</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gaf2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2235" endline="2363">SpansionSetEccMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" prot="public" static="no">
+        <name>BULK_ERASE_CMD</name>
+        <initializer>0xC7</initializer>
+        <briefdescription>
+<para>Bulk erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" prot="public" static="no">
+        <name>DIE_ERASE_CMD</name>
+        <initializer>0xC4</initializer>
+        <briefdescription>
+<para>Die erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ae90b7e8c7fe9d94c5c156a07e57fc27c" prot="public" static="no">
+        <name>READ_ID</name>
+        <initializer>0x9F</initializer>
+        <briefdescription>
+<para>Read ID command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="537" endline="609">FlashReadID</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1acb580804a74967764090e0200ec1ead7" prot="public" static="no">
+        <name>READ_CONFIG_CMD</name>
+        <initializer>0x35</initializer>
+        <briefdescription>
+<para>Read config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a677a2f55503c1b4abe80a4f47a62d17a" prot="public" static="no">
+        <name>WRITE_CONFIG_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" prot="public" static="no">
+        <name>READ_STATUS_CMD</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Read status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" prot="public" static="no">
+        <name>READ_FLAG_STATUS_CMD</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+<para>Read flag status command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ab607b298d853f70a8e3cccbbff8d7002" prot="public" static="no">
+        <name>READ_CMD_4B</name>
+        <initializer>0x13</initializer>
+        <briefdescription>
+<para>4-byte read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" prot="public" static="no">
+        <name>WRITE_CMD_4B</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+<para>4-byte write command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" prot="public" static="no">
+        <name>SEC_ERASE_CMD_4B</name>
+        <initializer>0xDC</initializer>
+        <briefdescription>
+<para>4-byte sector erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a082a6afb678974458f6d5b0b633fb98f" prot="public" static="no">
+        <name>SEC_ERASE_CMD_MX</name>
+        <initializer>0x21</initializer>
+        <briefdescription>
+<para>Macronix sector erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ad887c0dbaa3cc19591bee11485a7f6bc" prot="public" static="no">
+        <name>READ_CMD_OPI_MX</name>
+        <initializer>0xEE</initializer>
+        <briefdescription>
+<para>Macronix OPI read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" prot="public" static="no">
+        <name>READ_CMD_OCTAL_IO_4B</name>
+        <initializer>0xCC</initializer>
+        <briefdescription>
+<para>4-byte octal IO read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ac24b9da5f02e7046191df6ec46da44d3" prot="public" static="no">
+        <name>READ_CMD_OCTAL_DDR</name>
+        <initializer>0x9D</initializer>
+        <briefdescription>
+<para>Octal DDR read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" prot="public" static="no">
+        <name>WRITE_CMD_OCTAL_4B</name>
+        <initializer>0x84</initializer>
+        <briefdescription>
+<para>4-byte octal write command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ae06c98e8c1153f2648695a6d9ddd7c1d" prot="public" static="no">
+        <name>ENTER_4B_ADDR_MODE</name>
+        <initializer>0xB7</initializer>
+        <briefdescription>
+<para>Enter 4-byte address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a68d7c9b00315f0b76e11702eb17fc536" prot="public" static="no">
+        <name>EXIT_4B_ADDR_MODE</name>
+        <initializer>0xE9</initializer>
+        <briefdescription>
+<para>Exit 4-byte address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a65edb0a1a453fd340f035c98f3efbfde" prot="public" static="no">
+        <name>WRITE_CONFIG_REG</name>
+        <initializer>0x81</initializer>
+        <briefdescription>
+<para>Write config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a4ff6c9b1e3afba9777eeeae206d1694a" prot="public" static="no">
+        <name>READ_CONFIG_REG</name>
+        <initializer>0x85</initializer>
+        <briefdescription>
+<para>Read config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a57b55232993fa10341732aab35b58946" prot="public" static="no">
+        <name>WRITE_CONFIG2_REG_MX</name>
+        <initializer>0x72</initializer>
+        <briefdescription>
+<para>Macronix write CR2 command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2375" endline="2492">MxConfigDummy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a1a8b4139bea537204ee1f97356e38c30" prot="public" static="no">
+        <name>READ_CONFIG2_REG_MX</name>
+        <initializer>0x71</initializer>
+        <briefdescription>
+<para>Macronix read configuration register 2 command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2375" endline="2492">MxConfigDummy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1aafed9bae7f6731e2cb031e86581eaa6f" prot="public" static="no">
+        <name>WRITE_CONFIG_REG_SPN</name>
+        <initializer>0x71</initializer>
+        <briefdescription>
+<para>Spansion write config command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gaf2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2235" endline="2363">SpansionSetEccMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ac4f6ddb56491a6b48bcc033a3fae7f95" prot="public" static="no">
+        <name>READ_CONFIG_REG_SPN</name>
+        <initializer>0x65</initializer>
+        <briefdescription>
+<para>Spansion read config command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1139" endline="1273">BulkErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gaf2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2235" endline="2363">SpansionSetEccMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a72a9f50af4f802fd864e0054ef8ba34d" prot="public" static="no">
+        <name>STATUS_REG_1_ADDR_SPN</name>
+        <initializer>0x800000</initializer>
+        <briefdescription>
+<para>Spansion status register 1 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1139" endline="1273">BulkErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a9f0741a4b76fad8434cd7d490a5751ae" prot="public" static="no">
+        <name>CONFIG_REG_4_ADDR_SPN</name>
+        <initializer>0x800005</initializer>
+        <briefdescription>
+<para>Spansion configuration register 4 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gaf2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2235" endline="2363">SpansionSetEccMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a6870480c3db5ada24b06a47e1d62bca2" prot="public" static="no">
+        <name>CONFIG_REG_5_ADDR_SPN</name>
+        <initializer>0x800006</initializer>
+        <briefdescription>
+<para>Spansion configuration register 5 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a1f5f33e7637fa9a5d86321624e525147" prot="public" static="no">
+        <name>DDR_READ_CMD_4B_SPN</name>
+        <initializer>0xEE</initializer>
+        <briefdescription>
+<para>Spansion DDR read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1afbd9dc9a545164602274a259c1f49dd8" prot="public" static="no">
+        <name>SIXTEENMB</name>
+        <initializer>0x1000000</initializer>
+        <briefdescription>
+<para>Sixteen MB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" prot="public" static="no">
+        <name>FLASH_PAGE_SIZE_256</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>256-byte page size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a55e45f387675222a4dee77e4a60bc050" prot="public" static="no">
+        <name>FLASH_SECTOR_SIZE_4KB</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>4 KB sector size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ac11736c7cd66aacd60e18a5fa89bd080" prot="public" static="no">
+        <name>FLASH_SECTOR_SIZE_256KB</name>
+        <initializer>0x40000</initializer>
+        <briefdescription>
+<para>256 KB sector size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a845ea886167d67a681d9ae71c871806e" prot="public" static="no">
+        <name>FLASH_SECTOR_SIZE_64KB</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+<para>64 KB sector size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" prot="public" static="no">
+        <name>FLASH_SECTOR_SIZE_128KB</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+<para>128 KB sector size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ad0e5e347a8d5e5118ceee157ea387c34" prot="public" static="no">
+        <name>FLASH_DEVICE_SIZE_256M</name>
+        <initializer>0x2000000</initializer>
+        <briefdescription>
+<para>256 Mbit flash device size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1aaf96df37b01674848a9c2df57f9a54b1" prot="public" static="no">
+        <name>FLASH_DEVICE_SIZE_512M</name>
+        <initializer>0x4000000</initializer>
+        <briefdescription>
+<para>512 Mbit flash device size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ad1d15117d9d9f18b116fcf214d5f3825" prot="public" static="no">
+        <name>FLASH_DEVICE_SIZE_1G</name>
+        <initializer>0x8000000</initializer>
+        <briefdescription>
+<para>1 Gbit flash device size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a5ac7378e709f4aca0020cfa956796f67" prot="public" static="no">
+        <name>FLASH_DEVICE_SIZE_2G</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>2 Gbit flash device size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a54e00d149efaa69ed20ddd9d9e2790db" prot="public" static="no">
+        <name>MICRON_OCTAL_ID_BYTE0</name>
+        <initializer>0x2c</initializer>
+        <briefdescription>
+<para>Micron ID byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a9bd7be1551d6562a3bd5d7e3325496ab" prot="public" static="no">
+        <name>GIGADEVICE_OCTAL_ID_BYTE0</name>
+        <initializer>0xc8</initializer>
+        <briefdescription>
+<para>GigaDevice ID byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1ab791287375125b571ec3e45b83465550" prot="public" static="no">
+        <name>ISSI_OCTAL_ID_BYTE0</name>
+        <initializer>0x9d</initializer>
+        <briefdescription>
+<para>ISSI ID byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a9598574a7e817d688b7fb23b720b4038" prot="public" static="no">
+        <name>MACRONIX_OCTAL_ID_BYTE0</name>
+        <initializer>0xc2</initializer>
+        <briefdescription>
+<para>Macronix ID byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="537" endline="609">FlashReadID</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga08e2382b1a337e871524e10a23f1b984" compoundref="xospipsv__flash__intr__example_8c" startline="504" endline="525">XOspiPsv_Get_Proto</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a4ffae7cc80d3d457218dfd9b75901db5" prot="public" static="no">
+        <name>SPANSION_OCTAL_ID_BYTE0</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+<para>Spansion ID byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1139" endline="1273">BulkErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="537" endline="609">FlashReadID</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga08e2382b1a337e871524e10a23f1b984" compoundref="xospipsv__flash__intr__example_8c" startline="504" endline="525">XOspiPsv_Get_Proto</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a3aff5aa196b1a4d894cf35ea6d29c996" prot="public" static="no">
+        <name>MACRONIX_OCTAL_ID_BYTE1</name>
+        <initializer>0x94</initializer>
+        <briefdescription>
+<para>Macronix ID byte 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a5a709532d87ada9c803ae63d10d1ac6c" prot="public" static="no">
+        <name>MICRON_BP_BITS_MASK</name>
+        <initializer>0x7C</initializer>
+        <briefdescription>
+<para>Micron BP bits mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xospipsv__flash__config_8h_1a35c4a5de73baf12edd6d9d1ddc54d004" prot="public" static="no">
+        <name>CONFIG_REG2_VOLATILE_ADDR_MX</name>
+        <initializer>0x00000300</initializer>
+        <briefdescription>
+<para>Macronix volatile configuration register 2 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2375" endline="2492">MxConfigDummy</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_flash_info" kindref="compound">FlashInfo</ref></type>
+        <definition>FlashInfo Flash_Config_Table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Flash_Config_Table</name>
+        <briefdescription>
+<para>Flash configuration table of the supported flash devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1139" endline="1273">BulkErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1288" endline="1417">DieErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="577" endline="635">FlashLinearWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gae08db22955675661860c9008890b0138" compoundref="xospipsv__flash__intr__example_8c" startline="2203" endline="2217">GetRealAddr</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xospipsv__flash__config_8h_1a35c047b9329a29e92595dc930a6ed5ee" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 CalculateFCTIndex</definition>
+        <argsstring>(u32 ReadId, u32 *FCTIndex)</argsstring>
+        <name>CalculateFCTIndex</name>
+        <param>
+          <type>u32</type>
+          <declname>ReadId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>FCTIndex</declname>
+        </param>
+        <briefdescription>
+<para>Finds the flash configuration table index for a flash ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ReadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JEDEC ID read from the flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">FCTIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the matching table index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if a matching entry is found.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="326" bodyend="339"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the flash configuration table and flash related defines. </para>    </briefdescription>
+    <detaileddescription>
+<para>The file should be included in the example files and compiled along with the examples (*.c).</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who Date     Changes
+<hruler/>
+
+ 1.3   sk  05/13/20 First release
+       sk  05/18/20 Added support for gigadevice and ISSI parts.
+       sk  06/22/20 Fixed Sector Mask value for Micron and ISSI.
+       sk  02/18/21 Added support for Macronix flash.
+ 1.7   sk  06/28/22 Added Block Protection test for Micron flash.
+ 1.9   sb  06/06/23 Added support for system device-tree flow.
+ 1.10  sb  11/21/23 Added support for Macronix flash mx66um2g45g.
+ 1.10  sb  01/04/24 Added support for ISSI flash is25lx512m.
+ 1.10  sb  02/09/24 Add support for Infineon flash part S28HS02G.
+ 1.11  sb  05/02/24 Add support for Macronix flash part mx66uw2g345gxrix0.
+ 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XOSPIPSV_FLASH_CONFIG_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOSPIPSV_FLASH_CONFIG_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>SDK<sp/>generated<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xospipsv_8h" kindref="compound">xospipsv.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>OSPIPSV<sp/>device<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>define<sp/>the<sp/>commands<sp/>which<sp/>may<sp/>be<sp/>sent<sp/>to<sp/>the<sp/>Flash</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>device.</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="xospipsv__flash__config_8h_1a076966d3a1aa7647c294802e9f76bb10" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WRITE_STATUS_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="xospipsv__flash__config_8h_1a12fe83d74a765a1b4ae033e22a23dafe" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_DISABLE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="xospipsv__flash__config_8h_1a778f641f7a12aabbe1ffd0c948f8e1f9" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_ENABLE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" refkind="member"><highlight class="preprocessor">#define<sp/>BULK_ERASE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC7<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" refkind="member"><highlight class="preprocessor">#define<sp/>DIE_ERASE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC4<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="xospipsv__flash__config_8h_1ae90b7e8c7fe9d94c5c156a07e57fc27c" refkind="member"><highlight class="preprocessor">#define<sp/>READ_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9F<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="xospipsv__flash__config_8h_1acb580804a74967764090e0200ec1ead7" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CONFIG_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x35<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="xospipsv__flash__config_8h_1a677a2f55503c1b4abe80a4f47a62d17a" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_CONFIG_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" refkind="member"><highlight class="preprocessor">#define<sp/>READ_STATUS_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x05<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" refkind="member"><highlight class="preprocessor">#define<sp/>READ_FLAG_STATUS_CMD<sp/><sp/><sp/><sp/>0x70<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="xospipsv__flash__config_8h_1ab607b298d853f70a8e3cccbbff8d7002" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CMD_4B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x13<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_CMD_4B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" refkind="member"><highlight class="preprocessor">#define<sp/>SEC_ERASE_CMD_4B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDC<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="xospipsv__flash__config_8h_1a082a6afb678974458f6d5b0b633fb98f" refkind="member"><highlight class="preprocessor">#define<sp/>SEC_ERASE_CMD_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x21<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="xospipsv__flash__config_8h_1ad887c0dbaa3cc19591bee11485a7f6bc" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CMD_OPI_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEE<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CMD_OCTAL_IO_4B<sp/><sp/><sp/><sp/>0xCC<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="xospipsv__flash__config_8h_1ac24b9da5f02e7046191df6ec46da44d3" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CMD_OCTAL_DDR<sp/><sp/><sp/><sp/><sp/><sp/>0x9D<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_CMD_OCTAL_4B<sp/><sp/><sp/><sp/><sp/><sp/>0x84<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="xospipsv__flash__config_8h_1ae06c98e8c1153f2648695a6d9ddd7c1d" refkind="member"><highlight class="preprocessor">#define<sp/>ENTER_4B_ADDR_MODE<sp/><sp/><sp/><sp/><sp/><sp/>0xB7<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="xospipsv__flash__config_8h_1a68d7c9b00315f0b76e11702eb17fc536" refkind="member"><highlight class="preprocessor">#define<sp/>EXIT_4B_ADDR_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE9<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="xospipsv__flash__config_8h_1a65edb0a1a453fd340f035c98f3efbfde" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_CONFIG_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x81<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="xospipsv__flash__config_8h_1a4ff6c9b1e3afba9777eeeae206d1694a" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CONFIG_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="xospipsv__flash__config_8h_1a57b55232993fa10341732aab35b58946" refkind="member"><highlight class="preprocessor">#define<sp/>WRITE_CONFIG2_REG_MX<sp/><sp/><sp/><sp/>0x72<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="xospipsv__flash__config_8h_1a1a8b4139bea537204ee1f97356e38c30" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CONFIG2_REG_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x71</highlight></codeline>
+<codeline lineno="84" refid="xospipsv__flash__config_8h_1aafed9bae7f6731e2cb031e86581eaa6f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WRITE_CONFIG_REG_SPN<sp/><sp/><sp/><sp/>0x71<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="xospipsv__flash__config_8h_1ac4f6ddb56491a6b48bcc033a3fae7f95" refkind="member"><highlight class="preprocessor">#define<sp/>READ_CONFIG_REG_SPN<sp/><sp/><sp/><sp/><sp/>0x65<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="xospipsv__flash__config_8h_1a72a9f50af4f802fd864e0054ef8ba34d" refkind="member"><highlight class="preprocessor">#define<sp/>STATUS_REG_1_ADDR_SPN<sp/><sp/><sp/>0x800000</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89" refid="xospipsv__flash__config_8h_1a9f0741a4b76fad8434cd7d490a5751ae" refkind="member"><highlight class="preprocessor">#define<sp/>CONFIG_REG_4_ADDR_SPN<sp/><sp/><sp/>0x800005</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91" refid="xospipsv__flash__config_8h_1a6870480c3db5ada24b06a47e1d62bca2" refkind="member"><highlight class="preprocessor">#define<sp/>CONFIG_REG_5_ADDR_SPN<sp/><sp/><sp/>0x800006</highlight></codeline>
+<codeline lineno="92" refid="xospipsv__flash__config_8h_1a1f5f33e7637fa9a5d86321624e525147" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DDR_READ_CMD_4B_SPN<sp/><sp/><sp/><sp/><sp/>0xEE<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="xospipsv__flash__config_8h_1afbd9dc9a545164602274a259c1f49dd8" refkind="member"><highlight class="preprocessor">#define<sp/>SIXTEENMB<sp/>0x1000000</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FLASH_PAGE_SIZE_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="xospipsv__flash__config_8h_1a55e45f387675222a4dee77e4a60bc050" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_SECTOR_SIZE_4KB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1000<sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="xospipsv__flash__config_8h_1ac11736c7cd66aacd60e18a5fa89bd080" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_SECTOR_SIZE_256KB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000<sp/></highlight></codeline>
+<codeline lineno="102" refid="xospipsv__flash__config_8h_1a845ea886167d67a681d9ae71c871806e" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_SECTOR_SIZE_64KB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000<sp/></highlight></codeline>
+<codeline lineno="103" refid="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_SECTOR_SIZE_128KB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000<sp/></highlight></codeline>
+<codeline lineno="105" refid="xospipsv__flash__config_8h_1ad0e5e347a8d5e5118ceee157ea387c34" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_DEVICE_SIZE_256M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2000000</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="xospipsv__flash__config_8h_1aaf96df37b01674848a9c2df57f9a54b1" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_DEVICE_SIZE_512M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4000000</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109" refid="xospipsv__flash__config_8h_1ad1d15117d9d9f18b116fcf214d5f3825" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_DEVICE_SIZE_1G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8000000</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="xospipsv__flash__config_8h_1a5ac7378e709f4aca0020cfa956796f67" refkind="member"><highlight class="preprocessor">#define<sp/>FLASH_DEVICE_SIZE_2G<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="xospipsv__flash__config_8h_1a54e00d149efaa69ed20ddd9d9e2790db" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MICRON_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="xospipsv__flash__config_8h_1a9bd7be1551d6562a3bd5d7e3325496ab" refkind="member"><highlight class="preprocessor">#define<sp/>GIGADEVICE_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc8<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="xospipsv__flash__config_8h_1ab791287375125b571ec3e45b83465550" refkind="member"><highlight class="preprocessor">#define<sp/>ISSI_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9d<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="xospipsv__flash__config_8h_1a9598574a7e817d688b7fb23b720b4038" refkind="member"><highlight class="preprocessor">#define<sp/>MACRONIX_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc2<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="xospipsv__flash__config_8h_1a4ffae7cc80d3d457218dfd9b75901db5" refkind="member"><highlight class="preprocessor">#define<sp/>SPANSION_OCTAL_ID_BYTE0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x34<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="xospipsv__flash__config_8h_1a3aff5aa196b1a4d894cf35ea6d29c996" refkind="member"><highlight class="preprocessor">#define<sp/>MACRONIX_OCTAL_ID_BYTE1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x94<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="xospipsv__flash__config_8h_1a5a709532d87ada9c803ae63d10d1ac6c" refkind="member"><highlight class="preprocessor">#define<sp/>MICRON_BP_BITS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="xospipsv__flash__config_8h_1a35c4a5de73baf12edd6d9d1ddc54d004" refkind="member"><highlight class="preprocessor">#define<sp/>CONFIG_REG2_VOLATILE_ADDR_MX<sp/><sp/><sp/><sp/>0x00000300</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/>*<sp/>Define<sp/>this<sp/>to<sp/>run<sp/>the<sp/>example<sp/>in<sp/>SDR-PHY<sp/>or<sp/>DDR-PHY<sp/>mode.<sp/>While<sp/>still<sp/>in</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/>*<sp/>SDR-NON-PHY<sp/>mode<sp/>the<sp/>example<sp/>then<sp/>programs<sp/>the<sp/>RX<sp/>tuning<sp/>pattern<sp/>below<sp/>into</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/>*<sp/>the<sp/>last<sp/>sector<sp/>of<sp/>the<sp/>flash,<sp/>verifies<sp/>it<sp/>and<sp/>hands<sp/>it<sp/>to<sp/>the<sp/>driver,<sp/>which</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/>*<sp/>reads<sp/>it<sp/>back<sp/>at<sp/>every<sp/>RX<sp/>tap<sp/>to<sp/>calibrate<sp/>the<sp/>PHY.<sp/>It<sp/>is<sp/>undefined<sp/>by</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/>*<sp/>default,<sp/>in<sp/>which<sp/>case<sp/>the<sp/>example<sp/>runs<sp/>in<sp/>SDR-NON-PHY<sp/>mode<sp/>where<sp/>no<sp/>tuning</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/>*<sp/>is<sp/>required.</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#undef<sp/>FLASH_SETUP_TUNING_PATTERN</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="struct_flash_info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="141" refid="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" kindref="member">jedec_id</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" kindref="member">SectSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_flash_info_1af97490d94d6769ec426380408695d555" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1af97490d94d6769ec426380408695d555" kindref="member">NumSect</ref>;</highlight></codeline>
+<codeline lineno="146" refid="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" kindref="member">PageSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" kindref="member">NumPage</ref>;</highlight></codeline>
+<codeline lineno="150" refid="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" kindref="member">FlashDeviceSize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="struct_flash_info_1af9b63415d9693edada42bfb9d3ca6acc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1af9b63415d9693edada42bfb9d3ca6acc" kindref="member">SectMask</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" kindref="member">NumDie</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_flash_info_1ae472f6c3dc1cc141a7d8943db3cd1ac5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1ae472f6c3dc1cc141a7d8943db3cd1ac5" kindref="member">ReadCmd</ref>;</highlight></codeline>
+<codeline lineno="157" refid="struct_flash_info_1a51321949e67e35064f9b41ba58707745" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a51321949e67e35064f9b41ba58707745" kindref="member">WriteCmd</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="struct_flash_info_1a438434ff734316455e7d182f8c511b39" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_flash_info_1a438434ff734316455e7d182f8c511b39" kindref="member">EraseCmd</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="struct_flash_info_1a0c6cfb0c7d2bce5fc540cbb5e8fca42e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_flash_info_1a0c6cfb0c7d2bce5fc540cbb5e8fca42e" kindref="member">StatusCmd</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="struct_flash_info_1a2c7c14d7df22487355b4cb096171130a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_flash_info_1a2c7c14d7df22487355b4cb096171130a" kindref="member">DummyCycles</ref>;<sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}<sp/><ref refid="struct_flash_info" kindref="compound">FlashInfo</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="167" refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" refkind="member"><highlight class="normal"><ref refid="struct_flash_info" kindref="compound">FlashInfo</ref><sp/><ref refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" kindref="member">Flash_Config_Table</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Micron<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c5b1a,<sp/><ref refid="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" kindref="member">FLASH_SECTOR_SIZE_128KB</ref>,<sp/>0x200,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x40000,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aaf96df37b01674848a9c2df57f9a54b1" kindref="member">FLASH_DEVICE_SIZE_512M</ref>,<sp/>0xFFFE0000,<sp/>1,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" kindref="member">READ_CMD_OCTAL_IO_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" kindref="member">WRITE_CMD_OCTAL_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" kindref="member">DIE_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" kindref="member">READ_FLAG_STATUS_CMD</ref>,<sp/>16</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c5b1b,<sp/><ref refid="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" kindref="member">FLASH_SECTOR_SIZE_128KB</ref>,<sp/>0x400,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x80000,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1ad1d15117d9d9f18b116fcf214d5f3825" kindref="member">FLASH_DEVICE_SIZE_1G</ref>,<sp/>0xFFFE0000,<sp/>1,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" kindref="member">READ_CMD_OCTAL_IO_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" kindref="member">WRITE_CMD_OCTAL_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" kindref="member">DIE_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" kindref="member">READ_FLAG_STATUS_CMD</ref>,<sp/>16</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c5b1c,<sp/><ref refid="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" kindref="member">FLASH_SECTOR_SIZE_128KB</ref>,<sp/>0x800,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x100000,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a5ac7378e709f4aca0020cfa956796f67" kindref="member">FLASH_DEVICE_SIZE_2G</ref>,<sp/>0xFFFE0000,<sp/>1,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" kindref="member">READ_CMD_OCTAL_IO_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" kindref="member">WRITE_CMD_OCTAL_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" kindref="member">DIE_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" kindref="member">READ_FLAG_STATUS_CMD</ref>,<sp/>16</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>GIGADEVICE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc86819,<sp/><ref refid="xospipsv__flash__config_8h_1a845ea886167d67a681d9ae71c871806e" kindref="member">FLASH_SECTOR_SIZE_64KB</ref>,<sp/>0x200,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x20000,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1ad0e5e347a8d5e5118ceee157ea387c34" kindref="member">FLASH_DEVICE_SIZE_256M</ref>,<sp/>0xFFFF0000,<sp/>1,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" kindref="member">READ_CMD_OCTAL_IO_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" kindref="member">WRITE_CMD_OCTAL_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" kindref="member">DIE_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" kindref="member">READ_FLAG_STATUS_CMD</ref>,<sp/>16</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ISSI<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9d5b19,<sp/><ref refid="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" kindref="member">FLASH_SECTOR_SIZE_128KB</ref>,<sp/>0x100,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x20000,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1ad0e5e347a8d5e5118ceee157ea387c34" kindref="member">FLASH_DEVICE_SIZE_256M</ref>,<sp/>0xFFFE0000,<sp/>1,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" kindref="member">READ_CMD_OCTAL_IO_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" kindref="member">WRITE_CMD_OCTAL_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" kindref="member">DIE_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" kindref="member">READ_FLAG_STATUS_CMD</ref>,<sp/>16</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*is25lx512m*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9d5a1a,<sp/><ref refid="xospipsv__flash__config_8h_1af0a13f8bc61cef550728b7a5c9bad0ee" kindref="member">FLASH_SECTOR_SIZE_128KB</ref>,<sp/>0x200,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x40000,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aaf96df37b01674848a9c2df57f9a54b1" kindref="member">FLASH_DEVICE_SIZE_512M</ref>,<sp/>0xFFFE0000,<sp/>2,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a7bb0cb4960d915c70da6cbc9322c13f2" kindref="member">READ_CMD_OCTAL_IO_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1ae05261b470a36ded3a908c0a9d0fb1c4" kindref="member">WRITE_CMD_OCTAL_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ae5382eb0e3556799155501c2c2c67c51" kindref="member">DIE_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aafb4cc861589451927402bce98df1b1d" kindref="member">READ_FLAG_STATUS_CMD</ref>,<sp/>16</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>MACRONIX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc2813a,<sp/><ref refid="xospipsv__flash__config_8h_1a55e45f387675222a4dee77e4a60bc050" kindref="member">FLASH_SECTOR_SIZE_4KB</ref>,<sp/>0x4000,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x40000,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1aaf96df37b01674848a9c2df57f9a54b1" kindref="member">FLASH_DEVICE_SIZE_512M</ref>,<sp/>0xFFFFF000,<sp/>1,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ad887c0dbaa3cc19591bee11485a7f6bc" kindref="member">READ_CMD_OPI_MX</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab607b298d853f70a8e3cccbbff8d7002" kindref="member">READ_CMD_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1a082a6afb678974458f6d5b0b633fb98f" kindref="member">SEC_ERASE_CMD_MX</ref>,<sp/><ref refid="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" kindref="member">READ_STATUS_CMD</ref>,<sp/>0</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*mx66um2g45g*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc2803c,<sp/><ref refid="xospipsv__flash__config_8h_1a55e45f387675222a4dee77e4a60bc050" kindref="member">FLASH_SECTOR_SIZE_4KB</ref>,<sp/>0x10000,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x100000,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a5ac7378e709f4aca0020cfa956796f67" kindref="member">FLASH_DEVICE_SIZE_2G</ref>,<sp/>0xFFFFF000,<sp/>1,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ad887c0dbaa3cc19591bee11485a7f6bc" kindref="member">READ_CMD_OPI_MX</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab607b298d853f70a8e3cccbbff8d7002" kindref="member">READ_CMD_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1a082a6afb678974458f6d5b0b633fb98f" kindref="member">SEC_ERASE_CMD_MX</ref>,<sp/><ref refid="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" kindref="member">READ_STATUS_CMD</ref>,<sp/>0</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*mx66uw2g345gxrix0*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc2943c,<sp/><ref refid="xospipsv__flash__config_8h_1a55e45f387675222a4dee77e4a60bc050" kindref="member">FLASH_SECTOR_SIZE_4KB</ref>,<sp/>0x10000,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x100000,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a5ac7378e709f4aca0020cfa956796f67" kindref="member">FLASH_DEVICE_SIZE_2G</ref>,<sp/>0xFFFFF000,<sp/>1,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1ad887c0dbaa3cc19591bee11485a7f6bc" kindref="member">READ_CMD_OPI_MX</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab607b298d853f70a8e3cccbbff8d7002" kindref="member">READ_CMD_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1a082a6afb678974458f6d5b0b633fb98f" kindref="member">SEC_ERASE_CMD_MX</ref>,<sp/><ref refid="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" kindref="member">READ_STATUS_CMD</ref>,<sp/>0</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Infineon<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*s28hs02gt*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x345b1c,<sp/><ref refid="xospipsv__flash__config_8h_1ac11736c7cd66aacd60e18a5fa89bd080" kindref="member">FLASH_SECTOR_SIZE_256KB</ref>,<sp/>0x400,<sp/><ref refid="xospipsv__flash__config_8h_1a668a2f22f2bdebd8628dde1cdd880177" kindref="member">FLASH_PAGE_SIZE_256</ref>,<sp/>0x100000,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xospipsv__flash__config_8h_1a5ac7378e709f4aca0020cfa956796f67" kindref="member">FLASH_DEVICE_SIZE_2G</ref>,<sp/>0xFFFC0000,<sp/>2,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1a1f5f33e7637fa9a5d86321624e525147" kindref="member">DDR_READ_CMD_4B_SPN</ref><sp/><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab607b298d853f70a8e3cccbbff8d7002" kindref="member">READ_CMD_4B</ref>,<sp/>(<ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1aefd6bec021de55df0e9afc79350ec7e3" kindref="member">WRITE_CMD_4B</ref>,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xospipsv__flash__config_8h_1a66456d73cb4185955c6c7e663a85c8da" kindref="member">BULK_ERASE_CMD</ref><sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="xospipsv__flash__config_8h_1ab5cc8572f4044b84c6418cc86ad32a43" kindref="member">SEC_ERASE_CMD_4B</ref>,<sp/><ref refid="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" kindref="member">READ_STATUS_CMD</ref>,<sp/>0</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FLASH_SETUP_TUNING_PATTERN</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>TUNING_PATTERN_SIZE<sp/><sp/><sp/><sp/><sp/>128U</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor">#define<sp/>PATTERN_ADDRESS(Index)<sp/><sp/>(Flash_Config_Table[Index].FlashDeviceSize<sp/>-<sp/>\</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flash_Config_Table[Index].SectSize)</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>TuningPattern[TUNING_PATTERN_SIZE]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>TuningPattern[TUNING_PATTERN_SIZE]<sp/>__attribute__<sp/>((aligned(4)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFEU,<sp/>0xFFU,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x00U,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x00U,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU,<sp/>0x00U,<sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU,<sp/>0x00U,<sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFFU,<sp/>0x01U,<sp/>0x01U,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0xFEU,<sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0xFEU,<sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFEU,<sp/>0x00U,<sp/>0xFEU,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFEU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFEU,<sp/>0x00U,<sp/>0xFEU,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFEU,<sp/>0xFFU,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x00U,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0x00U,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU,<sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFFU,<sp/>0xFFU,<sp/>0xFFU,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU,<sp/>0x00U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFFU,<sp/>0x01U,<sp/>0x01U,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U,<sp/>0x01U,<sp/>0x01U,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0xFEU,<sp/>0x01U</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>64</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>TuningReadBuffer[TUNING_PATTERN_SIZE];</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>TuningReadBuffer[TUNING_PATTERN_SIZE]<sp/>__attribute__<sp/>((aligned(64)));</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="326"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>CalculateFCTIndex(u32<sp/>ReadId,<sp/>u32<sp/>*<ref refid="group__xospipsv__flash__intr__example_1ga8d80524bb6369924849dee07b6037695" kindref="member">FCTIndex</ref>)</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" kindref="member">Flash_Config_Table</ref>)<sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Flash_Config_Table[0]);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadId<sp/>==<sp/>Flash_Config_Table[Index].jedec_id)<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*FCTIndex<sp/>=<sp/>Index;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XOSPIPSV_FLASH_CONFIG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h"/>
+  </compounddef>
+</doxygen>

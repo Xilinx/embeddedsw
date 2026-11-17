@@ -1,0 +1,831 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilmailbox__ipips__control_8c" kind="file">
+    <compoundname>xilmailbox_ipips_control.c</compoundname>
+    <includes refid="xilmailbox__ipips__control_8h" local="yes">xilmailbox_ipips_control.h</includes>
+    <incdepgraph>
+      <node id="89">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="86">
+        <label>xil_io.h</label>
+      </node>
+      <node id="95">
+        <label>sleep.h</label>
+      </node>
+      <node id="87">
+        <label>xil_util.h</label>
+      </node>
+      <node id="85">
+        <label>xilmailbox.h</label>
+        <link refid="xilmailbox_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="92">
+        <label>xilmailbox_ipips.h</label>
+        <link refid="xilmailbox__ipips_8h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xil_types.h</label>
+      </node>
+      <node id="93">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="91">
+        <label>xparameters.h</label>
+      </node>
+      <node id="90">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="83">
+        <label>xilmailbox_ipips_control.c</label>
+        <link refid="xilmailbox_ipips_control.c"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>xilmailbox_ipips_control.h</label>
+        <link refid="xilmailbox__ipips__control_8h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_Init</definition>
+        <argsstring>(XMailbox *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XIpiPs_Init</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the ZynqMP mailbox instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the IPI instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_FAILURE in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="67" bodyend="110"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a5697f39a913b178ec64c6cff4575bb0e" compoundref="xilmailbox__ipips_8h" startline="61">XMailbox_Agent::GicInst</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" compoundref="xilmailbox__ipips__intr_8c" startline="156" endline="250">XIpiPs_RegisterIrq</references>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1gafe03d42ebcf3d3e93c2fb709de6e9142" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_Send</definition>
+        <argsstring>(XMailbox *InstancePtr, u8 Is_Blocking)</argsstring>
+        <name>XIpiPs_Send</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Is_Blocking</declname>
+        </param>
+        <briefdescription>
+<para>Triggers an IPI to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Is_Blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that, when set, triggers the notification in blocking mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS in case of success.</para></listitem><listitem><para>XST_FAILURE in case of failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="attention"><para>This API is deprecated in 2026.2 and becomes obsolete in the 2027.1 release. You can reproduce the functionality of this API with XIpiPs_SendById. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="129" bodyend="146"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="struct_x_mailbox___agent_1a5de32cff7d1fe5e482d0e3d75b528e6f" compoundref="xilmailbox__ipips_8h" startline="64">XMailbox_Agent::RemoteId</references>
+        <references refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" compoundref="xilmailbox__ipips__intr_8c" startline="65" endline="90">XIpiPs_PollforDone</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga0fd5f2755e0951d389b6b83c619e21c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_SendById</definition>
+        <argsstring>(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)</argsstring>
+        <name>XIpiPs_SendById</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RemoteId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Is_Blocking</declname>
+        </param>
+        <briefdescription>
+<para>Triggers an IPI to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RemoteId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the CPU to which the IPI is triggered. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Is_Blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that, when set, triggers the notification in blocking mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS in case of success.</para></listitem><listitem><para>XST_FAILURE in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="162" bodyend="179"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="group__xilmailbox_1ga8102ed0d9a2448e2754d4036b0aeebac" compoundref="xilmailbox__ipips__intr_8c" startline="105" endline="130">XIpiPs_PollforDoneById</references>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1gae6a5843a165afbc782fb45ab48e8b77d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_SendData</definition>
+        <argsstring>(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</argsstring>
+        <name>XIpiPs_SendData</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>MsgBufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Is_Blocking</declname>
+        </param>
+        <briefdescription>
+<para>Sends an IPI message to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer that contains the message to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Is_Blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that, when set, triggers the notification in blocking mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS in case of success.</para></listitem><listitem><para>XST_FAILURE in case of failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="attention"><para>This API is deprecated in 2026.2 and becomes obsolete in the 2027.1 release. You can reproduce the functionality of this API with XIpiPs_SendDataById. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="202" bodyend="227"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="struct_x_mailbox___agent_1a5de32cff7d1fe5e482d0e3d75b528e6f" compoundref="xilmailbox__ipips_8h" startline="64">XMailbox_Agent::RemoteId</references>
+        <references refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" compoundref="xilmailbox__ipips__intr_8c" startline="65" endline="90">XIpiPs_PollforDone</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1gaecaec4da5fe63fb55a3a71eba12b8e05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_SendDataById</definition>
+        <argsstring>(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking)</argsstring>
+        <name>XIpiPs_SendDataById</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>MsgBufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RemoteId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Is_Blocking</declname>
+        </param>
+        <briefdescription>
+<para>Sends an IPI message to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer that contains the message to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RemoteId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the CPU to which the IPI is triggered. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Is_Blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that, when set, triggers the notification in blocking mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS in case of success.</para></listitem><listitem><para>XST_FAILURE in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="247" bodyend="272"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="group__xilmailbox_1ga8102ed0d9a2448e2754d4036b0aeebac" compoundref="xilmailbox__ipips__intr_8c" startline="105" endline="130">XIpiPs_PollforDoneById</references>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga56a6cdab3dba08f469f27b341aa3c178" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_RecvData</definition>
+        <argsstring>(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen, u8 BufferType)</argsstring>
+        <name>XIpiPs_RecvData</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>MsgBufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Reads an IPI message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">MsgBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer in which to store the read message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="attention"><para>This API is deprecated in 2026.2 and becomes obsolete in the 2027.1 release. You can reproduce the functionality of this API with XIpiPs_RecvDataById. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="293" bodyend="303"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="struct_x_mailbox___agent_1a4a6fb8ef4ca25e40d3640a37ae80704c" compoundref="xilmailbox__ipips_8h" startline="63">XMailbox_Agent::SourceId</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga76681a9ebd3706299aa0fa85874c0b40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPs_RecvDataById</definition>
+        <argsstring>(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen, u32 SourceId, u8 BufferType)</argsstring>
+        <name>XIpiPs_RecvDataById</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>MsgBufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SourceId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Reads an IPI message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">MsgBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer in which to store the read message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SourceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device mask for the CPU that sent the message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if unsuccessful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="321" bodyend="331"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <referencedby refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" compoundref="xilmailbox__ipips_8c" startline="80" endline="105">XMailbox_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIpiPs_IntrHandler</definition>
+        <argsstring>(void *XMailboxPtr)</argsstring>
+        <name>XIpiPs_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>XMailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>Implements the interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">XMailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="341" bodyend="354"/>
+        <references refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="197">XMboxTag::Agent</references>
+        <references refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::IpiInst</references>
+        <references refid="struct_x_mbox_tag_1a19abe88291a590c4043f0c14f3abbea6" compoundref="xilmailbox_8h" startline="191">XMboxTag::RecvHandler</references>
+        <references refid="struct_x_mbox_tag_1acd81ebeec1ff8eb6bbd4b62922688353" compoundref="xilmailbox_8h" startline="195">XMboxTag::RecvRefPtr</references>
+        <referencedby refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" compoundref="xilmailbox__ipips__intr_8c" startline="156" endline="250">XIpiPs_RegisterIrq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga3f7e6c0a58db61bda83ef28be9acba71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIpiPs_ErrorIntrHandler</definition>
+        <argsstring>(void *XMailboxPtr)</argsstring>
+        <name>XIpiPs_ErrorIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>XMailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>Implements the interrupt handler for errors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">XMailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c" bodystart="364" bodyend="376"/>
+        <references refid="struct_x_mbox_tag_1a94ad8c15322f8aa87898da64c12d680c" compoundref="xilmailbox_8h" startline="192">XMboxTag::ErrorHandler</references>
+        <references refid="struct_x_mbox_tag_1a28ee974b8253aed6cd98a41d017e92b5" compoundref="xilmailbox_8h" startline="193">XMboxTag::ErrorRefPtr</references>
+        <references refid="group__xilmailbox_1ga90293f74a32c52eb71ecf11d8c34bc3d" compoundref="xilmailbox__ipips_8h" startline="141">IPI_BASEADDRESS</references>
+        <referencedby refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" compoundref="xilmailbox__ipips__intr_8c" startline="156" endline="250">XIpiPs_RegisterIrq</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements the ZynqMP and Versal IPI control functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the options for the ZynqMP and Versal IPI implementation.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.8   ht   07/24/23    Restructure the code for more modularity.
+1.9   sd   11/23/23    Clear the interrupts after calling the user handler.
+1.11  ht   11/12/24    Update description of MsgLen
+1.11  ht   01/02/25    Fix GCC warnings.
+1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
+1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+                          Instance, which could lead to race conditions and data
+                          corruption when handling multiple requests from
+                          different IPI channels concurrently.
+                          Use RemoteId based APIs to support concurrent IPI
+                          channel requests.
+1.14  vn   08/26/26    Fix Doxygen warnings
+1.14  vn   09/30/26    Align Doxygen comments with AMD standards</preformatted></para><para><preformatted> *</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilmailbox__ipips__control_8h" kindref="compound">xilmailbox_ipips_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" kindref="member">XIpiPs_Init</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u8<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="67" refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" kindref="member">XIpiPs_Init</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_Config<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>XIpiPsu_LookupConfig(DeviceId);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>XIpiPsu_LookupConfig(BaseAddress);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>CfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIpiPsu_CfgInitialize(IpiInstancePtr,<sp/>CfgPtr,<sp/>CfgPtr-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(s32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>reception<sp/>of<sp/>IPI<sp/>from<sp/>all<sp/>CPUs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_InterruptEnable(IpiInstancePtr,<sp/>XIPIPSU_ALL_MASK);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>Any<sp/>existing<sp/>Interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_ClearInterruptStatus(IpiInstancePtr,<sp/>XIPIPSU_ALL_MASK);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Register<sp/>IRQ<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/>(VERSAL_PLM)<sp/>&amp;&amp;<sp/>!defined<sp/>(VERSAL_psm)<sp/>&amp;&amp;<sp/>!defined<sp/>(PSU_PMU)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/>(__MICROBLAZE__)<sp/>&amp;&amp;<sp/>!defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" kindref="member">XIpiPs_RegisterIrq</ref>(&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a5697f39a913b178ec64c6cff4575bb0e" kindref="member">GicInst</ref>,<sp/>InstancePtr,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;IntId);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" kindref="member">XIpiPs_RegisterIrq</ref>(InstancePtr,<sp/>CfgPtr-&gt;IntId);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)Status;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="129" refid="group__xilmailbox_1gafe03d42ebcf3d3e93c2fb709de6e9142" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1gafe03d42ebcf3d3e93c2fb709de6e9142" kindref="member">XIpiPs_Send</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u8<sp/>Is_Blocking)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>IPI<sp/>to<sp/>destination<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_TriggerIpi(IpiInstancePtr,<sp/>DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a5de32cff7d1fe5e482d0e3d75b528e6f" kindref="member">RemoteId</ref>);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Is_Blocking<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" kindref="member">XIpiPs_PollforDone</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="162" refid="group__xilmailbox_1ga0fd5f2755e0951d389b6b83c619e21c6" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga0fd5f2755e0951d389b6b83c619e21c6" kindref="member">XIpiPs_SendById</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>RemoteId,<sp/>u8<sp/>Is_Blocking)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>IPI<sp/>to<sp/>destination<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_TriggerIpi(IpiInstancePtr,<sp/>RemoteId);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Is_Blocking<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="group__xilmailbox_1ga8102ed0d9a2448e2754d4036b0aeebac" kindref="member">XIpiPs_PollforDoneById</ref>(InstancePtr,<sp/>RemoteId);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202" refid="group__xilmailbox_1gae6a5843a165afbc782fb45ab48e8b77d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1gae6a5843a165afbc782fb45ab48e8b77d" kindref="member">XIpiPs_SendData</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MsgBufferPtr,<sp/>u32<sp/>MsgLen,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BufferType,<sp/>u8<sp/>Is_Blocking)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>a<sp/>Message<sp/>to<sp/>Destination<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_WriteMessage(IpiInstancePtr,<sp/>DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a5de32cff7d1fe5e482d0e3d75b528e6f" kindref="member">RemoteId</ref>,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)MsgBufferPtr,<sp/>MsgLen,<sp/>BufferType);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>IPI<sp/>to<sp/>destination<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_TriggerIpi(IpiInstancePtr,<sp/>DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a5de32cff7d1fe5e482d0e3d75b528e6f" kindref="member">RemoteId</ref>);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Is_Blocking<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" kindref="member">XIpiPs_PollforDone</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="247" refid="group__xilmailbox_1gaecaec4da5fe63fb55a3a71eba12b8e05" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1gaecaec4da5fe63fb55a3a71eba12b8e05" kindref="member">XIpiPs_SendDataById</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MsgBufferPtr,<sp/>u32<sp/>MsgLen,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BufferType,<sp/>u32<sp/>RemoteId,<sp/>u8<sp/>Is_Blocking)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>a<sp/>Message<sp/>to<sp/>Destination<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_WriteMessage(IpiInstancePtr,<sp/>RemoteId,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)MsgBufferPtr,<sp/>MsgLen,<sp/>BufferType);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>IPI<sp/>to<sp/>destination<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_TriggerIpi(IpiInstancePtr,<sp/>RemoteId);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Is_Blocking<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="group__xilmailbox_1ga8102ed0d9a2448e2754d4036b0aeebac" kindref="member">XIpiPs_PollforDoneById</ref>(InstancePtr,<sp/>RemoteId);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="293" refid="group__xilmailbox_1ga56a6cdab3dba08f469f27b341aa3c178" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga56a6cdab3dba08f469f27b341aa3c178" kindref="member">XIpiPs_RecvData</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MsgBufferPtr,<sp/>u32<sp/>MsgLen,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BufferType)</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_ReadMessage(IpiInstancePtr,<sp/>DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a4a6fb8ef4ca25e40d3640a37ae80704c" kindref="member">SourceId</ref>,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)MsgBufferPtr,<sp/>MsgLen,<sp/>BufferType);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="321" refid="group__xilmailbox_1ga76681a9ebd3706299aa0fa85874c0b40" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga76681a9ebd3706299aa0fa85874c0b40" kindref="member">XIpiPs_RecvDataById</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MsgBufferPtr,<sp/>u32<sp/>MsgLen,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SourceId,<sp/>u8<sp/>BufferType)</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XIpiPsu_ReadMessage(IpiInstancePtr,<sp/>SourceId,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)MsgBufferPtr,<sp/>MsgLen,<sp/>BufferType);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/>(VERSAL_PLM)<sp/>&amp;&amp;<sp/>!defined<sp/>(VERSAL_psm)<sp/>&amp;&amp;<sp/>!defined<sp/>(PSU_PMU)</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="341" refid="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" kindref="member">XIpiPs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XMailboxPtr)</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr<sp/>=<sp/>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XMailboxPtr);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/>*DataPtr<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*IpiInstancePtr<sp/>=<sp/>&amp;DataPtr-&gt;<ref refid="struct_x_mailbox___agent_1a626145fbf006cb062b91ef47889a49ed" kindref="member">IpiInst</ref>;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatus;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Status<sp/>Register<sp/>of<sp/>the<sp/>current<sp/>IPI<sp/>instance.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/>XIpiPsu_GetInterruptStatus(IpiInstancePtr);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a19abe88291a590c4043f0c14f3abbea6" kindref="member">RecvHandler</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a19abe88291a590c4043f0c14f3abbea6" kindref="member">RecvHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1acd81ebeec1ff8eb6bbd4b62922688353" kindref="member">RecvRefPtr</ref>);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_ClearInterruptStatus(IpiInstancePtr,<sp/>IntrStatus);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/>(__MICROBLAZE__)<sp/>&amp;&amp;<sp/>!defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="364" refid="group__xilmailbox_1ga3f7e6c0a58db61bda83ef28be9acba71" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilmailbox_1ga3f7e6c0a58db61bda83ef28be9acba71" kindref="member">XIpiPs_ErrorIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XMailboxPtr)</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr<sp/>=<sp/>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XMailboxPtr);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Status<sp/>Register<sp/>of<sp/>the<sp/>current<sp/>IPI<sp/>instance.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIpiPsu_ReadReg(<ref refid="group__xilmailbox_1ga90293f74a32c52eb71ecf11d8c34bc3d" kindref="member">IPI_BASEADDRESS</ref>,<sp/>XIPIPSU_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_WriteReg(<ref refid="group__xilmailbox_1ga90293f74a32c52eb71ecf11d8c34bc3d" kindref="member">IPI_BASEADDRESS</ref>,<sp/>XIPIPSU_ISR_OFFSET,</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a94ad8c15322f8aa87898da64c12d680c" kindref="member">ErrorHandler</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a94ad8c15322f8aa87898da64c12d680c" kindref="member">ErrorHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_mbox_tag_1a28ee974b8253aed6cd98a41d017e92b5" kindref="member">ErrorRefPtr</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="378"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="379"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips_control.c"/>
+  </compounddef>
+</doxygen>

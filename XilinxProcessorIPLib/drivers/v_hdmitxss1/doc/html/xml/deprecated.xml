@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="deprecated" kind="page">
+    <compoundname>deprecated</compoundname>
+    <title>Deprecated List</title>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term><anchor id="deprecated_1_deprecated000001"/>Global <ref refid="bigdigits_8h_1a9bbb54139efc28eba4a5299a94d31258" kindref="member">mpPrintTrim</ref>  (const u32 *p, size_t ndigits)</term></varlistentry>
+<listitem><para>Use <ref refid="bigdigits_8h_1a65d767d47344f3c1f25e8e40f033d800" kindref="member">mpPrintHex()</ref>  </para></listitem>
+<varlistentry><term><anchor id="deprecated_1_deprecated000002"/>Global <ref refid="bigdigits_8h_1a302c68abf9fd95006d1a2b56f1515bac" kindref="member">mpPrintTrimNL</ref>  (const u32 *p, size_t ndigits)</term></varlistentry>
+<listitem><para>Use <ref refid="bigdigits_8h_1a65d767d47344f3c1f25e8e40f033d800" kindref="member">mpPrintHex()</ref> </para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

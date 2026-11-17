@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_ea77d927dfbffd762e127db9ce78cd67" kind="dir">
+    <compoundname>axiethernet</compoundname>
+    <innerdir refid="dir_1d1c0c0355c3099736035abd646c121c">examples</innerdir>
+    <innerdir refid="dir_5b993644dfba761132fb4c61ca8fcbaf">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/"/>
+  </compounddef>
+</doxygen>

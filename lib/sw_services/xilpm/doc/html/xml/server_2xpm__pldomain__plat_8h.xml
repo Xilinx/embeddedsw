@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__pldomain__plat_8h" kind="file">
+    <compoundname>server/xpm_pldomain_plat.h</compoundname>
+    <includes refid="server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includes>
+    <includes local="yes">xcframe.h</includes>
+    <includes local="yes">xcfupmc.h</includes>
+    <includes local="yes">xpm_config.h</includes>
+    <incdepgraph>
+      <node id="5882">
+        <label>xpm_pldomain_plat.h</label>
+        <link refid="server/xpm_pldomain_plat.h"/>
+        <childnode refid="5883" relation="include">
+        </childnode>
+        <childnode refid="5908" relation="include">
+        </childnode>
+        <childnode refid="5909" relation="include">
+        </childnode>
+        <childnode refid="5897" relation="include">
+        </childnode>
+      </node>
+      <node id="5883">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="5884" relation="include">
+        </childnode>
+        <childnode refid="5898" relation="include">
+        </childnode>
+        <childnode refid="5905" relation="include">
+        </childnode>
+        <childnode refid="5906" relation="include">
+        </childnode>
+      </node>
+      <node id="5900">
+        <label>xpm_api.h</label>
+        <childnode refid="5887" relation="include">
+        </childnode>
+        <childnode refid="5888" relation="include">
+        </childnode>
+        <childnode refid="5885" relation="include">
+        </childnode>
+        <childnode refid="5893" relation="include">
+        </childnode>
+        <childnode refid="5901" relation="include">
+        </childnode>
+        <childnode refid="5902" relation="include">
+        </childnode>
+      </node>
+      <node id="5891">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5886">
+        <label>xpm_node.h</label>
+        <childnode refid="5887" relation="include">
+        </childnode>
+        <childnode refid="5888" relation="include">
+        </childnode>
+        <childnode refid="5889" relation="include">
+        </childnode>
+        <childnode refid="5890" relation="include">
+        </childnode>
+      </node>
+      <node id="5907">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="5893">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="5909">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="5906">
+        <label>xpm_rail.h</label>
+        <childnode refid="5888" relation="include">
+        </childnode>
+        <childnode refid="5907" relation="include">
+        </childnode>
+      </node>
+      <node id="5898">
+        <label>xpm_reset.h</label>
+        <childnode refid="5886" relation="include">
+        </childnode>
+        <childnode refid="5890" relation="include">
+        </childnode>
+        <childnode refid="5899" relation="include">
+        </childnode>
+        <childnode refid="5904" relation="include">
+        </childnode>
+      </node>
+      <node id="5892">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5894">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5899">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="5900" relation="include">
+        </childnode>
+        <childnode refid="5885" relation="include">
+        </childnode>
+        <childnode refid="5888" relation="include">
+        </childnode>
+        <childnode refid="5903" relation="include">
+        </childnode>
+      </node>
+      <node id="5896">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="5885">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="5903">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="5884">
+        <label>xpm_power.h</label>
+        <childnode refid="5885" relation="include">
+        </childnode>
+        <childnode refid="5886" relation="include">
+        </childnode>
+        <childnode refid="5896" relation="include">
+        </childnode>
+        <childnode refid="5897" relation="include">
+        </childnode>
+      </node>
+      <node id="5904">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="5888">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5890">
+        <label>xpm_common.h</label>
+        <childnode refid="5888" relation="include">
+        </childnode>
+        <childnode refid="5891" relation="include">
+        </childnode>
+        <childnode refid="5892" relation="include">
+        </childnode>
+        <childnode refid="5893" relation="include">
+        </childnode>
+        <childnode refid="5894" relation="include">
+        </childnode>
+        <childnode refid="5895" relation="include">
+        </childnode>
+      </node>
+      <node id="5889">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5905">
+        <label>xpm_domain_iso.h</label>
+        <childnode refid="5886" relation="include">
+        </childnode>
+        <childnode refid="5890" relation="include">
+        </childnode>
+      </node>
+      <node id="5901">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="5887">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5895">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="5908">
+        <label>xcframe.h</label>
+      </node>
+      <node id="5897">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="5902">
+        <label>xplmi_ipi.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_pm___pl_domain" prot="public">XPm_PlDomain</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="server_2xpm__pldomain__plat_8h_1a820cac2dbc4e01264aa232d858de94ae" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref></type>
+        <definition>typedef struct XPm_PlDomain  XPm_PlDomain</definition>
+        <argsstring></argsstring>
+        <name>XPm_PlDomain</name>
+        <briefdescription>
+<para>The PL power domain node class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.h" line="29" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="server_2xpm__pldomain__plat_8h_1af3142d635c06dee602e98e075ed69615" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 HcleanDone</definition>
+        <argsstring></argsstring>
+        <name>HcleanDone</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__pldomain__plat_8h_1a0189dc667ea450722df8b4a249202f70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDomain_Init</definition>
+        <argsstring>(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress, XPm_Power *Parent, const u32 *OtherBaseAddresses, u32 OtherBaseAddressCnt)</argsstring>
+        <name>XPmPlDomain_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref> *</type>
+          <declname>PlDomain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Parent</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>OtherBaseAddresses</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>OtherBaseAddressCnt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.c" bodystart="2949" bodyend="2978"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PLDOMAIN_PLAT_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PLDOMAIN_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_powerdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcframe.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcfupmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>HcleanDone;</highlight></codeline>
+<codeline lineno="25" refid="struct_x_pm___pl_domain" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref><sp/>{</highlight></codeline>
+<codeline lineno="26" refid="struct_x_pm___pl_domain_1ae85add6bc9f0a6e37b19c80091e9898c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PowerDomain<sp/><ref refid="struct_x_pm___pl_domain_1ae85add6bc9f0a6e37b19c80091e9898c" kindref="member">Domain</ref>;<sp/></highlight></codeline>
+<codeline lineno="27" refid="struct_x_pm___pl_domain_1ad4cf6aab91d14a16c1e3176209979f7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___pl_domain_1ad4cf6aab91d14a16c1e3176209979f7f" kindref="member">CfuApbBaseAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="28" refid="struct_x_pm___pl_domain_1ac93e8b12b5bc235445117520b4e595ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___pl_domain_1ac93e8b12b5bc235445117520b4e595ae" kindref="member">Cframe0RegBaseAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">}<sp/><ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">XStatus<sp/>XPmPlDomain_Init(<ref refid="struct_x_pm___pl_domain" kindref="compound">XPm_PlDomain</ref><sp/>*PlDomain,<sp/>u32<sp/>Id,<sp/>u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Parent,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*OtherBaseAddresses,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OtherBaseAddressCnt);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PLDOMAIN_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pldomain_plat.h"/>
+  </compounddef>
+</doxygen>

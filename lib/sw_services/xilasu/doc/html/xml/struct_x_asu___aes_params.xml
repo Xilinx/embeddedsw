@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___aes_params" kind="struct" prot="public">
+    <compoundname>XAsu_AesParams</compoundname>
+    <includes local="no">xasu_aesinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a06ce6311cd4b9c247034edd793ab4110" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_AesParams::InputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InputDataAddr</name>
+        <briefdescription>
+<para>AES input data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1aa1c213f5c1e28519ef6f8917db55ec88" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_AesParams::OutputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>OutputDataAddr</name>
+        <briefdescription>
+<para>AES output data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a8ca4217e6ddbb92ed6972a2336155295" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_AesParams::AadAddr</definition>
+        <argsstring></argsstring>
+        <name>AadAddr</name>
+        <briefdescription>
+<para>AES Aad address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a498eb45c14a7f378dba0366fe4249c9c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_AesParams::KeyObjectAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyObjectAddr</name>
+        <briefdescription>
+<para>AES Key object address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1af197cfbe040de49e6415ce4d3b37d374" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_AesParams::TagAddr</definition>
+        <argsstring></argsstring>
+        <name>TagAddr</name>
+        <briefdescription>
+<para>AES Tag address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a9f753bd2ac9e193c96f45be4555d25e7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___aes_iv_object" kindref="compound">XAsu_AesIvObject</ref></type>
+        <definition>XAsu_AesIvObject XAsu_AesParams::IvObj</definition>
+        <argsstring></argsstring>
+        <name>IvObj</name>
+        <briefdescription>
+<para>AES IV object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a6b49ceecb3059ca49b7967b34adc7e16" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesParams::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>AES input and output data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a5ce18140ca41e5efb10abe1711ada1ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesParams::AadLen</definition>
+        <argsstring></argsstring>
+        <name>AadLen</name>
+        <briefdescription>
+<para>AES AAD length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a0089fed3e9bf2e6a0f1dc12065a91ebd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesParams::TagLen</definition>
+        <argsstring></argsstring>
+        <name>TagLen</name>
+        <briefdescription>
+<para>AES tag length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1ac0d9b5493731fc415049a2f189316139" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesParams::EngineMode</definition>
+        <argsstring></argsstring>
+        <name>EngineMode</name>
+        <briefdescription>
+<para>AES engine mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1af1ff2a5ebe1859e54292ff94e6627fbe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesParams::OperationFlags</definition>
+        <argsstring></argsstring>
+        <name>OperationFlags</name>
+        <briefdescription>
+<para>AES operation flag is a combination of (XASU_INIT, XASU_UPDATE, XASU_FINISH) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1a6b8d01430cf0536f49b16837ce90a509" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesParams::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Indicates whether it is the last update of data to AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>FALSE: Not Last update.</para></listitem><listitem><para>TRUE: Last update. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_params_1afd7f65558fc8a99e854ccba007a4e82c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesParams::OperationType</definition>
+        <argsstring></argsstring>
+        <name>OperationType</name>
+        <briefdescription>
+<para>AES encrypt/decrypt operation type. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>XASU_AES_ENCRYPT_OPERATION: For encrypt operation</para></listitem><listitem><para>XASU_AES_DECRYPT_OPERATION: For decrypt operation </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" compoundref="xasu__plext_8c" startline="64" endline="140">XAsu_PlExtOperation</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is common for both client and handler, which contains AES input and output parameters information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>XAsu_AesParams</label>
+        <link refid="struct_x_asu___aes_params"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>IvObj</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>XAsu_AesIvObject</label>
+        <link refid="struct_x_asu___aes_iv_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="153" bodyend="172"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___aes_params_1a8ca4217e6ddbb92ed6972a2336155295" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>AadAddr</name></member>
+      <member refid="struct_x_asu___aes_params_1a5ce18140ca41e5efb10abe1711ada1ed" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>AadLen</name></member>
+      <member refid="struct_x_asu___aes_params_1a6b49ceecb3059ca49b7967b34adc7e16" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>DataLen</name></member>
+      <member refid="struct_x_asu___aes_params_1ac0d9b5493731fc415049a2f189316139" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>EngineMode</name></member>
+      <member refid="struct_x_asu___aes_params_1a06ce6311cd4b9c247034edd793ab4110" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>InputDataAddr</name></member>
+      <member refid="struct_x_asu___aes_params_1a6b8d01430cf0536f49b16837ce90a509" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>IsLast</name></member>
+      <member refid="struct_x_asu___aes_params_1a9f753bd2ac9e193c96f45be4555d25e7" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>IvObj</name></member>
+      <member refid="struct_x_asu___aes_params_1a498eb45c14a7f378dba0366fe4249c9c" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>KeyObjectAddr</name></member>
+      <member refid="struct_x_asu___aes_params_1af1ff2a5ebe1859e54292ff94e6627fbe" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>OperationFlags</name></member>
+      <member refid="struct_x_asu___aes_params_1afd7f65558fc8a99e854ccba007a4e82c" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>OperationType</name></member>
+      <member refid="struct_x_asu___aes_params_1aa1c213f5c1e28519ef6f8917db55ec88" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>OutputDataAddr</name></member>
+      <member refid="struct_x_asu___aes_params_1af197cfbe040de49e6415ce4d3b37d374" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>TagAddr</name></member>
+      <member refid="struct_x_asu___aes_params_1a0089fed3e9bf2e6a0f1dc12065a91ebd" prot="public" virt="non-virtual"><scope>XAsu_AesParams</scope><name>TagLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

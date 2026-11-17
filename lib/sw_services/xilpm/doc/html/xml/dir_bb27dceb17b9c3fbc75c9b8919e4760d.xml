@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_bb27dceb17b9c3fbc75c9b8919e4760d" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="versal__common_2client_2pm__api__sys_8c">versal_common/client/pm_api_sys.c</innerfile>
+    <innerfile refid="versal__common_2client_2pm__api__sys_8h">versal_common/client/pm_api_sys.h</innerfile>
+    <innerfile refid="versal__common_2client_2pm__callbacks_8c">versal_common/client/pm_callbacks.c</innerfile>
+    <innerfile refid="versal__common_2client_2pm__callbacks_8h">versal_common/client/pm_callbacks.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/"/>
+  </compounddef>
+</doxygen>

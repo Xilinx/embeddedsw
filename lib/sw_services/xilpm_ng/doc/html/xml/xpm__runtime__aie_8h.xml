@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__aie_8h" kind="file">
+    <compoundname>xpm_runtime_aie.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xpm__aiedevice_8h" local="yes">xpm_aiedevice.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__runtime__aie_8c" local="yes">xpm_runtime_aie.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <incdepgraph>
+      <node id="4252">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="4249" relation="include">
+        </childnode>
+        <childnode refid="4253" relation="include">
+        </childnode>
+      </node>
+      <node id="4243">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4248">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4244">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4246">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4257">
+        <label>xpm_api.h</label>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4247" relation="include">
+        </childnode>
+        <childnode refid="4245" relation="include">
+        </childnode>
+        <childnode refid="4258" relation="include">
+        </childnode>
+        <childnode refid="4238" relation="include">
+        </childnode>
+      </node>
+      <node id="4241">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4250">
+        <label>xpm_clock.h</label>
+        <childnode refid="4242" relation="include">
+        </childnode>
+        <childnode refid="4240" relation="include">
+        </childnode>
+        <childnode refid="4249" relation="include">
+        </childnode>
+      </node>
+      <node id="4253">
+        <label>xpm_rail.h</label>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4249" relation="include">
+        </childnode>
+        <childnode refid="4254" relation="include">
+        </childnode>
+      </node>
+      <node id="4249">
+        <label>xpm_power.h</label>
+        <childnode refid="4247" relation="include">
+        </childnode>
+        <childnode refid="4240" relation="include">
+        </childnode>
+      </node>
+      <node id="4261">
+        <label>xpm_alloc.h</label>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+      </node>
+      <node id="4262">
+        <label>xpm_requirement.h</label>
+        <childnode refid="4239" relation="include">
+        </childnode>
+        <childnode refid="4256" relation="include">
+        </childnode>
+        <childnode refid="4263" relation="include">
+        </childnode>
+      </node>
+      <node id="4242">
+        <label>xpm_common.h</label>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4243" relation="include">
+        </childnode>
+        <childnode refid="4244" relation="include">
+        </childnode>
+        <childnode refid="4245" relation="include">
+        </childnode>
+        <childnode refid="4246" relation="include">
+        </childnode>
+        <childnode refid="4247" relation="include">
+        </childnode>
+      </node>
+      <node id="4238">
+        <label>xpm_mem.h</label>
+        <childnode refid="4239" relation="include">
+        </childnode>
+      </node>
+      <node id="4240">
+        <label>xpm_node.h</label>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4241" relation="include">
+        </childnode>
+        <childnode refid="4242" relation="include">
+        </childnode>
+      </node>
+      <node id="4236">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="4237" relation="include">
+        </childnode>
+        <childnode refid="4255" relation="include">
+        </childnode>
+      </node>
+      <node id="4234">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4237">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="4238" relation="include">
+        </childnode>
+        <childnode refid="4252" relation="include">
+        </childnode>
+      </node>
+      <node id="4235">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4264">
+        <label>xpm_fsm.h</label>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4239" relation="include">
+        </childnode>
+      </node>
+      <node id="4255">
+        <label>xpm_aie.h</label>
+        <childnode refid="4252" relation="include">
+        </childnode>
+        <childnode refid="4239" relation="include">
+        </childnode>
+      </node>
+      <node id="4247">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4248" relation="include">
+        </childnode>
+      </node>
+      <node id="4233">
+        <label>xpm_runtime_aie.h</label>
+        <link refid="xpm_runtime_aie.h"/>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4236" relation="include">
+        </childnode>
+        <childnode refid="4256" relation="include">
+        </childnode>
+      </node>
+      <node id="4259">
+        <label>xpm_list.h</label>
+        <childnode refid="4260" relation="include">
+        </childnode>
+      </node>
+      <node id="4254">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="4263">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="4235" relation="include">
+        </childnode>
+      </node>
+      <node id="4256">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4257" relation="include">
+        </childnode>
+        <childnode refid="4247" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4259" relation="include">
+        </childnode>
+        <childnode refid="4262" relation="include">
+        </childnode>
+        <childnode refid="4264" relation="include">
+        </childnode>
+      </node>
+      <node id="4239">
+        <label>xpm_device.h</label>
+        <childnode refid="4240" relation="include">
+        </childnode>
+        <childnode refid="4249" relation="include">
+        </childnode>
+        <childnode refid="4250" relation="include">
+        </childnode>
+        <childnode refid="4251" relation="include">
+        </childnode>
+      </node>
+      <node id="4251">
+        <label>xpm_reset.h</label>
+        <childnode refid="4240" relation="include">
+        </childnode>
+        <childnode refid="4242" relation="include">
+        </childnode>
+      </node>
+      <node id="4258">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="4245">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4234" relation="include">
+        </childnode>
+      </node>
+      <node id="4260">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="4261" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4266">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="4268">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="4267">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="4265">
+        <label>xpm_runtime_aie.h</label>
+        <link refid="xpm_runtime_aie.h"/>
+        <childnode refid="4266" relation="include">
+        </childnode>
+        <childnode refid="4267" relation="include">
+        </childnode>
+        <childnode refid="4268" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___aie_op_start_num_col" prot="public">XPm_AieOpStartNumCol</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_l2_ctrl_irq" prot="public">XPm_AieOpL2CtrlIrq</innerclass>
+    <innerclass refid="struct_x_pm___aie_type_len" prot="public">XPm_AieTypeLen</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_hw_err_sts" prot="public">XPm_AieOpHwErrSts</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_uc_zeroisation" prot="public">XPm_AieOpUcZeroisation</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_hand_shake" prot="public">XPm_AieOpHandShake</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_nmu_switch" prot="public">XPm_AieOpNmuSwitch</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_aximm_iso" prot="public">XPm_AieOpAximmIso</innerclass>
+    <innerclass refid="struct_x_pm___aie_op_ecc_scrub_period" prot="public">XPm_AieOpEccScrubPeriod</innerclass>
+    <innerclass refid="struct_x_pm___aie_ctrl_pkt_tlast_err" prot="public">XPm_AieCtrlPktTlastErr</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__runtime__aie_8h_1ae800a1b0a0cc970daf457e8ce5cbf994" prot="public" static="no">
+        <name>AIE2PS_UC_PRIVATE_DM_MAX_SIZE</name>
+        <initializer>(16U * 1024U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__aie_8h_1a42acabd8bf7075cc419084e08cf9c815" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAie_Operations</definition>
+        <argsstring>(u32 SubsystemId, u32 DeviceId, u32 Size, u32 HighAddr, u32 LowAddr)</argsstring>
+        <name>XPmAie_Operations</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HighAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LowAddr</declname>
+        </param>
+        <briefdescription>
+<para>Execute AIE operations from a caller-supplied DDR buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requesting subsystem ID; used to validate the source DDR range against the subsystem&apos;s allowed memory regions before any DMA fetch. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>AIE device node ID for partition bounds validation </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer size in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HighAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper 32 bits of the buffer address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LowAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bits of the buffer address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" bodystart="1270" bodyend="1278"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__aie_8h_1abaa63b04013a69a7a2f64a476e2e68b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAieDevice_UpdateClockDiv</definition>
+        <argsstring>(const u32 Divider)</argsstring>
+        <name>XPmAieDevice_UpdateClockDiv</name>
+        <param>
+          <type>const u32</type>
+          <declname>Divider</declname>
+        </param>
+        <briefdescription>
+<para>Update AIE clock divider. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Divider</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested divider value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" bodystart="1291" bodyend="1351"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__aie_8h_1a25e7859b493853e79ea7fde658b60b0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAieDevice_QueryDivider</definition>
+        <argsstring>(u32 *Response)</argsstring>
+        <name>XPmAieDevice_QueryDivider</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Response</declname>
+        </param>
+        <briefdescription>
+<para>Query AIE clock divider values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Response</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array to store default and current divider values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c" bodystart="1361" bodyend="1385"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RUNTIME_AIE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RUNTIME_AIE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_aiedevice.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>UC<sp/>Private<sp/>data<sp/>memory<sp/>size<sp/>is<sp/>16KB<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AIE2PS_UC_PRIVATE_DM_MAX_SIZE<sp/><sp/><sp/>(16U<sp/>*<sp/>1024U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpStartNumCol<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>StartCol;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>Column<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>NumCol;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>Columns<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpL2CtrlIrq<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Irq;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>L2<sp/>intr<sp/>controller<sp/>register.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/>This<sp/>structure<sp/>is<sp/>used<sp/>for<sp/>operation<sp/>types<sp/>that<sp/>needs<sp/>constant<sp/>values<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/>written.<sp/>Eg.<sp/>XILINX_AIE_OPS_ZEROISATION</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieTypeLen<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpHwErrSts<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Val;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpUcZeroisation<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Flag;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>uc<sp/>zeroization<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpHandShake<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>+<sp/>handshake<sp/>data<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Offset<sp/>in<sp/>the<sp/>handshake<sp/>region<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HighAddr;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>physical<sp/>address<sp/>of<sp/>the<sp/>buffer<sp/>that<sp/>has<sp/>handshake<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LowAddr;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpNmuSwitch<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>C0Route;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>written<sp/>to<sp/>column<sp/>0<sp/>nmu<sp/>switch<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>C1Route;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>written<sp/>to<sp/>column<sp/>1<sp/>nmu<sp/>switch<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpAximmIso<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Traffic;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>aximm<sp/>isolation<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieOpEccScrubPeriod<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ScrubPeriod;<sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>ecc<sp/>scrub<sp/>period<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieCtrlPktTlastErr<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>struct<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>State;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>set<sp/>CTRL_PKT_TLAST_ERR<sp/>bit<sp/>in<sp/>module<sp/>clock<sp/>control<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">XStatus<sp/>XPmAie_Operations(u32<sp/>SubsystemId,<sp/>u32<sp/>DeviceId,<sp/>u32<sp/>Size,<sp/>u32<sp/>HighAddr,<sp/>u32<sp/>LowAddr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">XStatus<sp/>XPmAieDevice_UpdateClockDiv(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Divider);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">XStatus<sp/>XPmAieDevice_QueryDivider(u32<sp/>*Response);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RUNTIME_AIE_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h"/>
+  </compounddef>
+</doxygen>

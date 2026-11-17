@@ -1,0 +1,899 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__rail_8h" kind="file">
+    <compoundname>xpm_rail.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includes local="yes">xpm_config.h</includes>
+    <includedby refid="xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__npdomain_8c" local="yes">xpm_npdomain.c</includedby>
+    <includedby refid="xpm__pldomain_8c" local="yes">xpm_pldomain.c</includedby>
+    <includedby refid="xpm__psfpdomain_8c" local="yes">xpm_psfpdomain.c</includedby>
+    <includedby refid="xpm__pslpdomain_8c" local="yes">xpm_pslpdomain.c</includedby>
+    <includedby refid="xpm__rail_8c" local="yes">xpm_rail.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="3311">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3307">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3312">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3314">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3309">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3302">
+        <label>xpm_rail.h</label>
+        <link refid="xpm_rail.h"/>
+        <childnode refid="3303" relation="include">
+        </childnode>
+        <childnode refid="3304" relation="include">
+        </childnode>
+        <childnode refid="3315" relation="include">
+        </childnode>
+      </node>
+      <node id="3304">
+        <label>xpm_power.h</label>
+        <childnode refid="3305" relation="include">
+        </childnode>
+        <childnode refid="3308" relation="include">
+        </childnode>
+      </node>
+      <node id="3310">
+        <label>xpm_common.h</label>
+        <childnode refid="3303" relation="include">
+        </childnode>
+        <childnode refid="3311" relation="include">
+        </childnode>
+        <childnode refid="3312" relation="include">
+        </childnode>
+        <childnode refid="3313" relation="include">
+        </childnode>
+        <childnode refid="3314" relation="include">
+        </childnode>
+        <childnode refid="3305" relation="include">
+        </childnode>
+      </node>
+      <node id="3308">
+        <label>xpm_node.h</label>
+        <childnode refid="3306" relation="include">
+        </childnode>
+        <childnode refid="3303" relation="include">
+        </childnode>
+        <childnode refid="3309" relation="include">
+        </childnode>
+        <childnode refid="3310" relation="include">
+        </childnode>
+      </node>
+      <node id="3303">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3306">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3305">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3306" relation="include">
+        </childnode>
+        <childnode refid="3307" relation="include">
+        </childnode>
+      </node>
+      <node id="3315">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="3313">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3303" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3329">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="3317">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="3318" relation="include">
+        </childnode>
+        <childnode refid="3330" relation="include">
+        </childnode>
+        <childnode refid="3333" relation="include">
+        </childnode>
+        <childnode refid="3335" relation="include">
+        </childnode>
+        <childnode refid="3350" relation="include">
+        </childnode>
+        <childnode refid="3352" relation="include">
+        </childnode>
+        <childnode refid="3356" relation="include">
+        </childnode>
+        <childnode refid="3359" relation="include">
+        </childnode>
+        <childnode refid="3360" relation="include">
+        </childnode>
+        <childnode refid="3361" relation="include">
+        </childnode>
+        <childnode refid="3329" relation="include">
+        </childnode>
+        <childnode refid="3362" relation="include">
+        </childnode>
+        <childnode refid="3337" relation="include">
+        </childnode>
+        <childnode refid="3363" relation="include">
+        </childnode>
+        <childnode refid="3364" relation="include">
+        </childnode>
+        <childnode refid="3365" relation="include">
+        </childnode>
+        <childnode refid="3366" relation="include">
+        </childnode>
+      </node>
+      <node id="3334">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="3333">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3334" relation="include">
+        </childnode>
+        <childnode refid="3329" relation="include">
+        </childnode>
+      </node>
+      <node id="3339">
+        <label>xpm_repair_ddrmc5e.c</label>
+      </node>
+      <node id="3338">
+        <label>xpm_repair_bram_uram.c</label>
+      </node>
+      <node id="3355">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="3352">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3353" relation="include">
+        </childnode>
+        <childnode refid="3354" relation="include">
+        </childnode>
+        <childnode refid="3323" relation="include">
+        </childnode>
+        <childnode refid="3329" relation="include">
+        </childnode>
+        <childnode refid="3355" relation="include">
+        </childnode>
+        <childnode refid="3337" relation="include">
+        </childnode>
+        <childnode refid="3327" relation="include">
+        </childnode>
+      </node>
+      <node id="3341">
+        <label>xpm_repair_gtm_gty_gtyp.c</label>
+      </node>
+      <node id="3353">
+        <label>xpm_apucore.c</label>
+      </node>
+      <node id="3325">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="3345">
+        <label>xpm_repair_me2ps.c</label>
+      </node>
+      <node id="3322">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="3332">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="3362">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="3342">
+        <label>xpm_repair_hardblock.c</label>
+      </node>
+      <node id="3343">
+        <label>xpm_repair_isp2.c</label>
+      </node>
+      <node id="3316">
+        <label>xpm_rail.h</label>
+        <link refid="xpm_rail.h"/>
+        <childnode refid="3317" relation="include">
+        </childnode>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3334" relation="include">
+        </childnode>
+        <childnode refid="3349" relation="include">
+        </childnode>
+        <childnode refid="3355" relation="include">
+        </childnode>
+        <childnode refid="3357" relation="include">
+        </childnode>
+        <childnode refid="3362" relation="include">
+        </childnode>
+        <childnode refid="3332" relation="include">
+        </childnode>
+      </node>
+      <node id="3364">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="3361">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="3327">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="3366">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="3328">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="3365">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="3354">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="3360">
+        <label>xpm_mem.c</label>
+      </node>
+      <node id="3321">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="3320">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="3321" relation="include">
+        </childnode>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3323" relation="include">
+        </childnode>
+        <childnode refid="3324" relation="include">
+        </childnode>
+        <childnode refid="3325" relation="include">
+        </childnode>
+        <childnode refid="3328" relation="include">
+        </childnode>
+        <childnode refid="3326" relation="include">
+        </childnode>
+        <childnode refid="3327" relation="include">
+        </childnode>
+      </node>
+      <node id="3358">
+        <label>xpm_rpucore.c</label>
+      </node>
+      <node id="3359">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="3331">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="3330">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="3320" relation="include">
+        </childnode>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3323" relation="include">
+        </childnode>
+        <childnode refid="3331" relation="include">
+        </childnode>
+        <childnode refid="3332" relation="include">
+        </childnode>
+      </node>
+      <node id="3346">
+        <label>xpm_repair_mmi.c</label>
+      </node>
+      <node id="3319">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="3318">
+        <label>xpm_aie.h</label>
+        <childnode refid="3319" relation="include">
+        </childnode>
+        <childnode refid="3320" relation="include">
+        </childnode>
+        <childnode refid="3321" relation="include">
+        </childnode>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3329" relation="include">
+        </childnode>
+        <childnode refid="3326" relation="include">
+        </childnode>
+      </node>
+      <node id="3326">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="3324">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="3325" relation="include">
+        </childnode>
+        <childnode refid="3326" relation="include">
+        </childnode>
+        <childnode refid="3327" relation="include">
+        </childnode>
+      </node>
+      <node id="3349">
+        <label>xpm_pldomain.c</label>
+      </node>
+      <node id="3335">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3336" relation="include">
+        </childnode>
+        <childnode refid="3349" relation="include">
+        </childnode>
+        <childnode refid="3329" relation="include">
+        </childnode>
+        <childnode refid="3337" relation="include">
+        </childnode>
+      </node>
+      <node id="3351">
+        <label>xpm_pmcdomain.c</label>
+      </node>
+      <node id="3350">
+        <label>xpm_pmcdomain.h</label>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3351" relation="include">
+        </childnode>
+      </node>
+      <node id="3357">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="3356">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3354" relation="include">
+        </childnode>
+        <childnode refid="3323" relation="include">
+        </childnode>
+        <childnode refid="3334" relation="include">
+        </childnode>
+        <childnode refid="3329" relation="include">
+        </childnode>
+        <childnode refid="3357" relation="include">
+        </childnode>
+        <childnode refid="3337" relation="include">
+        </childnode>
+        <childnode refid="3358" relation="include">
+        </childnode>
+        <childnode refid="3327" relation="include">
+        </childnode>
+      </node>
+      <node id="3348">
+        <label>xpm_repair_vip.c</label>
+      </node>
+      <node id="3323">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="3363">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="3344">
+        <label>xpm_repair_lpd_fpd_pmxc.c</label>
+      </node>
+      <node id="3347">
+        <label>xpm_repair_vcu2.c</label>
+      </node>
+      <node id="3337">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="3336">
+        <label>xpm_repair.h</label>
+        <childnode refid="3322" relation="include">
+        </childnode>
+        <childnode refid="3337" relation="include">
+        </childnode>
+        <childnode refid="3338" relation="include">
+        </childnode>
+        <childnode refid="3339" relation="include">
+        </childnode>
+        <childnode refid="3340" relation="include">
+        </childnode>
+        <childnode refid="3341" relation="include">
+        </childnode>
+        <childnode refid="3342" relation="include">
+        </childnode>
+        <childnode refid="3343" relation="include">
+        </childnode>
+        <childnode refid="3344" relation="include">
+        </childnode>
+        <childnode refid="3345" relation="include">
+        </childnode>
+        <childnode refid="3346" relation="include">
+        </childnode>
+        <childnode refid="3347" relation="include">
+        </childnode>
+        <childnode refid="3348" relation="include">
+        </childnode>
+      </node>
+      <node id="3340">
+        <label>xpm_repair_eio.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm_rail___temp_volt_adj" prot="public">XPmRail_TempVoltAdj</innerclass>
+    <innerclass refid="struct_x_pm_rail___v_i_d_adj" prot="public">XPmRail_VIDAdj</innerclass>
+    <innerclass refid="struct_x_pm___g_p_i_o_cmd" prot="public">XPm_GPIOCmd</innerclass>
+    <innerclass refid="struct_x_pm___rail" prot="public">XPm_Rail</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__rail_8h_1a95b270e9c99aea216b47fd1e95b2cf34" prot="public" static="no">
+        <name>MAX_MODES</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a604860fdb543f82edf58f6654e79b534" prot="public" static="no">
+        <name>MAX_VID_RAILS</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a45b2bc22b1419ad76d2e1332d2874bde" prot="public" static="no">
+        <name>XPM_RAIL_PERF_MODE_STATE_OFFSET</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Added to a Performance[] index to get the XPmRail_Control() mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Mode 0 turns the rail off and mode 1 turns it on, so the first performance entry starts at mode 2. These mode numbers are not XPM_POWER_STATE_* values. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a06e761ef688b0c48cf09e3c1000e9663" prot="public" static="no">
+        <name>XPM_VID_INIT_MIN_NUMARGS</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Minimum NumArgs accepted by XPmRail_InitVID() (RailId, RailType, EntriesSpgd byte). </para>        </briefdescription>
+        <detaileddescription>
+<para>Each performance-mode entry adds one Args[] slot above this minimum. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a97aa910ba7a2252c091b8bc73cb48250" prot="public" static="no">
+        <name>XPM_VID_INIT_PERF_ARG_BASE</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Index of the first performance-mode entry in the InitVID Args[] vector (immediately after the 3 fixed-position fields). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a339e03ffec1ddce2ca759733cb74ec0b" prot="public" static="no">
+        <name>XPM_VID_RAILTYPE_BYTE_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Byte mask used to extract the rail-type field from Args[1]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1ae1ac3301b072557f424a114c0db666bb" prot="public" static="no">
+        <name>XPM_VID_ENTRIES_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Bit-shift used to encode the entry-count nibble in the high byte of Args[2] (entries-count &lt;&lt; 8 | speed-grade SPGD byte). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a00b9a8791d20c581e54b2d149e00ed30" prot="public" static="no">
+        <name>XPM_VID_ENTRIES_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Byte mask applied after right-shifting Args[2] by XPM_VID_ENTRIES_SHIFT to recover the entries-count value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1a8946de698db9620d0601ccf523a6293a" prot="public" static="no">
+        <name>XPM_VID_SPGD_BYTE_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Byte mask used to extract the speed-grade SPGD index byte from the low byte of Args[2]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1ab8e7d3aba878684e973533b67d34ffc3" prot="public" static="no">
+        <name>XPM_VID_ARG_RAIL_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Args[] index of the rail-node-id field in the InitVID payload. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1ac2df3285f2d6da9828de8136bc51838d" prot="public" static="no">
+        <name>XPM_VID_ARG_RAIL_TYPE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Args[] index of the rail-type field in the InitVID payload. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rail_8h_1aea5a511457eb4a094439db65e5c183d3" prot="public" static="no">
+        <name>XPM_VID_ARG_ENTRIES_SPGD</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Args[] index of the (entries-count &lt;&lt; 8 | SPGD byte) field in the InitVID payload. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__rail_8h_1a63b8482618af4ff715f9f4d3807c439d" prot="public" static="no">
+        <name>XPm_RailType</name>
+        <enumvalue id="xpm__rail_8h_1a63b8482618af4ff715f9f4d3807c439daf974db8938094605d3a7cde2c0a5e090" prot="public">
+          <name>XPM_RAILTYPE_MODE_PMBUS</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__rail_8h_1a63b8482618af4ff715f9f4d3807c439da93cea20b655821ce7cf3a5fa424423d3" prot="public">
+          <name>XPM_RAILTYPE_PGOOD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__rail_8h_1a63b8482618af4ff715f9f4d3807c439daa541a2cfc1ee24583a970ba49dcbd7cf" prot="public">
+          <name>XPM_RAILTYPE_TEMPVOLTADJ</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__rail_8h_1a63b8482618af4ff715f9f4d3807c439da444fff4382f8daeab5bfeb4b5f717dd8" prot="public">
+          <name>XPM_RAILTYPE_MODE_GPIO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__rail_8h_1a63b8482618af4ff715f9f4d3807c439dacf993aeaf7602c4470489d42312644f7" prot="public">
+          <name>XPM_RAILTYPE_VID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="97" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__rail_8h_1ae9294f919a560fc8929c158c370ed9ad" prot="public" static="no">
+        <name>XPm_PgoodSource</name>
+        <enumvalue id="xpm__rail_8h_1ae9294f919a560fc8929c158c370ed9ada72c03f7feca9a89d530a3a910c6dc4db" prot="public">
+          <name>XPM_PGOOD_SYSMON</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" bodystart="105" bodyend="107"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__rail_8h_1ad94d74a78aeeef70ab439b26ada303c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRail_Init</definition>
+        <argsstring>(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmRail_Init</name>
+        <param>
+          <type>XPm_Rail *</type>
+          <declname>Rail</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RailId</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+<para>Initialize rail node base class. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Rail</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an uninitialized power rail struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RailId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a Power Rail node </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments for power rail </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments for power rail</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>Args is dependent on the rail type. Passed arguments will be different for mode type and power good types. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.c" bodystart="1452" bodyend="1517"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rail_8h_1ad94657676da6f19143083753dbbb3f10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRail_AdjustVID</definition>
+        <argsstring>(XPm_Rail *Rail)</argsstring>
+        <name>XPmRail_AdjustVID</name>
+        <param>
+          <type>XPm_Rail *</type>
+          <declname>Rail</declname>
+        </param>
+        <briefdescription>
+<para>Adjust a rail&apos;s voltage to the speed-grade-appropriate performance mode by transitioning it through XPmRail_Control() to the matching Performance[] entry. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Reads the VID source (RTCA override or eFuse cache) via the
+    redundant XPmRail_ComputeAdjustVIDIndex() helper, then issues
+    a redundant XPmRail_Control() to switch the rail. On success the
+    chosen mode is saved in PowerState and VIDAdjusted is set, which
+    also latches the rail so a later call does nothing. PowerState is
+    written only on that success path; InitVID already left it
+    INVALID for every other case.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Rail</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the rail to adjust. A NULL VIDAdj record means no voltage adjustment is required.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success or when no adjustment is required; XST_GLITCH_ERROR if either VID calculation fails or their indices differ; or XST_FAILURE if the redundant rail transitions do not both succeed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.c" bodystart="876" bodyend="939"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rail_8h_1a47c0b5e88bedf29f77c6d1d0bb044e57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRail_GetVidPowerState</definition>
+        <argsstring>(const u32 RailId, u32 *const PowerState)</argsstring>
+        <name>XPmRail_GetVidPowerState</name>
+        <param>
+          <type>const u32</type>
+          <declname>RailId</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>PowerState</declname>
+        </param>
+        <briefdescription>
+<para>Return the rail mode VID picked. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Only XST_SUCCESS means the rail was adjusted and the power state
+    is good. XPM_NO_VID_ADJUST means VID left this rail alone, so the
+    caller should use the rail default. That covers a rail with no VID
+    record, a part with no VID in eFuse, VID switched off through the
+    RTCA override, and an eFuse value that matched no performance
+    entry. PowerState is written only on success; the client defaults
+    it to XPM_VID_POWER_STATE_INVALID for all other cases.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RailId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power-rail node id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PowerState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Out: rail mode VID picked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when the rail was adjusted; XPM_NO_VID_ADJUST when VID left it alone; XST_INVALID_PARAM on bad arguments. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.c" bodystart="958" bodyend="991"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RAIL_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RAIL_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XIICPS_0_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_1_DEVICE_ID)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_2_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_0_BASEADDR)<sp/><sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_1_BASEADDR)<sp/><sp/>||<sp/>defined<sp/>(XPAR_XIICPS_2_BASEADDR)</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_MODES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20U</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_VID_RAILS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#define<sp/>XPM_RAIL_PERF_MODE_STATE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*<sp/>XPmRail_InitVID()<sp/>CDO<sp/>argument<sp/>layout:</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*<sp/><sp/><sp/>Args[0]<sp/>=<sp/>rail<sp/>node<sp/>id</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*<sp/><sp/><sp/>Args[1]<sp/>=<sp/>rail<sp/>type<sp/>(low<sp/>byte<sp/>=<sp/>XPM_RAILTYPE_VID)</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/><sp/><sp/>Args[2]<sp/>=<sp/>(entries-count<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>speed-grade<sp/>SPGD<sp/>index<sp/>byte</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/><sp/><sp/>Args[3<sp/>..<sp/>3<sp/>+<sp/>Entries<sp/>-<sp/>1]<sp/>=<sp/>performance-mode<sp/>entries</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XPM_VID_INIT_MIN_NUMARGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XPM_VID_INIT_PERF_ARG_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XPM_VID_RAILTYPE_BYTE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XPM_VID_ENTRIES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XPM_VID_ENTRIES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XPM_VID_SPGD_BYTE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XPM_VID_ARG_RAIL_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XPM_VID_ARG_RAIL_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XPM_VID_ARG_ENTRIES_SPGD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RAILTYPE_MODE_PMBUS<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RAILTYPE_PGOOD,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RAILTYPE_TEMPVOLTADJ,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RAILTYPE_MODE_GPIO,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RAILTYPE_VID,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/>XPm_RailType;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PGOOD_SYSMON<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}<sp/>XPm_PgoodSource;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UpperTempThresh;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LowerTempThresh;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UpperVoltMode;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LowerVoltMode;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CurrentVoltMode;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<sp/>XPmRail_TempVoltAdj;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RailId;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Performance[MAX_MODES];</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>VIDAdjusted;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PowerState;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}<sp/>XPmRail_VIDAdj;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ModeNumber;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Offset;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}<sp/>XPm_GPIOCmd;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>Power;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PgoodSource<sp/>Source;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ParentId;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RailType<sp/>ControlType[MAX_MODES];</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_I2cCmd<sp/>I2cModes[MAX_MODES];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_GPIOCmd<sp/>GPIOModes[MAX_MODES];<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmRail_TempVoltAdj<sp/>*TempVoltAdj;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmRail_VIDAdj<sp/>*VIDAdj;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}<sp/>XPm_Rail;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal">XStatus<sp/>XPmRail_Init(XPm_Rail<sp/>*Rail,<sp/>u32<sp/>RailId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">XStatus<sp/>XPmRail_AdjustVID(XPm_Rail<sp/>*Rail);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">XStatus<sp/>XPmRail_GetVidPowerState(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>RailId,<sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PowerState);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XIICPS_0_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_1_DEVICE_ID)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_2_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_0_BASEADDR)<sp/><sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_1_BASEADDR)<sp/><sp/>||<sp/>defined<sp/>(XPAR_XIICPS_2_BASEADDR)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal">XIicPs<sp/>*XPmRail_GetIicInstance(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">XStatus<sp/>I2CInitialize(XIicPs<sp/>*Iic,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ControllerID);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RAIL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rail.h"/>
+  </compounddef>
+</doxygen>

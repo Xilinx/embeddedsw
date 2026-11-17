@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['recvbufferptr',['RecvBufferPtr',['../struct_x_i3c_psx.html#a6c7e8bbb027d3b3db6bcc75d0159ed07',1,'XI3cPsx']]],
+  ['recvbytecount',['RecvByteCount',['../struct_x_i3c_psx.html#a5f6557d152c81871ae0b56618a7d7d80',1,'XI3cPsx']]],
+  ['recving_5frole',['RECVING_ROLE',['../group__i3cpsx.html#ga9cfa5c76753b0658954c2c3dfec95d40',1,'xi3cpsx.h']]],
+  ['respdone',['RespDone',['../struct_x_i3c_psx.html#a1766438cd6f1cc868ce777ef8e4c56e6',1,'XI3cPsx']]],
+  ['response_5ferror_5faddress_5fnack',['RESPONSE_ERROR_ADDRESS_NACK',['../group__i3cpsx__api.html#ga18bd45fcbf58dfad3500d0f8b502c900',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5fcrc',['RESPONSE_ERROR_CRC',['../group__i3cpsx__api.html#ga718db819b942f82a50ae80e573af5c63',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5fframe',['RESPONSE_ERROR_FRAME',['../group__i3cpsx__api.html#gaedac13e8438b8941df60b5f036996d6e',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5fi2c_5fw_5fnack_5ferr',['RESPONSE_ERROR_I2C_W_NACK_ERR',['../group__i3cpsx__api.html#ga1d5fec1358f29c3481b6b08731a3b234',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5fiba_5fnack',['RESPONSE_ERROR_IBA_NACK',['../group__i3cpsx__api.html#ga915cf107a8b2a5a3ed7ba71c8800c173',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5fover_5funder_5fflow',['RESPONSE_ERROR_OVER_UNDER_FLOW',['../group__i3cpsx__api.html#ga48323dbadef9cfdedb18d6b313cec224',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5fparity',['RESPONSE_ERROR_PARITY',['../group__i3cpsx__api.html#ga577a3aeb4fc1fbd880984f4365bed6b4',1,'xi3cpsx_pr.h']]],
+  ['response_5ferror_5ftransf_5fabort',['RESPONSE_ERROR_TRANSF_ABORT',['../group__i3cpsx__api.html#gae321da78eb110f139df42e5b28a08f9b',1,'xi3cpsx_pr.h']]],
+  ['response_5fno_5ferror',['RESPONSE_NO_ERROR',['../group__i3cpsx__api.html#ga887b847d78304ea6d56d3f23c2a36fa1',1,'xi3cpsx_pr.h']]],
+  ['response_5fport_5fdata_5flen',['RESPONSE_PORT_DATA_LEN',['../group__i3cpsx__api.html#gaa9f23a1de5f08888ff73887433529e8b',1,'xi3cpsx_pr.h']]],
+  ['response_5fport_5ferr_5fstatus',['RESPONSE_PORT_ERR_STATUS',['../group__i3cpsx__api.html#ga03f5a06c7dbd6beca3c0046aab4d35fa',1,'xi3cpsx_pr.h']]],
+  ['response_5fport_5ftid',['RESPONSE_PORT_TID',['../group__i3cpsx__api.html#ga770d6e1aa2c71b5617a33d163efa973a',1,'xi3cpsx_pr.h']]],
+  ['rxbuf',['RxBuf',['../struct_x_i3c_psx___cmd.html#a25184fff7b1703c67d4df4533a79d272',1,'XI3cPsx_Cmd']]],
+  ['rxbuff',['RxBuff',['../struct_cmd_info.html#a10402adf3fc8238db62c49c4193ebd56',1,'CmdInfo']]],
+  ['rxlen',['RxLen',['../struct_cmd_info.html#acee08a9d797639ee4a6577cd38a0526b',1,'CmdInfo']]]
+];

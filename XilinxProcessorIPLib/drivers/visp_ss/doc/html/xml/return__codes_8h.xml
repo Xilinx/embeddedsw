@@ -1,0 +1,1855 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="return__codes_8h" kind="file">
+    <compoundname>return_codes.h</compoundname>
+    <includedby refid="sensor__cmd_8h" local="no">sensor_cmd.h</includedby>
+    <includedby refid="hal__i2c_8h" local="no">hal_i2c.h</includedby>
+    <includedby refid="ox03f10__priv_8h" local="no">ox03f10_priv.h</includedby>
+    <includedby refid="ox05b1s__priv_8h" local="no">ox05b1s_priv.h</includedby>
+    <includedby refid="ox08b40__priv_8h" local="no">ox08b40_priv.h</includedby>
+    <includedby refid="sensor__drv_8c" local="no">sensor_drv.c</includedby>
+    <includedby refid="cam__device__common_8h" local="yes">cam_device_common.h</includedby>
+    <includedby refid="cam__device__buffer__api_8h" local="yes">cam_device_buffer_api.h</includedby>
+    <includedby refid="cam__device__isp__system__api_8h" local="yes">cam_device_isp_system_api.h</includedby>
+    <includedby refid="offline__trace_8h" local="no">offline_trace.h</includedby>
+    <includedby refid="isi_8h" local="no">isi.h</includedby>
+    <includedby refid="isi__iss_8h" local="no">isi_iss.h</includedby>
+    <includedby refid="vvformat_8h" local="no">vvformat.h</includedby>
+    <invincdepgraph>
+      <node id="7792">
+        <label>vvbench.c</label>
+      </node>
+      <node id="7794">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7719" relation="include">
+        </childnode>
+      </node>
+      <node id="7705">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="7832">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7734" relation="include">
+        </childnode>
+        <childnode refid="7740" relation="include">
+        </childnode>
+      </node>
+      <node id="7843">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7758" relation="include">
+        </childnode>
+      </node>
+      <node id="7793">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="7714" relation="include">
+        </childnode>
+      </node>
+      <node id="7767">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="7868">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="7864" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+      </node>
+      <node id="7865">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="7772">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7773" relation="include">
+        </childnode>
+      </node>
+      <node id="7807">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="7722">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7723" relation="include">
+        </childnode>
+      </node>
+      <node id="7747">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="7875">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+      <node id="7759">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="7853">
+        <label>vvformat.h</label>
+        <childnode refid="7854" relation="include">
+        </childnode>
+      </node>
+      <node id="7833">
+        <label>cam_device_cproc_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7742" relation="include">
+        </childnode>
+      </node>
+      <node id="7795">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="7796" relation="include">
+        </childnode>
+      </node>
+      <node id="7717">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="7861">
+        <label>isi_fmc.h</label>
+        <childnode refid="7862" relation="include">
+        </childnode>
+        <childnode refid="7859" relation="include">
+        </childnode>
+        <childnode refid="7864" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+      </node>
+      <node id="7735">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="7831">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="7706" relation="include">
+        </childnode>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7736" relation="include">
+        </childnode>
+      </node>
+      <node id="7692">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="7768">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7769" relation="include">
+        </childnode>
+      </node>
+      <node id="7727">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="7713">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="7788">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="7713" relation="include">
+        </childnode>
+      </node>
+      <node id="7862">
+        <label>max9295.h</label>
+        <childnode refid="7863" relation="include">
+        </childnode>
+      </node>
+      <node id="7870">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="7867" relation="include">
+        </childnode>
+      </node>
+      <node id="7787">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="7760">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7761" relation="include">
+        </childnode>
+      </node>
+      <node id="7785">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7685">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="7779">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="7858">
+        <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="7750">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7751" relation="include">
+        </childnode>
+      </node>
+      <node id="7872">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="7703" relation="include">
+        </childnode>
+        <childnode refid="7864" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+        <childnode refid="7873" relation="include">
+        </childnode>
+        <childnode refid="7876" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+      </node>
+      <node id="7746">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7747" relation="include">
+        </childnode>
+      </node>
+      <node id="7733">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="7790">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="7758">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7759" relation="include">
+        </childnode>
+      </node>
+      <node id="7782">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7783" relation="include">
+        </childnode>
+      </node>
+      <node id="7854">
+        <label>vvformat.c</label>
+      </node>
+      <node id="7755">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="7686">
+        <label>mbox_integrity.h</label>
+        <childnode refid="7687" relation="include">
+        </childnode>
+        <childnode refid="7685" relation="include">
+        </childnode>
+      </node>
+      <node id="7751">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="7711">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="7710">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="7711" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+        <childnode refid="7712" relation="include">
+        </childnode>
+        <childnode refid="7713" relation="include">
+        </childnode>
+      </node>
+      <node id="7681">
+        <label>sensor_cmd.h</label>
+        <childnode refid="7682" relation="include">
+        </childnode>
+        <childnode refid="7691" relation="include">
+        </childnode>
+        <childnode refid="7684" relation="include">
+        </childnode>
+        <childnode refid="7699" relation="include">
+        </childnode>
+        <childnode refid="7700" relation="include">
+        </childnode>
+        <childnode refid="7692" relation="include">
+        </childnode>
+        <childnode refid="7693" relation="include">
+        </childnode>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7701" relation="include">
+        </childnode>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7708" relation="include">
+        </childnode>
+        <childnode refid="7803" relation="include">
+        </childnode>
+        <childnode refid="7804" relation="include">
+        </childnode>
+        <childnode refid="7818" relation="include">
+        </childnode>
+        <childnode refid="7826" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7698" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7690">
+        <label>mbox_phy.c</label>
+      </node>
+      <node id="7850">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7778" relation="include">
+        </childnode>
+      </node>
+      <node id="7820">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="7708">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="7703">
+        <label>isi_control.c</label>
+        <link refid="isi__control_8c"/>
+      </node>
+      <node id="7719">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7721" relation="include">
+        </childnode>
+      </node>
+      <node id="7784">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7785" relation="include">
+        </childnode>
+      </node>
+      <node id="7706">
+        <label>cam_device_api.h</label>
+        <childnode refid="7707" relation="include">
+        </childnode>
+        <childnode refid="7789" relation="include">
+        </childnode>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7708" relation="include">
+        </childnode>
+        <childnode refid="7790" relation="include">
+        </childnode>
+        <childnode refid="7791" relation="include">
+        </childnode>
+        <childnode refid="7714" relation="include">
+        </childnode>
+        <childnode refid="7792" relation="include">
+        </childnode>
+        <childnode refid="7717" relation="include">
+        </childnode>
+        <childnode refid="7788" relation="include">
+        </childnode>
+      </node>
+      <node id="7815">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="7699">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="7783">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="7856">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="7700" relation="include">
+        </childnode>
+      </node>
+      <node id="7687">
+        <label>mbox_integrity.c</label>
+      </node>
+      <node id="7770">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7771" relation="include">
+        </childnode>
+      </node>
+      <node id="7805">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="7835">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7746" relation="include">
+        </childnode>
+      </node>
+      <node id="7721">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="7775">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="7826">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="7763">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="7804">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="7810">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="7777">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="7724">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7725" relation="include">
+        </childnode>
+      </node>
+      <node id="7757">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="7834">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7744" relation="include">
+        </childnode>
+      </node>
+      <node id="7736">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7737" relation="include">
+        </childnode>
+      </node>
+      <node id="7769">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="7801">
+        <label>cam_device_ae_api.c</label>
+      </node>
+      <node id="7745">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="7732">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7733" relation="include">
+        </childnode>
+      </node>
+      <node id="7869">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="7866" relation="include">
+        </childnode>
+      </node>
+      <node id="7729">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="7847">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7766" relation="include">
+        </childnode>
+      </node>
+      <node id="7691">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="7700">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="7811">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="7730">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7727" relation="include">
+        </childnode>
+        <childnode refid="7731" relation="include">
+        </childnode>
+      </node>
+      <node id="7780">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7781" relation="include">
+        </childnode>
+      </node>
+      <node id="7743">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="7818">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="7776">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7777" relation="include">
+        </childnode>
+      </node>
+      <node id="7731">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="7723">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="7798">
+        <label>control.c</label>
+      </node>
+      <node id="7786">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7836">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7748" relation="include">
+        </childnode>
+      </node>
+      <node id="7873">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="7874" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+        <childnode refid="7790" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7754">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7725" relation="include">
+        </childnode>
+        <childnode refid="7755" relation="include">
+        </childnode>
+      </node>
+      <node id="7837">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7722" relation="include">
+        </childnode>
+      </node>
+      <node id="7796">
+        <label>cam_device_app.h</label>
+        <childnode refid="7797" relation="include">
+        </childnode>
+        <childnode refid="7798" relation="include">
+        </childnode>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7799" relation="include">
+        </childnode>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7708" relation="include">
+        </childnode>
+        <childnode refid="7790" relation="include">
+        </childnode>
+        <childnode refid="7800" relation="include">
+        </childnode>
+        <childnode refid="7801" relation="include">
+        </childnode>
+        <childnode refid="7802" relation="include">
+        </childnode>
+        <childnode refid="7803" relation="include">
+        </childnode>
+        <childnode refid="7804" relation="include">
+        </childnode>
+        <childnode refid="7805" relation="include">
+        </childnode>
+        <childnode refid="7806" relation="include">
+        </childnode>
+        <childnode refid="7807" relation="include">
+        </childnode>
+        <childnode refid="7808" relation="include">
+        </childnode>
+        <childnode refid="7809" relation="include">
+        </childnode>
+        <childnode refid="7810" relation="include">
+        </childnode>
+        <childnode refid="7811" relation="include">
+        </childnode>
+        <childnode refid="7812" relation="include">
+        </childnode>
+        <childnode refid="7813" relation="include">
+        </childnode>
+        <childnode refid="7814" relation="include">
+        </childnode>
+        <childnode refid="7815" relation="include">
+        </childnode>
+        <childnode refid="7816" relation="include">
+        </childnode>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7818" relation="include">
+        </childnode>
+        <childnode refid="7819" relation="include">
+        </childnode>
+        <childnode refid="7820" relation="include">
+        </childnode>
+        <childnode refid="7821" relation="include">
+        </childnode>
+        <childnode refid="7822" relation="include">
+        </childnode>
+        <childnode refid="7823" relation="include">
+        </childnode>
+        <childnode refid="7824" relation="include">
+        </childnode>
+        <childnode refid="7825" relation="include">
+        </childnode>
+        <childnode refid="7826" relation="include">
+        </childnode>
+        <childnode refid="7827" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+        <childnode refid="7788" relation="include">
+        </childnode>
+      </node>
+      <node id="7766">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7767" relation="include">
+        </childnode>
+      </node>
+      <node id="7825">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="7812">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="7848">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7770" relation="include">
+        </childnode>
+      </node>
+      <node id="7857">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="7700" relation="include">
+        </childnode>
+        <childnode refid="7858" relation="include">
+        </childnode>
+      </node>
+      <node id="7823">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="7749">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="7761">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="7852">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7784" relation="include">
+        </childnode>
+      </node>
+      <node id="7797">
+        <label>control.h</label>
+        <childnode refid="7798" relation="include">
+        </childnode>
+      </node>
+      <node id="7867">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="7756">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7757" relation="include">
+        </childnode>
+      </node>
+      <node id="7697">
+        <label>oba.c</label>
+      </node>
+      <node id="7806">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="7709">
+        <label>oba.h</label>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7737">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="7716">
+        <label>vvpath.h</label>
+        <childnode refid="7705" relation="include">
+        </childnode>
+        <childnode refid="7712" relation="include">
+        </childnode>
+      </node>
+      <node id="7712">
+        <label>vvpath.c</label>
+      </node>
+      <node id="7799">
+        <label>cam_device.c</label>
+      </node>
+      <node id="7698">
+        <label>wdt_notifier.c</label>
+      </node>
+      <node id="7753">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="7816">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="7838">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7726" relation="include">
+        </childnode>
+      </node>
+      <node id="7802">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="7860">
+        <label>max9296.c</label>
+      </node>
+      <node id="7714">
+        <label>vvdevice.h</label>
+        <childnode refid="7715" relation="include">
+        </childnode>
+        <childnode refid="7718" relation="include">
+        </childnode>
+        <childnode refid="7716" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+        <childnode refid="7787" relation="include">
+        </childnode>
+        <childnode refid="7712" relation="include">
+        </childnode>
+        <childnode refid="7713" relation="include">
+        </childnode>
+      </node>
+      <node id="7855">
+        <label>hal_i2c.h</label>
+        <childnode refid="7700" relation="include">
+        </childnode>
+        <childnode refid="7856" relation="include">
+        </childnode>
+        <childnode refid="7857" relation="include">
+        </childnode>
+        <childnode refid="7859" relation="include">
+        </childnode>
+        <childnode refid="7861" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7851">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7776" relation="include">
+        </childnode>
+        <childnode refid="7782" relation="include">
+        </childnode>
+      </node>
+      <node id="7694">
+        <label>visp_common.c</label>
+      </node>
+      <node id="7791">
+        <label>cam_common_calib_api.h</label>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7693">
+        <label>visp_common.h</label>
+        <childnode refid="7694" relation="include">
+        </childnode>
+      </node>
+      <node id="7771">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="7682">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="7683" relation="include">
+        </childnode>
+        <childnode refid="7686" relation="include">
+        </childnode>
+        <childnode refid="7688" relation="include">
+        </childnode>
+        <childnode refid="7689" relation="include">
+        </childnode>
+        <childnode refid="7691" relation="include">
+        </childnode>
+        <childnode refid="7684" relation="include">
+        </childnode>
+        <childnode refid="7692" relation="include">
+        </childnode>
+        <childnode refid="7693" relation="include">
+        </childnode>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7696" relation="include">
+        </childnode>
+        <childnode refid="7697" relation="include">
+        </childnode>
+        <childnode refid="7698" relation="include">
+        </childnode>
+      </node>
+      <node id="7828">
+        <label>cam_device_ae_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7724" relation="include">
+        </childnode>
+      </node>
+      <node id="7748">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7749" relation="include">
+        </childnode>
+      </node>
+      <node id="7734">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7735" relation="include">
+        </childnode>
+      </node>
+      <node id="7707">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="7708" relation="include">
+        </childnode>
+        <childnode refid="7709" relation="include">
+        </childnode>
+        <childnode refid="7710" relation="include">
+        </childnode>
+        <childnode refid="7714" relation="include">
+        </childnode>
+        <childnode refid="7788" relation="include">
+        </childnode>
+      </node>
+      <node id="7846">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7768" relation="include">
+        </childnode>
+      </node>
+      <node id="7840">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7750" relation="include">
+        </childnode>
+      </node>
+      <node id="7822">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="7821">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="7695">
+        <label>iba.c</label>
+      </node>
+      <node id="7704">
+        <label>iba.h</label>
+        <childnode refid="7695" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7696">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="7844">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7760" relation="include">
+        </childnode>
+      </node>
+      <node id="7742">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7743" relation="include">
+        </childnode>
+      </node>
+      <node id="7689">
+        <label>mbox_phy.h</label>
+        <childnode refid="7685" relation="include">
+        </childnode>
+        <childnode refid="7690" relation="include">
+        </childnode>
+      </node>
+      <node id="7684">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="7841">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7752" relation="include">
+        </childnode>
+      </node>
+      <node id="7778">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7779" relation="include">
+        </childnode>
+      </node>
+      <node id="7808">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="7739">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="7738">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7739" relation="include">
+        </childnode>
+      </node>
+      <node id="7789">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="7790" relation="include">
+        </childnode>
+        <childnode refid="7714" relation="include">
+        </childnode>
+      </node>
+      <node id="7827">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7829">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7732" relation="include">
+        </childnode>
+      </node>
+      <node id="7839">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7728" relation="include">
+        </childnode>
+      </node>
+      <node id="7688">
+        <label>mbox_interface.h</label>
+        <childnode refid="7684" relation="include">
+        </childnode>
+        <childnode refid="7685" relation="include">
+        </childnode>
+      </node>
+      <node id="7876">
+        <label>isi_priv.h</label>
+        <link refid="isi__priv_8h"/>
+        <childnode refid="7868" relation="include">
+        </childnode>
+        <childnode refid="7869" relation="include">
+        </childnode>
+        <childnode refid="7870" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+      </node>
+      <node id="7874">
+        <label>sensor_drv.h</label>
+        <childnode refid="7703" relation="include">
+        </childnode>
+        <childnode refid="7692" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7824">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="7752">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7753" relation="include">
+        </childnode>
+      </node>
+      <node id="7866">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="7773">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="7720">
+        <label>submodule_def.h</label>
+        <childnode refid="7717" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7715">
+        <label>vvbparser.h</label>
+        <childnode refid="7716" relation="include">
+        </childnode>
+        <childnode refid="7717" relation="include">
+        </childnode>
+        <childnode refid="7705" relation="include">
+        </childnode>
+      </node>
+      <node id="7849">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7734" relation="include">
+        </childnode>
+        <childnode refid="7776" relation="include">
+        </childnode>
+        <childnode refid="7782" relation="include">
+        </childnode>
+      </node>
+      <node id="7762">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7763" relation="include">
+        </childnode>
+      </node>
+      <node id="7702">
+        <label>isi_control.h</label>
+        <link refid="isi__control_8h"/>
+        <childnode refid="7703" relation="include">
+        </childnode>
+      </node>
+      <node id="7864">
+        <label>ms_fw.c</label>
+      </node>
+      <node id="7871">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="7706" relation="include">
+        </childnode>
+      </node>
+      <node id="7744">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7745" relation="include">
+        </childnode>
+      </node>
+      <node id="7819">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="7774">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7775" relation="include">
+        </childnode>
+      </node>
+      <node id="7701">
+        <label>cam_device_common.h</label>
+        <childnode refid="7702" relation="include">
+        </childnode>
+        <childnode refid="7704" relation="include">
+        </childnode>
+        <childnode refid="7706" relation="include">
+        </childnode>
+        <childnode refid="7793" relation="include">
+        </childnode>
+        <childnode refid="7794" relation="include">
+        </childnode>
+        <childnode refid="7828" relation="include">
+        </childnode>
+        <childnode refid="7829" relation="include">
+        </childnode>
+        <childnode refid="7830" relation="include">
+        </childnode>
+        <childnode refid="7831" relation="include">
+        </childnode>
+        <childnode refid="7832" relation="include">
+        </childnode>
+        <childnode refid="7833" relation="include">
+        </childnode>
+        <childnode refid="7834" relation="include">
+        </childnode>
+        <childnode refid="7835" relation="include">
+        </childnode>
+        <childnode refid="7836" relation="include">
+        </childnode>
+        <childnode refid="7837" relation="include">
+        </childnode>
+        <childnode refid="7838" relation="include">
+        </childnode>
+        <childnode refid="7839" relation="include">
+        </childnode>
+        <childnode refid="7840" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7842" relation="include">
+        </childnode>
+        <childnode refid="7843" relation="include">
+        </childnode>
+        <childnode refid="7844" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7846" relation="include">
+        </childnode>
+        <childnode refid="7847" relation="include">
+        </childnode>
+        <childnode refid="7848" relation="include">
+        </childnode>
+        <childnode refid="7849" relation="include">
+        </childnode>
+        <childnode refid="7850" relation="include">
+        </childnode>
+        <childnode refid="7851" relation="include">
+        </childnode>
+        <childnode refid="7852" relation="include">
+        </childnode>
+        <childnode refid="7796" relation="include">
+        </childnode>
+        <childnode refid="7709" relation="include">
+        </childnode>
+        <childnode refid="7710" relation="include">
+        </childnode>
+        <childnode refid="7714" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7788" relation="include">
+        </childnode>
+      </node>
+      <node id="7830">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7734" relation="include">
+        </childnode>
+        <childnode refid="7740" relation="include">
+        </childnode>
+        <childnode refid="7776" relation="include">
+        </childnode>
+      </node>
+      <node id="7764">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7765" relation="include">
+        </childnode>
+      </node>
+      <node id="7813">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="7726">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7727" relation="include">
+        </childnode>
+      </node>
+      <node id="7781">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="7845">
+        <label>cam_device_gtm_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7762" relation="include">
+        </childnode>
+      </node>
+      <node id="7817">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="7803">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="7765">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="7842">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7756" relation="include">
+        </childnode>
+      </node>
+      <node id="7725">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="7683">
+        <label>mbox_command.h</label>
+        <childnode refid="7684" relation="include">
+        </childnode>
+        <childnode refid="7685" relation="include">
+        </childnode>
+      </node>
+      <node id="7859">
+        <label>max9296.h</label>
+        <childnode refid="7860" relation="include">
+        </childnode>
+      </node>
+      <node id="7728">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7727" relation="include">
+        </childnode>
+        <childnode refid="7729" relation="include">
+        </childnode>
+      </node>
+      <node id="7863">
+        <label>max9295.c</label>
+      </node>
+      <node id="7809">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="7741">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="7800">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="7718">
+        <label>vvdevice_common.h</label>
+        <childnode refid="7719" relation="include">
+        </childnode>
+        <childnode refid="7722" relation="include">
+        </childnode>
+        <childnode refid="7724" relation="include">
+        </childnode>
+        <childnode refid="7726" relation="include">
+        </childnode>
+        <childnode refid="7728" relation="include">
+        </childnode>
+        <childnode refid="7730" relation="include">
+        </childnode>
+        <childnode refid="7732" relation="include">
+        </childnode>
+        <childnode refid="7734" relation="include">
+        </childnode>
+        <childnode refid="7736" relation="include">
+        </childnode>
+        <childnode refid="7738" relation="include">
+        </childnode>
+        <childnode refid="7740" relation="include">
+        </childnode>
+        <childnode refid="7742" relation="include">
+        </childnode>
+        <childnode refid="7744" relation="include">
+        </childnode>
+        <childnode refid="7746" relation="include">
+        </childnode>
+        <childnode refid="7748" relation="include">
+        </childnode>
+        <childnode refid="7750" relation="include">
+        </childnode>
+        <childnode refid="7752" relation="include">
+        </childnode>
+        <childnode refid="7754" relation="include">
+        </childnode>
+        <childnode refid="7756" relation="include">
+        </childnode>
+        <childnode refid="7758" relation="include">
+        </childnode>
+        <childnode refid="7760" relation="include">
+        </childnode>
+        <childnode refid="7762" relation="include">
+        </childnode>
+        <childnode refid="7764" relation="include">
+        </childnode>
+        <childnode refid="7766" relation="include">
+        </childnode>
+        <childnode refid="7768" relation="include">
+        </childnode>
+        <childnode refid="7770" relation="include">
+        </childnode>
+        <childnode refid="7772" relation="include">
+        </childnode>
+        <childnode refid="7774" relation="include">
+        </childnode>
+        <childnode refid="7776" relation="include">
+        </childnode>
+        <childnode refid="7778" relation="include">
+        </childnode>
+        <childnode refid="7780" relation="include">
+        </childnode>
+        <childnode refid="7782" relation="include">
+        </childnode>
+        <childnode refid="7784" relation="include">
+        </childnode>
+        <childnode refid="7786" relation="include">
+        </childnode>
+      </node>
+      <node id="7740">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="7720" relation="include">
+        </childnode>
+        <childnode refid="7741" relation="include">
+        </childnode>
+      </node>
+      <node id="7814">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="7680">
+        <label>return_codes.h</label>
+        <link refid="return_codes.h"/>
+        <childnode refid="7681" relation="include">
+        </childnode>
+        <childnode refid="7855" relation="include">
+        </childnode>
+        <childnode refid="7868" relation="include">
+        </childnode>
+        <childnode refid="7869" relation="include">
+        </childnode>
+        <childnode refid="7870" relation="include">
+        </childnode>
+        <childnode refid="7692" relation="include">
+        </childnode>
+        <childnode refid="7701" relation="include">
+        </childnode>
+        <childnode refid="7707" relation="include">
+        </childnode>
+        <childnode refid="7793" relation="include">
+        </childnode>
+        <childnode refid="7871" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7873" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" prot="public" static="no">
+        <name>RET_SUCCESS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>this has to be 0, if clauses rely on it </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__isi_1ga1252b913bb884882436ee78ca34a7bf5" compoundref="isi_8c" startline="458" endline="479">IsiCheckConnectionIss</referencedby>
+        <referencedby refid="group__isi_1gac7f86ed7e3602f2c33c1d7770b1511b2" compoundref="isi_8c" startline="191" endline="212">IsiCloseIss</referencedby>
+        <referencedby refid="group__isi_1ga1de8858e4298abd251148bcd25f891f8" compoundref="isi_8c" startline="284" endline="309">IsiEnumModeIss</referencedby>
+        <referencedby refid="group__isi_1gae483ef1ceb1f331971993fa0b31f85d4" compoundref="isi_8c" startline="658" endline="684">IsiExpDecomposeControl</referencedby>
+        <referencedby refid="group__isi_1ga7ef5a9b3d21039b7efe97d43ecaa5015" compoundref="isi_8c" startline="1394" endline="1419">IsiExtendFuncIss</referencedby>
+        <referencedby refid="group__isi_1ga4db18f988e6cdccffd9ae59506c1986c" compoundref="isi_8c" startline="1480" endline="1501">IsiFocusCreateIss</referencedby>
+        <referencedby refid="group__isi_1ga5ea6bb983c81dca3b723e1999fbae836" compoundref="isi_8c" startline="1559" endline="1584">IsiFocusGetCalibrateIss</referencedby>
+        <referencedby refid="group__isi_1gaea34c0a4e40af01356490ef5b2fac117" compoundref="isi_8c" startline="1648" endline="1673">IsiFocusGetIss</referencedby>
+        <referencedby refid="group__isi_1gaeb05a40f7c7f88230bab86341bf5ebd1" compoundref="isi_8c" startline="1519" endline="1540">IsiFocusReleaseIss</referencedby>
+        <referencedby refid="group__isi_1ga69098da3b53920d78acf3964ea3bd95d" compoundref="isi_8c" startline="1603" endline="1628">IsiFocusSetIss</referencedby>
+        <referencedby refid="group__isi_1gafa01032d8121144b890495f77dfdc6c2" compoundref="isi_8c" startline="587" endline="616">IsiGainExecuteIss</referencedby>
+        <referencedby refid="group__isi_1ga896cd1825599338870761d17d4e5d349" compoundref="isi_8c" startline="703" endline="728">IsiGetAeBaseInfoIss</referencedby>
+        <referencedby refid="group__isi_1gad3a5dce446ceb73de01d11045dcf38f8" compoundref="isi_8c" startline="736" endline="761">IsiGetAGainIss</referencedby>
+        <referencedby refid="group__isi_1gabbcbe44d9afe218c051ea0f2492e64e6" compoundref="isi_8c" startline="1115" endline="1137">IsiGetBlcIss</referencedby>
+        <referencedby refid="group__isi_1ga1f62d016684df0e75229eeff8f34a508" compoundref="isi_8c" startline="327" endline="350">IsiGetCapsIss</referencedby>
+        <referencedby refid="group__isi_1ga6897fde60fc17c55eec911eaf753775b" compoundref="isi_8c" startline="1353" endline="1375">IsiGetCompressCurveIss</referencedby>
+        <referencedby refid="group__isi_1ga93b3ea1d1658c60144c73bdacccdd1b8" compoundref="isi_8c" startline="769" endline="794">IsiGetDGainIss</referencedby>
+        <referencedby refid="group__isi_1ga2efd6ba1f930c71202bbe090756f4354" compoundref="isi_8c" startline="1313" endline="1335">IsiGetExpandCurveIss</referencedby>
+        <referencedby refid="group__isi_1ga58abf8f9d5a92f8bddf747af71bb1f26" compoundref="isi_8c" startline="946" endline="971">IsiGetFpsIss</referencedby>
+        <referencedby refid="group__isi_1ga71ac9872b59e96e08f038bbb3603fe16" compoundref="isi_8c" startline="869" endline="894">IsiGetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1ga0bdda2ff2b82c774aa8e2809f3541d2b" compoundref="isi_8c" startline="1032" endline="1056">IsiGetIspStatusIss</referencedby>
+        <referencedby refid="group__isi_1ga8fcb824fe2d07484d72d1622aa2a49f6" compoundref="isi_8c" startline="229" endline="265">IsiGetModeIss</referencedby>
+        <referencedby refid="group__isi_1gafe94752d804d90439b9a9594f9a8328c" compoundref="isi_8c" startline="1438" endline="1463">IsiGetOtpDataIss</referencedby>
+        <referencedby refid="group__isi_1gaab57d4ffc77ad2248de3786af710c94d" compoundref="isi_8c" startline="498" endline="523">IsiGetRevisionIss</referencedby>
+        <referencedby refid="group__isi_1ga38bb93a440db3b0449b6ca064c7992cc" compoundref="isi_8c" startline="1275" endline="1297">IsiGetTpgIss</referencedby>
+        <referencedby refid="group__isi_1gac2e13b1795b9cd1897b5b3c585fe72ca" compoundref="isi_8c" startline="1196" endline="1218">IsiGetWBIss</referencedby>
+        <referencedby refid="group__isi_1ga0c43bb412279cb70381a4a3f0fe2e1f3" compoundref="isi_8c" startline="152" endline="174">IsiOpenIss</referencedby>
+        <referencedby refid="group__isi_1gaffc1a6f31051016b51ece1b39caa67c9" compoundref="isi_8c" startline="370" endline="396">IsiReadRegIss</referencedby>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+        <referencedby refid="group__isi__iss_1gae918129f6476a5274727c79e5badfbf6" compoundref="isi_8c" startline="111" endline="134">IsiSensorDrvHandleUnRegisterIss</referencedby>
+        <referencedby refid="group__isi_1ga52b594db8df809e15ae7d75ba2514a09" compoundref="isi_8c" startline="624" endline="650">IsiSensorExecuteExposureControl</referencedby>
+        <referencedby refid="group__isi_1ga4730d49cdfff48159d1fe4445e1a8b7b" compoundref="isi_8c" startline="802" endline="827">IsiSetAGainIss</referencedby>
+        <referencedby refid="group__isi_1gab2cf70baba6096cb1256db46bccc6e36" compoundref="isi_8c" startline="1075" endline="1097">IsiSetBlcIss</referencedby>
+        <referencedby refid="group__isi_1gad464e39542dd035816a6723d0de89eb5" compoundref="isi_8c" startline="835" endline="860">IsiSetDGainIss</referencedby>
+        <referencedby refid="group__isi_1gae8854478f37673a566648f2fa4234a09" compoundref="isi_8c" startline="990" endline="1014">IsiSetFpsIss</referencedby>
+        <referencedby refid="group__isi_1gadc22408b6742c7a4bebe9f48f369b46d" compoundref="isi_8c" startline="902" endline="927">IsiSetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1gaea77c47a3b22f7cf8595eeeb6e3b1a03" compoundref="isi_8c" startline="543" endline="565">IsiSetStreamingIss</referencedby>
+        <referencedby refid="group__isi_1gab5fe0357fdb6cb6df4df65434973dae0" compoundref="isi_8c" startline="1236" endline="1258">IsiSetTpgIss</referencedby>
+        <referencedby refid="group__isi_1ga882e7744cb8adc132dd1e9eee2d209a1" compoundref="isi_8c" startline="1156" endline="1178">IsiSetWBIss</referencedby>
+        <referencedby refid="group__isi_1ga06e5ea1830cc28443cf2821e1eb1c496" compoundref="isi_8c" startline="417" endline="440">IsiWriteRegIss</referencedby>
+        <referencedby refid="group____buf__mgmt__ctrl_1gaec47bf94344eef394d1703ffb0be0bd1" compoundref="cam__device__buffer__api_8c" startline="290" endline="327">VsiCamDeviceReleaseBufMgmt</referencedby>
+        <referencedby refid="sensor__drv_8c_1ace57887c24f6bf4d5db0ccb97014e2cc" compoundref="sensor__drv_8c" startline="120" endline="155">VsiCamDeviceSensorGetConnectPortInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" compoundref="sensor__drv_8c" startline="80" endline="117">VsiCamDeviceSensorGetListInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" compoundref="sensor__drv_8c" startline="43" endline="77">VsiCamDeviceSensorGetNumber</referencedby>
+        <referencedby refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" compoundref="sensor__drv_8c" startline="158" endline="217">VsiCamDeviceSensorMapping</referencedby>
+        <referencedby refid="group____cam__device__sensor_1ga60a4bbbacc3dbc2298c48ab7d08c61c8" compoundref="cam__device__sensor__api_8c" startline="38" endline="75">VsiCamDeviceSensorOpen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" prot="public" static="no">
+        <name>RET_FAILURE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>general failure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+        <referencedby refid="group____buf__mgmt__ctrl_1gaec47bf94344eef394d1703ffb0be0bd1" compoundref="cam__device__buffer__api_8c" startline="290" endline="327">VsiCamDeviceReleaseBufMgmt</referencedby>
+        <referencedby refid="sensor__drv_8c_1ace57887c24f6bf4d5db0ccb97014e2cc" compoundref="sensor__drv_8c" startline="120" endline="155">VsiCamDeviceSensorGetConnectPortInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" compoundref="sensor__drv_8c" startline="80" endline="117">VsiCamDeviceSensorGetListInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" compoundref="sensor__drv_8c" startline="43" endline="77">VsiCamDeviceSensorGetNumber</referencedby>
+        <referencedby refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" compoundref="sensor__drv_8c" startline="158" endline="217">VsiCamDeviceSensorMapping</referencedby>
+        <referencedby refid="group____cam__device__sensor_1ga60a4bbbacc3dbc2298c48ab7d08c61c8" compoundref="cam__device__sensor__api_8c" startline="38" endline="75">VsiCamDeviceSensorOpen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" prot="public" static="no">
+        <name>RET_NOTSUPP</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>feature not supported </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__isi_1ga1252b913bb884882436ee78ca34a7bf5" compoundref="isi_8c" startline="458" endline="479">IsiCheckConnectionIss</referencedby>
+        <referencedby refid="group__isi_1gac7f86ed7e3602f2c33c1d7770b1511b2" compoundref="isi_8c" startline="191" endline="212">IsiCloseIss</referencedby>
+        <referencedby refid="group__isi_1ga1de8858e4298abd251148bcd25f891f8" compoundref="isi_8c" startline="284" endline="309">IsiEnumModeIss</referencedby>
+        <referencedby refid="group__isi_1gae483ef1ceb1f331971993fa0b31f85d4" compoundref="isi_8c" startline="658" endline="684">IsiExpDecomposeControl</referencedby>
+        <referencedby refid="group__isi_1ga7ef5a9b3d21039b7efe97d43ecaa5015" compoundref="isi_8c" startline="1394" endline="1419">IsiExtendFuncIss</referencedby>
+        <referencedby refid="group__isi_1ga4db18f988e6cdccffd9ae59506c1986c" compoundref="isi_8c" startline="1480" endline="1501">IsiFocusCreateIss</referencedby>
+        <referencedby refid="group__isi_1ga5ea6bb983c81dca3b723e1999fbae836" compoundref="isi_8c" startline="1559" endline="1584">IsiFocusGetCalibrateIss</referencedby>
+        <referencedby refid="group__isi_1gaea34c0a4e40af01356490ef5b2fac117" compoundref="isi_8c" startline="1648" endline="1673">IsiFocusGetIss</referencedby>
+        <referencedby refid="group__isi_1gaeb05a40f7c7f88230bab86341bf5ebd1" compoundref="isi_8c" startline="1519" endline="1540">IsiFocusReleaseIss</referencedby>
+        <referencedby refid="group__isi_1ga69098da3b53920d78acf3964ea3bd95d" compoundref="isi_8c" startline="1603" endline="1628">IsiFocusSetIss</referencedby>
+        <referencedby refid="group__isi_1ga896cd1825599338870761d17d4e5d349" compoundref="isi_8c" startline="703" endline="728">IsiGetAeBaseInfoIss</referencedby>
+        <referencedby refid="group__isi_1gad3a5dce446ceb73de01d11045dcf38f8" compoundref="isi_8c" startline="736" endline="761">IsiGetAGainIss</referencedby>
+        <referencedby refid="group__isi_1gabbcbe44d9afe218c051ea0f2492e64e6" compoundref="isi_8c" startline="1115" endline="1137">IsiGetBlcIss</referencedby>
+        <referencedby refid="group__isi_1ga6897fde60fc17c55eec911eaf753775b" compoundref="isi_8c" startline="1353" endline="1375">IsiGetCompressCurveIss</referencedby>
+        <referencedby refid="group__isi_1ga93b3ea1d1658c60144c73bdacccdd1b8" compoundref="isi_8c" startline="769" endline="794">IsiGetDGainIss</referencedby>
+        <referencedby refid="group__isi_1ga2efd6ba1f930c71202bbe090756f4354" compoundref="isi_8c" startline="1313" endline="1335">IsiGetExpandCurveIss</referencedby>
+        <referencedby refid="group__isi_1ga58abf8f9d5a92f8bddf747af71bb1f26" compoundref="isi_8c" startline="946" endline="971">IsiGetFpsIss</referencedby>
+        <referencedby refid="group__isi_1ga71ac9872b59e96e08f038bbb3603fe16" compoundref="isi_8c" startline="869" endline="894">IsiGetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1ga0bdda2ff2b82c774aa8e2809f3541d2b" compoundref="isi_8c" startline="1032" endline="1056">IsiGetIspStatusIss</referencedby>
+        <referencedby refid="group__isi_1ga8fcb824fe2d07484d72d1622aa2a49f6" compoundref="isi_8c" startline="229" endline="265">IsiGetModeIss</referencedby>
+        <referencedby refid="group__isi_1gafe94752d804d90439b9a9594f9a8328c" compoundref="isi_8c" startline="1438" endline="1463">IsiGetOtpDataIss</referencedby>
+        <referencedby refid="group__isi_1gaab57d4ffc77ad2248de3786af710c94d" compoundref="isi_8c" startline="498" endline="523">IsiGetRevisionIss</referencedby>
+        <referencedby refid="group__isi_1ga38bb93a440db3b0449b6ca064c7992cc" compoundref="isi_8c" startline="1275" endline="1297">IsiGetTpgIss</referencedby>
+        <referencedby refid="group__isi_1gac2e13b1795b9cd1897b5b3c585fe72ca" compoundref="isi_8c" startline="1196" endline="1218">IsiGetWBIss</referencedby>
+        <referencedby refid="group__isi_1ga0c43bb412279cb70381a4a3f0fe2e1f3" compoundref="isi_8c" startline="152" endline="174">IsiOpenIss</referencedby>
+        <referencedby refid="group__isi_1gaffc1a6f31051016b51ece1b39caa67c9" compoundref="isi_8c" startline="370" endline="396">IsiReadRegIss</referencedby>
+        <referencedby refid="group__isi__iss_1gae918129f6476a5274727c79e5badfbf6" compoundref="isi_8c" startline="111" endline="134">IsiSensorDrvHandleUnRegisterIss</referencedby>
+        <referencedby refid="group__isi_1ga52b594db8df809e15ae7d75ba2514a09" compoundref="isi_8c" startline="624" endline="650">IsiSensorExecuteExposureControl</referencedby>
+        <referencedby refid="group__isi_1ga4730d49cdfff48159d1fe4445e1a8b7b" compoundref="isi_8c" startline="802" endline="827">IsiSetAGainIss</referencedby>
+        <referencedby refid="group__isi_1gab2cf70baba6096cb1256db46bccc6e36" compoundref="isi_8c" startline="1075" endline="1097">IsiSetBlcIss</referencedby>
+        <referencedby refid="group__isi_1gad464e39542dd035816a6723d0de89eb5" compoundref="isi_8c" startline="835" endline="860">IsiSetDGainIss</referencedby>
+        <referencedby refid="group__isi_1gae8854478f37673a566648f2fa4234a09" compoundref="isi_8c" startline="990" endline="1014">IsiSetFpsIss</referencedby>
+        <referencedby refid="group__isi_1gadc22408b6742c7a4bebe9f48f369b46d" compoundref="isi_8c" startline="902" endline="927">IsiSetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1gaea77c47a3b22f7cf8595eeeb6e3b1a03" compoundref="isi_8c" startline="543" endline="565">IsiSetStreamingIss</referencedby>
+        <referencedby refid="group__isi_1gab5fe0357fdb6cb6df4df65434973dae0" compoundref="isi_8c" startline="1236" endline="1258">IsiSetTpgIss</referencedby>
+        <referencedby refid="group__isi_1ga882e7744cb8adc132dd1e9eee2d209a1" compoundref="isi_8c" startline="1156" endline="1178">IsiSetWBIss</referencedby>
+        <referencedby refid="group__isi_1ga06e5ea1830cc28443cf2821e1eb1c496" compoundref="isi_8c" startline="417" endline="440">IsiWriteRegIss</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a8dee810f16e3696b418cbfb3f191fdf8" prot="public" static="no">
+        <name>RET_BUSY</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>there&apos;s already something going on... </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a64c63493c7472c7acbabf5cda2e5496d" prot="public" static="no">
+        <name>RET_CANCELED</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>operation canceled </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" prot="public" static="no">
+        <name>RET_OUTOFMEM</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>out of memory </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+        <referencedby refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" compoundref="sensor__drv_8c" startline="158" endline="217">VsiCamDeviceSensorMapping</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" prot="public" static="no">
+        <name>RET_OUTOFRANGE</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>parameter/value out of range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group____buf__mgmt__ctrl_1gaec47bf94344eef394d1703ffb0be0bd1" compoundref="cam__device__buffer__api_8c" startline="290" endline="327">VsiCamDeviceReleaseBufMgmt</referencedby>
+        <referencedby refid="sensor__drv_8c_1ace57887c24f6bf4d5db0ccb97014e2cc" compoundref="sensor__drv_8c" startline="120" endline="155">VsiCamDeviceSensorGetConnectPortInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" compoundref="sensor__drv_8c" startline="80" endline="117">VsiCamDeviceSensorGetListInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" compoundref="sensor__drv_8c" startline="43" endline="77">VsiCamDeviceSensorGetNumber</referencedby>
+        <referencedby refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" compoundref="sensor__drv_8c" startline="158" endline="217">VsiCamDeviceSensorMapping</referencedby>
+        <referencedby refid="group____cam__device__sensor_1ga60a4bbbacc3dbc2298c48ab7d08c61c8" compoundref="cam__device__sensor__api_8c" startline="38" endline="75">VsiCamDeviceSensorOpen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a69903fdb2ccc4a8a10f51070d3139ec5" prot="public" static="no">
+        <name>RET_IDLE</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>feature/subsystem is in idle state </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a8e89d97d979954d728353f8971928d35" prot="public" static="no">
+        <name>RET_WRONG_HANDLE</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>handle is wrong </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__isi_1ga1252b913bb884882436ee78ca34a7bf5" compoundref="isi_8c" startline="458" endline="479">IsiCheckConnectionIss</referencedby>
+        <referencedby refid="group__isi_1gac7f86ed7e3602f2c33c1d7770b1511b2" compoundref="isi_8c" startline="191" endline="212">IsiCloseIss</referencedby>
+        <referencedby refid="group__isi_1ga1de8858e4298abd251148bcd25f891f8" compoundref="isi_8c" startline="284" endline="309">IsiEnumModeIss</referencedby>
+        <referencedby refid="group__isi_1gae483ef1ceb1f331971993fa0b31f85d4" compoundref="isi_8c" startline="658" endline="684">IsiExpDecomposeControl</referencedby>
+        <referencedby refid="group__isi_1ga7ef5a9b3d21039b7efe97d43ecaa5015" compoundref="isi_8c" startline="1394" endline="1419">IsiExtendFuncIss</referencedby>
+        <referencedby refid="group__isi_1ga4db18f988e6cdccffd9ae59506c1986c" compoundref="isi_8c" startline="1480" endline="1501">IsiFocusCreateIss</referencedby>
+        <referencedby refid="group__isi_1ga5ea6bb983c81dca3b723e1999fbae836" compoundref="isi_8c" startline="1559" endline="1584">IsiFocusGetCalibrateIss</referencedby>
+        <referencedby refid="group__isi_1gaea34c0a4e40af01356490ef5b2fac117" compoundref="isi_8c" startline="1648" endline="1673">IsiFocusGetIss</referencedby>
+        <referencedby refid="group__isi_1gaeb05a40f7c7f88230bab86341bf5ebd1" compoundref="isi_8c" startline="1519" endline="1540">IsiFocusReleaseIss</referencedby>
+        <referencedby refid="group__isi_1ga69098da3b53920d78acf3964ea3bd95d" compoundref="isi_8c" startline="1603" endline="1628">IsiFocusSetIss</referencedby>
+        <referencedby refid="group__isi_1ga896cd1825599338870761d17d4e5d349" compoundref="isi_8c" startline="703" endline="728">IsiGetAeBaseInfoIss</referencedby>
+        <referencedby refid="group__isi_1gad3a5dce446ceb73de01d11045dcf38f8" compoundref="isi_8c" startline="736" endline="761">IsiGetAGainIss</referencedby>
+        <referencedby refid="group__isi_1gabbcbe44d9afe218c051ea0f2492e64e6" compoundref="isi_8c" startline="1115" endline="1137">IsiGetBlcIss</referencedby>
+        <referencedby refid="group__isi_1ga1f62d016684df0e75229eeff8f34a508" compoundref="isi_8c" startline="327" endline="350">IsiGetCapsIss</referencedby>
+        <referencedby refid="group__isi_1ga6897fde60fc17c55eec911eaf753775b" compoundref="isi_8c" startline="1353" endline="1375">IsiGetCompressCurveIss</referencedby>
+        <referencedby refid="group__isi_1ga93b3ea1d1658c60144c73bdacccdd1b8" compoundref="isi_8c" startline="769" endline="794">IsiGetDGainIss</referencedby>
+        <referencedby refid="group__isi_1ga2efd6ba1f930c71202bbe090756f4354" compoundref="isi_8c" startline="1313" endline="1335">IsiGetExpandCurveIss</referencedby>
+        <referencedby refid="group__isi_1ga58abf8f9d5a92f8bddf747af71bb1f26" compoundref="isi_8c" startline="946" endline="971">IsiGetFpsIss</referencedby>
+        <referencedby refid="group__isi_1ga71ac9872b59e96e08f038bbb3603fe16" compoundref="isi_8c" startline="869" endline="894">IsiGetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1ga0bdda2ff2b82c774aa8e2809f3541d2b" compoundref="isi_8c" startline="1032" endline="1056">IsiGetIspStatusIss</referencedby>
+        <referencedby refid="group__isi_1ga8fcb824fe2d07484d72d1622aa2a49f6" compoundref="isi_8c" startline="229" endline="265">IsiGetModeIss</referencedby>
+        <referencedby refid="group__isi_1gafe94752d804d90439b9a9594f9a8328c" compoundref="isi_8c" startline="1438" endline="1463">IsiGetOtpDataIss</referencedby>
+        <referencedby refid="group__isi_1gaab57d4ffc77ad2248de3786af710c94d" compoundref="isi_8c" startline="498" endline="523">IsiGetRevisionIss</referencedby>
+        <referencedby refid="group__isi_1ga38bb93a440db3b0449b6ca064c7992cc" compoundref="isi_8c" startline="1275" endline="1297">IsiGetTpgIss</referencedby>
+        <referencedby refid="group__isi_1gac2e13b1795b9cd1897b5b3c585fe72ca" compoundref="isi_8c" startline="1196" endline="1218">IsiGetWBIss</referencedby>
+        <referencedby refid="group__isi_1ga0c43bb412279cb70381a4a3f0fe2e1f3" compoundref="isi_8c" startline="152" endline="174">IsiOpenIss</referencedby>
+        <referencedby refid="group__isi_1gaffc1a6f31051016b51ece1b39caa67c9" compoundref="isi_8c" startline="370" endline="396">IsiReadRegIss</referencedby>
+        <referencedby refid="group__isi__iss_1gae918129f6476a5274727c79e5badfbf6" compoundref="isi_8c" startline="111" endline="134">IsiSensorDrvHandleUnRegisterIss</referencedby>
+        <referencedby refid="group__isi_1ga52b594db8df809e15ae7d75ba2514a09" compoundref="isi_8c" startline="624" endline="650">IsiSensorExecuteExposureControl</referencedby>
+        <referencedby refid="group__isi_1ga4730d49cdfff48159d1fe4445e1a8b7b" compoundref="isi_8c" startline="802" endline="827">IsiSetAGainIss</referencedby>
+        <referencedby refid="group__isi_1gab2cf70baba6096cb1256db46bccc6e36" compoundref="isi_8c" startline="1075" endline="1097">IsiSetBlcIss</referencedby>
+        <referencedby refid="group__isi_1gad464e39542dd035816a6723d0de89eb5" compoundref="isi_8c" startline="835" endline="860">IsiSetDGainIss</referencedby>
+        <referencedby refid="group__isi_1gae8854478f37673a566648f2fa4234a09" compoundref="isi_8c" startline="990" endline="1014">IsiSetFpsIss</referencedby>
+        <referencedby refid="group__isi_1gadc22408b6742c7a4bebe9f48f369b46d" compoundref="isi_8c" startline="902" endline="927">IsiSetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1gaea77c47a3b22f7cf8595eeeb6e3b1a03" compoundref="isi_8c" startline="543" endline="565">IsiSetStreamingIss</referencedby>
+        <referencedby refid="group__isi_1gab5fe0357fdb6cb6df4df65434973dae0" compoundref="isi_8c" startline="1236" endline="1258">IsiSetTpgIss</referencedby>
+        <referencedby refid="group__isi_1ga882e7744cb8adc132dd1e9eee2d209a1" compoundref="isi_8c" startline="1156" endline="1178">IsiSetWBIss</referencedby>
+        <referencedby refid="group__isi_1ga06e5ea1830cc28443cf2821e1eb1c496" compoundref="isi_8c" startline="417" endline="440">IsiWriteRegIss</referencedby>
+        <referencedby refid="group____buf__mgmt__ctrl_1gaec47bf94344eef394d1703ffb0be0bd1" compoundref="cam__device__buffer__api_8c" startline="290" endline="327">VsiCamDeviceReleaseBufMgmt</referencedby>
+        <referencedby refid="group____cam__device__sensor_1ga60a4bbbacc3dbc2298c48ab7d08c61c8" compoundref="cam__device__sensor__api_8c" startline="38" endline="75">VsiCamDeviceSensorOpen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" prot="public" static="no">
+        <name>RET_NULL_POINTER</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>the/one/all parameter(s) is a(are) NULL pointer(s) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__isi_1ga1de8858e4298abd251148bcd25f891f8" compoundref="isi_8c" startline="284" endline="309">IsiEnumModeIss</referencedby>
+        <referencedby refid="group__isi_1gae483ef1ceb1f331971993fa0b31f85d4" compoundref="isi_8c" startline="658" endline="684">IsiExpDecomposeControl</referencedby>
+        <referencedby refid="group__isi_1ga7ef5a9b3d21039b7efe97d43ecaa5015" compoundref="isi_8c" startline="1394" endline="1419">IsiExtendFuncIss</referencedby>
+        <referencedby refid="group__isi_1ga5ea6bb983c81dca3b723e1999fbae836" compoundref="isi_8c" startline="1559" endline="1584">IsiFocusGetCalibrateIss</referencedby>
+        <referencedby refid="group__isi_1gaea34c0a4e40af01356490ef5b2fac117" compoundref="isi_8c" startline="1648" endline="1673">IsiFocusGetIss</referencedby>
+        <referencedby refid="group__isi_1ga69098da3b53920d78acf3964ea3bd95d" compoundref="isi_8c" startline="1603" endline="1628">IsiFocusSetIss</referencedby>
+        <referencedby refid="group__isi_1ga896cd1825599338870761d17d4e5d349" compoundref="isi_8c" startline="703" endline="728">IsiGetAeBaseInfoIss</referencedby>
+        <referencedby refid="group__isi_1gad3a5dce446ceb73de01d11045dcf38f8" compoundref="isi_8c" startline="736" endline="761">IsiGetAGainIss</referencedby>
+        <referencedby refid="group__isi_1ga1f62d016684df0e75229eeff8f34a508" compoundref="isi_8c" startline="327" endline="350">IsiGetCapsIss</referencedby>
+        <referencedby refid="group__isi_1ga93b3ea1d1658c60144c73bdacccdd1b8" compoundref="isi_8c" startline="769" endline="794">IsiGetDGainIss</referencedby>
+        <referencedby refid="group__isi_1ga58abf8f9d5a92f8bddf747af71bb1f26" compoundref="isi_8c" startline="946" endline="971">IsiGetFpsIss</referencedby>
+        <referencedby refid="group__isi_1ga71ac9872b59e96e08f038bbb3603fe16" compoundref="isi_8c" startline="869" endline="894">IsiGetIntTimeIss</referencedby>
+        <referencedby refid="group__isi_1gafe94752d804d90439b9a9594f9a8328c" compoundref="isi_8c" startline="1438" endline="1463">IsiGetOtpDataIss</referencedby>
+        <referencedby refid="group__isi_1gaab57d4ffc77ad2248de3786af710c94d" compoundref="isi_8c" startline="498" endline="523">IsiGetRevisionIss</referencedby>
+        <referencedby refid="group__isi_1gaffc1a6f31051016b51ece1b39caa67c9" compoundref="isi_8c" startline="370" endline="396">IsiReadRegIss</referencedby>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+        <referencedby refid="group__isi_1ga52b594db8df809e15ae7d75ba2514a09" compoundref="isi_8c" startline="624" endline="650">IsiSensorExecuteExposureControl</referencedby>
+        <referencedby refid="sensor__drv_8c_1ace57887c24f6bf4d5db0ccb97014e2cc" compoundref="sensor__drv_8c" startline="120" endline="155">VsiCamDeviceSensorGetConnectPortInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" compoundref="sensor__drv_8c" startline="80" endline="117">VsiCamDeviceSensorGetListInfo</referencedby>
+        <referencedby refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" compoundref="sensor__drv_8c" startline="43" endline="77">VsiCamDeviceSensorGetNumber</referencedby>
+        <referencedby refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" compoundref="sensor__drv_8c" startline="158" endline="217">VsiCamDeviceSensorMapping</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1acfc4c7bf7876d9e44481258b12b09846" prot="public" static="no">
+        <name>RET_NOTAVAILABLE</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>profile not available </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1adccec16d36a263ad95659e7082d8e8d7" prot="public" static="no">
+        <name>RET_DIVISION_BY_ZERO</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>a divisor equals ZERO </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1ac8116d97f8b584199d4ea4d843649a7d" prot="public" static="no">
+        <name>RET_WRONG_STATE</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>state machine in wrong state </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a08d1637eeba344f1b1c8c6a4ab8bbba7" prot="public" static="no">
+        <name>RET_INVALID_PARM</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>invalid parameter </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1aa1ddf01d27e13fd600d5e5bb59d1f277" prot="public" static="no">
+        <name>RET_PENDING</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>command pending </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1ac01db30295cc8ad4475f7e0a90b59c2a" prot="public" static="no">
+        <name>RET_WRONG_CONFIG</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>given configuration is invalid </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a461e743e3a7c270f800aa7dc08e833cd" prot="public" static="no">
+        <name>RET_TIME_OUT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>wait time out </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a99a94ee4876fd990c55a6920d545a876" prot="public" static="no">
+        <name>RET_UNSUPPORT_ID</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+<para>unsupported index number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a267dcc09f0bd5f3e2bf188329b41817d" prot="public" static="no">
+        <name>UPDATE_RESULT</name>
+        <param><defname>cur_res</defname></param>
+        <param><defname>new_res</defname></param>
+        <initializer>{ RESULT __lres__ = (new_res); if (cur_res == <ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>) cur_res = __lres__; }</initializer>
+        <briefdescription>
+<para>Keeps first non-success result; cur_res must be a modifiable L-value; new_res can be any type of R-value including function call. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="return__codes_8h_1a704c3f455536f7868258b54f4c286aaa" prot="public" static="no">
+        <name>RETURN_RESULT_IF_DIFFERENT</name>
+        <param><defname>cur_res</defname></param>
+        <param><defname>exp_res</defname></param>
+        <initializer>if ( exp_res != cur_res ) { return ( cur_res ); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="return__codes_8h_1a2225969c66f32e5b9e903ec654d9ecb4" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int RESULT</definition>
+        <argsstring></argsstring>
+        <name>RESULT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header files contains general return codes . </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2020<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#ifndef<sp/>__RETURN_CODES_H__</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__RETURN_CODES_H__</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RESULT;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RET_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" refkind="member"><highlight class="preprocessor">#define<sp/>RET_FAILURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" refkind="member"><highlight class="preprocessor">#define<sp/>RET_NOTSUPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="return__codes_8h_1a8dee810f16e3696b418cbfb3f191fdf8" refkind="member"><highlight class="preprocessor">#define<sp/>RET_BUSY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="return__codes_8h_1a64c63493c7472c7acbabf5cda2e5496d" refkind="member"><highlight class="preprocessor">#define<sp/>RET_CANCELED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" refkind="member"><highlight class="preprocessor">#define<sp/>RET_OUTOFMEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" refkind="member"><highlight class="preprocessor">#define<sp/>RET_OUTOFRANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="return__codes_8h_1a69903fdb2ccc4a8a10f51070d3139ec5" refkind="member"><highlight class="preprocessor">#define<sp/>RET_IDLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" refkind="member"><highlight class="preprocessor">#define<sp/>RET_WRONG_HANDLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" refkind="member"><highlight class="preprocessor">#define<sp/>RET_NULL_POINTER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="return__codes_8h_1acfc4c7bf7876d9e44481258b12b09846" refkind="member"><highlight class="preprocessor">#define<sp/>RET_NOTAVAILABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="return__codes_8h_1adccec16d36a263ad95659e7082d8e8d7" refkind="member"><highlight class="preprocessor">#define<sp/>RET_DIVISION_BY_ZERO<sp/><sp/><sp/>11<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="return__codes_8h_1ac8116d97f8b584199d4ea4d843649a7d" refkind="member"><highlight class="preprocessor">#define<sp/>RET_WRONG_STATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="return__codes_8h_1a08d1637eeba344f1b1c8c6a4ab8bbba7" refkind="member"><highlight class="preprocessor">#define<sp/>RET_INVALID_PARM<sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="return__codes_8h_1aa1ddf01d27e13fd600d5e5bb59d1f277" refkind="member"><highlight class="preprocessor">#define<sp/>RET_PENDING<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="return__codes_8h_1ac01db30295cc8ad4475f7e0a90b59c2a" refkind="member"><highlight class="preprocessor">#define<sp/>RET_WRONG_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="return__codes_8h_1a461e743e3a7c270f800aa7dc08e833cd" refkind="member"><highlight class="preprocessor">#define<sp/>RET_TIME_OUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="return__codes_8h_1a99a94ee4876fd990c55a6920d545a876" refkind="member"><highlight class="preprocessor">#define<sp/>RET_UNSUPPORT_ID<sp/><sp/><sp/>0xFFFF<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="return__codes_8h_1a267dcc09f0bd5f3e2bf188329b41817d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UPDATE_RESULT(<sp/>cur_res,<sp/>new_res<sp/>)<sp/>{<sp/>RESULT<sp/>__lres__<sp/>=<sp/>(new_res);<sp/>if<sp/>(cur_res<sp/>==<sp/>RET_SUCCESS)<sp/>cur_res<sp/>=<sp/>__lres__;<sp/>}<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RETURN_RESULT_IF_DIFFERENT(<sp/>cur_res,<sp/>exp_res<sp/>)<sp/>if<sp/>(<sp/>exp_res<sp/>!=<sp/>cur_res<sp/>)<sp/>{<sp/>return<sp/>(<sp/>cur_res<sp/>);<sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__RETURN_CODES_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/return_codes.h"/>
+  </compounddef>
+</doxygen>

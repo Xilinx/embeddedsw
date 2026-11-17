@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___reg_node" kind="struct" prot="public">
+    <compoundname>XPm_RegNode</compoundname>
+    <includes local="no">xpm_access.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___reg_node_1a4316f775cde2a9e8a577d6b73ce5816a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RegNode::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Node Id for regnode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reg_node_1a8ab91e80e5980afab945a7ba31899ed5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RegNode::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of given node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reg_node_1a7f42f9506ea1391cd55cd739432c19aa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RegNode::Requirements</definition>
+        <argsstring></argsstring>
+        <name>Requirements</name>
+        <briefdescription>
+<para>Requirements from different subsystems. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reg_node_1ac810d554a4f9cc92221553cf6d40fc8e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+        <definition>XPm_Power* XPm_RegNode::Power</definition>
+        <argsstring></argsstring>
+        <name>Power</name>
+        <briefdescription>
+<para>Parent power node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reg_node_1a9e0a8174c36a0d3ba082952e1cbc7445" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref> *</type>
+        <definition>XPm_RegNode* XPm_RegNode::NextRegnode</definition>
+        <argsstring></argsstring>
+        <name>NextRegnode</name>
+        <briefdescription>
+<para>Link to next regnode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Regnode class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="289">
+        <label>XPm_RegNode</label>
+        <link refid="struct_x_pm___reg_node"/>
+        <childnode refid="289" relation="usage">
+          <edgelabel>NextRegnode</edgelabel>
+        </childnode>
+        <childnode refid="290" relation="usage">
+          <edgelabel>Power</edgelabel>
+        </childnode>
+      </node>
+      <node id="290">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="291" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="290" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="291">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_access.h" bodystart="52" bodyend="58"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___reg_node_1a8ab91e80e5980afab945a7ba31899ed5" prot="public" virt="non-virtual"><scope>XPm_RegNode</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_pm___reg_node_1a4316f775cde2a9e8a577d6b73ce5816a" prot="public" virt="non-virtual"><scope>XPm_RegNode</scope><name>Id</name></member>
+      <member refid="struct_x_pm___reg_node_1a9e0a8174c36a0d3ba082952e1cbc7445" prot="public" virt="non-virtual"><scope>XPm_RegNode</scope><name>NextRegnode</name></member>
+      <member refid="struct_x_pm___reg_node_1ac810d554a4f9cc92221553cf6d40fc8e" prot="public" virt="non-virtual"><scope>XPm_RegNode</scope><name>Power</name></member>
+      <member refid="struct_x_pm___reg_node_1a7f42f9506ea1391cd55cd739432c19aa" prot="public" virt="non-virtual"><scope>XPm_RegNode</scope><name>Requirements</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

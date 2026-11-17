@@ -1,0 +1,682 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__mem_8h" kind="file">
+    <compoundname>xpm_runtime_mem.h</compoundname>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__err_8h" local="yes">xpm_err.h</includes>
+    <includes refid="xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includedby refid="xpm__runtime__mem__subsys_8c" local="yes">xpm_runtime_mem_subsys.c</includedby>
+    <includedby refid="xpm__memtbl_8c" local="yes">xpm_memtbl.c</includedby>
+    <includedby refid="xpm__runtime__mem_8c" local="yes">xpm_runtime_mem.c</includedby>
+    <incdepgraph>
+      <node id="4769">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4762">
+        <label>xpm_runtime_mem.h</label>
+        <link refid="xpm_runtime_mem.h"/>
+        <childnode refid="4763" relation="include">
+        </childnode>
+        <childnode refid="4766" relation="include">
+        </childnode>
+        <childnode refid="4771" relation="include">
+        </childnode>
+        <childnode refid="4778" relation="include">
+        </childnode>
+      </node>
+      <node id="4774">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4770">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4772">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4767">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4776">
+        <label>xpm_clock.h</label>
+        <childnode refid="4768" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
+        </childnode>
+        <childnode refid="4775" relation="include">
+        </childnode>
+      </node>
+      <node id="4775">
+        <label>xpm_power.h</label>
+        <childnode refid="4773" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
+        </childnode>
+      </node>
+      <node id="4768">
+        <label>xpm_common.h</label>
+        <childnode refid="4766" relation="include">
+        </childnode>
+        <childnode refid="4769" relation="include">
+        </childnode>
+        <childnode refid="4770" relation="include">
+        </childnode>
+        <childnode refid="4771" relation="include">
+        </childnode>
+        <childnode refid="4772" relation="include">
+        </childnode>
+        <childnode refid="4773" relation="include">
+        </childnode>
+      </node>
+      <node id="4764">
+        <label>xpm_node.h</label>
+        <childnode refid="4765" relation="include">
+        </childnode>
+        <childnode refid="4766" relation="include">
+        </childnode>
+        <childnode refid="4767" relation="include">
+        </childnode>
+        <childnode refid="4768" relation="include">
+        </childnode>
+      </node>
+      <node id="4766">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4778">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="4765">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4773">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4765" relation="include">
+        </childnode>
+        <childnode refid="4774" relation="include">
+        </childnode>
+      </node>
+      <node id="4763">
+        <label>xpm_device.h</label>
+        <childnode refid="4764" relation="include">
+        </childnode>
+        <childnode refid="4775" relation="include">
+        </childnode>
+        <childnode refid="4776" relation="include">
+        </childnode>
+        <childnode refid="4777" relation="include">
+        </childnode>
+      </node>
+      <node id="4777">
+        <label>xpm_reset.h</label>
+        <childnode refid="4764" relation="include">
+        </childnode>
+        <childnode refid="4768" relation="include">
+        </childnode>
+      </node>
+      <node id="4771">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4766" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4782">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="4779">
+        <label>xpm_runtime_mem.h</label>
+        <link refid="xpm_runtime_mem.h"/>
+        <childnode refid="4780" relation="include">
+        </childnode>
+        <childnode refid="4781" relation="include">
+        </childnode>
+        <childnode refid="4782" relation="include">
+        </childnode>
+      </node>
+      <node id="4780">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="4781">
+        <label>xpm_memtbl.c</label>
+        <link refid="xpm__memtbl_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a49c46ed87f3f330bf49eea34d5258ec8" prot="public" static="no">
+        <name>MEMREGN_DEVID</name>
+        <param><defname>IDX</defname></param>
+        <initializer>NODEID((u32)XPM_NODECLASS_DEVICE, \
+					(u32)XPM_NODESUBCL_DEV_MEM_REGN, \
+					(u32)XPM_NODETYPE_DEV_MEM_REGN, (IDX))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a14b4dbf9464028260d8a3d81b18804cc" prot="public" static="no">
+        <name>U64_MAX_SIZE</name>
+        <initializer>(0xFFFFFFFFFFFFFFFFULL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a8589ccc4a6924ee86acd28c6c2a68fe9" prot="public" static="no">
+        <name>IS_BUILTIN_SUBSYSTEM</name>
+        <param><defname>ID</defname></param>
+        <initializer>(((u32)PM_SUBSYS_PMC == (ID)) || \
+					((u32)PM_SUBSYS_ASU == (ID)) || \
+					((u32)<ref refid="group__xilpmsubsysnodes_1gadf69ae621a0ec885da847bae6fb6bece" kindref="member">PM_SUBSYS_DEFAULT</ref> == (ID)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1aba497c7b20faaa8f5de70da81f4d023f" prot="public" static="no">
+        <name>RTCA_IMAGE_STORE_ADDR_HIGH</name>
+        <initializer>((u64)XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a609802a01fce43ad23c1f56928a4aa9f" prot="public" static="no">
+        <name>RTCA_IMAGE_STORE_ADDR_LOW</name>
+        <initializer>((u64)XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a6c12d0a941381e76932be53faaa27075" prot="public" static="no">
+        <name>RTCA_IMAGE_STORE_ADDR_SIZE</name>
+        <initializer>(XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_SIZE))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1ac988c9df4d8972d4de9ded5fbcbf9fd9" prot="public" static="no">
+        <name>IS_MEM_DEV_OCM</name>
+        <param><defname>ID</defname></param>
+        <initializer>(((u32)XPM_NODECLASS_DEVICE == NODECLASS(ID)) &amp;&amp; \
+					 ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(ID)) &amp;&amp; \
+					 ((u32)XPM_NODETYPE_DEV_OCM == NODETYPE(ID)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a7e645bdeee6bbb708f7ff4e229e446e5" prot="public" static="no">
+        <name>IS_MEM_DEV_TCM</name>
+        <param><defname>ID</defname></param>
+        <initializer>(((u32)XPM_NODECLASS_DEVICE == NODECLASS(ID)) &amp;&amp; \
+					 ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(ID)) &amp;&amp; \
+					 ((u32)XPM_NODETYPE_DEV_TCM == NODETYPE(ID)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__mem_8h_1a1c3fd46acf51392060425b76ff14ecda" prot="public" static="no">
+        <name>IS_MEM_DEV_DDRMC</name>
+        <param><defname>ID</defname></param>
+        <initializer>(((u32)XPM_NODECLASS_DEVICE == NODECLASS(ID)) &amp;&amp; \
+					 ((u32)XPM_NODESUBCL_DEV_MEM_CTRLR == NODESUBCLASS(ID)) &amp;&amp; \
+					 ((u32)XPM_NODETYPE_DEV_DDR == NODETYPE(ID)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__runtime__mem_8h_1a16af7b253440dadd46a80a4b9fddba4d" prot="public" static="no">
+        <name>@14</name>
+        <enumvalue id="xpm__runtime__mem_8h_1a16af7b253440dadd46a80a4b9fddba4da665387001b31cf38932985f5ae93532e" prot="public">
+          <name>MEM_TYPE_NONE</name>
+          <initializer>= 0x0U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__runtime__mem_8h_1a16af7b253440dadd46a80a4b9fddba4da34f4989dd8014d42ae2115280d691ade" prot="public">
+          <name>MEM_TYPE_OCM_TCM</name>
+          <initializer>= 0x1U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__runtime__mem_8h_1a16af7b253440dadd46a80a4b9fddba4da05736ba26ed5da70140b1c1128cca1d4" prot="public">
+          <name>MEM_TYPE_DDR</name>
+          <initializer>= 0x2U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__runtime__mem_8h_1a16af7b253440dadd46a80a4b9fddba4da5bfcd4680f390f1a44e4d3a06ea3673e" prot="public">
+          <name>MEM_TYPE_PL</name>
+          <initializer>= 0x3U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="50" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__runtime__mem_8h_1a56bf4ca3880e7b33310f251a115b894c" prot="public" static="no">
+        <name>AddrRangeStatus</name>
+        <enumvalue id="xpm__runtime__mem_8h_1a56bf4ca3880e7b33310f251a115b894ca60e47181052280776684769baede3207" prot="public">
+          <name>ADDR_IN_RANGE</name>
+          <initializer>= 0x3CU</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__runtime__mem_8h_1a56bf4ca3880e7b33310f251a115b894ca8586935d9f79a3a1a1b86aad9a0352d4" prot="public">
+          <name>ADDR_RANGE_OVERLAP</name>
+          <initializer>= 0xC2U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__runtime__mem_8h_1a56bf4ca3880e7b33310f251a115b894cae01c250760e1899e6fb2aafe5118fa31" prot="public">
+          <name>ADDR_NOT_IN_RANGE</name>
+          <initializer>= 0xC3U</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Status codes for address-range containment checks (inclusive bounds). </para>        </briefdescription>
+        <detaileddescription>
+<para>Indicates whether the tested range is fully contained within a bounding range. Used as the return type of checkAddrRangeContainment().</para><para>Values:<itemizedlist>
+<listitem><para>ADDR_IN_RANGE (0x3C): The tested range is fully contained.</para></listitem><listitem><para>ADDR_RANGE_OVERLAP (0xC2): The tested range partially overlaps.</para></listitem><listitem><para>ADDR_NOT_IN_RANGE (0xC3): The tested range is not fully contained.</para></listitem></itemizedlist>
+</para><para>Note: These are non-boolean sentinels; compare explicitly with the enumerators. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="71" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__mem_8h_1acbf1ac3d85f62ceb42fba10a2383f332" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>AddrRangeStatus</type>
+        <definition>static AddrRangeStatus checkAddrRangeContainment</definition>
+        <argsstring>(u64 *RegionStart, u64 *RegionSize, u64 StartAddr, u64 EndAddr)</argsstring>
+        <name>checkAddrRangeContainment</name>
+        <param>
+          <type>u64 *</type>
+          <declname>RegionStart</declname>
+        </param>
+        <param>
+          <type>u64 *</type>
+          <declname>RegionSize</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>StartAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>EndAddr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether given address range (addr + size) is contained within specificed Memory Region or going beyond (for potential overlap) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegionStart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start Address of the Region to compare </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegionSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the Region to compare </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StartAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start Address of the Memory Range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>End Address of the Memory Range</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ADDR_IN_RANGE if the address range is within the region, ADDR_RANGE_OVERLAP if overlapping region (or ADDR_NOT_IN_RANGE otherwise) </para></simplesect>
+<simplesect kind="note"><para>The assumption is that input address region is valid only if it starts within a valid memory region. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Input: |==============| RegionStart RegionEnd Memory: |-----------------<mdash/><mdash/>| StartAddr EndAddr</para><para>Input: |============================| RegionStart RegionEnd Memory: |--------------------<mdash/>| StartAddr EndAddr</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" bodystart="93" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__mem_8h_1a08ea13e24e766e710a5edf433e046108" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_IsMemRegnAddressValid</definition>
+        <argsstring>(u32 SubsystemId, u64 RegionAddr, u64 RegionSize, u8 *IsPLMem)</argsstring>
+        <name>XPm_IsMemRegnAddressValid</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>RegionAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>RegionSize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>IsPLMem</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether given address range (addr + size) is valid in any Mem-Regn of given subsystem id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Subsystem to check for given addr range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegionAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start Address of the range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegionSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsPLMem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If address range valid, indicates whether PL or Non-PL Mem-Regn</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of the operation : XPM_INVALID_SUBSYSID, XST_INVALID_PARAM, XPM_FAILURE, XPM_SUCCESS</para></simplesect>
+Checks whether given address range (addr + size) is valid in any Mem-Regn of given subsystem id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>checks whether given subsystem is accessible without subsystem dependencies </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegionAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>N/A </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegionSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>N/A </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsPLMem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>N/A</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of the operation: XPM_SUCCESS, XST_INVALID_PARAM</para></simplesect>
+<simplesect kind="note"><para>: Weak Symbol - Runtime function which can be overridden by SUBSYS module </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Guard against RegionAddr + RegionSize overflowing the 64-bit address space</para><para>Mem-Regn address validity and/or Subsystem level access checking<itemizedlist>
+<listitem><para>For Built-in Subsystems (PMC &amp; ASU), there are no requirements and hence we perform only physical address range checking for all the available Mem-Regns.</para></listitem><listitem><para>For other Subsystems (Default and User-Defined), we perform both, i.e address range checking and Subsystem level access checking.</para></listitem><listitem><para>Note: PL Mem-Regn is special condition where we check PLD Power and EOS bit and conclude entire access checking (PL has no parent controller node).</para></listitem></itemizedlist>
+</para><para>Guard against zero-size mem-regn: MemSize=0 would underflow and produce an arbitrarily large address range</para><para>skip iteration to failure for memory type mismatch during overlapping condition<itemizedlist>
+<listitem><para>only access to same memory type is allowed during overlapping condition</para></listitem></itemizedlist>
+</para><para>NOTE: This assumes that no MemRegns are overlapping between subsystems. In future if MemRegns sharing is supported, then the following assumption needs to be updated accordingly.</para><para>If we encountered overlapping region(s) but didn&apos;t fully consume the range (no ADDR_IN_RANGE break), it&apos;s a failure. goto done to skip the PL power check (which would override Status).</para><para>Built-in subsystems (PMC/ASU) are trusted; a non-PL range not covered by a Mem-Regn defers to the memory-controller state check in XPm_IsMemAddressValid().</para><para><itemizedlist>
+<listitem><para>PL fabric has no parent controller node; reachability is decided by the PLD power domain being ON and the CFU end-of-startup asserted. Note: For any other Mem-Regn, power checking is done by retrieving their parent&apos;s controller node in XPm_IsMemAddressValid()</para></listitem></itemizedlist>
+</para><para>Supported Subsystem for eemi:<itemizedlist>
+<listitem><para>PM_SUBSYS_DEFAULT</para></listitem><listitem><para>PM_SUBSYS_PMC</para></listitem><listitem><para>PM_SUBSYS_ASU</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_mem_subsys.c" bodystart="175" bodyend="345"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__mem_8h_1aaaad129f571731576464c1331fa73e5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_CheckMemDevRangeReachable</definition>
+        <argsstring>(u64 RegionAddr, u64 RegionSize, u8 EnableLog)</argsstring>
+        <name>XPm_CheckMemDevRangeReachable</name>
+        <param>
+          <type>u64</type>
+          <declname>RegionAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>RegionSize</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EnableLog</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether a given address range (addr + size) is fully reachable through RUNNING memory-controller devices (OCM/TCM/DDR). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegionAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start Address of the range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegionSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the range </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableLog</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1U =&gt; emit the per-device diagnostic PmErr logs (&quot;Node not running&quot; and &quot;Mismatch Memory type
+                                access!&quot;); 0U =&gt; silent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of the operation:<itemizedlist>
+<listitem><para>XPM_SUCCESS: entire range contained in RUNNING device(s)</para></listitem><listitem><para>XPM_PM_NO_ACCESS: range found but a part not RUNNING</para></listitem><listitem><para>XPM_ERR_MEM_ACCESS_TYPE: cross-type overlap</para></listitem><listitem><para>XPM_FAILURE: range not found / unresolved overlap</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Shared reachability core used by XPm_IsMemAddressValid() and the memory-table State projection. The per-device diagnostic PmErr logs (&quot;Node not running&quot; and &quot;Mismatch Memory type access!&quot; - 4 in total) are gated by <computeroutput>EnableLog:</computeroutput> XPm_IsMemAddressValid() passes 1U to preserve its original logging, while the high-frequency State refresh passes 0U to stay silent (no log spam). Return codes are identical for both callers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>supported Mem-Regn Devices<itemizedlist>
+<listitem><para>OCM</para></listitem><listitem><para>TCM</para></listitem><listitem><para>DDR</para></listitem></itemizedlist>
+</para><para>note: PL Mem-Regn is supported but it doesn&apos;t have parent device</para><para>skip iteration to failure for memory type mismatch during overlapping condition<itemizedlist>
+<listitem><para>only access to same memory type is allowed during overlapping condition</para></listitem></itemizedlist>
+</para><para>check power state of the given Memory Controller Device</para><para>Save remaining chunks of region This is needed to restore chunk region for interleaved controllers</para><para>Guard against zero-size DDR region Size=0 would underflow and produce an arbitrarily large address range</para><para>skip iteration to failure for memory type mismatch during overlapping condition<itemizedlist>
+<listitem><para>only access to same memory type is allowed during overlapping condition</para></listitem></itemizedlist>
+</para><para>check power state of the given Memory Controller Device</para><para>Restore the region until it&apos;s either:<itemizedlist>
+<listitem><para>Last interleaved controller</para></listitem><listitem><para>or it&apos;s non-interleaved controller with overlap</para></listitem></itemizedlist>
+</para><para>If we encountered overlapping region(s) then: We haven&apos;t exhausted all the memory chunks of provided Region in entire iteration, hence it&apos;s a failure!</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.c" bodystart="319" bodyend="512"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__mem_8h_1a3b033cfe599c4e68d6e34b2146a9861a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPm_IsPlFabricReachable</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_IsPlFabricReachable</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Compute whether the PL fabric is physically reachable now. </para>        </briefdescription>
+        <detaileddescription>
+<para>A PL region has no parent controller node, so reachability is decided by the PL power domain being ON and the CFU end-of-startup (EOS) being asserted in hardware.</para><para><simplesect kind="return"><para>1U if the PL fabric is reachable, 0U otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.c" bodystart="525" bodyend="538"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RUNTIME_MEM_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RUNTIME_MEM_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__err_8h" kindref="compound">xpm_err.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MEMREGN_DEVID(IDX)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NODEID((u32)XPM_NODECLASS_DEVICE,<sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPM_NODESUBCL_DEV_MEM_REGN,<sp/>\</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPM_NODETYPE_DEV_MEM_REGN,<sp/>(IDX))</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>64-bit<sp/>unsigned<sp/>value;<sp/>used<sp/>for<sp/>address-range<sp/>overflow<sp/>guards<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>U64_MAX_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFFFFFFFFFULL)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>check<sp/>whether<sp/>given<sp/>Subsystem<sp/>Id<sp/>is<sp/>a<sp/>built-in<sp/>subsystem<sp/>within<sp/>PLM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IS_BUILTIN_SUBSYSTEM(ID)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)PM_SUBSYS_PMC<sp/>==<sp/>(ID))<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)PM_SUBSYS_ASU<sp/>==<sp/>(ID))<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)PM_SUBSYS_DEFAULT<sp/>==<sp/>(ID)))</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTCA_IMAGE_STORE_ADDR_HIGH<sp/><sp/><sp/><sp/><sp/><sp/>((u64)XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH))</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RTCA_IMAGE_STORE_ADDR_LOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW))</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RTCA_IMAGE_STORE_ADDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>(XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_SIZE))</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>check<sp/>whether<sp/>given<sp/>Node<sp/>Id<sp/>is<sp/>a<sp/>OCM<sp/>memory<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IS_MEM_DEV_OCM(ID)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XPM_NODECLASS_DEVICE<sp/>==<sp/>NODECLASS(ID))<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODESUBCL_DEV_MEM<sp/>==<sp/>NODESUBCLASS(ID))<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODETYPE_DEV_OCM<sp/>==<sp/>NODETYPE(ID)))</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>check<sp/>whether<sp/>given<sp/>Node<sp/>Id<sp/>is<sp/>a<sp/>TCM<sp/>memory<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IS_MEM_DEV_TCM(ID)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XPM_NODECLASS_DEVICE<sp/>==<sp/>NODECLASS(ID))<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODESUBCL_DEV_MEM<sp/>==<sp/>NODESUBCLASS(ID))<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODETYPE_DEV_TCM<sp/>==<sp/>NODETYPE(ID)))</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>check<sp/>whether<sp/>given<sp/>Node<sp/>Id<sp/>is<sp/>a<sp/>DDR<sp/>memory<sp/>controller<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IS_MEM_DEV_DDRMC(ID)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XPM_NODECLASS_DEVICE<sp/>==<sp/>NODECLASS(ID))<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODESUBCL_DEV_MEM_CTRLR<sp/>==<sp/>NODESUBCLASS(ID))<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODETYPE_DEV_DDR<sp/>==<sp/>NODETYPE(ID)))</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEM_TYPE_NONE<sp/><sp/><sp/><sp/>=<sp/>0x0U,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEM_TYPE_OCM_TCM<sp/>=<sp/>0x1U,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEM_TYPE_DDR<sp/><sp/><sp/><sp/><sp/>=<sp/>0x2U,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEM_TYPE_PL<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x3U</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ADDR_IN_RANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x3CU,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ADDR_RANGE_OVERLAP<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0xC2U,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ADDR_NOT_IN_RANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0xC3U</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}<sp/>AddrRangeStatus;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Static<sp/>Functions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>AddrRangeStatus<sp/>checkAddrRangeContainment(u64<sp/>*RegionStart,<sp/>u64<sp/>*RegionSize,<sp/>u64<sp/>StartAddr,<sp/>u64<sp/>EndAddr)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AddrRangeStatus<sp/>Range<sp/>=<sp/>ADDR_NOT_IN_RANGE;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>RegionEnd<sp/>=<sp/>*RegionStart<sp/>+<sp/>*RegionSize<sp/>-<sp/>1ULL;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((*RegionStart<sp/>&gt;=<sp/>StartAddr)<sp/>&amp;&amp;<sp/>(*RegionStart<sp/>&lt;=<sp/>EndAddr))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegionEnd<sp/>&gt;=<sp/>StartAddr)<sp/>&amp;&amp;<sp/>(RegionEnd<sp/>&lt;=<sp/>EndAddr)))<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Range<sp/>=<sp/>ADDR_IN_RANGE;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((*RegionStart<sp/>&gt;=<sp/>StartAddr)<sp/>&amp;&amp;<sp/>(*RegionStart<sp/>&lt;=<sp/>EndAddr))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegionEnd<sp/>&gt;<sp/>EndAddr))<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Range<sp/>=<sp/>ADDR_RANGE_OVERLAP;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>calculate<sp/>the<sp/>remaining<sp/>overlapped<sp/>region<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RegionStart<sp/>=<sp/>EndAddr<sp/>+<sp/>1ULL;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RegionSize<sp/>=<sp/>RegionEnd<sp/>-<sp/>EndAddr;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Range<sp/>=<sp/>ADDR_NOT_IN_RANGE;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Range;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">XStatus<sp/>XPm_IsMemRegnAddressValid(u32<sp/>SubsystemId,<sp/>u64<sp/>RegionAddr,<sp/>u64<sp/>RegionSize,<sp/>u8<sp/>*IsPLMem);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">XStatus<sp/>XPm_CheckMemDevRangeReachable(u64<sp/>RegionAddr,<sp/>u64<sp/>RegionSize,<sp/>u8<sp/>EnableLog);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">u32<sp/>XPm_IsPlFabricReachable(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RUNTIME_MEM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h"/>
+  </compounddef>
+</doxygen>

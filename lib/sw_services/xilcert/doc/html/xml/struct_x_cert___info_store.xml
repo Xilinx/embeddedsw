@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___info_store" kind="struct" prot="public">
+    <compoundname>XCert_InfoStore</compoundname>
+    <includes local="no">xcert_genx509cert.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___info_store_1ac3fe987c9d4a8cba908cc5a68032e5e5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_InfoStore::SubsystemId</definition>
+        <argsstring></argsstring>
+        <name>SubsystemId</name>
+        <briefdescription>
+<para>Subsystem Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___info_store_1ad9de2a61a996f87369af2ec02653ebe9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_InfoStore::KeyIndex</definition>
+        <argsstring></argsstring>
+        <name>KeyIndex</name>
+        <briefdescription>
+<para>Key Index for given Subsystem Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___info_store_1a7f309cd92a24e82f2011c9c695cf6c28" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cert___user_cfg" kindref="compound">XCert_UserCfg</ref></type>
+        <definition>XCert_UserCfg XCert_InfoStore::UserCfg</definition>
+        <argsstring></argsstring>
+        <name>UserCfg</name>
+        <briefdescription>
+<para>User configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" compoundref="xcert__genx509cert_8c" startline="732" endline="800">XCert_StoreCertUserInput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___info_store_1ad1019b23dfab72a8fc902fb30ef253fc" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cert___sign_store" kindref="compound">XCert_SignStore</ref></type>
+        <definition>XCert_SignStore XCert_InfoStore::SignStore</definition>
+        <argsstring></argsstring>
+        <name>SignStore</name>
+        <briefdescription>
+<para>Signature store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains user configuration and information related to stored signature for given Subsystem ID. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>XCert_SignStore</label>
+        <link refid="struct_x_cert___sign_store"/>
+      </node>
+      <node id="16">
+        <label>XCert_InfoStore</label>
+        <link refid="struct_x_cert___info_store"/>
+        <childnode refid="17" relation="usage">
+          <edgelabel>SignStore</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>UserCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>XCert_UserCfg</label>
+        <link refid="struct_x_cert___user_cfg"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="136" bodyend="141"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___info_store_1ad9de2a61a996f87369af2ec02653ebe9" prot="public" virt="non-virtual"><scope>XCert_InfoStore</scope><name>KeyIndex</name></member>
+      <member refid="struct_x_cert___info_store_1ad1019b23dfab72a8fc902fb30ef253fc" prot="public" virt="non-virtual"><scope>XCert_InfoStore</scope><name>SignStore</name></member>
+      <member refid="struct_x_cert___info_store_1ac3fe987c9d4a8cba908cc5a68032e5e5" prot="public" virt="non-virtual"><scope>XCert_InfoStore</scope><name>SubsystemId</name></member>
+      <member refid="struct_x_cert___info_store_1a7f309cd92a24e82f2011c9c695cf6c28" prot="public" virt="non-virtual"><scope>XCert_InfoStore</scope><name>UserCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

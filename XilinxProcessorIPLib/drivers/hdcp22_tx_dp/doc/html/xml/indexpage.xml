@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>hdcp22_tx_dp</title>
+    <detaileddescription>
+<para>This file contains static initialization method for Xilinx HDCP 2.2 Transmitter driver.<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  jb     02/21/19 Initial release
+3.00  jb     12/24/21 File name changed from xhdcp22_tx_sinit.c to
+                      <ref refid="xhdcp22__tx__dp__sinit_8c" kindref="compound">xhdcp22_tx_dp_sinit.c</ref>. Also all APIs and structure
+                      names are added with suffix _dp.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

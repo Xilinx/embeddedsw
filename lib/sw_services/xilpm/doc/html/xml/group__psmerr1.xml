@@ -1,0 +1,695 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__psmerr1" kind="group">
+    <compoundname>psmerr1</compoundname>
+    <title>Error Event Mask for PSM ERR1</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__psmerr1_1ga035901e74b724d4f4562b74de7f16c19" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PS_SW_CR</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for PS Software can write to trigger register to generate this Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="350" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga64fa8bcfa5571243c7da54887d93403a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PS_SW_NCR</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for PS Software can write to trigger register to generate this Non-Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaf4296a5ba918b761737cd309d4133b85" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_B_CR</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Firmware can write to trigger register to generate this Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="358" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gae72f372014e9d702074596be4f45072e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_B_NCR</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Firmware can write to trigger register to generate this Non-Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="362" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gabb5f2238e844ea2d0dcdcce319d8edf8" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MB_FATAL</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Or of MB Fatal1, Fatal2, Fatal3 Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga2d3f97c09b3f45608c4b408ea2f52773" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_CR</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Correctable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="368" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaa28b98cd51abc49402ffc7657734288b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_NCR</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Non-Correctable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga1a3e50a6a2cb62d1f91db56d28804589" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSMX_CHK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSMX CHK error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="374" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga5ecc274a28d313d1a7328ed77f6ad51a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APLL1_LOCK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for APLL1 lock error. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="378" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaf055b0d6746debcdac16c55825f6228a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APLL2_LOCK</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for APLL2 lock error. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="382" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga4f05234a11b1fb76a10af3dd7bcc1df7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPLL_LOCK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for RPLL Lock Errors. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="386" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gafb5834ac89ff492340a44c8a3fcfc974" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FLXPLL_LOCK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for FLXPLL Lock Errors. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="390" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga34a0cbc1fff8c2ecc726c1af75f4e8f4" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PSM_CR</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_PSM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="393" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaae041d5416faeed2471ffe2bbc55f15d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PSM_NCR</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_PSM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="396" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaff51ff8aa54300cdeb7f90808cda6201" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_USB2</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Consolidated Error from the two USB2 blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="399" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga0b761034bce73ae22bde68bf32435cf3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPX_UXPT_ACT</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPX unexpected dfx activation error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="402" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="402" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gad973e514f5178867aac1b93009b69244" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_LPD_CR</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_LPD correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="405" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="405" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gafa47fcbf57628df736694e4024f8e476" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_LPD_NCR</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_LPD non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga01004225c1afc91b443942187a619ce5" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_OCM_CR</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_OCM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="411" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaf440fcda699d75c857e7ba8f0100df46" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_OCM_NCR</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_OCM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="414" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga37c6740a4a931982bfc46ab319737256" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_FPD_CR</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_FPD correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="417" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gae65237b8dd9f5955f4ea5b8fda517c84" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_FPD_NCR</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_FPD non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="420" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga71e84d9d7d0fb8f1a2c23bcfb24d089d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_IOU_CR</name>
+        <initializer>(0x00800000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_IOU correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="423" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga9b4d22b4d9242fa1df49c79bcaa5f954" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_IOU_NCR</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_IOU non-correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="426" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga3110735af5ff7f46f64dc05262704f55" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPUA_LOCKSTEP</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for RPU lockstep error for ClusterA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="429" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gabb4d0e49c750f8852bc3f9a2a48696da" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPUB_LOCKSTEP</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for RPU lockstep error for ClusterB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="432" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="432" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gadb50b6b92844d2ea31e28b2bb14872c7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_GIC_AXI</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU GIC AXI error (slverr, decerr). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="435" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gafaaf62cb3d92ef57ed81ddef2a534829" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_GIC_ECC</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU GIC ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="438" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga61afcb0379c95872666628c24771f03a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CPM_CR</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CPM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="441" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gad95265eeaa262855c45241ca5e94df65" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CPM_NCR</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CPM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="444" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga52e718379ea92ca90883ab065306448b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CPI</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CPI error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="447" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga035901e74b724d4f4562b74de7f16c19" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PS_SW_CR</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for PS Software can write to trigger register to generate this Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="352" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga64fa8bcfa5571243c7da54887d93403a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PS_SW_NCR</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for PS Software can write to trigger register to generate this Non-Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaf4296a5ba918b761737cd309d4133b85" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_B_CR</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Firmware can write to trigger register to generate this Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="360" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gae72f372014e9d702074596be4f45072e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_B_NCR</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Firmware can write to trigger register to generate this Non-Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gabb5f2238e844ea2d0dcdcce319d8edf8" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MB_FATAL</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Or of MB Fatal1, Fatal2, Fatal3 Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="367" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga2d3f97c09b3f45608c4b408ea2f52773" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_CR</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Correctable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaa28b98cd51abc49402ffc7657734288b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSM_NCR</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSM Non-Correctable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="373" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga1a3e50a6a2cb62d1f91db56d28804589" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSMX_CHK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSMX CHK error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="376" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga5ecc274a28d313d1a7328ed77f6ad51a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APLL1_LOCK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for APLL1 lock error. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="380" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaf055b0d6746debcdac16c55825f6228a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APLL2_LOCK</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for APLL2 lock error. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga4f05234a11b1fb76a10af3dd7bcc1df7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPLL_LOCK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for RPLL Lock Errors. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="388" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gafb5834ac89ff492340a44c8a3fcfc974" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FLXPLL_LOCK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for FLXPLL Lock Errors. </para>        </briefdescription>
+        <detaileddescription>
+<para>The error can be unmasked after the PLL is locked to alert when the PLL loses lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="392" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga34a0cbc1fff8c2ecc726c1af75f4e8f4" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PSM_CR</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_PSM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="395" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaae041d5416faeed2471ffe2bbc55f15d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_PSM_NCR</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_PSM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="398" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaff51ff8aa54300cdeb7f90808cda6201" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_USB2</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Consolidated Error from the two USB2 blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="401" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga0b761034bce73ae22bde68bf32435cf3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPX_UXPT_ACT</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPX unexpected dfx activation error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="404" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gad973e514f5178867aac1b93009b69244" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_LPD_CR</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_LPD correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="407" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gafa47fcbf57628df736694e4024f8e476" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_LPD_NCR</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_LPD non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="410" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga01004225c1afc91b443942187a619ce5" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_OCM_CR</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_OCM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="413" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gaf440fcda699d75c857e7ba8f0100df46" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_OCM_NCR</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_OCM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="416" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga37c6740a4a931982bfc46ab319737256" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_FPD_CR</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_FPD correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="419" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gae65237b8dd9f5955f4ea5b8fda517c84" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_FPD_NCR</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_FPD non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="422" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga71e84d9d7d0fb8f1a2c23bcfb24d089d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_IOU_CR</name>
+        <initializer>(0x00800000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_IOU correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="425" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga9b4d22b4d9242fa1df49c79bcaa5f954" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_INT_IOU_NCR</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for INT_IOU non-correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="428" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga3110735af5ff7f46f64dc05262704f55" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPUA_LOCKSTEP</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for RPU lockstep error for ClusterA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="431" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gabb4d0e49c750f8852bc3f9a2a48696da" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_RPUB_LOCKSTEP</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for RPU lockstep error for ClusterB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="434" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gadb50b6b92844d2ea31e28b2bb14872c7" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_GIC_AXI</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU GIC AXI error (slverr, decerr). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="437" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gafaaf62cb3d92ef57ed81ddef2a534829" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_GIC_ECC</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU GIC ECC error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="440" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga61afcb0379c95872666628c24771f03a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CPM_CR</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CPM correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="443" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1gad95265eeaa262855c45241ca5e94df65" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CPM_NCR</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CPM non-correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="446" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr1_1ga52e718379ea92ca90883ab065306448b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_CPI</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for CPI error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="449" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to PSM ERR1 Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

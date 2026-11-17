@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___device_attr" kind="struct" prot="public">
+    <compoundname>XPm_DeviceAttr</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___device_attr_1a38c520d8461bddd893a7aea2bb6af1cb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_DeviceAttr::SecurityBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>SecurityBaseAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_attr_1a2b9adfcc123e56dbf8b12e0d1c752ebf" prot="public" static="no" mutable="no">
+        <type>struct XPm_RegAttr</type>
+        <definition>struct XPm_RegAttr XPm_DeviceAttr::Security[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Security</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_attr_1a91aa2fb431e7aa4732aca9789d3b4845" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_DeviceAttr::CohVirtBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CohVirtBaseAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_attr_1a1181c71498516ba5c368ef62fe424375" prot="public" static="no" mutable="no">
+        <type>struct XPm_RegAttr</type>
+        <definition>struct XPm_RegAttr XPm_DeviceAttr::Coherency</definition>
+        <argsstring></argsstring>
+        <name>Coherency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_attr_1a0da0c8493be639e5fff4372e58765958" prot="public" static="no" mutable="no">
+        <type>struct XPm_RegAttr</type>
+        <definition>struct XPm_RegAttr XPm_DeviceAttr::Virtualization</definition>
+        <argsstring></argsstring>
+        <name>Virtualization</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="84" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___device_attr_1a1181c71498516ba5c368ef62fe424375" prot="public" virt="non-virtual"><scope>XPm_DeviceAttr</scope><name>Coherency</name></member>
+      <member refid="struct_x_pm___device_attr_1a91aa2fb431e7aa4732aca9789d3b4845" prot="public" virt="non-virtual"><scope>XPm_DeviceAttr</scope><name>CohVirtBaseAddr</name></member>
+      <member refid="struct_x_pm___device_attr_1a2b9adfcc123e56dbf8b12e0d1c752ebf" prot="public" virt="non-virtual"><scope>XPm_DeviceAttr</scope><name>Security</name></member>
+      <member refid="struct_x_pm___device_attr_1a38c520d8461bddd893a7aea2bb6af1cb" prot="public" virt="non-virtual"><scope>XPm_DeviceAttr</scope><name>SecurityBaseAddr</name></member>
+      <member refid="struct_x_pm___device_attr_1a0da0c8493be639e5fff4372e58765958" prot="public" virt="non-virtual"><scope>XPm_DeviceAttr</scope><name>Virtualization</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

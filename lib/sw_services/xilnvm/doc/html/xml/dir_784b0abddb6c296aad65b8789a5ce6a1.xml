@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_784b0abddb6c296aad65b8789a5ce6a1" kind="dir">
+    <compoundname>efuse</compoundname>
+    <innerdir refid="dir_82327f248d6f0dec3f5fb2123c58de0c">core</innerdir>
+    <innerdir refid="dir_355a108d42d89bf30d25486aaf7331b3">field</innerdir>
+    <innerdir refid="dir_3f988067533b75e6489015cbda2e8846">versal_net</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilpmsubsysnodes" kind="group">
+    <compoundname>xilpmsubsysnodes</compoundname>
+    <title>Subsystem Nodes</title>
+    <innergroup refid="group__xilpmmiscnodes">Miscellaneous Nodes</innergroup>
+      <sectiondef kind="user-defined">
+      <header>Versal Subsystem Nodes</header>
+      <memberdef kind="define" id="group__xilpmsubsysnodes_1gadf69ae621a0ec885da847bae6fb6bece" prot="public" static="no">
+        <name>PM_SUBSYS_DEFAULT</name>
+        <initializer>(0x1C000000U)</initializer>
+        <briefdescription>
+<para>Versal Subsystem Nodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="1162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="1162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmsubsysnodes_1ga3d1ab8da4f55ae44fa358a6a36dff4c8" prot="public" static="no">
+        <name>PM_SUBSYS_PMC</name>
+        <initializer>(0x1C000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="1163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="1163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmsubsysnodes_1ga22ea6b1b6022f95dadfb08eaf211915a" prot="public" static="no">
+        <name>PM_SUBSYS_ASU</name>
+        <initializer>(0x1C000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="1164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="1164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

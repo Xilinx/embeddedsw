@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pwr_ctl_wakeup_handler_table__t" kind="struct" prot="public">
+    <compoundname>PwrCtlWakeupHandlerTable_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pwr_ctl_wakeup_handler_table__t_1a1038a9b7275259dbdb3e2bae49cc139b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PwrCtlWakeupHandlerTable_t::DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pwr_ctl_wakeup_handler_table__t_1a174cf1f0d7dab5276e8f6607e4330d96" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PwrCtlWakeupHandlerTable_t::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pwr_ctl_wakeup_handler_table__t_1a944662313071f7fd7807b7ebd942b9da" prot="public" static="no" mutable="no">
+        <type>struct XPmFwPwrCtrl_t *</type>
+        <definition>struct XPmFwPwrCtrl_t* PwrCtlWakeupHandlerTable_t::Args</definition>
+        <argsstring></argsstring>
+        <name>Args</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="166" bodyend="170"/>
+    <listofallmembers>
+      <member refid="struct_pwr_ctl_wakeup_handler_table__t_1a944662313071f7fd7807b7ebd942b9da" prot="public" virt="non-virtual"><scope>PwrCtlWakeupHandlerTable_t</scope><name>Args</name></member>
+      <member refid="struct_pwr_ctl_wakeup_handler_table__t_1a1038a9b7275259dbdb3e2bae49cc139b" prot="public" virt="non-virtual"><scope>PwrCtlWakeupHandlerTable_t</scope><name>DeviceId</name></member>
+      <member refid="struct_pwr_ctl_wakeup_handler_table__t_1a174cf1f0d7dab5276e8f6607e4330d96" prot="public" virt="non-virtual"><scope>PwrCtlWakeupHandlerTable_t</scope><name>Mask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

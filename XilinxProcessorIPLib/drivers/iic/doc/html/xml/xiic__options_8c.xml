@@ -1,0 +1,493 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__options_8c" kind="file">
+    <compoundname>xiic_options.c</compoundname>
+    <includes refid="xiic_8h" local="yes">xiic.h</includes>
+    <includes refid="xiic__i_8h" local="yes">xiic_i.h</includes>
+    <incdepgraph>
+      <node id="219">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="222">
+        <label>xil_io.h</label>
+      </node>
+      <node id="216">
+        <label>xiic_options.c</label>
+        <link refid="xiic_options.c"/>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="217">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+      </node>
+      <node id="220">
+        <label>xstatus.h</label>
+      </node>
+      <node id="218">
+        <label>xil_types.h</label>
+      </node>
+      <node id="221">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+      </node>
+      <node id="223">
+        <label>xiic_i.h</label>
+        <link refid="xiic__i_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_timing_regs" prot="public">TimingRegs</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__iic__api_1ga9d5bbd0dd16931b8230a64b587d7be3d" prot="public" static="no">
+        <name>XIIC_REG_VALUES_100KHZ</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Timing table index for 100 kHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic__api_1ga253f6aec57547c72be13f5da515e4e65" prot="public" static="no">
+        <name>XIIC_REG_VALUES_400KHZ</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Timing table index for 400 kHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic__api_1ga7e7603570933745fa2232a0c2a08db20" prot="public" static="no">
+        <name>XIIC_REG_VALUES_1MHZ</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Timing table index for 1 MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic__api_1ga8efe3f2caa0a1dfa44c4970ad399f3be" prot="public" static="no">
+        <name>XIIC_STANDARD_MODE</name>
+        <initializer>100000U</initializer>
+        <briefdescription>
+<para>Standard mode SCL rate in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic__api_1gabf3cebd7267a2493f601cf58dcbcb652" prot="public" static="no">
+        <name>XIIC_FAST_MODE</name>
+        <initializer>400000U</initializer>
+        <briefdescription>
+<para>Fast mode SCL rate in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic__api_1gaaf784247a1d6a6159b8f1fd2104553ea" prot="public" static="no">
+        <name>XIIC_FAST_MODE_PLUS</name>
+        <initializer>1000000U</initializer>
+        <briefdescription>
+<para>Fast mode plus SCL rate in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" prot="public" static="no">
+        <name>XIIC_NANOSEC_TO_SEC_DIVISOR</name>
+        <initializer>1000000000U</initializer>
+        <briefdescription>
+<para>Number of nanoseconds in one second. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="203" endline="260">XIic_SetClk</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__iic__api_1ga199ebb904ea8f594472703c9f03c21f0" prot="public" static="yes" mutable="no">
+        <type>struct TimingRegs</type>
+        <definition>struct TimingRegs TimingRegValues[]</definition>
+        <argsstring>[]</argsstring>
+        <name>TimingRegValues</name>
+        <initializer>= {
+        { 5700, 5000, 4300, 550, 5000 },
+        { 900, 900, 900, 400, 1600 },
+        { 380, 380, 380, 170, 620 },
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iic__api_1ga900a7ab49c2e13b0562ab629c088cf3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_SetOptions</definition>
+        <argsstring>(XIic *InstancePtr, u32 NewOptions)</argsstring>
+        <name>XIic_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NewOptions</declname>
+        </param>
+        <briefdescription>
+<para>Sets the options for the IIC device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the options for the IIC device driver. The options control how the device behaves relative to the IIC bus. If an option applies to how messages are sent or received on the IIC bus, it must be set prior to calling functions which send or receive data.</para><para>To set multiple options, the values must be ORed together. To not change existing options, read/modify/write with the current options using <ref refid="group__iic_1gaf15dd70c4f1bb34a9e35c1ca85cee841" kindref="member">XIic_GetOptions()</ref>.</para><para><bold>USAGE EXAMPLE:</bold></para><para>Read/modify/write to enable repeated start: <preformatted>
+  u8 Options;
+  Options = XIic_GetOptions(&amp;Iic);
+  XIic_SetOptions(&amp;Iic, Options | XII_REPEATED_START_OPTION);
+</preformatted></para><para>Disabling General Call: <preformatted>
+  Options = XIic_GetOptions(&amp;Iic);
+  XIic_SetOptions(&amp;Iic, Options &amp;= ~XII_GENERAL_CALL_OPTION);
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NewOptions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The options to be set. See <ref refid="xiic_8h" kindref="compound">xiic.h</ref> for a list of the available options.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Sending or receiving messages with repeated start enabled, and then disabling repeated start, does not take effect until another master transaction is completed. That is, after using repeated start, the bus continues to be throttled after repeated start is disabled until a master transaction occurs allowing the IIC to release the bus. <linebreak/>
+<linebreak/>
+ Options enabled have a 1 in its appropriate bit position. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="126" bodyend="157"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+        <references refid="group__iic_1ga44d0ebf5153203223cb5563aaa10a301" compoundref="xiic_8h" startline="353">XII_GENERAL_CALL_OPTION</references>
+        <references refid="group__iic__api_1gac9dda6b07f8f4d2962b8833b05b8603b" compoundref="xiic__l_8h" startline="199">XIIC_CR_GENERAL_CALL_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic__api_1gaf15dd70c4f1bb34a9e35c1ca85cee841" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIic_GetOptions</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current options for the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function gets the current options for the IIC device. Options control the how the device behaves on the IIC bus. See SetOptions for more information on options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The options of the IIC device. See <ref refid="xiic_8h" kindref="compound">xiic.h</ref> for a list of available options.</para></simplesect>
+<simplesect kind="note"><para>Options enabled have a 1 in its appropriate bit position. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="176" bodyend="181"/>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIic_SetClk</definition>
+        <argsstring>(XIic *InstancePtr, u32 FsclHz)</argsstring>
+        <name>XIic_SetClk</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FsclHz</declname>
+        </param>
+        <briefdescription>
+<para>Sets the serial clock rate for the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device must be idle before setting these device options. The timing register values are calculated according to the input clock frequency and configured scl frequency. For details, refer to the AXI I2C PG and NXP I2C Spec.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FsclHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock frequency in Hz(100kHz, 400kHz, 1MHz).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem><listitem><para>XST_INVALID_PARAM if frequency is unsupported or invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="203" bodyend="260"/>
+        <references refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" compoundref="xiic_8h" startline="506">XIic::AxiClkFreq</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" compoundref="xiic_8h" startline="505">XIic::SerialClkDelay</references>
+        <references refid="group__iic__api_1ga63ef537f0fba0aa0c68f9be05516c6c9" compoundref="xiic__l_8h" startline="100">XIIC_DTR_REG_OFFSET</references>
+        <references refid="group__iic__api_1gabf3cebd7267a2493f601cf58dcbcb652" compoundref="xiic__options_8c" startline="64">XIIC_FAST_MODE</references>
+        <references refid="group__iic__api_1gaaf784247a1d6a6159b8f1fd2104553ea" compoundref="xiic__options_8c" startline="65">XIIC_FAST_MODE_PLUS</references>
+        <references refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" compoundref="xiic__options_8c" startline="68">XIIC_NANOSEC_TO_SEC_DIVISOR</references>
+        <references refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" compoundref="xiic__l_8h" startline="269">XIic_Out32</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1ga9d5bbd0dd16931b8230a64b587d7be3d" compoundref="xiic__options_8c" startline="59">XIIC_REG_VALUES_100KHZ</references>
+        <references refid="group__iic__api_1ga7e7603570933745fa2232a0c2a08db20" compoundref="xiic__options_8c" startline="61">XIIC_REG_VALUES_1MHZ</references>
+        <references refid="group__iic__api_1ga253f6aec57547c72be13f5da515e4e65" compoundref="xiic__options_8c" startline="60">XIIC_REG_VALUES_400KHZ</references>
+        <references refid="group__iic__api_1ga8efe3f2caa0a1dfa44c4970ad399f3be" compoundref="xiic__options_8c" startline="63">XIIC_STANDARD_MODE</references>
+        <references refid="group__iic__api_1ga0b9bf5db960246435433574c368612e1" compoundref="xiic__l_8h" startline="126">XIIC_TBUF_REG_OFFSET</references>
+        <references refid="group__iic__api_1gac2e01a20b53ae854a7d2d35ec222009c" compoundref="xiic__l_8h" startline="132">XIIC_THDDAT_REG_OFFSET</references>
+        <references refid="group__iic__api_1gac658a66383df30bad42178b20c394af3" compoundref="xiic__l_8h" startline="122">XIIC_THDSTA_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga6f996db256a8421c0505ddc485b96535" compoundref="xiic__l_8h" startline="128">XIIC_THIGH_REG_OFFSET</references>
+        <references refid="group__iic__api_1gad155dd6c07a52eaa0e307b035d260de6" compoundref="xiic__l_8h" startline="130">XIIC_TLOW_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga11cebf32d326154287a2cb0d3029db91" compoundref="xiic__l_8h" startline="124">XIIC_TSUDAT_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga68dcc1c26b4c5542df2deb834894259b" compoundref="xiic__l_8h" startline="118">XIIC_TSUSTA_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga9797e7cca8bcdece8bfdf7aa2ba9d317" compoundref="xiic__l_8h" startline="120">XIIC_TSUSTO_REG_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements IIC option and GPO helpers. </para>    </briefdescription>
+    <detaileddescription>
+<para>Contains options functions for the <ref refid="struct_x_iic" kindref="compound">XIic</ref> component. This file is not required unless the functions in this file are called.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.01b jhl 3/26/02 repartioned the driver
+1.01c ecm 12/05/02 new rev
+1.13a wgr 03/22/07 Converted to new coding style.
+2.00a ktn 10/22/09 Converted all register accesses to 32 bit access.
+                     Updated to use the HAL APIs/macros.
+3.15  vlt 12/04/25 Add XIic_SetClk API for dynamic clock configuration.
+3.16  vn  07/30/26 Fix Doxygen warnings
+3.16  tb  09/22/26 Align Doxygen comments with AMD documentation standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic_8h" kindref="compound">xiic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic__i_8h" kindref="compound">xiic_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TimingRegs<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Tsusta;<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Tsusto;<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Thdsta;<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Tsudat;<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Tbuf;<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__iic__api_1ga9d5bbd0dd16931b8230a64b587d7be3d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIIC_REG_VALUES_100KHZ<sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__iic__api_1ga253f6aec57547c72be13f5da515e4e65" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_REG_VALUES_400KHZ<sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__iic__api_1ga7e7603570933745fa2232a0c2a08db20" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_REG_VALUES_1MHZ<sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__iic__api_1ga8efe3f2caa0a1dfa44c4970ad399f3be" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_STANDARD_MODE<sp/><sp/><sp/>100000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__iic__api_1gabf3cebd7267a2493f601cf58dcbcb652" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_FAST_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>400000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__iic__api_1gaaf784247a1d6a6159b8f1fd2104553ea" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_FAST_MODE_PLUS<sp/><sp/>1000000U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_NANOSEC_TO_SEC_DIVISOR<sp/><sp/><sp/><sp/>1000000000U</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>**************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">TimingRegs<sp/>TimingRegValues[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>5700,<sp/>5000,<sp/>4300,<sp/>550,<sp/>5000<sp/>},<sp/></highlight><highlight class="comment">/*<sp/>Reg<sp/>values<sp/>for<sp/>100KHz<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>900,<sp/>900,<sp/>900,<sp/>400,<sp/>1600<sp/>},<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reg<sp/>values<sp/>for<sp/>400KHz<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>380,<sp/>380,<sp/>380,<sp/>170,<sp/>620<sp/>},<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reg<sp/>values<sp/>for<sp/>1MHz<sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="126" refid="group__iic__api_1ga900a7ab49c2e13b0562ab629c088cf3a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iic_1gae108a8105a28ba4410b3bd682a87a459" kindref="member">XIic_SetOptions</ref>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/>u32<sp/>NewOptions)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CntlReg;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" kindref="member">XIic_IntrGlobalDisable</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>options<sp/>in<sp/>the<sp/>instance<sp/>and<sp/>get<sp/>the<sp/>contents<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>control<sp/>register<sp/>such<sp/>that<sp/>the<sp/>general<sp/>call<sp/>option<sp/>can<sp/>be<sp/>modified.</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" kindref="member">Options</ref><sp/>=<sp/>NewOptions;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CntlReg<sp/>=<sp/><ref refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>general<sp/>call<sp/>option<sp/>is<sp/>the<sp/>only<sp/>option<sp/>that<sp/>maps<sp/>directly<sp/>to</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>a<sp/>hardware<sp/>register<sp/>feature.</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NewOptions<sp/>&amp;<sp/><ref refid="group__iic_1ga44d0ebf5153203223cb5563aaa10a301" kindref="member">XII_GENERAL_CALL_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CntlReg<sp/>|=<sp/><ref refid="group__iic__api_1gac9dda6b07f8f4d2962b8833b05b8603b" kindref="member">XIIC_CR_GENERAL_CALL_MASK</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CntlReg<sp/>&amp;=<sp/>~<ref refid="group__iic__api_1gac9dda6b07f8f4d2962b8833b05b8603b" kindref="member">XIIC_CR_GENERAL_CALL_MASK</ref>;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>new<sp/>control<sp/>register<sp/>value<sp/>to<sp/>the<sp/>register.</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" kindref="member">XIic_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>,<sp/>CntlReg);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" kindref="member">XIic_IntrGlobalEnable</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="176" refid="group__iic__api_1gaf15dd70c4f1bb34a9e35c1ca85cee841" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__iic_1gaf15dd70c4f1bb34a9e35c1ca85cee841" kindref="member">XIic_GetOptions</ref>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" kindref="member">Options</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="203" refid="group__iic__api_1ga6e3b4f3e96cb3da5216030e32cbf8894" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__iic_1ga6e3b4f3e96cb3da5216030e32cbf8894" kindref="member">XIic_SetClk</ref>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/>u32<sp/>FsclHz)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ClkInMhz;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimingIndex=<sp/>0U;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__iic__api_1ga63ef537f0fba0aa0c68f9be05516c6c9" kindref="member">XIIC_DTR_REG_OFFSET</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_IS_STARTED;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Select<sp/>timing<sp/>register<sp/>values<sp/>based<sp/>on<sp/>target<sp/>SCL<sp/>frequency<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FsclHz<sp/>&lt;=<ref refid="group__iic__api_1ga8efe3f2caa0a1dfa44c4970ad399f3be" kindref="member">XIIC_STANDARD_MODE</ref>)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Standard-mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingIndex<sp/>=<sp/><ref refid="group__iic__api_1ga9d5bbd0dd16931b8230a64b587d7be3d" kindref="member">XIIC_REG_VALUES_100KHZ</ref>;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FsclHz<sp/>&lt;=<sp/><ref refid="group__iic__api_1gabf3cebd7267a2493f601cf58dcbcb652" kindref="member">XIIC_FAST_MODE</ref>)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fast-mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingIndex=<sp/><ref refid="group__iic__api_1ga253f6aec57547c72be13f5da515e4e65" kindref="member">XIIC_REG_VALUES_400KHZ</ref>;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FsclHz<sp/>&lt;=<ref refid="group__iic__api_1gaaf784247a1d6a6159b8f1fd2104553ea" kindref="member">XIIC_FAST_MODE_PLUS</ref>)<sp/>{<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fast-mode<sp/>Plus<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingIndex<sp/>=<sp/><ref refid="group__iic__api_1ga7e7603570933745fa2232a0c2a08db20" kindref="member">XIIC_REG_VALUES_1MHZ</ref>;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Calculate<sp/>SCL<sp/>HIGH<sp/>and<sp/>LOW<sp/>period<sp/>register<sp/>values.</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Formula:((AXI<sp/>Clock<sp/>frequency<sp/>in<sp/>Hz)/(2<sp/>×<sp/>IIC<sp/>frequency<sp/>in<sp/>Hz))<sp/>–<sp/>7<sp/>–<sp/>SCL_INERTIAL_DELAY</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(u32)(InstancePtr-&gt;<ref refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" kindref="member">AxiClkFreq</ref><sp/>/<sp/>(2U<sp/>*<sp/>FsclHz))<sp/>-<sp/>7U<sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" kindref="member">SerialClkDelay</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(RegVal<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>SCL<sp/>high<sp/>and<sp/>low<sp/>period<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1ga6f996db256a8421c0505ddc485b96535" kindref="member">XIIC_THIGH_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1gad155dd6c07a52eaa0e307b035d260de6" kindref="member">XIIC_TLOW_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>nanoseconds<sp/>to<sp/>clock<sp/>cycles:(ns<sp/>×<sp/>MHz)<sp/>/<sp/>1000<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>START<sp/>condition<sp/>setup<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClkInMhz<sp/>=<sp/>(u64)TimingRegValues[TimingIndex].Tsusta<sp/>*<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" kindref="member">AxiClkFreq</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(u32)(ClkInMhz<sp/>/<sp/><ref refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" kindref="member">XIIC_NANOSEC_TO_SEC_DIVISOR</ref>);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1ga68dcc1c26b4c5542df2deb834894259b" kindref="member">XIIC_TSUSTA_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>STOP<sp/>condition<sp/>setup<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClkInMhz<sp/>=<sp/>(u64)TimingRegValues[TimingIndex].Tsusto<sp/>*<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" kindref="member">AxiClkFreq</ref>;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(u32)(ClkInMhz<sp/>/<sp/><ref refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" kindref="member">XIIC_NANOSEC_TO_SEC_DIVISOR</ref>);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1ga9797e7cca8bcdece8bfdf7aa2ba9d317" kindref="member">XIIC_TSUSTO_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>START<sp/>condition<sp/>hold<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClkInMhz<sp/>=<sp/>(u64)TimingRegValues[TimingIndex].Thdsta<sp/>*<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" kindref="member">AxiClkFreq</ref>;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(u32)(ClkInMhz<sp/>/<sp/><ref refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" kindref="member">XIIC_NANOSEC_TO_SEC_DIVISOR</ref>);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1gac658a66383df30bad42178b20c394af3" kindref="member">XIIC_THDSTA_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>data<sp/>setup<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClkInMhz<sp/>=<sp/>(u64)TimingRegValues[TimingIndex].Tsudat<sp/>*<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" kindref="member">AxiClkFreq</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(u32)(ClkInMhz<sp/>/<sp/><ref refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" kindref="member">XIIC_NANOSEC_TO_SEC_DIVISOR</ref>);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1ga11cebf32d326154287a2cb0d3029db91" kindref="member">XIIC_TSUDAT_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>bus<sp/>free<sp/>time<sp/>between<sp/>STOP<sp/>and<sp/>START<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClkInMhz<sp/>=<sp/>(u64)TimingRegValues[TimingIndex].Tbuf<sp/>*<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" kindref="member">AxiClkFreq</ref>;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(u32)(ClkInMhz<sp/>/<sp/><ref refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" kindref="member">XIIC_NANOSEC_TO_SEC_DIVISOR</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1ga0b9bf5db960246435433574c368612e1" kindref="member">XIIC_TBUF_REG_OFFSET</ref>,<sp/>RegVal<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>data<sp/>hold<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" kindref="member">XIic_Out32</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref><sp/>+<sp/><ref refid="group__iic__api_1gac2e01a20b53ae854a7d2d35ec222009c" kindref="member">XIIC_THDDAT_REG_OFFSET</ref>,<sp/>1U);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c"/>
+  </compounddef>
+</doxygen>

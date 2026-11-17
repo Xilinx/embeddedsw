@@ -1,0 +1,1014 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__phy_8c" kind="file">
+    <compoundname>mbox_phy.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes refid="mbox__phy_8h" local="yes">mbox_phy.h</includes>
+    <includes refid="mbox__api_8h" local="yes">mbox_api.h</includes>
+    <includes refid="mbox__error__code_8h" local="yes">mbox_error_code.h</includes>
+    <includes refid="oslayer_8h" local="yes">oslayer.h</includes>
+    <includes local="yes">vlog.h</includes>
+    <includes local="yes">xil_mmu.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xipipsu.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xscugic.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="6889">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6894">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6884">
+        <label>stdint.h</label>
+      </node>
+      <node id="6887">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6895">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6894" relation="include">
+        </childnode>
+        <childnode refid="6896" relation="include">
+        </childnode>
+      </node>
+      <node id="6890">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6897">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6899">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6893" relation="include">
+        </childnode>
+        <childnode refid="6900" relation="include">
+        </childnode>
+      </node>
+      <node id="6893">
+        <label>mbox_api.h</label>
+        <childnode refid="6894" relation="include">
+        </childnode>
+        <childnode refid="6884" relation="include">
+        </childnode>
+        <childnode refid="6895" relation="include">
+        </childnode>
+      </node>
+      <node id="6881">
+        <label>mbox_phy.c</label>
+        <link refid="mbox_phy.c"/>
+        <childnode refid="6882" relation="include">
+        </childnode>
+        <childnode refid="6883" relation="include">
+        </childnode>
+        <childnode refid="6893" relation="include">
+        </childnode>
+        <childnode refid="6897" relation="include">
+        </childnode>
+        <childnode refid="6902" relation="include">
+        </childnode>
+        <childnode refid="6909" relation="include">
+        </childnode>
+        <childnode refid="6910" relation="include">
+        </childnode>
+        <childnode refid="6911" relation="include">
+        </childnode>
+        <childnode refid="6912" relation="include">
+        </childnode>
+        <childnode refid="6913" relation="include">
+        </childnode>
+        <childnode refid="6914" relation="include">
+        </childnode>
+        <childnode refid="6915" relation="include">
+        </childnode>
+      </node>
+      <node id="6907">
+        <label>stddef.h</label>
+      </node>
+      <node id="6906">
+        <label>limits.h</label>
+      </node>
+      <node id="6915">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="6888">
+        <label>sys/types.h</label>
+      </node>
+      <node id="6882">
+        <label>string.h</label>
+      </node>
+      <node id="6898">
+        <label>mbox_hardware.h</label>
+        <childnode refid="6895" relation="include">
+        </childnode>
+      </node>
+      <node id="6903">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="6904" relation="include">
+        </childnode>
+        <childnode refid="6882" relation="include">
+        </childnode>
+      </node>
+      <node id="6901">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6891">
+        <label>signal.h</label>
+      </node>
+      <node id="6909">
+        <label>vlog.h</label>
+      </node>
+      <node id="6904">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6905" relation="include">
+        </childnode>
+        <childnode refid="6906" relation="include">
+        </childnode>
+        <childnode refid="6907" relation="include">
+        </childnode>
+      </node>
+      <node id="6885">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6886" relation="include">
+        </childnode>
+        <childnode refid="6887" relation="include">
+        </childnode>
+        <childnode refid="6888" relation="include">
+        </childnode>
+        <childnode refid="6889" relation="include">
+        </childnode>
+        <childnode refid="6890" relation="include">
+        </childnode>
+        <childnode refid="6891" relation="include">
+        </childnode>
+        <childnode refid="6892" relation="include">
+        </childnode>
+        <childnode refid="6893" relation="include">
+        </childnode>
+        <childnode refid="6897" relation="include">
+        </childnode>
+        <childnode refid="6895" relation="include">
+        </childnode>
+        <childnode refid="6898" relation="include">
+        </childnode>
+        <childnode refid="6899" relation="include">
+        </childnode>
+        <childnode refid="6901" relation="include">
+        </childnode>
+      </node>
+      <node id="6896">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6892">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6883">
+        <label>mbox_phy.h</label>
+        <childnode refid="6884" relation="include">
+        </childnode>
+        <childnode refid="6885" relation="include">
+        </childnode>
+      </node>
+      <node id="6912">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="6908">
+        <label>ff.h</label>
+      </node>
+      <node id="6913">
+        <label>xparameters.h</label>
+      </node>
+      <node id="6910">
+        <label>xil_mmu.h</label>
+      </node>
+      <node id="6911">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="6902">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="6903" relation="include">
+        </childnode>
+        <childnode refid="6908" relation="include">
+        </childnode>
+      </node>
+      <node id="6905">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="6886" relation="include">
+        </childnode>
+        <childnode refid="6887" relation="include">
+        </childnode>
+      </node>
+      <node id="6886">
+        <label>stdio.h</label>
+      </node>
+      <node id="6914">
+        <label>xscugic.h</label>
+      </node>
+      <node id="6900">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mbox__phy_8c_1a409768d6dd32d3ff211bfccfe4ecce45" prot="public" static="no">
+        <name>LOGTAG</name>
+        <initializer>&quot;MPHY&quot;</initializer>
+        <briefdescription>
+<para>Log tag used by the mailbox transport layer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__phy_8c_1aed9bd57ff1d5403ec9e702dfabeb2d58" prot="public" static="no">
+        <name>IPI5_IPI_NOBUF3_BITMASK</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>IPI channel bitmask used to notify the RPU of a posted message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__phy_8c_1a47ef76c5bc88cbca9b74cf47bc37e18c" prot="public" static="no">
+        <name>IPI5_BASEADDR</name>
+        <initializer>0xeb380000</initializer>
+        <briefdescription>
+<para>Base address of the APU-to-RPU IPI block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__phy_8c_1a9609bb38891a8fac67da5ddd001353e5" prot="public" static="no">
+        <name>MBOX_SECTION_SIZE</name>
+        <initializer>0x200000</initializer>
+        <briefdescription>
+<para>Size of the reserved mailbox shared-memory section, in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__phy_8c_1a69d6714be441102515074342e287197a" prot="public" static="no">
+        <name>BLOCK_SIZE_2MB</name>
+        <initializer>0x200000U</initializer>
+        <briefdescription>
+<para>Size of a single 2 MB memory block, in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mbox__phy_8c_1aac9b9dd3f01c78843949f1b0dd37b80c" prot="public" static="no" mutable="no">
+        <type>XScuGic</type>
+        <definition>XScuGic Intc</definition>
+        <argsstring></argsstring>
+        <name>Intc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.c" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a3193b35cdf73e9c8f2fadf38009ec5c5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t __mbox_start</definition>
+        <argsstring></argsstring>
+        <name>__mbox_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a44a4fa9eaede2d65edd3444161c85f7a" prot="public" static="no" mutable="no">
+        <type>XIpiPsu</type>
+        <definition>XIpiPsu IpiInst_apu_rpu</definition>
+        <argsstring></argsstring>
+        <name>IpiInst_apu_rpu</name>
+        <briefdescription>
+<para>IPI driver instance for APU-to-RPU messaging. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a47e72e2102d3653cacc97e22e85b4e29" prot="public" static="no" mutable="no">
+        <type>XScuGic</type>
+        <definition>XScuGic GicInst</definition>
+        <argsstring></argsstring>
+        <name>GicInst</name>
+        <briefdescription>
+<para>Interrupt controller instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a8fac2498fe5bd106b35d43af5bc91f6f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t flag</definition>
+        <argsstring></argsstring>
+        <name>flag</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>General-purpose state flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a97bcf21f1251b43567c10f696a09f4b2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+        <definition>MboxFifoCtrl* apu_fifo_ctrl</definition>
+        <argsstring></argsstring>
+        <name>apu_fifo_ctrl</name>
+        <briefdescription>
+<para>APU mailbox FIFO control block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1acb7d0eb5d1f6f7e955c89fb151d4ba43" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* wmsg</definition>
+        <argsstring></argsstring>
+        <name>wmsg</name>
+        <briefdescription>
+<para>Reusable outbound message buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a07ed32238681560570de9eb9f312d2d2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rmsg_rpu0</definition>
+        <argsstring></argsstring>
+        <name>rmsg_rpu0</name>
+        <briefdescription>
+<para>Receive buffer for RPU core 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1aeace99da59a9bede9db327a614513185" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rmsg_rpu1</definition>
+        <argsstring></argsstring>
+        <name>rmsg_rpu1</name>
+        <briefdescription>
+<para>Receive buffer for RPU core 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1a0da146c7b42f79b45468a548e55baf61" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rmsg_rpu2</definition>
+        <argsstring></argsstring>
+        <name>rmsg_rpu2</name>
+        <briefdescription>
+<para>Receive buffer for RPU core 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__phy_8c_1ab86075714d9c971670b03fc44e715146" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rmsg_rpu3</definition>
+        <argsstring></argsstring>
+        <name>rmsg_rpu3</name>
+        <briefdescription>
+<para>Receive buffer for RPU core 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__phy_8c_1a2f36dafc26b335c50e756a98c37785a5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus trigger_ipi</definition>
+        <argsstring>(XIpiPsu *instance_ptr, uint32_t dst_ipi_id)</argsstring>
+        <name>trigger_ipi</name>
+        <param>
+          <type>XIpiPsu *</type>
+          <declname>instance_ptr</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>dst_ipi_id</declname>
+        </param>
+        <briefdescription>
+<para>Triggers an IPI to a target RPU core and waits for acknowledgment. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">instance_ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the IPI driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dst_ipi_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="66" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a751111f785205b6ee67612fcf9df1744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus apu_postmsg</definition>
+        <argsstring>(MboxCoreId receiver_id)</argsstring>
+        <name>apu_postmsg</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <briefdescription>
+<para>Triggers the IPI that notifies the receiver of a posted message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="93" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a2dc7058c8f10506fd4279462d399d33a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IpiIntrHandler</definition>
+        <argsstring>(void *XIpiPsuPtr)</argsstring>
+        <name>IpiIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>XIpiPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>Handles the IPI interrupt and dispatches received messages. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">XIpiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the IPI driver instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="114" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a19e54399f15faf494bdbc55c6a881e70" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int ipi_init</definition>
+        <argsstring>(int src_ipi_id, XIpiPsu *ipi_inst)</argsstring>
+        <name>ipi_init</name>
+        <param>
+          <type>int</type>
+          <declname>src_ipi_id</declname>
+        </param>
+        <param>
+          <type>XIpiPsu *</type>
+          <declname>ipi_inst</declname>
+        </param>
+        <briefdescription>
+<para>Initializes and enables the IPI for the given source core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">src_ipi_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ipi_inst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the IPI driver instance to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 on success, -1 on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="183" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1abf591d091b3a1992a528d772ca4ed1bf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>static int32_t mailbox_phy_buffers_alloc</definition>
+        <argsstring>(void)</argsstring>
+        <name>mailbox_phy_buffers_alloc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Allocates the transmit and receive buffers used by the transport. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>VPI_SUCCESS on success, VPI_ERR_NOMEM otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="227" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a3a693ce1a3c5a6445c23de49042dae80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_phy_init</definition>
+        <argsstring>(MboxCoreId current_cpu_id)</argsstring>
+        <name>mbox_phy_init</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>current_cpu_id</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the mailbox transport layer for the local core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">current_cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="271" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a45745cddfff77ee8f123ee5f1190ab1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_phy_close</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_phy_close</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Closes the mailbox transport layer and frees its buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="303" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a0efadae4c61e4047538b4928d7353a08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_phy_send</definition>
+        <argsstring>(MboxPostMsg *msg, MboxCoreId receiver_id, MboxCoreId core_id)</argsstring>
+        <name>mbox_phy_send</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <briefdescription>
+<para>Posts a fully stamped message over the mailbox transport. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to post. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sending core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="325" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a50f542105cd6b3fa8a91adf70547e56a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_phy_pop_rx</definition>
+        <argsstring>(MboxPostMsg *out_msg)</argsstring>
+        <name>mbox_phy_pop_rx</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>out_msg</declname>
+        </param>
+        <briefdescription>
+<para>Pops the next received message from the mailbox FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">out_msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer that receives the message.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="347" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__phy_8c_1a8295ce7358730a78362c2c0654ab8951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mbox_phy_has_rx</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_phy_has_rx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns whether the mailbox FIFO has a pending message. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if a message is available, false otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="361" bodyend="367"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_phy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_error_code.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="oslayer_8h" kindref="compound">oslayer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vlog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_mmu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xipipsu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor">#define<sp/>LOGTAG<sp/>&quot;MPHY&quot;</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#define<sp/>IPI5_IPI_NOBUF3_BITMASK<sp/>0x00001000U</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>ARMR52</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#define<sp/>IPI1_BASEADDR<sp/>0xeb340000</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#define<sp/>IPI5_BASEADDR<sp/>0xeb380000</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#define<sp/>MBOX_SECTION_SIZE<sp/>0x200000</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#define<sp/>BLOCK_SIZE_2MB<sp/>0x200000U</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XScuGic<sp/>Intc;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint32_t<sp/>__mbox_start;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_interface_rx_dispatch(uint32_t<sp/>ipi_src_mask);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">XIpiPsu<sp/>IpiInst_apu_rpu;<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">XScuGic<sp/>GicInst;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">uint32_t<sp/>flag<sp/>=<sp/>0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*apu_fifo_ctrl;<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*wmsg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rmsg_rpu0;<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rmsg_rpu1;<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rmsg_rpu2;<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rmsg_rpu3;<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>trigger_ipi(XIpiPsu<sp/>*instance_ptr,<sp/>uint32_t<sp/>dst_ipi_id)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>status<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>dst_ipi_id_offset<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dst_ipi_id<sp/>==<sp/>MBOX_CORE_RPU0)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_ipi_id_offset<sp/>=<sp/>RPU0_TARGET;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dst_ipi_id<sp/>==<sp/>MBOX_CORE_RPU1)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_ipi_id_offset<sp/>=<sp/>RPU1_TARGET;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dst_ipi_id<sp/>==<sp/>MBOX_CORE_RPU2)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_ipi_id_offset<sp/>=<sp/>RPU2_TARGET;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dst_ipi_id<sp/>==<sp/>MBOX_CORE_RPU3)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dst_ipi_id_offset<sp/>=<sp/>RPU3_TARGET;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>instance_ptr-&gt;Config.TargetList[dst_ipi_id_offset].Mask<sp/>=<sp/>IPI5_IPI_NOBUF3_BITMASK;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_TriggerIpi(instance_ptr,<sp/>instance_ptr-&gt;Config.TargetList[dst_ipi_id_offset].Mask);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XIpiPsu_PollForAck(instance_ptr,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>instance_ptr-&gt;Config.TargetList[dst_ipi_id_offset].Mask,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TIMEOUT_COUNT);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(status<sp/>==<sp/>XST_SUCCESS)<sp/>?<sp/>XST_SUCCESS<sp/>:<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="mbox__cmd_8h_1a751111f785205b6ee67612fcf9df1744" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="mbox__cmd_8h_1a751111f785205b6ee67612fcf9df1744" kindref="member">apu_postmsg</ref>(MboxCoreId<sp/>receiver_id)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MBOX_CORE_RPU0<sp/>==<sp/>receiver_id)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>trigger_ipi(&amp;IpiInst_apu_rpu,<sp/>MBOX_CORE_RPU0);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MBOX_CORE_RPU1<sp/>==<sp/>receiver_id)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>trigger_ipi(&amp;IpiInst_apu_rpu,<sp/>MBOX_CORE_RPU1);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MBOX_CORE_RPU2<sp/>==<sp/>receiver_id)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>trigger_ipi(&amp;IpiInst_apu_rpu,<sp/>MBOX_CORE_RPU2);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MBOX_CORE_RPU3<sp/>==<sp/>receiver_id)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>trigger_ipi(&amp;IpiInst_apu_rpu,<sp/>MBOX_CORE_RPU3);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>IpiIntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XIpiPsuPtr)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ipi_src_mask;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>src_index;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*instance_ptr<sp/>=<sp/>(XIpiPsu<sp/>*)XIpiPsuPtr;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(instance_ptr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ipi_src_mask<sp/>=<sp/>XIpiPsu_GetInterruptStatus(instance_ptr);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(src_index<sp/>=<sp/>0U;<sp/>src_index<sp/>&lt;<sp/>instance_ptr-&gt;Config.TargetCount;<sp/>src_index++)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ipi_src_mask<sp/>&amp;<sp/>instance_ptr-&gt;Config.TargetList[src_index].Mask)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_ClearInterruptStatus(instance_ptr,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>instance_ptr-&gt;Config.TargetList[src_index].Mask);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_interface_rx_dispatch(ipi_src_mask);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>SetupInterruptSystem(XScuGic<sp/>*intc_instance_ptr,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu<sp/>*ipi_instance_ptr,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ipi_intr_id)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Config<sp/>*intc_config;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>status;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>intc_config<sp/>=<sp/>XScuGic_LookupConfig(0xe2000000);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(intc_config<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XScuGic_CfgInitialize(&amp;Intc,<sp/>intc_config,<sp/>intc_config-&gt;CpuBaseAddress);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XScuGic_InterruptHandler,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>intc_instance_ptr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XScuGic_Connect(intc_instance_ptr,<sp/>ipi_intr_id,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_InterruptHandler)IpiIntrHandler,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)ipi_instance_ptr);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(intc_instance_ptr,<sp/>ipi_intr_id);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="183"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ipi_init(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>src_ipi_id,<sp/>XIpiPsu<sp/>*ipi_inst)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>baseaddr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_Config<sp/>*cfg_ptr;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(src_ipi_id)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>MBOX_CORE_APU:</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>ARMR52</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>baseaddr<sp/>=<sp/>IPI1_BASEADDR;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>baseaddr<sp/>=<sp/>IPI5_BASEADDR;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Not<sp/>a<sp/>Valid<sp/>IPI<sp/>core<sp/>\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cfg_ptr<sp/>=<sp/>XIpiPsu_LookupConfig(src_ipi_id);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cfg_ptr<sp/>=<sp/>XIpiPsu_LookupConfig(baseaddr);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_CfgInitialize(ipi_inst,<sp/>cfg_ptr,<sp/>cfg_ptr-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetupInterruptSystem(&amp;Intc,<sp/>ipi_inst,<sp/>ipi_inst-&gt;Config.IntId);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSetupInterruptSystem(ipi_inst,<sp/>&amp;IpiIntrHandler,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ipi_inst-&gt;Config.IntId,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ipi_inst-&gt;Config.IntrParent,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_InterruptEnable(ipi_inst,<sp/>XIPIPSU_ALL_MASK);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_ClearInterruptStatus(ipi_inst,<sp/>XIPIPSU_ALL_MASK);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int32_t<sp/>mailbox_phy_buffers_alloc(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu0<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rmsg_rpu0<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_nomem;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu1<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rmsg_rpu1<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_free_rpu0;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu2<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rmsg_rpu2<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_free_rpu1;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu3<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rmsg_rpu3<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_free_rpu2;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wmsg<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wmsg<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_free_rpu3;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(wmsg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal">err_free_rpu3:</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu3);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu3<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">err_free_rpu2:</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu2);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu2<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">err_free_rpu1:</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu1);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu1<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">err_free_rpu0:</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu0);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu0<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">err_nomem:</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_NOMEM;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal">int32_t<sp/>mbox_phy_init(MboxCoreId<sp/>current_cpu_id)</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>mbox_start<sp/>=<sp/>(uint32_t)&amp;__mbox_start;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>status;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>mailbox_phy_buffers_alloc();</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/>VPI_SUCCESS)</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>(MBOX_SECTION_SIZE<sp/>/<sp/>BLOCK_SIZE_2MB);<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>__aarch64__</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_SetTlbAttributes(mbox_start<sp/>+<sp/>i<sp/>*<sp/>BLOCK_SIZE_2MB,<sp/>NORM_NONCACHE);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MBOX_CORE_APU<sp/>==<sp/>current_cpu_id)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>apu_fifo_ctrl<sp/>=<sp/>vpi_mbox_init(MBOX_CORE_APU,<sp/>mbox_start,<sp/>MBOX_FIFO_BLOCK_SIZE);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(apu_fifo_ctrl<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_UNINITED;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ipi_init(MBOX_CORE_APU,<sp/>&amp;IpiInst_apu_rpu)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_GENERIC;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;APU<sp/>mailbox<sp/>init<sp/>done,<sp/>sizeof(MboxPostMsg)=%u,<sp/>sizeof(Payload_packet)=%u\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>),<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_phy_close(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="304"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(apu_fifo_ctrl)</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vpi_mbox_destory(apu_fifo_ctrl);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>apu_fifo_ctrl<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu0);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu1);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu2);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rmsg_rpu3);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(wmsg);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu0<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu1<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu2<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rmsg_rpu3<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>wmsg<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal">int32_t<sp/>mbox_phy_send(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/>MboxCoreId<sp/>receiver_id,<sp/>MboxCoreId<sp/>core_id)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>ret<sp/>=<sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(wmsg<sp/>==<sp/>NULL<sp/>||<sp/>msg<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_UNINITED;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Post<sp/>the<sp/>fully-stamped<sp/>message<sp/>as-is<sp/>so<sp/>the<sp/>checksum<sp/>stays<sp/>intact.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(wmsg,<sp/>msg,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>)<sp/>-<sp/>MAX_ITEM<sp/>+<sp/>msg-&gt;payload.payload_size);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MBOX_CORE_APU<sp/>==<sp/>core_id)</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>vpi_mbox_post(apu_fifo_ctrl,<sp/>wmsg,<sp/>receiver_id,<sp/><ref refid="mbox__cmd_8h_1a751111f785205b6ee67612fcf9df1744" kindref="member">apu_postmsg</ref>);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ret<sp/>!=<sp/>VPI_SUCCESS)</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(ret<sp/>==<sp/>VPI_ERR_FULL)<sp/>?<sp/>VPI_ERR_FULL<sp/>:<sp/>VPI_ERR_GENERIC;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal">int32_t<sp/>mbox_phy_pop_rx(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*out_msg)</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(out_msg<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(apu_fifo_ctrl<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_UNINITED;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vpi_mbox_read(apu_fifo_ctrl,<sp/>out_msg,<sp/>dest_cpu_id);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>mbox_phy_has_rx(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="362"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(apu_fifo_ctrl<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!vpi_mbox_is_empty(apu_fifo_ctrl,<sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c"/>
+  </compounddef>
+</doxygen>

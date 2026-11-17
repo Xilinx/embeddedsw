@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_runtime___core" kind="struct" prot="public">
+    <compoundname>XPmRuntime_Core</compoundname>
+    <includes local="no">xpm_runtime_core.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_runtime___core_1ab970dac11a8ef2c469eaab7d66288743" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref> *</type>
+        <definition>XPm_Core* XPmRuntime_Core::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___core_1a224dc12374ffe2e0d5cb079faf807fbe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPmRuntime_Core::IsCoreIdleSupported</definition>
+        <argsstring></argsstring>
+        <name>IsCoreIdleSupported</name>
+        <briefdescription>
+<para>Flag for core idle is supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_runtime___core_1a36c0eccb45eb2251b938ab563d26be4e" prot="public" static="no" mutable="no">
+        <type>struct XPm_FrcPwrDwnReq</type>
+        <definition>struct XPm_FrcPwrDwnReq XPmRuntime_Core::FrcPwrDwnReq</definition>
+        <argsstring></argsstring>
+        <name>FrcPwrDwnReq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declare the node, list, and allocator types for runtime core records. </para>    </briefdescription>
+    <detaileddescription>
+<para>The generated list owns list nodes allocated from the runtime miscellaneous pool; each node references an <ref refid="struct_x_pm_runtime___core" kindref="compound">XPmRuntime_Core</ref> supplied by the caller. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="326">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="324" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="325" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="323">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="324" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="325" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="327" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="327">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="323" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="328" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="327" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="328">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="324" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="327" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="321">
+        <label>XPmRuntime_Core</label>
+        <link refid="struct_x_pm_runtime___core"/>
+        <childnode refid="322" relation="usage">
+          <edgelabel>Core</edgelabel>
+        </childnode>
+      </node>
+      <node id="325">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="323" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="326" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="325" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="324">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="322">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="323" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.h" bodystart="24" bodyend="32"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_runtime___core_1ab970dac11a8ef2c469eaab7d66288743" prot="public" virt="non-virtual"><scope>XPmRuntime_Core</scope><name>Core</name></member>
+      <member refid="struct_x_pm_runtime___core_1a36c0eccb45eb2251b938ab563d26be4e" prot="public" virt="non-virtual"><scope>XPmRuntime_Core</scope><name>FrcPwrDwnReq</name></member>
+      <member refid="struct_x_pm_runtime___core_1a224dc12374ffe2e0d5cb079faf807fbe" prot="public" virt="non-virtual"><scope>XPmRuntime_Core</scope><name>IsCoreIdleSupported</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

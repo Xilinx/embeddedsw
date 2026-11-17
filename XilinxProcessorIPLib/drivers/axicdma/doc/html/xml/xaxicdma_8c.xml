@@ -1,0 +1,1204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxicdma_8c" kind="file">
+    <compoundname>xaxicdma.c</compoundname>
+    <includes refid="xaxicdma_8h" local="yes">xaxicdma.h</includes>
+    <includes refid="xaxicdma__i_8h" local="yes">xaxicdma_i.h</includes>
+    <incdepgraph>
+      <node id="12">
+        <label>xil_io.h</label>
+      </node>
+      <node id="15">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="13">
+        <label>xdebug.h</label>
+      </node>
+      <node id="16">
+        <label>xaxicdma_i.h</label>
+        <link refid="xaxicdma__i_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>string.h</label>
+      </node>
+      <node id="8">
+        <label>xaxicdma_bd.h</label>
+        <link refid="xaxicdma__bd_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xstatus.h</label>
+      </node>
+      <node id="11">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6">
+        <label>xaxicdma.c</label>
+        <link refid="xaxicdma.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xaxicdma.h</label>
+        <link refid="xaxicdma_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xaxicdma_hw.h</label>
+        <link refid="xaxicdma__hw_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_GetError</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_GetError</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads error status bits from the hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The error bits in the status register. Zero indicates no errors. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="44" bodyend="49"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gabec2417b4096d65fa8f07a84eef38cea" compoundref="xaxicdma__hw_8h" startline="112">XAXICDMA_SR_ERR_ALL_MASK</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="72">XAXICDMA_SR_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="801" endline="939">XAxiCdma_SgIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_Reset</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_Reset</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>Current transfer will finish gracefully. However, all queued SG transfers that have not started will be flushed from the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="61" bodyend="83"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma_1a587ab0d58bda41d07c44845f193fc1cc" compoundref="xaxicdma_8h" startline="456">XAxiCdma::SgHandlerHead</references>
+        <references refid="struct_x_axi_cdma_1abe5ae458395fcfa76e9f6800c3e1e1ff" compoundref="xaxicdma_8h" startline="457">XAxiCdma::SgHandlerTail</references>
+        <references refid="struct_x_axi_cdma_1ab55406069938d62f28eaa28c6f07e1ee" compoundref="xaxicdma_8h" startline="428">XAxiCdma::SGWaiting</references>
+        <references refid="struct_x_axi_cdma_1aed7cbc666ba104051ceaca26fc413479" compoundref="xaxicdma_8h" startline="452">XAxiCdma::SimpleCallBackFn</references>
+        <references refid="struct_x_axi_cdma_1a7ce37d15e137a9640763a81d6d827b83" compoundref="xaxicdma_8h" startline="454">XAxiCdma::SimpleCallBackRef</references>
+        <references refid="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" compoundref="xaxicdma_8h" startline="427">XAxiCdma::SimpleNotDone</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" compoundref="xaxicdma__hw_8h" startline="93">XAXICDMA_CR_RESET_MASK</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="239">XAxiCdma_WriteReg</references>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="103" endline="220">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="group__axicdma_1ga181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="514" endline="640">XAxiCdma_SgPollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga2575375744593bd55425365dde7744e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_ResetIsDone</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_ResetIsDone</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether hardware reset completed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the reset has finished successfully</para></listitem><listitem><para>0 if the reset is not done </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="96" bodyend="103"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" compoundref="xaxicdma__hw_8h" startline="93">XAXICDMA_CR_RESET_MASK</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga8acd5bf5f5f072c6e425a8cc1b589498" compoundref="xaxicdma__intr_8c" startline="103" endline="220">XAxiCdma_IntrHandler</referencedby>
+        <referencedby refid="group__axicdma_1ga181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="514" endline="640">XAxiCdma_SgPollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_CfgInitialize</definition>
+        <argsstring>(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XAxiCdma_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_axi_cdma___config" kindref="compound">XAxiCdma_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call this function before any other driver function calls. It sets up the driver according to the hardware build and resets the hardware at the end.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance that is working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the hardware configuration structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual address of the hardware instance. If address translation is not in use, please use the physical address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_INVALID_PARAM if word length is less than 4</para></listitem><listitem><para>XST_FAILURE for reset failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="124" bodyend="211"/>
+        <references refid="struct_x_axi_cdma___config_1a0958aa1063664113fc68a0acd1907a26" compoundref="xaxicdma_8h" startline="408">XAxiCdma_Config::AddrWidth</references>
+        <references refid="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" compoundref="xaxicdma_8h" startline="460">XAxiCdma::AddrWidth</references>
+        <references refid="struct_x_axi_cdma_1a4339e3db7402269331ae39e6cc683810" compoundref="xaxicdma_8h" startline="446">XAxiCdma::AllBdCnt</references>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma___config_1ad0a29ae084a111047ffcdc7dda3417e0" compoundref="xaxicdma_8h" startline="407">XAxiCdma_Config::BurstLen</references>
+        <references refid="struct_x_axi_cdma_1a28521d3dec22937aae8719f4784cbfb9" compoundref="xaxicdma_8h" startline="448">XAxiCdma::BurstLen</references>
+        <references refid="struct_x_axi_cdma___config_1a5150381b84e79c7859aa4d70851a98bf" compoundref="xaxicdma_8h" startline="406">XAxiCdma_Config::DataWidth</references>
+        <references refid="struct_x_axi_cdma_1aa97c9cb7f52a00abff853f10fa019281" compoundref="xaxicdma_8h" startline="442">XAxiCdma::FreeBdCnt</references>
+        <references refid="struct_x_axi_cdma___config_1a9f9196114cd86ea29b9a9951b16ebdd0" compoundref="xaxicdma_8h" startline="404">XAxiCdma_Config::HasDRE</references>
+        <references refid="struct_x_axi_cdma_1ab1da5a22f93fafd389335953b8d2fa32" compoundref="xaxicdma_8h" startline="423">XAxiCdma::HasDRE</references>
+        <references refid="struct_x_axi_cdma_1a1ed2ffe9619787562cc86926735c09fa" compoundref="xaxicdma_8h" startline="444">XAxiCdma::HwBdCnt</references>
+        <references refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" compoundref="xaxicdma_8h" startline="421">XAxiCdma::Initialized</references>
+        <references refid="struct_x_axi_cdma___config_1a1bdfd01d492fb5e46bfd12bb18ac5f44" compoundref="xaxicdma_8h" startline="405">XAxiCdma_Config::IsLite</references>
+        <references refid="struct_x_axi_cdma_1a1713ee40ac479470b47c6e00ebc9167e" compoundref="xaxicdma_8h" startline="424">XAxiCdma::IsLite</references>
+        <references refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" compoundref="xaxicdma_8h" startline="426">XAxiCdma::MaxTransLen</references>
+        <references refid="struct_x_axi_cdma___config_1a98570c3ae3141d909262db916aa71d3f" compoundref="xaxicdma_8h" startline="401">XAxiCdma_Config::Name</references>
+        <references refid="struct_x_axi_cdma_1a45366a0ce682bc5b8fd35247fc7b7e08" compoundref="xaxicdma_8h" startline="445">XAxiCdma::PostBdCnt</references>
+        <references refid="struct_x_axi_cdma_1a5d1ec02178e771b7d03bb311227bd280" compoundref="xaxicdma_8h" startline="443">XAxiCdma::PreBdCnt</references>
+        <references refid="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" compoundref="xaxicdma_8h" startline="422">XAxiCdma::SimpleOnlyBuild</references>
+        <references refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" compoundref="xaxicdma_8h" startline="425">XAxiCdma::WordLength</references>
+        <references refid="group__axicdma_1gabcf011ecc845a7382ff3ad2271e0677c" compoundref="xaxicdma__hw_8h" startline="63">XAXICDMA_4_1_MAX_TRANSFER_LEN</references>
+        <references refid="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" compoundref="xaxicdma__hw_8h" startline="62">XAXICDMA_MAX_TRANSFER_LEN</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" compoundref="xaxicdma_8c" startline="61" endline="83">XAxiCdma_Reset</references>
+        <references refid="group__axicdma_1gab1b91a2a98e5d8f5d1dc546dadfa60ea" compoundref="xaxicdma__i_8h" startline="40">XAXICDMA_RESET_LOOP_LIMIT</references>
+        <references refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" compoundref="xaxicdma_8c" startline="96" endline="103">XAxiCdma_ResetIsDone</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="72">XAXICDMA_SR_OFFSET</references>
+        <references refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" compoundref="xaxicdma__hw_8h" startline="105">XAXICDMA_SR_SGINCLD_MASK</references>
+        <referencedby refid="group__axicdma_1gacd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1006" endline="1129">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga3e07cf3c4c4ef7c370d4d73675ad0e56" compoundref="xaxicdma__example__hybrid__poll_8c" startline="713" endline="811">XAxiCdma_HybridPollExample</referencedby>
+        <referencedby refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="801" endline="939">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="514" endline="640">XAxiCdma_SgPollExample</referencedby>
+        <referencedby refid="group__axicdma_1ga594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="263" endline="328">XAxiCdma_SimpleIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga87209e4dc5ba9c6092d82623d1af223f" compoundref="xaxicdma__example__simple__poll_8c" startline="203" endline="244">XAxiCdma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_IsBusy</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_IsBusy</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the hardware is doing transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the hardware is doing a transfer</para></listitem><listitem><para>0 if the hardware is idle </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="224" bodyend="231"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" compoundref="xaxicdma__hw_8h" startline="104">XAXICDMA_SR_IDLE_MASK</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="72">XAXICDMA_SR_OFFSET</references>
+        <referencedby refid="group__axicdma_1ga3183f9f25654d2a066c19213f29897be" compoundref="xaxicdma__bdring_8c" startline="534" endline="585">XAxiCdma_BdRingClone</referencedby>
+        <referencedby refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" compoundref="xaxicdma_8c" startline="264" endline="305">XAxiCdma_SelectKeyHole</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="441" endline="529">XAxiCdma_SimpleTransfer</referencedby>
+        <referencedby refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" compoundref="xaxicdma_8c" startline="324" endline="409">XAxiCdma_SwitchMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_IsSimpleMode</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_IsSimpleMode</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the hardware is in simple mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the hardware is in simple mode</para></listitem><listitem><para>0 if the hardware is in SG mode </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="244" bodyend="248"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" compoundref="xaxicdma__hw_8h" startline="94">XAXICDMA_CR_SGMODE_MASK</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <referencedby refid="group__axicdma_1ga846b6992b84583d1692bf742e15e04fb" compoundref="xaxicdma__bdring_8c" startline="1023" endline="1058">XAxiCdma_BdRingStartTransfer</referencedby>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="735" endline="873">XAxiCdma_BdRingToHw</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="441" endline="529">XAxiCdma_SimpleTransfer</referencedby>
+        <referencedby refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" compoundref="xaxicdma_8c" startline="324" endline="409">XAxiCdma_SwitchMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_SelectKeyHole</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 Direction, u32 Select)</argsstring>
+        <name>XAxiCdma_SelectKeyHole</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Direction</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Select</declname>
+        </param>
+        <briefdescription>
+<para>Configures the KeyHole read or write feature. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is WRITE/READ </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Select</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the option to enable (TRUE) or disable (FALSE).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS for success<itemizedlist>
+<listitem><para>XST_DEVICE_BUSY when transfer is in progress</para></listitem><listitem><para>XST_NO_FEATURE when not configured with feature </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="264" bodyend="305"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma_1a28521d3dec22937aae8719f4784cbfb9" compoundref="xaxicdma_8h" startline="448">XAxiCdma::BurstLen</references>
+        <references refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" compoundref="xaxicdma__hw_8h" startline="95">XAXICDMA_CR_KHOLE_RD_MASK</references>
+        <references refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" compoundref="xaxicdma__hw_8h" startline="96">XAXICDMA_CR_KHOLE_WR_MASK</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="224" endline="231">XAxiCdma_IsBusy</references>
+        <references refid="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" compoundref="xaxicdma_8h" startline="367">XAXICDMA_KEYHOLE_WRITE</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="239">XAxiCdma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_SwitchMode</definition>
+        <argsstring>(XAxiCdma *InstancePtr, int Mode)</argsstring>
+        <name>XAxiCdma_SwitchMode</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Switches the hardware between simple and scatter gather mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>If switching to SG mode, sets up the current BD pointer register when needed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mode to switch to.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if mode switch is successful</para></listitem><listitem><para>XST_DEVICE_BUSY if the engine is busy, so cannot switch mode</para></listitem><listitem><para>XST_INVALID_PARAM if pass in invalid mode value</para></listitem><listitem><para>XST_FAILURE if:Hardware is simple mode only build Mode switch failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="324" bodyend="409"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma_1aeecd8cb03aaaaf20be794841b0a88c3a" compoundref="xaxicdma_8h" startline="441">XAxiCdma::BdaRestart</references>
+        <references refid="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" compoundref="xaxicdma_8h" startline="422">XAxiCdma::SimpleOnlyBuild</references>
+        <references refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" compoundref="xaxicdma__bd_8c" startline="416" endline="428">XAxiCdma_BdGetPhysAddr</references>
+        <references refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" compoundref="xaxicdma__bdring_8c" startline="184" endline="199">XAxiCdma_BdRingGetCurrBd</references>
+        <references refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" compoundref="xaxicdma__bdring_8c" startline="284" endline="313">XAxiCdma_BdRingNext</references>
+        <references refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" compoundref="xaxicdma__bdring_8c" startline="145" endline="153">XAxiCdma_BdSetCurBdPtr</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" compoundref="xaxicdma__hw_8h" startline="94">XAXICDMA_CR_SGMODE_MASK</references>
+        <references refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="224" endline="231">XAxiCdma_IsBusy</references>
+        <references refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" compoundref="xaxicdma_8c" startline="244" endline="248">XAxiCdma_IsSimpleMode</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga91c5de92ad6a33c0eda5c1283e5281d4" compoundref="xaxicdma_8h" startline="356">XAXICDMA_SG_MODE</references>
+        <references refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" compoundref="xaxicdma_8h" startline="357">XAXICDMA_SIMPLE_MODE</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="239">XAxiCdma_WriteReg</references>
+        <referencedby refid="group__axicdma_1ga846b6992b84583d1692bf742e15e04fb" compoundref="xaxicdma__bdring_8c" startline="1023" endline="1058">XAxiCdma_BdRingStartTransfer</referencedby>
+        <referencedby refid="group__axicdma_1ga3c5cd26d9fd3311c2ccfa4253c587e68" compoundref="xaxicdma__bdring_8c" startline="735" endline="873">XAxiCdma_BdRingToHw</referencedby>
+        <referencedby refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" compoundref="xaxicdma_8c" startline="441" endline="529">XAxiCdma_SimpleTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiCdma_SimpleTransfer</definition>
+        <argsstring>(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstAddr, int Length, XAxiCdma_CallBackFn SimpleCallBack, void *CallBackRef)</argsstring>
+        <name>XAxiCdma_SimpleTransfer</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>DstAddr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type><ref refid="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" kindref="member">XAxiCdma_CallBackFn</ref></type>
+          <declname>SimpleCallBack</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Performs one simple transfer submission. </para>        </briefdescription>
+        <detaileddescription>
+<para>It checks in the following sequence:<itemizedlist>
+<listitem><para>if engine is busy, cannot submit</para></listitem><listitem><para>if software is still handling the completion of the previous simple transfer, cannot submit</para></listitem><listitem><para>if engine is in SG mode and cannot switch to simple mode, cannot submit</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the source buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DstAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the destination buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the transfer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SimpleCallBack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback function for the simple transfer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success of submission</para></listitem><listitem><para>XST_FAILURE for submission failure, maybe caused by: Another simple transfer is still going . Another SG transfer is still going</para></listitem><listitem><para>XST_INVALID_PARAM if: Length out of valid range [1: InstancePtr-&gt;MaxTransLen] Or, address not aligned when DRE is not built in</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Only set the callback function if using interrupt to signal the completion.If used in polling mode, please set the callback function to be NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="441" bodyend="529"/>
+        <references refid="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" compoundref="xaxicdma_8h" startline="460">XAxiCdma::AddrWidth</references>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma_1ab1da5a22f93fafd389335953b8d2fa32" compoundref="xaxicdma_8h" startline="423">XAxiCdma::HasDRE</references>
+        <references refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" compoundref="xaxicdma_8h" startline="426">XAxiCdma::MaxTransLen</references>
+        <references refid="struct_x_axi_cdma_1aed7cbc666ba104051ceaca26fc413479" compoundref="xaxicdma_8h" startline="452">XAxiCdma::SimpleCallBackFn</references>
+        <references refid="struct_x_axi_cdma_1a7ce37d15e137a9640763a81d6d827b83" compoundref="xaxicdma_8h" startline="454">XAxiCdma::SimpleCallBackRef</references>
+        <references refid="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" compoundref="xaxicdma_8h" startline="427">XAxiCdma::SimpleNotDone</references>
+        <references refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" compoundref="xaxicdma_8h" startline="425">XAxiCdma::WordLength</references>
+        <references refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" compoundref="xaxicdma__hw_8h" startline="87">XAXICDMA_BTT_OFFSET</references>
+        <references refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" compoundref="xaxicdma__hw_8h" startline="84">XAXICDMA_DSTADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" compoundref="xaxicdma__hw_8h" startline="81">XAXICDMA_DSTADDR_OFFSET</references>
+        <references refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" compoundref="xaxicdma__intr_8c" startline="60" endline="64">XAxiCdma_IntrGetEnabled</references>
+        <references refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" compoundref="xaxicdma_8c" startline="224" endline="231">XAxiCdma_IsBusy</references>
+        <references refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" compoundref="xaxicdma_8c" startline="244" endline="248">XAxiCdma_IsSimpleMode</references>
+        <references refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" compoundref="xaxicdma_8h" startline="357">XAXICDMA_SIMPLE_MODE</references>
+        <references refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" compoundref="xaxicdma__hw_8h" startline="80">XAXICDMA_SRCADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" compoundref="xaxicdma__hw_8h" startline="79">XAXICDMA_SRCADDR_OFFSET</references>
+        <references refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" compoundref="xaxicdma_8c" startline="324" endline="409">XAxiCdma_SwitchMode</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="239">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1ga14246912a21d68d0dde910704b6d0ac6" compoundref="xaxicdma__hw_8h" startline="131">XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiCdma_SetCoalesce</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)</argsstring>
+        <name>XAxiCdma_SetCoalesce</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Counter</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Delay</declname>
+        </param>
+        <briefdescription>
+<para>Sets the interrupt coalescing threshold and delay counters. </para>        </briefdescription>
+        <detaileddescription>
+<para>To set only one counter, set the other to XAXICDMA_COALESCE_NO_CHANGE.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Counter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the coalescing threshold to set to, the valid range is 1 to XAXICDMA_COALESCE_MAX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay timeout counter to set to, the valid range is 0 to XAXICDMA_DELAY_MAX. Setting a value of 0 disables the delay interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for success</para></listitem><listitem><para>XST_FAILURE if hardware is in invalid state, for example, reset failed</para></listitem><listitem><para>XST_INVALID_PARAM if one of the counters is not in the valid range </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="552" bodyend="593"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" compoundref="xaxicdma_8h" startline="421">XAxiCdma::Initialized</references>
+        <references refid="group__axicdma_1ga0bb5457c991743bf45e9db3201df17ed" compoundref="xaxicdma__hw_8h" startline="148">XAXICDMA_COALESCE_MAX</references>
+        <references refid="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" compoundref="xaxicdma_8h" startline="349">XAXICDMA_COALESCE_NO_CHANGE</references>
+        <references refid="group__axicdma_1gac6d3dbc7858fabcf9a243ef0cd2f5daa" compoundref="xaxicdma__hw_8h" startline="145">XAXICDMA_COALESCE_SHIFT</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga5c26fb92eb7913f78454aeaae8f91115" compoundref="xaxicdma__hw_8h" startline="147">XAXICDMA_DELAY_MAX</references>
+        <references refid="group__axicdma_1gadd5fcf58a67d3125264a9930e1ee0da0" compoundref="xaxicdma__hw_8h" startline="144">XAXICDMA_DELAY_SHIFT</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" compoundref="xaxicdma__hw_8h" startline="239">XAxiCdma_WriteReg</references>
+        <references refid="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" compoundref="xaxicdma__hw_8h" startline="142">XAXICDMA_XR_COALESCE_MASK</references>
+        <references refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" compoundref="xaxicdma__hw_8h" startline="141">XAXICDMA_XR_DELAY_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga92087f03877293982f895e8178557f6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_GetCoalesce</definition>
+        <argsstring>(XAxiCdma *InstancePtr, u32 *CounterPtr, u32 *DelayPtr)</argsstring>
+        <name>XAxiCdma_GetCoalesce</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CounterPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DelayPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the interrupt coalescing threshold and delay counter settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">CounterPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the return value for the coalescing counter setting </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DelayPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the return value for the delay counter setting</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>A zero coalescing threshold indicates invalid results </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="607" bodyend="631"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" compoundref="xaxicdma_8h" startline="421">XAxiCdma::Initialized</references>
+        <references refid="group__axicdma_1gac6d3dbc7858fabcf9a243ef0cd2f5daa" compoundref="xaxicdma__hw_8h" startline="145">XAXICDMA_COALESCE_SHIFT</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1gadd5fcf58a67d3125264a9930e1ee0da0" compoundref="xaxicdma__hw_8h" startline="144">XAXICDMA_DELAY_SHIFT</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" compoundref="xaxicdma__hw_8h" startline="142">XAXICDMA_XR_COALESCE_MASK</references>
+        <references refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" compoundref="xaxicdma__hw_8h" startline="141">XAXICDMA_XR_DELAY_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiCdma_DumpRegisters</definition>
+        <argsstring>(XAxiCdma *InstancePtr)</argsstring>
+        <name>XAxiCdma_DumpRegisters</name>
+        <param>
+          <type><ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Dumps the registers of this DMA instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver instance we are working on </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" line="640" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c" bodystart="640" bodyend="671"/>
+        <references refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" compoundref="xaxicdma_8h" startline="419">XAxiCdma::BaseAddr</references>
+        <references refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" compoundref="xaxicdma__hw_8h" startline="87">XAXICDMA_BTT_OFFSET</references>
+        <references refid="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" compoundref="xaxicdma__hw_8h" startline="76">XAXICDMA_CDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" compoundref="xaxicdma__hw_8h" startline="73">XAXICDMA_CDESC_OFFSET</references>
+        <references refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" compoundref="xaxicdma__hw_8h" startline="71">XAXICDMA_CR_OFFSET</references>
+        <references refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" compoundref="xaxicdma__hw_8h" startline="84">XAXICDMA_DSTADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" compoundref="xaxicdma__hw_8h" startline="81">XAXICDMA_DSTADDR_OFFSET</references>
+        <references refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" compoundref="xaxicdma__hw_8h" startline="223">XAxiCdma_ReadReg</references>
+        <references refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" compoundref="xaxicdma__hw_8h" startline="72">XAXICDMA_SR_OFFSET</references>
+        <references refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" compoundref="xaxicdma__hw_8h" startline="80">XAXICDMA_SRCADDR_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" compoundref="xaxicdma__hw_8h" startline="79">XAXICDMA_SRCADDR_OFFSET</references>
+        <references refid="group__axicdma_1gaed7af011eefd18c937d40571593b9297" compoundref="xaxicdma__hw_8h" startline="78">XAXICDMA_TDESC_MSB_OFFSET</references>
+        <references refid="group__axicdma_1ga5a00af58a865daf4ee6995ade0c9cdd1" compoundref="xaxicdma__hw_8h" startline="77">XAXICDMA_TDESC_OFFSET</references>
+        <references refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b">xil_printf</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxicdma_8h" kindref="compound">xaxicdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxicdma__i_8h" kindref="compound">xaxicdma_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44" refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" kindref="member">XAxiCdma_GetError</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" kindref="member">XAXICDMA_SR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gabec2417b4096d65fa8f07a84eef38cea" kindref="member">XAXICDMA_SR_ERR_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" kindref="member">XAxiCdma_Reset</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" kindref="member">XAXICDMA_CR_RESET_MASK</ref>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>no<sp/>outstanding<sp/>transfers</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" kindref="member">SimpleNotDone</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab55406069938d62f28eaa28c6f07e1ee" kindref="member">SGWaiting</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>will<sp/>lose<sp/>all<sp/>interrupt<sp/>handers</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a587ab0d58bda41d07c44845f193fc1cc" kindref="member">SgHandlerHead</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1abe5ae458395fcfa76e9f6800c3e1e1ff" kindref="member">SgHandlerTail</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>call<sp/>back<sp/>function<sp/>for<sp/>simple<sp/>transfers</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1aed7cbc666ba104051ceaca26fc413479" kindref="member">SimpleCallBackFn</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a7ce37d15e137a9640763a81d6d827b83" kindref="member">SimpleCallBackRef</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" kindref="member">XAxiCdma_ResetIsDone</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>reset<sp/>bit<sp/>is<sp/>still<sp/>high,<sp/>then<sp/>reset<sp/>is<sp/>not<sp/>done</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((<ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" kindref="member">XAXICDMA_CR_RESET_MASK</ref>)<sp/>?<sp/>0<sp/>:<sp/>1);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="124" refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" kindref="member">XAxiCdma_CfgInitialize</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_axi_cdma___config" kindref="compound">XAxiCdma_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TimeOut;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>the<sp/>driver<sp/>is<sp/>not<sp/>in<sp/>working<sp/>state<sp/>yet</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" kindref="member">Initialized</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab1da5a22f93fafd389335953b8d2fa32" kindref="member">HasDRE</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1a9f9196114cd86ea29b9a9951b16ebdd0" kindref="member">HasDRE</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a1713ee40ac479470b47c6e00ebc9167e" kindref="member">IsLite</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1a1bdfd01d492fb5e46bfd12bb18ac5f44" kindref="member">IsLite</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" kindref="member">WordLength</ref><sp/>=<sp/>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>int)CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1a5150381b84e79c7859aa4d70851a98bf" kindref="member">DataWidth</ref>)<sp/>&gt;&gt;<sp/>3;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" kindref="member">AddrWidth</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1a0958aa1063664113fc68a0acd1907a26" kindref="member">AddrWidth</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a28521d3dec22937aae8719f4784cbfb9" kindref="member">BurstLen</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1ad0a29ae084a111047ffcdc7dda3417e0" kindref="member">BurstLen</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AXI<sp/>CDMA<sp/>supports<sp/>32<sp/>bits<sp/>data<sp/>width<sp/>and<sp/>up</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" kindref="member">WordLength</ref><sp/>&lt;<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Word<sp/>length<sp/>too<sp/>short<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" kindref="member">WordLength</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" kindref="member">XAXICDMA_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" kindref="member">SimpleOnlyBuild</ref><sp/>=<sp/>!(RegValue<sp/>&amp;<sp/><ref refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" kindref="member">XAXICDMA_SR_SGINCLD_MASK</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Lite<sp/>mode<sp/>only<sp/>supports<sp/>data_width<sp/>*<sp/>burst_len</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Lite<sp/>mode<sp/>is<sp/>ignored<sp/>if<sp/>SG<sp/>mode<sp/>is<sp/>selected</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" kindref="member">SimpleOnlyBuild</ref><sp/>&amp;&amp;<sp/>CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1a1bdfd01d492fb5e46bfd12bb18ac5f44" kindref="member">IsLite</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" kindref="member">MaxTransLen</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" kindref="member">WordLength</ref><sp/>*</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1ad0a29ae084a111047ffcdc7dda3417e0" kindref="member">BurstLen</ref>;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((strcmp(CfgPtr-&gt;<ref refid="struct_x_axi_cdma___config_1a98570c3ae3141d909262db916aa71d3f" kindref="member">Name</ref>,<sp/></highlight><highlight class="stringliteral">&quot;xlnx,axi-cdma-4.1&quot;</highlight><highlight class="normal">))<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" kindref="member">MaxTransLen</ref><sp/>=<sp/><ref refid="group__axicdma_1gabcf011ecc845a7382ff3ad2271e0677c" kindref="member">XAXICDMA_4_1_MAX_TRANSFER_LEN</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" kindref="member">MaxTransLen</ref><sp/>=<sp/><ref refid="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" kindref="member">XAXICDMA_MAX_TRANSFER_LEN</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeOut<sp/>=<sp/><ref refid="group__axicdma_1gab1b91a2a98e5d8f5d1dc546dadfa60ea" kindref="member">XAXICDMA_RESET_LOOP_LIMIT</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>hardware</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" kindref="member">XAxiCdma_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>hardware<sp/>should<sp/>be<sp/>pretty<sp/>quick<sp/>on<sp/>reset,<sp/>the<sp/>reset<sp/>is<sp/>only</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>slow<sp/>if<sp/>there<sp/>is<sp/>an<sp/>active<sp/>large<sp/>transfer</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TimeOut)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" kindref="member">XAxiCdma_ResetIsDone</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeOut<sp/>-=<sp/>1;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!TimeOut)<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;Reset<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>BD<sp/>ring<sp/>statistics,<sp/>to<sp/>prevent<sp/>BD<sp/>ring<sp/>being<sp/>used</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>before<sp/>being<sp/>created</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a4339e3db7402269331ae39e6cc683810" kindref="member">AllBdCnt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1aa97c9cb7f52a00abff853f10fa019281" kindref="member">FreeBdCnt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a1ed2ffe9619787562cc86926735c09fa" kindref="member">HwBdCnt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a5d1ec02178e771b7d03bb311227bd280" kindref="member">PreBdCnt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a45366a0ce682bc5b8fd35247fc7b7e08" kindref="member">PostBdCnt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>that<sp/>the<sp/>driver/engine<sp/>is<sp/>in<sp/>working<sp/>state<sp/>now</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" kindref="member">Initialized</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="224" refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" kindref="member">XAxiCdma_IsBusy</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>idle<sp/>bit<sp/>is<sp/>high,<sp/>then<sp/>hardware<sp/>is<sp/>not<sp/>busy</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((<ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" kindref="member">XAXICDMA_SR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" kindref="member">XAXICDMA_SR_IDLE_MASK</ref>)<sp/>?<sp/>0<sp/>:<sp/>1);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="244" refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kindref="member">XAxiCdma_IsSimpleMode</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((<ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kindref="member">XAXICDMA_CR_SGMODE_MASK</ref>)<sp/>?<sp/>0<sp/>:<sp/>1);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="264" refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga815f36efce97dba797f67f9acbbb761d" kindref="member">XAxiCdma_SelectKeyHole</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>Direction,<sp/>u32<sp/>Select)</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" kindref="member">XAxiCdma_IsBusy</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;KeyHole:<sp/>Transfer<sp/>is<sp/>in<sp/>Progress\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Select)<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPAR_AXICDMA_0_M_AXI_MAX_BURST_LEN<sp/>==<sp/>16)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a28521d3dec22937aae8719f4784cbfb9" kindref="member">BurstLen</ref><sp/>==<sp/>16)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Direction<sp/>==<sp/><ref refid="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" kindref="member">XAXICDMA_KEYHOLE_WRITE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/><ref refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" kindref="member">XAXICDMA_CR_KHOLE_WR_MASK</ref>;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/><ref refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" kindref="member">XAXICDMA_CR_KHOLE_RD_MASK</ref>;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;KeyHole:<sp/>Max<sp/>Burst<sp/>length<sp/>should<sp/>be<sp/>16\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_FEATURE;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Direction<sp/>==<sp/><ref refid="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" kindref="member">XAXICDMA_KEYHOLE_WRITE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>~<ref refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" kindref="member">XAXICDMA_CR_KHOLE_WR_MASK</ref>;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>~<ref refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" kindref="member">XAXICDMA_CR_KHOLE_RD_MASK</ref>;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>,<sp/>Value);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="324" refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" kindref="member">XAxiCdma_SwitchMode</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Mode)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*BdPtr;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mode<sp/>==<sp/><ref refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" kindref="member">XAXICDMA_SIMPLE_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kindref="member">XAxiCdma_IsSimpleMode</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" kindref="member">XAxiCdma_IsBusy</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SwitchMode:<sp/>engine<sp/>is<sp/>busy\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Keep<sp/>the<sp/>next<sp/>BD<sp/>so<sp/>that<sp/>CDESC<sp/>will<sp/>be<sp/>reloaded<sp/>when</highlight></codeline>
+<codeline lineno="341"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>switching<sp/>back<sp/>to<sp/>SG<sp/>mode.<sp/>Store<sp/>a<sp/>physical<sp/>address</highlight></codeline>
+<codeline lineno="342"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>because<sp/>BdaRestart<sp/>is<sp/>written<sp/>into<sp/>the<sp/>CDESC<sp/>register.</highlight></codeline>
+<codeline lineno="343"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>We<sp/>know<sp/>CDESC<sp/>is<sp/>valid<sp/>because<sp/>the<sp/>hardware<sp/>can<sp/>only</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>be<sp/>in<sp/>SG<sp/>mode<sp/>if<sp/>a<sp/>SG<sp/>transfer<sp/>has<sp/>been<sp/>submitted.</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BdPtr<sp/>=<sp/><ref refid="group__axicdma_1gabfe3657b7aad9487946d6bb436aeba18" kindref="member">XAxiCdma_BdRingNext</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" kindref="member">XAxiCdma_BdRingGetCurrBd</ref>(InstancePtr));</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BdPtr<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1aeecd8cb03aaaaf20be794841b0a88c3a" kindref="member">BdaRestart</ref><sp/>=<sp/>(<ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref><sp/>*)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" kindref="member">XAxiCdma_BdGetPhysAddr</ref>(BdPtr);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>CR<sp/>register<sp/>to<sp/>switch<sp/>to<sp/>simple<sp/>mode</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>~<ref refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kindref="member">XAXICDMA_CR_SGMODE_MASK</ref>));</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hardware<sp/>mode<sp/>switch<sp/>is<sp/>quick,<sp/>should<sp/>succeed<sp/>right<sp/>away</highlight></codeline>
+<codeline lineno="361"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kindref="member">XAxiCdma_IsSimpleMode</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mode<sp/>==<sp/><ref refid="group__axicdma_1ga91c5de92ad6a33c0eda5c1283e5281d4" kindref="member">XAXICDMA_SG_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kindref="member">XAxiCdma_IsSimpleMode</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" kindref="member">SimpleOnlyBuild</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SwitchMode:<sp/>hardware<sp/>simple<sp/>mode<sp/>only\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" kindref="member">XAxiCdma_IsBusy</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SwitchMode:<sp/>engine<sp/>is<sp/>busy\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>CR<sp/>register<sp/>to<sp/>switch<sp/>to<sp/>SG<sp/>mode</highlight></codeline>
+<codeline lineno="387"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kindref="member">XAXICDMA_CR_SGMODE_MASK</ref>));</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hardware<sp/>mode<sp/>switch<sp/>is<sp/>quick,<sp/>should<sp/>succeed<sp/>right<sp/>away</highlight></codeline>
+<codeline lineno="393"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kindref="member">XAxiCdma_IsSimpleMode</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>CDESC<sp/>register,<sp/>because<sp/>the<sp/>hardware<sp/>is</highlight></codeline>
+<codeline lineno="397"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>start<sp/>from<sp/>the<sp/>CDESC</highlight></codeline>
+<codeline lineno="398"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" kindref="member">XAxiCdma_BdSetCurBdPtr</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1aeecd8cb03aaaaf20be794841b0a88c3a" kindref="member">BdaRestart</ref>);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invalid<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="441" refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axicdma_1ga1e81ba2046ada4a40527c50ee7fdce9a" kindref="member">XAxiCdma_SimpleTransfer</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>SrcAddr,<sp/>UINTPTR<sp/>DstAddr,</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Length,<sp/><ref refid="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" kindref="member">XAxiCdma_CallBackFn</ref><sp/>SimpleCallBack,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="443"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WordBits;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Length<sp/>&lt;<sp/>1)<sp/>||<sp/>(Length<sp/>&gt;<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" kindref="member">MaxTransLen</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordBits<sp/>=<sp/>(u32)(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" kindref="member">WordLength</ref><sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SrcAddr<sp/>&amp;<sp/>WordBits)<sp/>||<sp/>(DstAddr<sp/>&amp;<sp/>WordBits))<sp/>{</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab1da5a22f93fafd389335953b8d2fa32" kindref="member">HasDRE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Unaligned<sp/>transfer<sp/>without<sp/>DRE<sp/>%x/%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)SrcAddr,<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)DstAddr);</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"></highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>engine<sp/>is<sp/>doing<sp/>transfer,<sp/>cannot<sp/>submit</highlight></codeline>
+<codeline lineno="464"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1gaee6e140ed15cd9b7e49145e01220115a" kindref="member">XAxiCdma_IsBusy</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;Engine<sp/>is<sp/>busy\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>driver<sp/>is<sp/>still<sp/>handling<sp/>the<sp/>previous<sp/>simple<sp/>transfer</highlight></codeline>
+<codeline lineno="472"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" kindref="member">SimpleNotDone</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;Simple<sp/>ongoing\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>engine<sp/>is<sp/>in<sp/>scatter<sp/>gather<sp/>mode,<sp/>try<sp/>switch<sp/>to<sp/>simple<sp/>mode</highlight></codeline>
+<codeline lineno="480"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kindref="member">XAxiCdma_IsSimpleMode</ref>(InstancePtr))<sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" kindref="member">XAxiCdma_SwitchMode</ref>(InstancePtr,<sp/><ref refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" kindref="member">XAXICDMA_SIMPLE_MODE</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Cannot<sp/>switch<sp/>to<sp/>simple<sp/>mode\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>flag<sp/>so<sp/>that<sp/>others<sp/>will<sp/>not<sp/>step<sp/>on<sp/>us</highlight></codeline>
+<codeline lineno="494"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="495"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>flag<sp/>is<sp/>only<sp/>set<sp/>if<sp/>callback<sp/>function<sp/>is<sp/>used<sp/>and<sp/>if<sp/>the</highlight></codeline>
+<codeline lineno="496"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>system<sp/>is<sp/>in<sp/>interrupt<sp/>mode;<sp/>otherwise,<sp/>when<sp/>the<sp/>hardware<sp/>is<sp/>done</highlight></codeline>
+<codeline lineno="497"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>with<sp/>the<sp/>transfer,<sp/>the<sp/>driver<sp/>is<sp/>done<sp/>with<sp/>the<sp/>transfer</highlight></codeline>
+<codeline lineno="498"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SimpleCallBack<sp/>!=<sp/>NULL)<sp/>||</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((<ref refid="group__axicdma_1ga1a269e884ce6e3552313521dea8032b6" kindref="member">XAxiCdma_IntrGetEnabled</ref>(InstancePtr)<sp/>&amp;</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga14246912a21d68d0dde910704b6d0ac6" kindref="member">XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK</ref>)<sp/>!=<sp/>0x0))<sp/>{</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" kindref="member">SimpleNotDone</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1aed7cbc666ba104051ceaca26fc413479" kindref="member">SimpleCallBackFn</ref><sp/>=<sp/>SimpleCallBack;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1a7ce37d15e137a9640763a81d6d827b83" kindref="member">SimpleCallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" kindref="member">XAXICDMA_SRCADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOWER_32_BITS(SrcAddr));</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" kindref="member">AddrWidth</ref><sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" kindref="member">XAXICDMA_SRCADDR_MSB_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(SrcAddr));</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" kindref="member">XAXICDMA_DSTADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOWER_32_BITS(DstAddr));</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" kindref="member">AddrWidth</ref><sp/>&gt;<sp/>32)</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" kindref="member">XAXICDMA_DSTADDR_MSB_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(DstAddr));</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Writing<sp/>to<sp/>the<sp/>BTT<sp/>register<sp/>starts<sp/>the<sp/>transfer</highlight></codeline>
+<codeline lineno="524"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kindref="member">XAXICDMA_BTT_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Length);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="552" refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga91adf55050cb617cee00b0ba2f0d754e" kindref="member">XAxiCdma_SetCoalesce</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>Counter,<sp/>u32<sp/>Delay)</highlight></codeline>
+<codeline lineno="553"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NoChange;</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NoChange<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" kindref="member">Initialized</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"></highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Counter<sp/>!=<sp/><ref refid="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" kindref="member">XAXICDMA_COALESCE_NO_CHANGE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NoChange<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Counter<sp/>&lt;<sp/>1)<sp/>||<sp/>(Counter<sp/>&gt;<sp/><ref refid="group__axicdma_1ga0bb5457c991743bf45e9db3201df17ed" kindref="member">XAXICDMA_COALESCE_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>~<ref refid="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" kindref="member">XAXICDMA_XR_COALESCE_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Counter<sp/>&lt;&lt;<sp/><ref refid="group__axicdma_1gac6d3dbc7858fabcf9a243ef0cd2f5daa" kindref="member">XAXICDMA_COALESCE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Delay<sp/>!=<sp/><ref refid="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" kindref="member">XAXICDMA_COALESCE_NO_CHANGE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NoChange<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Delay<sp/>&gt;<sp/><ref refid="group__axicdma_1ga5c26fb92eb7913f78454aeaae8f91115" kindref="member">XAXICDMA_DELAY_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>(RegValue<sp/>&amp;<sp/>~<ref refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" kindref="member">XAXICDMA_XR_DELAY_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Delay<sp/>&lt;&lt;<sp/><ref refid="group__axicdma_1gadd5fcf58a67d3125264a9930e1ee0da0" kindref="member">XAXICDMA_DELAY_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"></highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!NoChange)<sp/>{</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kindref="member">XAxiCdma_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="607" refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga92087f03877293982f895e8178557f6a" kindref="member">XAxiCdma_GetCoalesce</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>*CounterPtr,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*DelayPtr)</highlight></codeline>
+<codeline lineno="609"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" kindref="member">Initialized</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>zero<sp/>coalescing<sp/>threshold<sp/>indicates<sp/>invalid<sp/>results</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CounterPtr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DelayPtr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CounterPtr<sp/>=<sp/>(RegValue<sp/>&amp;<sp/><ref refid="group__axicdma_1ga156955220ded772774e8146b2ff6e7d6" kindref="member">XAXICDMA_XR_COALESCE_MASK</ref>)</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/><ref refid="group__axicdma_1gac6d3dbc7858fabcf9a243ef0cd2f5daa" kindref="member">XAXICDMA_COALESCE_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DelayPtr<sp/>=<sp/>(RegValue<sp/>&amp;<sp/><ref refid="group__axicdma_1ga20aec8c77e90ca555dc44341c40af592" kindref="member">XAXICDMA_XR_DELAY_MASK</ref>)</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/><ref refid="group__axicdma_1gadd5fcf58a67d3125264a9930e1ee0da0" kindref="member">XAXICDMA_DELAY_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="631"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight></codeline>
+<codeline lineno="633"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="640" refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" kindref="member">XAxiCdma_DumpRegisters</ref>(<ref refid="struct_x_axi_cdma" kindref="compound">XAxiCdma</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="641"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RegBase;</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegBase<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" kindref="member">BaseAddr</ref>;</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Dump<sp/>registers:\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Control<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1ga1f23c9a4fe3565eb423286405a1de5ca" kindref="member">XAXICDMA_CR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Status<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1gaa5e9b49d3805237bc9ed772948fbf4ae" kindref="member">XAXICDMA_SR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Current<sp/>BD<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1gaf62f028c2ed24dea6e0ebf8388cdf670" kindref="member">XAXICDMA_CDESC_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Current<sp/>BD<sp/>MSB<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1gaac2ba51f1e81b8ed8fe31bc5632d2980" kindref="member">XAXICDMA_CDESC_MSB_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Tail<sp/>BD<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1ga5a00af58a865daf4ee6995ade0c9cdd1" kindref="member">XAXICDMA_TDESC_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Tail<sp/>BD<sp/>MSB<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1gaed7af011eefd18c937d40571593b9297" kindref="member">XAXICDMA_TDESC_MSB_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Source<sp/>Addr<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1ga53c4bf8e65e8770c6fe129160ad07e29" kindref="member">XAXICDMA_SRCADDR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Source<sp/>Addr<sp/>MSB<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" kindref="member">XAXICDMA_SRCADDR_MSB_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Destination<sp/>Addr<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" kindref="member">XAXICDMA_DSTADDR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Destination<sp/>Addr<sp/>MSB<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" kindref="member">XAXICDMA_DSTADDR_MSB_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;BTT<sp/>register:<sp/>%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kindref="member">XAxiCdma_ReadReg</ref>(RegBase,<sp/><ref refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kindref="member">XAXICDMA_BTT_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="671"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.c"/>
+  </compounddef>
+</doxygen>

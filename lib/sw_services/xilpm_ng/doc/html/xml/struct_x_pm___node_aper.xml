@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___node_aper" kind="struct" prot="public">
+    <compoundname>XPm_NodeAper</compoundname>
+    <includes local="no">xpm_access.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1aa57f1a79876a222db06ef9a542e58d48" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAper::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <bitfield> NODE_APER_OFFSET_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Aperture offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1a3ab3d8d59d9b8b8920991dfde6db523b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAper::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <bitfield> NODE_APER_SIZE_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Aperture size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1a8a5d5f566609cc4ed2e730feb1728286" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAper::Access</definition>
+        <argsstring></argsstring>
+        <name>Access</name>
+        <bitfield> NODE_APER_ACCESS_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Aperture access policy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1a323ddeb24967170959d5c8ce88fc988b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAper::ClearType</definition>
+        <argsstring></argsstring>
+        <name>ClearType</name>
+        <bitfield> NODE_APER_CLEAR_TYPE_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Post-read clear type (CLEAR_* values) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1a9ae755f1912b660f6767c667d1c3d303" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAper::EFlag0</definition>
+        <argsstring></argsstring>
+        <name>EFlag0</name>
+        <bitfield> NODE_APER_EFLAG0_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Event-status selection flag 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1ad75f548d6a701404cb0edc6dc6dafb2e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAper::EFlag1</definition>
+        <argsstring></argsstring>
+        <name>EFlag1</name>
+        <bitfield> NODE_APER_EFLAG1_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Event-status selection flag 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_aper_1aab0ada7ffebf0309c7f4523b2379e678" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref> *</type>
+        <definition>XPm_NodeAper* XPm_NodeAper::NextAper</definition>
+        <argsstring></argsstring>
+        <name>NextAper</name>
+        <briefdescription>
+<para>Next aperture of the same node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Node aperture access attributes for a node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="169">
+        <label>XPm_NodeAper</label>
+        <link refid="struct_x_pm___node_aper"/>
+        <childnode refid="169" relation="usage">
+          <edgelabel>NextAper</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="158" bodyend="166"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___node_aper_1a8a5d5f566609cc4ed2e730feb1728286" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>Access</name></member>
+      <member refid="struct_x_pm___node_aper_1a323ddeb24967170959d5c8ce88fc988b" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>ClearType</name></member>
+      <member refid="struct_x_pm___node_aper_1a9ae755f1912b660f6767c667d1c3d303" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>EFlag0</name></member>
+      <member refid="struct_x_pm___node_aper_1ad75f548d6a701404cb0edc6dc6dafb2e" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>EFlag1</name></member>
+      <member refid="struct_x_pm___node_aper_1aab0ada7ffebf0309c7f4523b2379e678" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>NextAper</name></member>
+      <member refid="struct_x_pm___node_aper_1aa57f1a79876a222db06ef9a542e58d48" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>Offset</name></member>
+      <member refid="struct_x_pm___node_aper_1a3ab3d8d59d9b8b8920991dfde6db523b" prot="public" virt="non-virtual"><scope>XPm_NodeAper</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

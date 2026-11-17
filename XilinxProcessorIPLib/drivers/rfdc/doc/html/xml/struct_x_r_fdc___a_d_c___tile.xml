@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___a_d_c___tile" kind="struct" prot="public">
+    <compoundname>XRFdc_ADC_Tile</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___a_d_c___tile_1a639e0319950284b1fed078e3ad7ee9c7" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_ADC_Tile::TileBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>TileBaseAddr</name>
+        <briefdescription>
+<para>Tile base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="833" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="833" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___a_d_c___tile_1a99a16ace002b9cb58a3bb5fd6cd2d204" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_ADC_Tile::NumOfADCBlocks</definition>
+        <argsstring></argsstring>
+        <name>NumOfADCBlocks</name>
+        <briefdescription>
+<para>Number of ADC blocks enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="834" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="834" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga6cfe0edf86c1230df312d4ab3a593532" compoundref="xrfdc_8c" startline="2232" endline="2243">XRFdc_GetNoOfADCBlocks</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___a_d_c___tile_1ad6db27e893c11928f79381e851bca506" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___p_l_l___settings" kindref="compound">XRFdc_PLL_Settings</ref></type>
+        <definition>XRFdc_PLL_Settings XRFdc_ADC_Tile::PLL_Settings</definition>
+        <argsstring></argsstring>
+        <name>PLL_Settings</name>
+        <briefdescription>
+<para>PLL settings. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="835" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="835" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3a6973a9df60d0842bb27c9da5414c08" compoundref="xrfdc_8c" startline="761" endline="822">XRFdc_CustomStartUp</referencedby>
+        <referencedby refid="group___overview_1ga2390330eaf525d57a9500d298d712db1" compoundref="xrfdc__clock_8c" startline="1746" endline="2090">XRFdc_DynamicPLLConfig</referencedby>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gaf806aa894bd65b6fffa3fa978546f41a" compoundref="xrfdc__clock_8c" startline="1586" endline="1717">XRFdc_GetPLLConfig</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___a_d_c___tile_1af26b8f09b5aa199a8d9fbba087f1bd7c" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
+        <definition>u8 XRFdc_ADC_Tile::MultibandConfig</definition>
+        <argsstring></argsstring>
+        <name>MultibandConfig</name>
+        <briefdescription>
+<para>Multiband configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="836" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="836" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaab11b20e3aadaf71a627350a447e6f98" compoundref="xrfdc__ap_8c" startline="1523" endline="1581">XRFdc_GetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1ga7ab226b7c257253e4976343b3744e190" compoundref="xrfdc__ap_8c" startline="1292" endline="1360">XRFdc_GetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1ga2310adf5e069777ce80724de7d1c601f" compoundref="xrfdc__ap_8c" startline="1380" endline="1503">XRFdc_SetCalibrationMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___a_d_c___tile_1a3e2550bed41129eaa67ad77244d1a4f8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___a_d_c_block___analog_data_path" kindref="compound">XRFdc_ADCBlock_AnalogDataPath</ref></type>
+        <definition>XRFdc_ADCBlock_AnalogDataPath XRFdc_ADC_Tile::ADCBlock_Analog_Datapath[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>ADCBlock_Analog_Datapath</name>
+        <briefdescription>
+<para>Per-block analog datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="837" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="837" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2310adf5e069777ce80724de7d1c601f" compoundref="xrfdc__ap_8c" startline="1380" endline="1503">XRFdc_SetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1ga3e5edd66ceb653abf8f316f8cb0bec38" compoundref="xrfdc__ap_8c" startline="1192" endline="1271">XRFdc_SetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gaaa95922df5ac3c26a066f4418fc1853e" compoundref="xrfdc__ap_8c" startline="107" endline="293">XRFdc_SetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gaba6dca1e8e40a31b090f14fa12ecd891" compoundref="xrfdc__ap_8c" startline="806" endline="929">XRFdc_SetThresholdSettings</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___a_d_c___tile_1a9186bfa27699a15928a260e428e0960a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___a_d_c_block___digital_data_path" kindref="compound">XRFdc_ADCBlock_DigitalDataPath</ref></type>
+        <definition>XRFdc_ADCBlock_DigitalDataPath XRFdc_ADC_Tile::ADCBlock_Digital_Datapath[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>ADCBlock_Digital_Datapath</name>
+        <briefdescription>
+<para>Per-block digital datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="839" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="839" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga43b39e1be1937e41fa1635b60e904f56" compoundref="xrfdc__ap_8c" startline="313" endline="392">XRFdc_GetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gab0076018f6530e26bd9ad95bc7cdc7fa" compoundref="xrfdc__ap_8c" startline="955" endline="1011">XRFdc_GetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1gab97e92645ac7826214f132cb26730eda" compoundref="xrfdc__mb_8c" startline="1219" endline="1247">XRFdc_SetConnectedIQData</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gaaa95922df5ac3c26a066f4418fc1853e" compoundref="xrfdc__ap_8c" startline="107" endline="293">XRFdc_SetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gac3fb87248f09b356e8fdb3836658eb27" compoundref="xrfdc__ap_8c" startline="693" endline="780">XRFdc_SetThresholdClrMode</referencedby>
+        <referencedby refid="group___overview_1gaba6dca1e8e40a31b090f14fa12ecd891" compoundref="xrfdc__ap_8c" startline="806" endline="929">XRFdc_SetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1ga69a7ae63cf7acb97d3a3cf591f8a37b4" compoundref="xrfdc__ap_8c" startline="597" endline="667">XRFdc_ThresholdStickyClear</referencedby>
+        <referencedby refid="group___overview_1ga340750315304dc48dc87089b429b5364" compoundref="xrfdc__dp_8c" startline="260" endline="359">XRFdc_UpdateEvent</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ADC Tile Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="28">
+        <label>XRFdc_Mixer_Settings</label>
+        <link refid="struct_x_r_fdc___mixer___settings"/>
+      </node>
+      <node id="21">
+        <label>XRFdc_ADC_Tile</label>
+        <link refid="struct_x_r_fdc___a_d_c___tile"/>
+        <childnode refid="22" relation="usage">
+          <edgelabel>PLL_Settings</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>ADCBlock_Analog_Datapath</edgelabel>
+        </childnode>
+        <childnode refid="27" relation="usage">
+          <edgelabel>ADCBlock_Digital_Datapath</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XRFdc_Threshold_Settings</label>
+        <link refid="struct_x_r_fdc___threshold___settings"/>
+      </node>
+      <node id="27">
+        <label>XRFdc_ADCBlock_DigitalDataPath</label>
+        <link refid="struct_x_r_fdc___a_d_c_block___digital_data_path"/>
+        <childnode refid="28" relation="usage">
+          <edgelabel>Mixer_Settings</edgelabel>
+        </childnode>
+      </node>
+      <node id="23">
+        <label>XRFdc_ADCBlock_AnalogDataPath</label>
+        <link refid="struct_x_r_fdc___a_d_c_block___analog_data_path"/>
+        <childnode refid="24" relation="usage">
+          <edgelabel>CoarseDelay_Settings</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>Threshold_Settings</edgelabel>
+        </childnode>
+        <childnode refid="26" relation="usage">
+          <edgelabel>QMC_Settings</edgelabel>
+        </childnode>
+      </node>
+      <node id="26">
+        <label>XRFdc_QMC_Settings</label>
+        <link refid="struct_x_r_fdc___q_m_c___settings"/>
+      </node>
+      <node id="24">
+        <label>XRFdc_CoarseDelay_Settings</label>
+        <link refid="struct_x_r_fdc___coarse_delay___settings"/>
+      </node>
+      <node id="22">
+        <label>XRFdc_PLL_Settings</label>
+        <link refid="struct_x_r_fdc___p_l_l___settings"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="832" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="832" bodyend="841"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___a_d_c___tile_1a3e2550bed41129eaa67ad77244d1a4f8" prot="public" virt="non-virtual"><scope>XRFdc_ADC_Tile</scope><name>ADCBlock_Analog_Datapath</name></member>
+      <member refid="struct_x_r_fdc___a_d_c___tile_1a9186bfa27699a15928a260e428e0960a" prot="public" virt="non-virtual"><scope>XRFdc_ADC_Tile</scope><name>ADCBlock_Digital_Datapath</name></member>
+      <member refid="struct_x_r_fdc___a_d_c___tile_1af26b8f09b5aa199a8d9fbba087f1bd7c" prot="public" virt="non-virtual"><scope>XRFdc_ADC_Tile</scope><name>MultibandConfig</name></member>
+      <member refid="struct_x_r_fdc___a_d_c___tile_1a99a16ace002b9cb58a3bb5fd6cd2d204" prot="public" virt="non-virtual"><scope>XRFdc_ADC_Tile</scope><name>NumOfADCBlocks</name></member>
+      <member refid="struct_x_r_fdc___a_d_c___tile_1ad6db27e893c11928f79381e851bca506" prot="public" virt="non-virtual"><scope>XRFdc_ADC_Tile</scope><name>PLL_Settings</name></member>
+      <member refid="struct_x_r_fdc___a_d_c___tile_1a639e0319950284b1fed078e3ad7ee9c7" prot="public" virt="non-virtual"><scope>XRFdc_ADC_Tile</scope><name>TileBaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

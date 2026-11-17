@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_amd_xspi___config" kind="struct" prot="public">
+    <compoundname>AmdXspi_Config</compoundname>
+    <includes local="no">amd_xspi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_amd_xspi___config_1ab6874549af974e660b1ffd223a6449b4" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* AmdXspi_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Compatible string of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1bd70a24f250f6fff1700df83c9b3294" compoundref="amd__xspi__sinit_8c" startline="56" endline="69">AmdXspi_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1a78dbceaed69f4b0b30b0ae9fd1f503cb" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR AmdXspi_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+        <referencedby refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+        <referencedby refid="group__amd__xspi_1ga7d21c9f6b7cc656b8a6f966cfa7b43b0" compoundref="amd__xspi__options_8c" startline="120" endline="144">AmdXspi_SetSlaveSelect</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_Config::SpiMode</definition>
+        <argsstring></argsstring>
+        <name>SpiMode</name>
+        <briefdescription>
+<para>SPI Mode (C_SPI_MODE: 0-5). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1afa084f44e479122b7261258d239d3f49" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Config::FifoDepth</definition>
+        <argsstring></argsstring>
+        <name>FifoDepth</name>
+        <briefdescription>
+<para>Depth of TX/RX FIFOs (C_FIFO_DEPTH). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1a2d1970f96407bfa16be798d8e6bd8fac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_Config::NumSlaves</definition>
+        <argsstring></argsstring>
+        <name>NumSlaves</name>
+        <briefdescription>
+<para>Number of slave devices supported (C_NUM_SS_BITS). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1ga7d21c9f6b7cc656b8a6f966cfa7b43b0" compoundref="amd__xspi__options_8c" startline="120" endline="144">AmdXspi_SetSlaveSelect</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1af75ec73df98a53d6d987b18bdc069880" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Config::SpiClkFreq</definition>
+        <argsstring></argsstring>
+        <name>SpiClkFreq</name>
+        <briefdescription>
+<para>External SPI Clock Frequency in MHz (C_EXT_SPI_CLK_FREQ). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1af905acd632e30abd8d61f2a20a57169f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Config::SckRatio</definition>
+        <argsstring></argsstring>
+        <name>SckRatio</name>
+        <briefdescription>
+<para>SPI clock division ratio (C_SCK_RATIO). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1ad3e3a1b4c042b9596ee35bc9458defbf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___config_1ac296a191806aae5401e9032539ddf9b0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR AmdXspi_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Interrupt parent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the configuration of an AXI XSPI device. </para>    </briefdescription>
+    <detaileddescription>
+<para>Fields are populated from the system device tree by the BSP generator. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="113" bodyend="137"/>
+    <listofallmembers>
+      <member refid="struct_amd_xspi___config_1a78dbceaed69f4b0b30b0ae9fd1f503cb" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_amd_xspi___config_1afa084f44e479122b7261258d239d3f49" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>FifoDepth</name></member>
+      <member refid="struct_amd_xspi___config_1ad3e3a1b4c042b9596ee35bc9458defbf" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>IntrId</name></member>
+      <member refid="struct_amd_xspi___config_1ac296a191806aae5401e9032539ddf9b0" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_amd_xspi___config_1ab6874549af974e660b1ffd223a6449b4" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>Name</name></member>
+      <member refid="struct_amd_xspi___config_1a2d1970f96407bfa16be798d8e6bd8fac" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>NumSlaves</name></member>
+      <member refid="struct_amd_xspi___config_1af905acd632e30abd8d61f2a20a57169f" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>SckRatio</name></member>
+      <member refid="struct_amd_xspi___config_1af75ec73df98a53d6d987b18bdc069880" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>SpiClkFreq</name></member>
+      <member refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" prot="public" virt="non-virtual"><scope>AmdXspi_Config</scope><name>SpiMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

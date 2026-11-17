@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structdfu__if" kind="struct" prot="public">
+    <compoundname>dfu_if</compoundname>
+    <includes local="no">xusb_class_audio_dfu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdfu__if_1ae17eec8a07bcad7005433e4afedbd3fc" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *</type>
+        <definition>struct Usb_DevData * dfu_if::InstancePtr</definition>
+        <argsstring></argsstring>
+        <name>InstancePtr</name>
+        <briefdescription>
+<para>Instance Ptr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a0497d8263d98f682a5c28d6d391970e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::curr_state</definition>
+        <argsstring></argsstring>
+        <name>curr_state</name>
+        <briefdescription>
+<para>Curr_state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3ade58346ca33654f5138ee9c443610d" compoundref="xusb__class__audio__dfu_8c" startline="192" endline="206">USB_DfuGetStatus</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a4ad7bb0798660879a761038133bf0b80" compoundref="xusb__class__audio__dfu_8c" startline="161" endline="182">USB_DfuSetDwloadState</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a8b19bc632cf034521a7854793460f40b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::next_state</definition>
+        <argsstring></argsstring>
+        <name>next_state</name>
+        <briefdescription>
+<para>Next_state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1af487b629a840e7b2d15174c8e1a41379" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <briefdescription>
+<para>Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3ade58346ca33654f5138ee9c443610d" compoundref="xusb__class__audio__dfu_8c" startline="192" endline="206">USB_DfuGetStatus</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1abedb699cf19cfd96dc4b617b2b45ba0c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::got_reset</definition>
+        <argsstring></argsstring>
+        <name>got_reset</name>
+        <briefdescription>
+<para>Got_reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a32104a8a6dc05b1a505ebc586cb413e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::current_inf</definition>
+        <argsstring></argsstring>
+        <name>current_inf</name>
+        <briefdescription>
+<para>Current_inf. </para>        </briefdescription>
+        <detaileddescription>
+<para>current interface</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae423c2f49364dc3cd9e2cddf6b62541b" compoundref="xusb__class__dfu_8c" startline="261" endline="288">Usb_DfuSetIntf</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1aa94f76e9ed40fc02f4d38a74ce0ce595" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::got_dnload_rqst</definition>
+        <argsstring></argsstring>
+        <name>got_dnload_rqst</name>
+        <briefdescription>
+<para>Got_dnload_rqst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a4ad7bb0798660879a761038133bf0b80" compoundref="xusb__class__audio__dfu_8c" startline="161" endline="182">USB_DfuSetDwloadState</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a272cd3e61af50f4227d3682b12086395" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::total_transfers</definition>
+        <argsstring></argsstring>
+        <name>total_transfers</name>
+        <briefdescription>
+<para>Total_transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a7e56e21b697437901e465c624607fe06" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::total_bytes_dnloaded</definition>
+        <argsstring></argsstring>
+        <name>total_bytes_dnloaded</name>
+        <briefdescription>
+<para>Total_bytes_dnloaded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1abd15cf1fa7c0b3d8f3bc4ccd9f1276a6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::total_bytes_uploaded</definition>
+        <argsstring></argsstring>
+        <name>total_bytes_uploaded</name>
+        <briefdescription>
+<para>Total_bytes_uploaded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a7af88c26b63603789d8745798f595e93" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::dfu_wait_for_interrupt</definition>
+        <argsstring></argsstring>
+        <name>dfu_wait_for_interrupt</name>
+        <briefdescription>
+<para>Dfu_wait_for_interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1a41ee754aa98c010c6598a68967a25337" compoundref="xusb__class__dfu_8c" startline="215" endline="230">Usb_DfuDisconnect</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1a85ada1b41808b8cc819667bdd0c9f2f8" compoundref="xusb__class__dfu_8c" startline="239" endline="251">Usb_DfuReset</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a194a9e11a6d5b86e53384260e2f1a90b" compoundref="xusb__class__audio__dfu_8c" startline="215" endline="230">Usb_DisconnectHandler</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1af5e188c4250382b042768893417ab321" compoundref="xusb__class__audio__dfu_8c" startline="239" endline="251">Usb_ResetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1aadcd4f1649783cc30a3cfb54f42e258f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::is_dfu</definition>
+        <argsstring></argsstring>
+        <name>is_dfu</name>
+        <briefdescription>
+<para>Is_dfu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" compoundref="xusb__ch9__audio__dfu_8c" startline="1098" endline="1140">Usb_Ch9SetupCfgDescReply</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" compoundref="xusb__ch9__audio__dfu_8c" startline="1158" endline="1227">Usb_Ch9SetupStrDescReply</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1a41ee754aa98c010c6598a68967a25337" compoundref="xusb__class__dfu_8c" startline="215" endline="230">Usb_DfuDisconnect</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a194a9e11a6d5b86e53384260e2f1a90b" compoundref="xusb__class__audio__dfu_8c" startline="215" endline="230">Usb_DisconnectHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a270a04c0391e88860c7b25b22c5d724d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::runtime_to_dfu</definition>
+        <argsstring></argsstring>
+        <name>runtime_to_dfu</name>
+        <briefdescription>
+<para>Runtime_to_dfu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="xusb__class__dfu_8h_1ae423c2f49364dc3cd9e2cddf6b62541b" compoundref="xusb__class__dfu_8c" startline="261" endline="288">Usb_DfuSetIntf</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a217db6ab8a96f9b9fe8371a8e0be8be7" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * dfu_if::disk</definition>
+        <argsstring></argsstring>
+        <name>disk</name>
+        <briefdescription>
+<para>Disk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a857d848e4fc0d6b79a5b38616a0734ae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::disksize</definition>
+        <argsstring></argsstring>
+        <name>disksize</name>
+        <briefdescription>
+<para>Disksize. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a899b72b8848bbf6af36fba18a208d470" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 dfu_if::dfu_wait_for_interrupt</definition>
+        <argsstring></argsstring>
+        <name>dfu_wait_for_interrupt</name>
+        <briefdescription>
+<para>Dfu_wait_for_interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_dfu.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_dfu.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DFU interface state and control data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="20">
+        <label>dfu_if</label>
+        <link refid="structdfu__if"/>
+        <childnode refid="21" relation="usage">
+          <edgelabel>InstancePtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Usb_DevData</label>
+        <link refid="struct_usb___dev_data"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="125" bodyend="139"/>
+    <listofallmembers>
+      <member refid="structdfu__if_1a0497d8263d98f682a5c28d6d391970e4" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>curr_state</name></member>
+      <member refid="structdfu__if_1a32104a8a6dc05b1a505ebc586cb413e9" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>current_inf</name></member>
+      <member refid="structdfu__if_1a7af88c26b63603789d8745798f595e93" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>dfu_wait_for_interrupt</name></member>
+      <member refid="structdfu__if_1a899b72b8848bbf6af36fba18a208d470" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>dfu_wait_for_interrupt</name></member>
+      <member refid="structdfu__if_1a217db6ab8a96f9b9fe8371a8e0be8be7" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>disk</name></member>
+      <member refid="structdfu__if_1a857d848e4fc0d6b79a5b38616a0734ae" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>disksize</name></member>
+      <member refid="structdfu__if_1aa94f76e9ed40fc02f4d38a74ce0ce595" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>got_dnload_rqst</name></member>
+      <member refid="structdfu__if_1abedb699cf19cfd96dc4b617b2b45ba0c" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>got_reset</name></member>
+      <member refid="structdfu__if_1ae17eec8a07bcad7005433e4afedbd3fc" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>InstancePtr</name></member>
+      <member refid="structdfu__if_1aadcd4f1649783cc30a3cfb54f42e258f" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>is_dfu</name></member>
+      <member refid="structdfu__if_1a8b19bc632cf034521a7854793460f40b" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>next_state</name></member>
+      <member refid="structdfu__if_1a270a04c0391e88860c7b25b22c5d724d" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>runtime_to_dfu</name></member>
+      <member refid="structdfu__if_1af487b629a840e7b2d15174c8e1a41379" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>status</name></member>
+      <member refid="structdfu__if_1a7e56e21b697437901e465c624607fe06" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>total_bytes_dnloaded</name></member>
+      <member refid="structdfu__if_1abd15cf1fa7c0b3d8f3bc4ccd9f1276a6" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>total_bytes_uploaded</name></member>
+      <member refid="structdfu__if_1a272cd3e61af50f4227d3682b12086395" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>total_transfers</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

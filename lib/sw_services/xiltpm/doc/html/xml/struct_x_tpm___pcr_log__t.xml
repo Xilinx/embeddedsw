@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tpm___pcr_log__t" kind="struct" prot="public">
+    <compoundname>XTpm_PcrLog_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a9085317c1eb6db1dd5c7024b19fcf529" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_tpm___pcr_event__t" kindref="compound">XTpm_PcrEvent_t</ref></type>
+        <definition>XTpm_PcrEvent_t XTpm_PcrLog_t::Buffer[XTPM_MAX_NUM_OF_PCR_EVENTS]</definition>
+        <argsstring>[XTPM_MAX_NUM_OF_PCR_EVENTS]</argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+<para>Stores hardware PCR events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a1c38687e5b081684e87c0afb2100b04b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_tpm___pcr_log_info__t" kindref="compound">XTpm_PcrLogInfo_t</ref></type>
+        <definition>XTpm_PcrLogInfo_t XTpm_PcrLog_t::LogInfo</definition>
+        <argsstring></argsstring>
+        <name>LogInfo</name>
+        <briefdescription>
+<para>Log information of hardware PCR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a0ec3218fbd4b6c23150ad8511fda52a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLog_t::HeadIndex</definition>
+        <argsstring></argsstring>
+        <name>HeadIndex</name>
+        <briefdescription>
+<para>Starting index of hardware PCR event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a323dc4b886f401e039f7b50783b3312d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLog_t::TailIndex</definition>
+        <argsstring></argsstring>
+        <name>TailIndex</name>
+        <briefdescription>
+<para>Last index of hardware PCR event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>XTpm_PcrEvent_t</label>
+        <link refid="struct_x_tpm___pcr_event__t"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>PcrValue</edgelabel>
+          <edgelabel>PcrNo</edgelabel>
+          <edgelabel>Hash</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>XTpm_PcrLogInfo_t</label>
+        <link refid="struct_x_tpm___pcr_log_info__t"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>OverflowCntSinceLastRd</edgelabel>
+          <edgelabel>TotalPcrLogEvents</edgelabel>
+          <edgelabel>PcrEventsRead</edgelabel>
+          <edgelabel>RemainingPcrEvents</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XTpm_PcrLog_t</label>
+        <link refid="struct_x_tpm___pcr_log__t"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>LogInfo</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>TailIndex</edgelabel>
+          <edgelabel>HeadIndex</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Buffer</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>u32</label>
+      </node>
+      <node id="8">
+        <label>u8</label>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="98" bodyend="103"/>
+    <listofallmembers>
+      <member refid="struct_x_tpm___pcr_log__t_1a9085317c1eb6db1dd5c7024b19fcf529" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>Buffer</name></member>
+      <member refid="struct_x_tpm___pcr_log__t_1a0ec3218fbd4b6c23150ad8511fda52a2" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>HeadIndex</name></member>
+      <member refid="struct_x_tpm___pcr_log__t_1a1c38687e5b081684e87c0afb2100b04b" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>LogInfo</name></member>
+      <member refid="struct_x_tpm___pcr_log__t_1a323dc4b886f401e039f7b50783b3312d" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>TailIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

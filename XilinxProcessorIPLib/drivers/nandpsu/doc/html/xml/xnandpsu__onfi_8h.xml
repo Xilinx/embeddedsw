@@ -1,0 +1,1361 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnandpsu__onfi_8h" kind="file">
+    <compoundname>xnandpsu_onfi.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xnandpsu_8h" local="yes">xnandpsu.h</includedby>
+    <includedby refid="xnandpsu__onfi_8c" local="yes">xnandpsu_onfi.c</includedby>
+    <incdepgraph>
+      <node id="112">
+        <label>xnandpsu_onfi.h</label>
+        <link refid="xnandpsu_onfi.h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="118">
+        <label>xnandpsu_bbm.c</label>
+        <link refid="xnandpsu__bbm_8c"/>
+      </node>
+      <node id="117">
+        <label>xnandpsu_bbm.h</label>
+        <link refid="xnandpsu__bbm_8h"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>xnandpsu.c</label>
+        <link refid="xnandpsu_8c"/>
+      </node>
+      <node id="115">
+        <label>xnandpsu.h</label>
+        <link refid="xnandpsu_8h"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>xnandpsu_g.c</label>
+        <link refid="xnandpsu__g_8c"/>
+      </node>
+      <node id="120">
+        <label>xnandpsu_onfi.c</label>
+        <link refid="xnandpsu__onfi_8c"/>
+      </node>
+      <node id="114">
+        <label>xnandpsu_onfi.h</label>
+        <link refid="xnandpsu_onfi.h"/>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>xnandpsu_sinit.c</label>
+        <link refid="xnandpsu__sinit_8c"/>
+      </node>
+      <node id="122">
+        <label>xnandpsu_example.c</label>
+        <link refid="xnandpsu__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_onfi_param_page" prot="public">OnfiParamPage</innerclass>
+    <innerclass refid="struct_onfi_ext_prm_page" prot="public">OnfiExtPrmPage</innerclass>
+    <innerclass refid="struct_onfi_ext_ecc_block" prot="public">OnfiExtEccBlock</innerclass>
+    <innerclass refid="struct_onfi_cmd_format" prot="public">OnfiCmdFormat</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__nandpsu__api_1ga882d3dbf73690c171ccd6350170efbf3" prot="public" static="no">
+        <name>ONFI_CMD_RD1</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Read (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga5f5f42939c183b9460e4e67de68940d5" prot="public" static="no">
+        <name>ONFI_CMD_RD2</name>
+        <initializer>0x30U</initializer>
+        <briefdescription>
+<para>Read (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gab8dd0c75824e4e2287de9934909e049a" prot="public" static="no">
+        <name>ONFI_CMD_CHNG_RD_COL1</name>
+        <initializer>0x05U</initializer>
+        <briefdescription>
+<para>Change Read Column (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga8f0c90948d7aac2b79d281979cb522eb" prot="public" static="no">
+        <name>ONFI_CMD_CHNG_RD_COL2</name>
+        <initializer>0xE0U</initializer>
+        <briefdescription>
+<para>Change Read Column (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga1ff2f5361a5afcca1ac79a1c5bbd5f64" prot="public" static="no">
+        <name>ONFI_CMD_BLK_ERASE1</name>
+        <initializer>0x60U</initializer>
+        <briefdescription>
+<para>Block Erase (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2128" endline="2167">XNandPsu_EraseBlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga6f7414a02d236c632060d2c27d712c43" prot="public" static="no">
+        <name>ONFI_CMD_BLK_ERASE2</name>
+        <initializer>0xD0U</initializer>
+        <briefdescription>
+<para>Block Erase (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2128" endline="2167">XNandPsu_EraseBlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga8bc076484b91097a58870efb6bc414f8" prot="public" static="no">
+        <name>ONFI_CMD_RD_STS</name>
+        <initializer>0x70U</initializer>
+        <briefdescription>
+<para>Read Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga0d2b66ac14eb5e67c578e633647a7bdb" prot="public" static="no">
+        <name>ONFI_CMD_PG_PROG1</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>Page Program(1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaca1d174aee44b4db6b12be18f7e3d7af" prot="public" static="no">
+        <name>ONFI_CMD_PG_PROG2</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Page Program(2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaa6f736760eaf832cdf8cf267cec5115f" prot="public" static="no">
+        <name>ONFI_CMD_CHNG_WR_COL</name>
+        <initializer>0x85U</initializer>
+        <briefdescription>
+<para>Change Write Column. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga74128470f016d4664c3f7cc9f499d021" prot="public" static="no">
+        <name>ONFI_CMD_RD_ID</name>
+        <initializer>0x90U</initializer>
+        <briefdescription>
+<para>Read ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga134e224e99c932ce36a2c454b50d6bda" prot="public" static="no">
+        <name>ONFI_CMD_RD_PRM_PG</name>
+        <initializer>0xECU</initializer>
+        <briefdescription>
+<para>Read Parameter Page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga2886bb9abee48f2c8b97561cffa9eafa" prot="public" static="no">
+        <name>ONFI_CMD_RST</name>
+        <initializer>0xFFU</initializer>
+        <briefdescription>
+<para>Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga0e0a2b7d1a78f0ff77d0eb7f95a07242" prot="public" static="no">
+        <name>ONFI_CMD_MUL_RD1</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Multiplane Read (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga636e1b823da3ff7f5690e501635169fc" prot="public" static="no">
+        <name>ONFI_CMD_MUL_RD2</name>
+        <initializer>0x32U</initializer>
+        <briefdescription>
+<para>Multiplane Read (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaad6bf889c87e1df148c6f8f793e57e33" prot="public" static="no">
+        <name>ONFI_CMD_CPBK_RD1</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Copyback Read (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaac27116a174cc275670311c5f892f368" prot="public" static="no">
+        <name>ONFI_CMD_CPBK_RD2</name>
+        <initializer>0x35U</initializer>
+        <briefdescription>
+<para>Copyback Read (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaebd359408a3ee261032c73810ab64fc9" prot="public" static="no">
+        <name>ONFI_CMD_CHNG_RD_COL_ENHCD1</name>
+        <initializer>0x06U</initializer>
+        <briefdescription>
+<para>Change Read Column Enhanced (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga99babd0c64a4b5e57c734dd233dd5f82" prot="public" static="no">
+        <name>ONFI_CMD_CHNG_RD_COL_ENHCD2</name>
+        <initializer>0xE0U</initializer>
+        <briefdescription>
+<para>Change Read Column Enhanced (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gad48e9d0fcfb6db06eada59479233e0b4" prot="public" static="no">
+        <name>ONFI_CMD_RD_CACHE_RND1</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Read Cache Random (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaabe7628dd03a2aa3382897c7567ece2d" prot="public" static="no">
+        <name>ONFI_CMD_RD_CACHE_RND2</name>
+        <initializer>0x31U</initializer>
+        <briefdescription>
+<para>Read Cache Random (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaed43fd1490dd75d904e4e281c6f2852a" prot="public" static="no">
+        <name>ONFI_CMD_RD_CACHE_SEQ</name>
+        <initializer>0x31U</initializer>
+        <briefdescription>
+<para>Read Cache Sequential. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga513449407d5fac435cf50a8e12bc47e6" prot="public" static="no">
+        <name>ONFI_CMD_RD_CACHE_END</name>
+        <initializer>0x3FU</initializer>
+        <briefdescription>
+<para>Read Cache End. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga9812feaf3d2b58bb2b0dee40450d0180" prot="public" static="no">
+        <name>ONFI_CMD_MUL_BLK_ERASE1</name>
+        <initializer>0x60U</initializer>
+        <briefdescription>
+<para>Multiplane Block Erase (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaec11b0d84d963fcfddb1ddb480533a9d" prot="public" static="no">
+        <name>ONFI_CMD_MUL_BLK_ERASE2</name>
+        <initializer>0xD1U</initializer>
+        <briefdescription>
+<para>Multiplane Block Erase (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaa5b7c6c1bbf89946629c6c78f127a297" prot="public" static="no">
+        <name>ONFI_CMD_RD_STS_ENHCD</name>
+        <initializer>0x78U</initializer>
+        <briefdescription>
+<para>Read Status Enhanced. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gadccfae0e7570f7460d2ac8b59b7ebe1c" prot="public" static="no">
+        <name>ONFI_CMD_BLK_ERASE_INTRLVD2</name>
+        <initializer>0xD1U</initializer>
+        <briefdescription>
+<para>Block Erase Interleaved (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga5c5022e4458110a20b09835f7d4dd448" prot="public" static="no">
+        <name>ONFI_CMD_MUL_PG_PROG1</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>Multiplane Page Program (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gac91b7da3e79f8076aad22e88abc85701" prot="public" static="no">
+        <name>ONFI_CMD_MUL_PG_PROG2</name>
+        <initializer>0x11U</initializer>
+        <briefdescription>
+<para>Multiplane Page Program (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gad303d3b12b2244d624b40059bea15627" prot="public" static="no">
+        <name>ONFI_CMD_PG_CACHE_PROG1</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>Page Cache Program (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga7e98fe595f9b2c90a40990bc992afacd" prot="public" static="no">
+        <name>ONFI_CMD_PG_CACHE_PROG2</name>
+        <initializer>0x15U</initializer>
+        <briefdescription>
+<para>Page Cache Program (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaeb625e11c21f820e10eb8da31868d0d3" prot="public" static="no">
+        <name>ONFI_CMD_CPBK_PROG1</name>
+        <initializer>0x85U</initializer>
+        <briefdescription>
+<para>Copyback Program (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga8d40c71034e3782bb23a6d6badb0b264" prot="public" static="no">
+        <name>ONFI_CMD_CPBK_PROG2</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Copyback Program (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gad5ebef0f3fd6a4895581f7a869156122" prot="public" static="no">
+        <name>ONFI_CMD_MUL_CPBK_PROG1</name>
+        <initializer>0x85U</initializer>
+        <briefdescription>
+<para>Multiplane Copyback Program (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga82654fc958524c5d97841507992086a8" prot="public" static="no">
+        <name>ONFI_CMD_MUL_CPBK_PROG2</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Multiplane Copyback Program (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaaa18558ec576017710850ae614160be7" prot="public" static="no">
+        <name>ONFI_CMD_SMALL_DATA_MV1</name>
+        <initializer>0x85U</initializer>
+        <briefdescription>
+<para>Small Data Move (1st cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga0096421df4b9df614fba1857b2760c78" prot="public" static="no">
+        <name>ONFI_CMD_SMALL_DATA_MV2</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Small Data Move (2nd cycle) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga1cac13f9363cd4d04c42a6a374a9eb0e" prot="public" static="no">
+        <name>ONFI_CMD_CHNG_ROW_ADDR</name>
+        <initializer>0x85U</initializer>
+        <briefdescription>
+<para>Change Row Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga006cfe733cdff5b4696d25b67290a131" prot="public" static="no">
+        <name>ONFI_CMD_VOL_SEL</name>
+        <initializer>0xE1U</initializer>
+        <briefdescription>
+<para>Volume Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga3e8d8f6cfacfabf327a4623d05310bbe" prot="public" static="no">
+        <name>ONFI_CMD_ODT_CONF</name>
+        <initializer>0xE2U</initializer>
+        <briefdescription>
+<para>ODT Configure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga5562fcfa40c1a1ed1af6bb226f532860" prot="public" static="no">
+        <name>ONFI_CMD_RD_UNIQID</name>
+        <initializer>0xEDU</initializer>
+        <briefdescription>
+<para>Read Unique ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gadbf8afcdec47ffb5e24a9e2f580bc9e4" prot="public" static="no">
+        <name>ONFI_CMD_GET_FEATURES</name>
+        <initializer>0xEEU</initializer>
+        <briefdescription>
+<para>Get Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2184" endline="2224">XNandPsu_GetFeature</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga09a77a047f11adfcb8b2b226bd674adf" prot="public" static="no">
+        <name>ONFI_CMD_SET_FEATURES</name>
+        <initializer>0xEFU</initializer>
+        <briefdescription>
+<para>Set Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2241" endline="2284">XNandPsu_SetFeature</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga8c2f54918f2486a5a6d1c3417dd1b298" prot="public" static="no">
+        <name>ONFI_CMD_LUN_GET_FEATURES</name>
+        <initializer>0xD4U</initializer>
+        <briefdescription>
+<para>LUN Get Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gab6a60ad45ff02404e8a578a75e406d30" prot="public" static="no">
+        <name>ONFI_CMD_LUN_SET_FEATURES</name>
+        <initializer>0xD5U</initializer>
+        <briefdescription>
+<para>LUN Set Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaa94c1ee47f8fdd7d0688b1f58c7a4a67" prot="public" static="no">
+        <name>ONFI_CMD_RST_LUN</name>
+        <initializer>0xFAU</initializer>
+        <briefdescription>
+<para>Reset LUN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga050803e462a1b680d607c8bd55c182a9" prot="public" static="no">
+        <name>ONFI_CMD_SYN_RST</name>
+        <initializer>0xFCU</initializer>
+        <briefdescription>
+<para>Synchronous Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga566f7236a328a4a270204560fe7c64e4" prot="public" static="no">
+        <name>ONFI_STS_FAIL</name>
+        <initializer>0x01U</initializer>
+        <briefdescription>
+<para>FAIL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga3652e61be8a96fc39945ef0a7f6904b3" prot="public" static="no">
+        <name>ONFI_STS_FAILC</name>
+        <initializer>0x02U</initializer>
+        <briefdescription>
+<para>FAILC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaa6ed9da55fa39a8dad4eb68f736def00" prot="public" static="no">
+        <name>ONFI_STS_CSP</name>
+        <initializer>0x08U</initializer>
+        <briefdescription>
+<para>CSP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga03dc9921d6d5bfcfa3649bc0944febd3" prot="public" static="no">
+        <name>ONFI_STS_VSP</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>VSP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gacb9beeb39cce1a530069a82e89388a30" prot="public" static="no">
+        <name>ONFI_STS_ARDY</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+<para>ARDY. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga570354476303fffc18f281b3a9e9d552" prot="public" static="no">
+        <name>ONFI_STS_RDY</name>
+        <initializer>0x40U</initializer>
+        <briefdescription>
+<para>RDY. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga73b6d8376b77fcbae275da4003ef16a3" prot="public" static="no">
+        <name>ONFI_STS_WP</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>WP_n. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga227f8d8d7d2de58dd0b2d6da3006f03e" prot="public" static="no">
+        <name>ONFI_CRC_LEN</name>
+        <initializer>254U</initializer>
+        <briefdescription>
+<para>ONFI CRC Buf Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gadd68e6a60bca7357f93abc8c4c508a3b" prot="public" static="no">
+        <name>ONFI_PRM_PG_LEN</name>
+        <initializer>256U</initializer>
+        <briefdescription>
+<para>Parameter Page Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gadd9c44d14d7735aa52faa9d0375c4e84" prot="public" static="no">
+        <name>ONFI_MND_PRM_PGS</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Number of mandatory parameter pages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga5b8c9c449c2876b31c6f709e0b566cb1" prot="public" static="no">
+        <name>ONFI_SIG_LEN</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Signature Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaa1515e541e1f6e5bd5408cf7de0f98c2" prot="public" static="no">
+        <name>ONFI_CMD_INVALID</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Invalid Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2184" endline="2224">XNandPsu_GetFeature</referencedby>
+        <referencedby refid="group__nandpsu_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2241" endline="2284">XNandPsu_SetFeature</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga8156fa20f5a5f2a0f850ae8e3623795e" prot="public" static="no">
+        <name>ONFI_READ_ID_LEN</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>ONFI ID length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaa9824e832d027e271f3fb20ff8f04ba1" prot="public" static="no">
+        <name>ONFI_READ_ID_ADDR</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+<para>ONFI Read ID Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1gaf68f04880bea3f52a3f6e8871e49dd71" prot="public" static="no">
+        <name>ONFI_READ_ID_ADDR_CYCLES</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>ONFI Read ID Address cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__nandpsu__api_1ga6bed31113a376ac8567d14f4b05cd11b" prot="public" static="no">
+        <name>ONFI_PRM_PG_ADDR_CYCLES</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>ONFI Read Parameter page address cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__nandpsu__api_1ga5cc7c90cb423455c9cbde71127180a6f" prot="public" static="no">
+        <name>OnfiCommandList</name>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6facb9be765f361bb7efb9073730aac92c6" prot="public">
+          <name>READ</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fac1bb4d3f98660dd9ff544df54865a1a4" prot="public">
+          <name>MULTIPLANE_READ</name>
+          <briefdescription>
+<para>Multiplane Read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa5e386fa2aa66aa27acf9e361598e5416" prot="public">
+          <name>COPYBACK_READ</name>
+          <briefdescription>
+<para>Copyback Read. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa93048e7702ea73781e031c18191f6aec" prot="public">
+          <name>CHANGE_READ_COLUMN</name>
+          <briefdescription>
+<para>Change Read Column. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6faae171823eacd5415967d6e3e3dc5b018" prot="public">
+          <name>CHANGE_READ_COLUMN_ENHANCED</name>
+          <briefdescription>
+<para>Change Read Column Enhanced. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa8b269d64de6c130671c1413fd0f2bbb2" prot="public">
+          <name>READ_CACHE_RANDOM</name>
+          <briefdescription>
+<para>Read Cache Random. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6e10f0cad738041acd1fa97975cc23da" prot="public">
+          <name>READ_CACHE_SEQUENTIAL</name>
+          <briefdescription>
+<para>Read Cache Sequential. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fafb87592a6a94debf1a77991a2c091967" prot="public">
+          <name>READ_CACHE_END</name>
+          <briefdescription>
+<para>Read Cache End. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa07c1d6a795c348f8633600a052d26dfd" prot="public">
+          <name>BLOCK_ERASE</name>
+          <briefdescription>
+<para>Block Erase. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6da55484c58c5d7d9c21896cc81e8325" prot="public">
+          <name>MULTIPLANE_BLOCK_ERASE</name>
+          <briefdescription>
+<para>Multiplane Block Erase. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa451fb3a060f895e40024da81e03fe45a" prot="public">
+          <name>READ_STATUS</name>
+          <briefdescription>
+<para>Read Status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa0bce0059c1fc409f6e99f4b33f5814b8" prot="public">
+          <name>READ_STATUS_ENHANCED</name>
+          <briefdescription>
+<para>Read Status Enhanced. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fabe9758bc5df677605dcc22e1557c853a" prot="public">
+          <name>PAGE_PROGRAM</name>
+          <briefdescription>
+<para>Page Program. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa9fc6b1d18d6fa77cd74261e9af82f9bc" prot="public">
+          <name>MULTIPLANE_PAGE_PROGRAM</name>
+          <briefdescription>
+<para>Multiplane Page Program. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa917fd89fc6851edcf198f44f133ddf3a" prot="public">
+          <name>PAGE_CACHE_PROGRAM</name>
+          <briefdescription>
+<para>Page Cache Program. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa80e6a5038c80f1e097965a5a825476ac" prot="public">
+          <name>COPYBACK_PROGRAM</name>
+          <briefdescription>
+<para>Copyback Program. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fae8ac05fa8c462fb961ed3ccb90923953" prot="public">
+          <name>MULTIPLANE_COPYBACK_PROGRAM</name>
+          <briefdescription>
+<para>Multiplane Copyback Program. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa3b12f9ab803cb22e00b53c0135f8fb6c" prot="public">
+          <name>SMALL_DATA_MOVE</name>
+          <briefdescription>
+<para>Small Data Move. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa7b8cd11c9f3d97de2d293b68927899d6" prot="public">
+          <name>CHANGE_WRITE_COLUMN</name>
+          <briefdescription>
+<para>Change Write Column. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6f2fb4ba79d81e825ce5cbfddf394753" prot="public">
+          <name>CHANGE_ROW_ADDR</name>
+          <briefdescription>
+<para>Change Row Address. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa08d1641fdf7c1a20c4f1563f57d958e8" prot="public">
+          <name>READ_ID</name>
+          <briefdescription>
+<para>Read ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa36f72d840fdfef0b83c31ea9aa56e125" prot="public">
+          <name>VOLUME_SELECT</name>
+          <briefdescription>
+<para>Volume Select. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa8e5a71b09ac2c50474a1e77fa8fe9f88" prot="public">
+          <name>ODT_CONFIGURE</name>
+          <briefdescription>
+<para>ODT Configure. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa1589226dbb8a8f0493a8a6df64943518" prot="public">
+          <name>READ_PARAM_PAGE</name>
+          <briefdescription>
+<para>Read Parameter Page. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6facef231a1a72298b8f7d1d0013220a79e" prot="public">
+          <name>READ_UNIQUE_ID</name>
+          <briefdescription>
+<para>Read Unique ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa9bf6ffa4f6227023e81c1b4ebd1ae5a1" prot="public">
+          <name>GET_FEATURES</name>
+          <briefdescription>
+<para>Get Features. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4dbe92307b1ecfc6eb4dfb3ee1f59cb7" prot="public">
+          <name>SET_FEATURES</name>
+          <briefdescription>
+<para>Set Features. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa3ce8065a5c78af7c1757640919d376ab" prot="public">
+          <name>LUN_GET_FEATURES</name>
+          <briefdescription>
+<para>LUN Get Features. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6faa383f73d58164c0bc8e2e0abe15dda57" prot="public">
+          <name>LUN_SET_FEATURES</name>
+          <briefdescription>
+<para>LUN Set Features. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fada0346eceffe7ed4a8b311eb93ce6bc0" prot="public">
+          <name>RESET_LUN</name>
+          <briefdescription>
+<para>Reset LUN. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa27377eb8b77bd38c1b51eda69bd3d888" prot="public">
+          <name>SYN_RESET</name>
+          <briefdescription>
+<para>Synchronous Reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa589b7d94a3d91d145720e2fed0eb3a05" prot="public">
+          <name>RESET</name>
+          <briefdescription>
+<para>Reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4d3d3fa486f828228b6a8b5aac3100b0" prot="public">
+          <name>MAX_CMDS</name>
+          <briefdescription>
+<para>Dummy Command. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Lists the ONFI 3.1 commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="169" bodyend="203"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__nandpsu__api_1gaa14cdc14f9b5cfec93d83127c2e1164c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_onfi_cmd_format" kindref="compound">OnfiCmdFormat</ref></type>
+        <definition>const OnfiCmdFormat OnfiCmd[MAX_CMDS]</definition>
+        <argsstring>[MAX_CMDS]</argsstring>
+        <name>OnfiCmd</name>
+        <briefdescription>
+<para>ONFI command cycles, indexed by the OnfiCommandList enum. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="347" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__nandpsu__api_1ga474cec95b9bf91d0ae8ec1988792cdd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XNandPsu_OnfiParamPageCrc</definition>
+        <argsstring>(u8 *ParamBuf, u32 StartOff, u32 Length)</argsstring>
+        <name>XNandPsu_OnfiParamPageCrc</name>
+        <param>
+          <type>u8 *</type>
+          <declname>ParamBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StartOff</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the ONFI parameter page CRC. </para>        </briefdescription>
+        <detaileddescription>
+<para>Covers the bytes from offset StartOff up to, but not including, offset Length of the buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ParamBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the ONFI parameter page buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StartOff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting offset in the buffer for the CRC. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>End offset (exclusive) in the buffer for the CRC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Calculated 16-bit CRC value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.c" bodystart="56" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares the ONFI 3.1 specific commands, values and structures. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date          Changes
+<hruler/>
+
+1.0   nm     05/06/2014  First release
+1.4     nsk    04/10/2018  Added ICCARM compiler support.
+1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XNANDPSU_ONFI_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_ONFI_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Standard<sp/>ONFI<sp/>3.1<sp/>Commands<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ONFI<sp/>3.1<sp/>Mandatory<sp/>Commands<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="group__nandpsu__api_1ga882d3dbf73690c171ccd6350170efbf3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__nandpsu__api_1ga5f5f42939c183b9460e4e67de68940d5" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__nandpsu__api_1gab8dd0c75824e4e2287de9934909e049a" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CHNG_RD_COL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x05U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CHNG_RD_COL2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE0U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>ONFI_CMD_BLK_ERASE1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>ONFI_CMD_BLK_ERASE2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD0U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__nandpsu__api_1ga1ff2f5361a5afcca1ac79a1c5bbd5f64" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_STS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__nandpsu__api_1ga6f7414a02d236c632060d2c27d712c43" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_PG_PROG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__nandpsu__api_1ga8bc076484b91097a58870efb6bc414f8" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_PG_PROG2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__nandpsu__api_1ga0d2b66ac14eb5e67c578e633647a7bdb" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CHNG_WR_COL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__nandpsu__api_1gaca1d174aee44b4db6b12be18f7e3d7af" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__nandpsu__api_1gaa6f736760eaf832cdf8cf267cec5115f" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_PRM_PG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xECU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__nandpsu__api_1ga74128470f016d4664c3f7cc9f499d021" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__nandpsu__api_1ga134e224e99c932ce36a2c454b50d6bda" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ONFI<sp/>3.1<sp/>Optional<sp/>Commands<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="group__nandpsu__api_1ga2886bb9abee48f2c8b97561cffa9eafa" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_RD1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__nandpsu__api_1ga0e0a2b7d1a78f0ff77d0eb7f95a07242" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_RD2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x32U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CPBK_RD1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CPBK_RD2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x35U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__nandpsu__api_1gaad6bf889c87e1df148c6f8f793e57e33" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CHNG_RD_COL_ENHCD1<sp/><sp/><sp/><sp/><sp/>0x06U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CHNG_RD_COL_ENHCD2<sp/><sp/><sp/><sp/><sp/>0xE0U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_CACHE_RND1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__nandpsu__api_1gaebd359408a3ee261032c73810ab64fc9" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_CACHE_RND2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x31U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_CACHE_SEQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x31U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__nandpsu__api_1ga99babd0c64a4b5e57c734dd233dd5f82" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_CACHE_END<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_BLK_ERASE1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__nandpsu__api_1gad48e9d0fcfb6db06eada59479233e0b4" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_BLK_ERASE2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD1U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_STS_ENHCD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x78U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__nandpsu__api_1gaabe7628dd03a2aa3382897c7567ece2d" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_BLK_ERASE_INTRLVD2<sp/><sp/><sp/><sp/><sp/>0xD1U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_PG_PROG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__nandpsu__api_1ga513449407d5fac435cf50a8e12bc47e6" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_PG_PROG2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x11U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>ONFI_CMD_PG_CACHE_PROG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__nandpsu__api_1gaec11b0d84d963fcfddb1ddb480533a9d" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_PG_CACHE_PROG2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CPBK_PROG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__nandpsu__api_1gadccfae0e7570f7460d2ac8b59b7ebe1c" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CPBK_PROG2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_CPBK_PROG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>ONFI_CMD_MUL_CPBK_PROG2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="group__nandpsu__api_1gac91b7da3e79f8076aad22e88abc85701" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_SMALL_DATA_MV1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>ONFI_CMD_SMALL_DATA_MV2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>ONFI_CMD_CHNG_ROW_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x85U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>ONFI_CMD_VOL_SEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE1U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__nandpsu__api_1ga7e98fe595f9b2c90a40990bc992afacd" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_ODT_CONF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE2U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RD_UNIQID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEDU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>ONFI_CMD_GET_FEATURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEEU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="group__nandpsu__api_1gaeb625e11c21f820e10eb8da31868d0d3" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_SET_FEATURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEFU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>ONFI_CMD_LUN_GET_FEATURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD4U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>ONFI_CMD_LUN_SET_FEATURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD5U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="group__nandpsu__api_1ga8d40c71034e3782bb23a6d6badb0b264" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_RST_LUN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFAU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>ONFI_CMD_SYN_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFCU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group__nandpsu__api_1gad5ebef0f3fd6a4895581f7a869156122" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ONFI<sp/>Status<sp/>Register<sp/>bit<sp/>offsets<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ONFI_STS_FAIL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>ONFI_STS_FAILC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="group__nandpsu__api_1ga82654fc958524c5d97841507992086a8" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_STS_CSP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>ONFI_STS_VSP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>ONFI_STS_ARDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="group__nandpsu__api_1gaaa18558ec576017710850ae614160be7" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_STS_RDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>ONFI_STS_WP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="group__nandpsu__api_1ga0096421df4b9df614fba1857b2760c78" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ONFI<sp/>constants<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ONFI_CRC_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>254U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>ONFI_PRM_PG_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="group__nandpsu__api_1ga1cac13f9363cd4d04c42a6a374a9eb0e" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_MND_PRM_PGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group__nandpsu__api_1ga3e8d8f6cfacfabf327a4623d05310bbe" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_SIG_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="group__nandpsu__api_1ga5562fcfa40c1a1ed1af6bb226f532860" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_CMD_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="group__nandpsu__api_1ga09a77a047f11adfcb8b2b226bd674adf" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_READ_ID_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="group__nandpsu__api_1ga8c2f54918f2486a5a6d1c3417dd1b298" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_READ_ID_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="group__nandpsu__api_1gab6a60ad45ff02404e8a578a75e406d30" refkind="member"><highlight class="preprocessor">#define<sp/>ONFI_READ_ID_ADDR_CYCLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>ONFI_PRM_PG_ADDR_CYCLES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="group__nandpsu__api_1gacb9beeb39cce1a530069a82e89388a30" refkind="member"><highlight class="preprocessor">enum<sp/>OnfiCommandList<sp/>{</highlight></codeline>
+<codeline lineno="144" refid="group__nandpsu__api_1ga570354476303fffc18f281b3a9e9d552" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6facb9be765f361bb7efb9073730aac92c6" kindref="member">READ</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="group__nandpsu__api_1ga73b6d8376b77fcbae275da4003ef16a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fac1bb4d3f98660dd9ff544df54865a1a4" kindref="member">MULTIPLANE_READ</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa5e386fa2aa66aa27acf9e361598e5416" kindref="member">COPYBACK_READ</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa93048e7702ea73781e031c18191f6aec" kindref="member">CHANGE_READ_COLUMN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="group__nandpsu__api_1ga227f8d8d7d2de58dd0b2d6da3006f03e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6faae171823eacd5415967d6e3e3dc5b018" kindref="member">CHANGE_READ_COLUMN_ENHANCED</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="group__nandpsu__api_1gadd68e6a60bca7357f93abc8c4c508a3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa8b269d64de6c130671c1413fd0f2bbb2" kindref="member">READ_CACHE_RANDOM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="group__nandpsu__api_1gadd9c44d14d7735aa52faa9d0375c4e84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6e10f0cad738041acd1fa97975cc23da" kindref="member">READ_CACHE_SEQUENTIAL</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fafb87592a6a94debf1a77991a2c091967" kindref="member">READ_CACHE_END</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa07c1d6a795c348f8633600a052d26dfd" kindref="member">BLOCK_ERASE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="group__nandpsu__api_1ga5b8c9c449c2876b31c6f709e0b566cb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6da55484c58c5d7d9c21896cc81e8325" kindref="member">MULTIPLANE_BLOCK_ERASE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="group__nandpsu__api_1gaa1515e541e1f6e5bd5408cf7de0f98c2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa451fb3a060f895e40024da81e03fe45a" kindref="member">READ_STATUS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa0bce0059c1fc409f6e99f4b33f5814b8" kindref="member">READ_STATUS_ENHANCED</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group__nandpsu__api_1ga8156fa20f5a5f2a0f850ae8e3623795e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fabe9758bc5df677605dcc22e1557c853a" kindref="member">PAGE_PROGRAM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__nandpsu__api_1gaa9824e832d027e271f3fb20ff8f04ba1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa9fc6b1d18d6fa77cd74261e9af82f9bc" kindref="member">MULTIPLANE_PAGE_PROGRAM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__nandpsu__api_1gaf68f04880bea3f52a3f6e8871e49dd71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa917fd89fc6851edcf198f44f133ddf3a" kindref="member">PAGE_CACHE_PROGRAM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa80e6a5038c80f1e097965a5a825476ac" kindref="member">COPYBACK_PROGRAM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fae8ac05fa8c462fb961ed3ccb90923953" kindref="member">MULTIPLANE_COPYBACK_PROGRAM</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa3b12f9ab803cb22e00b53c0135f8fb6c" kindref="member">SMALL_DATA_MOVE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="group__nandpsu__api_1ga6bed31113a376ac8567d14f4b05cd11b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa7b8cd11c9f3d97de2d293b68927899d6" kindref="member">CHANGE_WRITE_COLUMN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6f2fb4ba79d81e825ce5cbfddf394753" kindref="member">CHANGE_ROW_ADDR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa08d1641fdf7c1a20c4f1563f57d958e8" kindref="member">READ_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa36f72d840fdfef0b83c31ea9aa56e125" kindref="member">VOLUME_SELECT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa8e5a71b09ac2c50474a1e77fa8fe9f88" kindref="member">ODT_CONFIGURE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa1589226dbb8a8f0493a8a6df64943518" kindref="member">READ_PARAM_PAGE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6facef231a1a72298b8f7d1d0013220a79e" kindref="member">READ_UNIQUE_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="group__nandpsu__api_1ga5cc7c90cb423455c9cbde71127180a6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa9bf6ffa4f6227023e81c1b4ebd1ae5a1" kindref="member">GET_FEATURES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6facb9be765f361bb7efb9073730aac92c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4dbe92307b1ecfc6eb4dfb3ee1f59cb7" kindref="member">SET_FEATURES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fac1bb4d3f98660dd9ff544df54865a1a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa3ce8065a5c78af7c1757640919d376ab" kindref="member">LUN_GET_FEATURES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa5e386fa2aa66aa27acf9e361598e5416" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6faa383f73d58164c0bc8e2e0abe15dda57" kindref="member">LUN_SET_FEATURES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa93048e7702ea73781e031c18191f6aec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fada0346eceffe7ed4a8b311eb93ce6bc0" kindref="member">RESET_LUN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6faae171823eacd5415967d6e3e3dc5b018" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa27377eb8b77bd38c1b51eda69bd3d888" kindref="member">SYN_RESET</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa8b269d64de6c130671c1413fd0f2bbb2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa589b7d94a3d91d145720e2fed0eb3a05" kindref="member">RESET</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6e10f0cad738041acd1fa97975cc23da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4d3d3fa486f828228b6a8b5aac3100b0" kindref="member">MAX_CMDS</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fafb87592a6a94debf1a77991a2c091967" refkind="member"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="178" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa07c1d6a795c348f8633600a052d26dfd" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa6da55484c58c5d7d9c21896cc81e8325" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa451fb3a060f895e40024da81e03fe45a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="181" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa0bce0059c1fc409f6e99f4b33f5814b8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>pack(push,<sp/>1)</highlight></codeline>
+<codeline lineno="182" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fabe9758bc5df677605dcc22e1557c853a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="183" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa9fc6b1d18d6fa77cd74261e9af82f9bc" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="192" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa8e5a71b09ac2c50474a1e77fa8fe9f88" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="193" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa1589226dbb8a8f0493a8a6df64943518" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Signature[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6facef231a1a72298b8f7d1d0013220a79e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Revision;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa9bf6ffa4f6227023e81c1b4ebd1ae5a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Features;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4dbe92307b1ecfc6eb4dfb3ee1f59cb7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>OptionalCmds;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa3ce8065a5c78af7c1757640919d376ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>JedecJtgPrmAdvCmd;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fada0346eceffe7ed4a8b311eb93ce6bc0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa27377eb8b77bd38c1b51eda69bd3d888" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ExtParamPageLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa589b7d94a3d91d145720e2fed0eb3a05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumOfParamPages;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4d3d3fa486f828228b6a8b5aac3100b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved1[17];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DeviceManufacturer[12];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DeviceModel[20];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>JedecManufacturerId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DateCode[2];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved2[13];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesPerPage;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>SpareBytesPerPage;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesPerPartialPage;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>SpareBytesPerPartialPage;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PagesPerBlock;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BlocksPerLun;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumLuns;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AddrCycles;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="struct_onfi_param_page" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BitsPerCell;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="struct_onfi_param_page_1a0358d5bee01ac26b30cb80745a7328b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MaxBadBlocksPerLun;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="struct_onfi_param_page_1ad737b0c289ea4c4875a4fad066bdcd3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>BlockEndurance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="struct_onfi_param_page_1a80997028ed63034a7135b7cfce235cf0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>GuaranteedValidBlock;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223" refid="struct_onfi_param_page_1a1cc93f168e8f0b351516aa0dffbe0d29" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>BlockEnduranceGVB;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="struct_onfi_param_page_1a5a2da4c0c8e2176bb09014f25477f942" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ProgramsPerPage;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226" refid="struct_onfi_param_page_1a99cc9c4ebe4f8f0fa39f0e96ec540e0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PartialProgAttr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227" refid="struct_onfi_param_page_1adbbaedbe772dc7c5226e58998d63448b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EccBits;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229" refid="struct_onfi_param_page_1a201f9b22dc837c895565f7fc8c61ac50" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PlaneAddrBits;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230" refid="struct_onfi_param_page_1a64565615455bb2bc75dcc258c8805ee0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PlaneOperationAttr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232" refid="struct_onfi_param_page_1a46177991a3c5ecbf8b1d0aec4b7ca93b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EzNandSupport;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="233" refid="struct_onfi_param_page_1af78daf5d42d3848de06810cb3b5acd96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved3[12];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="struct_onfi_param_page_1af15197152d4f4c629082aa8e1830532f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IOPinCapacitance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235" refid="struct_onfi_param_page_1aab07bd0a5744cb2fb277bab305f3e963" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>SDRTimingMode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="struct_onfi_param_page_1a33d4f14b1bb0245998be68ff6ad4edbb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>SDRPagecacheTimingMode;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TProg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="struct_onfi_param_page_1a9a409e35724a4a7fabcc2667b6123b88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TBers;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TR;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="struct_onfi_param_page_1a16116dd101c47029042db3529d983c60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TCcs;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242" refid="struct_onfi_param_page_1ad92e72c179492e114ff19617c393767f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NVDDRTimingMode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243" refid="struct_onfi_param_page_1a3d400dcfa53342f382140032a7aa3aee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NVDDR2TimingMode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244" refid="struct_onfi_param_page_1acc431677896eeaef132bc9c1def3aa23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SynFeatures;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245" refid="struct_onfi_param_page_1a9b76ee82d6d5f6a58093024614aac30d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ClkInputPinCap;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="struct_onfi_param_page_1a425a5dca6c56a442fa8f28b924b0cd3e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IOPinCap;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="247" refid="struct_onfi_param_page_1aa38fd880c86e50360bbf88c29c4284fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>InputPinCap;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InputPinCapMax;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="249" refid="struct_onfi_param_page_1ae590add5d7fefcc0648f2f0c916d1959" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DrvStrength;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TMr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251" refid="struct_onfi_param_page_1a851463518d775f3c498334890dbcb346" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TAdl;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253" refid="struct_onfi_param_page_1afa4a979083100321d6757d734fe04d28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TEr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255" refid="struct_onfi_param_page_1a9a18823fe0ce46bb23fc8ac7238ab12f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NVDDR2Features;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="struct_onfi_param_page_1a8c735458e2375f442ed705c0adea7bbb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NVDDR2WarmupCycles;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved4[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="struct_onfi_param_page_1aad7a77562e03ec063c61df51de3b7406" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>VendorRevisionNum;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="struct_onfi_param_page_1acc14ad9a1aa38a1882f1d779e2a1f535" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>VendorSpecific[88];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="struct_onfi_param_page_1a44d3d532073f632054f5694306fae9b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Crc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261" refid="struct_onfi_param_page_1abd63d7aba2923408b712c055b42b5c8e" refkind="member"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="262" refid="struct_onfi_param_page_1ab4370e65b8aad9ecd50d8280317a079d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_onfi_param_page" kindref="compound">OnfiParamPage</ref>;</highlight></codeline>
+<codeline lineno="263" refid="struct_onfi_param_page_1a4426a9a0a89ffbebb3897b19f85c671a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack(pop)</highlight></codeline>
+<codeline lineno="264" refid="struct_onfi_param_page_1abd76ba2e8f2a670b4b9969c91d38605d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="265" refid="struct_onfi_param_page_1a108161c72888558912d6c1bcb26e85d0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266" refid="struct_onfi_param_page_1ad007393acbe7ecd629f8234ce0132329" refkind="member"><highlight class="normal">__attribute__((packed))<ref refid="struct_onfi_param_page" kindref="compound">OnfiParamPage</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="268" refid="struct_onfi_param_page_1a3b701837237cdc335c6e14dd5d71043a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269" refid="struct_onfi_param_page_1a67c29fe0f0943e7a52d58c78a897763d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="270" refid="struct_onfi_param_page_1aa53e6b77319b2ce5dc897549519fc8b2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>pack(push,<sp/>1)</highlight></codeline>
+<codeline lineno="271" refid="struct_onfi_param_page_1aef8fc1a9f6ec2e1bd63da11666678d3d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="272" refid="struct_onfi_param_page_1a8edd22d6ae4039cc7c8d3cf38db89cd4" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="275" refid="struct_onfi_param_page_1a4c2543948367a3bc8a0c4f6c761bdc16" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="276" refid="struct_onfi_param_page_1a2f5574a3d049fb19fe2aad31c8e64312" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Crc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277" refid="struct_onfi_param_page_1abc7fb56fd4c60fa5013b6a55aede1a32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Sig[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved1[10];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="279" refid="struct_onfi_param_page_1a0f33ec373715ded72f825e15bb3e7eed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Section0Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Section0Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281" refid="struct_onfi_param_page_1a2321098d0210c434171d83737e6a390c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Section1Type;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282" refid="struct_onfi_param_page_1a80a0459d57a509a2d8be3b069de0e3ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Section1Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="283" refid="struct_onfi_param_page_1ac20d862338f73fd724c6fde9fcd309a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ResSection[12];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285" refid="struct_onfi_param_page_1a5eb766829a69faf2f3fde716db4c545c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SectionData[256];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="286" refid="struct_onfi_param_page_1afde24babfa30be6c6ac8ea2178d4747f" refkind="member"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_onfi_ext_prm_page" kindref="compound">OnfiExtPrmPage</ref>;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack(pop)</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>__attribute__((packed))<ref refid="struct_onfi_ext_prm_page" kindref="compound">OnfiExtPrmPage</ref>;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>pack(push,<sp/>1)</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="299"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumEccBits;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="301" refid="struct_onfi_ext_prm_page" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CodeWordSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="302" refid="struct_onfi_ext_prm_page_1acf4cf65b6f91a94a3aed8e6c6c26e681" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MaxBadBlocks;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="303" refid="struct_onfi_ext_prm_page_1a598fcfb5e302d2f8c04025ecff32164f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>BlockEndurance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="304" refid="struct_onfi_ext_prm_page_1a4b3b0c2d3b8e4672577abc43fac990b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Reserved;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="305" refid="struct_onfi_ext_prm_page_1a7c882d64b1f76f4e5241279fc42add4f" refkind="member"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="306" refid="struct_onfi_ext_prm_page_1a484975f251b462c4feebdb58b3211a6b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_onfi_ext_ecc_block" kindref="compound">OnfiExtEccBlock</ref>;</highlight></codeline>
+<codeline lineno="307" refid="struct_onfi_ext_prm_page_1a391c1d7271c977fb660de8d9a1dbd8bb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack(pop)</highlight></codeline>
+<codeline lineno="308" refid="struct_onfi_ext_prm_page_1ae985cef634561c35a85291c18d3f0dd8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="309" refid="struct_onfi_ext_prm_page_1a7e0176e3ebafc02cbd0db919e70f190d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>__attribute__((packed))<ref refid="struct_onfi_ext_ecc_block" kindref="compound">OnfiExtEccBlock</ref>;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="311" refid="struct_onfi_ext_prm_page_1a6192974be38fd8ed6e771ae18e4df159" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="315"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Command1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Command2;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="318"><highlight class="normal">}<sp/><ref refid="struct_onfi_cmd_format" kindref="compound">OnfiCmdFormat</ref>;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_onfi_cmd_format" kindref="compound">OnfiCmdFormat</ref><sp/><ref refid="group__nandpsu__api_1gaa14cdc14f9b5cfec93d83127c2e1164c" kindref="member">OnfiCmd</ref>[<ref refid="group__nandpsu__api_1gga5cc7c90cb423455c9cbde71127180a6fa4d3d3fa486f828228b6a8b5aac3100b0" kindref="member">MAX_CMDS</ref>];</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325" refid="struct_onfi_ext_ecc_block" refkind="compound"><highlight class="normal">u32<sp/><ref refid="group__nandpsu__api_1ga474cec95b9bf91d0ae8ec1988792cdd2" kindref="member">XNandPsu_OnfiParamPageCrc</ref>(u8<sp/>*ParamBuf,<sp/>u32<sp/>StartOff,<sp/>u32<sp/>Length);</highlight></codeline>
+<codeline lineno="326" refid="struct_onfi_ext_ecc_block_1a2fc1903156ae50af917405f467557c32" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327" refid="struct_onfi_ext_ecc_block_1af81b24f957e11c0f1a2beb88d66de0d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="328" refid="struct_onfi_ext_ecc_block_1a096b2bf528202a900a5c052c95afec5f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="329" refid="struct_onfi_ext_ecc_block_1a16658924d339c474a41e8bbd610bf419" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="330" refid="struct_onfi_ext_ecc_block_1ad23972b8ee376889665908eaa1d7a172" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XNANDPSU_ONFI_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h"/>
+  </compounddef>
+</doxygen>

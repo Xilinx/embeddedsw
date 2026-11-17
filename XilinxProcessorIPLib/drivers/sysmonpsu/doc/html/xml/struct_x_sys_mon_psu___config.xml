@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sys_mon_psu___config" kind="struct" prot="public">
+    <compoundname>XSysMonPsu_Config</compoundname>
+    <includes local="no">xsysmonpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sys_mon_psu___config_1ada64f7b94d548179b8bd3b8a995ccc34" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XSysMonPsu_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Compatible device name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8a11ec81f2d4878cb085b8b1b6c75092" compoundref="xsysmonpsu__sinit_8c" startline="95" endline="110">XSysMonPsu_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon_psu___config_1a0166b8968529950a2b997038b7d99f16" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSysMonPsu_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" bodystart="397" bodyend="-1"/>
+        <referencedby refid="xsysmonpsu__ams__example_8c_1a61d355bff86a58c5cc63a7dafbcc5ea8" compoundref="xsysmonpsu__ams__example_8c" startline="182" endline="467">SysMonPsuAMSExample</referencedby>
+        <referencedby refid="xsysmonpsu__intr__example_8c_1a26b92e20e1b2b69c588591b91d185d12" compoundref="xsysmonpsu__intr__example_8c" startline="212" endline="560">SysMonPsuIntrExample</referencedby>
+        <referencedby refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" compoundref="xsysmonpsu__polled__example_8c" startline="145" endline="298">SysMonPsuPolledPrintfExample</referencedby>
+        <referencedby refid="xsysmonpsu__single__ch__intr__example_8c_1a6f2a932c9e346a5009826057a3e7bd69" compoundref="xsysmonpsu__single__ch__intr__example_8c" startline="159" endline="272">SysMonPsuSingleChannelIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga8cd0584410c0931f931aa4da1e3e151b" compoundref="xsysmonpsu_8c" startline="126" endline="183">XSysMonPsu_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaf6c7d46d66608863cf7b859238e44e13" compoundref="xsysmonpsu_8c" startline="1165" endline="1185">XSysMonPsu_GetAdcClkDivisor</referencedby>
+        <referencedby refid="group___overview_1ga54eb6ba4c6f594b75d402cde03f6e173" compoundref="xsysmonpsu_8c" startline="343" endline="379">XSysMonPsu_GetAdcData</referencedby>
+        <referencedby refid="group___overview_1gab1c38e475226ff1eba528d0c9b7eb9b5" compoundref="xsysmonpsu_8c" startline="793" endline="825">XSysMonPsu_GetAlarmEnables</referencedby>
+        <referencedby refid="group___overview_1ga708bc2465a24743784ce6119bc05b10a" compoundref="xsysmonpsu_8c" startline="1825" endline="1875">XSysMonPsu_GetAlarmThreshold</referencedby>
+        <referencedby refid="group___overview_1ga78d99a653ec8c8089e8cdc9e4f400dc3" compoundref="xsysmonpsu_8c" startline="538" endline="558">XSysMonPsu_GetAvg</referencedby>
+        <referencedby refid="group___overview_1gaf83bb4ad116f2bb1ea7676050bd74b6b" compoundref="xsysmonpsu_8c" startline="399" endline="421">XSysMonPsu_GetCalibCoefficient</referencedby>
+        <referencedby refid="group___overview_1ga5e3ad732967594b6cc1cc314e24ae9b0" compoundref="xsysmonpsu_8c" startline="1064" endline="1088">XSysMonPsu_GetExtenalMux</referencedby>
+        <referencedby refid="group___overview_1gaa4312c89ab0280cd7df2de940193fe32" compoundref="xsysmonpsu_8c" startline="445" endline="473">XSysMonPsu_GetMinMaxMeasurement</referencedby>
+        <referencedby refid="group___overview_1gad9f2fde294e151e5db65822b26f11a4f" compoundref="xsysmonpsu_8c" startline="1914" endline="1930">XSysMonPsu_GetMonitorStatus</referencedby>
+        <referencedby refid="group___overview_1ga8261ca6ec1564b9066f858adbd81a85f" compoundref="xsysmonpsu_8c" startline="1715" endline="1744">XSysMonPsu_GetSeqAcqTime</referencedby>
+        <referencedby refid="group___overview_1gadf0cf3c7c355471f81fe60d663043e7b" compoundref="xsysmonpsu_8c" startline="1479" endline="1508">XSysMonPsu_GetSeqAvgEnables</referencedby>
+        <referencedby refid="group___overview_1ga08d0525934fbe21b46732c039f93a8b0" compoundref="xsysmonpsu_8c" startline="1358" endline="1387">XSysMonPsu_GetSeqChEnables</referencedby>
+        <referencedby refid="group___overview_1ga2e597e2db96739d90195d9ad019377c4" compoundref="xsysmonpsu_8c" startline="1598" endline="1627">XSysMonPsu_GetSeqInputMode</referencedby>
+        <referencedby refid="group___overview_1ga6a0b98e18bb6c2c8b3587e2fe2cffde8" compoundref="xsysmonpsu_8c" startline="976" endline="1005">XSysMonPsu_GetSequencerEvent</referencedby>
+        <referencedby refid="group___overview_1ga2f2d5053a1406cecd4fa311525f68ce7" compoundref="xsysmonpsu_8c" startline="895" endline="916">XSysMonPsu_GetSequencerMode</referencedby>
+        <referencedby refid="group___overview_1ga5e1841bc7888195dd3f9381947e4f8d3" compoundref="xsysmonpsu_8c" startline="263" endline="282">XSysMonPsu_GetStatus</referencedby>
+        <referencedby refid="group___overview_1gac2e9db41a161cbf730baba617a545bbf" compoundref="xsysmonpsu_8c" startline="1948" endline="1963">XSysMonPsu_InitInstance</referencedby>
+        <referencedby refid="group___overview_1ga7c41996bf95cd7119dba302246345a9d" compoundref="xsysmonpsu__intr_8c" startline="194" endline="214">XSysMonPsu_IntrClear</referencedby>
+        <referencedby refid="group___overview_1ga95f581ea48eb8d57c2fab2dcaefdeccd" compoundref="xsysmonpsu__intr_8c" startline="95" endline="115">XSysMonPsu_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga97be122426bd5302e93b45ba5a3fc8ec" compoundref="xsysmonpsu__intr_8c" startline="60" endline="80">XSysMonPsu_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1ga78b39afe5e1c62f44a320311d74e2402" compoundref="xsysmonpsu__intr_8c" startline="131" endline="147">XSysMonPsu_IntrGetEnabled</referencedby>
+        <referencedby refid="group___overview_1ga3ef44a74426b13480363747a5dedc5d0" compoundref="xsysmonpsu__intr_8c" startline="163" endline="179">XSysMonPsu_IntrGetStatus</referencedby>
+        <referencedby refid="group___overview_1gad6fc9daa41e50955a71e2fe7a107a0e5" compoundref="xsysmonpsu_8c" startline="217" endline="247">XSysMonPsu_Reset</referencedby>
+        <referencedby refid="group___overview_1ga11e8fc0b9dffbe33b41ec4e6825ffc4a" compoundref="xsysmonpsu_8c" startline="1117" endline="1147">XSysMonPsu_SetAdcClkDivisor</referencedby>
+        <referencedby refid="group___overview_1ga3ce8ca01b6992994737213f342847662" compoundref="xsysmonpsu_8c" startline="723" endline="763">XSysMonPsu_SetAlarmEnables</referencedby>
+        <referencedby refid="group___overview_1ga6d436ab807a561d70339cdfe52f6f560" compoundref="xsysmonpsu_8c" startline="1760" endline="1807">XSysMonPsu_SetAlarmThreshold</referencedby>
+        <referencedby refid="group___overview_1ga711d9441ecb7c36f22b11f941d7f994b" compoundref="xsysmonpsu_8c" startline="494" endline="516">XSysMonPsu_SetAvg</referencedby>
+        <referencedby refid="group___overview_1gab4903002cdddf192acdcda4827e5b1a6" compoundref="xsysmonpsu_8c" startline="1019" endline="1049">XSysMonPsu_SetExtenalMux</referencedby>
+        <referencedby refid="group___overview_1ga118f51203c23bf2ed1f76d154e46ad3c" compoundref="xsysmonpsu_8c" startline="1887" endline="1901">XSysMonPsu_SetPSAutoConversion</referencedby>
+        <referencedby refid="group___overview_1gacfe5ce3d9e15f0bebdab313decf9729c" compoundref="xsysmonpsu_8c" startline="1655" endline="1695">XSysMonPsu_SetSeqAcqTime</referencedby>
+        <referencedby refid="group___overview_1gadb114566387fa8889b913f34a7de6010" compoundref="xsysmonpsu_8c" startline="1414" endline="1459">XSysMonPsu_SetSeqAvgEnables</referencedby>
+        <referencedby refid="group___overview_1gac51295c525a507a8f334c97f02a84221" compoundref="xsysmonpsu_8c" startline="1300" endline="1339">XSysMonPsu_SetSeqChEnables</referencedby>
+        <referencedby refid="group___overview_1gae6b751279110ca4a05073ae8a9b8a1a8" compoundref="xsysmonpsu_8c" startline="1535" endline="1578">XSysMonPsu_SetSeqInputMode</referencedby>
+        <referencedby refid="group___overview_1ga193dbc689e9a668ef7f548920706b2a8" compoundref="xsysmonpsu_8c" startline="931" endline="961">XSysMonPsu_SetSequencerEvent</referencedby>
+        <referencedby refid="group___overview_1gaa4bdb4e555b2c8d47a0185862c9cb4c6" compoundref="xsysmonpsu_8c" startline="848" endline="874">XSysMonPsu_SetSequencerMode</referencedby>
+        <referencedby refid="group___overview_1ga872e9a41818489e77fa554dd01408281" compoundref="xsysmonpsu_8c" startline="600" endline="684">XSysMonPsu_SetSingleChParams</referencedby>
+        <referencedby refid="group___overview_1ga2ed2a9f0fbd1be48dfd71aaeef05174f" compoundref="xsysmonpsu_8c" startline="300" endline="321">XSysMonPsu_StartAdcConversion</referencedby>
+        <referencedby refid="group___overview_1gad850523d0e0f5f54fcde1f2a6ecd8aa1" compoundref="xsysmonpsu_8c" startline="1205" endline="1275">XSysMonPsu_UpdateAdcClkDivisor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon_psu___config_1a7ff0bfe3d5f7cb06792fe7ed481711ad" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XSysMonPsu_Config::InputClockMHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockMHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" bodystart="398" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8cd0584410c0931f931aa4da1e3e151b" compoundref="xsysmonpsu_8c" startline="126" endline="183">XSysMonPsu_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gad850523d0e0f5f54fcde1f2a6ecd8aa1" compoundref="xsysmonpsu_8c" startline="1205" endline="1275">XSysMonPsu_UpdateAdcClkDivisor</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu.h" bodystart="391" bodyend="399"/>
+    <listofallmembers>
+      <member refid="struct_x_sys_mon_psu___config_1a0166b8968529950a2b997038b7d99f16" prot="public" virt="non-virtual"><scope>XSysMonPsu_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_sys_mon_psu___config_1a7ff0bfe3d5f7cb06792fe7ed481711ad" prot="public" virt="non-virtual"><scope>XSysMonPsu_Config</scope><name>InputClockMHz</name></member>
+      <member refid="struct_x_sys_mon_psu___config_1ada64f7b94d548179b8bd3b8a995ccc34" prot="public" virt="non-virtual"><scope>XSysMonPsu_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

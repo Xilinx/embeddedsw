@@ -1,0 +1,1199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__subsystem_8c" kind="file">
+    <compoundname>xpm_subsystem.c</compoundname>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes refid="xpm__alloc_8h" local="yes">xpm_alloc.h</includes>
+    <includes refid="xpm__update_8h" local="yes">xpm_update.h</includes>
+    <includes refid="xpm__runtime__power_8h" local="yes">xpm_runtime_power.h</includes>
+    <incdepgraph>
+      <node id="5164">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5156">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="5176">
+        <label>xpm_update.h</label>
+      </node>
+      <node id="5165">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5166">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5152">
+        <label>xpm_api.h</label>
+        <childnode refid="5153" relation="include">
+        </childnode>
+        <childnode refid="5154" relation="include">
+        </childnode>
+        <childnode refid="5155" relation="include">
+        </childnode>
+        <childnode refid="5157" relation="include">
+        </childnode>
+        <childnode refid="5158" relation="include">
+        </childnode>
+        <childnode refid="5159" relation="include">
+        </childnode>
+      </node>
+      <node id="5162">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5168">
+        <label>xpm_clock.h</label>
+        <childnode refid="5163" relation="include">
+        </childnode>
+        <childnode refid="5161" relation="include">
+        </childnode>
+        <childnode refid="5167" relation="include">
+        </childnode>
+      </node>
+      <node id="5167">
+        <label>xpm_power.h</label>
+        <childnode refid="5155" relation="include">
+        </childnode>
+        <childnode refid="5161" relation="include">
+        </childnode>
+      </node>
+      <node id="5172">
+        <label>xpm_alloc.h</label>
+        <childnode refid="5153" relation="include">
+        </childnode>
+        <childnode refid="5154" relation="include">
+        </childnode>
+      </node>
+      <node id="5173">
+        <label>xpm_requirement.h</label>
+        <childnode refid="5160" relation="include">
+        </childnode>
+        <childnode refid="5151" relation="include">
+        </childnode>
+        <childnode refid="5174" relation="include">
+        </childnode>
+      </node>
+      <node id="5163">
+        <label>xpm_common.h</label>
+        <childnode refid="5154" relation="include">
+        </childnode>
+        <childnode refid="5164" relation="include">
+        </childnode>
+        <childnode refid="5165" relation="include">
+        </childnode>
+        <childnode refid="5157" relation="include">
+        </childnode>
+        <childnode refid="5166" relation="include">
+        </childnode>
+        <childnode refid="5155" relation="include">
+        </childnode>
+      </node>
+      <node id="5159">
+        <label>xpm_mem.h</label>
+        <childnode refid="5160" relation="include">
+        </childnode>
+      </node>
+      <node id="5161">
+        <label>xpm_node.h</label>
+        <childnode refid="5153" relation="include">
+        </childnode>
+        <childnode refid="5154" relation="include">
+        </childnode>
+        <childnode refid="5162" relation="include">
+        </childnode>
+        <childnode refid="5163" relation="include">
+        </childnode>
+      </node>
+      <node id="5154">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5177">
+        <label>xpm_runtime_power.h</label>
+        <childnode refid="5153" relation="include">
+        </childnode>
+        <childnode refid="5154" relation="include">
+        </childnode>
+        <childnode refid="5167" relation="include">
+        </childnode>
+      </node>
+      <node id="5153">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5175">
+        <label>xpm_fsm.h</label>
+        <childnode refid="5153" relation="include">
+        </childnode>
+        <childnode refid="5154" relation="include">
+        </childnode>
+        <childnode refid="5160" relation="include">
+        </childnode>
+      </node>
+      <node id="5155">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="5153" relation="include">
+        </childnode>
+        <childnode refid="5156" relation="include">
+        </childnode>
+      </node>
+      <node id="5170">
+        <label>xpm_list.h</label>
+        <childnode refid="5171" relation="include">
+        </childnode>
+      </node>
+      <node id="5174">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="5153" relation="include">
+        </childnode>
+      </node>
+      <node id="5150">
+        <label>xpm_subsystem.c</label>
+        <link refid="xpm_subsystem.c"/>
+        <childnode refid="5151" relation="include">
+        </childnode>
+        <childnode refid="5172" relation="include">
+        </childnode>
+        <childnode refid="5176" relation="include">
+        </childnode>
+        <childnode refid="5177" relation="include">
+        </childnode>
+      </node>
+      <node id="5151">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="5152" relation="include">
+        </childnode>
+        <childnode refid="5155" relation="include">
+        </childnode>
+        <childnode refid="5154" relation="include">
+        </childnode>
+        <childnode refid="5170" relation="include">
+        </childnode>
+        <childnode refid="5173" relation="include">
+        </childnode>
+        <childnode refid="5175" relation="include">
+        </childnode>
+      </node>
+      <node id="5160">
+        <label>xpm_device.h</label>
+        <childnode refid="5161" relation="include">
+        </childnode>
+        <childnode refid="5167" relation="include">
+        </childnode>
+        <childnode refid="5168" relation="include">
+        </childnode>
+        <childnode refid="5169" relation="include">
+        </childnode>
+      </node>
+      <node id="5169">
+        <label>xpm_reset.h</label>
+        <childnode refid="5161" relation="include">
+        </childnode>
+        <childnode refid="5163" relation="include">
+        </childnode>
+      </node>
+      <node id="5158">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="5157">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="5154" relation="include">
+        </childnode>
+      </node>
+      <node id="5171">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="5172" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__subsystem_8c_1ac073820323835ebd76f37ac01de7ada9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmSubsystem_IsAccessAllowed</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 NodeId)</argsstring>
+        <name>XPmSubsystem_IsAccessAllowed</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>Check if subsystem has permission to access a node. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to check access for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, XPM_INVALID_SUBSYSID if subsystem is NULL, error code if denied</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate IsAccessAllowed implementation via the SubsystemOps table. Checks permissions based on node class (device, clock, reset, pin, etc.). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="540" bodyend="551"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1ae181470033a7c562b2902fc5bf51550b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___subsystem_mgr" kindref="compound">XPm_SubsystemMgr</ref> SubsysMgr</type>
+        <definition>static XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA</definition>
+        <argsstring>(SubsysMgr)</argsstring>
+        <name>XPM_INIT_DATA</name>
+        <param>
+          <type>SubsysMgr</type>
+        </param>
+        <briefdescription>
+<para>Subsystem Manager - Single unified object Always defined here, regardless of build configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a98a69c0effb82a97a22592b64b04c04b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref> *</type>
+        <definition>static XPm_SubsystemOps* XPmSubsystem_GetOps</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_GetOps</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="46" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1ad1fc81f15e39114b933405667c6dcdbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+        <definition>XPm_Subsystem* XPmSubsystem_GetById</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Get subsystem by ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> if successful else NULL</para></simplesect>
+<simplesect kind="note"><para>This function serves as the abstraction layer between runtime core and subsystem implementation. It always uses the unified SubsysMgr regardless of build configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="66" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1ab759694d0ab82a69842ec01b03617d22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmSubsystem_GetMaxSubsysIdx</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmSubsystem_GetMaxSubsysIdx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the maximum subsystem index currently present in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Maximum subsystem index (0-based), or 0 if no subsystems exist</para></simplesect>
+<simplesect kind="note"><para>This value is updated when subsystems are added and is used for efficient iteration over subsystem indices. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a59d6a878a048373bbd8de90d050636e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_IsAccessAllowed</definition>
+        <argsstring>(u32 SubsystemId, u32 NodeId)</argsstring>
+        <name>XPm_IsAccessAllowed</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>Check if subsystem has permission to access a node (public API wrapper) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID requesting access </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID to check access for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if allowed, XPM_INVALID_SUBSYSID if subsystem not found, error code if denied</para></simplesect>
+<simplesect kind="note"><para>Public API wrapper that retrieves the subsystem by ID and calls XPmSubsystem_IsAccessAllowed. This function provides a convenient interface when only the subsystem ID is available. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="114" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a2cf82d0072b01c933273f4d76b0e55e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+        <definition>XPm_Subsystem* XPmSubsystem_GetByIndex</definition>
+        <argsstring>(u32 SubSysIdx)</argsstring>
+        <name>XPmSubsystem_GetByIndex</name>
+        <param>
+          <type>u32</type>
+          <declname>SubSysIdx</declname>
+        </param>
+        <briefdescription>
+<para>This function gives Subsystem from Subsystem &quot;INDEX&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubSysIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem Index</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> if successful else NULL</para></simplesect>
+<simplesect kind="note"><para>This is a less strict version of XPmSubsystem_GetByIndex(), and mainly is implemented due to other modules such as xpm_device needs to access the subsystem database and iterate over it using indexes only, without the need to use the complete subsystem ID. Use this function where it is absolutely necessary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="143" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1adfacd618b1edcb221ee74a3b0239f9ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmSubsystem_GetSubSysIdByIpiMask</definition>
+        <argsstring>(u32 IpiMask)</argsstring>
+        <name>XPmSubsystem_GetSubSysIdByIpiMask</name>
+        <param>
+          <type>u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <briefdescription>
+<para>Get subsystem ID by matching IPI mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IpiMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI mask to match against subsystem&apos;s IPI mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Subsystem ID if found and subsystem is not offline, INVALID_SUBSYSID otherwise</para></simplesect>
+<simplesect kind="note"><para>Searches through all subsystems to find one where the provided IPI mask matches the subsystem&apos;s IPI mask. Only returns subsystems that are not in OFFLINE state. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="174" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1af4b6fb79be0741e0f6c0a38fb1cd4c4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_Add</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_Add</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Add a new subsystem to the power management framework. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID to add</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_DEVICE_BUSY if subsystem already exists, XST_BUFFER_TOO_SMALL on allocation failure</para></simplesect>
+<simplesect kind="note"><para>Creates and initializes a new subsystem object with default state (ONLINE), adds it to the subsystem list, and updates the maximum subsystem index tracker. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="224" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a252a257ffe661c770abbbe2684498c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_ForcePwrDwn</definition>
+        <argsstring>(u32 SubsystemId)</argsstring>
+        <name>XPmSubsystem_ForcePwrDwn</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <briefdescription>
+<para>Release all devices of a subsystem that is being restarted, forced down or shut down. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target Subsystem ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code</para></simplesect>
+<simplesect kind="note"><para>FPD is held on across the release, see XPmPower_HoldFpd() </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="284" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a5ee80ed091c405a9c58ee9fd9fea8ed0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_Activate</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_Activate</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Activate a subsystem by requesting all pre-allocated devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate Activate implementation via the SubsystemOps table. The actual implementation may be a common function or a build-specific override. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="324" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a1853b1e7c4cd423bfd52903b80c0e289" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_SetState</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 State)</argsstring>
+        <name>XPmSubsystem_SetState</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+<para>Set the state of a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New state value (must be less than MAX_STATE)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate SetState implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="351" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1ad23c1aa2b9b70187f6995ac35d844898" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_GetStatus</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus)</argsstring>
+        <name>XPmSubsystem_GetStatus</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref> *const</type>
+          <declname>DeviceStatus</declname>
+        </param>
+        <briefdescription>
+<para>Get the current status/state of a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to device status structure to populate</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem or DeviceStatus is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate GetStatus implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="378" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1ad51581cafc29a2b141024ee663313b7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_AddRequirement</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)</argsstring>
+        <name>XPmSubsystem_AddRequirement</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Payload</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <briefdescription>
+<para>Add a requirement (device/reset/subsystem) to a subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requirement payload containing node-specific arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of payload array</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem, Payload is NULL or PayloadLen is 0, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate AddRequirement implementation via the SubsystemOps table. The payload format depends on the node type being added as a requirement. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="407" bodyend="418"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1ab88d63bb04c2003a0e3dff673b85a53c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmSubsystem_WakeUp</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_WakeUp</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Wake up a subsystem from suspended state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate WakeUp implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="433" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a84d5022130c3a4644106bc06b87ecea6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>maybe_unused XStatus</type>
+        <definition>static maybe_unused XStatus XPmSubsystem_Suspend</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_Suspend</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Suspend a subsystem (enter low-power state) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate Suspend implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="459" bodyend="470"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a85260e611ba2d4d6232928aeb87b2f9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_Idle</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_Idle</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Idle a subsystem (prepare for low-power state) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate Idle implementation via the SubsystemOps table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="485" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a9a54e7bb4ba087de4a97fd4757098ca5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_InitFinalize</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_InitFinalize</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Finalize subsystem initialization after successful boot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate InitFinalize implementation via the SubsystemOps table. Typically notifies healthy boot to stop healthy boot monitors. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="512" bodyend="523"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a059925e40eca866d772746d8ffaa6aa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_NotifyHealthyBoot</definition>
+        <argsstring>(XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmSubsystem_NotifyHealthyBoot</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Notify that subsystem has booted successfully (releases healthy boot monitors) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate NotifyHealthyBoot implementation via the SubsystemOps table. Releases healthy boot monitor devices allocated to the subsystem. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="567" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a7f2801aca0447bb6f346d1a974275317" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_StartRecoveryTimer</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, u32 CmdType)</argsstring>
+        <name>XPmSubsystem_StartRecoveryTimer</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>Start recovery timer for subsystem (healthy boot monitor) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to subsystem object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command type (secure/non-secure)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XPM_INVALID_SUBSYSID if subsystem is NULL, error code on failure</para></simplesect>
+<simplesect kind="note"><para>Wrapper function that dispatches to the appropriate StartRecoveryTimer implementation via the SubsystemOps table. Requests runtime healthy boot monitor device to start recovery timer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="595" bodyend="606"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__subsystem_8c_1a6f0631d537804bef34eb1087ac232d25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmSubsystem_ModuleInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmSubsystem_ModuleInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize the subsystem module. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>This function is reserved for future module initialization needs. Currently returns success as a placeholder. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c" bodystart="618" bodyend="622"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_alloc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_runtime_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmSubsystem_IsAccessAllowed(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_mgr" kindref="compound">XPm_SubsystemMgr</ref><sp/>SubsysMgr<sp/>XPM_INIT_DATA(SubsysMgr)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Subsystems<sp/>=<sp/>{<sp/>.Root<sp/>=<sp/>NULL<sp/>},</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.NumSubsystems<sp/>=<sp/>0U,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.MaxSubsystemIdx<sp/>=<sp/>0U,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.SubsysOps<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>SubsystemOpsTable<sp/>-<sp/>Subsystem<sp/>Operations</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Points<sp/>to:</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>-<sp/>Common<sp/>Ops<sp/>&amp;<sp/>weak<sp/>implementations<sp/>from<sp/>xpm_subsystem_ops.c</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>-<sp/>Full<sp/>implementations<sp/>are<sp/>in<sp/>xpm_runtime_subsys.c<sp/>(SUBSYS<sp/>module<sp/>enabled)</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[SUBSYS_OPS_GENERIC]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Activate<sp/>=<sp/>&amp;XPmSubsystemOp_Activate,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.GetStatus<sp/>=<sp/>&amp;XPmSubsystemOp_GetStatus,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Idle<sp/>=<sp/>&amp;XPmSubsystemOp_Idle,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.IsAccessAllowed<sp/>=<sp/>&amp;XPmSubsystemOp_IsAccessAllowed,<sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.SetState<sp/>=<sp/>&amp;XPmSubsystemOp_SetState,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Suspend<sp/>=<sp/>&amp;XPmSubsystemOp_Suspend,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.WakeUp<sp/>=<sp/>&amp;XPmSubsystemOp_WakeUp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Common<sp/>from<sp/>xpm_subsystem.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.AddRequirement<sp/>=<sp/>&amp;XPmSubsystemOp_AddRequirement,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stub<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.InitFinalize<sp/>=<sp/>&amp;XPmSubsystemOp_InitFinalize,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stub<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.NotifyHealthyBoot<sp/>=<sp/>&amp;XPmSubsystemOp_NotifyHealthyBoot,<sp/></highlight><highlight class="comment">/*<sp/>Stub<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ShutDown<sp/>=<sp/>&amp;XPmSubsystemOp_ShutDown,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stub<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.StartRecoveryTimer<sp/>=<sp/>&amp;XPmSubsystemOp_StartRecoveryTimer,<sp/></highlight><highlight class="comment">/*<sp/>Stub<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Get<sp/>subsystem<sp/>operations<sp/>for<sp/>a<sp/>given<sp/>subsystem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref>*<sp/>XPmSubsystem_GetOps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>support<sp/>generic<sp/>subsystems<sp/>for<sp/>now<sp/>-<sp/>SUBSYS_OPS_GENERIC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;SubsysMgr.SubsysOps[Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a0fc972dcff4b6309d994588eaf12471b" kindref="member">OpsType</ref>];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*XPmSubsystem_GetById(u32<sp/>SubsystemId)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_SubsystemList*<sp/>PmSubsystems<sp/>=<sp/>&amp;SubsysMgr.Subsystems;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((INVALID_SUBSYSID<sp/>!=<sp/>SubsystemId)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MAX_NUM_SUBSYSTEMS<sp/>&gt;<sp/>NODEINDEX(SubsystemId)))<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_FOREACH(PmSubsystems,<sp/>SsNode)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SsNode-&gt;Data-&gt;Id<sp/>==<sp/>SubsystemId)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem<sp/>=<sp/>SsNode-&gt;Data;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Subsystem;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">u32<sp/>XPmSubsystem_GetMaxSubsysIdx(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SubsysMgr.MaxSubsystemIdx;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">XStatus<sp/>XPm_IsAccessAllowed(u32<sp/>SubsystemId,<sp/>u32<sp/>NodeId)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem<sp/>=<sp/>XPmSubsystem_GetById(SubsystemId);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmSubsystem_IsAccessAllowed(Subsystem,<sp/>NodeId);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*XPmSubsystem_GetByIndex(u32<sp/>SubSysIdx)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_SubsystemList*<sp/>PmSubsystems<sp/>=<sp/>&amp;SubsysMgr.Subsystems;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>We<sp/>assume<sp/>that<sp/>Subsystem<sp/>class,<sp/>subclass<sp/>and<sp/>type<sp/>have<sp/>been</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>validated<sp/>before,<sp/>so<sp/>just<sp/>validate<sp/>index<sp/>against<sp/>bounds<sp/>here</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_FOREACH(PmSubsystems,<sp/>SsNode){</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem<sp/>=<sp/>SsNode-&gt;Data;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SubSysIdx<sp/>==<sp/>NODEINDEX(Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Subsystem;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">u32<sp/>XPmSubsystem_GetSubSysIdByIpiMask(u32<sp/>IpiMask)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SubsystemId<sp/>=<sp/>INVALID_SUBSYSID;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_SubsystemList*<sp/>PmSubsystems<sp/>=<sp/>&amp;SubsysMgr.Subsystems;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Subsystem<sp/>with<sp/>least<sp/>one<sp/>IPI<sp/>channel</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>will<sp/>have<sp/>non-zero<sp/>IPI<sp/>mask.</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>IpiMask)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_FOREACH(PmSubsystems,<sp/>SsNode){</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem<sp/>=<sp/>SsNode-&gt;Data;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1afa3950a11c422ea9b3bfb1c4de155ea1" kindref="member">IpiMask</ref><sp/>&amp;<sp/>IpiMask)<sp/>==<sp/>IpiMask)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u8)OFFLINE<sp/>!=<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a1160acd436cf3e267f5b9ff695fb00f3" kindref="member">State</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsystemId<sp/>=<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SubsystemId;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/>*<sp/>============================================================================</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/>*<sp/>Public<sp/>API<sp/>Implementations<sp/>to<sp/>abstract<sp/>Subsystem<sp/>Operations</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/>*<sp/>============================================================================</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/>*<sp/>Following<sp/>functions<sp/>serve<sp/>as<sp/>the<sp/>abstraction<sp/>layer<sp/>between<sp/>runtime<sp/>core<sp/>and</highlight></codeline>
+<codeline lineno="205"><highlight class="comment"><sp/>*<sp/>subsystem<sp/>module.</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/>*<sp/>-<sp/>xpm_runtime_eemi.c<sp/>(EEMI-only<sp/>builds)</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/>*<sp/>-<sp/>xpm_runtime_eemi_subsys.c<sp/>(full<sp/>subsystem<sp/>builds)</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">XStatus<sp/>XPmSubsystem_Add(u32<sp/>SubsystemId)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_SubsystemList<sp/>*SubsysList<sp/>=<sp/>&amp;SubsysMgr.Subsystems;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>subsystem<sp/>already<sp/>exists<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>XPmSubsystem_GetById(SubsystemId))<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>subsystem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem<sp/>=<sp/>(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*)XPm_AllocBytesSubsys(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>));</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_BUFFER_TOO_SMALL;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>subsystem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a0fc972dcff4b6309d994588eaf12471b" kindref="member">OpsType</ref><sp/>=<sp/>(u8)SUBSYS_OPS_GENERIC;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref><sp/>=<sp/>SubsystemId;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1afa3950a11c422ea9b3bfb1c4de155ea1" kindref="member">IpiMask</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a1160acd436cf3e267f5b9ff695fb00f3" kindref="member">State</ref><sp/>=<sp/>(u16)ONLINE;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1af2114f126bf4004489632e0692c5b390" kindref="member">AllSubsystems</ref><sp/>=<sp/>SubsysList;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>list<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a5ab94665c95bf353b7066ca82bd81d05" kindref="member">Requirements</ref><sp/>=<sp/>Make_XPm_RequirementList();</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1a5ab94665c95bf353b7066ca82bd81d05" kindref="member">Requirements</ref>){</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;There&apos;s<sp/>no<sp/>space<sp/>to<sp/>allocate<sp/>RequirementList&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_BUFFER_TOO_SMALL;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>the<sp/>subsystem<sp/>to<sp/>the<sp/>list<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_PREPEND(SubsysList,<sp/>Subsystem);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsysMgr.NumSubsystems++;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SubsysMgr.MaxSubsystemIdx<sp/>&lt;<sp/>NODEINDEX(Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsysMgr.MaxSubsystemIdx<sp/>=<sp/>NODEINDEX(Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>add<sp/>Subsystem<sp/>0x%x:<sp/>0x%x\r\n&quot;</highlight><highlight class="normal">,<sp/>SubsystemId,<sp/>Status);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">XStatus<sp/>XPmSubsystem_ForcePwrDwn(u32<sp/>SubsystemId)</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>*Fpd<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem<sp/>=<sp/>XPmSubsystem_GetById(SubsystemId);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>FPD<sp/>is<sp/>not<sp/>powered<sp/>off<sp/>by<sp/>a<sp/>subsystem<sp/>level<sp/>request:<sp/>a<sp/>restart,<sp/>a</highlight></codeline>
+<codeline lineno="297"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>forced<sp/>power<sp/>down<sp/>or<sp/>a<sp/>subsystem<sp/>shutdown.<sp/>Hold<sp/>it<sp/>while<sp/>the</highlight></codeline>
+<codeline lineno="298"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>subsystem&apos;s<sp/>devices<sp/>are<sp/>released,<sp/>so<sp/>that<sp/>releasing<sp/>its<sp/>last<sp/>FPD</highlight></codeline>
+<codeline lineno="299"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>users<sp/>cannot<sp/>switch<sp/>the<sp/>domain<sp/>off.<sp/>When<sp/>the<sp/>last<sp/>FPD<sp/>users<sp/>are</highlight></codeline>
+<codeline lineno="300"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>released,<sp/>FPD<sp/>stays<sp/>on,<sp/>unused,<sp/>until<sp/>a<sp/>device<sp/>requests<sp/>it<sp/>again<sp/>or<sp/>a</highlight></codeline>
+<codeline lineno="301"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>power<sp/>management<sp/>flow<sp/>such<sp/>as<sp/>suspend<sp/>to<sp/>RAM<sp/>switches<sp/>it<sp/>off.</highlight></codeline>
+<codeline lineno="302"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fpd<sp/>=<sp/>XPmPower_HoldFpd();</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;ShutDown(Subsystem);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmPower_ReleaseFpd(Fpd);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">XStatus<sp/>XPmSubsystem_Activate(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;Activate(Subsystem);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="351"><highlight class="normal">XStatus<sp/>XPmSubsystem_SetState(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>State)</highlight></codeline>
+<codeline lineno="352"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;SetState(Subsystem,<sp/>State);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">XStatus<sp/>XPmSubsystem_GetStatus(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/><ref refid="struct_x_pm___device_status" kindref="compound">XPm_DeviceStatus</ref><sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DeviceStatus)</highlight></codeline>
+<codeline lineno="379"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>==<sp/>Subsystem)<sp/>||<sp/>(NULL<sp/>==<sp/>DeviceStatus))<sp/>{</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;GetStatus(Subsystem,<sp/>DeviceStatus);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">XStatus<sp/>XPmSubsystem_AddRequirement(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>*Payload,<sp/>u32<sp/>PayloadLen)</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>==<sp/>Subsystem)<sp/>||<sp/>(NULL<sp/>==<sp/>Payload)<sp/>||<sp/>(0U<sp/>==<sp/>PayloadLen))<sp/>{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;AddRequirement(Subsystem,<sp/>Payload,<sp/>PayloadLen);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="433"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmSubsystem_WakeUp(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="434"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;WakeUp(Subsystem);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="444"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="459"><highlight class="normal">maybe_unused<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmSubsystem_Suspend(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="460"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;Suspend(Subsystem);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="470"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="485"><highlight class="normal">XStatus<sp/>XPmSubsystem_Idle(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="486"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;Idle(Subsystem);</highlight></codeline>
+<codeline lineno="494"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="496"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="512"><highlight class="normal">XStatus<sp/>XPmSubsystem_InitFinalize(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="513"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;InitFinalize(Subsystem);</highlight></codeline>
+<codeline lineno="521"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="540"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmSubsystem_IsAccessAllowed(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>NodeId)</highlight></codeline>
+<codeline lineno="541"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;IsAccessAllowed(Subsystem,<sp/>NodeId);</highlight></codeline>
+<codeline lineno="549"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="567"><highlight class="normal">XStatus<sp/>XPmSubsystem_NotifyHealthyBoot(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem)</highlight></codeline>
+<codeline lineno="568"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;NotifyHealthyBoot(Subsystem);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="595"><highlight class="normal">XStatus<sp/>XPmSubsystem_StartRecoveryTimer(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>CmdType)</highlight></codeline>
+<codeline lineno="596"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Subsystem)<sp/>{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xpm__err_8h_1a6202328c0d1f8b7175b23badead381db" kindref="member">XPM_INVALID_SUBSYSID</ref>;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref><sp/>*Ops<sp/>=<sp/>XPmSubsystem_GetOps(Subsystem);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Ops-&gt;StartRecoveryTimer(Subsystem,<sp/>CmdType);</highlight></codeline>
+<codeline lineno="604"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="606"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="618"><highlight class="normal">XStatus<sp/>XPmSubsystem_ModuleInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="619"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Keep<sp/>this<sp/>function<sp/>for<sp/>module<sp/>initialization<sp/>if<sp/>needed<sp/>in<sp/>future<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="622"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c"/>
+  </compounddef>
+</doxygen>

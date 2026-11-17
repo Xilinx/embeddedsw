@@ -1,0 +1,488 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiltimer_8c" kind="file">
+    <compoundname>xiltimer.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="sleep_8h" local="yes">sleep.h</includes>
+    <includes refid="xiltimer_8h" local="yes">xiltimer.h</includes>
+    <incdepgraph>
+      <node id="127">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="122">
+        <label>xil_io.h</label>
+      </node>
+      <node id="130">
+        <label>bspconfig.h</label>
+      </node>
+      <node id="123">
+        <label>sleep.h</label>
+        <link refid="sleep_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>xil_util.h</label>
+      </node>
+      <node id="121">
+        <label>xiltimer.c</label>
+        <link refid="xiltimer.c"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+      </node>
+      <node id="125">
+        <label>xiltimer.h</label>
+        <link refid="xiltimer_8h"/>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="129">
+        <label>xstatus.h</label>
+      </node>
+      <node id="124">
+        <label>xil_types.h</label>
+      </node>
+      <node id="131">
+        <label>xparameters.h</label>
+      </node>
+      <node id="128">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="126">
+        <label>xtimer_config.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" prot="public" static="no" mutable="no">
+        <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref></type>
+        <definition>XTimer TimerInst</definition>
+        <argsstring></argsstring>
+        <name>TimerInst</name>
+        <briefdescription>
+<para>Global XTimer instance for timer operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" compoundref="xiltimer_8c" startline="215" endline="222">XTimer_ClearTickInterrupt</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" compoundref="xiltimer_8c" startline="130" endline="142">XTimer_SetHandler</referencedby>
+        <referencedby refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" compoundref="xiltimer_8c" startline="169" endline="176">XTimer_SetInterval</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" compoundref="xiltimer_8c" startline="193" endline="207">XTimer_SetIntervalHz</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XilTimer_Sleep</definition>
+        <argsstring>(unsigned long delay, XTimer_DelayType DelayType)</argsstring>
+        <name>XilTimer_Sleep</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>delay</declname>
+        </param>
+        <param>
+          <type><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kindref="member">XTimer_DelayType</ref></type>
+          <declname>DelayType</declname>
+        </param>
+        <briefdescription>
+<para>This API contains common delay implementation using library APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DelayType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unit of delay (seconds, milliseconds, microseconds). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="97" bodyend="104"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" compoundref="xiltimer_8h" startline="93">XTimerTag::XTimer_ModifyInterval</references>
+        <referencedby refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" compoundref="xiltimer_8c" startline="72" endline="74">msleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" compoundref="xiltimer_8c" startline="60" endline="62">sleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" compoundref="xiltimer_8c" startline="84" endline="86">usleep</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sleep</definition>
+        <argsstring>(unsigned int seconds)</argsstring>
+        <name>sleep</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>seconds</declname>
+        </param>
+        <briefdescription>
+<para>This API gives delay in sec. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">seconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in seconds </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="60" bodyend="62"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" compoundref="xiltimer_8h" startline="82">XTIMER_DELAY_SEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void msleep</definition>
+        <argsstring>(unsigned long mseconds)</argsstring>
+        <name>msleep</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>mseconds</declname>
+        </param>
+        <briefdescription>
+<para>This API gives delay in msec. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">mseconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in milliseconds </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="72" bodyend="74"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" compoundref="xiltimer_8h" startline="83">XTIMER_DELAY_MSEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void usleep</definition>
+        <argsstring>(unsigned long useconds)</argsstring>
+        <name>usleep</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>useconds</declname>
+        </param>
+        <briefdescription>
+<para>This API gives delay in usec. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">useconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in microseconds </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="84" bodyend="86"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" compoundref="xiltimer_8h" startline="84">XTIMER_DELAY_USEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void xtimerinit</definition>
+        <argsstring>()</argsstring>
+        <name>xtimerinit</name>
+        <briefdescription>
+<para>This API initializes the xiltimer library through constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="112" bodyend="116"/>
+        <references refid="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee">XilSleepTimer_Init</references>
+        <references refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52">XilTickTimer_Init</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetHandler</definition>
+        <argsstring>(XTimer_TickHandler FuncPtr, void *CallBackRef, u8 Priority)</argsstring>
+        <name>XTimer_SetHandler</name>
+        <param>
+          <type><ref refid="xiltimer_8h_1adf78c896aa8018bb63e6aa315e24223b" kindref="member">XTimer_TickHandler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Priority</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given FuncPtr. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Priority</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Priority for the interrupt </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="130" bodyend="142"/>
+        <references refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" compoundref="xiltimer_8h" startline="109">XTimerTag::CallBackRef</references>
+        <references refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" compoundref="xiltimer_8h" startline="108">XTimerTag::Handler</references>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" compoundref="xiltimer_8h" startline="95">XTimerTag::XTimer_TickIntrHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetInterval</definition>
+        <argsstring>(unsigned long delay)</argsstring>
+        <name>XTimer_SetInterval</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>delay</declname>
+        </param>
+        <briefdescription>
+<para>This API sets the elapse interval for the timer instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in milliseconds </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="169" bodyend="176"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="97">XTimerTag::XTimer_TickInterval</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetIntervalHz</definition>
+        <argsstring>(u32 FreqHz)</argsstring>
+        <name>XTimer_SetIntervalHz</name>
+        <param>
+          <type>u32</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This API configures the tick interval from a frequency in Hz, instead of whole milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the tick interval from a frequency in Hz.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Required tick frequency in Hz</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>If the selected tick timer does not implement XTimer_TickIntervalHz, this API uses Delay = 1000 / FreqHz with integer truncation, so the programmed rate matches FreqHz only when 1000 is an exact multiple of FreqHz. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="193" bodyend="207"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" compoundref="xiltimer_8h" startline="83">XTIMER_DELAY_MSEC</references>
+        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="97">XTimerTag::XTimer_TickInterval</references>
+        <references refid="struct_x_timer_tag_1a793bd1f723f0570b86cfdd0802cc46a5" compoundref="xiltimer_8h" startline="99">XTimerTag::XTimer_TickIntervalHz</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_ClearTickInterrupt</definition>
+        <argsstring>(void)</argsstring>
+        <name>XTimer_ClearTickInterrupt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This API clears the interrupt status of the tick timer instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="215" bodyend="222"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" compoundref="xiltimer_8h" startline="106">XTimerTag::XTickTimer_ClearInterrupt</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="sleep_8h" kindref="compound">sleep.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiltimer_8h" kindref="compound">xiltimer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/><sp/>Constant<sp/>Definitions<sp/><sp/>*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" refkind="member"><highlight class="normal"><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/><ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#ifdef<sp/>XSLEEPTIMER_INSTANCE</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal">__attribute__((weak))<sp/>UINTPTR<sp/>XSleepTimer_Instance<sp/>=<sp/>XSLEEPTIMER_INSTANCE;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XTICKTIMER_INSTANCE</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal">__attribute__((weak))<sp/>UINTPTR<sp/>XTickTimer_Instance<sp/>=<sp/>XTICKTIMER_INSTANCE;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kindref="member">XilTimer_Sleep</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>delay,<sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kindref="member">XTimer_DelayType</ref><sp/>DelayType);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" kindref="member">sleep</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>seconds)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kindref="member">XilTimer_Sleep</ref>(seconds,<sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" kindref="member">XTIMER_DELAY_SEC</ref>);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="72" refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" kindref="member">msleep</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>mseconds)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kindref="member">XilTimer_Sleep</ref>(mseconds,<sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" kindref="member">XTIMER_DELAY_MSEC</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" kindref="member">usleep</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>useconds)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kindref="member">XilTimer_Sleep</ref>(useconds,<sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" kindref="member">XTIMER_DELAY_USEC</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="97" refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kindref="member">XilTimer_Sleep</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>delay,<sp/><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kindref="member">XTimer_DelayType</ref><sp/>DelayType)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>&amp;<ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" kindref="member">XTimer_ModifyInterval</ref>)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" kindref="member">XTimer_ModifyInterval</ref>(InstancePtr,<sp/>delay,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayType);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="112" refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>__attribute__<sp/>((constructor))<sp/><ref refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" kindref="member">xtimerinit</ref>()</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee" kindref="member">XilSleepTimer_Init</ref>(&amp;TimerInst);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52" kindref="member">XilTickTimer_Init</ref>(&amp;TimerInst);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler</ref>(<ref refid="xiltimer_8h_1adf78c896aa8018bb63e6aa315e24223b" kindref="member">XTimer_TickHandler</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Priority)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>&amp;<ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" kindref="member">Handler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" kindref="member">CallBackRef</ref><sp/>=<sp/><ref refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" kindref="member">CallBackRef</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" kindref="member">XTimer_TickIntrHandler</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" kindref="member">XTimer_TickIntrHandler</ref>(InstancePtr,<sp/>Priority);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XPM_SUPPORT)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="151"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XTimer_ReleaseTickTimer(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>&amp;<ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;XTickTimer_ReleaseTickTimer)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;XTickTimer_ReleaseTickTimer(InstancePtr);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="169" refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kindref="member">XTimer_SetInterval</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>delay)</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>&amp;<ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kindref="member">XTimer_TickInterval</ref>)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kindref="member">XTimer_TickInterval</ref>(InstancePtr,<sp/>delay);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="193" refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" kindref="member">XTimer_SetIntervalHz</ref>(u32<sp/>FreqHz)</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Delay;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FreqHz<sp/>&gt;<sp/>0U);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>&amp;<ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a793bd1f723f0570b86cfdd0802cc46a5" kindref="member">XTimer_TickIntervalHz</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a793bd1f723f0570b86cfdd0802cc46a5" kindref="member">XTimer_TickIntervalHz</ref>(InstancePtr,<sp/>FreqHz);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kindref="member">XTimer_TickInterval</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Delay<sp/>=<sp/>(u32)<ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" kindref="member">XTIMER_DELAY_MSEC</ref><sp/>/<sp/>FreqHz;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kindref="member">XTimer_TickInterval</ref>(InstancePtr,<sp/>Delay);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="215" refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kindref="member">XTimer_ClearTickInterrupt</ref>(<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>)</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_timer_tag" kindref="compound">XTimer</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>&amp;<ref refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" kindref="member">XTickTimer_ClearInterrupt</ref>)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" kindref="member">XTickTimer_ClearInterrupt</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c"/>
+  </compounddef>
+</doxygen>

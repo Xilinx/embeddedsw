@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___x509_validity" kind="struct" prot="public">
+    <compoundname>XAsu_X509Validity</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___x509_validity_1a0b56229ff6d02eb0363deed940c876fc" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___x509_time" kindref="compound">XAsu_X509Time</ref></type>
+        <definition>XAsu_X509Time XAsu_X509Validity::NotBefore</definition>
+        <argsstring></argsstring>
+        <name>NotBefore</name>
+        <briefdescription>
+<para>Start time of the validity period. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_validity_1a52ab5d7153d42510249c54395078a1ac" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___x509_time" kindref="compound">XAsu_X509Time</ref></type>
+        <definition>XAsu_X509Time XAsu_X509Validity::NotAfter</definition>
+        <argsstring></argsstring>
+        <name>NotAfter</name>
+        <briefdescription>
+<para>End time of the validity period. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the validity period of a user X.509 certificate. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="198">
+        <label>XAsu_X509Validity</label>
+        <link refid="struct_x_asu___x509_validity"/>
+        <childnode refid="199" relation="usage">
+          <edgelabel>NotAfter</edgelabel>
+          <edgelabel>NotBefore</edgelabel>
+        </childnode>
+      </node>
+      <node id="199">
+        <label>XAsu_X509Time</label>
+        <link refid="struct_x_asu___x509_time"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="179" bodyend="182"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___x509_validity_1a52ab5d7153d42510249c54395078a1ac" prot="public" virt="non-virtual"><scope>XAsu_X509Validity</scope><name>NotAfter</name></member>
+      <member refid="struct_x_asu___x509_validity_1a0b56229ff6d02eb0363deed940c876fc" prot="public" virt="non-virtual"><scope>XAsu_X509Validity</scope><name>NotBefore</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

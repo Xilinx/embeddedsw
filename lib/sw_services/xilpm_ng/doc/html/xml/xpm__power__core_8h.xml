@@ -1,0 +1,1254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__power__core_8h" kind="file">
+    <compoundname>xpm_power_core.h</compoundname>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__core_8h" local="yes">xpm_core.h</includes>
+    <includedby refid="xpm__core_8c" local="yes">xpm_core.c</includedby>
+    <includedby refid="xpm__power_8c" local="yes">xpm_power.c</includedby>
+    <includedby refid="xpm__power__core_8c" local="yes">xpm_power_core.c</includedby>
+    <includedby refid="xpm__power__handlers_8c" local="yes">xpm_power_handlers.c</includedby>
+    <incdepgraph>
+      <node id="3003">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3008">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3004">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3006">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3001">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3012">
+        <label>xpm_clock.h</label>
+        <childnode refid="3002" relation="include">
+        </childnode>
+        <childnode refid="2998" relation="include">
+        </childnode>
+        <childnode refid="3011" relation="include">
+        </childnode>
+      </node>
+      <node id="3011">
+        <label>xpm_power.h</label>
+        <childnode refid="3007" relation="include">
+        </childnode>
+        <childnode refid="2998" relation="include">
+        </childnode>
+      </node>
+      <node id="2997">
+        <label>xpm_power_core.h</label>
+        <link refid="xpm_power_core.h"/>
+        <childnode refid="2998" relation="include">
+        </childnode>
+        <childnode refid="2999" relation="include">
+        </childnode>
+        <childnode refid="3000" relation="include">
+        </childnode>
+        <childnode refid="3009" relation="include">
+        </childnode>
+      </node>
+      <node id="3002">
+        <label>xpm_common.h</label>
+        <childnode refid="3000" relation="include">
+        </childnode>
+        <childnode refid="3003" relation="include">
+        </childnode>
+        <childnode refid="3004" relation="include">
+        </childnode>
+        <childnode refid="3005" relation="include">
+        </childnode>
+        <childnode refid="3006" relation="include">
+        </childnode>
+        <childnode refid="3007" relation="include">
+        </childnode>
+      </node>
+      <node id="2998">
+        <label>xpm_node.h</label>
+        <childnode refid="2999" relation="include">
+        </childnode>
+        <childnode refid="3000" relation="include">
+        </childnode>
+        <childnode refid="3001" relation="include">
+        </childnode>
+        <childnode refid="3002" relation="include">
+        </childnode>
+      </node>
+      <node id="3000">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3014">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="3009">
+        <label>xpm_core.h</label>
+        <childnode refid="3010" relation="include">
+        </childnode>
+        <childnode refid="3014" relation="include">
+        </childnode>
+      </node>
+      <node id="2999">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3007">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="2999" relation="include">
+        </childnode>
+        <childnode refid="3008" relation="include">
+        </childnode>
+      </node>
+      <node id="3010">
+        <label>xpm_device.h</label>
+        <childnode refid="2998" relation="include">
+        </childnode>
+        <childnode refid="3011" relation="include">
+        </childnode>
+        <childnode refid="3012" relation="include">
+        </childnode>
+        <childnode refid="3013" relation="include">
+        </childnode>
+      </node>
+      <node id="3013">
+        <label>xpm_reset.h</label>
+        <childnode refid="2998" relation="include">
+        </childnode>
+        <childnode refid="3002" relation="include">
+        </childnode>
+      </node>
+      <node id="3005">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3000" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3017">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="3018">
+        <label>xpm_power_core.c</label>
+      </node>
+      <node id="3015">
+        <label>xpm_power_core.h</label>
+        <link refid="xpm_power_core.h"/>
+        <childnode refid="3016" relation="include">
+        </childnode>
+        <childnode refid="3017" relation="include">
+        </childnode>
+        <childnode refid="3018" relation="include">
+        </childnode>
+        <childnode refid="3019" relation="include">
+        </childnode>
+      </node>
+      <node id="3016">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="3019">
+        <label>xpm_power_handlers.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm_fw_pwr_ctrl__t" prot="public">XPmFwPwrCtrl_t</innerclass>
+    <innerclass refid="struct_x_pm_fw_mem_pwr_ctrl__t" prot="public">XPmFwMemPwrCtrl_t</innerclass>
+    <innerclass refid="struct_x_pm_tcm_pwr_ctrl__t" prot="public">XPmTcmPwrCtrl_t</innerclass>
+    <innerclass refid="struct_x_pm_fw_gem_pwr_ctrl__t" prot="public">XPmFwGemPwrCtrl_t</innerclass>
+    <innerclass refid="struct_pwr_handler_table__t" prot="public">PwrHandlerTable_t</innerclass>
+    <innerclass refid="struct_pwr_ctl_wakeup_handler_table__t" prot="public">PwrCtlWakeupHandlerTable_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__power__core_8h_1a87da9796d344dc7977d49cbb092905d5" prot="public" static="no">
+        <name>CHECK_BIT</name>
+        <param><defname>reg</defname></param>
+        <param><defname>mask</defname></param>
+        <initializer>(((reg) &amp; (mask)) == (mask))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="16" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__core_8h_1a66942c5fec3763a2f19a822c76628e3e" prot="public" static="no">
+        <name>RPU_TCMBOOT_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__core_8h_1afee70a4b8e3c1ce129094a803feb4a8f" prot="public" static="no">
+        <name>RPU_PWR_UP_ACK_TIMEOUT</name>
+        <initializer>MICROSECOND_TO_TICKS(5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__power__core_8h_1a4cd7daa5553aebc6e635c628d6c47799" prot="public" static="no">
+        <name>APU_PWR_UP_ACK_TIMEOUT</name>
+        <initializer>MICROSECOND_TO_TICKS(5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31ef" prot="public" static="no">
+        <name>TcmBankId</name>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efa87f3ba0627da630d67193590647e97f1" prot="public">
+          <name>TCM_A_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efaf80a803200c90a1a80e8aafa2dbfc4e6" prot="public">
+          <name>TCM_A_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efa55ffdf517226316ef14b2cc25c845186" prot="public">
+          <name>TCM_B_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efac09c56edff2b556842ff527357241119" prot="public">
+          <name>TCM_B_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efa40d82feb0fa77f2204180d4db3ce3fdc" prot="public">
+          <name>TCM_C_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efae8fda844bf45115a8bfb8b86be4d66f3" prot="public">
+          <name>TCM_C_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efaf40f865725abe2ee5a6a881bfc1114d7" prot="public">
+          <name>TCM_D_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efae8a972a59c7156ccefb7570aa241c135" prot="public">
+          <name>TCM_D_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31efad4b6526e37f7519da1fe9d5fb1fd2d23" prot="public">
+          <name>TCM_E_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a80631152c5cd746d9aea3d2447bf31eface639dd3302610699e2daba74269e783" prot="public">
+          <name>TCM_E_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="25" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__power__core_8h_1ae15ec34e6c23df8510beb275d6525592" prot="public" static="no">
+        <name>ClusteId</name>
+        <enumvalue id="xpm__power__core_8h_1ae15ec34e6c23df8510beb275d6525592a01dc376893dbf0e1a35ab8149357c445" prot="public">
+          <name>CLUSTER_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1ae15ec34e6c23df8510beb275d6525592a336e8f031e784bf0988dcabad9d58ffd" prot="public">
+          <name>CLUSTER_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1ae15ec34e6c23df8510beb275d6525592a227c8d9a321179a8cf27fc6a8292ef80" prot="public">
+          <name>CLUSTER_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1ae15ec34e6c23df8510beb275d6525592ad58d0436273d37977bfebc327d22662f" prot="public">
+          <name>CLUSTER_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1ae15ec34e6c23df8510beb275d6525592a8ceca747a0baf403b73fd3ed8bfd49ec" prot="public">
+          <name>CLUSTER_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="38" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__power__core_8h_1a851cc28a640dd492f34f6e028b85c455" prot="public" static="no">
+        <name>TcmPowerState</name>
+        <enumvalue id="xpm__power__core_8h_1a851cc28a640dd492f34f6e028b85c455a9d910e0ff1c8e39413abcb9c426d4a38" prot="public">
+          <name>STATE_POWER_DEFAULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a851cc28a640dd492f34f6e028b85c455a243350c456684acdfeea291eca0922fd" prot="public">
+          <name>STATE_POWER_ON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__power__core_8h_1a851cc28a640dd492f34f6e028b85c455a599c5f4e57596cf47e4874563a980826" prot="public">
+          <name>STATE_POWER_DOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="46" bodyend="50"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__power__core_8h_1a20b959556fd826e8d342fea1e43d4178" prot="public" static="no">
+        <type>struct XPmFwPwrCtrl_t</type>
+        <definition>typedef struct XPmFwPwrCtrl_t XPmFwPwrCtrl_t</definition>
+        <argsstring></argsstring>
+        <name>XPmFwPwrCtrl_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="2181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__power__core_8h_1aa189ddd115ba39b7312a4c11ad0baf54" prot="public" static="no">
+        <type>struct XPmFwMemPwrCtrl_t</type>
+        <definition>typedef struct XPmFwMemPwrCtrl_t XPmFwMemPwrCtrl_t</definition>
+        <argsstring></argsstring>
+        <name>XPmFwMemPwrCtrl_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="2181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__power__core_8h_1a1959a58a22fba7bf040e55c086606230" prot="public" static="no">
+        <type>struct XPmTcmPwrCtrl_t</type>
+        <definition>typedef struct XPmTcmPwrCtrl_t XPmTcmPwrCtrl_t</definition>
+        <argsstring></argsstring>
+        <name>XPmTcmPwrCtrl_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="2181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__power__core_8h_1a3ded7a2e7500962ca216380090178e7e" prot="public" static="no">
+        <type>struct XPmFwGemPwrCtrl_t</type>
+        <definition>typedef struct XPmFwGemPwrCtrl_t XPmFwGemPwrCtrl_t</definition>
+        <argsstring></argsstring>
+        <name>XPmFwGemPwrCtrl_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="2181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__power__core_8h_1abec793ae80fc2d4a538177d3891ed6b5" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu0_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a35fd9cdce19970723e9c101bc4135a7f" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu0_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a58fcc2e569f58bf442da7ccb5d56b1ea" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu0_Core2PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu0_Core2PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aa9e837d702a00236282d7f86170b95ed" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu0_Core3PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu0_Core3PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a6a9f71af296218dc5fdc406cbc057b1f" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu1_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a7b0f3e90e9ab75dc6175fc9601bc5fc5" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu1_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a253805be3e4a063e4fedd455f473bbe9" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu2_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a8ba9369f24119f41c5d69787e5ea4f5b" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu2_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a8f595b802e27a28b832ccd1b0a9eb30e" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu3_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a74aee4614b9072f14d8bb103fbb90f80" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Acpu3_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1ae71f0aef2e5e89f1b6e5a0aae2a47570" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuA_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuA_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1ab259f64462a39fab849e78e4bfd10722" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuA_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuA_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a451c1aa3dfbdf4c2baf199989ca83dd8" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuB_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuB_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1abaa11fc3398d21ddc70f99a104864040" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuB_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuB_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a4e2acc28eb9d3b915ea5af6005dad0c2" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuC_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuC_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a63f35f169a0c8dedec02a3f136ae650a" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuC_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuC_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1ac5247e659e89a67e76cf243ce2359929" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuD_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuD_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aa953eb86f90682886c96d7520ed935e0" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuD_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuD_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a145b1ca78a8c6a905a0c7d1c2fed3171" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuE_Core0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuE_Core0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="461" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1acef0a5733c7bc564e8b4ec15011ca75b" prot="public" static="no" mutable="no">
+        <type>const XPmFwPwrCtrl_t</type>
+        <definition>const XPmFwPwrCtrl_t RpuE_Core1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>RpuE_Core1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a21ab75a0b9639e551c22e37274671654" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B0_I0_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aaa10451c7b1050dcad5501f14eb3e679" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B0_I1_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a3c0a6cdddd3870eb5b58405d1e5ac613" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B0_I2_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a4130e99179ef3d3f756150e09b28f44a" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B0_I3_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="533" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aa95efbe9be7a7409eedcd3da5d1ca982" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B1_I0_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="543" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aa2847e248ee1296265aaffd542416f5e" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B1_I1_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aa928e57358aef9ffa67a30af9a78b948" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B1_I2_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1abbc3821459f9d81d2c827ff5681f0272" prot="public" static="no" mutable="no">
+        <type>const XPmFwMemPwrCtrl_t</type>
+        <definition>const XPmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Ocm_B1_I3_PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aecdf15cc602dbb16d429133d0838b2fd" prot="public" static="no" mutable="no">
+        <type>const XPmTcmPwrCtrl_t</type>
+        <definition>const XPmTcmPwrCtrl_t TcmA0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>TcmA0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="663" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1aa6cc5d5c028ff09e8b8555c421d95146" prot="public" static="no" mutable="no">
+        <type>const XPmTcmPwrCtrl_t</type>
+        <definition>const XPmTcmPwrCtrl_t TcmA1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>TcmA1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="678" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a0185d529ddf4ab4439ec1f326dda10de" prot="public" static="no" mutable="no">
+        <type>const XPmTcmPwrCtrl_t</type>
+        <definition>const XPmTcmPwrCtrl_t TcmB0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>TcmB0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="693" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a9cc5cb22ab5d83eddb56fd6bd06a64a5" prot="public" static="no" mutable="no">
+        <type>const XPmTcmPwrCtrl_t</type>
+        <definition>const XPmTcmPwrCtrl_t TcmB1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>TcmB1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="708" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1ac5a7200b6cf2eb113c11d1c8f3b4640e" prot="public" static="no" mutable="no">
+        <type>const XPmFwGemPwrCtrl_t</type>
+        <definition>const XPmFwGemPwrCtrl_t Gem0PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Gem0PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="815" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__power__core_8h_1a8fd7eab2090cdcc2e1dd9717927a2288" prot="public" static="no" mutable="no">
+        <type>const XPmFwGemPwrCtrl_t</type>
+        <definition>const XPmFwGemPwrCtrl_t Gem1PwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>Gem1PwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="829" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__power__core_8h_1a7e3aefaa098e6d9f56c1ea8241d81259" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_DirectPwrUp</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_DirectPwrUp</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="1895" bodyend="1988"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a4ff5578255d906ca8e57a86d9bcdf7e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_SendIslandPowerDwnReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_SendIslandPowerDwnReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="2181" bodyend="2276"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a784c3d95d0f2cc3a4e66cfc26fa324b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_SendIslandPowerUpReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_SendIslandPowerUpReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="2084" bodyend="2179"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1aa00a5b940cc98617b933f3d03eee6e2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_PlatSendPowerUpReq</definition>
+        <argsstring>(XPm_Node *Node)</argsstring>
+        <name>XPmPower_PlatSendPowerUpReq</name>
+        <param>
+          <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="2072" bodyend="2076"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1ac3785d53d8da796517cf8dc68efbc463" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_PlatSendPowerDownReq</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPmPower_PlatSendPowerDownReq</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="2078" bodyend="2082"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a0675fbe58b44ff377b2d4bc711f585f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_RpuDirectPwrDwn</definition>
+        <argsstring>(const struct XPmFwPwrCtrl_t *Args)</argsstring>
+        <name>XPmPower_RpuDirectPwrDwn</name>
+        <param>
+          <type>const struct XPmFwPwrCtrl_t *</type>
+          <declname>Args</declname>
+        </param>
+        <briefdescription>
+<para>Directly powers down an RPU core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Core specific power control arguments</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="1347" bodyend="1399"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a6c63873e949e62b4d8244a178683b8d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_RpuReqPwrUp</definition>
+        <argsstring>(const struct XPmFwPwrCtrl_t *Args)</argsstring>
+        <name>XPmPower_RpuReqPwrUp</name>
+        <param>
+          <type>const struct XPmFwPwrCtrl_t *</type>
+          <declname>Args</declname>
+        </param>
+        <briefdescription>
+<para>Handles an RPU core power up request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Core specific power control arguments</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="1485" bodyend="1529"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a20a60f1bc1e0ae6026815aed981ea58d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_RpuReqPwrDwn</definition>
+        <argsstring>(const struct XPmFwPwrCtrl_t *Args)</argsstring>
+        <name>XPmPower_RpuReqPwrDwn</name>
+        <param>
+          <type>const struct XPmFwPwrCtrl_t *</type>
+          <declname>Args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="1530" bodyend="1569"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a4ce5be86e34ae9cdea1f244d30583fd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_ACpuReqPwrUp</definition>
+        <argsstring>(const struct XPmFwPwrCtrl_t *Args)</argsstring>
+        <name>XPmPower_ACpuReqPwrUp</name>
+        <param>
+          <type>const struct XPmFwPwrCtrl_t *</type>
+          <declname>Args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="1570" bodyend="1593"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__power__core_8h_1a4c8b1425f0a765186ece7d0822d26683" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_ACpuReqPwrDwn</definition>
+        <argsstring>(const struct XPmFwPwrCtrl_t *Args)</argsstring>
+        <name>XPmPower_ACpuReqPwrDwn</name>
+        <param>
+          <type>const struct XPmFwPwrCtrl_t *</type>
+          <declname>Args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.c" bodystart="1594" bodyend="1639"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_POWER_CORE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_POWER_CORE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHECK_BIT(reg,<sp/>mask)<sp/><sp/><sp/><sp/>(((reg)<sp/>&amp;<sp/>(mask))<sp/>==<sp/>(mask))</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RPU_TCMBOOT_MASK<sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RPU_PWR_UP_ACK_TIMEOUT<sp/><sp/>MICROSECOND_TO_TICKS(5U)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APU_PWR_UP_ACK_TIMEOUT<sp/><sp/>MICROSECOND_TO_TICKS(5U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwPwrCtrl_t<sp/>XPmFwPwrCtrl_t;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwMemPwrCtrl_t<sp/>XPmFwMemPwrCtrl_t;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmTcmPwrCtrl_t<sp/>XPmTcmPwrCtrl_t;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwGemPwrCtrl_t<sp/>XPmFwGemPwrCtrl_t;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>TcmBankId<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_A_0,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_A_1,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_B_0,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_B_1,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_C_0,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_C_1,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_D_0,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_D_1,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_E_0,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCM_E_1,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>ClusteId{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLUSTER_0,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLUSTER_1,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLUSTER_2,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLUSTER_3,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLUSTER_4,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>TcmPowerState<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_POWER_DEFAULT,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_POWER_ON,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_POWER_DOWN,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>TODO:<sp/>Separate<sp/>for<sp/>RPU<sp/>and<sp/>APU<sp/>cores<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwPwrCtrl_t<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Id;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ResetCfgAddr;<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrStateMask;<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrCtrlAddr;<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>ClusteId<sp/>ClusterId;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RPU<sp/>only<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilIdsAddr;<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilIsrAddr;<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilIenAddr;<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilPsAddr;<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilPrAddr;<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilPaAddr;<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilPwrdwnAddr;<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePactiveMask;<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WakeupIrqMask;<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CacheCntrlMask;<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VectTableAddr;<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RstCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RstCtrlAddr;<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>APU<sp/>only<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePcilAddr;<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClusterPcilAddr;<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrUpAckTimeout[PSXC_LPX_SLCR_PWR_CTRL_MAX_PWRUP_STAGES];<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrUpWaitTime[PSXC_LPX_SLCR_PWR_CTRL_MAX_PWRUP_STAGES];<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrDwnAckTimeout;<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WarmRstMask;<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClkCtrlAddr;<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClkPropTime;<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RstAddr;<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ScanMemClearMask;<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrUpDwnMask;<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OCM<sp/>power<sp/>control<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwMemPwrCtrl_t<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrStateMask;<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChipEnMask;<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrStatusMask;<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RetMask;<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GlobPwrStatusMask;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RetCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmTcmPwrCtrl_t<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwMemPwrCtrl_t<sp/>TcmMemPwrCtrl;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>TcmBankId<sp/>Id;<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>TcmPowerState<sp/>PowerState;<sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrDwnStatusMask;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwGemPwrCtrl_t<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrStateMask;<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChipEnMask;<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrStatusMask;<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReqPwrUpStatusMask;<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReqPwrDwnStatusMask;<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClkCtrlAddr;<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClkCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RstCtrlAddr;<sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RstCtrlMask;<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrStateAckTimeout;<sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrUpWaitTime;<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Power-control<sp/>objects<sp/>with<sp/>external<sp/>linkage<sp/>(MISRA<sp/>Rule<sp/>8.4<sp/>visible<sp/>declarations)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu0_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu0_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu0_Core2PwrCtrl;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu0_Core3PwrCtrl;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu1_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu1_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu2_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu2_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu3_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>Acpu3_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuA_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuA_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuB_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuB_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuC_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuC_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuD_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuD_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuE_Core0PwrCtrl;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>RpuE_Core1PwrCtrl;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B0_I0_PwrCtrl;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B0_I1_PwrCtrl;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B0_I2_PwrCtrl;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B0_I3_PwrCtrl;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B1_I0_PwrCtrl;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B1_I1_PwrCtrl;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B1_I2_PwrCtrl;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwMemPwrCtrl_t<sp/>Ocm_B1_I3_PwrCtrl;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmTcmPwrCtrl_t<sp/>TcmA0PwrCtrl;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmTcmPwrCtrl_t<sp/>TcmA1PwrCtrl;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmTcmPwrCtrl_t<sp/>TcmB0PwrCtrl;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmTcmPwrCtrl_t<sp/>TcmB1PwrCtrl;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwGemPwrCtrl_t<sp/>Gem0PwrCtrl;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFwGemPwrCtrl_t<sp/>Gem1PwrCtrl;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Power<sp/>Handler<sp/>Table<sp/>Structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">PwrHandlerTable_t<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrUpMask;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PwrDwnMask;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwPwrCtrl_t<sp/>*Args;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Power<sp/>control<sp/>and<sp/>wakeup<sp/>Handler<sp/>Table<sp/>Structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">PwrCtlWakeupHandlerTable_t<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmFwPwrCtrl_t<sp/>*Args;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal">XStatus<sp/>XPm_DirectPwrUp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">XStatus<sp/>XPmPower_SendIslandPowerDwnReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">XStatus<sp/>XPmPower_SendIslandPowerUpReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">XStatus<sp/>XPmPower_PlatSendPowerUpReq(<ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">XStatus<sp/>XPmPower_PlatSendPowerDownReq(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">XStatus<sp/>XPmPower_RpuDirectPwrDwn(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>*Args);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">XStatus<sp/>XPmPower_RpuReqPwrUp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>*Args);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">XStatus<sp/>XPmPower_RpuReqPwrDwn(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>*Args);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">XStatus<sp/>XPmPower_ACpuReqPwrUp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>*Args);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">XStatus<sp/>XPmPower_ACpuReqPwrDwn(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>XPmFwPwrCtrl_t<sp/>*Args);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_POWER_CORE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__fsm_8h" kind="file">
+    <compoundname>xpm_fsm.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includedby refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includedby>
+    <includedby refid="xpm__runtime__device_8h" local="yes">xpm_runtime_device.h</includedby>
+    <includedby refid="xpm__ddr__fsm_8h" local="yes">xpm_ddr_fsm.h</includedby>
+    <includedby refid="xpm__ddr__fsm_8c" local="yes">xpm_ddr_fsm.c</includedby>
+    <includedby refid="xpm__device__fsm_8c" local="yes">xpm_device_fsm.c</includedby>
+    <includedby refid="xpm__device__fsm_8h" local="yes">xpm_device_fsm.h</includedby>
+    <includedby refid="xpm__fsm_8c" local="yes">xpm_fsm.c</includedby>
+    <incdepgraph>
+      <node id="1595">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1600">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1596">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1598">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1593">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="1602">
+        <label>xpm_clock.h</label>
+        <childnode refid="1594" relation="include">
+        </childnode>
+        <childnode refid="1592" relation="include">
+        </childnode>
+        <childnode refid="1601" relation="include">
+        </childnode>
+      </node>
+      <node id="1601">
+        <label>xpm_power.h</label>
+        <childnode refid="1599" relation="include">
+        </childnode>
+        <childnode refid="1592" relation="include">
+        </childnode>
+      </node>
+      <node id="1594">
+        <label>xpm_common.h</label>
+        <childnode refid="1590" relation="include">
+        </childnode>
+        <childnode refid="1595" relation="include">
+        </childnode>
+        <childnode refid="1596" relation="include">
+        </childnode>
+        <childnode refid="1597" relation="include">
+        </childnode>
+        <childnode refid="1598" relation="include">
+        </childnode>
+        <childnode refid="1599" relation="include">
+        </childnode>
+      </node>
+      <node id="1592">
+        <label>xpm_node.h</label>
+        <childnode refid="1589" relation="include">
+        </childnode>
+        <childnode refid="1590" relation="include">
+        </childnode>
+        <childnode refid="1593" relation="include">
+        </childnode>
+        <childnode refid="1594" relation="include">
+        </childnode>
+      </node>
+      <node id="1590">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1589">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1588">
+        <label>xpm_fsm.h</label>
+        <link refid="xpm_fsm.h"/>
+        <childnode refid="1589" relation="include">
+        </childnode>
+        <childnode refid="1590" relation="include">
+        </childnode>
+        <childnode refid="1591" relation="include">
+        </childnode>
+      </node>
+      <node id="1599">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1589" relation="include">
+        </childnode>
+        <childnode refid="1600" relation="include">
+        </childnode>
+      </node>
+      <node id="1591">
+        <label>xpm_device.h</label>
+        <childnode refid="1592" relation="include">
+        </childnode>
+        <childnode refid="1601" relation="include">
+        </childnode>
+        <childnode refid="1602" relation="include">
+        </childnode>
+        <childnode refid="1603" relation="include">
+        </childnode>
+      </node>
+      <node id="1603">
+        <label>xpm_reset.h</label>
+        <childnode refid="1592" relation="include">
+        </childnode>
+        <childnode refid="1594" relation="include">
+        </childnode>
+      </node>
+      <node id="1597">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1590" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1633">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="1608">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="1613">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="1623">
+        <label>xpm_ioctl.h</label>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1608" relation="include">
+        </childnode>
+        <childnode refid="1613" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+      </node>
+      <node id="1637">
+        <label>xpm_ddr_fsm.c</label>
+      </node>
+      <node id="1636">
+        <label>xpm_ddr_fsm.h</label>
+        <childnode refid="1637" relation="include">
+        </childnode>
+        <childnode refid="1625" relation="include">
+        </childnode>
+      </node>
+      <node id="1616">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="1629">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="1628">
+        <label>xpm_notifier.h</label>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1629" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+      </node>
+      <node id="1610">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="1619">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="1618">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="1611">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="1606" relation="include">
+        </childnode>
+        <childnode refid="1610" relation="include">
+        </childnode>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1608" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1613" relation="include">
+        </childnode>
+        <childnode refid="1614" relation="include">
+        </childnode>
+        <childnode refid="1615" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1617" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+        <childnode refid="1621" relation="include">
+        </childnode>
+        <childnode refid="1622" relation="include">
+        </childnode>
+      </node>
+      <node id="1630">
+        <label>xpm_runtime_core.h</label>
+        <childnode refid="1629" relation="include">
+        </childnode>
+        <childnode refid="1631" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+      </node>
+      <node id="1622">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="1632">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1615" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+        <childnode refid="1622" relation="include">
+        </childnode>
+      </node>
+      <node id="1607">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="1614">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="1609">
+        <label>xpm_requirement.h</label>
+        <childnode refid="1606" relation="include">
+        </childnode>
+        <childnode refid="1610" relation="include">
+        </childnode>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1605" relation="include">
+        </childnode>
+        <childnode refid="1611" relation="include">
+        </childnode>
+        <childnode refid="1608" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1613" relation="include">
+        </childnode>
+        <childnode refid="1614" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+        <childnode refid="1621" relation="include">
+        </childnode>
+      </node>
+      <node id="1620">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="1617">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="1624">
+        <label>xpm_runtime_clock.h</label>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1617" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+      </node>
+      <node id="1621">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="1625">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="1604">
+        <label>xpm_fsm.h</label>
+        <link refid="xpm_fsm.h"/>
+        <childnode refid="1605" relation="include">
+        </childnode>
+        <childnode refid="1611" relation="include">
+        </childnode>
+        <childnode refid="1636" relation="include">
+        </childnode>
+        <childnode refid="1637" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1638" relation="include">
+        </childnode>
+        <childnode refid="1625" relation="include">
+        </childnode>
+      </node>
+      <node id="1606">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="1627">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="1626">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="1613" relation="include">
+        </childnode>
+        <childnode refid="1627" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+      </node>
+      <node id="1612">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="1634">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="1638">
+        <label>xpm_device_fsm.h</label>
+        <childnode refid="1606" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1625" relation="include">
+        </childnode>
+        <childnode refid="1614" relation="include">
+        </childnode>
+      </node>
+      <node id="1635">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="1605">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="1606" relation="include">
+        </childnode>
+        <childnode refid="1607" relation="include">
+        </childnode>
+        <childnode refid="1608" relation="include">
+        </childnode>
+        <childnode refid="1609" relation="include">
+        </childnode>
+        <childnode refid="1611" relation="include">
+        </childnode>
+        <childnode refid="1623" relation="include">
+        </childnode>
+        <childnode refid="1624" relation="include">
+        </childnode>
+        <childnode refid="1625" relation="include">
+        </childnode>
+        <childnode refid="1626" relation="include">
+        </childnode>
+        <childnode refid="1628" relation="include">
+        </childnode>
+        <childnode refid="1630" relation="include">
+        </childnode>
+        <childnode refid="1632" relation="include">
+        </childnode>
+        <childnode refid="1615" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1617" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+        <childnode refid="1633" relation="include">
+        </childnode>
+        <childnode refid="1634" relation="include">
+        </childnode>
+        <childnode refid="1622" relation="include">
+        </childnode>
+        <childnode refid="1635" relation="include">
+        </childnode>
+      </node>
+      <node id="1615">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+      <node id="1631">
+        <label>xpm_power_handlers.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm_fsm___tran" prot="public">XPmFsm_Tran</innerclass>
+    <innerclass refid="struct_x_pm_fsm___state_cap" prot="public">XPmFsm_StateCap</innerclass>
+    <innerclass refid="struct_x_pm___fsm" prot="public">XPm_Fsm</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__fsm_8h_1abd4f36209ffb9b02562e97ee655236e1" prot="public" static="no">
+        <name>XPm_FsmType</name>
+        <enumvalue id="xpm__fsm_8h_1abd4f36209ffb9b02562e97ee655236e1ac2a347421e65005f50f21c15675eaf80" prot="public">
+          <name>XPM_FSM_TYPE_MIN</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__fsm_8h_1abd4f36209ffb9b02562e97ee655236e1a39e0315dec4dbe016307d526f487ce8d" prot="public">
+          <name>XPM_FSM_TYPE_GENERIC_DEVICE</name>
+          <initializer>= 0x1</initializer>
+          <briefdescription>
+<para>Generic device FSM. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__fsm_8h_1abd4f36209ffb9b02562e97ee655236e1a44178b5403ff0a554d4c90957c921f3e" prot="public">
+          <name>XPM_FSM_TYPE_HB_MON</name>
+          <initializer>= 0x2</initializer>
+          <briefdescription>
+<para>Healthy boot monitor device FSM. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__fsm_8h_1abd4f36209ffb9b02562e97ee655236e1a16669413045103f7e858683185dbb756" prot="public">
+          <name>XPM_FSM_TYPE_DDR</name>
+          <initializer>= 0x3</initializer>
+          <briefdescription>
+<para>DDR device FSM. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__fsm_8h_1abd4f36209ffb9b02562e97ee655236e1a3cac9f2607a3714a1274c6d2c43bdf56" prot="public">
+          <name>XPM_FSM_TYPE_MAX</name>
+          <initializer>= 0xE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="15" bodyend="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__fsm_8h_1a94b4ee2c9fda486334a8c96c39f9a7fc" prot="public" static="no">
+        <type>struct XPm_Fsm</type>
+        <definition>typedef struct XPm_Fsm XPm_Fsm</definition>
+        <argsstring></argsstring>
+        <name>XPm_Fsm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__fsm_8h_1aee801313f9220de98b9515bb5f3372a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmFsm_GetFsmByType</definition>
+        <argsstring>(XPm_FsmType FsmType, XPm_Fsm **Fsm)</argsstring>
+        <name>XPmFsm_GetFsmByType</name>
+        <param>
+          <type>XPm_FsmType</type>
+          <declname>FsmType</declname>
+        </param>
+        <param>
+          <type>XPm_Fsm **</type>
+          <declname>Fsm</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve the state machine registered for a given FSM type. </para>        </briefdescription>
+        <detaileddescription>
+<para>The heartbeat-monitor state machine is obtained from the subsystem module on its first lookup.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FsmType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>FSM type to retrieve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Fsm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to receive the registered state machine</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_INVALID_PARAM for an invalid type or NULL output pointer, or XST_FAILURE when the type is not initialized </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.c" bodystart="89" bodyend="111"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/><sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_FSM_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_FSM_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_FSM_TYPE_MIN<sp/>=<sp/>0x0,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_FSM_TYPE_GENERIC_DEVICE<sp/>=<sp/>0x1,<sp/></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_FSM_TYPE_HB_MON<sp/>=<sp/>0x2,<sp/></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_FSM_TYPE_DDR<sp/>=<sp/>0x3,<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_FSM_TYPE_MAX<sp/>=<sp/>0xE</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}<sp/>XPm_FsmType;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_Fsm<sp/>XPm_Fsm;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event;<sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>FromState;<sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ToState;<sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Latency;<sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*Action)(<ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Device);<sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}<sp/>XPmFsm_Tran;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Device<sp/>capability<sp/>in<sp/>each<sp/>state<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>State;<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Cap;<sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}<sp/>XPmFsm_StateCap;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_Fsm{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFsm_StateCap*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>States;<sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPmFsm_Tran*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Trans;<sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>StatesCnt;<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>TransCnt;<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">XStatus<sp/>XPmFsm_GetFsmByType(XPm_FsmType<sp/>FsmType,<sp/>XPm_Fsm**<sp/>Fsm);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_FSM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h"/>
+  </compounddef>
+</doxygen>

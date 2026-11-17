@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_hdmiphy1</title>
+    <detaileddescription>
+<para>This is main header file of the Xilinx HDMI PHY Controller driver<bold>Video PHY Controller Overview</bold></para><para>The PHY is intended to simplify the use of serial transceivers and adds domain-specific configurability. The Video PHY Controller IP is not intended to be used as a stand alone IP and must be used with Xilinx Video MACs such as HDMI 2.1 Transmitter/Receiver Subsystems. The core enables simpler connectivity between MAC layers for TX and RX paths. However, it is still important to understand the behavior, usage, and any limitations of the transceivers. See the device specific transceiver user guide for details.</para><para><bold>Video PHY Controller Driver Features</bold></para><para>Video PHY Controller driver supports following features<itemizedlist>
+<listitem><para>Xilinx HDMI 2.1 MAC IP</para></listitem><listitem><para>GTHE3, GTHE4 and GTYE4 GT types</para></listitem><listitem><para>HDMI:</para></listitem><listitem><para>4 pixel-wide video interface</para></listitem><listitem><para>8/10/12 bits per component</para></listitem><listitem><para>RGB &amp; YCbCr color space</para></listitem><listitem><para>Up to 10k resolution at both Input and Output interface</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+           dd/mm/yy
+<hruler/>
+
+1.0   gm   10/12/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

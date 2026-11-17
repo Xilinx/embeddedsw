@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xiicps__polled__master__example" kind="group">
+    <compoundname>xiicps_polled_master_example</compoundname>
+    <title>Xiicps_polled_master_example</title>
+      <sectiondef kind="user-defined">
+      <header>IIC bus settings</header>
+      <memberdef kind="define" id="group__xiicps__polled__master__example_1ga709b03962769714690547d1d17268708" prot="public" static="no">
+        <name>IIC_SLAVE_ADDR</name>
+        <initializer>0x55</initializer>
+        <briefdescription>
+<para>The slave address to send to and receive from. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xiicps__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" compoundref="xiicps__polled__master__example_8c" startline="152" endline="236">IicPsMasterPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xiicps__polled__master__example_1ga34f6b11bc914bc005cf3f302a394c026" prot="public" static="no">
+        <name>IIC_SCLK_RATE</name>
+        <initializer>100000</initializer>
+        <briefdescription>
+<para>IIC serial clock rate in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xiicps__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" compoundref="xiicps__polled__master__example_8c" startline="152" endline="236">IicPsMasterPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xiicps__polled__master__example_1gac16e1350ea077cddfa26851a6e7ead7c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref></type>
+        <definition>XIicPs Iic</definition>
+        <argsstring></argsstring>
+        <name>Iic</name>
+        <briefdescription>
+<para>Instance of the IIC Device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xiicps__polled__master__example_1ga21a34b7f8d09398f53237562bd1f579b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SendBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>Buffer for Transmitting Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xiicps__polled__master__example_1ga97ff43d2dc0c58afc33efc1304f40b09" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 RecvBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>RecvBuffer</name>
+        <briefdescription>
+<para>Buffer for Receiving Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xiicps__polled__master__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the polled master example from the main function. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="102" bodyend="124"/>
+        <references refid="group__xiicps__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" compoundref="xiicps__polled__master__example_8c" startline="152" endline="236">IicPsMasterPolledExample</references>
+        <references refid="group__xiicps__polled__master__example_1gab8a417bcd1481342d0ff31c50cf97ab6" compoundref="xiicps__polled__master__example_8c" startline="53">XIICPS_BASEADDRESS</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xiicps__polled__master__example_1gab8a417bcd1481342d0ff31c50cf97ab6" prot="public" static="no">
+        <name>XIICPS_BASEADDRESS</name>
+        <initializer>XPAR_XIICPS_0_BASEADDR</initializer>
+        <briefdescription>
+<para>Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xiicps__polled__master__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xiicps__polled__master__example_8c" startline="102" endline="124">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xiicps__polled__master__example_1ga0b71e527200033092ab1ebd5c0c077ed" prot="public" static="no">
+        <name>TEST_BUFFER_SIZE</name>
+        <initializer>132</initializer>
+        <briefdescription>
+<para>The following constant controls the length of the buffers to be sent and received with the IIC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/xiicps_polled_master_example.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xiicps__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" compoundref="xiicps__polled__master__example_8c" startline="152" endline="236">IicPsMasterPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['xzdma_5fcfginitialize',['XZDma_CfgInitialize',['../group__zdma.html#gad882e6d7430871e5b71643c8be2512d5',1,'xzdma.c']]],
+  ['xzdma_5fchannelstate',['XZDma_ChannelState',['../group__zdma.html#gabbb337d990f31dc8932356f5abeb78bf',1,'xzdma.c']]],
+  ['xzdma_5fcreatebdlist',['XZDma_CreateBDList',['../group__zdma.html#ga4f701b228ebc77f96faaba09cd9c63db',1,'xzdma.c']]],
+  ['xzdma_5fenable',['XZDma_Enable',['../group__zdma.html#ga34c98a505b24c6e549ed7f746a82676e',1,'xzdma.c']]],
+  ['xzdma_5fgetchdataconfig',['XZDma_GetChDataConfig',['../group__zdma.html#gacdca22a1e7cd74b3f2acbfec3f0509f4',1,'xzdma.c']]],
+  ['xzdma_5fgetchdscrconfig',['XZDma_GetChDscrConfig',['../group__zdma.html#ga595ab84007b44249fe04571d18856158',1,'xzdma.c']]],
+  ['xzdma_5fintrhandler',['XZDma_IntrHandler',['../group__zdma.html#gaa5012fbb827d2330cae8cb90cafb388c',1,'xzdma_intr.c']]],
+  ['xzdma_5flinearexample',['XZDma_LinearExample',['../group__zdma.html#ga910e85a529128bf68b6ebf34ff403edb',1,'xzdma_linear_example.c']]],
+  ['xzdma_5flinkedlistexample',['XZDma_LinkedListExample',['../group__zdma.html#ga8eaf63cf61558e3f6df72461882a5f38',1,'xzdma_linkedlist_example.c']]],
+  ['xzdma_5flookupconfig',['XZDma_LookupConfig',['../group__zdma.html#gab61029883b45501533eaf0997c721f31',1,'xzdma_sinit.c']]],
+  ['xzdma_5freset',['XZDma_Reset',['../group__zdma.html#gaf236c2323636d87ab0888b2d6f55a313',1,'xzdma.c']]],
+  ['xzdma_5fresume',['XZDma_Resume',['../group__zdma.html#ga7cb39835692353e5c34d95938b8ce8d0',1,'xzdma.c']]],
+  ['xzdma_5fscattergather',['XZDma_ScatterGather',['../group__zdma.html#ga4e1c01839429d264c285bc7488b42fb8',1,'xzdma.c']]],
+  ['xzdma_5fselftest',['XZDma_SelfTest',['../group__zdma.html#ga166edb355a4395294e7910c68f4840ca',1,'xzdma_selftest.c']]],
+  ['xzdma_5fselftestexample',['XZDma_SelfTestExample',['../group__zdma.html#ga9d3cf8820e24446ba00c34deda186d21',1,'xzdma_selftest_example.c']]],
+  ['xzdma_5fsetcallback',['XZDma_SetCallBack',['../group__zdma.html#ga78a9c500b9c87963f7695fc5edf87a21',1,'xzdma_intr.c']]],
+  ['xzdma_5fsetchdataconfig',['XZDma_SetChDataConfig',['../group__zdma.html#ga9f83e94a6ecae10b6bff851d76ffef24',1,'xzdma.c']]],
+  ['xzdma_5fsetchdscrconfig',['XZDma_SetChDscrConfig',['../group__zdma.html#ga860cde1482bc78429ea5c6f1d3da9014',1,'xzdma.c']]],
+  ['xzdma_5fsetmode',['XZDma_SetMode',['../group__zdma.html#gaf1772f190fe0a67a17c78f5f23fc8024',1,'xzdma.c']]],
+  ['xzdma_5fsimpleexample',['XZDma_SimpleExample',['../group__zdma.html#gaebcaa07fcc29d54aad629d7735a9cb07',1,'xzdma_simple_example.c']]],
+  ['xzdma_5fsimplereadonlyexample',['XZDma_SimpleReadOnlyExample',['../group__zdma.html#gaf71ec0de7cd3c5ec4b6ec49ee901c62f',1,'xzdma_readonlymode_example.c']]],
+  ['xzdma_5fstart',['XZDma_Start',['../group__zdma.html#ga70f7466e97aae2126181727774f6e6bb',1,'xzdma.c']]],
+  ['xzdma_5fstop',['XZDma_Stop',['../group__zdma.html#gadb6efafcf9f5a1a77808dfc8d9a9f82a',1,'xzdma.c']]],
+  ['xzdma_5fwodata',['XZDma_WOData',['../group__zdma.html#ga15a0124d42f8ff48e54f32c1b643fe7b',1,'xzdma.c']]],
+  ['xzdma_5fwriteonlyexample',['XZDma_WriteOnlyExample',['../group__zdma.html#gaa41225599b937564211d0a7c122ebfd2',1,'xzdma_writeonlymode_example.c']]]
+];

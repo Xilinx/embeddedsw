@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_aes_key_validate_desc" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseAesKeyValidateDesc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1a14c1bfcbba2f969b1b3f2e95b4e62191" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xnvm__def__api__ids_1ga3b0258a29c1f095e8949ab58e45e9540" kindref="member">XNvm_AesKeyType</ref></type>
+        <definition>XNvm_AesKeyType XNvm_EfuseAesKeyValidateDesc::KeyType</definition>
+        <argsstring></argsstring>
+        <name>KeyType</name>
+        <briefdescription>
+<para>AES-class key described by this entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1a9b181c1bb595f5016b60499d8d89648d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::CrcRegOffset</definition>
+        <argsstring></argsstring>
+        <name>CrcRegOffset</name>
+        <briefdescription>
+<para>Controller CRC data register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1ad28db988f39f9181d0c288e4c4d23ee9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::CrcDoneMask</definition>
+        <argsstring></argsstring>
+        <name>CrcDoneMask</name>
+        <briefdescription>
+<para>CRC status done bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1ac9133180c9aba2c8953bdb883588d49c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::CrcPassMask</definition>
+        <argsstring></argsstring>
+        <name>CrcPassMask</name>
+        <briefdescription>
+<para>CRC status pass bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1a9b322327b79e5bf9a9858bb3b08ae41c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::WrLkCacheOffset</definition>
+        <argsstring></argsstring>
+        <name>WrLkCacheOffset</name>
+        <briefdescription>
+<para>Cache register holding the write-lock bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1a5d19d3db2a2451a8e953176fd312dcc2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::WrLkMask</definition>
+        <argsstring></argsstring>
+        <name>WrLkMask</name>
+        <briefdescription>
+<para>Write-lock bit for this key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1af26746c57ad62b0f449c68cd1423b0f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::ErrWrite</definition>
+        <argsstring></argsstring>
+        <name>ErrWrite</name>
+        <briefdescription>
+<para>Write error code for this key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_key_validate_desc_1aa5240946142400724927ee4b6ef0c50d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeyValidateDesc::ErrAlreadyPrgmd</definition>
+        <argsstring></argsstring>
+        <name>ErrAlreadyPrgmd</name>
+        <briefdescription>
+<para>Already-programmed error code for this key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Per-key-type descriptor for AES-class key write validation. </para>    </briefdescription>
+    <detaileddescription>
+<para>Keys are not cache-readable, so emptiness is inferred by asking the controller to CRC the key and comparing against the CRC of an all-zero key. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_validate.c" bodystart="57" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1ad28db988f39f9181d0c288e4c4d23ee9" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>CrcDoneMask</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1ac9133180c9aba2c8953bdb883588d49c" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>CrcPassMask</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1a9b181c1bb595f5016b60499d8d89648d" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>CrcRegOffset</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1aa5240946142400724927ee4b6ef0c50d" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>ErrAlreadyPrgmd</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1af26746c57ad62b0f449c68cd1423b0f5" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>ErrWrite</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1a14c1bfcbba2f969b1b3f2e95b4e62191" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>KeyType</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1a9b322327b79e5bf9a9858bb3b08ae41c" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>WrLkCacheOffset</name></member>
+      <member refid="struct_x_nvm___efuse_aes_key_validate_desc_1a5d19d3db2a2451a8e953176fd312dcc2" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeyValidateDesc</scope><name>WrLkMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

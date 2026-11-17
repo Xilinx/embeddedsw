@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_90ee58ab572ca7a4635bdf44581c1120" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_d7fd1a617e2864ffc0f5cccb47df697f">com</innerdir>
+    <innerdir refid="dir_93cd286a83b80f6036397e938734617b">dats_dp14</innerdir>
+    <innerdir refid="dir_c80071f6ee3e4e9de40694a6b8ffe2f6">eeprom_utility</innerdir>
+    <innerdir refid="dir_d54013c413117c85918a6a6e6aa79414">inc</innerdir>
+    <innerdir refid="dir_3efc4556845d3fc9a5589a56b20b6ebd">kcu_dp14</innerdir>
+    <innerdir refid="dir_feadc08b787fb03d9552c5ca36758237">key</innerdir>
+    <innerdir refid="dir_4ed277339a4a709c2bd01e74ce80c268">pt_only</innerdir>
+    <innerdir refid="dir_83ccabf466e54657148e00f0c32fbae3">tx_only</innerdir>
+    <innerdir refid="dir_7230edd68a6ecef94a420d2520ebf274">zcu_pt_dp14_hdcp</innerdir>
+    <innerdir refid="dir_fbc4157a5e514cb126219efd89b1bb1f">zcu_pt_dp14_mst</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/"/>
+  </compounddef>
+</doxygen>

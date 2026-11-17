@@ -1,0 +1,846 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__requirement_8h" kind="file">
+    <compoundname>xpm_requirement.h</compoundname>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes local="yes">xpm_requirement_plat.h</includes>
+    <includedby refid="xpm__aiedevice_8c" local="yes">xpm_aiedevice.c</includedby>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__device__plat_8c" local="yes">xpm_device_plat.c</includedby>
+    <includedby refid="xpm__ioctl__plat_8c" local="yes">xpm_ioctl_plat.c</includedby>
+    <includedby refid="server_2xpm__psm__api__plat_8c" local="yes">xpm_psm_api_plat.c</includedby>
+    <includedby refid="xpm__subsystem__plat_8c" local="yes">xpm_subsystem_plat.c</includedby>
+    <includedby refid="xpm__mem_8h" local="yes">xpm_mem.h</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__core_8c" local="yes">xpm_core.c</includedby>
+    <includedby refid="xpm__device_8c" local="yes">xpm_device.c</includedby>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__periph_8c" local="yes">xpm_periph.c</includedby>
+    <includedby refid="xpm__pldevice_8c" local="yes">xpm_pldevice.c</includedby>
+    <includedby refid="xpm__power_8c" local="yes">xpm_power.c</includedby>
+    <includedby refid="xpm__psm__api_8c" local="yes">xpm_psm_api.c</includedby>
+    <includedby refid="xpm__requirement_8c" local="yes">xpm_requirement.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__device__plat_8c" local="yes">xpm_device_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__psm__api__plat_8c" local="yes">xpm_psm_api_plat.c</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="8468">
+        <label>xpm_api.h</label>
+        <childnode refid="8451" relation="include">
+        </childnode>
+        <childnode refid="8452" relation="include">
+        </childnode>
+        <childnode refid="8461" relation="include">
+        </childnode>
+        <childnode refid="8457" relation="include">
+        </childnode>
+        <childnode refid="8469" relation="include">
+        </childnode>
+        <childnode refid="8470" relation="include">
+        </childnode>
+      </node>
+      <node id="8464">
+        <label>xpm_clock.h</label>
+        <childnode refid="8454" relation="include">
+        </childnode>
+        <childnode refid="8465" relation="include">
+        </childnode>
+        <childnode refid="8450" relation="include">
+        </childnode>
+        <childnode refid="8460" relation="include">
+        </childnode>
+      </node>
+      <node id="8465">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="8474">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="8455">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8450">
+        <label>xpm_node.h</label>
+        <childnode refid="8451" relation="include">
+        </childnode>
+        <childnode refid="8452" relation="include">
+        </childnode>
+        <childnode refid="8453" relation="include">
+        </childnode>
+        <childnode refid="8454" relation="include">
+        </childnode>
+      </node>
+      <node id="8457">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8466">
+        <label>xpm_reset.h</label>
+        <childnode refid="8450" relation="include">
+        </childnode>
+        <childnode refid="8454" relation="include">
+        </childnode>
+        <childnode refid="8467" relation="include">
+        </childnode>
+        <childnode refid="8472" relation="include">
+        </childnode>
+      </node>
+      <node id="8456">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8458">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8467">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8468" relation="include">
+        </childnode>
+        <childnode refid="8461" relation="include">
+        </childnode>
+        <childnode refid="8452" relation="include">
+        </childnode>
+        <childnode refid="8471" relation="include">
+        </childnode>
+      </node>
+      <node id="8462">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="8461">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8471">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8473">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="8460">
+        <label>xpm_power.h</label>
+        <childnode refid="8461" relation="include">
+        </childnode>
+        <childnode refid="8450" relation="include">
+        </childnode>
+        <childnode refid="8462" relation="include">
+        </childnode>
+        <childnode refid="8463" relation="include">
+        </childnode>
+      </node>
+      <node id="8472">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8448">
+        <label>xpm_requirement.h</label>
+        <link refid="xpm_requirement.h"/>
+        <childnode refid="8449" relation="include">
+        </childnode>
+        <childnode refid="8467" relation="include">
+        </childnode>
+        <childnode refid="8474" relation="include">
+        </childnode>
+      </node>
+      <node id="8452">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8454">
+        <label>xpm_common.h</label>
+        <childnode refid="8452" relation="include">
+        </childnode>
+        <childnode refid="8455" relation="include">
+        </childnode>
+        <childnode refid="8456" relation="include">
+        </childnode>
+        <childnode refid="8457" relation="include">
+        </childnode>
+        <childnode refid="8458" relation="include">
+        </childnode>
+        <childnode refid="8459" relation="include">
+        </childnode>
+      </node>
+      <node id="8453">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8469">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8451">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8459">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8463">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="8470">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="8449">
+        <label>xpm_device.h</label>
+        <childnode refid="8450" relation="include">
+        </childnode>
+        <childnode refid="8460" relation="include">
+        </childnode>
+        <childnode refid="8464" relation="include">
+        </childnode>
+        <childnode refid="8466" relation="include">
+        </childnode>
+        <childnode refid="8473" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8484">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="8490">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="8485">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="8502">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="8494">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="8498">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="8499">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="8497">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="8483">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="8481">
+        <label>xpm_subsystem_plat.c</label>
+      </node>
+      <node id="8479">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="8492">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="8486">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="8487" relation="include">
+        </childnode>
+        <childnode refid="8477" relation="include">
+        </childnode>
+        <childnode refid="8478" relation="include">
+        </childnode>
+        <childnode refid="8489" relation="include">
+        </childnode>
+        <childnode refid="8490" relation="include">
+        </childnode>
+        <childnode refid="8485" relation="include">
+        </childnode>
+        <childnode refid="8491" relation="include">
+        </childnode>
+        <childnode refid="8492" relation="include">
+        </childnode>
+        <childnode refid="8493" relation="include">
+        </childnode>
+        <childnode refid="8494" relation="include">
+        </childnode>
+        <childnode refid="8495" relation="include">
+        </childnode>
+      </node>
+      <node id="8504">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="8477">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="8488">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="8496">
+        <label>xpm_mem.c</label>
+      </node>
+      <node id="8482">
+        <label>xpm_mem.h</label>
+        <childnode refid="8477" relation="include">
+        </childnode>
+        <childnode refid="8478" relation="include">
+        </childnode>
+        <childnode refid="8483" relation="include">
+        </childnode>
+        <childnode refid="8484" relation="include">
+        </childnode>
+        <childnode refid="8485" relation="include">
+        </childnode>
+        <childnode refid="8486" relation="include">
+        </childnode>
+        <childnode refid="8491" relation="include">
+        </childnode>
+        <childnode refid="8496" relation="include">
+        </childnode>
+        <childnode refid="8493" relation="include">
+        </childnode>
+        <childnode refid="8497" relation="include">
+        </childnode>
+      </node>
+      <node id="8495">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="8501">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="8500">
+        <label>xpm_periph.c</label>
+      </node>
+      <node id="8503">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="8475">
+        <label>xpm_requirement.h</label>
+        <link refid="xpm_requirement.h"/>
+        <childnode refid="8476" relation="include">
+        </childnode>
+        <childnode refid="8477" relation="include">
+        </childnode>
+        <childnode refid="8478" relation="include">
+        </childnode>
+        <childnode refid="8479" relation="include">
+        </childnode>
+        <childnode refid="8480" relation="include">
+        </childnode>
+        <childnode refid="8481" relation="include">
+        </childnode>
+        <childnode refid="8482" relation="include">
+        </childnode>
+        <childnode refid="8485" relation="include">
+        </childnode>
+        <childnode refid="8498" relation="include">
+        </childnode>
+        <childnode refid="8491" relation="include">
+        </childnode>
+        <childnode refid="8499" relation="include">
+        </childnode>
+        <childnode refid="8500" relation="include">
+        </childnode>
+        <childnode refid="8492" relation="include">
+        </childnode>
+        <childnode refid="8501" relation="include">
+        </childnode>
+        <childnode refid="8502" relation="include">
+        </childnode>
+        <childnode refid="8503" relation="include">
+        </childnode>
+        <childnode refid="8504" relation="include">
+        </childnode>
+        <childnode refid="8493" relation="include">
+        </childnode>
+        <childnode refid="8505" relation="include">
+        </childnode>
+        <childnode refid="8506" relation="include">
+        </childnode>
+        <childnode refid="8495" relation="include">
+        </childnode>
+      </node>
+      <node id="8506">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="8478">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="8480">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="8489">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="8493">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="8476">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="8487">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="8488" relation="include">
+        </childnode>
+        <childnode refid="8476" relation="include">
+        </childnode>
+        <childnode refid="8477" relation="include">
+        </childnode>
+        <childnode refid="8478" relation="include">
+        </childnode>
+        <childnode refid="8479" relation="include">
+        </childnode>
+        <childnode refid="8489" relation="include">
+        </childnode>
+      </node>
+      <node id="8491">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="8505">
+        <label>xpm_device_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__requirement_8h_1ab1e37e3a18a77f9a3aa23c84116751bd" prot="public" static="no">
+        <name>REG_FLAGS_USAGE_MASK</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1ae6e9bf9d7a3e54b5aeabf6a7f4492c7c" prot="public" static="no">
+        <name>REG_FLAGS_SECURITY_MASK</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1ad97d4e3f894683322b3f8c1629ff7c17" prot="public" static="no">
+        <name>REG_FLAGS_SECURITY_OFFSET</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1a4b77c1b02c051789f0b57d42ba647e65" prot="public" static="no">
+        <name>REG_FLAGS_PREALLOC_MASK</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1a4f4391d7e34d791598725026badc506c" prot="public" static="no">
+        <name>REG_FLAGS_PREALLOC_OFFSET</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1a0e234c69993118c03d9ccb0bfbf8d344" prot="public" static="no">
+        <name>REG_FLAGS_MASK</name>
+        <initializer>(REG_FLAGS_USAGE_MASK | REG_FLAGS_SECURITY_MASK | REG_FLAGS_PREALLOC_MASK)</initializer>
+        <briefdescription>
+<para>Combined mask for requirement flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1ab6c9ed7f35d35be138b0c09ba985febb" prot="public" static="no">
+        <name>REQUIREMENT_FLAGS</name>
+        <param><defname>Prealloc</defname></param>
+        <param><defname>Security</defname></param>
+        <param><defname>Usage</defname></param>
+        <initializer>(((u32)(Prealloc) &lt;&lt; (REG_FLAGS_PREALLOC_OFFSET)) | \
+				 ((u32)(Security) &lt;&lt; (REG_FLAGS_SECURITY_OFFSET)) | \
+				 ((u32)(Usage) &amp; (REG_FLAGS_USAGE_MASK)))</initializer>
+        <briefdescription>
+<para>Make Requirement Flags from individual attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1a74b77cc65de7981122eba091cae8ce29" prot="public" static="no">
+        <name>USAGE_POLICY</name>
+        <param><defname>Flags</defname></param>
+        <initializer>((Flags) &amp; REG_FLAGS_USAGE_MASK)</initializer>
+        <briefdescription>
+<para>Macros for extracting attributes from Flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1a14e048af1cb3ee04245544fff4c54d3e" prot="public" static="no">
+        <name>SECURITY_POLICY</name>
+        <param><defname>Flags</defname></param>
+        <initializer>(((Flags) &amp; REG_FLAGS_SECURITY_MASK) &gt;&gt; REG_FLAGS_SECURITY_OFFSET)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1ab71945ae106ccaf3cebd050c49b764bd" prot="public" static="no">
+        <name>PREALLOC</name>
+        <param><defname>Flags</defname></param>
+        <initializer>(((Flags) &amp; REG_FLAGS_PREALLOC_MASK) &gt;&gt; REG_FLAGS_PREALLOC_OFFSET)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__requirement_8h_1ae04dd954c41a5ae227541c0fcef7829a" prot="public" static="no">
+        <name>PREALLOC_ENABLED</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Symbolic state for the PREALLOC() flag — set when the requirement is preallocated to a subsystem at boot time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__requirement_8h_1aacef0986188c801fe36a56a7ff77058f" prot="public" static="no">
+        <name>XPm_ReleaseScope</name>
+        <enumvalue id="xpm__requirement_8h_1aacef0986188c801fe36a56a7ff77058fa7e867065ce2274c10a0959335417d1e2" prot="public">
+          <name>RELEASE_ONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1aacef0986188c801fe36a56a7ff77058fa743349b9f4d286cf8e45eb2102821548" prot="public">
+          <name>RELEASE_ALL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1aacef0986188c801fe36a56a7ff77058fa3a2eea2e40c7cad3f2f913d418f13641" prot="public">
+          <name>RELEASE_UNREQUESTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1aacef0986188c801fe36a56a7ff77058fa6956c74833b3a612aaf8d178cb66aa75" prot="public">
+          <name>RELEASE_DEVICE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="20" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__requirement_8h_1ac872adf02349146d5a4652fd2e13a25c" prot="public" static="no">
+        <name>XPm_ReqUsageFlags</name>
+        <enumvalue id="xpm__requirement_8h_1ac872adf02349146d5a4652fd2e13a25ca7e9d5c5a6ff4c0b9e40b6e52f82dee5c" prot="public">
+          <name>REQ_NO_RESTRICTION</name>
+          <briefdescription>
+<para>device accessible from all subsystems </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1ac872adf02349146d5a4652fd2e13a25caccecd62b748156c34f676ea167767fe2" prot="public">
+          <name>REQ_SHARED</name>
+          <briefdescription>
+<para>device simultaneously shared between two or more subsystems </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1ac872adf02349146d5a4652fd2e13a25ca77312f766332635323058370b16a646b" prot="public">
+          <name>REQ_NONSHARED</name>
+          <briefdescription>
+<para>device exclusively reserved by one subsystem, always </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1ac872adf02349146d5a4652fd2e13a25ca6f062cae0118b857d773f83a96cbcb6f" prot="public">
+          <name>REQ_TIME_SHARED</name>
+          <briefdescription>
+<para>device is time shared between two or more subsystems </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Device usage policies. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="30" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__requirement_8h_1a409c6a02ad154fb63f451e61de3d932a" prot="public" static="no">
+        <name>XPm_ReqSecurityFlags</name>
+        <enumvalue id="xpm__requirement_8h_1a409c6a02ad154fb63f451e61de3d932aa9450b7041e95df232eb7db8d9bf4bb70" prot="public">
+          <name>REQ_ACCESS_SECURE</name>
+          <briefdescription>
+<para>Device/Memory region only allows access from secure masters. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__requirement_8h_1a409c6a02ad154fb63f451e61de3d932aa5392726eaef666ec5308a2750fb49ad8" prot="public">
+          <name>REQ_ACCESS_SECURE_NONSECURE</name>
+          <briefdescription>
+<para>Device/Memory region allow both secure or non-secure masters. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Device/Memory region security status requirement per TrustZone. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" bodystart="40" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__requirement_8h_1ad42691720aacf73cf2d87d7637de6d6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_Add</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 PreallocCaps, u32 PreallocQoS)</argsstring>
+        <name>XPmRequirement_Add</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PreallocCaps</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PreallocQoS</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="52" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8h_1a62a02ddb97fcefa3ac669222d17a1f1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_RequiremntUpdate</definition>
+        <argsstring>(XPm_Requirement *Reqm)</argsstring>
+        <name>XPm_RequiremntUpdate</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="74" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8h_1a6e150ba301fae0557c878a6b5f90048d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_Release</definition>
+        <argsstring>(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)</argsstring>
+        <name>XPmRequirement_Release</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <param>
+          <type>XPm_ReleaseScope</type>
+          <declname>Scope</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="99" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8h_1a668ddc95003a13122a6ad3687590b446" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmRequirement_Clear</definition>
+        <argsstring>(XPm_Requirement *Reqm)</argsstring>
+        <name>XPmRequirement_Clear</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="84" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8h_1acb2d46c792faa5d6874248298c4c0593" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_UpdateScheduled</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem, u32 Swap)</argsstring>
+        <name>XPmRequirement_UpdateScheduled</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Swap</declname>
+        </param>
+        <briefdescription>
+<para>Triggers the setting for scheduled requirements. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem which changed the state and whose scheduled requirements are triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Swap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag stating should current requirements be saved as next</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>a) swap=false Set scheduled requirements of a subsystem without swapping current and next requirements - means the current requirements will be dropped. Upon every self suspend, subsystem has to explicitly re-request device requirements. b) swap=true Set scheduled requirements of a subsystem with swapping current and next requirements (swapping means the current requirements will be saved as next, and will be configured once subsystem wakes-up). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="162" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8h_1a7bdf674f3f4ed504e813f8de42076f29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_IsExclusive</definition>
+        <argsstring>(const XPm_Requirement *Reqm)</argsstring>
+        <name>XPmRequirement_IsExclusive</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="203" bodyend="236"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_REQUIREMENT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_REQUIREMENT_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RELEASE_ONE,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RELEASE_ALL,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RELEASE_UNREQUESTED,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RELEASE_DEVICE,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}<sp/>XPm_ReleaseScope;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>XPm_ReqUsageFlags<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REQ_NO_RESTRICTION,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REQ_SHARED,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REQ_NONSHARED,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REQ_TIME_SHARED,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>XPm_ReqSecurityFlags<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REQ_ACCESS_SECURE,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REQ_ACCESS_SECURE_NONSECURE,<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG_FLAGS_USAGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG_FLAGS_SECURITY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG_FLAGS_SECURITY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>NOTE:<sp/>Some<sp/>bits<sp/>are<sp/>reserved<sp/>in<sp/>between<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG_FLAGS_PREALLOC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40U)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG_FLAGS_PREALLOC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>REG_FLAGS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(REG_FLAGS_USAGE_MASK<sp/>|<sp/>REG_FLAGS_SECURITY_MASK<sp/>|<sp/>REG_FLAGS_PREALLOC_MASK)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>REQUIREMENT_FLAGS(Prealloc,<sp/>Security,<sp/>Usage)<sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(Prealloc)<sp/>&lt;&lt;<sp/>(REG_FLAGS_PREALLOC_OFFSET))<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Security)<sp/>&lt;&lt;<sp/>(REG_FLAGS_SECURITY_OFFSET))<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Usage)<sp/>&amp;<sp/>(REG_FLAGS_USAGE_MASK)))</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>USAGE_POLICY(Flags)<sp/><sp/><sp/><sp/><sp/>((Flags)<sp/>&amp;<sp/>REG_FLAGS_USAGE_MASK)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SECURITY_POLICY(Flags)<sp/><sp/>(((Flags)<sp/>&amp;<sp/>REG_FLAGS_SECURITY_MASK)<sp/>&gt;&gt;<sp/>REG_FLAGS_SECURITY_OFFSET)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PREALLOC(Flags)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Flags)<sp/>&amp;<sp/>REG_FLAGS_PREALLOC_MASK)<sp/>&gt;&gt;<sp/>REG_FLAGS_PREALLOC_OFFSET)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>PREALLOC_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">XStatus<sp/>XPmRequirement_Add(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Flags,<sp/>u32<sp/>PreallocCaps,<sp/>u32<sp/>PreallocQoS);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_RequiremntUpdate(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">XStatus<sp/>XPmRequirement_Release(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm,<sp/>XPm_ReleaseScope<sp/>Scope);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmRequirement_Clear(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref>*<sp/>Reqm);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">XStatus<sp/>XPmRequirement_UpdateScheduled(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>Swap);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">XStatus<sp/>XPmRequirement_IsExclusive(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_REQUIREMENT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.h"/>
+  </compounddef>
+</doxygen>

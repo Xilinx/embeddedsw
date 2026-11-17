@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_268cb38edfd17111b383866946da746f" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_bfad4cef10d2a78a5b9e55af439a39f6">xilpm_subsys</innerdir>
+    <innerfile refid="xpm__access_8c">xpm_access.c</innerfile>
+    <innerfile refid="xpm__access_8h">xpm_access.h</innerfile>
+    <innerfile refid="xpm__ddr__fsm_8c">xpm_ddr_fsm.c</innerfile>
+    <innerfile refid="xpm__ddr__fsm_8h">xpm_ddr_fsm.h</innerfile>
+    <innerfile refid="xpm__device__fsm_8c">xpm_device_fsm.c</innerfile>
+    <innerfile refid="xpm__device__fsm_8h">xpm_device_fsm.h</innerfile>
+    <innerfile refid="xpm__feature__check_8c">xpm_feature_check.c</innerfile>
+    <innerfile refid="xpm__feature__check_8h">xpm_feature_check.h</innerfile>
+    <innerfile refid="xpm__fsm_8c">xpm_fsm.c</innerfile>
+    <innerfile refid="xpm__fsm_8h">xpm_fsm.h</innerfile>
+    <innerfile refid="xpm__gic__proxy_8c">xpm_gic_proxy.c</innerfile>
+    <innerfile refid="xpm__gic__proxy_8h">xpm_gic_proxy.h</innerfile>
+    <innerfile refid="xpm__ioctl_8c">xpm_ioctl.c</innerfile>
+    <innerfile refid="xpm__ioctl_8h">xpm_ioctl.h</innerfile>
+    <innerfile refid="xpm__ipi_8c">xpm_ipi.c</innerfile>
+    <innerfile refid="xpm__ipi_8h">xpm_ipi.h</innerfile>
+    <innerfile refid="xpm__memtbl_8c">xpm_memtbl.c</innerfile>
+    <innerfile refid="xpm__memtbl_8h">xpm_memtbl.h</innerfile>
+    <innerfile refid="xpm__notifier_8c">xpm_notifier.c</innerfile>
+    <innerfile refid="xpm__notifier_8h">xpm_notifier.h</innerfile>
+    <innerfile refid="xpm__notifier__plat_8h">xpm_notifier_plat.h</innerfile>
+    <innerfile refid="xpm__pin__groups_8c">xpm_pin_groups.c</innerfile>
+    <innerfile refid="xpm__pinfunc_8c">xpm_pinfunc.c</innerfile>
+    <innerfile refid="xpm__pinfunc_8h">xpm_pinfunc.h</innerfile>
+    <innerfile refid="xpm__power__handlers_8c">xpm_power_handlers.c</innerfile>
+    <innerfile refid="xpm__power__handlers_8h">xpm_power_handlers.h</innerfile>
+    <innerfile refid="xpm__requirement_8c">xpm_requirement.c</innerfile>
+    <innerfile refid="xpm__requirement_8h">xpm_requirement.h</innerfile>
+    <innerfile refid="xpm__requirement__info_8h">xpm_requirement_info.h</innerfile>
+    <innerfile refid="xpm__runtime__aie_8c">xpm_runtime_aie.c</innerfile>
+    <innerfile refid="xpm__runtime__aie_8h">xpm_runtime_aie.h</innerfile>
+    <innerfile refid="xpm__runtime__alloc_8c">xpm_runtime_alloc.c</innerfile>
+    <innerfile refid="xpm__runtime__alloc_8h">xpm_runtime_alloc.h</innerfile>
+    <innerfile refid="xpm__runtime__api_8c">xpm_runtime_api.c</innerfile>
+    <innerfile refid="xpm__runtime__api_8h">xpm_runtime_api.h</innerfile>
+    <innerfile refid="xpm__runtime__clock_8c">xpm_runtime_clock.c</innerfile>
+    <innerfile refid="xpm__runtime__clock_8h">xpm_runtime_clock.h</innerfile>
+    <innerfile refid="xpm__runtime__core_8c">xpm_runtime_core.c</innerfile>
+    <innerfile refid="xpm__runtime__core_8h">xpm_runtime_core.h</innerfile>
+    <innerfile refid="xpm__runtime__device_8c">xpm_runtime_device.c</innerfile>
+    <innerfile refid="xpm__runtime__device_8h">xpm_runtime_device.h</innerfile>
+    <innerfile refid="xpm__runtime__eemi_8c">xpm_runtime_eemi.c</innerfile>
+    <innerfile refid="xpm__runtime__mem_8c">xpm_runtime_mem.c</innerfile>
+    <innerfile refid="xpm__runtime__mem_8h">xpm_runtime_mem.h</innerfile>
+    <innerfile refid="xpm__runtime__periph_8c">xpm_runtime_periph.c</innerfile>
+    <innerfile refid="xpm__runtime__periph_8h">xpm_runtime_periph.h</innerfile>
+    <innerfile refid="xpm__runtime__pin_8c">xpm_runtime_pin.c</innerfile>
+    <innerfile refid="xpm__runtime__pin_8h">xpm_runtime_pin.h</innerfile>
+    <innerfile refid="xpm__runtime__pll_8c">xpm_runtime_pll.c</innerfile>
+    <innerfile refid="xpm__runtime__pll_8h">xpm_runtime_pll.h</innerfile>
+    <innerfile refid="xpm__runtime__power_8c">xpm_runtime_power.c</innerfile>
+    <innerfile refid="xpm__runtime__power_8h">xpm_runtime_power.h</innerfile>
+    <innerfile refid="xpm__runtime__reset_8c">xpm_runtime_reset.c</innerfile>
+    <innerfile refid="xpm__runtime__reset_8h">xpm_runtime_reset.h</innerfile>
+    <innerfile refid="xpm__runtime__rpucore_8c">xpm_runtime_rpucore.c</innerfile>
+    <innerfile refid="xpm__runtime__rpucore_8h">xpm_runtime_rpucore.h</innerfile>
+    <innerfile refid="xpm__subsystem_8c">xpm_subsystem.c</innerfile>
+    <innerfile refid="xpm__subsystem_8h">xpm_subsystem.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/"/>
+  </compounddef>
+</doxygen>

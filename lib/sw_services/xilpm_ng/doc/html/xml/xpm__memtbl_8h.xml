@@ -1,0 +1,573 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__memtbl_8h" kind="file">
+    <compoundname>xpm_memtbl.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xpm__memtbl_8c" local="yes">xpm_memtbl.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <incdepgraph>
+      <node id="1989">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1988">
+        <label>xpm_memtbl.h</label>
+        <link refid="xpm_memtbl.h"/>
+        <childnode refid="1989" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1992">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="1993">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="1991">
+        <label>xpm_memtbl.c</label>
+        <link refid="xpm__memtbl_8c"/>
+      </node>
+      <node id="1990">
+        <label>xpm_memtbl.h</label>
+        <link refid="xpm_memtbl.h"/>
+        <childnode refid="1991" relation="include">
+        </childnode>
+        <childnode refid="1992" relation="include">
+        </childnode>
+        <childnode refid="1993" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___mem_tbl_entry" prot="public">XPm_MemTblEntry</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__memtbl_8h_1a242310719b2773a618f9e0cd7f87c9fa" prot="public" static="no">
+        <name>XPM_MEMTBL_SIZE_BYTES</name>
+        <initializer>(0x800U)</initializer>
+        <briefdescription>
+<para>Total bytes reserved for the table in PMC RAM (see XPLMI_MEMTBL_LENGTH). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1ac4d6521d596c47cb5d75f7a3e4abd322" prot="public" static="no">
+        <name>XPM_MEMTBL_HDR0_OFFSET</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Byte offset of header word0 within the table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a1931dc27fd5f81efc7874d7f4b7a00b3" prot="public" static="no">
+        <name>XPM_MEMTBL_UPDCNT_OFFSET</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Byte offset of the UpdateCounter (header word1) within the table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a36e77d6b660391ba9469da6f1aed551e" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY0_OFFSET</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>Byte offset of the first entry (header is HeaderSize = 2 words = 8 B). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1aef0b9b39e71c5c58e83680a1b848b2cf" prot="public" static="no">
+        <name>XPM_MEMTBL_VERSION_MASK</name>
+        <initializer>(0x000000FFU)</initializer>
+        <briefdescription>
+<para>Header word0 Version field mask (bits[7:0]). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1ad98030f30d098ebdb9aa108eef3856ba" prot="public" static="no">
+        <name>XPM_MEMTBL_VERSION_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Header word0 Version field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a9447ba3669a9567eac559157ad17806a" prot="public" static="no">
+        <name>XPM_MEMTBL_HDRSIZE_MASK</name>
+        <initializer>(0x00000F00U)</initializer>
+        <briefdescription>
+<para>Header word0 HeaderSize field mask (bits[11:8], words). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a8f3c4e768d0eaa897dd3a9d0e5a3cc71" prot="public" static="no">
+        <name>XPM_MEMTBL_HDRSIZE_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Header word0 HeaderSize field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1acb5b1df55f34f632155e824a9ed4bd56" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTSIZE_MASK</name>
+        <initializer>(0x0000F000U)</initializer>
+        <briefdescription>
+<para>Header word0 EntrySize field mask (bits[15:12], words). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a1c2cf6842e635c382f807792dcd5f8c4" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTSIZE_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Header word0 EntrySize field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a0d2d0548b0f48b05676e0f78c0e819fb" prot="public" static="no">
+        <name>XPM_MEMTBL_NUMENT_MASK</name>
+        <initializer>(0xFFFF0000U)</initializer>
+        <briefdescription>
+<para>Header word0 NumEntries field mask (bits[31:16]). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1ae9d0bdcfbe0f4963ffe9fac000feee0c" prot="public" static="no">
+        <name>XPM_MEMTBL_NUMENT_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Header word0 NumEntries field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1ad9407bcffba8caedf2c88d27dfdabc7a" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTSIZE_VAL</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Entry size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a82c9ebec92c363a87eae2cb090a72697" prot="public" static="no">
+        <name>XPM_MEMTBL_HDRSIZE_VAL</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>Header size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a7a5a23c9a49a2176a984eb0c87b9de78" prot="public" static="no">
+        <name>XPM_MEMTBL_VERSION_VAL</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Expected table version (spec default 0x01) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1af743d245a18e1ae0dbdd413b4028d9ab" prot="public" static="no">
+        <name>XPM_MEMTBL_MAX_ENTRIES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Upper bound on NumEntries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a19e10504b0da974dcf5f276ada1a2dd0" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_ATTR_OFFSET</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Byte offset of the Attr word within an entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a7fdcb3976845ed05c882b8c2d3597b67" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_SIZE_OFFSET</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Byte offset of the Size word within an entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1ae16903bd434c6788691f2889a4b4649e" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_ADDRHIGH_OFFSET</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>Byte offset of the AddrHigh word within an entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1af9c3a53f8f8808e02e0f803ea21e0fed" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_ADDRLOW_OFFSET</name>
+        <initializer>(0xCU)</initializer>
+        <briefdescription>
+<para>Byte offset of the AddrLow word within an entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a9db94da7da1da51466b786d2f53289b2" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_STATE_MASK</name>
+        <initializer>(0xF0000000U)</initializer>
+        <briefdescription>
+<para>Attr word State field mask (bits[31:28]). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a7bca548164c5be7c2994c8f70ad9154c" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_STATE_SHIFT</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>Attr word State field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1ad6b1b216fbe515f9a59e73e1bda383b9" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_MEMFLAGS_MASK</name>
+        <initializer>(0x0F000000U)</initializer>
+        <briefdescription>
+<para>Attr word MemFlags field mask (bits[27:24]). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a3a6087475ce48fa513ec43e92826bf02" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_MEMFLAGS_SHIFT</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Attr word MemFlags field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a552db8a159e014faacfa8daeb2233e95" prot="public" static="no">
+        <name>XPM_MEMTBL_ENTRY_ACCPERM_MASK</name>
+        <initializer>(0x0000FFFFU)</initializer>
+        <briefdescription>
+<para>Attr word AccessPerm field mask (bits[15:0]). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a5a82e3fdb01cbb8fc1c7178b36186c5e" prot="public" static="no">
+        <name>XPM_MEMTBL_REGION_INACTIVE</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Region State value (Attr[31:28]): region not reachable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1add02e2bf37c5f3d28017c2d7b9ddc25e" prot="public" static="no">
+        <name>XPM_MEMTBL_REGION_ACTIVE</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Region State value (Attr[31:28]): region reachable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a5d75931ed0aa63236bd061bb88ff385e" prot="public" static="no">
+        <name>XPM_MEMTBL_MEMFLAGS_PL</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>MemFlags value (Attr[27:24]) indicating a PL-fabric region. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__memtbl_8h_1a3d51bdf764b1819e742a2f89194d1484" prot="public" static="no">
+        <name>XPM_MEMTBL_SIZE_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Left-shift to convert a Size field (4KB units) into bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__memtbl_8h_1adc1d0667b00a7d0c97f373491e123898" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPm_MemTblIsPresent</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_MemTblIsPresent</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Present-detection for the memory-range table (no-op fallback). </para>        </briefdescription>
+        <detaileddescription>
+<para>Platforms without a mem-table reservation never carry a table, so this stub always reports &quot;absent&quot;.</para><para><simplesect kind="return"><para>0U always (table never present on this platform). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.c" bodystart="428" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__memtbl_8h_1a5cd984324aedeec52a05b5a0d1a7d61d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_MemTblRecomputeAll</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_MemTblRecomputeAll</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Recompute the table State fields (no-op fallback). </para>        </briefdescription>
+        <detaileddescription>
+<para>No mem-table exists on this platform, so there is nothing to recompute.</para><para><simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.c" bodystart="442" bodyend="445"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__memtbl_8h_1ad81ee12934b6571caa01e02d0f6e3a96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_MemTblOnDeviceStateChange</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XPm_MemTblOnDeviceStateChange</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>Device-state-change hook (no-op fallback). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the device whose state changed (unused).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.c" bodystart="456" bodyend="460"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__memtbl_8h_1abed8d98d1ec135d8bc0d0afbc63793f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_MemTblOnPowerEvent</definition>
+        <argsstring>(u32 NodeId)</argsstring>
+        <name>XPm_MemTblOnPowerEvent</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>Power-event hook (no-op fallback). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the power node that changed (unused).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.c" bodystart="471" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__memtbl_8h_1a7ad7d98791b82e909317a319a20a45f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_MemTblDump</definition>
+        <argsstring>(const char *Label)</argsstring>
+        <name>XPm_MemTblDump</name>
+        <param>
+          <type>const char *</type>
+          <declname>Label</declname>
+        </param>
+        <briefdescription>
+<para>Debug dump helper (no-op fallback). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Label</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Short tag identifying the dump call site (unused).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.c" bodystart="486" bodyend="490"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Memory-range reachability table in PMC RAM. </para>    </briefdescription>
+    <detaileddescription>
+<para>A static, sorted subsystem-&gt;memory-region table is populated in PMC RAM (at XPLMI_MEMTBL_ADDR) by the configuration tooling. PLM is the sole writer of the runtime-mutable fields - each row&apos;s <computeroutput>State</computeroutput> (Active/Inactive reachability) and the header <computeroutput>UpdateCounter</computeroutput> seqlock - so that consumers (e.g. ASU firmware) see correct region reachability. PLM only produces the table; it does not consume it for its own address validation.</para><para>Table layout (little-endian words in PMC RAM): word0 : NumEntries[31:16] | EntrySize[15:12]=0x4 | HeaderSize[11:8]=0x2 | Version[7:0] word1 : UpdateCounter (seqlock; odd =&gt; mutation in progress) entry[i] (16 B each, EntrySize = 4 words): +0x0 Attr : State[31:28] | MemFlags[27:24] | Reserved[23:16] | AccessPerm[15:0] +0x4 Size : region size in 4KB units (ActualBytes = Size &lt;&lt; 12) +0x8 AddrHigh : region address [63:32] +0xC AddrLow : region address [31:0] </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XPM_MEMTBL_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47" refid="struct_x_pm___mem_tbl_entry" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48" refid="struct_x_pm___mem_tbl_entry_1abeb20289824eb49a00d234b54818631c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___mem_tbl_entry_1abeb20289824eb49a00d234b54818631c" kindref="member">Attr</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="struct_x_pm___mem_tbl_entry_1a6584964f5fee731a1f328f047a083535" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___mem_tbl_entry_1a6584964f5fee731a1f328f047a083535" kindref="member">Size</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="struct_x_pm___mem_tbl_entry_1a04bb782a9279e99dd6ddb9701685da13" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___mem_tbl_entry_1a04bb782a9279e99dd6ddb9701685da13" kindref="member">AddrHigh</ref>;<sp/></highlight></codeline>
+<codeline lineno="51" refid="struct_x_pm___mem_tbl_entry_1ab84581ad5ac5a55fdf1268d738ada21f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___mem_tbl_entry_1ab84581ad5ac5a55fdf1268d738ada21f" kindref="member">AddrLow</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}<sp/><ref refid="struct_x_pm___mem_tbl_entry" kindref="compound">XPm_MemTblEntry</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Table<sp/>geometry<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="xpm__memtbl_8h_1a242310719b2773a618f9e0cd7f87c9fa" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_SIZE_BYTES<sp/><sp/><sp/><sp/>(0x800U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="xpm__memtbl_8h_1ac4d6521d596c47cb5d75f7a3e4abd322" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_HDR0_OFFSET<sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xpm__memtbl_8h_1a1931dc27fd5f81efc7874d7f4b7a00b3" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_UPDCNT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="xpm__memtbl_8h_1a36e77d6b660391ba9469da6f1aed551e" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Header<sp/>word0<sp/>fields<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="xpm__memtbl_8h_1aef0b9b39e71c5c58e83680a1b848b2cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_VERSION_MASK<sp/><sp/>(0x000000FFU)<sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="xpm__memtbl_8h_1ad98030f30d098ebdb9aa108eef3856ba" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_VERSION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="xpm__memtbl_8h_1a9447ba3669a9567eac559157ad17806a" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_HDRSIZE_MASK<sp/><sp/>(0x00000F00U)<sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="xpm__memtbl_8h_1a8f3c4e768d0eaa897dd3a9d0e5a3cc71" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_HDRSIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="xpm__memtbl_8h_1acb5b1df55f34f632155e824a9ed4bd56" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTSIZE_MASK<sp/><sp/>(0x0000F000U)<sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="xpm__memtbl_8h_1a1c2cf6842e635c382f807792dcd5f8c4" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTSIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="xpm__memtbl_8h_1a0d2d0548b0f48b05676e0f78c0e819fb" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_NUMENT_MASK<sp/><sp/><sp/>(0xFFFF0000U)<sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="xpm__memtbl_8h_1ae9d0bdcfbe0f4963ffe9fac000feee0c" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_NUMENT_SHIFT<sp/><sp/>(16U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*<sp/>Expected<sp/>constant<sp/>header<sp/>nibbles.<sp/>These<sp/>fixed<sp/>values<sp/>double<sp/>as<sp/>a<sp/>de-facto</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/>12-bit<sp/>magic<sp/>for<sp/>present-detection<sp/>(absent<sp/>PMC<sp/>RAM<sp/>reads<sp/>back<sp/>0xDEADBEEF,</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*<sp/>which<sp/>fails<sp/>these<sp/>checks),<sp/>so<sp/>no<sp/>separate<sp/>table-format<sp/>change<sp/>is<sp/>needed.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="xpm__memtbl_8h_1ad9407bcffba8caedf2c88d27dfdabc7a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTSIZE_VAL<sp/><sp/><sp/>(0x4U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="xpm__memtbl_8h_1a82c9ebec92c363a87eae2cb090a72697" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_HDRSIZE_VAL<sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="88" refid="xpm__memtbl_8h_1a7a5a23c9a49a2176a984eb0c87b9de78" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_VERSION_VAL<sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="89" refid="xpm__memtbl_8h_1af743d245a18e1ae0dbdd413b4028d9ab" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_MAX_ENTRIES<sp/><sp/><sp/>(64U)<sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>------------------------------------------------------------------<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Per-entry<sp/>(Attr<sp/>word)<sp/>fields<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>------------------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="xpm__memtbl_8h_1a19e10504b0da974dcf5f276ada1a2dd0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_ATTR_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="xpm__memtbl_8h_1a7fdcb3976845ed05c882b8c2d3597b67" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_SIZE_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x4U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="xpm__memtbl_8h_1ae16903bd434c6788691f2889a4b4649e" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_ADDRHIGH_OFFSET<sp/>(0x8U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="xpm__memtbl_8h_1af9c3a53f8f8808e02e0f803ea21e0fed" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_ADDRLOW_OFFSET<sp/><sp/>(0xCU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="xpm__memtbl_8h_1a9db94da7da1da51466b786d2f53289b2" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0xF0000000U)<sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="xpm__memtbl_8h_1a7bca548164c5be7c2994c8f70ad9154c" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_STATE_SHIFT<sp/><sp/><sp/><sp/><sp/>(28U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="xpm__memtbl_8h_1ad6b1b216fbe515f9a59e73e1bda383b9" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_MEMFLAGS_MASK<sp/><sp/><sp/>(0x0F000000U)<sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="xpm__memtbl_8h_1a3a6087475ce48fa513ec43e92826bf02" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_MEMFLAGS_SHIFT<sp/><sp/>(24U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="xpm__memtbl_8h_1a552db8a159e014faacfa8daeb2233e95" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_ENTRY_ACCPERM_MASK<sp/><sp/><sp/><sp/>(0x0000FFFFU)<sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="xpm__memtbl_8h_1a5a82e3fdb01cbb8fc1c7178b36186c5e" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_REGION_INACTIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="108" refid="xpm__memtbl_8h_1add02e2bf37c5f3d28017c2d7b9ddc25e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_REGION_ACTIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="xpm__memtbl_8h_1a5d75931ed0aa63236bd061bb88ff385e" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_MEMFLAGS_PL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114" refid="xpm__memtbl_8h_1a3d51bdf764b1819e742a2f89194d1484" refkind="member"><highlight class="preprocessor">#define<sp/>XPM_MEMTBL_SIZE_SHIFT<sp/><sp/><sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">u32<sp/><ref refid="xpm__memtbl_8c_1adc1d0667b00a7d0c97f373491e123898" kindref="member">XPm_MemTblIsPresent</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpm__memtbl_8c_1a5cd984324aedeec52a05b5a0d1a7d61d" kindref="member">XPm_MemTblRecomputeAll</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpm__memtbl_8c_1ad81ee12934b6571caa01e02d0f6e3a96" kindref="member">XPm_MemTblOnDeviceStateChange</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpm__memtbl_8c_1abed8d98d1ec135d8bc0d0afbc63793f5" kindref="member">XPm_MemTblOnPowerEvent</ref>(u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Debug<sp/>helper<sp/>(no<sp/>callers<sp/>by<sp/>default;<sp/>PmDbg):<sp/>dump<sp/>the<sp/>table<sp/>header<sp/>+<sp/>entries.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpm__memtbl_8c_1a7ad7d98791b82e909317a319a20a45f8" kindref="member">XPm_MemTblDump</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Label);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_MEMTBL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_memtbl.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_handler_table" kind="struct" prot="public">
+    <compoundname>HandlerTable</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_handler_table_1a6779504e8975e273cd96b703995f6491" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 HandlerTable::Shift</definition>
+        <argsstring></argsstring>
+        <name>Shift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_handler_table_1a21d9052842b4da14a0930d5a7ff73e5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 HandlerTable::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_handler_table_1a18597d64599caf288a62cdfac1a07a74" prot="public" static="no" mutable="no">
+        <type>VoidFunction_t</type>
+        <definition>VoidFunction_t HandlerTable::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h" bodystart="130" bodyend="134"/>
+    <listofallmembers>
+      <member refid="struct_handler_table_1a18597d64599caf288a62cdfac1a07a74" prot="public" virt="non-virtual"><scope>HandlerTable</scope><name>Handler</name></member>
+      <member refid="struct_handler_table_1a21d9052842b4da14a0930d5a7ff73e5d" prot="public" virt="non-virtual"><scope>HandlerTable</scope><name>Mask</name></member>
+      <member refid="struct_handler_table_1a6779504e8975e273cd96b703995f6491" prot="public" virt="non-virtual"><scope>HandlerTable</scope><name>Shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___wrap_provision_instructions_params" kind="struct" prot="public">
+    <compoundname>XAsu_WrapProvisionInstructionsParams</compoundname>
+    <includes local="no">xasu_provisioninfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___wrap_provision_instructions_params_1a4dec645d0382ed3b7e8dfff2ce0eabcb" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_WrapProvisionInstructionsParams::RecordBlobAddr</definition>
+        <argsstring></argsstring>
+        <name>RecordBlobAddr</name>
+        <briefdescription>
+<para>Address of the plaintext instruction-record stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf0d491ff698f8db75edeebd613219b5b" compoundref="xasu__provision__common_8c" startline="269" endline="290">XAsu_ProvisionValidateWrapParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___wrap_provision_instructions_params_1a913b711a886131b8e43c79f4765ac33b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_WrapProvisionInstructionsParams::ImageAddr</definition>
+        <argsstring></argsstring>
+        <name>ImageAddr</name>
+        <briefdescription>
+<para>Address of the output buffer that receives the AEPI image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf0d491ff698f8db75edeebd613219b5b" compoundref="xasu__provision__common_8c" startline="269" endline="290">XAsu_ProvisionValidateWrapParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___wrap_provision_instructions_params_1ad19eafae98c6e8bffa8c67d8eeb6cbc3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_WrapProvisionInstructionsParams::ImageBufSize</definition>
+        <argsstring></argsstring>
+        <name>ImageBufSize</name>
+        <briefdescription>
+<para>Capacity of the output buffer in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf0d491ff698f8db75edeebd613219b5b" compoundref="xasu__provision__common_8c" startline="269" endline="290">XAsu_ProvisionValidateWrapParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___wrap_provision_instructions_params_1a5a03564dfc49212993286af3422b601e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_WrapProvisionInstructionsParams::RecordBlobLen</definition>
+        <argsstring></argsstring>
+        <name>RecordBlobLen</name>
+        <briefdescription>
+<para>Instruction stream size in bytes (PI_SIZE). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf0d491ff698f8db75edeebd613219b5b" compoundref="xasu__provision__common_8c" startline="269" endline="290">XAsu_ProvisionValidateWrapParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the parameters for atomically building an AEPI image in ASUFW. </para>    </briefdescription>
+    <detaileddescription>
+<para>The caller supplies a plaintext provisioning-instruction stream and an output buffer. ASUFW resolves the requesting subsystem&apos;s provisioning wrapping public key and authentication private key internally, encrypts the chunk chain and signs the header. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="268" bodyend="273"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___wrap_provision_instructions_params_1a913b711a886131b8e43c79f4765ac33b" prot="public" virt="non-virtual"><scope>XAsu_WrapProvisionInstructionsParams</scope><name>ImageAddr</name></member>
+      <member refid="struct_x_asu___wrap_provision_instructions_params_1ad19eafae98c6e8bffa8c67d8eeb6cbc3" prot="public" virt="non-virtual"><scope>XAsu_WrapProvisionInstructionsParams</scope><name>ImageBufSize</name></member>
+      <member refid="struct_x_asu___wrap_provision_instructions_params_1a4dec645d0382ed3b7e8dfff2ce0eabcb" prot="public" virt="non-virtual"><scope>XAsu_WrapProvisionInstructionsParams</scope><name>RecordBlobAddr</name></member>
+      <member refid="struct_x_asu___wrap_provision_instructions_params_1a5a03564dfc49212993286af3422b601e" prot="public" virt="non-virtual"><scope>XAsu_WrapProvisionInstructionsParams</scope><name>RecordBlobLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,627 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__rsaclient_8c" kind="file">
+    <compoundname>xsecure_rsaclient.c</compoundname>
+    <includes refid="xsecure__rsaclient_8h" local="yes">xsecure_rsaclient.h</includes>
+    <includes refid="xsecure__generic_8h" local="yes">xsecure_generic.h</includes>
+    <incdepgraph>
+      <node id="3873">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="3874" relation="include">
+        </childnode>
+        <childnode refid="3868" relation="include">
+        </childnode>
+        <childnode refid="3875" relation="include">
+        </childnode>
+        <childnode refid="3876" relation="include">
+        </childnode>
+        <childnode refid="3872" relation="include">
+        </childnode>
+        <childnode refid="3877" relation="include">
+        </childnode>
+      </node>
+      <node id="3876">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3869">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="3870" relation="include">
+        </childnode>
+        <childnode refid="3871" relation="include">
+        </childnode>
+      </node>
+      <node id="3875">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="3880">
+        <label>xsecure_generic.h</label>
+        <link refid="xsecure__generic_8h"/>
+        <childnode refid="3868" relation="include">
+        </childnode>
+        <childnode refid="3869" relation="include">
+        </childnode>
+      </node>
+      <node id="3877">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3870">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="3879">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="3878">
+        <label>xsecure_rsaalginfo.h</label>
+        <link refid="client_2core_2rsa_2xsecure__rsaalginfo_8h"/>
+        <childnode refid="3879" relation="include">
+        </childnode>
+        <childnode refid="3876" relation="include">
+        </childnode>
+      </node>
+      <node id="3866">
+        <label>xsecure_rsaclient.c</label>
+        <link refid="xsecure_rsaclient.c"/>
+        <childnode refid="3867" relation="include">
+        </childnode>
+        <childnode refid="3880" relation="include">
+        </childnode>
+      </node>
+      <node id="3867">
+        <label>xsecure_rsaclient.h</label>
+        <link refid="xsecure__rsaclient_8h"/>
+        <childnode refid="3868" relation="include">
+        </childnode>
+        <childnode refid="3869" relation="include">
+        </childnode>
+        <childnode refid="3872" relation="include">
+        </childnode>
+        <childnode refid="3873" relation="include">
+        </childnode>
+        <childnode refid="3878" relation="include">
+        </childnode>
+      </node>
+      <node id="3872">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3868">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3871">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3874">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPrivateDecrypt</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_RsaPrivateDecrypt</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA decryption with private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data which has to be decrypted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key size in bytes, Input size also should be same as key size mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer where resultant decrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the update is successful</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</para></listitem><listitem><para>Return XST_INVALID_PARAM if Size is a unsupported RSA key size</para></listitem><listitem><para>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="67" bodyend="124"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="63">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="xsecure__defs_8h" startline="141">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" compoundref="xsecure__defs_8h" startline="142">XSECURE_RSA_3072_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" compoundref="xsecure__defs_8h" startline="143">XSECURE_RSA_4096_KEY_SIZE</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga55d3f721f0d915165ee23ead0d021857" compoundref="xsecure_8c" startline="292" endline="320">XSecure_RsaCore</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPublicEncrypt</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_RsaPublicEncrypt</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA encryption with public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data which has to be encrypted with public key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key size in bytes, Input size also should be same as key size mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer where resultant decrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If encryption was successful</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</para></listitem><listitem><para>Return XST_INVALID_PARAM if Size is a unsupported RSA key size</para></listitem><listitem><para>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="147" bodyend="204"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" compoundref="xsecure__plat__defs_8h" startline="62">XSECURE_API_RSA_PUBLIC_ENCRYPT</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="xsecure__defs_8h" startline="141">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" compoundref="xsecure__defs_8h" startline="142">XSECURE_RSA_3072_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" compoundref="xsecure__defs_8h" startline="143">XSECURE_RSA_4096_KEY_SIZE</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="234" endline="387">main</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga17ffcc1179ee379019196d122403f8dc" compoundref="xsecure_8c" startline="549" endline="593">XSecure_DataAuth</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga55d3f721f0d915165ee23ead0d021857" compoundref="xsecure_8c" startline="292" endline="320">XSecure_RsaCore</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gac4ab51058f2ef18bcb5a1aedf95b83d8" compoundref="xsecure__kat_8c" startline="1110" endline="1157">XSecure_RsaPublicEncryptKat</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1288" endline="1389">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaSignVerification</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr, const u32 Size)</argsstring>
+        <name>XSecure_RsaSignVerification</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>SignAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA sign verification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer which holds the decrypted RSA signature. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the HashAddr which has the hash calculated on the data to be authenticated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of Hash used For SHA3 it should be 48 bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If decryption was successful</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE In case of mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</para></listitem><listitem><para>Return XST_INVALID_PARAM if Size is not the supported SHA3 hash length</para></listitem><listitem><para>Link shared memory of size SignParams to SignParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="224" bodyend="277"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="61">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__common__apis_1gae3637356df5720621bbd9924fa45a8d8" compoundref="xsecure__defs_8h" startline="144">XSECURE_HASH_TYPE_SHA3</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga17ffcc1179ee379019196d122403f8dc" compoundref="xsecure_8c" startline="549" endline="593">XSecure_DataAuth</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1288" endline="1389">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga438ec16f016a9d63be18ebbced880bef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPssSignVerification</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const XSecure_RsaPssSignVerifyParams *Params)</argsstring>
+        <name>XSecure_RsaPssSignVerification</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref> *</type>
+          <declname>Params</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to perform RSA-PSS sign verification (SHA3-384). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If verification is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure or if any Params field is invalid </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr and Params. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Stage the IPI struct in mailbox shared memory, matching XSecure_RsaSignVerification / XSecure_RsaPublicEncrypt.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="292" bodyend="357"/>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_params_1a4e2331a9e0d1fc99b14c912446bed07d" compoundref="xsecure__defs_8h" startline="194">XSecure_RsaPssSignVerifyParams::Exponent</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_params_1aae8774a210af20b59e5c5b3e7da2c128" compoundref="xsecure__defs_8h" startline="192">XSecure_RsaPssSignVerifyParams::HashAddr</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_params_1a8d5d1e6c44964f083d2a6dc713d1fe7e" compoundref="xsecure__defs_8h" startline="195">XSecure_RsaPssSignVerifyParams::HashBufSize</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_params_1aab679ad53351a9f023117cc4c4127f10" compoundref="xsecure__defs_8h" startline="193">XSecure_RsaPssSignVerifyParams::KeySize</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_params_1a238e92cfadc2b83273ec914edac514b7" compoundref="xsecure__defs_8h" startline="190">XSecure_RsaPssSignVerifyParams::ModulusAddr</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_params_1ab84ad4b5eebf5cd71fddc26c518c7b84" compoundref="xsecure__defs_8h" startline="191">XSecure_RsaPssSignVerifyParams::SignAddr</references>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932" compoundref="xsecure__plat__defs_8h" startline="79">XSECURE_API_RSA_PSS_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__common__apis_1gafa21a4342991c4c6a94d6d66b56d8b58" compoundref="xsecure__defs_8h" startline="164">XSECURE_RSA_PSS_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1ga3e07888ea67723a44714c1a06e78cfd9" compoundref="xsecure__defs_8h" startline="165">XSECURE_RSA_PSS_3072_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1ga91d7ff6c55e5dbfc20630bff84beed45" compoundref="xsecure__defs_8h" startline="166">XSECURE_RSA_PSS_4096_KEY_SIZE</references>
+        <references refid="group__xsecure__common__apis_1gab4447fcf5f3f323048ea9cf7407404e0" compoundref="xsecure__defs_8h" startline="167">XSECURE_RSA_PSS_HASH_SIZE</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions for RSA driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  03/23/21 Initial release
+4.5   kal  03/23/20 Updated file version to sync with library version
+4.6   kpt  09/27/21 Fixed compilation warnings
+4.7   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
+                     XSecure_DCacheFlushRange
+      kpt  01/13/21 Allocated CDO structure&apos;s in shared memory set by the
+                    user
+      am   03/08/22 Fixed MISRA C violations
+      kpt  03/16/22 Removed IPI related code and added mailbox support
+5.0   kpt  07/24/22 Moved XSecure_RsaKat into <ref refid="xsecure__katclient_8c" kindref="compound">xsecure_katclient.c</ref>
+5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
+      yog  05/04/23 Fixed HIS COMF violations
+5.4   yog  04/29/24 Fixed doxygen warnings.
+      pre  08/29/24 APIs are updated for SSIT support
+5.7   tbk  03/16/26 Added SMC support
+5.8   rap  07/20/26 Updated input parameter validations</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="43"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__rsaclient_8h" kindref="compound">xsecure_rsaclient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__generic_8h" kindref="compound">xsecure_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" kindref="member">XSecure_RsaPrivateDecrypt</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>KeyAddr,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>InDataAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref><sp/>*RsaParams<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BufferAddr;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MemSize;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MemSize<sp/>=<sp/>XMailbox_GetSharedMem(InstancePtr-&gt;MailboxPtr,<sp/>(u64**)(UINTPTR)&amp;RsaParams);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaParams<sp/>==<sp/>NULL)<sp/>||<sp/>(MemSize<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams-&gt;KeyAddr<sp/>=<sp/>KeyAddr;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams-&gt;DataAddr<sp/>=<sp/>InDataAddr;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams-&gt;Size<sp/>=<sp/>Size;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr<sp/>=<sp/>(u64)(UINTPTR)RsaParams;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" kindref="member">XSecure_DCacheFlushRange</ref>(RsaParams,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>));</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD4(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>),</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BufferAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutDataAddr,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OutDataAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" kindref="member">XSecure_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" kindref="member">XSecure_RsaPublicEncrypt</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>KeyAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>InDataAddr,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref><sp/>*RsaParams<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BufferAddr;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MemSize;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MemSize<sp/>=<sp/>XMailbox_GetSharedMem(InstancePtr-&gt;MailboxPtr,<sp/>(u64**)(UINTPTR)&amp;RsaParams);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaParams<sp/>==<sp/>NULL)<sp/>||<sp/>(MemSize<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams-&gt;KeyAddr<sp/>=<sp/>KeyAddr;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams-&gt;DataAddr<sp/>=<sp/>InDataAddr;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams-&gt;Size<sp/>=<sp/>Size;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr<sp/>=<sp/>(u64)(UINTPTR)RsaParams;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" kindref="member">XSecure_DCacheFlushRange</ref>(RsaParams,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>));</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD4(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>),</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BufferAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutDataAddr,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OutDataAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" kindref="member">XSecure_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="224" refid="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" kindref="member">XSecure_RsaSignVerification</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SignAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>HashAddr,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size)</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref><sp/>*SignParams<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BufferAddr;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MemSize;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gae3637356df5720621bbd9924fa45a8d8" kindref="member">XSECURE_HASH_TYPE_SHA3</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MemSize<sp/>=<sp/>XMailbox_GetSharedMem(InstancePtr-&gt;MailboxPtr,<sp/>(u64**)(UINTPTR)&amp;SignParams);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SignParams<sp/>==<sp/>NULL)<sp/>||<sp/>(MemSize<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignParams-&gt;SignAddr<sp/>=<sp/>SignAddr;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignParams-&gt;HashAddr<sp/>=<sp/>HashAddr;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignParams-&gt;Size<sp/>=<sp/>Size;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr<sp/>=<sp/>(u64)(UINTPTR)SignParams;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" kindref="member">XSecure_DCacheFlushRange</ref>(SignParams,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref>));</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD2(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>),</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BufferAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" kindref="member">XSecure_SendRequest</ref>(InstancePtr,<sp/>(u32<sp/>*)Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="292" refid="group__xsecure__rsa__client__apis_1ga438ec16f016a9d63be18ebbced880bef" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga438ec16f016a9d63be18ebbced880bef" kindref="member">XSecure_RsaPssSignVerification</ref>(XSecure_ClientInstance<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref><sp/>*Params)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref><sp/>*PssParams<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BufferAddr;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MemSize;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL)<sp/>||</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Params<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1aab679ad53351a9f023117cc4c4127f10" kindref="member">KeySize</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gafa21a4342991c4c6a94d6d66b56d8b58" kindref="member">XSECURE_RSA_PSS_2048_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1aab679ad53351a9f023117cc4c4127f10" kindref="member">KeySize</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga3e07888ea67723a44714c1a06e78cfd9" kindref="member">XSECURE_RSA_PSS_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1aab679ad53351a9f023117cc4c4127f10" kindref="member">KeySize</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga91d7ff6c55e5dbfc20630bff84beed45" kindref="member">XSECURE_RSA_PSS_4096_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1a238e92cfadc2b83273ec914edac514b7" kindref="member">ModulusAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1a4e2331a9e0d1fc99b14c912446bed07d" kindref="member">Exponent</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1ab84ad4b5eebf5cd71fddc26c518c7b84" kindref="member">SignAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1aae8774a210af20b59e5c5b3e7da2c128" kindref="member">HashAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1a8d5d1e6c44964f083d2a6dc713d1fe7e" kindref="member">HashBufSize</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gab4447fcf5f3f323048ea9cf7407404e0" kindref="member">XSECURE_RSA_PSS_HASH_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MemSize<sp/>=<sp/>XMailbox_GetSharedMem(InstancePtr-&gt;MailboxPtr,<sp/>(u64**)(UINTPTR)&amp;PssParams);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PssParams<sp/>==<sp/>NULL)<sp/>||<sp/>(MemSize<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssParams-&gt;ModulusAddr<sp/>=<sp/>Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1a238e92cfadc2b83273ec914edac514b7" kindref="member">ModulusAddr</ref>;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssParams-&gt;SignAddr<sp/>=<sp/>Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1ab84ad4b5eebf5cd71fddc26c518c7b84" kindref="member">SignAddr</ref>;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssParams-&gt;HashAddr<sp/>=<sp/>Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1aae8774a210af20b59e5c5b3e7da2c128" kindref="member">HashAddr</ref>;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssParams-&gt;KeySize<sp/>=<sp/>Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1aab679ad53351a9f023117cc4c4127f10" kindref="member">KeySize</ref>;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssParams-&gt;Exponent<sp/>=<sp/>Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1a4e2331a9e0d1fc99b14c912446bed07d" kindref="member">Exponent</ref>;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssParams-&gt;HashBufSize<sp/>=<sp/>Params-&gt;<ref refid="struct_x_secure___rsa_pss_sign_verify_params_1a8d5d1e6c44964f083d2a6dc713d1fe7e" kindref="member">HashBufSize</ref>;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr<sp/>=<sp/>(u64)(UINTPTR)PssParams;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" kindref="member">XSecure_DCacheFlushRange</ref>(PssParams,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref>));</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD2(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932" kindref="member">XSECURE_API_RSA_PSS_SIGN_VERIFY</ref>),</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferAddr,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BufferAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" kindref="member">XSecure_SendRequest</ref>(InstancePtr,<sp/>(u32<sp/>*)Payload,<sp/>(u32)PAYLOAD_ARG_CNT,</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c"/>
+  </compounddef>
+</doxygen>

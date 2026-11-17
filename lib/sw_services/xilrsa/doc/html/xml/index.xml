@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="xilrsa_8h" kind="file"><name>xilrsa.h</name>
+    <member refid="group__xilrsa__apis_1ga94cb0e9ea77ca68a380c25b42910fa8e" kind="function"><name>rsa2048_exp</name></member>
+    <member refid="group__xilrsa__apis_1ga810797c1bab84cda9d48b734ba8b0405" kind="function"><name>rsa2048_pubexp</name></member>
+    <member refid="group__xilrsa__apis_1ga735718f1bf2a30893d3e854d439c69fd" kind="function"><name>sha_256</name></member>
+    <member refid="group__xilrsa__apis_1gaaa0bff1f1bcda10be83c3bf2f3af690b" kind="function"><name>sha2_starts</name></member>
+    <member refid="group__xilrsa__apis_1gad03b4e01ae41a4b91888ab05a307bcfe" kind="function"><name>sha2_update</name></member>
+    <member refid="group__xilrsa__apis_1ga4dbd38a93b5b61c637a8a29dd0e850f0" kind="function"><name>sha2_finish</name></member>
+  </compound>
+  <compound refid="group__xilrsa__apis" kind="group"><name>xilrsa_apis</name>
+    <member refid="group__xilrsa__apis_1ga94cb0e9ea77ca68a380c25b42910fa8e" kind="function"><name>rsa2048_exp</name></member>
+    <member refid="group__xilrsa__apis_1ga810797c1bab84cda9d48b734ba8b0405" kind="function"><name>rsa2048_pubexp</name></member>
+    <member refid="group__xilrsa__apis_1ga735718f1bf2a30893d3e854d439c69fd" kind="function"><name>sha_256</name></member>
+    <member refid="group__xilrsa__apis_1gaaa0bff1f1bcda10be83c3bf2f3af690b" kind="function"><name>sha2_starts</name></member>
+    <member refid="group__xilrsa__apis_1gad03b4e01ae41a4b91888ab05a307bcfe" kind="function"><name>sha2_update</name></member>
+    <member refid="group__xilrsa__apis_1ga4dbd38a93b5b61c637a8a29dd0e850f0" kind="function"><name>sha2_finish</name></member>
+  </compound>
+  <compound refid="dir_dfea8bfa0b3f4290bf4ca1c30efa44ad" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_a4e8a2e21cd3867325cb98adf56dc9a3" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_7a2d94379285515d46c1d0841e0012bb" kind="dir"><name>xilrsa</name>
+  </compound>
+</doxygenindex>

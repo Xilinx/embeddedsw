@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="deprecated" kind="page">
+    <compoundname>deprecated</compoundname>
+    <title>Deprecated List</title>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term><anchor id="deprecated_1_deprecated000002"/>Global <ref refid="xv__hdmitx_8h_1a0c96df6965d18655815470c685c1b731" kindref="member">XV_HdmiTx_AudioMute</ref>  (InstancePtr)</term></varlistentry>
+<listitem><para>XV_HdmiTx_AudioMute will be deprecated in 2019.3 and replaced by XV_HdmiTx_AudioDisable. </para></listitem>
+<varlistentry><term><anchor id="deprecated_1_deprecated000001"/>Global <ref refid="xv__hdmitx_8h_1a9bcea0e2168a93090ebd294477e8bcdd" kindref="member">XV_HdmiTx_AudioUnmute</ref>  (InstancePtr)</term></varlistentry>
+<listitem><para>XV_HdmiTx_AudioUnmute will be deprecated in 2019.3 and replaced by XV_HdmiTx_AudioEnable.</para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

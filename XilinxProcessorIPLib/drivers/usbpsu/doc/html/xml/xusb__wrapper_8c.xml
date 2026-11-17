@@ -1,0 +1,2003 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusb__wrapper_8c" kind="file">
+    <compoundname>xusb_wrapper.c</compoundname>
+    <includes refid="xusb__wrapper_8h" local="yes">xusb_wrapper.h</includes>
+    <incdepgraph>
+      <node id="865">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="861">
+        <label>xusb_wrapper.c</label>
+        <link refid="xusb_wrapper.c"/>
+        <childnode refid="862" relation="include">
+        </childnode>
+      </node>
+      <node id="869">
+        <label>xil_io.h</label>
+      </node>
+      <node id="862">
+        <label>xusb_wrapper.h</label>
+        <link refid="xusb__wrapper_8h"/>
+        <childnode refid="863" relation="include">
+        </childnode>
+      </node>
+      <node id="871">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="870">
+        <label>xil_util.h</label>
+      </node>
+      <node id="867">
+        <label>xusbpsu_hw.h</label>
+        <link refid="xusbpsu__hw_8h"/>
+      </node>
+      <node id="863">
+        <label>xusbpsu.h</label>
+        <link refid="xusbpsu_8h"/>
+        <childnode refid="864" relation="include">
+        </childnode>
+        <childnode refid="865" relation="include">
+        </childnode>
+        <childnode refid="866" relation="include">
+        </childnode>
+        <childnode refid="867" relation="include">
+        </childnode>
+        <childnode refid="868" relation="include">
+        </childnode>
+        <childnode refid="869" relation="include">
+        </childnode>
+        <childnode refid="870" relation="include">
+        </childnode>
+        <childnode refid="871" relation="include">
+        </childnode>
+      </node>
+      <node id="866">
+        <label>xstatus.h</label>
+      </node>
+      <node id="868">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu__endpoint_8h"/>
+      </node>
+      <node id="864">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xusb__wrapper_8c_1a1e76e4a0f045f8f10b810f530dc4a63d" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref></type>
+        <definition>struct XUsbPsu PrivateData</definition>
+        <argsstring></argsstring>
+        <name>PrivateData</name>
+        <briefdescription>
+<para>Private data for the USB PSU instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="xusb__wrapper_8h_1a7409a4956ffb20a9407c497fd8f1c832" compoundref="xusb__wrapper_8c" startline="84" endline="92">CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__usbpsu__api_1ga1cfed736380199beddc59a5a00a53109" kindref="member">Usb_Config</ref> *</type>
+        <definition>Usb_Config* LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Lookup USB configuration by base address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the USB configuration, or NULL if not found. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="61" bodyend="64"/>
+        <references refid="group__usbpsu__api_1ga87fd60823e07b4852b8a8d569121908b" compoundref="xusbpsu__sinit_8c" startline="89" endline="103">XUsbPsu_LookupConfig</references>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a279ce5fef0ed4e1fcad45af04f34873b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CacheInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>CacheInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>CacheInit function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="70" bodyend="73"/>
+        <referencedby refid="xusb__freertos__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__freertos__audio__example_8c" startline="389" endline="401">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a7409a4956ffb20a9407c497fd8f1c832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 CfgInitialize</definition>
+        <argsstring>(struct Usb_DevData *InstancePtr, Usb_Config *ConfigPtr, u32 BaseAddress)</argsstring>
+        <name>CfgInitialize</name>
+        <param>
+          <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__usbpsu__api_1ga1cfed736380199beddc59a5a00a53109" kindref="member">Usb_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>CfgInitialize function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the USB configuration. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="84" bodyend="92"/>
+        <references refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" compoundref="xusbpsu_8h" startline="536">XUsbPsu::AppData</references>
+        <references refid="xusb__wrapper_8c_1a1e76e4a0f045f8f10b810f530dc4a63d" compoundref="xusb__wrapper_8c" startline="38">PrivateData</references>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
+        <references refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" compoundref="xusbpsu_8c" startline="134" endline="182">XUsbPsu_CfgInitialize</references>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1aaa7a2c1cb275a983a77b517a964d05ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Set_Ch9Handler</definition>
+        <argsstring>(void *InstancePtr, void(*func)(struct Usb_DevData *, SetupPacket *))</argsstring>
+        <name>Set_Ch9Handler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void(*)(struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *, <ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref> *)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Set_Ch9Handler function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Chapter 9 handler callback function pointer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="100" bodyend="105"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a6db826541b9dca41537548de4b58e258" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Set_RstHandler</definition>
+        <argsstring>(void *InstancePtr, void(*func)(struct Usb_DevData *))</argsstring>
+        <name>Set_RstHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void(*)(struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Set_RstHandler function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reset handler callback function pointer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="113" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a0750f624719ace8ba3116b796b60a89a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Set_Disconnect</definition>
+        <argsstring>(void *InstancePtr, void(*func)(struct Usb_DevData *))</argsstring>
+        <name>Set_Disconnect</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void(*)(struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Set_Disconnect function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the disconnect handler callback function pointer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ad17a2824033e5c4bd2c8aa6ee66b9189" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EpConfigure</definition>
+        <argsstring>(void *UsbInstance, u8 EndpointNo, u8 dir, u32 Type)</argsstring>
+        <name>EpConfigure</name>
+        <param>
+          <type>void *</type>
+          <declname>UsbInstance</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EndpointNo</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>EpConfigure function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the USB instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EndpointNo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="137" bodyend="143"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a6f6b3711b08d9cbf8dc2f0781f470a50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 ConfigureDevice</definition>
+        <argsstring>(void *UsbInstance, u8 *MemPtr, u32 memSize)</argsstring>
+        <name>ConfigureDevice</name>
+        <param>
+          <type>void *</type>
+          <declname>UsbInstance</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MemPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>memSize</declname>
+        </param>
+        <briefdescription>
+<para>ConfigureDevice function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configure Device(void * Usb Instance, u8 * Mem Ptr, u32 m...</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the USB instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MemPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the memory buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">memSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the memory buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="154" bodyend="160"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetEpHandler</definition>
+        <argsstring>(void *InstancePtr, u8 Epnum, u8 Dir, void(*Handler)(void *, u32, u32))</argsstring>
+        <name>SetEpHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Epnum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>void(*)(void *, u32, u32)</type>
+          <declname>Handler</declname>
+        </param>
+        <briefdescription>
+<para>SetEpHandler function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Epnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the handler function pointer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="170" bodyend="174"/>
+        <references refid="group__usbpsu__api_1gad585fe1304adfd139727220832c2dcf5" compoundref="xusbpsu__ephandler_8c" startline="600" endline="614">XUsbPsu_SetEpHandler</references>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a8d32fd815ed7b6b1bae2bd649ac428f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 Usb_Start</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>Usb_Start</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Usb_Start function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="183" bodyend="186"/>
+        <references refid="group__usbpsu__api_1ga6d7651e8afca56974940464709b8a3ed" compoundref="xusbpsu_8c" startline="195" endline="213">XUsbPsu_Start</references>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ad850f272d507d36f74a55bb96211b85b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* Get_DrvData</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>Get_DrvData</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve the driver data pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get_ Drv Data(void * Instance Ptr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the driver data, or NULL if not set. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="195" bodyend="198"/>
+        <referencedby refid="xusb__freertos__massstorage__example_8c_1a5427b67da8571837c063db309a460d37" compoundref="xusb__freertos__massstorage__example_8c" startline="337" endline="350">BulkInHandler</referencedby>
+        <referencedby refid="xusb__freertos__massstorage__example_8c_1a827731c39d2e383df605eccb5864d469" compoundref="xusb__freertos__massstorage__example_8c" startline="312" endline="325">BulkOutHandler</referencedby>
+        <referencedby refid="xusb__ch9_8h_1a4a51f5e7948e7a27adcd66023d48876d" compoundref="xusb__ch9_8c" startline="58" endline="93">Ch9Handler</referencedby>
+        <referencedby refid="xusb__freertos__class__keyboard_8h_1aba8a3fdb3b4fc01587c30bbbdba21246" compoundref="xusb__freertos__class__composite_8c" startline="1010" endline="1052">prvKeyboardTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__audio_8c" startline="352" endline="395">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__audio_8c" startline="273" endline="343">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8h_1a3dd6b88879ee439db086e2ff6a7664d9" compoundref="xusb__freertos__class__composite_8c" startline="1062" endline="1119">prvSCSITask</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" compoundref="xusb__ch9__audio__dfu_8c" startline="1098" endline="1140">Usb_Ch9SetupCfgDescReply</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" compoundref="xusb__ch9__audio__dfu_8c" startline="1158" endline="1227">Usb_Ch9SetupStrDescReply</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1a41ee754aa98c010c6598a68967a25337" compoundref="xusb__class__dfu_8c" startline="215" endline="230">Usb_DfuDisconnect</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1a85ada1b41808b8cc819667bdd0c9f2f8" compoundref="xusb__class__dfu_8c" startline="239" endline="251">Usb_DfuReset</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1ae423c2f49364dc3cd9e2cddf6b62541b" compoundref="xusb__class__dfu_8c" startline="261" endline="288">Usb_DfuSetIntf</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a194a9e11a6d5b86e53384260e2f1a90b" compoundref="xusb__class__audio__dfu_8c" startline="215" endline="230">Usb_DisconnectHandler</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1af5e188c4250382b042768893417ab321" compoundref="xusb__class__audio__dfu_8c" startline="239" endline="251">Usb_ResetHandler</referencedby>
+        <referencedby refid="xusb__ch9__composite_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" compoundref="xusb__ch9__composite_8c" startline="1552" endline="1647">Usb_SetConfigurationApp</referencedby>
+        <referencedby refid="xusb__freertos__ch9__audio_8h_1a98999124de04efd07c811680f1052471" compoundref="xusb__freertos__ch9__audio_8c" startline="1155" endline="1194">Usb_SetInterfaceHandler</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ae56a7dab4be473055d1f2c3de0dc0b41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Set_DrvData</definition>
+        <argsstring>(void *InstancePtr, void *data)</argsstring>
+        <name>Set_DrvData</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Set_DrvData function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the driver data pointer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="206" bodyend="209"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="184" endline="306">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a3cb3a733e66a6a1882c392905105eeaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 IsEpStalled</definition>
+        <argsstring>(void *InstancePtr, u8 Epnum, u8 Dir)</argsstring>
+        <name>IsEpStalled</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Epnum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>IsEpStalled function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Is Ep Stalled(void * Instance Ptr, u8  Epnum, u8  Dir).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Epnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="220" bodyend="223"/>
+        <references refid="group__usbpsu__api_1ga940e5d8d4c56eec4e394507eb0e1ab8b" compoundref="xusbpsu__ephandler_8c" startline="631" endline="645">XUsbPsu_IsEpStalled</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a2ef20d576e6e1bf2a4309036b643e7f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EpClearStall</definition>
+        <argsstring>(void *InstancePtr, u8 Epnum, u8 Dir)</argsstring>
+        <name>EpClearStall</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Epnum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>EpClearStall function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Epnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="232" bodyend="235"/>
+        <references refid="group__usbpsu__api_1gaeff04b67a7a4a8c63da2327c6ae5e81b" compoundref="xusbpsu__ephandler_8c" startline="565" endline="586">XUsbPsu_EpClearStall</references>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a0bebffade70d4d3276e743f7d3db8a6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 EpBufferSend</definition>
+        <argsstring>(void *InstancePtr, u8 UsbEp, u8 *BufferPtr, u32 BufferLen)</argsstring>
+        <name>EpBufferSend</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UsbEp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufferLen</declname>
+        </param>
+        <briefdescription>
+<para>EpBufferSend function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbEp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the USB endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the data buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="247" bodyend="256"/>
+        <references refid="group__usbpsu__api_1ga9a977327906f2995960e50d429703687" compoundref="xusbpsu__ephandler_8c" startline="210" endline="350">XUsbPsu_EpBufferSend</references>
+        <referencedby refid="xusb__freertos__class__storage_8h_1adabccc59f14f73295d6d3e8ab2a84ed3" compoundref="xusb__class__storage_8c" startline="122" endline="146">ClassReq</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a787b860ced36f781523ab445c3f0f1e9" compoundref="xusb__class__composite_8c" startline="926" endline="1038">ParseCBW</referencedby>
+        <referencedby refid="xusb__freertos__class__keyboard_8h_1aba8a3fdb3b4fc01587c30bbbdba21246" compoundref="xusb__freertos__class__composite_8c" startline="1010" endline="1052">prvKeyboardTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__audio_8c" startline="273" endline="343">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8h_1a3dd6b88879ee439db086e2ff6a7664d9" compoundref="xusb__freertos__class__composite_8c" startline="1062" endline="1119">prvSCSITask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b339129f8d97ba9e8fd4cde9bc8e756" compoundref="xusb__class__composite_8c" startline="1049" endline="1058">SendCSW</referencedby>
+        <referencedby refid="xusb__freertos__class__audio_8c_1a32b6f95139e55ff73c71303408094577" compoundref="xusb__freertos__class__audio_8c" startline="41" endline="264">Usb_ClassReq</referencedby>
+        <referencedby refid="xusb__freertos__class__keyboard_8h_1a6b4c6d0f1989a268becf04033c4537df" compoundref="xusb__freertos__class__keyboard_8c" startline="54" endline="94">Usb_ClassReq_Keyboard</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+        <referencedby refid="xusb__class__composite_8c_1a1371377fb6f75a25c4964644525e7f66" compoundref="xusb__class__composite_8c" startline="854" endline="887">Usb_KeyboardClassReq</referencedby>
+        <referencedby refid="xusb__class__composite_8c_1a7b5c88f60ef35c935fbaf5cf42228318" compoundref="xusb__class__composite_8c" startline="826" endline="843">Usb_StorageClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ab01491c228aee667027315c8d539d8c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 EpBufferRecv</definition>
+        <argsstring>(void *InstancePtr, u8 UsbEp, u8 *BufferPtr, u32 Length)</argsstring>
+        <name>EpBufferRecv</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UsbEp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>EpBufferRecv function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbEp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the USB endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the data buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the transfer length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="268" bodyend="273"/>
+        <references refid="group__usbpsu__api_1gad0102ce2327d084245189584307ecdfe" compoundref="xusbpsu__ephandler_8c" startline="368" endline="520">XUsbPsu_EpBufferRecv</references>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a787b860ced36f781523ab445c3f0f1e9" compoundref="xusb__class__composite_8c" startline="926" endline="1038">ParseCBW</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__audio_8c" startline="352" endline="395">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8h_1a3dd6b88879ee439db086e2ff6a7664d9" compoundref="xusb__freertos__class__composite_8c" startline="1062" endline="1119">prvSCSITask</referencedby>
+        <referencedby refid="xusb__freertos__class__audio_8c_1a32b6f95139e55ff73c71303408094577" compoundref="xusb__freertos__class__audio_8c" startline="41" endline="264">Usb_ClassReq</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+        <referencedby refid="xusb__ch9__composite_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" compoundref="xusb__ch9__composite_8c" startline="1552" endline="1647">Usb_SetConfigurationApp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a71d38238db02e22f8cae78864066c940" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EpSetStall</definition>
+        <argsstring>(void *InstancePtr, u8 Epnum, u8 Dir)</argsstring>
+        <name>EpSetStall</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Epnum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>EpSetStall function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Epnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="282" bodyend="289"/>
+        <references refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" compoundref="xusbpsu__controltransfers_8c" startline="59" endline="76">XUsbPsu_Ep0StallRestart</references>
+        <references refid="group__usbpsu__api_1ga07f17ab6f8a9e4881fab867ff7e4ecaa" compoundref="xusbpsu__ephandler_8c" startline="532" endline="553">XUsbPsu_EpSetStall</references>
+        <referencedby refid="xusb__ch9_8h_1a4a51f5e7948e7a27adcd66023d48876d" compoundref="xusb__ch9_8c" startline="58" endline="93">Ch9Handler</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8h_1adabccc59f14f73295d6d3e8ab2a84ed3" compoundref="xusb__class__storage_8c" startline="122" endline="146">ClassReq</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1ad1d69266191044d7d27c63bd7c049b7c" compoundref="xusb__class__audio__dfu_8c" startline="67" endline="151">Usb_DfuSetState</referencedby>
+        <referencedby refid="xusb__class__composite_8c_1a7b5c88f60ef35c935fbaf5cf42228318" compoundref="xusb__class__composite_8c" startline="826" endline="843">Usb_StorageClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a802d14b018de0532913e64d36c123cec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetBits</definition>
+        <argsstring>(void *InstancePtr, u32 TestSel)</argsstring>
+        <name>SetBits</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TestSel</declname>
+        </param>
+        <briefdescription>
+<para>SetBits function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TestSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the test mode selector. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="297" bodyend="301"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a772d84c06a10cea8de04517be09e7c8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 SetDeviceAddress</definition>
+        <argsstring>(void *InstancePtr, u16 Addr)</argsstring>
+        <name>SetDeviceAddress</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>SetDeviceAddress function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set Device Address(void * Instance Ptr, u16  Addr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the USB device address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="311" bodyend="314"/>
+        <references refid="group__usbpsu__api_1ga12567217fd7112e7d8fc4c6d91b20e11" compoundref="xusbpsu__device_8c" startline="268" endline="291">XUsbPsu_SetDeviceAddress</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a4de47b2a35ba7746ebec2f41ed493e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 SetU1SleepTimeout</definition>
+        <argsstring>(void *InstancePtr, u8 Sleep)</argsstring>
+        <name>SetU1SleepTimeout</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Sleep</declname>
+        </param>
+        <briefdescription>
+<para>SetU1SleepTimeout function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set U1 Sleep Timeout(void * Instance Ptr, u8  Sleep).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Sleep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sleep timeout value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="324" bodyend="327"/>
+        <references refid="group__usbpsu__api_1gaa511f1b4207a9b718f8951e2f3b0ac90" compoundref="xusbpsu_8c" startline="306" endline="318">XUsbPsu_SetU1SleepTimeout</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a542a04fdd8d1c57a8ca9d90034584263" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 SetU2SleepTimeout</definition>
+        <argsstring>(void *InstancePtr, u8 Sleep)</argsstring>
+        <name>SetU2SleepTimeout</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Sleep</declname>
+        </param>
+        <briefdescription>
+<para>SetU2SleepTimeout function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set U2 Sleep Timeout(void * Instance Ptr, u8  Sleep).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Sleep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sleep timeout value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="337" bodyend="340"/>
+        <references refid="group__usbpsu__api_1gade3b6c0bdb87c504d946212311c04216" compoundref="xusbpsu_8c" startline="331" endline="343">XUsbPsu_SetU2SleepTimeout</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a3f87a58eef4f67e796fe290a7c749a8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 AcceptU1U2Sleep</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>AcceptU1U2Sleep</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>AcceptU1U2Sleep function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Accept U1 U2 Sleep(void * Instance Ptr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="349" bodyend="353"/>
+        <references refid="group__usbpsu__api_1ga314e8d22a5f1a2e0e4bef7f0c7bffe85" compoundref="xusbpsu_8c" startline="355" endline="366">XUsbPsu_AcceptU1U2Sleep</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a7155981f80b1a470f00f2072abf97124" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 U1SleepEnable</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>U1SleepEnable</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>U1SleepEnable function. </para>        </briefdescription>
+        <detaileddescription>
+<para>U1 Sleep Enable(void * Instance Ptr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="362" bodyend="365"/>
+        <references refid="group__usbpsu__api_1gab610beaf7a6f5703f123e6682bea8c45" compoundref="xusbpsu_8c" startline="378" endline="389">XUsbPsu_U1SleepEnable</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ac7990af6b593432f9fe5ab81f7bd8a3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 U2SleepEnable</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>U2SleepEnable</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>U2SleepEnable function. </para>        </briefdescription>
+        <detaileddescription>
+<para>U2 Sleep Enable(void * Instance Ptr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="374" bodyend="377"/>
+        <references refid="group__usbpsu__api_1ga5340d1fa1682b73d5f4da55eff3b0a0b" compoundref="xusbpsu_8c" startline="401" endline="412">XUsbPsu_U2SleepEnable</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a4aa2a3657dc2cbd418ca6585b69ca3eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 U1SleepDisable</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>U1SleepDisable</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>U1SleepDisable function. </para>        </briefdescription>
+        <detaileddescription>
+<para>U1 Sleep Disable(void * Instance Ptr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="386" bodyend="389"/>
+        <references refid="group__usbpsu__api_1ga35ea7b99952969130f6bc35b088b16a0" compoundref="xusbpsu_8c" startline="424" endline="435">XUsbPsu_U1SleepDisable</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a1ea40d86e353b9e078682baeaabdbbae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 U2SleepDisable</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>U2SleepDisable</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>U2SleepDisable function. </para>        </briefdescription>
+        <detaileddescription>
+<para>U2 Sleep Disable(void * Instance Ptr).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="398" bodyend="401"/>
+        <references refid="group__usbpsu__api_1gace8c49312a72bbabfb622b62d88ffc0a" compoundref="xusbpsu_8c" startline="447" endline="458">XUsbPsu_U2SleepDisable</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1aaad9964d36a8a66a5bdbaefcd7bd5522" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 EpEnable</definition>
+        <argsstring>(void *InstancePtr, u8 UsbEpNum, u8 Dir, u16 Maxsize, u8 Type)</argsstring>
+        <name>EpEnable</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UsbEpNum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Maxsize</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>EpEnable function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Ep Enable(void * Instance Ptr, u8 Usb Ep Num, u8 Dir, u...</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbEpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the USB endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Maxsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the maximum packet size. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="414" bodyend="418"/>
+        <references refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" compoundref="xusbpsu__command_8c" startline="83" endline="167">XUsbPsu_EpEnable</references>
+        <referencedby refid="xusb__freertos__class__keyboard_8h_1aba8a3fdb3b4fc01587c30bbbdba21246" compoundref="xusb__freertos__class__composite_8c" startline="1010" endline="1052">prvKeyboardTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__audio_8c" startline="352" endline="395">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__audio_8c" startline="273" endline="343">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__storage_8h_1a3dd6b88879ee439db086e2ff6a7664d9" compoundref="xusb__freertos__class__composite_8c" startline="1062" endline="1119">prvSCSITask</referencedby>
+        <referencedby refid="xusb__ch9__composite_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" compoundref="xusb__ch9__composite_8c" startline="1552" endline="1647">Usb_SetConfigurationApp</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a89213a25f15867eff5fa1c41b0a1a5bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 EpDisable</definition>
+        <argsstring>(void *InstancePtr, u8 UsbEpNum, u8 Dir)</argsstring>
+        <name>EpDisable</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UsbEpNum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>EpDisable function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Ep Disable(void * Instance Ptr, u8  Usb Ep Num, u8  Dir).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbEpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the USB endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="429" bodyend="432"/>
+        <references refid="group__usbpsu__api_1gab3a191b5b5a02738beffd951ce4883d8" compoundref="xusbpsu__command_8c" startline="182" endline="213">XUsbPsu_EpDisable</references>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" compoundref="xusb__ch9__audio__dfu_8c" startline="1365" endline="1389">Usb_SetConfigurationApp</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a055bcdbc2aabdd7990e383350f1d9ebd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Usb_SetSpeed</definition>
+        <argsstring>(void *InstancePtr, u32 Speed)</argsstring>
+        <name>Usb_SetSpeed</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Speed</declname>
+        </param>
+        <briefdescription>
+<para>Usb_SetSpeed function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Speed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the USB speed value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="440" bodyend="443"/>
+        <references refid="group__usbpsu__api_1gaebd7592c8206e1fa22594cb2e4e44f7f" compoundref="xusbpsu__device_8c" startline="244" endline="255">XUsbPsu_SetSpeed</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a1c387f7a6cc0e39d1adaaff2d1fd1f00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UsbPollHandler</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>UsbPollHandler</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Handler called from polled mode for handling usb events. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="452" bodyend="455"/>
+        <references refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="368" endline="400">XUsbPsu_IntrHandler</references>
+        <referencedby refid="xusb__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__poll__example_8c" startline="137" endline="216">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1af81f75ebda88cd593c5619754286e4ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UsbEnableEvent</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, u32 Mask)</argsstring>
+        <name>UsbEnableEvent</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enables the events specified in the mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bitmask of events to enable. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="465" bodyend="468"/>
+        <references refid="group__usbpsu__api_1ga48e6e534c10a7a99be5606a0583c2129" compoundref="xusbpsu__intr_8c" startline="314" endline="324">XUsbPsu_EnableIntr</references>
+        <referencedby refid="xusb__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__poll__example_8c" startline="137" endline="216">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 IsSuperSpeed</definition>
+        <argsstring>(struct Usb_DevData *InstancePtr)</argsstring>
+        <name>IsSuperSpeed</name>
+        <param>
+          <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets speed of the Core for connecting to Host. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if super speed, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="479" bodyend="482"/>
+        <references refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" compoundref="xusbpsu_8h" startline="481">Usb_DevData::PrivateData</references>
+        <references refid="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" compoundref="xusbpsu_8c" startline="470" endline="479">XUsbPsu_IsSuperSpeed</references>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a787b860ced36f781523ab445c3f0f1e9" compoundref="xusb__class__composite_8c" startline="926" endline="1038">ParseCBW</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" compoundref="xusb__ch9__audio__dfu_8c" startline="1098" endline="1140">Usb_Ch9SetupCfgDescReply</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a8eaa9363a2026b377cee0a09377f6420" compoundref="xusb__ch9__audio__dfu_8c" startline="1056" endline="1082">Usb_Ch9SetupDevDescReply</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" compoundref="xusb__ch9__audio__dfu_8c" startline="1158" endline="1227">Usb_Ch9SetupStrDescReply</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a806fa9a72091f47fa04844f988166e70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetConfigDone</definition>
+        <argsstring>(void *InstancePtr, u8 Flag)</argsstring>
+        <name>SetConfigDone</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>Set the Config state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a private member of <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the config value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="492" bodyend="495"/>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1af99800b04544fe0bfa385de154d79087" compoundref="xusb__ch9__audio__dfu_8c" startline="1316" endline="1345">Usb_SetConfiguration</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" compoundref="xusb__ch9__audio__dfu_8c" startline="1365" endline="1389">Usb_SetConfigurationApp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a30882c23a359d37202d4096f8e278a69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 GetConfigDone</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>GetConfigDone</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the Config state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a private member of <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Configuration done flag value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="506" bodyend="509"/>
+        <references refid="struct_x_usb_psu_1a08f67def1d92b23c1988c830f4d8b83f" compoundref="xusbpsu_8h" startline="561">XUsbPsu::IsConfigDone</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a151fcc4b98bf4d667303c36a47e83407" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ep0StallRestart</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>Ep0StallRestart</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Ep0StallRestart function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="516" bodyend="519"/>
+        <references refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" compoundref="xusbpsu__controltransfers_8c" startline="59" endline="76">XUsbPsu_Ep0StallRestart</references>
+        <referencedby refid="xusb__freertos__class__audio_8c_1a32b6f95139e55ff73c71303408094577" compoundref="xusb__freertos__class__audio_8c" startline="41" endline="264">Usb_ClassReq</referencedby>
+        <referencedby refid="xusb__freertos__class__keyboard_8h_1a6b4c6d0f1989a268becf04033c4537df" compoundref="xusb__freertos__class__keyboard_8c" startline="54" endline="94">Usb_ClassReq_Keyboard</referencedby>
+        <referencedby refid="xusb__class__composite_8c_1a1371377fb6f75a25c4964644525e7f66" compoundref="xusb__class__composite_8c" startline="854" endline="887">Usb_KeyboardClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ab30ae0bb64c54e1ab61239c495a453d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetEpInterval</definition>
+        <argsstring>(void *InstancePtr, u8 UsbEpNum, u8 Dir, u32 Interval)</argsstring>
+        <name>SetEpInterval</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UsbEpNum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Interval</declname>
+        </param>
+        <briefdescription>
+<para>This function sets Endpoint Interval. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a private member of <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbEpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Endpoint Direction(In/Out). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Interval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data transfer service interval </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="531" bodyend="539"/>
+        <references refid="struct_x_usb_psu___ep_1a0f79403cf89a048aeedf9be9a9da8f4f" compoundref="xusbpsu_8h" startline="425">XUsbPsu_Ep::Interval</references>
+        <references refid="xusb__wrapper_8h_1a644f396a8634cedbecf3862197012dcc" compoundref="xusb__wrapper_8h" startline="120">PhysicalEp</references>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__audio_8c" startline="352" endline="395">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__audio_8c" startline="273" endline="343">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a54e3195374a6137c9984c6fd47c3368b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void StopTransfer</definition>
+        <argsstring>(void *InstancePtr, u8 EpNum, u8 Dir)</argsstring>
+        <name>StopTransfer</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EpNum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>StopTransfer function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="548" bodyend="551"/>
+        <references refid="group__usbpsu__api_1ga0358f9d4714f7d4e19d429ccf8cc6b26" compoundref="xusbpsu__ephandler_8c" startline="55" endline="94">XUsbPsu_StopTransfer</references>
+        <referencedby refid="xusb__wrapper_8h_1ac9a93cfa344a69238bdae647f51bb4d3" compoundref="xusb__wrapper_8c" startline="580" endline="583">StreamOff</referencedby>
+        <referencedby refid="xusb__class__dfu_8h_1ae341b8eb99d5437ecbe2e1aed80d080c" compoundref="xusb__class__dfu_8c" startline="298" endline="428">Usb_DfuClassReq</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1a84c0b803c0c80cef67f1c560c6435b8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 StreamOn</definition>
+        <argsstring>(void *InstancePtr, u8 EpNum, u8 Dir, u8 *BufferPtr)</argsstring>
+        <name>StreamOn</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EpNum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <briefdescription>
+<para>StreamOn function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stream On(void * Instance Ptr, u8 Ep Num, u8 Dir, u8 * ...</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the data buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="563" bodyend="571"/>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__audio_8c" startline="352" endline="395">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__audio_8c" startline="273" endline="343">prvRecordTask</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__wrapper_8c_1ac9a93cfa344a69238bdae647f51bb4d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void StreamOff</definition>
+        <argsstring>(void *InstancePtr, u8 EpNum, u8 Dir)</argsstring>
+        <name>StreamOff</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EpNum</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>StreamOff function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint direction. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c" bodystart="580" bodyend="583"/>
+        <references refid="xusb__wrapper_8c_1a54e3195374a6137c9984c6fd47c3368b" compoundref="xusb__wrapper_8c" startline="548" endline="551">StopTransfer</references>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains implementation of USBPSU Driver wrappers. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       Date     Changes
+<hruler/>
+
+1.0   BK        12/01/18 First release
+      MYK       12/01/18 Added hibernation support for device mode
+      vak       13/03/18 Moved the setup interrupt system calls from driver to
+                 example.
+1.5      vak    02/06/19 Modified the code to add UsbPollHandler and
+                 UsbEnableEvent API&apos;s
+      vak       02/07/19 Modified the code to issue <ref refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" kindref="member">XUsbPsu_Ep0StallRestart()</ref>
+                 for Endpoint Zero
+1.14  pm     21/06/23 Added support for system device-tree flow.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__wrapper_8h" kindref="compound">xusb_wrapper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="xusb__wrapper_8c_1a1e76e4a0f045f8f10b810f530dc4a63d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/><ref refid="xusb__wrapper_8c_1a1e76e4a0f045f8f10b810f530dc4a63d" kindref="member">PrivateData</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><ref refid="struct_x_usb_psu___config" kindref="compound">Usb_Config</ref><sp/>*<ref refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" kindref="member">LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga87fd60823e07b4852b8a8d569121908b" kindref="member">XUsbPsu_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61" refid="xusb__wrapper_8h_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" refkind="member"><highlight class="normal"><ref refid="struct_x_usb_psu___config" kindref="compound">Usb_Config</ref><sp/>*<ref refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" kindref="member">LookupConfig</ref>(UINTPTR<sp/><ref refid="struct_x_usb_psu_1a740530acd1ee913daa3399e377b8916a" kindref="member">BaseAddress</ref>)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga87fd60823e07b4852b8a8d569121908b" kindref="member">XUsbPsu_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xusb__wrapper_8h_1a279ce5fef0ed4e1fcad45af04f34873b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a279ce5fef0ed4e1fcad45af04f34873b" kindref="member">CacheInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="xusb__wrapper_8h_1a7409a4956ffb20a9407c497fd8f1c832" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a7409a4956ffb20a9407c497fd8f1c832" kindref="member">CfgInitialize</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb_psu___config" kindref="compound">Usb_Config</ref><sp/>*<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>,<sp/>u32<sp/><ref refid="struct_x_usb_psu_1a740530acd1ee913daa3399e377b8916a" kindref="member">BaseAddress</ref>)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a1e76e4a0f045f8f10b810f530dc4a63d" kindref="member">PrivateData</ref>.<ref refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" kindref="member">AppData</ref><sp/>=<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;<ref refid="xusb__wrapper_8c_1a1e76e4a0f045f8f10b810f530dc4a63d" kindref="member">PrivateData</ref>;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" kindref="member">XUsbPsu_CfgInitialize</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="xusb__wrapper_8h_1aaa7a2c1cb275a983a77b517a964d05ea" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1aaa7a2c1cb275a983a77b517a964d05ea" kindref="member">Set_Ch9Handler</ref>(</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*func)(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*))</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_set_ch9handler((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>func);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="xusb__wrapper_8h_1a6db826541b9dca41537548de4b58e258" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a6db826541b9dca41537548de4b58e258" kindref="member">Set_RstHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*func)(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*))</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_set_rsthandler((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>func);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="xusb__wrapper_8h_1a0750f624719ace8ba3116b796b60a89a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a0750f624719ace8ba3116b796b60a89a" kindref="member">Set_Disconnect</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*func)(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*))</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_set_disconnect((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>func);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="xusb__wrapper_8h_1ad17a2824033e5c4bd2c8aa6ee66b9189" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1ad17a2824033e5c4bd2c8aa6ee66b9189" kindref="member">EpConfigure</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>,<sp/>u8<sp/>EndpointNo,<sp/>u8<sp/>dir,<sp/>u32<sp/>Type)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)UsbInstance;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EndpointNo;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)dir;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Type;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="xusb__wrapper_8h_1a6f6b3711b08d9cbf8dc2f0781f470a50" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a6f6b3711b08d9cbf8dc2f0781f470a50" kindref="member">ConfigureDevice</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>,<sp/>u8<sp/>*MemPtr,<sp/>u32<sp/>memSize)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)UsbInstance;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)MemPtr;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)memSize;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="xusb__wrapper_8h_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" kindref="member">SetEpHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Epnum,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dir,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*Handler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>u32,<sp/>u32))</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gad585fe1304adfd139727220832c2dcf5" kindref="member">XUsbPsu_SetEpHandler</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Epnum,<sp/>Dir,<sp/>Handler);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="xusb__wrapper_8h_1a8d32fd815ed7b6b1bae2bd649ac428f1" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a8d32fd815ed7b6b1bae2bd649ac428f1" kindref="member">Usb_Start</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga6d7651e8afca56974940464709b8a3ed" kindref="member">XUsbPsu_Start</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195" refid="xusb__wrapper_8h_1ad850f272d507d36f74a55bb96211b85b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="xusb__wrapper_8c_1ad850f272d507d36f74a55bb96211b85b" kindref="member">Get_DrvData</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XUsbPsu_get_drvdata((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="xusb__wrapper_8h_1ae56a7dab4be473055d1f2c3de0dc0b41" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1ae56a7dab4be473055d1f2c3de0dc0b41" kindref="member">Set_DrvData</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_set_drvdata((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>data);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="xusb__wrapper_8h_1a3cb3a733e66a6a1882c392905105eeaa" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a3cb3a733e66a6a1882c392905105eeaa" kindref="member">IsEpStalled</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Epnum,<sp/>u8<sp/>Dir)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga940e5d8d4c56eec4e394507eb0e1ab8b" kindref="member">XUsbPsu_IsEpStalled</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Epnum,<sp/>Dir);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="xusb__wrapper_8h_1a2ef20d576e6e1bf2a4309036b643e7f3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a2ef20d576e6e1bf2a4309036b643e7f3" kindref="member">EpClearStall</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Epnum,<sp/>u8<sp/>Dir)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gaeff04b67a7a4a8c63da2327c6ae5e81b" kindref="member">XUsbPsu_EpClearStall</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Epnum,<sp/>Dir);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247" refid="xusb__wrapper_8h_1a0bebffade70d4d3276e743f7d3db8a6b" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a0bebffade70d4d3276e743f7d3db8a6b" kindref="member">EpBufferSend</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>UsbEp,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*BufferPtr,<sp/>u32<sp/>BufferLen)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UsbEp<sp/>==<sp/>0<sp/>&amp;&amp;<sp/>BufferLen<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga9a977327906f2995960e50d429703687" kindref="member">XUsbPsu_EpBufferSend</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbEp,<sp/>BufferPtr,<sp/>BufferLen);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268" refid="xusb__wrapper_8h_1ab01491c228aee667027315c8d539d8c5" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1ab01491c228aee667027315c8d539d8c5" kindref="member">EpBufferRecv</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>UsbEp,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*BufferPtr,<sp/>u32<sp/>Length)</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gad0102ce2327d084245189584307ecdfe" kindref="member">XUsbPsu_EpBufferRecv</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>UsbEp,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr,<sp/>Length);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282" refid="xusb__wrapper_8h_1a71d38238db02e22f8cae78864066c940" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a71d38238db02e22f8cae78864066c940" kindref="member">EpSetStall</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Epnum,<sp/>u8<sp/>Dir)</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Epnum)<sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" kindref="member">XUsbPsu_Ep0StallRestart</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga07f17ab6f8a9e4881fab867ff7e4ecaa" kindref="member">XUsbPsu_EpSetStall</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Epnum,<sp/>Dir);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297" refid="xusb__wrapper_8h_1a802d14b018de0532913e64d36c123cec" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a802d14b018de0532913e64d36c123cec" kindref="member">SetBits</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>TestSel)</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)TestSel;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311" refid="xusb__wrapper_8h_1a772d84c06a10cea8de04517be09e7c8b" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a772d84c06a10cea8de04517be09e7c8b" kindref="member">SetDeviceAddress</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u16<sp/>Addr)</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga12567217fd7112e7d8fc4c6d91b20e11" kindref="member">XUsbPsu_SetDeviceAddress</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Addr);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324" refid="xusb__wrapper_8h_1a4de47b2a35ba7746ebec2f41ed493e98" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a4de47b2a35ba7746ebec2f41ed493e98" kindref="member">SetU1SleepTimeout</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Sleep)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gaa511f1b4207a9b718f8951e2f3b0ac90" kindref="member">XUsbPsu_SetU1SleepTimeout</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Sleep);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337" refid="xusb__wrapper_8h_1a542a04fdd8d1c57a8ca9d90034584263" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a542a04fdd8d1c57a8ca9d90034584263" kindref="member">SetU2SleepTimeout</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Sleep)</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gade3b6c0bdb87c504d946212311c04216" kindref="member">XUsbPsu_SetU2SleepTimeout</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Sleep);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349" refid="xusb__wrapper_8h_1a3f87a58eef4f67e796fe290a7c749a8f" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a3f87a58eef4f67e796fe290a7c749a8f" kindref="member">AcceptU1U2Sleep</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga314e8d22a5f1a2e0e4bef7f0c7bffe85" kindref="member">XUsbPsu_AcceptU1U2Sleep</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362" refid="xusb__wrapper_8h_1a7155981f80b1a470f00f2072abf97124" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a7155981f80b1a470f00f2072abf97124" kindref="member">U1SleepEnable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="363"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gab610beaf7a6f5703f123e6682bea8c45" kindref="member">XUsbPsu_U1SleepEnable</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374" refid="xusb__wrapper_8h_1ac7990af6b593432f9fe5ab81f7bd8a3f" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1ac7990af6b593432f9fe5ab81f7bd8a3f" kindref="member">U2SleepEnable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="375"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga5340d1fa1682b73d5f4da55eff3b0a0b" kindref="member">XUsbPsu_U2SleepEnable</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386" refid="xusb__wrapper_8h_1a4aa2a3657dc2cbd418ca6585b69ca3eb" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a4aa2a3657dc2cbd418ca6585b69ca3eb" kindref="member">U1SleepDisable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga35ea7b99952969130f6bc35b088b16a0" kindref="member">XUsbPsu_U1SleepDisable</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398" refid="xusb__wrapper_8h_1a1ea40d86e353b9e078682baeaabdbbae" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a1ea40d86e353b9e078682baeaabdbbae" kindref="member">U2SleepDisable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gace8c49312a72bbabfb622b62d88ffc0a" kindref="member">XUsbPsu_U2SleepDisable</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414" refid="xusb__wrapper_8h_1aaad9964d36a8a66a5bdbaefcd7bd5522" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1aaad9964d36a8a66a5bdbaefcd7bd5522" kindref="member">EpEnable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>UsbEpNum,<sp/>u8<sp/>Dir,<sp/>u16<sp/>Maxsize,<sp/>u8<sp/>Type)</highlight></codeline>
+<codeline lineno="415"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" kindref="member">XUsbPsu_EpEnable</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>UsbEpNum,<sp/>Dir,</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Maxsize,<sp/>Type,<sp/>FALSE);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429" refid="xusb__wrapper_8h_1a89213a25f15867eff5fa1c41b0a1a5bf" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a89213a25f15867eff5fa1c41b0a1a5bf" kindref="member">EpDisable</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>UsbEpNum,<sp/>u8<sp/>Dir)</highlight></codeline>
+<codeline lineno="430"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gab3a191b5b5a02738beffd951ce4883d8" kindref="member">XUsbPsu_EpDisable</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>UsbEpNum,<sp/>Dir);</highlight></codeline>
+<codeline lineno="432"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440" refid="xusb__wrapper_8h_1a055bcdbc2aabdd7990e383350f1d9ebd" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a055bcdbc2aabdd7990e383350f1d9ebd" kindref="member">Usb_SetSpeed</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>Speed)</highlight></codeline>
+<codeline lineno="441"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gaebd7592c8206e1fa22594cb2e4e44f7f" kindref="member">XUsbPsu_SetSpeed</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>Speed);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="452" refid="xusb__wrapper_8h_1a1c387f7a6cc0e39d1adaaff2d1fd1f00" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a1c387f7a6cc0e39d1adaaff2d1fd1f00" kindref="member">UsbPollHandler</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="453"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" kindref="member">XUsbPsu_IntrHandler</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="465" refid="xusb__wrapper_8h_1af81f75ebda88cd593c5619754286e4ae" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1af81f75ebda88cd593c5619754286e4ae" kindref="member">UsbEnableEvent</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="466"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga48e6e534c10a7a99be5606a0583c2129" kindref="member">XUsbPsu_EnableIntr</ref>(InstancePtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="479" refid="xusb__wrapper_8h_1a02e8ef492f6fb18133f23f90205cc573" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a02e8ef492f6fb18133f23f90205cc573" kindref="member">IsSuperSpeed</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="480"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" kindref="member">XUsbPsu_IsSuperSpeed</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>);</highlight></codeline>
+<codeline lineno="482"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="492" refid="xusb__wrapper_8h_1a806fa9a72091f47fa04844f988166e70" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a806fa9a72091f47fa04844f988166e70" kindref="member">SetConfigDone</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>Flag)</highlight></codeline>
+<codeline lineno="493"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr)-&gt;IsConfigDone<sp/>=<sp/>Flag;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="506" refid="xusb__wrapper_8h_1a30882c23a359d37202d4096f8e278a69" refkind="member"><highlight class="normal">u8<sp/><ref refid="xusb__wrapper_8c_1a30882c23a359d37202d4096f8e278a69" kindref="member">GetConfigDone</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="507"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr)-&gt;<ref refid="struct_x_usb_psu_1a08f67def1d92b23c1988c830f4d8b83f" kindref="member">IsConfigDone</ref>);</highlight></codeline>
+<codeline lineno="509"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="516" refid="xusb__wrapper_8h_1a151fcc4b98bf4d667303c36a47e83407" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a151fcc4b98bf4d667303c36a47e83407" kindref="member">Ep0StallRestart</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="517"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" kindref="member">XUsbPsu_Ep0StallRestart</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="531" refid="xusb__wrapper_8h_1ab30ae0bb64c54e1ab61239c495a453d3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1ab30ae0bb64c54e1ab61239c495a453d3" kindref="member">SetEpInterval</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>UsbEpNum,<sp/>u8<sp/>Dir,<sp/>u32<sp/>Interval)</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PhyEpNum;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref><sp/>*Ept;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhyEpNum<sp/>=<sp/><ref refid="xusb__wrapper_8h_1a644f396a8634cedbecf3862197012dcc" kindref="member">PhysicalEp</ref>(UsbEpNum,<sp/>Dir);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept<sp/>=<sp/>&amp;((</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr)-&gt;eps[PhyEpNum];</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a0f79403cf89a048aeedf9be9a9da8f4f" kindref="member">Interval</ref><sp/>=<sp/>Interval;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="548" refid="xusb__wrapper_8h_1a54e3195374a6137c9984c6fd47c3368b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1a54e3195374a6137c9984c6fd47c3368b" kindref="member">StopTransfer</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>EpNum,<sp/>u8<sp/>Dir)</highlight></codeline>
+<codeline lineno="549"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga0358f9d4714f7d4e19d429ccf8cc6b26" kindref="member">XUsbPsu_StopTransfer</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>EpNum,<sp/>Dir,<sp/>TRUE);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563" refid="xusb__wrapper_8h_1a84c0b803c0c80cef67f1c560c6435b8a" refkind="member"><highlight class="normal">s32<sp/><ref refid="xusb__wrapper_8c_1a84c0b803c0c80cef67f1c560c6435b8a" kindref="member">StreamOn</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>EpNum,<sp/>u8<sp/>Dir,<sp/>u8<sp/>*BufferPtr)</highlight></codeline>
+<codeline lineno="564"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)EpNum;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Dir;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)BufferPtr;</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Streaming<sp/>will<sp/>start<sp/>on<sp/>TxferNotReady<sp/>Event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580" refid="xusb__wrapper_8h_1ac9a93cfa344a69238bdae647f51bb4d3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__wrapper_8c_1ac9a93cfa344a69238bdae647f51bb4d3" kindref="member">StreamOff</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>EpNum,<sp/>u8<sp/>Dir)</highlight></codeline>
+<codeline lineno="581"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a54e3195374a6137c9984c6fd47c3368b" kindref="member">StopTransfer</ref>((</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*)InstancePtr,<sp/>EpNum,<sp/>Dir);</highlight></codeline>
+<codeline lineno="583"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_wrapper.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___distribution___system___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Distribution_System_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___system___settings_1a658eec4938655fb97827660347cbbd74" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___distribution___settings" kindref="compound">XRFdc_Distribution_Settings</ref></type>
+        <definition>XRFdc_Distribution_Settings XRFdc_Distribution_System_Settings::Distributions[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Distributions</name>
+        <briefdescription>
+<para><verbatim>                                         Per-tile
+</verbatim> distributions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="462" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Clock distribution system configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="95">
+        <label>XRFdc_Tile_Clock_Settings</label>
+        <link refid="struct_x_r_fdc___tile___clock___settings"/>
+      </node>
+      <node id="92">
+        <label>XRFdc_Distribution_System_Settings</label>
+        <link refid="struct_x_r_fdc___distribution___system___settings"/>
+        <childnode refid="93" relation="usage">
+          <edgelabel>Distributions</edgelabel>
+        </childnode>
+      </node>
+      <node id="94">
+        <label>XRFdc_Distribution_Info</label>
+        <link refid="struct_x_r_fdc___distribution___info"/>
+        <childnode refid="95" relation="usage">
+          <edgelabel>ClkSettings</edgelabel>
+        </childnode>
+      </node>
+      <node id="93">
+        <label>XRFdc_Distribution_Settings</label>
+        <link refid="struct_x_r_fdc___distribution___settings"/>
+        <childnode refid="94" relation="usage">
+          <edgelabel>Info</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="461" bodyend="464"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___distribution___system___settings_1a658eec4938655fb97827660347cbbd74" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_System_Settings</scope><name>Distributions</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

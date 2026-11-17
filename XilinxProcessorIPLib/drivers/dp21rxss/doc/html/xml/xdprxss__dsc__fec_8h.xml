@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdprxss__dsc__fec_8h" kind="file">
+    <compoundname>xdprxss_dsc_fec.h</compoundname>
+    <includes refid="xdprxss_8h" local="yes">xdprxss.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xdprxss__dsc__fec_8c" local="yes">xdprxss_dsc_fec.c</includedby>
+    <incdepgraph>
+      <node id="1474">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="1473">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1478">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss__iic_8h"/>
+      </node>
+      <node id="1476">
+        <label>xdprxss_dprx.h</label>
+        <link refid="xdprxss__dprx_8h"/>
+        <childnode refid="1477" relation="include">
+        </childnode>
+      </node>
+      <node id="1471">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="1472" relation="include">
+        </childnode>
+        <childnode refid="1474" relation="include">
+        </childnode>
+        <childnode refid="1475" relation="include">
+        </childnode>
+        <childnode refid="1476" relation="include">
+        </childnode>
+        <childnode refid="1478" relation="include">
+        </childnode>
+        <childnode refid="1479" relation="include">
+        </childnode>
+      </node>
+      <node id="1477">
+        <label>xdp.h</label>
+      </node>
+      <node id="1472">
+        <label>xdprxss_hw.h</label>
+        <link refid="xdprxss__hw_8h"/>
+        <childnode refid="1473" relation="include">
+        </childnode>
+      </node>
+      <node id="1475">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1481">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1480">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1470">
+        <label>xdprxss_dsc_fec.h</label>
+        <link refid="xdprxss_dsc_fec.h"/>
+        <childnode refid="1471" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
+        <childnode refid="1475" relation="include">
+        </childnode>
+      </node>
+      <node id="1479">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss__hdcp1x_8h"/>
+        <childnode refid="1480" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1483">
+        <label>xdprxss_dsc_fec.c</label>
+        <link refid="xdprxss__dsc__fec_8c"/>
+      </node>
+      <node id="1482">
+        <label>xdprxss_dsc_fec.h</label>
+        <link refid="xdprxss_dsc_fec.h"/>
+        <childnode refid="1483" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>DP RX Subsystem DSC/FEC Support Header. </para>    </briefdescription>
+    <detaileddescription>
+<para>Declares the Display Stream Compression and Forward Error Correction entry points of the DisplayPort 2.1 RX Subsystem. The whole interface is compiled only for designs that build the DSC decoder in. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#ifndef<sp/>XDPRXSS_DSC_FEC_H</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_DSC_FEC_H</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdprxss_8h" kindref="compound">xdprxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDPRXSS_USE_DSC</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpRxSs_DscFecInit(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpRxSs_SetFecEnable(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpRxSs_EnableDscPassthrough(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpRxSs_ExposeDscFecCapability(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDPRXSS_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDPRXSS_DSC_FEC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_dsc_fec.h"/>
+  </compounddef>
+</doxygen>

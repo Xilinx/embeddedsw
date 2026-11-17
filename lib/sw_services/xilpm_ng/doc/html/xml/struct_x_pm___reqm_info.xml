@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___reqm_info" kind="struct" prot="public">
+    <compoundname>XPm_ReqmInfo</compoundname>
+    <includes local="no">xpm_requirement_info.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ReqmInfo::Capabilities</definition>
+        <argsstring></argsstring>
+        <name>Capabilities</name>
+        <bitfield>REQ_INFO_CAPS_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Device capabilities (1-hot) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ReqmInfo::Latency</definition>
+        <argsstring></argsstring>
+        <name>Latency</name>
+        <bitfield>REQ_INFO_LATENCY_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Maximum device latency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_info_1afe13d42b58d2f9f0caf03e0e6543514b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ReqmInfo::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <bitfield>REQ_INFO_RESERVED_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Reserved for future use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ReqmInfo::QoS</definition>
+        <argsstring></argsstring>
+        <name>QoS</name>
+        <briefdescription>
+<para>QoS requirement. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Specific requirement information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement_info.h" bodystart="24" bodyend="29"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" prot="public" virt="non-virtual"><scope>XPm_ReqmInfo</scope><name>Capabilities</name></member>
+      <member refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" prot="public" virt="non-virtual"><scope>XPm_ReqmInfo</scope><name>Latency</name></member>
+      <member refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" prot="public" virt="non-virtual"><scope>XPm_ReqmInfo</scope><name>QoS</name></member>
+      <member refid="struct_x_pm___reqm_info_1afe13d42b58d2f9f0caf03e0e6543514b" prot="public" virt="non-virtual"><scope>XPm_ReqmInfo</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

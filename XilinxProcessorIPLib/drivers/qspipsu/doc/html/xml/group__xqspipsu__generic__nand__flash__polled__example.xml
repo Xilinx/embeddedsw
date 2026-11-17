@@ -1,0 +1,1209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xqspipsu__generic__nand__flash__polled__example" kind="group">
+    <compoundname>xqspipsu_generic_nand_flash_polled_example</compoundname>
+    <title>Xqspipsu_generic_nand_flash_polled_example</title>
+      <sectiondef kind="user-defined">
+      <header>Status registers and parameter page settings</header>
+      <description><para>Defines the status register addresses, the values written to them, and the ONFI CRC length. </para></description>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga665c442790206fcce4058d958ca5ec1e" prot="public" static="no">
+        <name>STATUS_REG_1</name>
+        <initializer>0xA0</initializer>
+        <briefdescription>
+<para>Status register 1 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gaa6cd3e13cdbafa83854e2cfc7527c751" prot="public" static="no">
+        <name>STATUS_REG_2</name>
+        <initializer>0xB0</initializer>
+        <briefdescription>
+<para>Status register 2 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga0f711b57bc1f344bf45c563cf61c0555" prot="public" static="no">
+        <name>STATUS_REG_3</name>
+        <initializer>0xC0</initializer>
+        <briefdescription>
+<para>Status register 3 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gad706b1598fd56efd8272150991d6404b" prot="public" static="no">
+        <name>ENABLE_BUF_MODE</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+<para>Value to enable buffer mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga186eb481978735f538f9a6337ead8714" prot="public" static="no">
+        <name>DISABLE_WP</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Value to disable write protection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga559cc760a076eea0fbe6e2f7d6ebf48e" prot="public" static="no">
+        <name>DISABLE_BUF_MODE</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+<para>Value to disable buffer mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga227f8d8d7d2de58dd0b2d6da3006f03e" prot="public" static="no">
+        <name>ONFI_CRC_LEN</name>
+        <initializer>254</initializer>
+        <briefdescription>
+<para>Number of parameter page bytes covered by the CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Flash commands</header>
+      <description><para>Defines the commands which may be sent to the Flash device. </para></description>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gae90b7e8c7fe9d94c5c156a07e57fc27c" prot="public" static="no">
+        <name>READ_ID</name>
+        <initializer>0x9F</initializer>
+        <briefdescription>
+<para>Read ID command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gac3bdb445a2ed23c2eb3417b7b4a67e00" prot="public" static="no">
+        <name>PAGE_DATA_READ</name>
+        <initializer>0x13</initializer>
+        <briefdescription>
+<para>Page data read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gae16d5ede0f32f56d85d9a6a0ec5da283" prot="public" static="no">
+        <name>PAGE_DATA_LOAD</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Program data load command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gaf616c56742bcbeb1638e209c35412353" prot="public" static="no">
+        <name>QUAD_READ_CMD_4B</name>
+        <initializer>0x6C</initializer>
+        <briefdescription>
+<para>Quad output fast read command with 4-byte address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" prot="public" static="no">
+        <name>READ_STATUS_CMD</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Read status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" prot="public" static="no">
+        <name>WRITE_CMD</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Page program command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" prot="public" static="no">
+        <name>WRITE_ENABLE_CMD</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga076966d3a1aa7647c294802e9f76bb10" prot="public" static="no">
+        <name>WRITE_STATUS_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga9b58e3d8eaefa240d9ccbac870fc1c2b" prot="public" static="no">
+        <name>BLOCK_ERASE_CMD</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+<para>Block erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga8f682f342cf5aafd453cadbcc7b66d04" prot="public" static="no">
+        <name>PROG_EXEC_CMD</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Program execute command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Flash buffer offsets</header>
+      <description><para>Defines the offsets within a FlashBuffer data type for each kind of data.</para><para>The read data offset is not the same as the write data offset. The QSPIPSU driver allows full duplex transfers, so the number of bytes received is the number sent and received. </para></description>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gadb83c033ee492824badb77fa8ebd5c5d" prot="public" static="no">
+        <name>COMMAND_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Flash instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gacb3f014bb2edc22968015d7c94fc50e7" prot="public" static="no">
+        <name>ADDRESS_1_OFFSET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>MSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga78eeefaa529edaa16698434814f12882" prot="public" static="no">
+        <name>ADDRESS_2_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Middle byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Parameter page offsets</header>
+      <description><para>Defines the byte offsets of fields in the ONFI parameter page. </para></description>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga5dd4ca638f5a82c76cec44d83a6e0ea6" prot="public" static="no">
+        <name>PAGE_SIZE_0_OFFSET</name>
+        <initializer>80</initializer>
+        <briefdescription>
+<para>Page size byte 0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gac0b54e6550658bc384d55918db5da41a" prot="public" static="no">
+        <name>PAGE_SIZE_1_OFFSET</name>
+        <initializer>81</initializer>
+        <briefdescription>
+<para>Page size byte 1 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga3c68e560ff165fc99cf0c8cc9e2cc34d" prot="public" static="no">
+        <name>PAGE_SIZE_2_OFFSET</name>
+        <initializer>82</initializer>
+        <briefdescription>
+<para>Page size byte 2 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gac03202c7e3446e9f444b1aa62181c4b0" prot="public" static="no">
+        <name>PAGE_SIZE_3_OFFSET</name>
+        <initializer>83</initializer>
+        <briefdescription>
+<para>Page size byte 3 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga6b9bad7d6c95d13dbbe94308fa435760" prot="public" static="no">
+        <name>SPARE_0_OFFSET</name>
+        <initializer>84</initializer>
+        <briefdescription>
+<para>Spare area size byte 0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga3e342dea9d1214eb4fae550ac18be8e0" prot="public" static="no">
+        <name>SPARE_1_OFFSET</name>
+        <initializer>85</initializer>
+        <briefdescription>
+<para>Spare area size byte 1 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gad5535e7b7202c8cee5d45a7bd94b0ca1" prot="public" static="no">
+        <name>PAGE_COUNT_0_OFFSET</name>
+        <initializer>92</initializer>
+        <briefdescription>
+<para>Pages per block byte 0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga6639ae34403afddc9a059d99b6571d07" prot="public" static="no">
+        <name>PAGE_COUNT_1_OFFSET</name>
+        <initializer>93</initializer>
+        <briefdescription>
+<para>Pages per block byte 1 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga74dcf95b7a42c38714a0470bd5514b73" prot="public" static="no">
+        <name>PAGE_COUNT_2_OFFSET</name>
+        <initializer>94</initializer>
+        <briefdescription>
+<para>Pages per block byte 2 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gaa2aa54df8dc16df3159b97374432fa61" prot="public" static="no">
+        <name>PAGE_COUNT_3_OFFSET</name>
+        <initializer>95</initializer>
+        <briefdescription>
+<para>Pages per block byte 3 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga6d201ab9db809e236912d7a964c5fdee" prot="public" static="no">
+        <name>CRC_0_OFFSET</name>
+        <initializer>254</initializer>
+        <briefdescription>
+<para>CRC byte 0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga896a695377a8d5a6544a812353da8ae4" prot="public" static="no">
+        <name>CRC_1_OFFSET</name>
+        <initializer>255</initializer>
+        <briefdescription>
+<para>CRC byte 1 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga8aacb9e0b5c8a66134d297b16670f6ae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadCmd</definition>
+        <argsstring></argsstring>
+        <name>ReadCmd</name>
+        <briefdescription>
+<para>Read command used for flash reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga0282705d6928fb1ec764e90e42e8fe5b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteCmd</definition>
+        <argsstring></argsstring>
+        <name>WriteCmd</name>
+        <briefdescription>
+<para>Write command used for flash writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga84a26bd98405c23d484087358ecfb0d8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 StatusCmd</definition>
+        <argsstring></argsstring>
+        <name>StatusCmd</name>
+        <briefdescription>
+<para>Command used to read the flash status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga2f9ad38fdbc39e419ec525a0a53ca9b8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 EraseCmd</definition>
+        <argsstring></argsstring>
+        <name>EraseCmd</name>
+        <briefdescription>
+<para>Command used for block erases. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gadb76586d04c997f8b79c771199f091be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FSRFlag</definition>
+        <argsstring></argsstring>
+        <name>FSRFlag</name>
+        <briefdescription>
+<para>Set when the flag status register is polled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga6d521daf149f9047dc5d589daaa16d42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Single-byte command transmit buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga3823486ff385aeb62ad5e661d3127982" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBfrPtr[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>ReadBfrPtr</name>
+        <briefdescription>
+<para>Receive buffer for the flash ID and registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gad656c83067c84e57765562443bcfecf0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadSpareBfrPtr[100]</definition>
+        <argsstring>[100]</argsstring>
+        <name>ReadSpareBfrPtr</name>
+        <briefdescription>
+<para>Receive buffer for the spare area data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gaa0148ff9e8086b533df9d41b73addb90" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ParameterPageData[2048]</definition>
+        <argsstring>[2048]</argsstring>
+        <name>ParameterPageData</name>
+        <briefdescription>
+<para>Buffer for the ONFI parameter page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga5e9d96330a2ed2ba161234d01bff3ef1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PageSize</definition>
+        <argsstring></argsstring>
+        <name>PageSize</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Page size of the flash device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gac5090c2686ec3535a9e65c1ec159550a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 BlockSize</definition>
+        <argsstring></argsstring>
+        <name>BlockSize</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Block size of the flash device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga30ed809db689ba5cac002fa12365c6f1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PageCount</definition>
+        <argsstring></argsstring>
+        <name>PageCount</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Number of pages per block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1ga175593a17440fbee28967264baf4cb77" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref></type>
+        <definition>XQspiPsu QspiPsuInstance</definition>
+        <argsstring></argsstring>
+        <name>QspiPsuInstance</name>
+        <briefdescription>
+<para>QSPIPSU driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gac5d623290bc61b6752404b56e0c9fd94" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref></type>
+        <definition>XQspiPsu_Msg FlashMsg[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>FlashMsg</name>
+        <briefdescription>
+<para>Messages for flash transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gab3bcee72bda39943b664463f1df4d211" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Test</definition>
+        <argsstring></argsstring>
+        <name>Test</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>The following variable allows a test value to be added to the values that are written to the Flash such that unique values can be generated to guarantee the writes to the Flash were successful. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gab47e57607b1aa17a2c0842f676a24f4e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[MAX_PAGE_COUNT *MAX_PAGE_SIZE]</definition>
+        <argsstring>[MAX_PAGE_COUNT *MAX_PAGE_SIZE]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Buffer that holds the data to write to the flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gae05983c4f8e4b2d1c912414136eac56c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdBfr[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>CmdBfr</name>
+        <briefdescription>
+<para>Buffer for the flash command and address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__nand__flash__polled__example_1gab839e91b4279b469bdd2167b7e386fd2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MaxData</definition>
+        <argsstring></argsstring>
+        <name>MaxData</name>
+        <briefdescription>
+<para>Maximum amount of data to transfer to and from the Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>The value also sets the size of the buffer that holds the data and the transfer overhead. It is initialized to the single flash page size. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga414f5ebcabb6461fc494d784f711f306" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int QspiPsuPolledFlashExample</definition>
+        <argsstring>(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>QspiPsuPolledFlashExample</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Demonstrates the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> driver with NAND flash devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>Illustrates how to use the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> device driver using NAND flash devices.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">QspiPsuInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the QspiPsu device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the example uses DeviceId to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="172" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1gac7c0194bd58d158581c699b8c07c309d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashReadID</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr)</argsstring>
+        <name>FlashReadID</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the flash ID information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="174" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga29131a3f0d1b43e99dbfb0f0e0b6999d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashErase</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address)</argsstring>
+        <name>FlashErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Erases sectors in the serial Flash connected to the QSPIPSU interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the first sector to erase.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="175" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga333c8e44e9af52811dee98f2cfcacf53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashWrite</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashWrite</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial Flash connected to the QSPIPSU interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address in the Flash to write the data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command used to write data to the flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer to transmit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="176" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1gaaaad34739d0ad6d1fb5436c1d6428463" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashRead</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashRead</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a read operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default setting is DMA mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the first sector which needs to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total size to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command used to read data from the flash. Supports normal, fast, dual, and quad read commands. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer that contains the data to transmit. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the read buffer to which valid received data is written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="178" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga8f54c2517204156c731fc188b2813dbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashStatusRead</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u8 RegAddr, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashStatusRead</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads a flash register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flash register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the value to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>This API can only be used for one flash at a time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga9e04afb92201a853b5e46ecd588e6c2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashStatusWrite</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u8 RegAddr, u8 Data)</argsstring>
+        <name>FlashStatusWrite</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegAddr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegVal</declname>
+          <defname>Data</defname>
+        </param>
+        <briefdescription>
+<para>Writes to a flash register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flash register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>This API can only be used for one flash at a time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="181" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1gaadb5bba767105a02460fed573339cc03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashCheckIsBadBlock</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address)</argsstring>
+        <name>FlashCheckIsBadBlock</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Checks the bad block information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to check for a bad block.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="182" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga00a4de96abf83f73868e4deaac0201cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashIsNotBusy</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr)</argsstring>
+        <name>FlashIsNotBusy</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the flash status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>This API can only be used for one flash at a time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="183" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1gaf4252e677790f632c68c5d33fe5e4cd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XQspiPsu_ReadParamPage</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr)</argsstring>
+        <name>XQspiPsu_ReadParamPage</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads Parameter Page data from the flash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="184" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1gae96f0bea0a66bc8a9d0d31ab8d15a232" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XQspiPsu_ParamPageCrc</definition>
+        <argsstring>(u8 *ParamBuf, u32 StartOff, u32 Length)</argsstring>
+        <name>XQspiPsu_ParamPageCrc</name>
+        <param>
+          <type>u8 *</type>
+          <declname>ParamBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StartOff</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the parameter page CRC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ParamBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the ONFI parameter page buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StartOff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting offset in buffer to calculate CRC. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes for which CRC is calculated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CRC value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="185" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__nand__flash__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the QSPIPSU Flash Polled example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="247" bodyend="268"/>
+        <references refid="group__xqspipsu__generic__flash__polled__64bit__dma__r5__example_1ga414f5ebcabb6461fc494d784f711f306" compoundref="xqspipsu__generic__flash__polled__64bit__dma__r5__example_8c" startline="259" endline="440">QspiPsuPolledFlashExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gafc2654221fb6754b15ddbcbb2b91d783" prot="public" static="no">
+        <name>MAX_PAGE_COUNT</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Number of flash pages to be written. </para>        </briefdescription>
+        <detaileddescription>
+<para>NOTE: Update this value as per the flash parameter. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" prot="public" static="no">
+        <name>MAX_PAGE_SIZE</name>
+        <initializer>2048</initializer>
+        <briefdescription>
+<para>Maximum page size to initialize the write and read buffers. </para>        </briefdescription>
+        <detaileddescription>
+<para>NOTE: Update this value as per the flash parameter. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga9376dcef436c7d444fe4d1fd11749101" prot="public" static="no">
+        <name>TEST_ADDRESS</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+<para>Flash block start address to which data is to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0x43</initializer>
+        <briefdescription>
+<para>Start value of the test data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga4ccc8cdaf89ecd287e1f9e99a028435b" prot="public" static="no">
+        <name>PARAMETER_PAGE_ADDRESS</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Parameter page address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga88812ab4b64923cfce40f8c0545573f8" prot="public" static="no">
+        <name>OTP_E_BIT</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>OTP enable bit value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__nand__flash__polled__example_1ga4719f5adc345cd41839d7dc72e19c349" prot="public" static="no">
+        <name>DUMMY_CLOCKS</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Number of dummy cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_nand_flash_polled_example.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

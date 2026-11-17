@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xcert__apis" kind="group">
+    <compoundname>xcert_apis</compoundname>
+    <title>XilCert APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xcert__apis_1ga3b45264c1bf4790b462655981d05289b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32 *</type>
+        <definition>u32* XCert_GetSpkId</definition>
+        <argsstring>(void)</argsstring>
+        <name>XCert_GetSpkId</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the static variable SpkId. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the static variable SPK ID. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.c" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.c" bodystart="252" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_GenerateX509Cert</definition>
+        <argsstring>(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize, XCert_Config *Cfg)</argsstring>
+        <name>XCert_GenerateX509Cert</name>
+        <param>
+          <type>u64</type>
+          <declname>X509CertAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MaxCertSize</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>X509CertSize</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_cert___config" kindref="compound">XCert_Config</ref> *</type>
+          <declname>Cfg</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the X.509 Certificate/Certificate Signing Request(CSR) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>X509CertAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the X.509 Certificate buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MaxCertSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum size of the X.509 Certificate buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>X509CertSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of X.509 Certificate in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to structure which includes configuration for the X.509 Certificate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Successfully generated X.509 certificate/CSR</para></listitem><listitem><para>XST_INVALID_PARAM Invalid function arguments</para></listitem><listitem><para>XCERT_ERR_X509_KAT_FAILED Failure of SHA384 KAT</para></listitem><listitem><para>XCERT_ERR_X509_GEN_TBSCERT_DIGEST Failure in SHA 384 digest calculation for TBS certificate</para></listitem><listitem><para>XCERT_ERR_X509_GET_SIGN Failure in getting stored signature</para></listitem><listitem><para>XSECURE_KAT_MAJOR_ERROR Failure in Sign Generate KAT</para></listitem><listitem><para>XCERT_ERR_X509_CALC_SIGN Failure in generating ephemeral key and signature</para></listitem><listitem><para>XCERT_ERR_X509_UPDATE_ENCODED_LEN Failure in updating encoded length</para></listitem><listitem><para>XCERT_ERR_X509_INSUFFICIENT_MEMORY Insufficient buffer provided for X.509 cert.</para></listitem><listitem><para>XST_FAILURE In case of failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Certificate ::= SEQUENCE { tbsCertificate TBSCertificate, signatureAlgorithm AlgorithmIdentifier, signatureValue BIT STRING } </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>SHA 384 is used to calculate hash for Serial field and to calculate hash for signature calculation. So run KAT for SHA384 before use</para><para>Generate Sign Algorithm field</para><para>Calculate SHA 384 Digest of the TBS certificate</para><para>Get the TBS certificate signature stored in Cert DB</para><para>If the Signature is available, compare the hash stored with the hash calculated to make sure nothing is changed. if hash matches, copy the stored signature else generate the signature again.</para><para>If the Signature is not available or Hash comparison from above fails, regenerate the signature.</para><para>Calculate signature of the TBS certificate using the private key</para><para>Copy the generated signature and hash into SignStore</para><para>Generate Signature field</para><para>Update the encoded length in the X.509 certificate SEQUENCE</para><para>Validate the certificate size and copy the certificate to user buffer</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.c" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.c" bodystart="286" bodyend="474"/>
+        <references refid="struct_x_cert___config_1acd8d359b5c228905e28f209e7200f60d" compoundref="xcert__genx509cert_8h" startline="185">XCert_Config::AppCfg</references>
+        <references refid="struct_x_cert___x509_cert_info_1a3bd7c31c7a0a51bf1cddc4c54199b9a3" compoundref="xcert__createfield_8h" startline="131">XCert_X509CertInfo::Buff</references>
+        <references refid="struct_x_cert___x509_cert_info_1a8dad13d50b7fde8ce15cf7a01afa19b2" compoundref="xcert__createfield_8h" startline="132">XCert_X509CertInfo::CurrOffset</references>
+        <references refid="struct_x_cert___sign_store_1a47a31a81b987739963261cb014990427" compoundref="xcert__genx509cert_8h" startline="112">XCert_SignStore::Hash</references>
+        <references refid="struct_x_cert___app_cfg_1a00e802e538ea05f91fe41aa8e194717d" compoundref="xcert__genx509cert_8h" startline="168">XCert_AppCfg::IsCsr</references>
+        <references refid="struct_x_cert___sign_store_1aa999f388f23022aa2c09354dd0f54aef" compoundref="xcert__genx509cert_8h" startline="113">XCert_SignStore::IsSignAvailable</references>
+        <references refid="struct_x_cert___app_cfg_1a8b81f19353a0b2983622a03519c8ebba" compoundref="xcert__genx509cert_8h" startline="170">XCert_AppCfg::IssuerPrvtKey</references>
+        <references refid="struct_x_cert___x509_cert_info_1a77c131b5e8540bbbed931137989863dc" compoundref="xcert__createfield_8h" startline="133">XCert_X509CertInfo::RemainingBytes</references>
+        <references refid="struct_x_cert___sign_store_1a5aece10a2a02289ef5f13b16f1849311" compoundref="xcert__genx509cert_8h" startline="111">XCert_SignStore::Sign</references>
+        <references refid="struct_x_cert___config_1a713b05bc774246e63056a1483235fc2f" compoundref="xcert__genx509cert_8h" startline="182">XCert_Config::SubSystemId</references>
+        <references refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42a6f5e40696d3967037ca682597bd8d998" compoundref="xcert__genx509cert_8h" startline="196">XCERT_ERR_X509_CALC_SIGN</references>
+        <references refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42a8580363f8bb66d1a777d92a4ac902a85" compoundref="xcert__genx509cert_8h" startline="194">XCERT_ERR_X509_GEN_TBSCERT_DIGEST</references>
+        <references refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42a91a14853d1af93dd0b622f01cfdea881" compoundref="xcert__genx509cert_8h" startline="204">XCERT_ERR_X509_GET_SIGN</references>
+        <references refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42a17096c7777a5e6cbf59f342c5d4e3eae" compoundref="xcert__genx509cert_8h" startline="208">XCERT_ERR_X509_INSUFFICIENT_MEMORY</references>
+        <references refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42a10f9b61de43894721732214d6b279877" compoundref="xcert__genx509cert_8h" startline="198">XCERT_ERR_X509_UPDATE_ENCODED_LEN</references>
+        <references refid="xcert__genx509cert_8h_1a95a2dd6b78d5c40d177a074620579942" compoundref="xcert__genx509cert_8h" startline="62">XCERT_HASH_SIZE_IN_BYTES</references>
+        <references refid="xcert__createfield_8h_1adb9d9dbb1d48e1caff55695be6c2a1e1" compoundref="xcert__createfield_8h" startline="84">XCERT_LOWER_NIBBLE_MASK</references>
+        <references refid="xcert__createfield_8h_1a22e7e4649143ca93f86b83b7f492a72d" compoundref="xcert__createfield_8h" startline="105">XCERT_PTR_DIFF_U32</references>
+        <references refid="xcert__createfield_8h_1a4b15482c731266d2ab079970e8fd5056" compoundref="xcert__createfield_8h" startline="88">XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES</references>
+        <references refid="group__xil__certapis_1ga757161cc6105137b1bbc3e183054b646" compoundref="versal__2vp_2xcert__sha_8h" startline="45">XOCP_SECURE_SHA_KAT_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xcert__apis_1ga8b37477fe9d2496ae31617c733fe1f9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCert_StoreCertUserInput</definition>
+        <argsstring>(u32 SubSystemId, XCert_UserCfgFields FieldType, u8 *Val, u32 Len, u32 KeyIndex)</argsstring>
+        <name>XCert_StoreCertUserInput</name>
+        <param>
+          <type>u32</type>
+          <declname>SubSystemId</declname>
+        </param>
+        <param>
+          <type><ref refid="xcert__genx509cert_8h_1ab77f95d2568bc13fae0a90d6df8a7af0" kindref="member">XCert_UserCfgFields</ref></type>
+          <declname>FieldType</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Val</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeyIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function stores the user provided value for the user configurable fields in the certificate as per the provided FieldType. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubSystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id of subsystem for which field data is provided </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FieldType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To identify the field for which input is provided </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of the field provided by the user </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the value in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the key for given subsystem ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If whole operation is success</para></listitem><listitem><para>XST_INVALID_PARAM Failure due to invalid arguments</para></listitem><listitem><para>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED Exceed maximum limit of user configuration</para></listitem><listitem><para>XST_FAILURE Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Look for the Subsystem Id. If it is there get the index and update the field of existing subsystem else increment index and add entry for new subsystem.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.c" line="732" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.c" bodystart="732" bodyend="800"/>
+        <references refid="struct_x_cert___user_cfg_1a41aa1a8786523bfde85de6b76f5933ac" compoundref="xcert__genx509cert_8h" startline="127">XCert_UserCfg::IsSubAltNameAvailable</references>
+        <references refid="struct_x_cert___user_cfg_1a0b36a1d01dc73972bb62022f7c0bff23" compoundref="xcert__genx509cert_8h" startline="121">XCert_UserCfg::Issuer</references>
+        <references refid="struct_x_cert___user_cfg_1abcb17ed731e58fe58f2b2e8d581e8fad" compoundref="xcert__genx509cert_8h" startline="122">XCert_UserCfg::IssuerLen</references>
+        <references refid="struct_x_cert___info_store_1ad9de2a61a996f87369af2ec02653ebe9" compoundref="xcert__genx509cert_8h" startline="138">XCert_InfoStore::KeyIndex</references>
+        <references refid="struct_x_cert___user_cfg_1a105d2b4bef6c3b421077c3aeed4cb18a" compoundref="xcert__genx509cert_8h" startline="128">XCert_UserCfg::SubAltName</references>
+        <references refid="struct_x_cert___user_cfg_1a4b8ac56bf3cddfaf7cf7c1bbe80e8a1b" compoundref="xcert__genx509cert_8h" startline="129">XCert_UserCfg::SubAltNameLen</references>
+        <references refid="struct_x_cert___user_cfg_1ac8ffae57ccdd2068711b6b28b6e89586" compoundref="xcert__genx509cert_8h" startline="123">XCert_UserCfg::Subject</references>
+        <references refid="struct_x_cert___user_cfg_1abc4bba2fc3b24bb3d27fe94f5274bcde" compoundref="xcert__genx509cert_8h" startline="124">XCert_UserCfg::SubjectLen</references>
+        <references refid="struct_x_cert___info_store_1ac3fe987c9d4a8cba908cc5a68032e5e5" compoundref="xcert__genx509cert_8h" startline="137">XCert_InfoStore::SubsystemId</references>
+        <references refid="struct_x_cert___info_store_1a7f309cd92a24e82f2011c9c695cf6c28" compoundref="xcert__genx509cert_8h" startline="139">XCert_InfoStore::UserCfg</references>
+        <references refid="struct_x_cert___user_cfg_1a4c317b7455edfa4282b7ce1bddce3666" compoundref="xcert__genx509cert_8h" startline="125">XCert_UserCfg::Validity</references>
+        <references refid="struct_x_cert___user_cfg_1adbae73c7ed69762e6f8f849777305783" compoundref="xcert__genx509cert_8h" startline="126">XCert_UserCfg::ValidityLen</references>
+        <references refid="xcert__genx509cert_8h_1ab77f95d2568bc13fae0a90d6df8a7af0aa13c3930dee1880cd32cf5f88124cf4f" compoundref="xcert__genx509cert_8h" startline="100">XCERT_ISSUER</references>
+        <references refid="xcert__genx509cert_8h_1a32dba6becd7c4af49f43752cc83a895e" compoundref="xcert__genx509cert_8h" startline="54">XCERT_ISSUER_MAX_SIZE</references>
+        <references refid="xcert__genx509cert_8h_1ae411514cb9d3a9d26140fcece4b2f4ed" compoundref="xcert__genx509cert_8h" startline="60">XCERT_SUB_ALT_NAME_MAX_SIZE</references>
+        <references refid="xcert__genx509cert_8h_1ab77f95d2568bc13fae0a90d6df8a7af0a042a49e816abb84b8bf9429636a9fb6e" compoundref="xcert__genx509cert_8h" startline="103">XCERT_SUBALTNAME</references>
+        <references refid="xcert__genx509cert_8h_1ab77f95d2568bc13fae0a90d6df8a7af0af840d5f02e05debea0e4b4226a329ac3" compoundref="xcert__genx509cert_8h" startline="101">XCERT_SUBJECT</references>
+        <references refid="xcert__genx509cert_8h_1aa32d9358b7e2544605b1a3457dc2fa45" compoundref="xcert__genx509cert_8h" startline="56">XCERT_SUBJECT_MAX_SIZE</references>
+        <references refid="xcert__genx509cert_8h_1ab77f95d2568bc13fae0a90d6df8a7af0a573927ac58a557db5d7ba3d60c425998" compoundref="xcert__genx509cert_8h" startline="102">XCERT_VALIDITY</references>
+        <references refid="xcert__genx509cert_8h_1a940711b6ec8e6790c58151ce9d5790a6" compoundref="xcert__genx509cert_8h" startline="58">XCERT_VALIDITY_MAX_SIZE</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

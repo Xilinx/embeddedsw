@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__common_2client_2pm__callbacks_8h" kind="file">
+    <compoundname>versal_common/client/pm_callbacks.h</compoundname>
+    <includes refid="versal__common_2client_2pm__api__sys_8h" local="yes">pm_api_sys.h</includes>
+    <includedby refid="versal__common_2client_2pm__api__sys_8c" local="yes">pm_api_sys.c</includedby>
+    <includedby refid="versal__common_2client_2pm__callbacks_8c" local="yes">pm_callbacks.c</includedby>
+    <incdepgraph>
+      <node id="114">
+        <label>pm_callbacks.h</label>
+        <link refid="versal_common/client/pm_callbacks.h"/>
+        <childnode refid="115" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="117">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="119">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="115">
+        <label>pm_api_sys.h</label>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>pm_client.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="122">
+        <label>pm_callbacks.c</label>
+      </node>
+      <node id="120">
+        <label>pm_callbacks.h</label>
+        <link refid="versal_common/client/pm_callbacks.h"/>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>pm_api_sys.c</label>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PM_CALLBACKS_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_CALLBACKS_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pm_api_sys.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">XStatus<sp/>XPm_NotifierAdd(<ref refid="struct_x_pm___ntfier" kindref="compound">XPm_Notifier</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Notifier);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">XStatus<sp/>XPm_NotifierRemove(<ref refid="struct_x_pm___ntfier" kindref="compound">XPm_Notifier</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Notifier);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_NotifierProcessEvent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Node,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Oppoint);</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PM_CALLBACKS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_callbacks.h"/>
+  </compounddef>
+</doxygen>

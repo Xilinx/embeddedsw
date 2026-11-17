@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__notifier_8h" kind="file">
+    <compoundname>xpm_notifier.h</compoundname>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes local="yes">xpm_notifier_plat.h</includes>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__core__plat_8c" local="yes">xpm_core_plat.c</includedby>
+    <includedby refid="server_2xpm__device__plat_8c" local="yes">xpm_device_plat.c</includedby>
+    <includedby refid="server_2xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="xpm__subsystem__plat_8c" local="yes">xpm_subsystem_plat.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__core_8c" local="yes">xpm_core.c</includedby>
+    <includedby refid="xpm__device_8c" local="yes">xpm_device.c</includedby>
+    <includedby refid="xpm__notifier_8c" local="yes">xpm_notifier.c</includedby>
+    <includedby refid="xpm__power_8c" local="yes">xpm_power.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__core__plat_8c" local="yes">xpm_core_plat.c</includedby>
+    <incdepgraph>
+      <node id="4975">
+        <label>xpm_api.h</label>
+        <childnode refid="4976" relation="include">
+        </childnode>
+        <childnode refid="4977" relation="include">
+        </childnode>
+        <childnode refid="4978" relation="include">
+        </childnode>
+        <childnode refid="4979" relation="include">
+        </childnode>
+        <childnode refid="4980" relation="include">
+        </childnode>
+        <childnode refid="4981" relation="include">
+        </childnode>
+      </node>
+      <node id="4973">
+        <label>xpm_notifier.h</label>
+        <link refid="xpm_notifier.h"/>
+        <childnode refid="4974" relation="include">
+        </childnode>
+        <childnode refid="4983" relation="include">
+        </childnode>
+      </node>
+      <node id="4979">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="4974">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4975" relation="include">
+        </childnode>
+        <childnode refid="4978" relation="include">
+        </childnode>
+        <childnode refid="4977" relation="include">
+        </childnode>
+        <childnode refid="4982" relation="include">
+        </childnode>
+      </node>
+      <node id="4978">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="4982">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="4983">
+        <label>xpm_notifier_plat.h</label>
+      </node>
+      <node id="4977">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4980">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="4976">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4981">
+        <label>xplmi_ipi.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4988">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="4990">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="4993">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="4984">
+        <label>xpm_notifier.h</label>
+        <link refid="xpm_notifier.h"/>
+        <childnode refid="4985" relation="include">
+        </childnode>
+        <childnode refid="4986" relation="include">
+        </childnode>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4988" relation="include">
+        </childnode>
+        <childnode refid="4989" relation="include">
+        </childnode>
+        <childnode refid="4990" relation="include">
+        </childnode>
+        <childnode refid="4991" relation="include">
+        </childnode>
+        <childnode refid="4992" relation="include">
+        </childnode>
+        <childnode refid="4993" relation="include">
+        </childnode>
+        <childnode refid="4994" relation="include">
+        </childnode>
+        <childnode refid="4995" relation="include">
+        </childnode>
+        <childnode refid="4996" relation="include">
+        </childnode>
+        <childnode refid="4997" relation="include">
+        </childnode>
+      </node>
+      <node id="4991">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="4989">
+        <label>xpm_subsystem_plat.c</label>
+      </node>
+      <node id="4997">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="4995">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="4985">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="4994">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="4986">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="4987">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="4996">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="4992">
+        <label>xpm_device.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__notifier_8h_1a359bfd1449c786b86b8ecab5a793c093" prot="public" static="no">
+        <name>PM_ALL_NOTIFIER</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__notifier_8h_1aca2432cc9b3b625d8f28db6fbe38e9b7" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(*  PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload)</definition>
+        <argsstring>)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload)</argsstring>
+        <name>PmRequestCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_api.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__notifier_8h_1acfa55f565b6a874dcb27e2cd25eeb79a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_Register</definition>
+        <argsstring>(XPm_Subsystem *const Subsystem, const u32 NodeId, const u32 Event, const u32 Wake, const u32 IpiMask)</argsstring>
+        <name>XPmNotifier_Register</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *const</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Wake</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <briefdescription>
+<para>Register the notifier for given subsystem, NodeId and event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem to be notified </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId related to event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event to be notified about </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Wake</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag specifying whether the subsystem should be woken upon event notification</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="143" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a9e8e9e482cac0a7914da4aba9b0d66f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_Unregister</definition>
+        <argsstring>(XPm_Subsystem *const Subsystem, const u32 NodeId, const u32 Event)</argsstring>
+        <name>XPmNotifier_Unregister</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *const</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>Unregister the notifier for given subsystem, NodeId and event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem which was registered for notification </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId related to event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Notification event</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="624" bodyend="680"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a6307df8a3fa0d11f6edeee3567a233b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_UnregisterAll</definition>
+        <argsstring>(const XPm_Subsystem *const Subsystem)</argsstring>
+        <name>XPmNotifier_UnregisterAll</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *const</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>This function unregisters all notifiers of the given subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem for which notifiers to be unregistered</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="692" bodyend="716"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a4b27b09a8b1ca92761d7b5652cfadd52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmNotifier_Event</definition>
+        <argsstring>(const u32 NodeId, const u32 Event)</argsstring>
+        <name>XPmNotifier_Event</name>
+        <param>
+          <type>const u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers the notification if enabled for current NodeId and current event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId for which event is occurred </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="729" bodyend="803"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a1fc35b09902b910f93a2d5ff7d1cccb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmNotifier_NotifyTarget</definition>
+        <argsstring>(u32 IpiMask, u32 *Payload)</argsstring>
+        <name>XPmNotifier_NotifyTarget</name>
+        <param>
+          <type>u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Payload</declname>
+        </param>
+        <briefdescription>
+<para>Notify target only if IPI acked for previous request else add as pending event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IpiMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IpiMask of the target </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload with callback data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c" bodystart="588" bodyend="610"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_NOTIFIER_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_NOTIFIER_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_notifier_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Node<sp/>ID<sp/>to<sp/>unregister<sp/>all<sp/>notifiers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PM_ALL_NOTIFIER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*<sp/>PmRequestCb)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>SubsystemId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xpm__versal__apis_1ga70865515516f1060dd99fc58ce07188e" kindref="member">XPmApiCbId_t</ref><sp/>EventId,<sp/>u32<sp/>*Payload);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">XStatus<sp/>XPmNotifier_Register(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Subsystem,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>NodeId,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Wake,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>IpiMask);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">XStatus<sp/>XPmNotifier_Unregister(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Subsystem,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>NodeId,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">XStatus<sp/>XPmNotifier_UnregisterAll(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Subsystem);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmNotifier_Event(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>NodeId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmNotifier_NotifyTarget(u32<sp/>IpiMask,<sp/>u32<sp/>*Payload);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_NOTIFIER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h"/>
+  </compounddef>
+</doxygen>

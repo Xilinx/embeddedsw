@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__plext__client__apis" kind="group">
+    <compoundname>xasu_plext_client_apis</compoundname>
+    <title>PL Extension Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__plext__client__apis_1ga9d38cb79eef1b43efdcf03cc66c85d45" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_PlExtValidateKeyObjectParams</definition>
+        <argsstring>(const XAsu_AesKeyObject *KeyObjectPtr)</argsstring>
+        <name>XAsu_PlExtValidateKeyObjectParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref> *</type>
+          <declname>KeyObjectPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the <ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref> structure parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyObjectPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref> structure which holds the key object parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of key object parameters is successful.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate that the key is provided from user memory.</para><para>Validate the key size and the key source supported by the PL crypto block. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_plext.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_plext.c" bodystart="154" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__plext__client__apis_1ga81e32d59aeb3512611fd0c993a4df0ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_PlExtOperation</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *PlExtClientParamPtr)</argsstring>
+        <name>XAsu_PlExtOperation</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___aes_params" kindref="compound">XAsu_AesParams</ref> *</type>
+          <declname>PlExtClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform encryption operation on a given payload data using a crypto block instantiated in the PL. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            The whole operation is performed in a single request, hence OperationFlags and
+            IsLast fields of PlExtClientParamPtr are not used. The key is taken from user
+            memory.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PlExtClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___aes_params" kindref="compound">XAsu_AesParams</ref> structure which holds the parameters of PL extension input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate the input parameters.</para><para>Validate the engine mode and the operation type supported by the PL crypto block.</para><para>Validate that IV, AAD and tag are unused for AES ECB mode on the PL path.</para><para>Validate AES key object structure parameters.</para><para>Validate the input and output data addresses and length. The minimum length of the payload is one AES block, while the maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA&apos;s maximum supported data transfer length. ECB mode input data should be 16Bytes aligned.</para><para>Generate unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_plext.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_plext.c" bodystart="64" bodyend="140"/>
+        <references refid="struct_x_asu___aes_params_1a8ca4217e6ddbb92ed6972a2336155295" compoundref="xasu__aesinfo_8h" startline="156">XAsu_AesParams::AadAddr</references>
+        <references refid="struct_x_asu___aes_params_1a5ce18140ca41e5efb10abe1711ada1ed" compoundref="xasu__aesinfo_8h" startline="161">XAsu_AesParams::AadLen</references>
+        <references refid="struct_x_asu___aes_params_1a6b49ceecb3059ca49b7967b34adc7e16" compoundref="xasu__aesinfo_8h" startline="160">XAsu_AesParams::DataLen</references>
+        <references refid="struct_x_asu___aes_params_1ac0d9b5493731fc415049a2f189316139" compoundref="xasu__aesinfo_8h" startline="163">XAsu_AesParams::EngineMode</references>
+        <references refid="struct_x_asu___aes_params_1a06ce6311cd4b9c247034edd793ab4110" compoundref="xasu__aesinfo_8h" startline="154">XAsu_AesParams::InputDataAddr</references>
+        <references refid="struct_x_asu___aes_iv_object_1a68bd6f17ef103809f52e767a320faa4d" compoundref="xasu__aesinfo_8h" startline="141">XAsu_AesIvObject::IvAddr</references>
+        <references refid="struct_x_asu___aes_iv_object_1ac4a556df510eb3595d6a3676c29905a4" compoundref="xasu__aesinfo_8h" startline="145">XAsu_AesIvObject::IvId</references>
+        <references refid="struct_x_asu___aes_iv_object_1a4eea240487b9f4560a16fe577499e412" compoundref="xasu__aesinfo_8h" startline="142">XAsu_AesIvObject::IvLen</references>
+        <references refid="struct_x_asu___aes_params_1a9f753bd2ac9e193c96f45be4555d25e7" compoundref="xasu__aesinfo_8h" startline="159">XAsu_AesParams::IvObj</references>
+        <references refid="struct_x_asu___aes_params_1a498eb45c14a7f378dba0366fe4249c9c" compoundref="xasu__aesinfo_8h" startline="157">XAsu_AesParams::KeyObjectAddr</references>
+        <references refid="struct_x_asu___aes_params_1afd7f65558fc8a99e854ccba007a4e82c" compoundref="xasu__aesinfo_8h" startline="169">XAsu_AesParams::OperationType</references>
+        <references refid="struct_x_asu___aes_params_1aa1c213f5c1e28519ef6f8917db55ec88" compoundref="xasu__aesinfo_8h" startline="155">XAsu_AesParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___aes_params_1af197cfbe040de49e6415ce4d3b37d374" compoundref="xasu__aesinfo_8h" startline="158">XAsu_AesParams::TagAddr</references>
+        <references refid="struct_x_asu___aes_params_1a0089fed3e9bf2e6a0f1dc12065a91ebd" compoundref="xasu__aesinfo_8h" startline="162">XAsu_AesParams::TagLen</references>
+        <references refid="group__xasu__common__defs_1gaf38a4fd296e3327b4e62b4d8244e1027" compoundref="xasu__aesinfo_8h" startline="45">XASU_AES_BLOCK_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" compoundref="xasu__aesinfo_8h" startline="77">XASU_AES_ECB_MODE</references>
+        <references refid="group__xasu__common__defs_1gae1f327bfa7f97cff2f8fe44a2ce40b2c" compoundref="xasu__aesinfo_8h" startline="123">XASU_AES_ENCRYPT_OPERATION</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="73">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga780b997bcfa8e07b506e3fc380a2047a" compoundref="xasu__def_8h" startline="69">XASU_MODULE_PLEXT_ID</references>
+        <references refid="group__xasu__common__defs_1gaca3a61dddfaf275141df55af98c31cff" compoundref="xasu__plextinfo_8h" startline="41">XASU_PLEXT_OPERATION_CMD_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['iatm',['iatm',['../struct_m_o_d_e_s_e_n_s_e___t_p.html#a90fb76e73152fe5a84177f0ee3ceb917',1,'MODESENSE_TP']]],
+  ['ichannelnames',['iChannelNames',['../struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html#a1ad2036651a1ac1850e830ef1d4bb889',1,'USB_INPUT_TERMINAL_DESC']]],
+  ['idproduct',['idProduct',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a6c321def10226e855465337555133950',1,'USB_STD_DEV_DESC']]],
+  ['idvendor',['idVendor',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a7b3acec44b51a031b3e1f2c83ad8d855',1,'USB_STD_DEV_DESC']]],
+  ['ifcfg',['ifCfg',['../struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n.html#a6e5b5a875a4173489939c8579295a955',1,'FPGA1_CONFIGURATION']]],
+  ['ifeature',['iFeature',['../struct_u_s_b___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c.html#abce6d6a349bba74b3e3127c4075f1ddf',1,'USB_FEATURE_UNIT_DESC']]],
+  ['iinterface',['iInterface',['../struct_u_s_b___s_t_d___i_f___d_e_s_c.html#a203a902fb94d90b7b04cfcbb50a3a4a4',1,'USB_STD_IF_DESC']]],
+  ['imanufacturer',['iManufacturer',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a7aa2b60ecbec8691eefffb6d80423877',1,'USB_STD_DEV_DESC']]],
+  ['information',['information',['../struct_r_e_q_u_e_s_t___s_e_n_s_e.html#a838af6e644a535014c76228fd8e240a8',1,'REQUEST_SENSE']]],
+  ['intblockcount',['IntBlockCount',['../xusb__storage_8h.html#a0d95afd80d9251ab697667459ca8d0c9',1,'xusb_storage.h']]],
+  ['intlba',['IntLba',['../xusb__storage_8h.html#a6f458b0606e2ff96ebb13909416f9831',1,'xusb_storage.h']]],
+  ['intrid',['IntrId',['../struct_x_usb___config.html#a49c7946b8a90eb3e6f00ead057694bce',1,'XUsb_Config']]],
+  ['intrparent',['IntrParent',['../struct_x_usb___config.html#a88f694c6cfdc5ccb605421afe3ae35a3',1,'XUsb_Config']]],
+  ['iproduct',['iProduct',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a01dad317b578781dd7e27da09b7f4bf1',1,'USB_STD_DEV_DESC']]],
+  ['iserialnumber',['iSerialNumber',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a9155398a87efe529abde2aa85382a1df',1,'USB_STD_DEV_DESC']]],
+  ['isready',['IsReady',['../struct_x_usb.html#a260e5c141d966b04f28b67c1c9bb6d07',1,'XUsb']]],
+  ['iterminal',['iTerminal',['../struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html#a513280552f9d92ab8336843cd31bfd07',1,'USB_INPUT_TERMINAL_DESC::iTerminal()'],['../struct_u_s_b___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html#ae719378fc7939f4ecb1153d7218323d3',1,'USB_OUTPUT_TERMINAL_DESC::iTerminal()']]]
+];

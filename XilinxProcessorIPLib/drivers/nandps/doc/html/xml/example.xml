@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use nandps driver.</para><sect1 id="example_1ex1">
+<title>xnandps_example.c</title>
+<para>Contains an example on how to use the XNandps driver directly. This example tests the block erase, block read and block write features. The flash blocks are erased and written. The data is read back and compared with the data written for correctness. The bad blocks are not erased/programmed.</para><para>For details, see <ref refid="xnandps__example_8c" kindref="compound">xnandps_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xnandps_cache_example.c</title>
+<para>Contains an example on how to use the XNandps driver directly. This example tests NAND page cache read and write commands. The page cache commands are not supported by OnDie ECC flash since ECC is enabled by default.</para><para>For details, see <ref refid="xnandps__cache__example_8c" kindref="compound">xnandps_cache_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xnandps_skip_example.c</title>
+<para>Contains an example on how to use the XNandps driver directly. This example tests the skip block method of erase/read/write operations. The skip block method is useful while reading/writing images on to the flash. The flash is erased and programming by considering the bad blocks. The data is read back and compared with the data written for correctness.</para><para>For details, see <ref refid="xnandps__skip__example_8c" kindref="compound">xnandps_skip_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

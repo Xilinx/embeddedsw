@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__rsa__pss__server__apis" kind="group">
+    <compoundname>xsecure_rsa_pss_server_apis</compoundname>
+    <title>XilSecure RSA PSS server APIs</title>
+    <innerclass refid="struct_x_secure___rsa_pss_sign_verify_input" prot="public">XSecure_RsaPssSignVerifyInput</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPssSignVerify</definition>
+        <argsstring>(const XSecure_RsaPssSignVerifyInput *Input)</argsstring>
+        <name>XSecure_RsaPssSignVerify</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa_pss_sign_verify_input" kindref="compound">XSecure_RsaPssSignVerifyInput</ref> *</type>
+          <declname>Input</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies an RSA-PSS signature (SHA3-384) for the given message hash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa_pss_sign_verify_input" kindref="compound">XSecure_RsaPssSignVerifyInput</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If verification was successful</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_INVALID - On invalid arguments</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_MEMSET_ENC - If signed input data memset fails</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_RSA_ENC - If RSA encryption fails</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_MGF - If mask generation fails</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_SHA - If SHA operation fails</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_BC - If signature trailer byte mismatch</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_MSDB - If masked DB MSB mismatch</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_DB - If DB pattern mismatch</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_HASH_CMP - If hash comparison fails</para></listitem><listitem><para>XSECURE_RSA_PSS_ERR_CLEAR - If clearing the local hash buffer fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>EM must fit hLen + sLen + 0x01 + 0xBC and the caller workspace.</para></listitem><listitem><para>Clear the EM workspace before writing the RSA output.</para></listitem><listitem><para>Recover EM with RSA public-key exponentiation (s^e mod n). The 64-bit API is used so a signature in client DDR is never truncated on a 32-bit PLM.</para></listitem><listitem><para>Rightmost EM octet must be the PSS trailer 0xBC.</para></listitem><listitem><para>Leftmost bits of maskedDB that are outside emBits must be zero.</para></listitem><listitem><para>Split EM: H is the hLen octets before the trailer.</para></listitem><listitem><para>dbMask = MGF(H, maskedDBLen), then DB = maskedDB XOR dbMask.</para></listitem><listitem><para>Clear the leftmost bits of DB that are outside emBits.</para></listitem><listitem><para>PS in DB must be zeros, followed by the 0x01 salt separator.</para></listitem><listitem><para>Hash M&apos; = Padding1 (8 zero bytes) || mHash || salt, then compare H&apos; with H recovered from EM.</para></listitem><listitem><para>Salt is the last sLen octets of DB, after PS || 0x01.</para></listitem><listitem><para>Compare H&apos; against H from EM (double-read against glitching).</para></listitem><listitem><para>Clear H&apos; so it does not remain on the stack. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.c" bodystart="76" bodyend="284"/>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1ad659da86a17eff150a218088980f990a" compoundref="xsecure__rsa__pss_8h" startline="56">XSecure_RsaPssSignVerifyInput::DataBlock</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1a92e7e39126e272f0c76ecb7ecd55e6b4" compoundref="xsecure__rsa__pss_8h" startline="50">XSecure_RsaPssSignVerifyInput::KeySize</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1a6350d2599d3e0856bc116e20559bab51" compoundref="xsecure__rsa__pss_8h" startline="48">XSecure_RsaPssSignVerifyInput::MsgHashAddr</references>
+        <references refid="struct_x_secure___mgf_input_1a3df7726c093f8481f8649de0fbbad69b" compoundref="xsecure__mgf_8h" startline="61">XSecure_MgfInput::Output</references>
+        <references refid="struct_x_secure___mgf_input_1a7ef2ac3615a3516392e8f3e7af2301c2" compoundref="xsecure__mgf_8h" startline="63">XSecure_MgfInput::OutputLen</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1a302f1f1909fdffb8462820fcf088a4fe" compoundref="xsecure__rsa__pss_8h" startline="52">XSecure_RsaPssSignVerifyInput::RsaInstPtr</references>
+        <references refid="struct_x_secure___mgf_input_1a75315a260d2fc303f4e09f6115da6ba8" compoundref="xsecure__mgf_8h" startline="60">XSecure_MgfInput::Seed</references>
+        <references refid="struct_x_secure___mgf_input_1a4b5d243ace02a92433f2a3b7593480a3" compoundref="xsecure__mgf_8h" startline="62">XSecure_MgfInput::SeedLen</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1abea2c9d45dd9bf51d3ec8bf497ba4ab0" compoundref="xsecure__rsa__pss_8h" startline="53">XSecure_RsaPssSignVerifyInput::ShaInstPtr</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1af401675c523af7451c81257653c82c66" compoundref="xsecure__rsa__pss_8h" startline="49">XSecure_RsaPssSignVerifyInput::SignAddr</references>
+        <references refid="struct_x_secure___rsa_pss_sign_verify_input_1a82dd9cc57193fd8fc0e9e38782efcf7e" compoundref="xsecure__rsa__pss_8h" startline="54">XSecure_RsaPssSignVerifyInput::SignedInputData</references>
+        <references refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="364" endline="415">XSecure_MaskGenFunc</references>
+        <references refid="group__xsecure__rsa__pss__server__apis_1ga55f50734e680d2ee5d965a5ddb369c10" compoundref="xsecure__rsa__pss_8h" startline="35">XSECURE_RSA_PSS_DATA_BLOCK_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga5ea52d283ac511679ded08451be277e6" compoundref="xsecure__rsa__pss_8c" startline="37">XSECURE_RSA_PSS_MIN_EM_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1gafa39fc7df45cc6d0f474ade008b80142" compoundref="xsecure__rsa__pss_8c" startline="30">XSECURE_RSA_PSS_MSB_PAD_MASK</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaf54b04f71f6033beb587c87d815b05e0" compoundref="xsecure__rsa__pss_8c" startline="36">XSECURE_RSA_PSS_PADDING1_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaea7394b0b939ac5654d2b1de2a84b42d" compoundref="xsecure__rsa__pss_8c" startline="33">XSECURE_RSA_PSS_SALT_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga6ee47e9d81db0dfa73df50b788d1690a" compoundref="xsecure__rsa__pss_8c" startline="32">XSECURE_RSA_PSS_SALT_SEP_BYTE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga912eecf52fbbbeb40a9af06f94e74853" compoundref="xsecure__rsa__pss_8c" startline="35">XSECURE_RSA_PSS_SALT_SEP_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab249d229d4f9c152c3a0515ab7bba9f4" compoundref="xsecure__rsa__pss_8c" startline="31">XSECURE_RSA_PSS_SIG_TRAIL_BYTE</references>
+        <references refid="group__xsecure__rsa__pss__server__apis_1ga044d9e24b00ff3d1875af9217c28eca6" compoundref="xsecure__rsa__pss_8h" startline="33">XSECURE_RSA_PSS_SIGNED_INPUT_DATA_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga01a77e03c8e7e1f3fc4ecc5f81e9f574" compoundref="xsecure__rsa__pss_8c" startline="34">XSECURE_RSA_PSS_TRAILER_LEN</references>
+        <references refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="307" endline="330">XSecure_RsaPublicEncrypt_64Bit</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartan__ultrascale__plus__sha__server__example_8c" startline="71">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</references>
+        <references refid="group__xsecure__sha__server__apis_1ga7eb62ddb5d303871b0ca86c77a668d4b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="851" endline="854">XSecure_ShaLastUpdate</references>
+        <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
+        <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__rsa__pss__server__apis_1ga044d9e24b00ff3d1875af9217c28eca6" prot="public" static="no">
+        <name>XSECURE_RSA_PSS_SIGNED_INPUT_DATA_LEN</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>Signed input / EM workspace length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="33" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__pss__server__apis_1ga55f50734e680d2ee5d965a5ddb369c10" prot="public" static="no">
+        <name>XSECURE_RSA_PSS_DATA_BLOCK_LEN</name>
+        <initializer>(480U)</initializer>
+        <briefdescription>
+<para>Data block workspace length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="35" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

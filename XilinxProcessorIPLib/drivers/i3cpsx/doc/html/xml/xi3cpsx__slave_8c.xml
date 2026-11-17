@@ -1,0 +1,930 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi3cpsx__slave_8c" kind="file">
+    <compoundname>xi3cpsx_slave.c</compoundname>
+    <includes refid="xi3cpsx_8h" local="yes">xi3cpsx.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">stdbool.h</includes>
+    <incdepgraph>
+      <node id="168">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="177">
+        <label>stdbool.h</label>
+      </node>
+      <node id="165">
+        <label>xi3cpsx_slave.c</label>
+        <link refid="xi3cpsx_slave.c"/>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+        <childnode refid="177" relation="include">
+        </childnode>
+      </node>
+      <node id="171">
+        <label>xil_io.h</label>
+      </node>
+      <node id="176">
+        <label>sleep.h</label>
+      </node>
+      <node id="174">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="175">
+        <label>xil_util.h</label>
+      </node>
+      <node id="170">
+        <label>xi3cpsx_hw.h</label>
+        <link refid="xi3cpsx__hw_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+      </node>
+      <node id="166">
+        <label>xi3cpsx.h</label>
+        <link refid="xi3cpsx_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+      </node>
+      <node id="169">
+        <label>xstatus.h</label>
+      </node>
+      <node id="167">
+        <label>xil_types.h</label>
+      </node>
+      <node id="172">
+        <label>xparameters.h</label>
+      </node>
+      <node id="173">
+        <label>xi3cpsx_pr.h</label>
+        <link refid="xi3cpsx__pr_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i3cpsx__api_1ga9cba8edc454d81b6aefdc5381d4da2a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_SetupSlave</definition>
+        <argsstring>(XI3cPsx *InstancePtr, u16 SlaveAddr)</argsstring>
+        <name>XI3cPsx_SetupSlave</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SlaveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Sets up the device to be a slave. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SlaveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The static address of the slave we are receiving from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Interrupt is always enabled no matter the transfer is interrupt- driven or polled mode. Whether the device is interrupted or not depends on whether the device is connected to an interrupt controller and interrupt for the device is enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" bodystart="61" bodyend="110"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="group__i3cpsx__api_1ga5eaf2c0691abe120e818a4d947207a0a" compoundref="xi3cpsx__hw_8h" startline="2505">XI3CPSX_BUS_FREE_AVAIL_TIMING</references>
+        <references refid="group__i3cpsx__api_1ga60424967e7d57c2332fdafd915a64c07" compoundref="xi3cpsx__hw_8h" startline="2515">XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_AVAILABLE_TIME_SHIFT</references>
+        <references refid="group__i3cpsx__api_1gaaefe69bff38bfb2c63b5cb7478f225b0" compoundref="xi3cpsx__hw_8h" startline="2523">XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_AVAILABLE_TIME_VAL</references>
+        <references refid="group__i3cpsx__api_1gabd718eda37707f1eae17c9efcfccb68d" compoundref="xi3cpsx__hw_8h" startline="2533">XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_FREE_TIME_DEFVAL</references>
+        <references refid="group__i3cpsx__api_1gab73c016591262e36892ff613d6a2bb96" compoundref="xi3cpsx__hw_8h" startline="304">XI3CPSX_DEVICE_ADDR</references>
+        <references refid="group__i3cpsx__api_1gaeef39c03083d33422458d7bfcae919a7" compoundref="xi3cpsx__hw_8h" startline="341">XI3CPSX_DEVICE_ADDR_STATIC_ADDR_VALID_MASK</references>
+        <references refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" compoundref="xi3cpsx__hw_8h" startline="213">XI3CPSX_DEVICE_CTRL</references>
+        <references refid="group__i3cpsx__api_1ga3ebe5440860b13136356f7ed876be6bf" compoundref="xi3cpsx__hw_8h" startline="227">XI3CPSX_DEVICE_CTRL_ENABLE_MASK</references>
+        <references refid="group__i3cpsx__api_1ga6b79bc82d916530b4ff4499da36f3108" compoundref="xi3cpsx__hw_8h" startline="2245">XI3CPSX_DEVICE_CTRL_EXTENDED</references>
+        <references refid="group__i3cpsx__api_1ga59a90a04633d17cb5e5eb8c32e07e4c6" compoundref="xi3cpsx__hw_8h" startline="2273">XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_MASK</references>
+        <references refid="group__i3cpsx__api_1gac6298ca384019509185ba66ae4a77447" compoundref="xi3cpsx__hw_8h" startline="2269">XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_SLAVE</references>
+        <references refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" compoundref="xi3cpsx__hw_8h" startline="76">XI3cPsx_ReadReg</references>
+        <references refid="group__i3cpsx__api_1ga45f6fd0dec5ef301a94b27a215f93ee0" compoundref="xi3cpsx__hw_8h" startline="1968">XI3CPSX_SLV_CHAR_CTRL</references>
+        <references refid="group__i3cpsx__api_1gabbdf0ed7087c80cb7aea1ef0da29a6f7" compoundref="xi3cpsx__hw_8h" startline="1988">XI3CPSX_SLV_CHAR_CTRL_DCR_SHIFT</references>
+        <references refid="group__i3cpsx__api_1ga3d8ab5778f7fd3c120af3d9bed4cf898" compoundref="xi3cpsx__hw_8h" startline="1996">XI3CPSX_SLV_CHAR_CTRL_DCR_VAL</references>
+        <references refid="group__i3cpsx__api_1ga8363210defdfbbe070036e498c171d18" compoundref="xi3cpsx__hw_8h" startline="1984">XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_DEFVAL</references>
+        <references refid="group__i3cpsx__api_1ga0fedb47de2d39d7dec18dc3380e35470" compoundref="xi3cpsx__hw_8h" startline="1978">XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_SHIFT</references>
+        <references refid="group__i3cpsx__api_1ga8469f6bfe0f3177ce9e2a7b92e2bb8c9" compoundref="xi3cpsx__hw_8h" startline="2016">XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_MASK</references>
+        <references refid="group__i3cpsx__api_1gaf11dadf2eabb4ad12b406c9b7915a5f6" compoundref="xi3cpsx__hw_8h" startline="2056">XI3CPSX_SLV_CHAR_CTRL_IBI_REQUEST_CAPABLE_MASK</references>
+        <references refid="group__i3cpsx__api_1ga7c8e54aa8b142ad7b954f5e21cc6b5ba" compoundref="xi3cpsx__hw_8h" startline="2066">XI3CPSX_SLV_CHAR_CTRL_MAX_DATA_SPEED_LIMIT_MASK</references>
+        <references refid="group__i3cpsx__api_1ga5cfaafb3b7937422308ba692a92e7153" compoundref="xi3cpsx__hw_8h" startline="1894">XI3CPSX_SLV_MIPI_ID_VALUE</references>
+        <references refid="group__i3cpsx__api_1gaacd390736e6194a30550141a831b419c" compoundref="xi3cpsx__hw_8h" startline="1922">XI3CPSX_SLV_MIPI_ID_VALUE_SLV_PROV_ID_SEL_VAL</references>
+        <references refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" compoundref="xi3cpsx__hw_8h" startline="94">XI3cPsx_WriteReg</references>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+        <referencedby refid="xi3cpsx__slave__loopback_8c_1ab9d0cb3ac9cd03f7d09a187b988688c4" compoundref="xi3cpsx__slave__loopback_8c" startline="147" endline="216">I3cPsxSlaveLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1ga1c923ed56bd4f8ced720fc5f63136ed5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_SlaveRecv</definition>
+        <argsstring>(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)</argsstring>
+        <name>XI3cPsx_SlaveRecv</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sets up a slave interrupt-driven receive. </para>        </briefdescription>
+        <detaileddescription>
+<para>Data processing for the receive is handled by the interrupt handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the receive buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to be received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This routine is for interrupt-driven transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" bodystart="125" bodyend="142"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx_1affbf5fccc56275bd3ec28499959318ca" compoundref="xi3cpsx_8h" startline="317">XI3cPsx::IsSend</references>
+        <references refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" compoundref="xi3cpsx_8h" startline="305">XI3cPsx::RecvBufferPtr</references>
+        <references refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" compoundref="xi3cpsx_8h" startline="307">XI3cPsx::RecvByteCount</references>
+        <references refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" compoundref="xi3cpsx__hw_8h" startline="149">XI3cPsx_EnableInterrupts</references>
+        <references refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" compoundref="xi3cpsx__hw_8h" startline="1521">XI3CPSX_INTR_RESP_READY</references>
+        <references refid="group__i3cpsx__api_1ga50349c6beb41412aa525ea5a811483ab" compoundref="xi3cpsx__hw_8h" startline="1518">XI3CPSX_INTR_RX_THLD</references>
+        <references refid="group__i3cpsx__api_1ga24d04e1c89e332496b7183694583d4c0" compoundref="xi3cpsx__hw_8h" startline="1522">XI3CPSX_INTR_TRANSFER_ABORT</references>
+        <references refid="group__i3cpsx__api_1gafa9522713cb1d7f0505a7d5806271080" compoundref="xi3cpsx__hw_8h" startline="1525">XI3CPSX_INTR_TRANSFER_ERR</references>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1gaf5663751e9f6964ed6398bdd20101ba8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_SlaveSend</definition>
+        <argsstring>(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)</argsstring>
+        <name>XI3cPsx_SlaveSend</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sets up a slave interrupt-driven send. </para>        </briefdescription>
+        <detaileddescription>
+<para>Data processing for the send is handled by the interrupt handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the send buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This routine is for interrupt-driven transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" bodystart="157" bodyend="197"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" compoundref="xi3cpsx_8h" startline="281">CmdInfo::Cmd</references>
+        <references refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" compoundref="xi3cpsx__pr_8h" startline="168">COMMAND_PORT_ARG_DATA_LEN</references>
+        <references refid="group__i3cpsx__api_1gafa1e31833cadb8411d4c1d0b892984ca" compoundref="xi3cpsx__pr_8h" startline="170">COMMAND_PORT_ARG_DATA_LEN_MAX</references>
+        <references refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" compoundref="xi3cpsx__pr_8h" startline="165">COMMAND_PORT_TID</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx_1affbf5fccc56275bd3ec28499959318ca" compoundref="xi3cpsx_8h" startline="317">XI3cPsx::IsSend</references>
+        <references refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" compoundref="xi3cpsx_8h" startline="261">XI3cPsx_Cmd::RxBuf</references>
+        <references refid="struct_x_i3c_psx_1a23501fa5bfa309ff26278d73e0f50d47" compoundref="xi3cpsx_8h" startline="304">XI3cPsx::SendBufferPtr</references>
+        <references refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" compoundref="xi3cpsx_8h" startline="306">XI3cPsx::SendByteCount</references>
+        <references refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" compoundref="xi3cpsx_8h" startline="260">XI3cPsx_Cmd::TransArg</references>
+        <references refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" compoundref="xi3cpsx_8h" startline="259">XI3cPsx_Cmd::TransCmd</references>
+        <references refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" compoundref="xi3cpsx__hw_8h" startline="149">XI3cPsx_EnableInterrupts</references>
+        <references refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" compoundref="xi3cpsx__hw_8h" startline="1521">XI3CPSX_INTR_RESP_READY</references>
+        <references refid="group__i3cpsx__api_1ga24d04e1c89e332496b7183694583d4c0" compoundref="xi3cpsx__hw_8h" startline="1522">XI3CPSX_INTR_TRANSFER_ABORT</references>
+        <references refid="group__i3cpsx__api_1gafa9522713cb1d7f0505a7d5806271080" compoundref="xi3cpsx__hw_8h" startline="1525">XI3CPSX_INTR_TRANSFER_ERR</references>
+        <references refid="group__i3cpsx__api_1ga3b16b4af2e9061cd14a5c2c4db31d46a" compoundref="xi3cpsx__hw_8h" startline="1517">XI3CPSX_INTR_TX_THLD</references>
+        <references refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" compoundref="xi3cpsx_8h" startline="149">XI3CPSX_WORD_TO_BYTES</references>
+        <references refid="group__i3cpsx__api_1ga620be974fe2a6fd52a390ce36cc1a300" compoundref="xi3cpsx_8c" startline="248" endline="264">XI3cPsx_WrCmdFifo</references>
+        <references refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" compoundref="xi3cpsx__hw_8h" startline="111">XI3cPsx_WrFifoLevel</references>
+        <references refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" compoundref="xi3cpsx_8c" startline="202" endline="238">XI3cPsx_WrTxFifo</references>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1ga752cebd71adb1580f43247b84b52c2fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3cPsx_SlaveSendPolled</definition>
+        <argsstring>(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount, XI3cPsx_Cmd Cmds)</argsstring>
+        <name>XI3cPsx_SlaveSendPolled</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_i3c_psx___cmd" kindref="compound">XI3cPsx_Cmd</ref></type>
+          <declname>Cmds</declname>
+        </param>
+        <briefdescription>
+<para>Sends a buffer in polled mode as a slave. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the send buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Cmds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The instance of <ref refid="struct_x_i3c_psx___cmd" kindref="compound">XI3cPsx_Cmd</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_FAILURE if master sends us data or master terminates the transfer before all data has sent out.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This send routine is for polled mode transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" bodystart="216" bodyend="304"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" compoundref="xi3cpsx__pr_8h" startline="168">COMMAND_PORT_ARG_DATA_LEN</references>
+        <references refid="group__i3cpsx__api_1gafa1e31833cadb8411d4c1d0b892984ca" compoundref="xi3cpsx__pr_8h" startline="170">COMMAND_PORT_ARG_DATA_LEN_MAX</references>
+        <references refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" compoundref="xi3cpsx__pr_8h" startline="165">COMMAND_PORT_TID</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" compoundref="xi3cpsx_8h" startline="261">XI3cPsx_Cmd::RxBuf</references>
+        <references refid="struct_x_i3c_psx_1a23501fa5bfa309ff26278d73e0f50d47" compoundref="xi3cpsx_8h" startline="304">XI3cPsx::SendBufferPtr</references>
+        <references refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" compoundref="xi3cpsx_8h" startline="306">XI3cPsx::SendByteCount</references>
+        <references refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" compoundref="xi3cpsx_8h" startline="260">XI3cPsx_Cmd::TransArg</references>
+        <references refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" compoundref="xi3cpsx_8h" startline="259">XI3cPsx_Cmd::TransCmd</references>
+        <references refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" compoundref="xi3cpsx__hw_8h" startline="170">XI3cPsx_DisableInterrupts</references>
+        <references refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" compoundref="xi3cpsx__hw_8h" startline="149">XI3cPsx_EnableInterrupts</references>
+        <references refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" compoundref="xi3cpsx__hw_8h" startline="1521">XI3CPSX_INTR_RESP_READY</references>
+        <references refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" compoundref="xi3cpsx__hw_8h" startline="913">XI3CPSX_INTR_STATUS</references>
+        <references refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" compoundref="xi3cpsx__hw_8h" startline="76">XI3cPsx_ReadReg</references>
+        <references refid="group__i3cpsx__api_1gab0f7c1045ef078fe138d901ce6f22e76" compoundref="xi3cpsx__hw_8h" startline="470">XI3CPSX_RESPONSE_QUEUE_PORT</references>
+        <references refid="group__i3cpsx_1ga67cd467f8dae7699785a5ccde30a78af" compoundref="xi3cpsx_8h" startline="151">XI3CPSX_TRANSFER_ERROR</references>
+        <references refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" compoundref="xi3cpsx_8h" startline="149">XI3CPSX_WORD_TO_BYTES</references>
+        <references refid="group__i3cpsx__api_1ga620be974fe2a6fd52a390ce36cc1a300" compoundref="xi3cpsx_8c" startline="248" endline="264">XI3cPsx_WrCmdFifo</references>
+        <references refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" compoundref="xi3cpsx__hw_8h" startline="111">XI3cPsx_WrFifoLevel</references>
+        <references refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" compoundref="xi3cpsx_8c" startline="202" endline="238">XI3cPsx_WrTxFifo</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1ga1d604f37a4c41d005558d9ba8124875c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3cPsx_SlaveRecvPolled</definition>
+        <argsstring>(XI3cPsx *InstancePtr, u8 *MsgPtr)</argsstring>
+        <name>XI3cPsx_SlaveRecvPolled</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <briefdescription>
+<para>Receives a buffer in polled mode as a slave. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the receive buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_FAILURE if timed out.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This receive routine is for polled mode transfer only. All the FIFO operations are in terms of words, so MsgPtr must hold a word rounded count. The number of bytes received is reported in CurrByteCount. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" bodystart="323" bodyend="389"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1a1a18bf66f27f4972a09b8f9cd4ec3831" compoundref="xi3cpsx_8h" startline="308">XI3cPsx::CurrByteCount</references>
+        <references refid="struct_x_i3c_psx_1a419112939f80272ad5a70489c1656b3b" compoundref="xi3cpsx_8h" startline="309">XI3cPsx::Error</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" compoundref="xi3cpsx_8h" startline="305">XI3cPsx::RecvBufferPtr</references>
+        <references refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" compoundref="xi3cpsx_8h" startline="307">XI3cPsx::RecvByteCount</references>
+        <references refid="group__i3cpsx_1ga62e99c099c34076670f4e67571d18dd6" compoundref="xi3cpsx_8h" startline="150">XI3CPSX_DATA_LEN</references>
+        <references refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" compoundref="xi3cpsx__hw_8h" startline="170">XI3cPsx_DisableInterrupts</references>
+        <references refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" compoundref="xi3cpsx__hw_8h" startline="149">XI3cPsx_EnableInterrupts</references>
+        <references refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" compoundref="xi3cpsx__hw_8h" startline="1521">XI3CPSX_INTR_RESP_READY</references>
+        <references refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" compoundref="xi3cpsx__hw_8h" startline="913">XI3CPSX_INTR_STATUS</references>
+        <references refid="group__i3cpsx__api_1ga1753b624c0d7c05335414c73bd165fb7" compoundref="xi3cpsx__hw_8h" startline="130">XI3cPsx_RdFifoLevel</references>
+        <references refid="group__i3cpsx__api_1ga93a8a74ad0e713a3a76a39b0fd4c116e" compoundref="xi3cpsx_8c" startline="275" endline="311">XI3cPsx_RdRxFifo</references>
+        <references refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" compoundref="xi3cpsx__hw_8h" startline="76">XI3cPsx_ReadReg</references>
+        <references refid="group__i3cpsx_1gabd02b8629475df4910710b6f3ab6c73b" compoundref="xi3cpsx__hw_8c" startline="110" endline="120">XI3cPsx_RecoverFromError</references>
+        <references refid="group__i3cpsx__api_1ga6407b88f3b188d358178dc18fb546606" compoundref="xi3cpsx__hw_8h" startline="491">XI3CPSX_RESPONSE_ERR_STS_MASK</references>
+        <references refid="group__i3cpsx__api_1ga3d53bc9410258fb80a5406cb70f6630c" compoundref="xi3cpsx__hw_8h" startline="489">XI3CPSX_RESPONSE_ERR_STS_SHIFT</references>
+        <references refid="group__i3cpsx__api_1gab0f7c1045ef078fe138d901ce6f22e76" compoundref="xi3cpsx__hw_8h" startline="470">XI3CPSX_RESPONSE_QUEUE_PORT</references>
+        <references refid="group__i3cpsx_1ga67cd467f8dae7699785a5ccde30a78af" compoundref="xi3cpsx_8h" startline="151">XI3CPSX_TRANSFER_ERROR</references>
+        <references refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" compoundref="xi3cpsx_8h" startline="149">XI3CPSX_WORD_TO_BYTES</references>
+        <referencedby refid="xi3cpsx__slave__loopback_8c_1ab9d0cb3ac9cd03f7d09a187b988688c4" compoundref="xi3cpsx__slave__loopback_8c" startline="147" endline="216">I3cPsxSlaveLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i3cpsx__api_1gac618b456af832c82d2969c38fea94598" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_SlaveInterruptHandler</definition>
+        <argsstring>(XI3cPsx *InstancePtr)</argsstring>
+        <name>XI3cPsx_SlaveInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Handles interrupts in slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does the protocol handling for the interrupt-driven transfers.</para><para>Completion events and errors are signaled to upper layer for proper handling.</para><para>The interrupts that are handled are:<itemizedlist>
+<listitem><para>DATA If the instance is sending, it means that the master wants to read more data from us. Send more data, and check whether we are done with this send.</para><para>If the instance is receiving, it means that the master has written more data to us. Receive more data, and check whether we are done with with this receive.</para></listitem><listitem><para>COMP This marks that stop sequence has been sent from the master, transfer is about to terminate. However, for receiving, the master may have written us some data, so receive that first.</para><para>It is an error if the amount of transferred data is less than expected.</para></listitem><listitem><para>NAK This marks that master does not want our data. It is for send only.</para></listitem><listitem><para>Other interrupts These interrupts are marked as error.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c" bodystart="426" bodyend="548"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a855ecd26bd9e9dca3795b45626f618ef" compoundref="xi3cpsx_8h" startline="322">XI3cPsx::CallBackRef</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="296">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx_1a1a18bf66f27f4972a09b8f9cd4ec3831" compoundref="xi3cpsx_8h" startline="308">XI3cPsx::CurrByteCount</references>
+        <references refid="struct_x_i3c_psx_1a419112939f80272ad5a70489c1656b3b" compoundref="xi3cpsx_8h" startline="309">XI3cPsx::Error</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="297">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx_1affbf5fccc56275bd3ec28499959318ca" compoundref="xi3cpsx_8h" startline="317">XI3cPsx::IsSend</references>
+        <references refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" compoundref="xi3cpsx_8h" startline="305">XI3cPsx::RecvBufferPtr</references>
+        <references refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" compoundref="xi3cpsx_8h" startline="307">XI3cPsx::RecvByteCount</references>
+        <references refid="struct_x_i3c_psx_1a23501fa5bfa309ff26278d73e0f50d47" compoundref="xi3cpsx_8h" startline="304">XI3cPsx::SendBufferPtr</references>
+        <references refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" compoundref="xi3cpsx_8h" startline="306">XI3cPsx::SendByteCount</references>
+        <references refid="struct_x_i3c_psx_1a6bcee9228169f21f0be5293d59dc5831" compoundref="xi3cpsx_8h" startline="321">XI3cPsx::StatusHandler</references>
+        <references refid="group__i3cpsx_1ga62e99c099c34076670f4e67571d18dd6" compoundref="xi3cpsx_8h" startline="150">XI3CPSX_DATA_LEN</references>
+        <references refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" compoundref="xi3cpsx__hw_8h" startline="170">XI3cPsx_DisableInterrupts</references>
+        <references refid="group__i3cpsx_1ga079bce2028961975315286154ae01062" compoundref="xi3cpsx_8h" startline="117">XI3CPSX_EVENT_TRANSF_ABORT</references>
+        <references refid="group__i3cpsx_1ga0627770573880fd1cc204a643893b84b" compoundref="xi3cpsx_8h" startline="120">XI3CPSX_EVENT_TRANSF_ERR</references>
+        <references refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" compoundref="xi3cpsx__hw_8h" startline="1521">XI3CPSX_INTR_RESP_READY</references>
+        <references refid="group__i3cpsx__api_1ga50349c6beb41412aa525ea5a811483ab" compoundref="xi3cpsx__hw_8h" startline="1518">XI3CPSX_INTR_RX_THLD</references>
+        <references refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" compoundref="xi3cpsx__hw_8h" startline="913">XI3CPSX_INTR_STATUS</references>
+        <references refid="group__i3cpsx__api_1ga93f9b762533f8323dee13a22e3fb320a" compoundref="xi3cpsx__hw_8h" startline="1007">XI3CPSX_INTR_STATUS_TRANSFER_ABORT_STS_MASK</references>
+        <references refid="group__i3cpsx__api_1ga5d3e8a1f27372444c7b087630a30c899" compoundref="xi3cpsx__hw_8h" startline="977">XI3CPSX_INTR_STATUS_TRANSFER_ERR_STS_MASK</references>
+        <references refid="group__i3cpsx__api_1ga24d04e1c89e332496b7183694583d4c0" compoundref="xi3cpsx__hw_8h" startline="1522">XI3CPSX_INTR_TRANSFER_ABORT</references>
+        <references refid="group__i3cpsx__api_1gafa9522713cb1d7f0505a7d5806271080" compoundref="xi3cpsx__hw_8h" startline="1525">XI3CPSX_INTR_TRANSFER_ERR</references>
+        <references refid="group__i3cpsx__api_1ga3b16b4af2e9061cd14a5c2c4db31d46a" compoundref="xi3cpsx__hw_8h" startline="1517">XI3CPSX_INTR_TX_THLD</references>
+        <references refid="group__i3cpsx__api_1ga1753b624c0d7c05335414c73bd165fb7" compoundref="xi3cpsx__hw_8h" startline="130">XI3cPsx_RdFifoLevel</references>
+        <references refid="group__i3cpsx__api_1ga93a8a74ad0e713a3a76a39b0fd4c116e" compoundref="xi3cpsx_8c" startline="275" endline="311">XI3cPsx_RdRxFifo</references>
+        <references refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" compoundref="xi3cpsx__hw_8h" startline="76">XI3cPsx_ReadReg</references>
+        <references refid="group__i3cpsx_1gabd02b8629475df4910710b6f3ab6c73b" compoundref="xi3cpsx__hw_8c" startline="110" endline="120">XI3cPsx_RecoverFromError</references>
+        <references refid="group__i3cpsx__api_1ga6407b88f3b188d358178dc18fb546606" compoundref="xi3cpsx__hw_8h" startline="491">XI3CPSX_RESPONSE_ERR_STS_MASK</references>
+        <references refid="group__i3cpsx__api_1ga3d53bc9410258fb80a5406cb70f6630c" compoundref="xi3cpsx__hw_8h" startline="489">XI3CPSX_RESPONSE_ERR_STS_SHIFT</references>
+        <references refid="group__i3cpsx__api_1gab0f7c1045ef078fe138d901ce6f22e76" compoundref="xi3cpsx__hw_8h" startline="470">XI3CPSX_RESPONSE_QUEUE_PORT</references>
+        <references refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" compoundref="xi3cpsx_8h" startline="149">XI3CPSX_WORD_TO_BYTES</references>
+        <references refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" compoundref="xi3cpsx__hw_8h" startline="111">XI3cPsx_WrFifoLevel</references>
+        <references refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" compoundref="xi3cpsx__hw_8h" startline="94">XI3cPsx_WriteReg</references>
+        <references refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" compoundref="xi3cpsx_8c" startline="202" endline="238">XI3cPsx_WrTxFifo</references>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements I3C slave transfer APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted> MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  sd  06/10/22 First release
+1.1   sd  14/12/22 Fix warnings
+1.2   sd  1/2/23   Write to resume bit
+1.3     sd   1/30/24  Moved prints under DEBUG flag.
+1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3cpsx_8h" kindref="compound">xi3cpsx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdbool.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__i3cpsx__api_1ga9cba8edc454d81b6aefdc5381d4da2a8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1ga9cba8edc454d81b6aefdc5381d4da2a8" kindref="member">XI3cPsx_SetupSlave</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr,<sp/>u16<sp/><ref refid="struct_cmd_info_1adc65b9863f3d3b9e8ab464751d7c3213" kindref="member">SlaveAddr</ref>)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>SlaveAddr<sp/>|<sp/><ref refid="group__i3cpsx__api_1gaeef39c03083d33422458d7bfcae919a7" kindref="member">XI3CPSX_DEVICE_ADDR_STATIC_ADDR_VALID_MASK</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1gab73c016591262e36892ff613d6a2bb96" kindref="member">XI3CPSX_DEVICE_ADDR</ref>,<sp/>Reg);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>controller</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" kindref="member">XI3CPSX_DEVICE_CTRL</ref>);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>Reg<sp/>&amp;<sp/>(~<ref refid="group__i3cpsx__api_1ga3ebe5440860b13136356f7ed876be6bf" kindref="member">XI3CPSX_DEVICE_CTRL_ENABLE_MASK</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" kindref="member">XI3CPSX_DEVICE_CTRL</ref>,<sp/>Reg);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" kindref="member">XI3CPSX_DEVICE_CTRL</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>mode<sp/>to<sp/>slave</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga6b79bc82d916530b4ff4499da36f3108" kindref="member">XI3CPSX_DEVICE_CTRL_EXTENDED</ref>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>((Reg<sp/>&amp;<sp/>(~<ref refid="group__i3cpsx__api_1ga59a90a04633d17cb5e5eb8c32e07e4c6" kindref="member">XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_MASK</ref>))<sp/>|<sp/><ref refid="group__i3cpsx__api_1gac6298ca384019509185ba66ae4a77447" kindref="member">XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_SLAVE</ref>);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga6b79bc82d916530b4ff4499da36f3108" kindref="member">XI3CPSX_DEVICE_CTRL_EXTENDED</ref>,<sp/>Reg);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>BUS_FREE_TIME<sp/>and<sp/>BUS_AVAILABLE_TIME</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga5eaf2c0691abe120e818a4d947207a0a" kindref="member">XI3CPSX_BUS_FREE_AVAIL_TIMING</ref>,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i3cpsx__api_1gaaefe69bff38bfb2c63b5cb7478f225b0" kindref="member">XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_AVAILABLE_TIME_VAL</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga60424967e7d57c2332fdafd915a64c07" kindref="member">XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_AVAILABLE_TIME_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gabd718eda37707f1eae17c9efcfccb68d" kindref="member">XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_FREE_TIME_DEFVAL</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>(<ref refid="group__i3cpsx__api_1ga8363210defdfbbe070036e498c171d18" kindref="member">XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_DEFVAL</ref><sp/>&lt;&lt;<sp/><ref refid="group__i3cpsx__api_1ga0fedb47de2d39d7dec18dc3380e35470" kindref="member">XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i3cpsx__api_1ga3d8ab5778f7fd3c120af3d9bed4cf898" kindref="member">XI3CPSX_SLV_CHAR_CTRL_DCR_VAL</ref><sp/>&lt;&lt;<sp/><ref refid="group__i3cpsx__api_1gabbdf0ed7087c80cb7aea1ef0da29a6f7" kindref="member">XI3CPSX_SLV_CHAR_CTRL_DCR_SHIFT</ref>)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga8469f6bfe0f3177ce9e2a7b92e2bb8c9" kindref="member">XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_MASK</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf11dadf2eabb4ad12b406c9b7915a5f6" kindref="member">XI3CPSX_SLV_CHAR_CTRL_IBI_REQUEST_CAPABLE_MASK</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga7c8e54aa8b142ad7b954f5e21cc6b5ba" kindref="member">XI3CPSX_SLV_CHAR_CTRL_MAX_DATA_SPEED_LIMIT_MASK</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga45f6fd0dec5ef301a94b27a215f93ee0" kindref="member">XI3CPSX_SLV_CHAR_CTRL</ref>,<sp/>Reg);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga5cfaafb3b7937422308ba692a92e7153" kindref="member">XI3CPSX_SLV_MIPI_ID_VALUE</ref>,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaacd390736e6194a30550141a831b419c" kindref="member">XI3CPSX_SLV_MIPI_ID_VALUE_SLV_PROV_ID_SEL_VAL</ref>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>controller</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" kindref="member">XI3CPSX_DEVICE_CTRL</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>Reg<sp/>|<sp/><ref refid="group__i3cpsx__api_1ga3ebe5440860b13136356f7ed876be6bf" kindref="member">XI3CPSX_DEVICE_CTRL_ENABLE_MASK</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" kindref="member">XI3CPSX_DEVICE_CTRL</ref>,<sp/>Reg);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga86312f4e34f96f61cea41712d0503cf8" kindref="member">XI3CPSX_DEVICE_CTRL</ref>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="125" refid="group__i3cpsx__api_1ga1c923ed56bd4f8ced720fc5f63136ed5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1ga1c923ed56bd4f8ced720fc5f63136ed5" kindref="member">XI3cPsx_SlaveRecv</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>s32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ByteCount<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref><sp/>=<sp/>(u16)ByteCount;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1affbf5fccc56275bd3ec28499959318ca" kindref="member">IsSend</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" kindref="member">XI3cPsx_EnableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga50349c6beb41412aa525ea5a811483ab" kindref="member">XI3CPSX_INTR_RX_THLD</ref><sp/>|<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref><sp/>|</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gafa9522713cb1d7f0505a7d5806271080" kindref="member">XI3CPSX_INTR_TRANSFER_ERR</ref><sp/>|<sp/><ref refid="group__i3cpsx__api_1ga24d04e1c89e332496b7183694583d4c0" kindref="member">XI3CPSX_INTR_TRANSFER_ABORT</ref>);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="157" refid="group__i3cpsx__api_1gaf5663751e9f6964ed6398bdd20101ba8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1gaf5663751e9f6964ed6398bdd20101ba8" kindref="member">XI3cPsx_SlaveSend</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>s32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i3c_psx___cmd" kindref="compound">XI3cPsx_Cmd</ref><sp/><ref refid="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" kindref="member">Cmd</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>WrFifoSpace;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ByteCount<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ByteCount<sp/>&lt;<sp/><ref refid="group__i3cpsx__api_1gafa1e31833cadb8411d4c1d0b892984ca" kindref="member">COMMAND_PORT_ARG_DATA_LEN_MAX</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a23501fa5bfa309ff26278d73e0f50d47" kindref="member">SendBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref><sp/>=<sp/>(u16)ByteCount;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1affbf5fccc56275bd3ec28499959318ca" kindref="member">IsSend</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataLen<sp/>=<sp/>(u32)ByteCount;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrFifoSpace<sp/>=<sp/><ref refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" kindref="member">XI3cPsx_WrFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace)<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>)</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" kindref="member">XI3cPsx_WrTxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)MsgPtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" kindref="member">TransArg</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" kindref="member">TransCmd</ref><sp/>=<sp/><ref refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" kindref="member">COMMAND_PORT_TID</ref>(0)<sp/>|</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" kindref="member">COMMAND_PORT_ARG_DATA_LEN</ref>(DataLen);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" kindref="member">RxBuf</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga620be974fe2a6fd52a390ce36cc1a300" kindref="member">XI3cPsx_WrCmdFifo</ref>(InstancePtr,<sp/>&amp;Cmd);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" kindref="member">XI3cPsx_EnableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga3b16b4af2e9061cd14a5c2c4db31d46a" kindref="member">XI3CPSX_INTR_TX_THLD</ref><sp/>|<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref><sp/>|</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gafa9522713cb1d7f0505a7d5806271080" kindref="member">XI3CPSX_INTR_TRANSFER_ERR</ref><sp/>|<sp/><ref refid="group__i3cpsx__api_1ga24d04e1c89e332496b7183694583d4c0" kindref="member">XI3CPSX_INTR_TRANSFER_ABORT</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="216" refid="group__i3cpsx__api_1ga752cebd71adb1580f43247b84b52c2fb" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__i3cpsx_1ga752cebd71adb1580f43247b84b52c2fb" kindref="member">XI3cPsx_SlaveSendPolled</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>ByteCount,<sp/><ref refid="struct_x_i3c_psx___cmd" kindref="compound">XI3cPsx_Cmd</ref><sp/>Cmds)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>WrFifoSpace;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataLen;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" kindref="member">XI3cPsx_EnableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)<sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>XferStatus;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount<sp/>&gt;=<sp/><ref refid="group__i3cpsx__api_1gafa1e31833cadb8411d4c1d0b892984ca" kindref="member">COMMAND_PORT_ARG_DATA_LEN_MAX</ref>)</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SEND_ERROR;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataLen<sp/>=<sp/>(u32)ByteCount;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref><sp/>=<sp/>(u16)ByteCount;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a23501fa5bfa309ff26278d73e0f50d47" kindref="member">SendBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>data<sp/>to<sp/>tx<sp/>FIFO</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrFifoSpace<sp/>=<sp/><ref refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" kindref="member">XI3cPsx_WrFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace)<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>)</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" kindref="member">XI3cPsx_WrTxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)MsgPtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Fill<sp/>Tx<sp/>command</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmds.<ref refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" kindref="member">TransArg</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmds.<ref refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" kindref="member">TransCmd</ref><sp/>=<sp/>(Cmds.<ref refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" kindref="member">TransCmd</ref><sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" kindref="member">COMMAND_PORT_TID</ref>(0xFU))<sp/>|</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" kindref="member">COMMAND_PORT_ARG_DATA_LEN</ref>(DataLen);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmds.<ref refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" kindref="member">RxBuf</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga620be974fe2a6fd52a390ce36cc1a300" kindref="member">XI3cPsx_WrCmdFifo</ref>(InstancePtr,<sp/>&amp;Cmds);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XferStatus<sp/>=<sp/>!!(<ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" kindref="member">XI3CPSX_INTR_STATUS</ref>)</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref><sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>!XferStatus){</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrFifoSpace<sp/>=<sp/><ref refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" kindref="member">XI3cPsx_WrFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace)<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>)</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>data<sp/>to<sp/>tx<sp/>FIFO</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" kindref="member">XI3cPsx_WrTxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)MsgPtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="281"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Response<sp/>from<sp/>intr<sp/>status</highlight></codeline>
+<codeline lineno="282"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XferStatus<sp/>=<sp/>!!(<ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" kindref="member">XI3CPSX_INTR_STATUS</ref>)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>command<sp/>part<sp/>to<sp/>controller.<sp/>It<sp/>triggers<sp/>the<sp/>transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga620be974fe2a6fd52a390ce36cc1a300" kindref="member">XI3cPsx_WrCmdFifo</ref>(InstancePtr,<sp/>&amp;Cmds);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Response<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gab0f7c1045ef078fe138d901ce6f22e76" kindref="member">XI3CPSX_RESPONSE_QUEUE_PORT</ref>);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Response<sp/>&amp;<sp/><ref refid="group__i3cpsx_1ga67cd467f8dae7699785a5ccde30a78af" kindref="member">XI3CPSX_TRANSFER_ERROR</ref>)</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SEND_ERROR;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" kindref="member">XI3cPsx_DisableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="323" refid="group__i3cpsx__api_1ga1d604f37a4c41d005558d9ba8124875c" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__i3cpsx_1ga1d604f37a4c41d005558d9ba8124875c" kindref="member">XI3cPsx_SlaveRecvPolled</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr)</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RdWordCount;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>TotalRecvCount;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>CurRdWordCount;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>XferStatus<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="333"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="334"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae751752afaf12c95e446bd8ea9436f7e" kindref="member">XI3cPsx_EnableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XferStatus<sp/>=<sp/>!!(<ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" kindref="member">XI3CPSX_INTR_STATUS</ref>)<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurRdWordCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!XferStatus){</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RdWordCount<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga1753b624c0d7c05335414c73bd165fb7" kindref="member">XI3cPsx_RdFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>data<sp/>from<sp/>Rx<sp/>FIFO</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RdWordCount)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref><sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(RdWordCount);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga93a8a74ad0e713a3a76a39b0fd4c116e" kindref="member">XI3cPsx_RdRxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)MsgPtr,<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(RdWordCount));</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurRdWordCount<sp/>+=<sp/>RdWordCount;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XferStatus<sp/>=<sp/>!!(<ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" kindref="member">XI3CPSX_INTR_STATUS</ref>)</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Response<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gab0f7c1045ef078fe138d901ce6f22e76" kindref="member">XI3CPSX_RESPONSE_QUEUE_PORT</ref>);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalRecvCount<sp/>=<sp/>Response<sp/>&amp;<sp/><ref refid="group__i3cpsx_1ga62e99c099c34076670f4e67571d18dd6" kindref="member">XI3CPSX_DATA_LEN</ref>;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(CurRdWordCount)<sp/>&lt;<sp/>TotalRecvCount)<sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref><sp/>=<sp/>(TotalRecvCount<sp/>-<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(CurRdWordCount));</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga93a8a74ad0e713a3a76a39b0fd4c116e" kindref="member">XI3cPsx_RdRxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)MsgPtr,<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref>);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1a18bf66f27f4972a09b8f9cd4ec3831" kindref="member">CurrByteCount</ref><sp/>=<sp/>TotalRecvCount;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Response<sp/>&amp;<sp/><ref refid="group__i3cpsx_1ga67cd467f8dae7699785a5ccde30a78af" kindref="member">XI3CPSX_TRANSFER_ERROR</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a419112939f80272ad5a70489c1656b3b" kindref="member">Error</ref><sp/>=<sp/>(u8)((Response<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga6407b88f3b188d358178dc18fb546606" kindref="member">XI3CPSX_RESPONSE_ERR_STS_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga3d53bc9410258fb80a5406cb70f6630c" kindref="member">XI3CPSX_RESPONSE_ERR_STS_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_RECV_ERROR;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" kindref="member">XI3cPsx_DisableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1gabd02b8629475df4910710b6f3ab6c73b" kindref="member">XI3cPsx_RecoverFromError</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="426" refid="group__i3cpsx__api_1gac618b456af832c82d2969c38fea94598" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i3cpsx_1gac618b456af832c82d2969c38fea94598" kindref="member">XI3cPsx_SlaveInterruptHandler</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusReg;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RxDataAvailable,<sp/>WrFifoSpace;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ResponseData;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusEvent<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reported<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="436"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="437"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="442"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="443"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" kindref="member">XI3CPSX_INTR_STATUS</ref>);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="447"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>status<sp/>back<sp/>to<sp/>clear<sp/>the<sp/>interrupts<sp/>so<sp/>no<sp/>events<sp/>are</highlight></codeline>
+<codeline lineno="448"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>missed<sp/>while<sp/>processing<sp/>this<sp/>interrupt.</highlight></codeline>
+<codeline lineno="449"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,<sp/>(u32)<ref refid="group__i3cpsx__api_1ga3cc0937756ec855318da7766741a9ad6" kindref="member">XI3CPSX_INTR_STATUS</ref>,<sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="453"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Tx<sp/>threshold<sp/>-<sp/>write<sp/>data<sp/>to<sp/>FIFO</highlight></codeline>
+<codeline lineno="454"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga3b16b4af2e9061cd14a5c2c4db31d46a" kindref="member">XI3CPSX_INTR_TX_THLD</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrFifoSpace<sp/>=<sp/><ref refid="group__i3cpsx__api_1gad7e1e2cf4849ab2a23629e1d3d7beb13" kindref="member">XI3cPsx_WrFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"></highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace)<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>)</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref>;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(WrFifoSpace);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gaeed5de7c301b766489abd94c062953c4" kindref="member">XI3cPsx_WrTxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a23501fa5bfa309ff26278d73e0f50d47" kindref="member">SendBufferPtr</ref>,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1db2cb8625f5aa92421a4e23a95ee08a" kindref="member">SendByteCount</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" kindref="member">XI3cPsx_DisableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI3CPSX_INTR_TX_THLD);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="474"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Rx<sp/>threshold<sp/>-<sp/>read<sp/>available<sp/>data<sp/>from<sp/>FIFO</highlight></codeline>
+<codeline lineno="475"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga50349c6beb41412aa525ea5a811483ab" kindref="member">XI3CPSX_INTR_RX_THLD</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxDataAvailable<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga1753b624c0d7c05335414c73bd165fb7" kindref="member">XI3cPsx_RdFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(RxDataAvailable)<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref>)</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref>;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(RxDataAvailable);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga93a8a74ad0e713a3a76a39b0fd4c116e" kindref="member">XI3cPsx_RdRxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" kindref="member">RecvBufferPtr</ref>,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" kindref="member">XI3cPsx_DisableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI3CPSX_INTR_RX_THLD);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="493"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Response<sp/>ready<sp/>-<sp/>transfer<sp/>complete,<sp/>read<sp/>any<sp/>remaining<sp/>data</highlight></codeline>
+<codeline lineno="494"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga391f8eb007efb1b6edbef6678a729e0f" kindref="member">XI3CPSX_INTR_RESP_READY</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref><sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxDataAvailable<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga1753b624c0d7c05335414c73bd165fb7" kindref="member">XI3cPsx_RdFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(RxDataAvailable)<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref>)</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5f6557d152c81871ae0b56618a7d7d80" kindref="member">RecvByteCount</ref>;</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/><ref refid="group__i3cpsx_1gad1b2442c6e8d5e18db7734edae0bec55" kindref="member">XI3CPSX_WORD_TO_BYTES</ref>(RxDataAvailable);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount)</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga93a8a74ad0e713a3a76a39b0fd4c116e" kindref="member">XI3cPsx_RdRxFifo</ref>(InstancePtr,<sp/>(u32<sp/>*)InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6c7e8bbb027d3b3db6bcc75d0159ed07" kindref="member">RecvBufferPtr</ref>,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResponseData<sp/>=<sp/><ref refid="group__i3cpsx__api_1ga0c23540e73dd9de69dac38dfa07b64c0" kindref="member">XI3cPsx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gab0f7c1045ef078fe138d901ce6f22e76" kindref="member">XI3CPSX_RESPONSE_QUEUE_PORT</ref>);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a419112939f80272ad5a70489c1656b3b" kindref="member">Error</ref><sp/>=<sp/>(ResponseData<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga6407b88f3b188d358178dc18fb546606" kindref="member">XI3CPSX_RESPONSE_ERR_STS_MASK</ref>)<sp/>&gt;&gt;<sp/><ref refid="group__i3cpsx__api_1ga3d53bc9410258fb80a5406cb70f6630c" kindref="member">XI3CPSX_RESPONSE_ERR_STS_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="513"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>word<sp/>based<sp/>FIFO<sp/>cannot<sp/>tell<sp/>how<sp/>many<sp/>bytes<sp/>of<sp/>the<sp/>last</highlight></codeline>
+<codeline lineno="514"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>word<sp/>are<sp/>valid,<sp/>so<sp/>take<sp/>the<sp/>byte<sp/>count<sp/>from<sp/>the<sp/>response.</highlight></codeline>
+<codeline lineno="515"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1affbf5fccc56275bd3ec28499959318ca" kindref="member">IsSend</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a1a18bf66f27f4972a09b8f9cd4ec3831" kindref="member">CurrByteCount</ref><sp/>=<sp/>(u16)(ResponseData<sp/>&amp;<sp/><ref refid="group__i3cpsx_1ga62e99c099c34076670f4e67571d18dd6" kindref="member">XI3CPSX_DATA_LEN</ref>);</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gae69d1a2efc9b57f6973783d2267986fd" kindref="member">XI3cPsx_DisableInterrupts</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI3CPSX_INTR_TX_THLD<sp/>|<sp/>XI3CPSX_INTR_RX_THLD<sp/>|<sp/>XI3CPSX_INTR_RESP_READY<sp/>|</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1gafa9522713cb1d7f0505a7d5806271080" kindref="member">XI3CPSX_INTR_TRANSFER_ERR</ref><sp/>|<sp/><ref refid="group__i3cpsx__api_1ga24d04e1c89e332496b7183694583d4c0" kindref="member">XI3CPSX_INTR_TRANSFER_ABORT</ref>);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>error<sp/>halts<sp/>the<sp/>core,<sp/>so<sp/>unhalt<sp/>it<sp/>before<sp/>reporting.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a419112939f80272ad5a70489c1656b3b" kindref="member">Error</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1gabd02b8629475df4910710b6f3ab6c73b" kindref="member">XI3cPsx_RecoverFromError</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reported<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"></highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6bcee9228169f21f0be5293d59dc5831" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a855ecd26bd9e9dca3795b45626f618ef" kindref="member">CallBackRef</ref>,<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a419112939f80272ad5a70489c1656b3b" kindref="member">Error</ref>);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="533"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Transfer<sp/>Error<sp/>interrupt,<sp/>pass<sp/>this<sp/>information<sp/>to<sp/>application</highlight></codeline>
+<codeline lineno="534"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>unless<sp/>the<sp/>response<sp/>has<sp/>already<sp/>reported<sp/>the<sp/>same<sp/>failure.</highlight></codeline>
+<codeline lineno="535"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga5d3e8a1f27372444c7b087630a30c899" kindref="member">XI3CPSX_INTR_STATUS_TRANSFER_ERR_STS_MASK</ref>))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reported<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>=<sp/><ref refid="group__i3cpsx_1ga0627770573880fd1cc204a643893b84b" kindref="member">XI3CPSX_EVENT_TRANSF_ERR</ref>;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1gabd02b8629475df4910710b6f3ab6c73b" kindref="member">XI3cPsx_RecoverFromError</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6bcee9228169f21f0be5293d59dc5831" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a855ecd26bd9e9dca3795b45626f618ef" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent);</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__i3cpsx__api_1ga93f9b762533f8323dee13a22e3fb320a" kindref="member">XI3CPSX_INTR_STATUS_TRANSFER_ABORT_STS_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>=<sp/><ref refid="group__i3cpsx_1ga079bce2028961975315286154ae01062" kindref="member">XI3CPSX_EVENT_TRANSF_ABORT</ref>;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a6bcee9228169f21f0be5293d59dc5831" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a855ecd26bd9e9dca3795b45626f618ef" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_slave.c"/>
+  </compounddef>
+</doxygen>

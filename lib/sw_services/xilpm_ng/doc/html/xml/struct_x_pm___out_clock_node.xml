@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___out_clock_node" kind="struct" prot="public">
+    <compoundname>XPm_OutClockNode</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___out_clock_node_1ae1e43cfb04363587b7b8d79870c5c0dd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref></type>
+        <definition>XPm_ClockNode XPm_OutClockNode::ClkNode</definition>
+        <argsstring></argsstring>
+        <name>ClkNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___out_clock_node_1ad0d6acfc047bef25985aa660ac5c10de" prot="public" static="no" mutable="no">
+        <type>XPm_ClkTopology</type>
+        <definition>XPm_ClkTopology XPm_OutClockNode::Topology</definition>
+        <argsstring></argsstring>
+        <name>Topology</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="176">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="177" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="178" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="179">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="177" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="178" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="180" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="175">
+        <label>XPm_OutClockNode</label>
+        <childnode refid="176" relation="usage">
+          <edgelabel>ClkNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="180">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="179" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="181" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="180" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="181">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="177" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="180" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="178">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="179" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="176" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="178" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="177">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="109" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___out_clock_node_1ae1e43cfb04363587b7b8d79870c5c0dd" prot="public" virt="non-virtual"><scope>XPm_OutClockNode</scope><name>ClkNode</name></member>
+      <member refid="struct_x_pm___out_clock_node_1ad0d6acfc047bef25985aa660ac5c10de" prot="public" virt="non-virtual"><scope>XPm_OutClockNode</scope><name>Topology</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

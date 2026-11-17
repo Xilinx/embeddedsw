@@ -1,0 +1,565 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__rsa__ipihandler_8c" kind="file">
+    <compoundname>xsecure_rsa_ipihandler.c</compoundname>
+    <includes local="yes">xplmi_config.h</includes>
+    <includes local="yes">xplmi_plat.h</includes>
+    <includes local="yes">xplmi_dma.h</includes>
+    <includes local="yes">xsecure_config.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includes refid="core_2rsa_2xsecure__rsa_8h" local="yes">xsecure_rsa.h</includes>
+    <includes refid="xsecure__rsa__ipihandler_8h" local="yes">xsecure_rsa_ipihandler.h</includes>
+    <includes refid="xsecure__init_8h" local="yes">xsecure_init.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xsecure_error.h</includes>
+    <incdepgraph>
+      <node id="3722">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure_rsa_ipihandler.c"/>
+        <childnode refid="3723" relation="include">
+        </childnode>
+        <childnode refid="3724" relation="include">
+        </childnode>
+        <childnode refid="3725" relation="include">
+        </childnode>
+        <childnode refid="3726" relation="include">
+        </childnode>
+        <childnode refid="3727" relation="include">
+        </childnode>
+        <childnode refid="3733" relation="include">
+        </childnode>
+        <childnode refid="3739" relation="include">
+        </childnode>
+        <childnode refid="3741" relation="include">
+        </childnode>
+        <childnode refid="3744" relation="include">
+        </childnode>
+        <childnode refid="3745" relation="include">
+        </childnode>
+      </node>
+      <node id="3739">
+        <label>xsecure_rsa_ipihandler.h</label>
+        <link refid="xsecure__rsa__ipihandler_8h"/>
+        <childnode refid="3723" relation="include">
+        </childnode>
+        <childnode refid="3740" relation="include">
+        </childnode>
+      </node>
+      <node id="3727">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="3728" relation="include">
+        </childnode>
+        <childnode refid="3729" relation="include">
+        </childnode>
+        <childnode refid="3730" relation="include">
+        </childnode>
+        <childnode refid="3731" relation="include">
+        </childnode>
+        <childnode refid="3726" relation="include">
+        </childnode>
+        <childnode refid="3732" relation="include">
+        </childnode>
+      </node>
+      <node id="3731">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3738">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="3730">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="3744">
+        <label>xplmi.h</label>
+      </node>
+      <node id="3725">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="3735">
+        <label>xsecure_rsa_core.h</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8h"/>
+        <childnode refid="3734" relation="include">
+        </childnode>
+        <childnode refid="3736" relation="include">
+        </childnode>
+        <childnode refid="3727" relation="include">
+        </childnode>
+      </node>
+      <node id="3741">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="3742" relation="include">
+        </childnode>
+        <childnode refid="3743" relation="include">
+        </childnode>
+        <childnode refid="3738" relation="include">
+        </childnode>
+      </node>
+      <node id="3732">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3737">
+        <label>xsecure_rsa_pss.h</label>
+        <link refid="xsecure__rsa__pss_8h"/>
+        <childnode refid="3727" relation="include">
+        </childnode>
+        <childnode refid="3735" relation="include">
+        </childnode>
+        <childnode refid="3738" relation="include">
+        </childnode>
+      </node>
+      <node id="3740">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="3742">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="3723">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="3733">
+        <label>xsecure_rsa.h</label>
+        <link refid="core_2rsa_2xsecure__rsa_8h"/>
+        <childnode refid="3734" relation="include">
+        </childnode>
+        <childnode refid="3735" relation="include">
+        </childnode>
+        <childnode refid="3737" relation="include">
+        </childnode>
+      </node>
+      <node id="3736">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="3726">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3729">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3734">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3745">
+        <label>xsecure_error.h</label>
+      </node>
+      <node id="3728">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="3724">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="3743">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gac892b4c56e0d5600bc995939edd0065d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_RsaEncrypt</definition>
+        <argsstring>(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh, u32 DstAddrLow, u32 DstAddrHigh)</argsstring>
+        <name>XSecure_RsaEncrypt</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrHigh</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DstAddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DstAddrHigh</declname>
+        </param>
+        <briefdescription>
+<para>This function handler calls XSecure_RsaInitialize and XSecure_RsaPublicEncrypt server APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bit address of the <ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref> structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32 bit address of the <ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref> structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DstAddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bit address of the output data where encrypted data to be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DstAddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32 bit address of the output data where encrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the Rsa encryption is successful</para></listitem><listitem><para>XST_FAILURE - If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate internal address fields in the copied structure</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" bodystart="142" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga8ddc5bf67223549b7b8f57ff8d99e471" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_RsaSignVerify</definition>
+        <argsstring>(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)</argsstring>
+        <name>XSecure_RsaSignVerify</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrHigh</declname>
+        </param>
+        <briefdescription>
+<para>This function handler extracts the payload params with respect to XSECURE_API_RSA_SIGN_VERIFY IPI command and calls XSecure_RsaSignVerification_64Bit server API. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bit address of the <ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref> structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32 bit address of the <ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the Rsa sign verification is successful</para></listitem><listitem><para>XST_FAILURE - If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate internal address fields in the copied structure</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" bodystart="198" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaIpiHandler</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_RsaIpiHandler</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function calls respective IPI handler based on the API_ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the handler execution is successful</para></listitem><listitem><para>XST_INVALID_PARAM - If Cmd is NULL or API ID is invalid</para></listitem><listitem><para>XST_FAILURE - If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_RsaEncrypt</para></listitem><listitem><para>XSecure_RsaSignVerify </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" bodystart="82" bodyend="120"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932" compoundref="xsecure__plat__defs_8h" startline="79">XSECURE_API_RSA_PSS_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" compoundref="xsecure__plat__defs_8h" startline="62">XSECURE_API_RSA_PUBLIC_ENCRYPT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="61">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Xilsecure RSA IPI handlers implementation. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0  kal   03/23/21 Initial release
+     bm    05/13/21 Updated code to use common crypto instance
+4.6  gm    07/16/21 Added 64-bit address support
+4.7  kpt   03/18/21 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
+5.0  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
+     dc    08/22/22 Fixed RSA key accesses address based on RSA key size
+5.1  yog   05/03/23 Fixed MISRA C violation of Rule 10.3
+5.3  kpt   03/22/24 Fixed Branch past initialization
+     ss    04/05/24 Fixed doxygen warnings
+5.4  yog   04/29/24 Fixed doxygen warnings.
+5.6  obs   08/26/25 Added support for Verifying Address Range</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_dma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="core_2rsa_2xsecure__rsa_8h" kindref="compound">xsecure_rsa.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__rsa__ipihandler_8h" kindref="compound">xsecure_rsa_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__init_8h" kindref="compound">xsecure_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_error.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__rsa__pss_8h" kindref="compound">xsecure_rsa_pss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaEncrypt(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,<sp/>u32<sp/>SrcAddrHigh,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DstAddrLow,<sp/>u32<sp/>DstAddrHigh);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaSignVerify(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,<sp/>u32<sp/>SrcAddrHigh);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaPssSignVerifyHandler(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcAddrHigh);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="82" refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" kindref="member">XSecure_RsaIpiHandler</ref>(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Pload<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Cmd<sp/>==<sp/>NULL)<sp/>||<sp/>(Cmd-&gt;Payload<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload<sp/>=<sp/>Cmd-&gt;Payload;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Cmd-&gt;CmdId<sp/>&amp;<sp/><ref refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" kindref="member">XSECURE_API_ID_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>):</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_RsaEncrypt(Cmd-&gt;SubsystemId,<sp/>Pload[0],<sp/>Pload[1],</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload[2],<sp/>Pload[3]);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>):</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_RsaSignVerify(Cmd-&gt;SubsystemId,<sp/>Pload[0],<sp/>Pload[1]);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932" kindref="member">XSECURE_API_RSA_PSS_SIGN_VERIFY</ref>):</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_RsaPssSignVerifyHandler(Cmd-&gt;SubsystemId,<sp/>Pload[0],</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload[1]);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;CMD:<sp/>INVALID<sp/>PARAM\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaEncrypt(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,<sp/>u32<sp/>SrcAddrHigh,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DstAddrLow,<sp/>u32<sp/>DstAddrHigh)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Addr<sp/>=<sp/>((u64)SrcAddrHigh<sp/>&lt;&lt;<sp/>32U)<sp/>|<sp/>(u64)SrcAddrLow;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstAddr<sp/>=<sp/>((u64)DstAddrHigh<sp/>&lt;&lt;<sp/>32U)<sp/>|<sp/>(u64)DstAddrLow;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Modulus;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PublicExp;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref><sp/>RsaParams;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*XSecureRsaInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" kindref="member">XSecure_GetRsaInstance</ref>();</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>Addr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(RsaParams),<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&amp;RsaParams,<sp/>Addr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(RsaParams));</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>DstAddr,<sp/>RsaParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParams.KeyAddr,<sp/><ref refid="group__xsecure__rsa__server__apis_1gac5fad2e6eeba12e492b39df55bec6250" kindref="member">XSECURE_RSA_KEY_ADDR_SIZE</ref>,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParams.DataAddr,<sp/>RsaParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Modulus<sp/>=<sp/>RsaParams.KeyAddr;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PublicExp<sp/>=<sp/>RsaParams.KeyAddr<sp/>+<sp/>RsaParams.Size;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" kindref="member">XSecure_RsaInitialize_64Bit</ref>(XSecureRsaInstPtr,<sp/>Modulus,<sp/>0U,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PublicExp);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" kindref="member">XSecure_RsaPublicEncrypt_64Bit</ref>(XSecureRsaInstPtr,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams.DataAddr,<sp/>RsaParams.Size,<sp/>DstAddr);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="198"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaSignVerify(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,<sp/>u32<sp/>SrcAddrHigh)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Addr<sp/>=<sp/>((u64)SrcAddrHigh<sp/>&lt;&lt;<sp/>32U)<sp/>|<sp/>(u64)SrcAddrLow;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_sign_params" kindref="compound">XSecure_RsaSignParams</ref><sp/>SignParams;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>Addr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SignParams),<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&amp;SignParams,<sp/>Addr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SignParams));</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>SignParams.SignAddr,<sp/>SignParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>SignParams.HashAddr,<sp/>SignParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga88c72694ec8259484002620958682dde" kindref="member">XSecure_RsaSignVerification_64Bit</ref>(SignParams.SignAddr,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignParams.HashAddr,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignParams.Size);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="241"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaPssSignVerifyHandler(u32<sp/>SubsystemId,<sp/>u32<sp/>SrcAddrLow,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcAddrHigh)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ClearStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Addr<sp/>=<sp/>((u64)SrcAddrHigh<sp/>&lt;&lt;<sp/>32U)<sp/>|<sp/>(u64)SrcAddrLow;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_pss_sign_verify_params" kindref="compound">XSecure_RsaPssSignVerifyParams</ref><sp/>PssParams;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_pss_sign_verify_input" kindref="compound">XSecure_RsaPssSignVerifyInput</ref><sp/>PssInput;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*XSecureRsaInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" kindref="member">XSecure_GetRsaInstance</ref>();</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha<sp/>*ShaInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" kindref="member">XSECURE_SHA_0_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Encoded<sp/>message<sp/>and<sp/>data<sp/>block<sp/>workspaces.<sp/>These<sp/>hold<sp/>intermediates</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only,<sp/>so<sp/>the<sp/>server<sp/>owns<sp/>them<sp/>rather<sp/>than<sp/>making<sp/>the<sp/>caller<sp/>hand<sp/>over</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>memory<sp/>that<sp/>the<sp/>server<sp/>writes<sp/>into.</highlight></codeline>
+<codeline lineno="255"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>SignedInputData[<ref refid="group__xsecure__rsa__pss__server__apis_1ga044d9e24b00ff3d1875af9217c28eca6" kindref="member">XSECURE_RSA_PSS_SIGNED_INPUT_DATA_LEN</ref>]</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__<sp/>((aligned(32U)));</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>DataBlock[<ref refid="group__xsecure__rsa__pss__server__apis_1ga55f50734e680d2ee5d965a5ddb369c10" kindref="member">XSECURE_RSA_PSS_DATA_BLOCK_LEN</ref>]</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__<sp/>((aligned(32U)));</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>Addr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(PssParams),<sp/>Status,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_MemCpy64((UINTPTR)&amp;PssParams,<sp/>Addr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(PssParams));</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PssParams.KeySize<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PssParams.KeySize<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PssParams.KeySize<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSECURE_RSA_PSS_ERR_INVALID;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PssParams.Exponent<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PssParams.HashBufSize<sp/>!=<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES))<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSECURE_RSA_PSS_ERR_INVALID;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>PssParams.ModulusAddr,<sp/>PssParams.KeySize,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>PssParams.SignAddr,<sp/>PssParams.KeySize,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>PssParams.HashAddr,<sp/>PssParams.HashBufSize,<sp/>Status,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" kindref="member">XSecure_RsaInitialize_64Bit</ref>(XSecureRsaInstPtr,<sp/>PssParams.ModulusAddr,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/>(u64)(UINTPTR)&amp;PssParams.Exponent);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSECURE_RSA_PSS_ERR_INVALID;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1a6350d2599d3e0856bc116e20559bab51" kindref="member">MsgHashAddr</ref><sp/>=<sp/>PssParams.HashAddr;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1af401675c523af7451c81257653c82c66" kindref="member">SignAddr</ref><sp/>=<sp/>PssParams.SignAddr;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1a92e7e39126e272f0c76ecb7ecd55e6b4" kindref="member">KeySize</ref><sp/>=<sp/>PssParams.KeySize;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1a302f1f1909fdffb8462820fcf088a4fe" kindref="member">RsaInstPtr</ref><sp/>=<sp/>XSecureRsaInstPtr;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1abea2c9d45dd9bf51d3ec8bf497ba4ab0" kindref="member">ShaInstPtr</ref><sp/>=<sp/>ShaInstPtr;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1a82dd9cc57193fd8fc0e9e38782efcf7e" kindref="member">SignedInputData</ref><sp/>=<sp/>SignedInputData;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PssInput.<ref refid="struct_x_secure___rsa_pss_sign_verify_input_1ad659da86a17eff150a218088980f990a" kindref="member">DataBlock</ref><sp/>=<sp/>DataBlock;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" kindref="member">XSecure_RsaPssSignVerify</ref>(&amp;PssInput);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClearStatus<sp/>=<sp/>Xil_SMemSet(SignedInputData,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SignedInputData),<sp/>0U,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SignedInputData));</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ClearStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>?<sp/>XSECURE_RSA_PSS_ERR_CLEAR<sp/>:<sp/>Status;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClearStatus<sp/>=<sp/>Xil_SMemSet(DataBlock,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(DataBlock),<sp/>0U,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(DataBlock));</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ClearStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>?<sp/>XSECURE_RSA_PSS_ERR_CLEAR<sp/>:<sp/>Status;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSA_PSS_SIGN_VERIFY_ENABLED<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c"/>
+  </compounddef>
+</doxygen>

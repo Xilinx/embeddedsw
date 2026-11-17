@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b05b387ef7fba450bc52c3e49f398f7c" kind="dir">
+    <compoundname>xilnvm</compoundname>
+    <innerdir refid="dir_ff2b40f5c80b7e63da2f27d561f2a46a">examples</innerdir>
+    <innerdir refid="dir_461b532581950ab32775ad6cf6e3805f">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp21__dsc_8c" kind="file">
+    <compoundname>xdp21_dsc.c</compoundname>
+    <includes refid="xdp21__dsc_8h" local="yes">xdp21_dsc.h</includes>
+    <incdepgraph>
+      <node id="39">
+        <label>xil_types.h</label>
+      </node>
+      <node id="38">
+        <label>xparameters.h</label>
+      </node>
+      <node id="36">
+        <label>xdp21_dsc.c</label>
+        <link refid="xdp21_dsc.c"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>xdp21_dsc.h</label>
+        <link refid="xdp21__dsc_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+<para>Picture Parameter Set packing and validation for Display Stream Compression. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp21__dsc_8h" kindref="compound">xdp21_dsc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDP_USE_DSC</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDp21_DscInitContext(XDp21_DscContext<sp/>*ctx)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(ctx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>memset(ctx,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XDp21_DscContext));</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>ctx-&gt;dsc_passthrough_enable<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>ctx-&gt;pps_valid<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscParsePps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*pps_buffer,<sp/>XDp21_DscPps<sp/>*pps_data)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!pps_buffer<sp/>||<sp/>!pps_data)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;dsc_version_major<sp/>=<sp/>(pps_buffer[0]<sp/>&gt;&gt;<sp/>4)<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;dsc_version_minor<sp/>=<sp/>pps_buffer[0]<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;pps_identifier<sp/>=<sp/>pps_buffer[1];</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;bits_per_component<sp/>=<sp/>(pps_buffer[3]<sp/>&gt;&gt;<sp/>4)<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;linebuf_depth<sp/>=<sp/>pps_buffer[3]<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;block_pred_enable<sp/>=<sp/>(pps_buffer[4]<sp/>&gt;&gt;<sp/>5)<sp/>&amp;<sp/>0x01;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;convert_rgb<sp/>=<sp/>(pps_buffer[4]<sp/>&gt;&gt;<sp/>4)<sp/>&amp;<sp/>0x01;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;simple_422<sp/>=<sp/>(pps_buffer[4]<sp/>&gt;&gt;<sp/>3)<sp/>&amp;<sp/>0x01;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;vbr_enable<sp/>=<sp/>(pps_buffer[4]<sp/>&gt;&gt;<sp/>2)<sp/>&amp;<sp/>0x01;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;bits_per_pixel_high<sp/>=<sp/>(pps_buffer[4]<sp/>&amp;<sp/>0x03);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;bits_per_pixel_low<sp/>=<sp/>pps_buffer[5];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;pic_height<sp/>=<sp/>(pps_buffer[6]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[7];</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;pic_width<sp/>=<sp/>(pps_buffer[8]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[9];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;slice_height<sp/>=<sp/>(pps_buffer[10]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[11];</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;slice_width<sp/>=<sp/>(pps_buffer[12]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[13];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;chunk_size<sp/>=<sp/>(pps_buffer[14]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[15];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;initial_xmit_delay_high<sp/>=<sp/>(pps_buffer[16]<sp/>&amp;<sp/>0x03);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;initial_xmit_delay_low<sp/>=<sp/>pps_buffer[17];</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;initial_dec_delay<sp/>=<sp/>(pps_buffer[18]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[19];</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;initial_scale_value<sp/>=<sp/>pps_buffer[21]<sp/>&amp;<sp/>0x3F;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;scale_increment_interval<sp/>=<sp/>(pps_buffer[22]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[23];</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;scale_decrement_interval_high<sp/>=<sp/>(pps_buffer[24]<sp/>&amp;<sp/>0x0F);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;scale_decrement_interval_low<sp/>=<sp/>pps_buffer[25];</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;first_line_bpg_offset<sp/>=<sp/>pps_buffer[27]<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;nfl_bpg_offset<sp/>=<sp/>(pps_buffer[28]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[29];</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;slice_bpg_offset<sp/>=<sp/>(pps_buffer[30]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[31];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;initial_offset<sp/>=<sp/>(pps_buffer[32]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[33];</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;final_offset<sp/>=<sp/>(pps_buffer[34]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[35];</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;flatness_min_qp<sp/>=<sp/>pps_buffer[36]<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;flatness_max_qp<sp/>=<sp/>pps_buffer[37]<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;rc_model_size<sp/>=<sp/>(pps_buffer[38]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[39];</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;rc_edge_factor<sp/>=<sp/>pps_buffer[40]<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;rc_quant_incr_limit0<sp/>=<sp/>pps_buffer[41]<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;rc_quant_incr_limit1<sp/>=<sp/>pps_buffer[42]<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;rc_tgt_offset_high<sp/>=<sp/>(pps_buffer[43]<sp/>&gt;&gt;<sp/>4)<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;rc_tgt_offset_low<sp/>=<sp/>pps_buffer[43]<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(pps_data-&gt;rc_buf_thresh,<sp/>&amp;pps_buffer[44],<sp/>14);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(pps_data-&gt;rc_range_parameters,<sp/>&amp;pps_buffer[58],<sp/>30);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;native_420<sp/>=<sp/>(pps_buffer[88]<sp/>&gt;&gt;<sp/>1)<sp/>&amp;<sp/>0x01;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;native_422<sp/>=<sp/>pps_buffer[88]<sp/>&amp;<sp/>0x01;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;second_line_bpg_offset<sp/>=<sp/>pps_buffer[89]<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;nsl_bpg_offset<sp/>=<sp/>(pps_buffer[90]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[91];</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;second_line_offset_adj<sp/>=<sp/>(pps_buffer[92]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>pps_buffer[93];</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;pps_crc[0]<sp/>=<sp/>pps_buffer[126];</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_data-&gt;pps_crc[1]<sp/>=<sp/>pps_buffer[127];</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscEncodePps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*pps_data,<sp/>u8<sp/>*pps_buffer)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!pps_data<sp/>||<sp/>!pps_buffer)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>memset(pps_buffer,<sp/>0,<sp/>128);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[0]<sp/>=<sp/>(pps_data-&gt;dsc_version_major<sp/>&lt;&lt;<sp/>4)<sp/>|<sp/>(pps_data-&gt;dsc_version_minor<sp/>&amp;<sp/>0x0F);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[1]<sp/>=<sp/>pps_data-&gt;pps_identifier;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[3]<sp/>=<sp/>(pps_data-&gt;bits_per_component<sp/>&lt;&lt;<sp/>4)<sp/>|<sp/>(pps_data-&gt;linebuf_depth<sp/>&amp;<sp/>0x0F);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[4]<sp/>=<sp/>(pps_data-&gt;block_pred_enable<sp/>&lt;&lt;<sp/>5)<sp/>|<sp/>(pps_data-&gt;convert_rgb<sp/>&lt;&lt;<sp/>4)<sp/>|</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(pps_data-&gt;simple_422<sp/>&lt;&lt;<sp/>3)<sp/>|<sp/>(pps_data-&gt;vbr_enable<sp/>&lt;&lt;<sp/>2)<sp/>|</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(pps_data-&gt;bits_per_pixel_high<sp/>&amp;<sp/>0x03);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[5]<sp/>=<sp/>pps_data-&gt;bits_per_pixel_low;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[6]<sp/>=<sp/>(pps_data-&gt;pic_height<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[7]<sp/>=<sp/>pps_data-&gt;pic_height<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[8]<sp/>=<sp/>(pps_data-&gt;pic_width<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[9]<sp/>=<sp/>pps_data-&gt;pic_width<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[10]<sp/>=<sp/>(pps_data-&gt;slice_height<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[11]<sp/>=<sp/>pps_data-&gt;slice_height<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[12]<sp/>=<sp/>(pps_data-&gt;slice_width<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[13]<sp/>=<sp/>pps_data-&gt;slice_width<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[14]<sp/>=<sp/>(pps_data-&gt;chunk_size<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[15]<sp/>=<sp/>pps_data-&gt;chunk_size<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[16]<sp/>=<sp/>pps_data-&gt;initial_xmit_delay_high<sp/>&amp;<sp/>0x03;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[17]<sp/>=<sp/>pps_data-&gt;initial_xmit_delay_low;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[18]<sp/>=<sp/>(pps_data-&gt;initial_dec_delay<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[19]<sp/>=<sp/>pps_data-&gt;initial_dec_delay<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[21]<sp/>=<sp/>pps_data-&gt;initial_scale_value<sp/>&amp;<sp/>0x3F;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[22]<sp/>=<sp/>(pps_data-&gt;scale_increment_interval<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[23]<sp/>=<sp/>pps_data-&gt;scale_increment_interval<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[24]<sp/>=<sp/>pps_data-&gt;scale_decrement_interval_high<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[25]<sp/>=<sp/>pps_data-&gt;scale_decrement_interval_low;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[27]<sp/>=<sp/>pps_data-&gt;first_line_bpg_offset<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[28]<sp/>=<sp/>(pps_data-&gt;nfl_bpg_offset<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[29]<sp/>=<sp/>pps_data-&gt;nfl_bpg_offset<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[30]<sp/>=<sp/>(pps_data-&gt;slice_bpg_offset<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[31]<sp/>=<sp/>pps_data-&gt;slice_bpg_offset<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[32]<sp/>=<sp/>(pps_data-&gt;initial_offset<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[33]<sp/>=<sp/>pps_data-&gt;initial_offset<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[34]<sp/>=<sp/>(pps_data-&gt;final_offset<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[35]<sp/>=<sp/>pps_data-&gt;final_offset<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[36]<sp/>=<sp/>pps_data-&gt;flatness_min_qp<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[37]<sp/>=<sp/>pps_data-&gt;flatness_max_qp<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[38]<sp/>=<sp/>(pps_data-&gt;rc_model_size<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[39]<sp/>=<sp/>pps_data-&gt;rc_model_size<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[40]<sp/>=<sp/>pps_data-&gt;rc_edge_factor<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[41]<sp/>=<sp/>pps_data-&gt;rc_quant_incr_limit0<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[42]<sp/>=<sp/>pps_data-&gt;rc_quant_incr_limit1<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[43]<sp/>=<sp/>(pps_data-&gt;rc_tgt_offset_high<sp/>&lt;&lt;<sp/>4)<sp/>|<sp/>(pps_data-&gt;rc_tgt_offset_low<sp/>&amp;<sp/>0x0F);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(&amp;pps_buffer[44],<sp/>pps_data-&gt;rc_buf_thresh,<sp/>14);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(&amp;pps_buffer[58],<sp/>pps_data-&gt;rc_range_parameters,<sp/>30);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[88]<sp/>=<sp/>(pps_data-&gt;native_420<sp/>&lt;&lt;<sp/>1)<sp/>|<sp/>(pps_data-&gt;native_422<sp/>&amp;<sp/>0x01);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[89]<sp/>=<sp/>pps_data-&gt;second_line_bpg_offset<sp/>&amp;<sp/>0x1F;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[90]<sp/>=<sp/>(pps_data-&gt;nsl_bpg_offset<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[91]<sp/>=<sp/>pps_data-&gt;nsl_bpg_offset<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[92]<sp/>=<sp/>(pps_data-&gt;second_line_offset_adj<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[93]<sp/>=<sp/>pps_data-&gt;second_line_offset_adj<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[126]<sp/>=<sp/>pps_data-&gt;pps_crc[0];</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>pps_buffer[127]<sp/>=<sp/>pps_data-&gt;pps_crc[1];</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp21_DscValidatePps(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*pps_data)</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!pps_data)<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pps_data-&gt;bits_per_component<sp/>!=<sp/>8<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pps_data-&gt;bits_per_component<sp/>!=<sp/>10<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pps_data-&gt;bits_per_component<sp/>!=<sp/>12)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pps_data-&gt;pic_width<sp/>==<sp/>0<sp/>||<sp/>pps_data-&gt;pic_height<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pps_data-&gt;slice_width<sp/>==<sp/>0<sp/>||<sp/>pps_data-&gt;slice_height<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp21_dsc.c"/>
+  </compounddef>
+</doxygen>

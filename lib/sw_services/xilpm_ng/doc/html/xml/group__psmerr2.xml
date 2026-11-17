@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__psmerr2" kind="group">
+    <compoundname>psmerr2</compoundname>
+    <title>Error Event Mask for PSM ERR2</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__psmerr2_1ga81e670411be327578a5e213a6578c57b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_WDT0</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD WDT0 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gadf12c232f06a01676860849af7cafa5c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_WDT1</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD WDT1 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="463" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="463" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gae7e09b53e994db6d7dfd371c53021f20" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_WDT2</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD WDT2 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="466" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaf968e280dc6fb0ef6e76ed173fa3d4a1" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_WDT3</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD WDT3 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="469" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga8f1c7e3137a5038d82090cd3c6ada45d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MEM_SPLITTER0</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Memory Errors for Splitter0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="472" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gad15755242b78514c6cc26749ffa694b8" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_AXI_PAR_SPLITTER0</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for Consolidated Error indicating AXI parity Error for Splitter0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="475" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaa8e1a2bb7442eaeab1d16bd2a9983fe6" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MEM_SPLITTER1</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Memory Errors for Splitter1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="478" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="478" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga0cd3f29aa260dee01c4a9e25d6e2fa99" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_AXI_PAR_SPLITTER1</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for Consolidated Error indicating AXI parity Error for Splitter1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="481" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga326c7cdb1fbc04bf7d68bf7196ab9da3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MEM_SPLITTER2</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for Memory Errors for Splitter2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="484" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga9ca941a6bc90f743866df3b6e9d89906" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_AXI_PAR_SPLITTER2</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for Consolidated Error indicating AXI parity Error for Splitter2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="487" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gab25471e8432198af5fc1f3fbd94872f3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_MEM_SPLITTER3</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for Memory Errors for Splitter3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="490" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga0abc087217b88bd1186a9a9eadfe30b6" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_AXI_PAR_SPLITTER3</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for Consolidated Error indicating AXI parity Error for Splitter3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="493" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga88a375d4af72c839edff1cc4c8e7dcb1" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_CLUSTER0</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU Cluster 0 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="496" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga35b432edcb37bcea287d28674d6b96b4" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_CLUSTER1</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU Cluster 1 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="499" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga018989a2b22e9460b611a096a5ab75e5" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_CLUSTER2</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU Cluster 2 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="502" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaca70e13e420d432d08ba8aa57d0e9362" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_APU_CLUSTER3</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for APU Cluster 3 error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaff58a3a87c25774564cef6019a49d908" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPD_WWDT0</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>Error event mask for WWDT0 LPX Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="508" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gab99876c0e1778dffda4fd405a1a3ba67" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPD_WWDT1</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for WWDT0 LPX Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="511" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gacf7e47b1ad4b7c0694ba44c85a46974b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_ADMA_LOCKSTEP</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for ADMA Lockstep Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="514" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gad278c0831d8de5cabf05c75261d89723" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_IPI</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for IPI Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="517" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga11e456f83ecce1cbb384f73e5b09197e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_OCM_BANK0_CR</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for OCM Bank0 Corr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga5f1d684c3aa66b2e60d5f5a22eb3cd70" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_OCM_BANK1_CR</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>Error event mask for OCM Bank1 Corr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="523" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga7d9b10b212fb5219df8c3daea4183768" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_OCM_BANK0_NCR</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for OCM Bank0 UnCorr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="526" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga1e18ed9ed036ce128d39c18905f03a67" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_OCM_BANK1_NCR</name>
+        <initializer>(0x00800000U)</initializer>
+        <briefdescription>
+<para>Error event mask for OCM Bank1 UnCorr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="529" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="529" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaf343d288022f777b7480367f71c2c58f" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPXAFIFS_CR</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPXAFIFS Corr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="532" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaa504935941702c8facd4b60b86ce3607" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPXAFIFS_NCR</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPXAFIFS UnCorr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="535" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gae4197a7026e81f6e5fb58040e92e8f9e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPX_GLITCH_DETECT0</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPX Glitch Detector0 glitch detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="538" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1gaaf16bf7ae772b977bcb3b39d6afc92d9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_LPX_GLITCH_DETECT1</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for LPX Glitch Detector1 glitch detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="541" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="541" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga39ba3e9c91ad72d5f2fdda24e684d8b6" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FWALL_WR_NOC_NMU</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Firewall write errors from NOC NMUs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="544" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="544" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga95560d0950d394533d79c30b6f79f7d5" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FWALL_RD_NOC_NMU</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Firewall read error from NOC NMU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="547" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga46f7ca9068194f8fd8287cef688afa53" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FWALL_NOC_NSU</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Firewall error from NOC NSU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="550" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="550" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr2_1ga38904ccfff54335a3c9def6d90c687eb" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_A0</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core A0, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" line="553" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_error_node.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to PSM ERR2 Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

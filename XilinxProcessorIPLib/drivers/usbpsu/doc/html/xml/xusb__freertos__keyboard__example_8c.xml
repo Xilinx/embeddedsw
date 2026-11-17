@@ -1,0 +1,618 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusb__freertos__keyboard__example_8c" kind="file">
+    <compoundname>xusb_freertos_keyboard_example.c</compoundname>
+    <includes local="yes">FreeRTOS.h</includes>
+    <includes local="yes">task.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xusb__freertos__ch9__keyboard_8h" local="yes">xusb_freertos_ch9_keyboard.h</includes>
+    <includes refid="xusb__freertos__class__keyboard_8h" local="yes">xusb_freertos_class_keyboard.h</includes>
+    <incdepgraph>
+      <node id="790">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="794">
+        <label>xil_io.h</label>
+      </node>
+      <node id="787">
+        <label>xusb_wrapper.h</label>
+        <link refid="xusb__wrapper_8h"/>
+        <childnode refid="788" relation="include">
+        </childnode>
+      </node>
+      <node id="796">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="781">
+        <label>xusb_freertos_keyboard_example.c</label>
+        <link refid="xusb_freertos_keyboard_example.c"/>
+        <childnode refid="782" relation="include">
+        </childnode>
+        <childnode refid="783" relation="include">
+        </childnode>
+        <childnode refid="784" relation="include">
+        </childnode>
+        <childnode refid="785" relation="include">
+        </childnode>
+        <childnode refid="798" relation="include">
+        </childnode>
+      </node>
+      <node id="795">
+        <label>xil_util.h</label>
+      </node>
+      <node id="792">
+        <label>xusbpsu_hw.h</label>
+        <link refid="xusbpsu__hw_8h"/>
+      </node>
+      <node id="788">
+        <label>xusbpsu.h</label>
+        <link refid="xusbpsu_8h"/>
+        <childnode refid="789" relation="include">
+        </childnode>
+        <childnode refid="790" relation="include">
+        </childnode>
+        <childnode refid="791" relation="include">
+        </childnode>
+        <childnode refid="792" relation="include">
+        </childnode>
+        <childnode refid="793" relation="include">
+        </childnode>
+        <childnode refid="794" relation="include">
+        </childnode>
+        <childnode refid="795" relation="include">
+        </childnode>
+        <childnode refid="796" relation="include">
+        </childnode>
+      </node>
+      <node id="798">
+        <label>xusb_freertos_class_keyboard.h</label>
+        <link refid="xusb__freertos__class__keyboard_8h"/>
+        <childnode refid="782" relation="include">
+        </childnode>
+        <childnode refid="783" relation="include">
+        </childnode>
+        <childnode refid="799" relation="include">
+        </childnode>
+        <childnode refid="786" relation="include">
+        </childnode>
+      </node>
+      <node id="799">
+        <label>semphr.h</label>
+      </node>
+      <node id="785">
+        <label>xusb_freertos_ch9_keyboard.h</label>
+        <link refid="xusb__freertos__ch9__keyboard_8h"/>
+        <childnode refid="786" relation="include">
+        </childnode>
+      </node>
+      <node id="791">
+        <label>xstatus.h</label>
+      </node>
+      <node id="793">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu__endpoint_8h"/>
+      </node>
+      <node id="789">
+        <label>xil_types.h</label>
+      </node>
+      <node id="786">
+        <label>xusb_ch9.h</label>
+        <link refid="xusb__ch9_8h"/>
+        <childnode refid="787" relation="include">
+        </childnode>
+        <childnode refid="789" relation="include">
+        </childnode>
+        <childnode refid="791" relation="include">
+        </childnode>
+        <childnode refid="797" relation="include">
+        </childnode>
+      </node>
+      <node id="784">
+        <label>xparameters.h</label>
+      </node>
+      <node id="797">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="782">
+        <label>FreeRTOS.h</label>
+      </node>
+      <node id="783">
+        <label>task.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xusb__freertos__keyboard__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" prot="public" static="no">
+        <name>MEMORY_SIZE</name>
+        <initializer>(64 * 1024)</initializer>
+        <briefdescription>
+<para>Memory buffer size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__freertos__keyboard__example_8c_1a3445b0b40dc70d381db2e9172a53601d" prot="public" static="no">
+        <name>INTRNAME_DWC3USB3</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Interrupt-name - USB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="62" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__freertos__keyboard__example_8c_1a04ef3c909b33b067ace362d5504552ab" prot="public" static="no">
+        <name>XUSBPSU_BASEADDRESS</name>
+        <initializer>XPAR_XUSBPSU_0_BASEADDR</initializer>
+        <briefdescription>
+<para>USB base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xusb__freertos__keyboard__example_8c_1af8a218469831b07d43523f639ebe648c" prot="public" static="no" mutable="no">
+        <type>u8 Buffer[<ref refid="xusb__poll__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>]</type>
+        <definition>u8 Buffer [MEMORY_SIZE] ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+<para>Alignment Cacheline. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__freertos__keyboard__example_8c_1a35b6a61151282f1695a33ba48778b541" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref></type>
+        <definition>struct Usb_DevData UsbInstance</definition>
+        <argsstring></argsstring>
+        <name>UsbInstance</name>
+        <briefdescription>
+<para>USB device data instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__freertos__keyboard__example_8c_1a61bd56b191638bdedbe5a24715605e43" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Phase</definition>
+        <argsstring></argsstring>
+        <name>Phase</name>
+        <briefdescription>
+<para>Initialize a data structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Phase. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__freertos__keyboard__example_8c_1a2c9f7ec788bb9bc31723827142d67830" prot="public" static="yes" mutable="no">
+        <type>USBCH9_DATA</type>
+        <definition>USBCH9_DATA keyboard_data</definition>
+        <argsstring></argsstring>
+        <name>keyboard_data</name>
+        <initializer>= {
+	.ch9_func = {
+
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref> = <ref refid="xusb__freertos__ch9__storage_8h_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref> = <ref refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref> = <ref refid="xusb__freertos__ch9__storage_8h_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref> = <ref refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref> = <ref refid="xusb__freertos__ch9__storage_8h_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref>,
+		.<ref refid="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" kindref="member">Usb_SetConfigurationApp</ref> = <ref refid="xusb__freertos__ch9__storage_8h_1a4e6a99c41d5f094f189a0d4c0ad8b58b" kindref="member">Usb_SetConfigurationApp</ref>,
+		.<ref refid="xusb__freertos__class__composite_8h_1a32b6f95139e55ff73c71303408094577" kindref="member">Usb_ClassReq</ref> = <ref refid="xusb__freertos__class__keyboard_8h_1a6b4c6d0f1989a268becf04033c4537df" kindref="member">Usb_ClassReq_Keyboard</ref>,
+		.<ref refid="xusb__freertos__ch9__keyboard_8h_1a5fcf44156be6999a0abbc2d4ace707c1" kindref="member">Usb_GetDescReply</ref> = <ref refid="xusb__freertos__ch9__keyboard_8h_1a5fcf44156be6999a0abbc2d4ace707c1" kindref="member">Usb_GetDescReply</ref>,
+	},
+	.data_ptr = (void *)NULL,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xusb__freertos__keyboard__example_8c_1ac861920dd1c187d8203efde4c53b898f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Usb_EpInHandler</definition>
+        <argsstring>(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)</argsstring>
+        <name>Usb_EpInHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BytesTxed</declname>
+        </param>
+        <briefdescription>
+<para>Usb_EpInHandler function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is IN Endpoint handler/Callback called by driver when data is sent.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of bytes requested to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BytesTxed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is actual number of bytes sent to Host. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="277" bodyend="287"/>
+        <references refid="xusb__freertos__class__keyboard_8c_1adb38d8d595a3df747606484ab89b5c04" compoundref="xusb__freertos__class__keyboard_8c" startline="47">xSemaphore</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__freertos__keyboard__example_8c_1a60ea477a82aa7c54308785af705e5cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SetupInterruptSystem</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, u16 UsbIntrId)</argsstring>
+        <name>SetupInterruptSystem</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>UsbIntrId</declname>
+        </param>
+        <briefdescription>
+<para>This function setups the interrupt system such that interrupts can occur. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is application specific since the actual system may or may not have an interrupt controller. The USB controller could be directly connected to a processor without an interrupt controller. The user should modify this function to fit the application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbIntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID of the USB controller </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="104" bodyend="118"/>
+        <references refid="group__usbpsu__api_1gacff30d70dc978fce3f0bd863c90195fe" compoundref="xusbpsu__hw_8h" startline="263">XUSBPSU_DEVTEN_CONNECTDONEEN</references>
+        <references refid="group__usbpsu__api_1ga1ef571f8495a685e2128d3691afee75e" compoundref="xusbpsu__hw_8h" startline="265">XUSBPSU_DEVTEN_DISCONNEVTEN</references>
+        <references refid="group__usbpsu__api_1gad7b4e70ee47462229a243ba71ab98aa1" compoundref="xusbpsu__hw_8h" startline="255">XUSBPSU_DEVTEN_EVNTOVERFLOWEN</references>
+        <references refid="group__usbpsu__api_1gaf77de6ef99216d8d681032f133438d1d" compoundref="xusbpsu__hw_8h" startline="262">XUSBPSU_DEVTEN_ULSTCNGEN</references>
+        <references refid="group__usbpsu__api_1ga3b1344d907f7ae5c9194f79603a2e12f" compoundref="xusbpsu__hw_8h" startline="264">XUSBPSU_DEVTEN_USBRSTEN</references>
+        <references refid="group__usbpsu__api_1ga31f8bfbbcc6b7c06a7650c6e5562ad6b" compoundref="xusbpsu__hw_8h" startline="261">XUSBPSU_DEVTEN_WKUPEVTEN</references>
+        <references refid="group__usbpsu__api_1ga48e6e534c10a7a99be5606a0583c2129" compoundref="xusbpsu__intr_8c" startline="314" endline="324">XUsbPsu_EnableIntr</references>
+        <references refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="368" endline="400">XUsbPsu_IntrHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__freertos__keyboard__example_8c_1a5a57d18a51bf12ee9416e68d526124c9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XUsbKeyboardExample</definition>
+        <argsstring>(struct Usb_DevData *UsbInstPtr)</argsstring>
+        <name>XUsbKeyboardExample</name>
+        <param>
+          <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *</type>
+          <declname>UsbInstPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is implementing USB Keyboard example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">UsbInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the USB device instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful,<itemizedlist>
+<listitem><para>XST_FAILURE if unsuccessful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="134" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__freertos__keyboard__example_8c_1a3f24416ae524264278fa29b6b8503224" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void prvMainTask</definition>
+        <argsstring>(void *pvParameters)</argsstring>
+        <name>prvMainTask</name>
+        <param>
+          <type>void *</type>
+          <declname>pvParameters</declname>
+        </param>
+        <briefdescription>
+<para>This task implements keyboard functionality. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">pvParameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>private parameters. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="227" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="xusb__freertos__keyboard__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function of the USB keyboard example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful,</para></listitem><listitem><para>XST_FAILURE if unsuccessful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c" bodystart="253" bodyend="265"/>
+        <references refid="xusb__wrapper_8c_1a279ce5fef0ed4e1fcad45af04f34873b" compoundref="xusb__wrapper_8c" startline="70" endline="73">CacheInit</references>
+        <references refid="xusb__freertos__class__keyboard_8c_1a71de5b59ddda7908bc86a51ab97948b6" compoundref="xusb__freertos__class__keyboard_8c" startline="45">xMainTask</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements keyboard example. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="par"><title>Setup requirement</title><para>zcu102 board in usb device mode, connected with host using USB 3.0 cable</para></simplesect>
+Following other files require to run this example o <ref refid="xusb__ch9_8c" kindref="compound">xusb_ch9.c</ref>, <ref refid="xusb__ch9_8h" kindref="compound">xusb_ch9.h</ref> o <ref refid="xusb__freertos__ch9__keyboard_8c" kindref="compound">xusb_freertos_ch9_keyboard.c</ref>, xusb_freerots_ch9_keyboard.h o <ref refid="xusb__freertos__class__keyboard_8c" kindref="compound">xusb_freertos_class_keyboard.c</ref>, <ref refid="xusb__freertos__class__keyboard_8h" kindref="compound">xusb_freertos_class_keyboard.h</ref></para><para><simplesect kind="par"><title>Validation</title><para>o on success example will be detected as keyboard on host o start hexdump &lt;hid node&gt; on host o press key on board serial o key should be detected on host</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rb   22/03/18 First release
+1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+1.15  pm   12/15/23 Added support for system device-tree flow.
+1.18  ka   21/08/25 Fixed GCC warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;FreeRTOS.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;task.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__freertos__ch9__keyboard_8h" kindref="compound">xusb_freertos_ch9_keyboard.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__freertos__class__keyboard_8h" kindref="compound">xusb_freertos_class_keyboard.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="xusb__freertos__keyboard__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_SIZE<sp/>(64<sp/>*<sp/>1024)<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>data_alignment<sp/>=<sp/>32</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>Buffer[<ref refid="xusb__freertos__keyboard__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>];</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="55" refid="xusb__freertos__keyboard__example_8c_1af8a218469831b07d43523f639ebe648c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/>Buffer[<ref refid="xusb__freertos__keyboard__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>]<sp/><ref refid="xusb__freertos__audio__example_8c_1a958a9e1a8dc436299c935c1243201112" kindref="member">ALIGNMENT_CACHELINE</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>USB_INTR_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XUSBPS_0_INTR<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="62" refid="xusb__freertos__keyboard__example_8c_1a3445b0b40dc70d381db2e9172a53601d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTRNAME_DWC3USB3<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="xusb__freertos__keyboard__example_8c_1a04ef3c909b33b067ace362d5504552ab" refkind="member"><highlight class="preprocessor">#define<sp/>XUSBPSU_BASEADDRESS<sp/><sp/><sp/><sp/><sp/>XPAR_XUSBPSU_0_BASEADDR<sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight></codeline>
+<codeline lineno="68"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__keyboard__example_8c_1ac861920dd1c187d8203efde4c53b898f" kindref="member">Usb_EpInHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>RequestedBytes,<sp/>u32<sp/>BytesTxed);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="xusb__freertos__keyboard__example_8c_1a35b6a61151282f1695a33ba48778b541" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/><ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>;<sp/></highlight></codeline>
+<codeline lineno="74" refid="xusb__freertos__keyboard__example_8c_1a61bd56b191638bdedbe5a24715605e43" refkind="member"><highlight class="normal">u8<sp/><ref refid="xusb__ch9__storage_8c_1a61bd56b191638bdedbe5a24715605e43" kindref="member">Phase</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>USBCH9_DATA<sp/>keyboard_data<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.ch9_func<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupDevDescReply<sp/>=<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a8eaa9363a2026b377cee0a09377f6420" kindref="member">Usb_Ch9SetupDevDescReply</ref>,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupCfgDescReply<sp/>=<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a5f71c81f47255ca655c3fe4262b97b68" kindref="member">Usb_Ch9SetupCfgDescReply</ref>,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupBosDescReply<sp/>=<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a6b9c8f0b5b4de1072d44ca05f15d3601" kindref="member">Usb_Ch9SetupBosDescReply</ref>,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_Ch9SetupStrDescReply<sp/>=<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a36f6da36a86aeccc3ffd45b8d20b72c2" kindref="member">Usb_Ch9SetupStrDescReply</ref>,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_SetConfiguration<sp/>=<sp/><ref refid="xusb__ch9__audio__dfu_8c_1af99800b04544fe0bfa385de154d79087" kindref="member">Usb_SetConfiguration</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_SetConfigurationApp<sp/>=<sp/><ref refid="xusb__ch9__audio__dfu_8c_1a06c2b2b0fd41a23280a0fde1ef2950be" kindref="member">Usb_SetConfigurationApp</ref>,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_ClassReq<sp/>=<sp/><ref refid="xusb__freertos__class__keyboard_8c_1a6b4c6d0f1989a268becf04033c4537df" kindref="member">Usb_ClassReq_Keyboard</ref>,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Usb_GetDescReply<sp/>=<sp/><ref refid="xusb__ch9__composite_8c_1a043075687afdf64ad9382236bd155e60" kindref="member">Usb_GetDescReply</ref>,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.data_ptr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)NULL,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="104" refid="xusb__freertos__keyboard__example_8c_1a60ea477a82aa7c54308785af705e5cd3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__audio__example_8c_1a60ea477a82aa7c54308785af705e5cd3" kindref="member">SetupInterruptSystem</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u16<sp/>UsbIntrId)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xPortInstallInterruptHandler(UsbIntrId,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" kindref="member">XUsbPsu_IntrHandler</ref>,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga48e6e534c10a7a99be5606a0583c2129" kindref="member">XUsbPsu_EnableIntr</ref>(InstancePtr,<sp/><ref refid="group__usbpsu__api_1gad7b4e70ee47462229a243ba71ab98aa1" kindref="member">XUSBPSU_DEVTEN_EVNTOVERFLOWEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga31f8bfbbcc6b7c06a7650c6e5562ad6b" kindref="member">XUSBPSU_DEVTEN_WKUPEVTEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gaf77de6ef99216d8d681032f133438d1d" kindref="member">XUSBPSU_DEVTEN_ULSTCNGEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gacff30d70dc978fce3f0bd863c90195fe" kindref="member">XUSBPSU_DEVTEN_CONNECTDONEEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga3b1344d907f7ae5c9194f79603a2e12f" kindref="member">XUSBPSU_DEVTEN_USBRSTEN</ref><sp/>|</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga1ef571f8495a685e2128d3691afee75e" kindref="member">XUSBPSU_DEVTEN_DISCONNEVTEN</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vPortEnableInterrupt(UsbIntrId);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XUsbKeyboardExample(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*UsbInstPtr,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId,<sp/>u16<sp/>UsbIntrId)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XUsbKeyboardExample(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*UsbInstPtr)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb_psu___config" kindref="compound">Usb_Config</ref><sp/>*<ref refid="xusb__intr__example_8c_1ad8a46af61df28d52dfa260f3e35387eb" kindref="member">UsbConfigPtr</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FreeRTOS<sp/>Keyboard<sp/>application<sp/>Start...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr<sp/>=<sp/><ref refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" kindref="member">LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr<sp/>=<sp/><ref refid="xusb__wrapper_8c_1aa54ebd095fc9b75d81ce1c6f3c2db5b1" kindref="member">LookupConfig</ref>(<ref refid="xusb__freertos__keyboard__example_8c_1a04ef3c909b33b067ace362d5504552ab" kindref="member">XUSBPSU_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>UsbConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;LookupConfig<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xusb__wrapper_8c_1a7409a4956ffb20a9407c497fd8f1c832" kindref="member">CfgInitialize</ref>(UsbInstPtr,<sp/>UsbConfigPtr,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr-&gt;<ref refid="struct_x_usb_psu___config_1a389cb184e06d5795b4239fe005e2290f" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CfgInitialize<sp/>failed:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>hook<sp/>up<sp/>chapter9<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1aaa7a2c1cb275a983a77b517a964d05ea" kindref="member">Set_Ch9Handler</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/><ref refid="xusb__ch9_8c_1a4a51f5e7948e7a27adcd66023d48876d" kindref="member">Ch9Handler</ref>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>the<sp/>data<sp/>to<sp/>usb<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1ae56a7dab4be473055d1f2c3de0dc0b41" kindref="member">Set_DrvData</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>&amp;keyboard_data);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1ad17a2824033e5c4bd2c8aa6ee66b9189" kindref="member">EpConfigure</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1,<sp/><ref refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" kindref="member">USB_EP_DIR_IN</ref>,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8h_1a904b4eef8e7bcab363757e19832617ee" kindref="member">USB_EP_TYPE_INTERRUPT</ref>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xusb__wrapper_8c_1a6f6b3711b08d9cbf8dc2f0781f470a50" kindref="member">ConfigureDevice</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>&amp;Buffer[0],</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__freertos__keyboard__example_8c_1a5ad3f75a4e38fd9bbed917c71ca4e9e0" kindref="member">MEMORY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ConfigureDevice<sp/>failed:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>set<sp/>endpoint<sp/>handlers</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Usb_EpInHandler<sp/>-<sp/><sp/>to<sp/>be<sp/>called<sp/>when<sp/>data<sp/>is<sp/>sent</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a97fa92a8f2bd1552d1d6cb6c9ee5fc29" kindref="member">SetEpHandler</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/>1,<sp/><ref refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" kindref="member">USB_EP_DIR_IN</ref>,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__freertos__keyboard__example_8c_1ac861920dd1c187d8203efde4c53b898f" kindref="member">Usb_EpInHandler</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>setup<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__freertos__audio__example_8c_1a60ea477a82aa7c54308785af705e5cd3" kindref="member">SetupInterruptSystem</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbIntrId</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">#</highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr-&gt;<ref refid="struct_x_usb_psu___config_1a9cb738931b4fdcf976f2a5b1979ae427" kindref="member">IntrId</ref>[<ref refid="xusb__freertos__keyboard__example_8c_1a3445b0b40dc70d381db2e9172a53601d" kindref="member">INTRNAME_DWC3USB3</ref>]</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>controller<sp/>so<sp/>that<sp/>Host<sp/>can<sp/>see<sp/>our<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a8d32fd815ed7b6b1bae2bd649ac428f1" kindref="member">Usb_Start</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseType_t<sp/>Ret;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Notification;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ret<sp/>=<sp/>xTaskNotifyWait(0x00,<sp/>0x00,<sp/>&amp;Notification,<sp/>portMAX_DELAY);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ret<sp/>==<sp/>pdTRUE)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Notification<sp/>&amp;<sp/><ref refid="xusb__freertos__ch9__composite_8h_1a85a9a44864695bc6b36a042a00fdfd8a" kindref="member">KEYBOARD_CONFIG</ref>)</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xTaskCreate(<ref refid="xusb__freertos__class__composite_8c_1aba8a3fdb3b4fc01587c30bbbdba21246" kindref="member">prvKeyboardTask</ref>,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/></highlight><highlight class="stringliteral">&quot;Keyboard<sp/>Task&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>configMINIMAL_STACK_SIZE,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbInstPtr,<sp/>tskIDLE_PRIORITY,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="xusb__freertos__class__keyboard_8c_1a6ac995135484055f6a61b66172e160e3" kindref="member">xKeyboardTask</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Notification<sp/>&amp;<sp/><ref refid="xusb__freertos__ch9__composite_8h_1aa0ceaa9d2eec6f1f20f67af7a4066245" kindref="member">KEYBOARD_UNCONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a89213a25f15867eff5fa1c41b0a1a5bf" kindref="member">EpDisable</ref>(UsbInstPtr-&gt;<ref refid="struct_usb___dev_data_1a35624c7f1dbe7a05bd61f4abf44d5cd8" kindref="member">PrivateData</ref>,<sp/><ref refid="xusb__class__composite_8h_1a611e1198c0727b99ccbc4ee1fba8323f" kindref="member">KEYBOARD_EP</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" kindref="member">USB_EP_DIR_IN</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vSemaphoreDelete(<ref refid="xusb__freertos__class__keyboard_8c_1adb38d8d595a3df747606484ab89b5c04" kindref="member">xSemaphore</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vTaskDelete(<ref refid="xusb__freertos__class__keyboard_8c_1a6ac995135484055f6a61b66172e160e3" kindref="member">xKeyboardTask</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="227"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>prvMainTask(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)pvParameters;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XUsbKeyboardExample(&amp;<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>,<sp/><ref refid="xusb__wrapper_8h_1aa12c76241fcad981769d65754a5f5591" kindref="member">USB_DEVICE_ID</ref>,<sp/>USB_INTR_ID);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XUsbKeyboardExample(&amp;<ref refid="xusb__audio__dfu__example_8c_1a35b6a61151282f1695a33ba48778b541" kindref="member">UsbInstance</ref>);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FreeRTOS<sp/>USB<sp/>Keyboard<sp/>Example<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vTaskDelete(NULL);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="253" refid="xusb__freertos__keyboard__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xusb__audio__dfu__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__wrapper_8c_1a279ce5fef0ed4e1fcad45af04f34873b" kindref="member">CacheInit</ref>();</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xTaskCreate(prvMainTask,<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/></highlight><highlight class="stringliteral">&quot;Keyboard&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>configMINIMAL_STACK_SIZE,<sp/>NULL,<sp/>tskIDLE_PRIORITY,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="xusb__freertos__class__keyboard_8c_1a71de5b59ddda7908bc86a51ab97948b6" kindref="member">xMainTask</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>tasks<sp/>and<sp/>timer<sp/>running.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vTaskStartScheduler();</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="277" refid="xusb__freertos__keyboard__example_8c_1ac861920dd1c187d8203efde4c53b898f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__keyboard__example_8c_1ac861920dd1c187d8203efde4c53b898f" kindref="member">Usb_EpInHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>RequestedBytes,<sp/>u32<sp/>BytesTxed)</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseType_t<sp/>xHigherPriorityTaskWoken;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)RequestedBytes;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)BytesTxed;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphoreGiveFromISR(<ref refid="xusb__freertos__class__keyboard_8c_1adb38d8d595a3df747606484ab89b5c04" kindref="member">xSemaphore</ref>,<sp/>&amp;xHigherPriorityTaskWoken);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>portYIELD_FROM_ISR(xHigherPriorityTaskWoken);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_keyboard_example.c"/>
+  </compounddef>
+</doxygen>

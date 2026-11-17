@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ecc_params" kind="struct" prot="public">
+    <compoundname>XAsu_EccParams</compoundname>
+    <includes local="no">xasu_eccinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ecc_params_1a1cdc96ffb752849a2a1fce1c3175e09c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___ecc_key_object" kindref="compound">XAsu_EccKeyObject</ref></type>
+        <definition>XAsu_EccKeyObject XAsu_EccParams::Key</definition>
+        <argsstring></argsstring>
+        <name>Key</name>
+        <briefdescription>
+<para>Key object (private or public) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_params_1a6f5c67aee496219d6f142931d319dd9f" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EccParams::DigestAddr</definition>
+        <argsstring></argsstring>
+        <name>DigestAddr</name>
+        <briefdescription>
+<para>Address of digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_params_1a3c070c1842824e7ca5f66152cff6845e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EccParams::SignAddr</definition>
+        <argsstring></argsstring>
+        <name>SignAddr</name>
+        <briefdescription>
+<para>Address of signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_params_1ae5c8ee36775317d9d7ab54209af0ad51" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EccParams::DigestLen</definition>
+        <argsstring></argsstring>
+        <name>DigestLen</name>
+        <briefdescription>
+<para>Length of the digest provided. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_params_1a8436397a020408eacbf41d6882698d5e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EccParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains ECC params info for signature operations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="58">
+        <label>XAsu_EccKeyObject</label>
+        <link refid="struct_x_asu___ecc_key_object"/>
+      </node>
+      <node id="57">
+        <label>XAsu_EccParams</label>
+        <link refid="struct_x_asu___ecc_params"/>
+        <childnode refid="58" relation="usage">
+          <edgelabel>Key</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="130" bodyend="136"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ecc_params_1a6f5c67aee496219d6f142931d319dd9f" prot="public" virt="non-virtual"><scope>XAsu_EccParams</scope><name>DigestAddr</name></member>
+      <member refid="struct_x_asu___ecc_params_1ae5c8ee36775317d9d7ab54209af0ad51" prot="public" virt="non-virtual"><scope>XAsu_EccParams</scope><name>DigestLen</name></member>
+      <member refid="struct_x_asu___ecc_params_1a1cdc96ffb752849a2a1fce1c3175e09c" prot="public" virt="non-virtual"><scope>XAsu_EccParams</scope><name>Key</name></member>
+      <member refid="struct_x_asu___ecc_params_1a8436397a020408eacbf41d6882698d5e" prot="public" virt="non-virtual"><scope>XAsu_EccParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___ecc_params_1a3c070c1842824e7ca5f66152cff6845e" prot="public" virt="non-virtual"><scope>XAsu_EccParams</scope><name>SignAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

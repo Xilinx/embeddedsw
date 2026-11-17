@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___board_params" kind="struct" prot="public">
+    <compoundname>XPlmi_BoardParams</compoundname>
+    <includes local="no">xplmi_generic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___board_params_1ada2af0bf39e1a013851a6fec5240a528" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BoardParams::Name[XPLMI_MAX_NAME_LEN+1U]</definition>
+        <argsstring>[XPLMI_MAX_NAME_LEN+1U]</argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Null-terminated board name string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga1c4574be04f5ca926144b402fdea536f" compoundref="server_2xplmi__plat_8c" startline="182" endline="190">XPlmi_GetBoardParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___board_params_1ab698e46d3c9e358e1ebd5163243f4377" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_BoardParams::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+<para>Length of the board name in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds the board name string and its length. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="114" bodyend="117"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___board_params_1ab698e46d3c9e358e1ebd5163243f4377" prot="public" virt="non-virtual"><scope>XPlmi_BoardParams</scope><name>Len</name></member>
+      <member refid="struct_x_plmi___board_params_1ada2af0bf39e1a013851a6fec5240a528" prot="public" virt="non-virtual"><scope>XPlmi_BoardParams</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

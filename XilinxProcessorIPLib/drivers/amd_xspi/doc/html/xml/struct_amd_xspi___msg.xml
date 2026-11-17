@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_amd_xspi___msg" kind="struct" prot="public">
+    <compoundname>AmdXspi_Msg</compoundname>
+    <includes local="no">amd_xspi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* AmdXspi_Msg::CmdAddrBufPtr</definition>
+        <argsstring></argsstring>
+        <name>CmdAddrBufPtr</name>
+        <briefdescription>
+<para>Command/address bytes (for example, HyperBus CA). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Msg::CmdAddrBytes</definition>
+        <argsstring></argsstring>
+        <name>CmdAddrBytes</name>
+        <briefdescription>
+<para>Number of command/address bytes (1-6). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* AmdXspi_Msg::TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Transmit data buffer (NULL if none). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1a8823eb66599ef4ac99fe2fe9cbbd5c9d" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* AmdXspi_Msg::RxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>RxBfrPtr</name>
+        <briefdescription>
+<para>Receive data buffer (NULL if none). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Msg::ByteCount</definition>
+        <argsstring></argsstring>
+        <name>ByteCount</name>
+        <briefdescription>
+<para>Number of data bytes to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_Msg::DummyCycles</definition>
+        <argsstring></argsstring>
+        <name>DummyCycles</name>
+        <briefdescription>
+<para>Dummy/latency cycles (0-63). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_Msg::FrameFormat</definition>
+        <argsstring></argsstring>
+        <name>FrameFormat</name>
+        <briefdescription>
+<para>Frame format (0-3). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AmdXspi_Msg::IoFormat</definition>
+        <argsstring></argsstring>
+        <name>IoFormat</name>
+        <briefdescription>
+<para>IO format (for Dual/Quad modes). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi___msg_1aedaf86fd1b26e4bead8beb092ee7347a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi_Msg::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>AMD_XSPI_MSG_FLAG_TX / AMD_XSPI_MSG_FLAG_RX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" compoundref="amd__xspi_8c" startline="178" endline="220">AmdXspi_PolledTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Describes a transfer message for the message-based transfer API. </para>    </briefdescription>
+    <detaileddescription>
+<para>The message-based transfer API is <ref refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" kindref="member">AmdXspi_PolledTransfer()</ref> and <ref refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" kindref="member">AmdXspi_InterruptTransfer()</ref>.</para><para>Each message describes one Lite-mode transaction: command/address followed by a single data phase (transmit OR receive) within one chip-select window. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="148" bodyend="160"/>
+    <listofallmembers>
+      <member refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>ByteCount</name></member>
+      <member refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>CmdAddrBufPtr</name></member>
+      <member refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>CmdAddrBytes</name></member>
+      <member refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>DummyCycles</name></member>
+      <member refid="struct_amd_xspi___msg_1aedaf86fd1b26e4bead8beb092ee7347a" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>Flags</name></member>
+      <member refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>FrameFormat</name></member>
+      <member refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>IoFormat</name></member>
+      <member refid="struct_amd_xspi___msg_1a8823eb66599ef4ac99fe2fe9cbbd5c9d" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>RxBfrPtr</name></member>
+      <member refid="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" prot="public" virt="non-virtual"><scope>AmdXspi_Msg</scope><name>TxBfrPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

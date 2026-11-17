@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi3cpsx__slave__intr__loopback_8c" kind="file">
+    <compoundname>xi3cpsx_slave_intr_loopback.c</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes refid="xi3cpsx_8h" local="yes">xi3cpsx.h</includes>
+    <includes refid="xi3cpsx__hw_8h" local="yes">xi3cpsx_hw.h</includes>
+    <includes refid="xi3cpsx__pr_8h" local="yes">xi3cpsx_pr.h</includes>
+    <includes local="yes">xscugic.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="183">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="186">
+        <label>xil_io.h</label>
+      </node>
+      <node id="189">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="190">
+        <label>xil_util.h</label>
+      </node>
+      <node id="185">
+        <label>xi3cpsx_hw.h</label>
+        <link refid="xi3cpsx__hw_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="187" relation="include">
+        </childnode>
+      </node>
+      <node id="181">
+        <label>xi3cpsx.h</label>
+        <link refid="xi3cpsx_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+      </node>
+      <node id="193">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="184">
+        <label>xstatus.h</label>
+      </node>
+      <node id="192">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="179">
+        <label>xi3cpsx_slave_intr_loopback.c</label>
+        <link refid="xi3cpsx_slave_intr_loopback.c"/>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+      </node>
+      <node id="182">
+        <label>xil_types.h</label>
+      </node>
+      <node id="187">
+        <label>xparameters.h</label>
+      </node>
+      <node id="180">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="188">
+        <label>xi3cpsx_pr.h</label>
+        <link refid="xi3cpsx__pr_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="183" relation="include">
+        </childnode>
+      </node>
+      <node id="191">
+        <label>xscugic.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a9b12960156f9b3825b51147e2a34a934" prot="public" static="no">
+        <name>I3C_DEVICE_ID</name>
+        <initializer>XPAR_XI3CPSX_1_BASEADDR</initializer>
+        <briefdescription>
+<para>I3C instance identifier from xparameters.h. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="117" endline="131">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a949d7e587bdc1557ae113c60f345d6d0" prot="public" static="no">
+        <name>I3C_SLAVE_ID</name>
+        <initializer>XPAR_XI3CPSX_0_BASEADDR</initializer>
+        <briefdescription>
+<para>I3C slave instance identifier from xparameters.h. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="60" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a90bc74590962865fc1ab7ee1be0f4b64" prot="public" static="no">
+        <name>INTC_DEVICE_ID</name>
+        <initializer>XPAR_SCUGIC_SINGLE_DEVICE_ID</initializer>
+        <briefdescription>
+<para>SCUGIC instance identifier from xparameters.h. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a691d3ed8417b615f2c2eaaa4f60af2dd" prot="public" static="no">
+        <name>I3C_SLAVE_INT_VEC_ID</name>
+        <initializer>XPAR_PSVXL_I3C_0_INTR</initializer>
+        <briefdescription>
+<para>I3C slave interrupt vector identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a8225d7496192c720dd955fec79f57010" prot="public" static="no">
+        <name>I3C_MASTER_INT_VEC_ID</name>
+        <initializer>XPAR_PSVXL_I3C_1_INTR</initializer>
+        <briefdescription>
+<para>I3C master interrupt vector identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" prot="public" static="no">
+        <name>LEN</name>
+        <initializer>128</initializer>
+        <briefdescription>
+<para>Loopback payload length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="71" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1aae6c3f5e962a0a0fd946db3ad3053886" prot="public" static="no">
+        <name>I3C_SLAVE_STATIC_ADDR</name>
+        <initializer>0x5d</initializer>
+        <briefdescription>
+<para>I3C slave static address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="72" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xi3cpsx__slave__intr__loopback_8c_1a199da98d8ddcd495482b436d294ec75d" prot="public" static="no">
+        <name>TIMEOUT_COUNTER</name>
+        <initializer>10000000U</initializer>
+        <briefdescription>
+<para>Polling timeout iteration count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1ad3fa5bfbb10251e6af631bcb8b4d6ae8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 RxData[LEN]</definition>
+        <argsstring>[LEN]</argsstring>
+        <name>RxData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1af96fe7c612bd5f1de1a18a479cfc606a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TxDataTest[LEN]</definition>
+        <argsstring>[LEN]</argsstring>
+        <name>TxDataTest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1a5c738c9866cb5d74c2d969e2f2137cca" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref></type>
+        <definition>XI3cPsx Xi3cPs_InstanceMaster</definition>
+        <argsstring></argsstring>
+        <name>Xi3cPs_InstanceMaster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1a5519cb68c6bfd8c81ba59d849866cc30" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+        <definition>XI3cPsx* InstancePtr</definition>
+        <argsstring></argsstring>
+        <name>InstancePtr</name>
+        <initializer>= &amp;Xi3cPs_InstanceMaster</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1a8b586a672aaee4bd4e8a4a04be2a7e89" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref></type>
+        <definition>XI3cPsx Xi3cPs_InstanceSlave</definition>
+        <argsstring></argsstring>
+        <name>Xi3cPs_InstanceSlave</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1a765bf50fae342b9c08a1c61c44d70d01" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+        <definition>XI3cPsx* InstancePtrSlave</definition>
+        <argsstring></argsstring>
+        <name>InstancePtrSlave</name>
+        <initializer>= &amp;Xi3cPs_InstanceSlave</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1ac1d4e807cd2b476426fe466254e15a12" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 TransferComplete</definition>
+        <argsstring></argsstring>
+        <name>TransferComplete</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xi3cpsx__slave__intr__loopback_8c_1aa443a47eeb2dc837aa355392c701f05e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 TotalErrorCount</definition>
+        <argsstring></argsstring>
+        <name>TotalErrorCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int I3cPsxSlaveIntrLoopbackExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>I3cPsxSlaveIntrLoopbackExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs a slave interrupt loopback test on the I3c device and driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does a slave interrupt loopback test on the I3c device and driver as a design example. The purpose of this function is to illustrate how to use the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> driver in slave interrupt mode.</para><para>This function sends data from the master and receives it on the slave through the I3C loopback. It expects the controllers to be in loopback.</para><para>This function uses interrupt-driven slave mode and polled master mode of the I3C.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="165" bodyend="326"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="237">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" compoundref="xi3cpsx_8h" startline="281">CmdInfo::Cmd</references>
+        <references refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" compoundref="xi3cpsx__pr_8h" startline="168">COMMAND_PORT_ARG_DATA_LEN</references>
+        <references refid="group__i3cpsx__api_1ga271e2b740dff45210811d4a6cb403e40" compoundref="xi3cpsx__pr_8h" startline="160">COMMAND_PORT_DEV_INDEX</references>
+        <references refid="group__i3cpsx__api_1ga31d8873c67f4034a2f43e381dab928bf" compoundref="xi3cpsx__pr_8h" startline="150">COMMAND_PORT_READ_TRANSFER</references>
+        <references refid="group__i3cpsx__api_1ga25ff255a1f527a09b95991f3a869f940" compoundref="xi3cpsx__pr_8h" startline="154">COMMAND_PORT_ROC</references>
+        <references refid="group__i3cpsx__api_1ga18824936950cea3eea8094c6205ac7a4" compoundref="xi3cpsx__pr_8h" startline="158">COMMAND_PORT_SPEED</references>
+        <references refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" compoundref="xi3cpsx__pr_8h" startline="165">COMMAND_PORT_TID</references>
+        <references refid="group__i3cpsx__api_1ga26d589691cf1cfb740938038b4f78182" compoundref="xi3cpsx__pr_8h" startline="148">COMMAND_PORT_TOC</references>
+        <references refid="group__i3cpsx__api_1ga85e6c3a4f99bfa0f025f3db4d8df4e47" compoundref="xi3cpsx__pr_8h" startline="174">COMMAND_PORT_TRANSFER_ARG</references>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1a949d7e587bdc1557ae113c60f345d6d0" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="60">I3C_SLAVE_ID</references>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1aae6c3f5e962a0a0fd946db3ad3053886" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="72">I3C_SLAVE_STATIC_ADDR</references>
+        <references refid="struct_x_i3c_psx___config_1a79fe5b77d0221b0892a514459a538827" compoundref="xi3cpsx_8h" startline="242">XI3cPsx_Config::IntrId</references>
+        <references refid="struct_x_i3c_psx___config_1aab79c83351a0c9b9c603c38116ee9269" compoundref="xi3cpsx_8h" startline="246">XI3cPsx_Config::IntrParent</references>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="71">LEN</references>
+        <references refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" compoundref="xi3cpsx_8h" startline="261">XI3cPsx_Cmd::RxBuf</references>
+        <references refid="struct_cmd_info_1acee08a9d797639ee4a6577cd38a0526b" compoundref="xi3cpsx_8h" startline="286">CmdInfo::RxLen</references>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1a199da98d8ddcd495482b436d294ec75d" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="74">TIMEOUT_COUNTER</references>
+        <references refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" compoundref="xi3cpsx_8h" startline="260">XI3cPsx_Cmd::TransArg</references>
+        <references refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" compoundref="xi3cpsx_8h" startline="259">XI3cPsx_Cmd::TransCmd</references>
+        <references refid="group__i3cpsx__api_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="66" endline="191">XI3cPsx_CfgInitialize</references>
+        <references refid="group__i3cpsx_1ga5604f7648887a603000e4d79089d4ce9" compoundref="xi3cpsx__sinit_8c" startline="93" endline="107">XI3cPsx_LookupConfig</references>
+        <references refid="group__i3cpsx_1ga804fd6fec118ef2902d1a3cf8893a3b2" compoundref="xi3cpsx__master_8c" startline="780" endline="903">XI3cPsx_MasterInterruptHandler</references>
+        <references refid="group__i3cpsx_1ga858ac6e2e7491133b6781a3ad9a80a20" compoundref="xi3cpsx__master_8c" startline="445" endline="474">XI3cPsx_MasterRecv</references>
+        <references refid="group__i3cpsx_1gaaaf31be44492b9baf96f0fc8659af975" compoundref="xi3cpsx__master_8c" startline="498" endline="598">XI3cPsx_MasterSendPolled</references>
+        <references refid="group__i3cpsx_1ga49588a527df3275f36af02d46caa8dad" compoundref="xi3cpsx__master_8c" startline="754" endline="763">XI3cPsx_SetStatusHandler</references>
+        <references refid="group__i3cpsx_1ga9cba8edc454d81b6aefdc5381d4da2a8" compoundref="xi3cpsx__slave_8c" startline="61" endline="110">XI3cPsx_SetupSlave</references>
+        <references refid="group__i3cpsx_1gac618b456af832c82d2969c38fea94598" compoundref="xi3cpsx__slave_8c" startline="426" endline="548">XI3cPsx_SlaveInterruptHandler</references>
+        <references refid="group__i3cpsx_1ga1c923ed56bd4f8ced720fc5f63136ed5" compoundref="xi3cpsx__slave_8c" startline="125" endline="142">XI3cPsx_SlaveRecv</references>
+        <references refid="group__i3cpsx_1gaf5663751e9f6964ed6398bdd20101ba8" compoundref="xi3cpsx__slave_8c" startline="157" endline="197">XI3cPsx_SlaveSend</references>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="412" endline="420">XI3cPsx_SlaveStatusHandler</references>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="117" endline="131">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3cPsx_SlaveStatusHandler</definition>
+        <argsstring>(void *CallBackRef, u32 Event)</argsstring>
+        <name>XI3cPsx_SlaveStatusHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>Updates transfer status on events from the I3cPsx. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the handler which updates transfer status upon events from the I3cPsx. It is called from an interrupt context such that the amount of processing performed should be minimized.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The status event from the I3cPsx. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="412" bodyend="420"/>
+        <referencedby refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xi3cpsx__slave__intr__loopback_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the I3C slave interrupt loopback example. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the slave interrupt loopback example.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c" bodystart="117" bodyend="131"/>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1a9b12960156f9b3825b51147e2a34a934" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="52">I3C_DEVICE_ID</references>
+        <references refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" compoundref="xi3cpsx__slave__intr__loopback_8c" startline="165" endline="326">I3cPsxSlaveIntrLoopbackExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Shows I3C slave interrupt-mode loopback. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file consists of a slave mode design example which uses the Xilinx I3C device in slave interrupt mode in a loopback setup.</para><para>The master sends data to the slave. The slave receives the data using interrupt-driven mode. The received data is then verified against the transmitted data. Slave also sends the data to master.</para><para>This code assumes that no Operating System is being used.</para><para>It&apos;s a reference example and the data size should be less than or equal to FIFO size.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a sd  06/10/26 First release
+1.8   vn  07/30/26 Fix Doxygen warnings
+1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3cpsx_8h" kindref="compound">xi3cpsx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3cpsx__hw_8h" kindref="compound">xi3cpsx_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3cpsx__pr_8h" kindref="compound">xi3cpsx_pr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>I3C_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XI3CPSX_1_DEVICE_ID</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="xi3cpsx__slave__intr__loopback_8c_1a9b12960156f9b3825b51147e2a34a934" refkind="member"><highlight class="preprocessor">#define<sp/>I3C_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XI3CPSX_1_BASEADDR</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>I3C_SLAVE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XI3CPSX_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xi3cpsx__slave__intr__loopback_8c_1a949d7e587bdc1557ae113c60f345d6d0" refkind="member"><highlight class="preprocessor">#define<sp/>I3C_SLAVE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XI3CPSX_0_BASEADDR</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xi3cpsx__slave__intr__loopback_8c_1a90bc74590962865fc1ab7ee1be0f4b64" refkind="member"><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="xi3cpsx__slave__intr__loopback_8c_1a691d3ed8417b615f2c2eaaa4f60af2dd" refkind="member"><highlight class="preprocessor">#define<sp/>I3C_SLAVE_INT_VEC_ID<sp/><sp/><sp/><sp/>XPAR_PSVXL_I3C_0_INTR</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="xi3cpsx__slave__intr__loopback_8c_1a8225d7496192c720dd955fec79f57010" refkind="member"><highlight class="preprocessor">#define<sp/>I3C_MASTER_INT_VEC_ID<sp/><sp/><sp/>XPAR_PSVXL_I3C_1_INTR</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" refkind="member"><highlight class="preprocessor">#define<sp/>LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128</highlight></codeline>
+<codeline lineno="72" refid="xi3cpsx__slave__intr__loopback_8c_1aae6c3f5e962a0a0fd946db3ad3053886" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>I3C_SLAVE_STATIC_ADDR<sp/><sp/><sp/>0x5d<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="xi3cpsx__slave__intr__loopback_8c_1a199da98d8ddcd495482b436d294ec75d" refkind="member"><highlight class="preprocessor">#define<sp/>TIMEOUT_COUNTER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10000000U</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" kindref="member">I3cPsxSlaveIntrLoopbackExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupMasterInterruptSystem(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" kindref="member">I3cPsxSlaveIntrLoopbackExample</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" kindref="member">XI3cPsx_SlaveStatusHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">u8<sp/>RxData[<ref refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" kindref="member">LEN</ref>];</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">u8<sp/>TxDataTest[<ref refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" kindref="member">LEN</ref>];</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>Xi3cPs_InstanceMaster;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr<sp/>=<sp/>&amp;Xi3cPs_InstanceMaster;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>Xi3cPs_InstanceSlave;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtrSlave<sp/>=<sp/>&amp;Xi3cPs_InstanceSlave;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal">XScuGic<sp/><ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>TransferComplete;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>TotalErrorCount;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="117" refid="xi3cpsx__slave__intr__loopback_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I3C<sp/>Slave<sp/>Interrupt<sp/>Loopback<sp/>Example<sp/>Test<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" kindref="member">I3cPsxSlaveIntrLoopbackExample</ref>(<ref refid="xi3cpsx__slave__intr__loopback_8c_1a9b12960156f9b3825b51147e2a34a934" kindref="member">I3C_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I3C<sp/>Slave<sp/>Interrupt<sp/>Loopback<sp/>Example<sp/>Test<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>I3C<sp/>Slave<sp/>Interrupt<sp/>Loopback<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" kindref="member">I3cPsxSlaveIntrLoopbackExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="165" refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a0191fa11e5a5679438cfa2ca89553e20" kindref="member">I3cPsxSlaveIntrLoopbackExample</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Ret;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i3c_psx___config" kindref="compound">XI3cPsx_Config</ref><sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i3c_psx___cmd" kindref="compound">XI3cPsx_Cmd</ref><sp/><ref refid="struct_cmd_info_1a2dfca8a2c6b76ee697053b2c532ed9d9" kindref="member">Cmd</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_cmd_info_1acee08a9d797639ee4a6577cd38a0526b" kindref="member">RxLen</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Slave<sp/>configuration</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group__i3cpsx_1ga5604f7648887a603000e4d79089d4ce9" kindref="member">XI3cPsx_LookupConfig</ref>(<ref refid="xi3cpsx__slave__intr__loopback_8c_1a949d7e587bdc1557ae113c60f345d6d0" kindref="member">I3C_SLAVE_ID</ref>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>CfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__i3cpsx__api_1gac782c97edc12d91318ab4984cc34d842" kindref="member">XI3cPsx_CfgInitialize</ref>(InstancePtrSlave,<sp/>CfgPtr,<sp/>CfgPtr-&gt;<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1ga9cba8edc454d81b6aefdc5381d4da2a8" kindref="member">XI3cPsx_SetupSlave</ref>(InstancePtrSlave,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1aae6c3f5e962a0a0fd946db3ad3053886" kindref="member">I3C_SLAVE_STATIC_ADDR</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SetupInterruptSystem(InstancePtrSlave);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(InstancePtrSlave,<sp/><ref refid="group__i3cpsx_1gac618b456af832c82d2969c38fea94598" kindref="member">XI3cPsx_SlaveInterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_i3c_psx___config_1a79fe5b77d0221b0892a514459a538827" kindref="member">IntrId</ref>,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_i3c_psx___config_1aab79c83351a0c9b9c603c38116ee9269" kindref="member">IntrParent</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1ga49588a527df3275f36af02d46caa8dad" kindref="member">XI3cPsx_SetStatusHandler</ref>(InstancePtrSlave,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtrSlave,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" kindref="member">XI3cPsx_SlaveStatusHandler</ref>);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Master<sp/>configuration</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group__i3cpsx_1ga5604f7648887a603000e4d79089d4ce9" kindref="member">XI3cPsx_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group__i3cpsx_1ga5604f7648887a603000e4d79089d4ce9" kindref="member">XI3cPsx_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>CfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__i3cpsx__api_1gac782c97edc12d91318ab4984cc34d842" kindref="member">XI3cPsx_CfgInitialize</ref>(InstancePtr,<sp/>CfgPtr,<sp/>CfgPtr-&gt;<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" kindref="member">LEN</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxDataTest[Index]<sp/>=<sp/>Index;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxData[Index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initiate<sp/>slave<sp/>receive<sp/>in<sp/>interrupt<sp/>mode<sp/>before<sp/>master<sp/>sends</highlight></codeline>
+<codeline lineno="229"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransferComplete<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalErrorCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1ga1c923ed56bd4f8ced720fc5f63136ed5" kindref="member">XI3cPsx_SlaveRecv</ref>(InstancePtrSlave,<sp/>RxData,<sp/>LEN);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Transfer<sp/>Argument</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" kindref="member">TransArg</ref><sp/>=<sp/><ref refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" kindref="member">COMMAND_PORT_ARG_DATA_LEN</ref>(LEN)<sp/>|<sp/><ref refid="group__i3cpsx__api_1ga85e6c3a4f99bfa0f025f3db4d8df4e47" kindref="member">COMMAND_PORT_TRANSFER_ARG</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Transfer<sp/>Command</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" kindref="member">TransCmd</ref><sp/>=<sp/>(<ref refid="group__i3cpsx__api_1ga18824936950cea3eea8094c6205ac7a4" kindref="member">COMMAND_PORT_SPEED</ref>(0)<sp/>|</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga271e2b740dff45210811d4a6cb403e40" kindref="member">COMMAND_PORT_DEV_INDEX</ref>(0)<sp/>|</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" kindref="member">COMMAND_PORT_TID</ref>(3)<sp/>|</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga26d589691cf1cfb740938038b4f78182" kindref="member">COMMAND_PORT_TOC</ref><sp/>|</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga25ff255a1f527a09b95991f3a869f940" kindref="member">COMMAND_PORT_ROC</ref>);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" kindref="member">RxBuf</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ret<sp/>=<sp/><ref refid="group__i3cpsx_1gaaaf31be44492b9baf96f0fc8659af975" kindref="member">XI3cPsx_MasterSendPolled</ref>(InstancePtr,<sp/>(u8<sp/>*)TxDataTest,<sp/>LEN,<sp/>Cmd);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ret<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>for<sp/>slave<sp/>receive<sp/>to<sp/>complete<sp/>via<sp/>interrupt</highlight></codeline>
+<codeline lineno="255"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout<sp/>=<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a199da98d8ddcd495482b436d294ec75d" kindref="member">TIMEOUT_COUNTER</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!TransferComplete)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>TotalErrorCount)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>==<sp/>--Timeout)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Slave<sp/>receive<sp/>timed<sp/>out\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" kindref="member">LEN</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RxData[Index]<sp/>!=<sp/>TxDataTest[Index])<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Data<sp/>mismatch<sp/>at<sp/>index<sp/>0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Index);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Expected<sp/>0x%x<sp/>got<sp/>0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>TxDataTest[Index],<sp/>RxData[Index]);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SetupMasterInterruptSystem(InstancePtr);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(InstancePtr,<sp/><ref refid="group__i3cpsx_1ga804fd6fec118ef2902d1a3cf8893a3b2" kindref="member">XI3cPsx_MasterInterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_i3c_psx___config_1a79fe5b77d0221b0892a514459a538827" kindref="member">IntrId</ref>,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_i3c_psx___config_1aab79c83351a0c9b9c603c38116ee9269" kindref="member">IntrParent</ref>,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1ga49588a527df3275f36af02d46caa8dad" kindref="member">XI3cPsx_SetStatusHandler</ref>(InstancePtr,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" kindref="member">XI3cPsx_SlaveStatusHandler</ref>);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransferComplete<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalErrorCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx_1gaf5663751e9f6964ed6398bdd20101ba8" kindref="member">XI3cPsx_SlaveSend</ref>(InstancePtrSlave,<sp/>(u8<sp/>*)TxDataTest,<sp/>LEN);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxLen<sp/>=<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" kindref="member">LEN</ref>;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" kindref="member">TransArg</ref><sp/>=<sp/><ref refid="group__i3cpsx__api_1gabec97ae3ae6c6e99d321004b4430cd92" kindref="member">COMMAND_PORT_ARG_DATA_LEN</ref>(RxLen)<sp/>|<sp/><ref refid="group__i3cpsx__api_1ga85e6c3a4f99bfa0f025f3db4d8df4e47" kindref="member">COMMAND_PORT_TRANSFER_ARG</ref>;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd.<ref refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" kindref="member">TransCmd</ref><sp/>=<sp/><sp/>(<ref refid="group__i3cpsx__api_1ga31d8873c67f4034a2f43e381dab928bf" kindref="member">COMMAND_PORT_READ_TRANSFER</ref><sp/>|</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga18824936950cea3eea8094c6205ac7a4" kindref="member">COMMAND_PORT_SPEED</ref>(0)<sp/>|</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga271e2b740dff45210811d4a6cb403e40" kindref="member">COMMAND_PORT_DEV_INDEX</ref>(0)<sp/>|</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga04b696cb036c11500cd950fac58beeab" kindref="member">COMMAND_PORT_TID</ref>(1)<sp/>|</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga25ff255a1f527a09b95991f3a869f940" kindref="member">COMMAND_PORT_ROC</ref><sp/>|</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i3cpsx__api_1ga26d589691cf1cfb740938038b4f78182" kindref="member">COMMAND_PORT_TOC</ref>);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__i3cpsx_1ga858ac6e2e7491133b6781a3ad9a80a20" kindref="member">XI3cPsx_MasterRecv</ref>(InstancePtr,<sp/>RxData,<sp/>RxLen,<sp/>&amp;Cmd);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout<sp/>=<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a199da98d8ddcd495482b436d294ec75d" kindref="member">TIMEOUT_COUNTER</ref>;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!TransferComplete)<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>TotalErrorCount)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>==<sp/>--Timeout)<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Master<sp/>receive<sp/>timed<sp/>out\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a05b49c662c073f89e86804f7856622a0" kindref="member">LEN</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RxData[Index]<sp/>!=<sp/>TxDataTest[Index])<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Data<sp/>mismatch<sp/>at<sp/>index<sp/>0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Index);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Expected<sp/>0x%x<sp/>got<sp/>0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>TxDataTest[Index],<sp/>RxData[Index]);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="346"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Config<sp/>*IntcConfig;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig<sp/>=<sp/>XScuGic_LookupConfig(<ref refid="xi3cpsx__slave__intr__loopback_8c_1a90bc74590962865fc1ab7ee1be0f4b64" kindref="member">INTC_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>IntcConfig)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_CfgInitialize(&amp;<ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>,<sp/>IntcConfig,</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig-&gt;CpuBaseAddress);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XScuGic_InterruptHandler,</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_Connect(&amp;<ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a691d3ed8417b615f2c2eaaa4f60af2dd" kindref="member">I3C_SLAVE_INT_VEC_ID</ref>,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_InterruptHandler)<ref refid="group__i3cpsx_1gac618b456af832c82d2969c38fea94598" kindref="member">XI3cPsx_SlaveInterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(&amp;<ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a691d3ed8417b615f2c2eaaa4f60af2dd" kindref="member">I3C_SLAVE_INT_VEC_ID</ref>);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupMasterInterruptSystem(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="383"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_Connect(&amp;<ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a8225d7496192c720dd955fec79f57010" kindref="member">I3C_MASTER_INT_VEC_ID</ref>,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_InterruptHandler)<ref refid="group__i3cpsx_1ga804fd6fec118ef2902d1a3cf8893a3b2" kindref="member">XI3cPsx_MasterInterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(&amp;<ref refid="xi3cpsx__intr__example_8c_1a50f23879122d36c5659b812974d2831a" kindref="member">InterruptController</ref>,<sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a8225d7496192c720dd955fec79f57010" kindref="member">I3C_MASTER_INT_VEC_ID</ref>);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="412" refid="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xi3cpsx__slave__intr__loopback_8c_1a13c4754d1431c4806eacb9baef2e1242" kindref="member">XI3cPsx_SlaveStatusHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Event)</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Event<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalErrorCount++;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransferComplete<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="420"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_intr_loopback.c"/>
+  </compounddef>
+</doxygen>

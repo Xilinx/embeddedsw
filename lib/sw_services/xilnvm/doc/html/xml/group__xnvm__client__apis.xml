@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xnvm__client__apis" kind="group">
+    <compoundname>xnvm_client_apis</compoundname>
+    <title>XilNvm Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__client__apis_1ga537288ea737e98beb3a73a185fc31bbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_GetClientLibVersion</definition>
+        <argsstring>(u32 *Version)</argsstring>
+        <name>XNvm_GetClientLibVersion</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the XilNvm library version that the client is built with. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to hold the 32-bit library version, where the upper 16 bits hold the major version and the lower 16 bits hold the minor version</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the library version is read successfully</para></listitem><listitem><para>XST_INVALID_PARAM If Version is NULL </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" bodystart="59" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__client__apis_1gab77cfbb4940f3923c7b721175d46f056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_GetServerLibInfo</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo)</argsstring>
+        <name>XNvm_GetServerLibInfo</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>Xil_LibInfo *</type>
+          <declname>LibInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function sends an IPI request to get the XilNvm library version and capability bits running on the PLM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LibInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Xil_LibInfo. LibVersion and Capability are filled on success. The Version and NistStatus fields are reserved for XilNvm and must be ignored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the library information is read successfully</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem></itemizedlist>
+</para><para>Query library info via the Features command using a valid NVM api-id as the selector, so the command succeeds and the server returns the library version/capability at fixed indices.</para><para><itemizedlist>
+<listitem><para>Send request using generic API, the server returns the library version and capability bits along with the status of the command.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" bodystart="91" bodyend="140"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aafdebd82312f6c4f787e6d36785f0a6f" compoundref="common_2xnvm__defs_8h" startline="147">XNVM_API_FEATURES</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" compoundref="common_2xnvm__defs_8h" startline="149">XNVM_API_ID_BBRAM_ZEROIZE</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="74" endline="132">XNvm_SendRequest</references>
+        <references refid="group__xnvm__client__apis_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__client_8c" startline="37">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xnvm__client__apis_1ga16b69cce167bd701e56511c099fdf150" prot="public" static="no">
+        <name>XNVM_SLR_INDEX_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>SLR index shift in the IPI header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" bodystart="37" bodyend="-1"/>
+        <referencedby refid="group__xnvm__client__apis_1gab77cfbb4940f3923c7b721175d46f056" compoundref="xnvm__client_8c" startline="91" endline="140">XNvm_GetServerLibInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,524 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxidma__example__simple__poll_8c" kind="file">
+    <compoundname>xaxidma_example_simple_poll.c</compoundname>
+    <includes refid="xaxidma_8h" local="yes">xaxidma.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <incdepgraph>
+      <node id="217">
+        <label>xil_io.h</label>
+      </node>
+      <node id="223">
+        <label>sleep.h</label>
+      </node>
+      <node id="210">
+        <label>xaxidma_example_simple_poll.c</label>
+        <link refid="xaxidma_example_simple_poll.c"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>stdlib.h</label>
+      </node>
+      <node id="219">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="212">
+        <label>xaxidma_bdring.h</label>
+        <link refid="xaxidma__bdring_8h"/>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>xdebug.h</label>
+      </node>
+      <node id="214">
+        <label>xaxidma_bd.h</label>
+        <link refid="xaxidma__bd_8h"/>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+      </node>
+      <node id="220">
+        <label>string.h</label>
+      </node>
+      <node id="213">
+        <label>xstatus.h</label>
+      </node>
+      <node id="215">
+        <label>xaxidma_hw.h</label>
+        <link refid="xaxidma__hw_8h"/>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+      </node>
+      <node id="216">
+        <label>xil_types.h</label>
+      </node>
+      <node id="211">
+        <label>xaxidma.h</label>
+        <link refid="xaxidma_8h"/>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+      </node>
+      <node id="222">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" prot="public" static="no">
+        <name>MAX_PKT_LEN</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Maximum packet length in bytes for each transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="204" endline="303">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" prot="public" static="no">
+        <name>TEST_START_VALUE</name>
+        <initializer>0xC</initializer>
+        <briefdescription>
+<para>Starting value used to fill and verify test packet data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="204" endline="303">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" prot="public" static="no">
+        <name>NUMBER_OF_TRANSFERS</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Number of simple transfers to run in this test. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="204" endline="303">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" prot="public" static="no">
+        <name>POLL_TIMEOUT_COUNTER</name>
+        <initializer>1000000U</initializer>
+        <briefdescription>
+<para>Maximum poll iterations before a transfer times out. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="204" endline="303">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref></type>
+        <definition>XAxiDma AxiDma</definition>
+        <argsstring></argsstring>
+        <name>AxiDma</name>
+        <briefdescription>
+<para>Driver instance for the AXI DMA under test. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void xil_printf</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>xil_printf</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Prints a formatted message when DEBUG is not defined. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the printf-style format string. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_poll_multi_pkts.c" line="81" column="1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxidma__example__poll__multi__pkts_8c" startline="169" endline="260">main</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" compoundref="xaxidma__bdring_8c" startline="1517" endline="1545">XAxiDma_BdRingDumpRegs</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gac1a9cb01ba6cd686ee08245f5e08cb22" compoundref="xaxidma__bd_8c" startline="102" endline="127">XAxiDma_BdSetBufAddr</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8947514b5acfea6298d0f969f3d2b97e" compoundref="xaxidma__bd_8c" startline="145" endline="162">XAxiDma_BdSetBufAddrMicroMode</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga53983f629aba5b4ebf27f803a7a9284e" compoundref="xaxidma__bd_8c" startline="278" endline="316">XAxiDma_DumpBd</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" compoundref="xaxidma__example__simple__poll_8c" startline="204" endline="303">XAxiDma_SimplePollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_SimplePollExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XAxiDma_SimplePollExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs a simple polled transfer example. </para>        </briefdescription>
+        <detaileddescription>
+<para>NUMBER_OF_TRANSFERS defines how many times the transfer repeats.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the example finishes successfully, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="204" bodyend="303"/>
+        <references refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" compoundref="xaxidma__example__simple__poll_8c" startline="79">MAX_PKT_LEN</references>
+        <references refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" compoundref="xaxidma__example__simple__poll_8c" startline="83">NUMBER_OF_TRANSFERS</references>
+        <references refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" compoundref="xaxidma__example__simple__poll_8c" startline="84">POLL_TIMEOUT_COUNTER</references>
+        <references refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" compoundref="xaxidma__example__simple__poll_8c" startline="81">TEST_START_VALUE</references>
+        <references refid="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" compoundref="xaxidma_8c" startline="697" endline="704">XAxiDma_Busy</references>
+        <references refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</references>
+        <references refid="xaxidma__hw_8h_1a8d084cfadd0109365865418e7cde7729" compoundref="xaxidma__hw_8h" startline="54">XAXIDMA_DEVICE_TO_DMA</references>
+        <references refid="xaxidma__hw_8h_1a6d21b8539047064dabb29f2019631d7a" compoundref="xaxidma__hw_8h" startline="53">XAXIDMA_DMA_TO_DEVICE</references>
+        <references refid="xaxidma__hw_8h_1a8347e41a5c01bdabefce9c8484a7ced1" compoundref="xaxidma__hw_8h" startline="170">XAXIDMA_IRQ_ALL_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" compoundref="xaxidma__sinit_8c" startline="99" endline="116">XAxiDma_LookupConfig</references>
+        <references refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="804" endline="941">XAxiDma_SimpleTransfer</references>
+        <references refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b">xil_printf</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the example entry point. </para>        </briefdescription>
+        <detaileddescription>
+<para>Invokes the example function and reports the execution status.</para><para>Runs the DMA core test. It sets up the DMA engine to receive and send packets, transmits a packet, and verifies it after loopback reception.</para><para><simplesect kind="return"><para>XST_SUCCESS if the example finishes successfully, or XST_FAILURE if the example fails.</para><simplesectsep/><para>XST_SUCCESS if Example finished successfully, or XST_FAILURE if Example failed.</para></simplesect>
+Runs the interrupt example test. It does the following:<itemizedlist>
+<listitem><para>Set up the output terminal if UART16550 is in the hardware build</para></listitem><listitem><para>Initialize the DMA engine</para></listitem><listitem><para>Set up Tx and Rx channels</para></listitem><listitem><para>Set up the interrupt system for the Tx and Rx interrupts</para></listitem><listitem><para>Submit a transfer</para></listitem><listitem><para>Wait for the transfer to finish</para></listitem><listitem><para>Check transfer status</para></listitem><listitem><para>Disable Tx and Rx interrupts</para></listitem><listitem><para>Print test status and exit</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para>XST_SUCCESS if Test passed, or XST_FAILURE if Test failed.</para></simplesect>
+Runs the DMA core test. It sets up DMA engine to be ready to receive and send packets, then a packet is transmitted and will be verified after it is received via the DMA loopback widget.</para><para><simplesect kind="return"><para>XST_SUCCESS if Test passed, or XST_FAILURE if Test failed.</para></simplesect>
+Runs the interrupt example test. It does the following: Set up the output terminal if UART16550 is in the hardware build Initialize the DMA engine Set up Tx and Rx channels Set up the interrupt system for the Tx and Rx interrupts Submit a transfer Wait for the transfer to finish Check transfer status Disable Tx and Rx interrupts Print test status and exit</para><para><simplesect kind="return"><para>XST_SUCCESS if Example finished successfully, or XST_FAILURE if Example failed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_poll_multi_pkts.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_poll_multi_pkts.c" bodystart="169" bodyend="260"/>
+        <references refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="113" endline="264">XAxiDma_CfgInitialize</references>
+        <references refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" compoundref="xaxidma__sinit_8c" startline="99" endline="116">XAxiDma_LookupConfig</references>
+        <references refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b">xil_printf</references>
+      </memberdef>
+      <memberdef kind="function" id="xaxidma__example__simple__poll_8c_1gadea49e34c87f65dfbc139a534e5c5781" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int CheckData</definition>
+        <argsstring>(void)</argsstring>
+        <name>CheckData</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Checks the data buffer after the DMA transfer completes. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if Validation is successful, or XST_FAILURE if Validation failed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c" bodystart="315" bodyend="341"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxidma_8h" kindref="compound">xaxidma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_UARTNS550_0_BASEADDR)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartns550_l.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>to<sp/>use<sp/>uartns550<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/********************<sp/>Constant<sp/>Definitions<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>Device<sp/>hardware<sp/>build<sp/>related<sp/>constants.</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DMA_DEV_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AXIDMA_0_DEVICE_ID<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_PKT_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" refkind="member"><highlight class="preprocessor">#define<sp/>TEST_START_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" refkind="member"><highlight class="preprocessor">#define<sp/>NUMBER_OF_TRANSFERS<sp/><sp/><sp/><sp/><sp/>10<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" refkind="member"><highlight class="preprocessor">#define<sp/>POLL_TIMEOUT_COUNTER<sp/><sp/><sp/><sp/>1000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(DEBUG))</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*format,<sp/>...);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kindref="member">XAxiDma_SimplePollExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kindref="member">XAxiDma_SimplePollExample</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>CheckData(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/>*<sp/>Device<sp/>instance<sp/>definitions</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" refkind="member"><highlight class="normal"><ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref><sp/><ref refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kindref="member">AxiDma</ref>;<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>TxBuffer[<ref refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kindref="member">MAX_PKT_LEN</ref>]<sp/>__attribute__<sp/>((aligned(64)));</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>RxBuffer[<ref refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kindref="member">MAX_PKT_LEN</ref>]<sp/>__attribute__<sp/>((aligned(64)));</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="132"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;\r\n---<sp/>Entering<sp/>main()<sp/>---<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>poll<sp/>example<sp/>for<sp/>simple<sp/>transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kindref="member">XAxiDma_SimplePollExample</ref>(DMA_DEV_ID);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kindref="member">XAxiDma_SimplePollExample</ref>(XPAR_XAXIDMA_0_BASEADDR);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;XAxiDma_SimplePoll<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>XAxiDma_SimplePoll<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;---<sp/>Exiting<sp/>main()<sp/>---<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_UARTNS550_0_BASEADDR)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="162"><highlight class="comment">*<sp/>@brief<sp/>Sets<sp/>up<sp/>UART16550<sp/>with<sp/>a<sp/>baud<sp/>rate<sp/>of<sp/>9600<sp/>and<sp/>8<sp/>data<sp/>bits.</highlight></codeline>
+<codeline lineno="163"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Uart550_Setup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>baudrate<sp/>to<sp/>be<sp/>predictable</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_SetBaud(XPAR_UARTNS550_0_BASEADDR,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XUARTNS550_CLOCK_HZ,<sp/>9600);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUN_LCR_8_DATA_BITS);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="191"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kindref="member">XAxiDma_SimplePollExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="204" refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kindref="member">XAxiDma_SimplePollExample</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_dma___config" kindref="compound">XAxiDma_Config</ref><sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Tries<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" kindref="member">NUMBER_OF_TRANSFERS</ref>;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*TxBufferPtr;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*RxBufferPtr;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Value;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TimeOut<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kindref="member">POLL_TIMEOUT_COUNTER</ref>;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxBufferPtr<sp/>=<sp/>(u8<sp/>*)TxBuffer;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxBufferPtr<sp/>=<sp/>(u8<sp/>*)RxBuffer;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>XAxiDma<sp/>device.</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" kindref="member">XAxiDma_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!CfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;No<sp/>config<sp/>found<sp/>for<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" kindref="member">XAxiDma_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!CfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;No<sp/>config<sp/>found<sp/>for<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" kindref="member">XAxiDma_CfgInitialize</ref>(&amp;AxiDma,<sp/>CfgPtr);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Initialization<sp/>failed<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAxiDma_HasSg(&amp;AxiDma))<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Device<sp/>configured<sp/>as<sp/>SG<sp/>mode<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>interrupts,<sp/>we<sp/>use<sp/>polling<sp/>mode</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_IntrDisable(&amp;AxiDma,<sp/><ref refid="xaxidma__hw_8h_1a8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxidma__hw_8h_1a8d084cfadd0109365865418e7cde7729" kindref="member">XAXIDMA_DEVICE_TO_DMA</ref>);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_IntrDisable(&amp;AxiDma,<sp/><ref refid="xaxidma__hw_8h_1a8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xaxidma__hw_8h_1a6d21b8539047064dabb29f2019631d7a" kindref="member">XAXIDMA_DMA_TO_DEVICE</ref>);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kindref="member">TEST_START_VALUE</ref>;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kindref="member">MAX_PKT_LEN</ref>;<sp/>Index<sp/>++)<sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxBufferPtr[Index]<sp/>=<sp/>Value;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>(Value<sp/>+<sp/>1)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flush<sp/>the<sp/>buffers<sp/>before<sp/>the<sp/>DMA<sp/>transfer,<sp/>in<sp/>case<sp/>the<sp/>Data<sp/>Cache</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>enabled</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)TxBufferPtr,<sp/>MAX_PKT_LEN);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)RxBufferPtr,<sp/>MAX_PKT_LEN);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>Tries;<sp/>Index<sp/>++)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" kindref="member">XAxiDma_SimpleTransfer</ref>(&amp;AxiDma,<sp/>(UINTPTR)<sp/>RxBufferPtr,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_PKT_LEN,<sp/><ref refid="xaxidma__hw_8h_1a8d084cfadd0109365865418e7cde7729" kindref="member">XAXIDMA_DEVICE_TO_DMA</ref>);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" kindref="member">XAxiDma_SimpleTransfer</ref>(&amp;AxiDma,<sp/>(UINTPTR)<sp/>TxBufferPtr,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_PKT_LEN,<sp/><ref refid="xaxidma__hw_8h_1a6d21b8539047064dabb29f2019631d7a" kindref="member">XAXIDMA_DMA_TO_DEVICE</ref>);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Wait<sp/>till<sp/>transfer<sp/>is<sp/>done<sp/>or<sp/>1usec<sp/>*<sp/>10^6<sp/>iterations<sp/>of<sp/>timeout<sp/>occurs*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TimeOut)<sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(<ref refid="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" kindref="member">XAxiDma_Busy</ref>(&amp;AxiDma,<sp/><ref refid="xaxidma__hw_8h_1a8d084cfadd0109365865418e7cde7729" kindref="member">XAXIDMA_DEVICE_TO_DMA</ref>))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!(<ref refid="group___a_x_i_d_m_a_1gaff68c0ba3e9e25dfe5e39153301862f8" kindref="member">XAxiDma_Busy</ref>(&amp;AxiDma,<sp/><ref refid="xaxidma__hw_8h_1a6d21b8539047064dabb29f2019631d7a" kindref="member">XAXIDMA_DMA_TO_DEVICE</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeOut--;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(1U);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>CheckData();</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Test<sp/>finishes<sp/>successfully</highlight></codeline>
+<codeline lineno="301"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="315"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>CheckData(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*RxPacket;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Value;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxPacket<sp/>=<sp/>(u8<sp/>*)<sp/>RxBuffer;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kindref="member">TEST_START_VALUE</ref>;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invalidate<sp/>the<sp/>DestBuffer<sp/>before<sp/>receiving<sp/>the<sp/>data,<sp/>in<sp/>case<sp/>the</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Data<sp/>Cache<sp/>is<sp/>enabled</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((UINTPTR)RxPacket,<sp/><ref refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kindref="member">MAX_PKT_LEN</ref>);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kindref="member">MAX_PKT_LEN</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RxPacket[Index]<sp/>!=<sp/>Value)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kindref="member">xil_printf</ref>(</highlight><highlight class="stringliteral">&quot;Data<sp/>error<sp/>%d:<sp/>%x/%x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index,<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)RxPacket[Index],</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Value);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>(Value<sp/>+<sp/>1)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axidma/examples/xaxidma_example_simple_poll.c"/>
+  </compounddef>
+</doxygen>

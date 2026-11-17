@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_psm_to_plm_event__t" kind="struct" prot="public">
+    <compoundname>PsmToPlmEvent_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1a179220484f69c695c84d72cceeb4b10d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PsmToPlmEvent_t::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1a4cdb13bfa4de7856fdca3fcce96e0503" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PsmToPlmEvent_t::StlId</definition>
+        <argsstring></argsstring>
+        <name>StlId</name>
+        <briefdescription>
+<para>This indicates failed STL ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1ad2c26a7a5757ced1dce50513f88fbc70" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PsmToPlmEvent_t::Event[PROC_DEV_MAX]</definition>
+        <argsstring>[PROC_DEV_MAX]</argsstring>
+        <name>Event</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1a72d2c13f34f27276470580e6040e66da" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PsmToPlmEvent_t::CpuIdleFlag[PROC_DEV_MAX]</definition>
+        <argsstring>[PROC_DEV_MAX]</argsstring>
+        <name>CpuIdleFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1af3236c2be6a87e6e91119008337b5f51" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 PsmToPlmEvent_t::ResumeAddress[PROC_DEV_MAX]</definition>
+        <argsstring>[PROC_DEV_MAX]</argsstring>
+        <name>ResumeAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1a3b575219ab4c617a51e2b6d9d849c329" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PsmToPlmEvent_t::BisrBitmask</definition>
+        <argsstring></argsstring>
+        <name>BisrBitmask</name>
+        <briefdescription>
+<para>BISR domain flags for per-core re-repair (PSM/PLM shared) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1a6ca08d6dd1d3bff99813c9b1e7bca48b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PsmToPlmEvent_t::ProcDataAddress</definition>
+        <argsstring></argsstring>
+        <name>ProcDataAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_psm_to_plm_event__t_1a123f5fea098f7bd78750dd22447d59e9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PsmToPlmEvent_t::ProcDataLen</definition>
+        <argsstring></argsstring>
+        <name>ProcDataLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="39" bodyend="51"/>
+    <listofallmembers>
+      <member refid="struct_psm_to_plm_event__t_1a3b575219ab4c617a51e2b6d9d849c329" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>BisrBitmask</name></member>
+      <member refid="struct_psm_to_plm_event__t_1a72d2c13f34f27276470580e6040e66da" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>CpuIdleFlag</name></member>
+      <member refid="struct_psm_to_plm_event__t_1ad2c26a7a5757ced1dce50513f88fbc70" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>Event</name></member>
+      <member refid="struct_psm_to_plm_event__t_1a6ca08d6dd1d3bff99813c9b1e7bca48b" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>ProcDataAddress</name></member>
+      <member refid="struct_psm_to_plm_event__t_1a123f5fea098f7bd78750dd22447d59e9" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>ProcDataLen</name></member>
+      <member refid="struct_psm_to_plm_event__t_1af3236c2be6a87e6e91119008337b5f51" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>ResumeAddress</name></member>
+      <member refid="struct_psm_to_plm_event__t_1a4cdb13bfa4de7856fdca3fcce96e0503" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>StlId</name></member>
+      <member refid="struct_psm_to_plm_event__t_1a179220484f69c695c84d72cceeb4b10d" prot="public" virt="non-virtual"><scope>PsmToPlmEvent_t</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

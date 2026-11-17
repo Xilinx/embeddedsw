@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['s16',['s16',['../group___overview.html#ga16625962bdbeef4eeed1ca29afaf9315',1,'xrfdc.h']]],
+  ['s32',['s32',['../group___overview.html#ga11ec34ef758da01f2b58048ee9f341a4',1,'xrfdc.h']]],
+  ['s64',['s64',['../group___overview.html#ga5e4313b611ec4cd604fa6ce89384919e',1,'xrfdc.h']]],
+  ['s8',['s8',['../group___overview.html#gaead5279be31a82e3bf411e4dcb051668',1,'xrfdc.h']]],
+  ['samplerate',['SampleRate',['../struct_x_r_fdc___p_l_l___settings.html#aa7054bfd3207dc082b338ef8b04b7afc',1,'XRFdc_PLL_Settings::SampleRate()'],['../struct_x_r_fdc___tile___clock___settings.html#a2834d11d2aff406eb87899885822ad25',1,'XRFdc_Tile_Clock_Settings::SampleRate()']]],
+  ['samplerates',['SampleRates',['../struct_x_r_fdc___distribution___settings.html#ac0745e48c1e57085779021388a57c568',1,'XRFdc_Distribution_Settings']]],
+  ['samplingfreq',['SamplingFreq',['../struct_x_r_fdc___block_status.html#a89b0706ed0d2b10726b4ac72ea281993',1,'XRFdc_BlockStatus']]],
+  ['samplingrate',['SamplingRate',['../struct_x_r_fdc___d_a_c_tile___config.html#a86980f88f9f6cbbf127e1b710f5406db',1,'XRFdc_DACTile_Config::SamplingRate()'],['../struct_x_r_fdc___a_d_c_tile___config.html#a5a1f1093ee6a84da9f354bf460102523',1,'XRFdc_ADCTile_Config::SamplingRate()']]],
+  ['scan_5fmode',['Scan_Mode',['../struct_x_r_fdc___m_t_s___d_t_c___settings.html#adadce3ae2d349733d25a5934172e174e',1,'XRFdc_MTS_DTC_Settings']]],
+  ['shutdownmode',['ShutdownMode',['../struct_x_r_fdc___distribution___settings.html#a382b8a1a5c8e5f71b67b9f04ff87e63f',1,'XRFdc_Distribution_Settings']]],
+  ['sirevision',['SiRevision',['../struct_x_r_fdc___config.html#a0b693913b38db20c8c256bab395ae22b',1,'XRFdc_Config']]],
+  ['source',['Source',['../struct_x_r_fdc___distribution___info.html#af22de0fd8250e7558c23935e1dc737c3',1,'XRFdc_Distribution_Info']]],
+  ['sourcetile',['SourceTile',['../struct_x_r_fdc___tile___clock___settings.html#a9932e93be330cf95bc7a5499b5d405e3',1,'XRFdc_Tile_Clock_Settings']]],
+  ['sourcetileid',['SourceTileId',['../struct_x_r_fdc___distribution___settings.html#a11ae4b175b7210e188a47b54dff11d87',1,'XRFdc_Distribution_Settings']]],
+  ['sourcetype',['SourceType',['../struct_x_r_fdc___tile___clock___settings.html#a2ed0f5fa4b544828b7f543485022d167',1,'XRFdc_Tile_Clock_Settings::SourceType()'],['../struct_x_r_fdc___distribution___settings.html#a66e98fec9df0fcef0caf6ce0cb81d7b6',1,'XRFdc_Distribution_Settings::SourceType()']]],
+  ['state',['State',['../struct_x_r_fdc___i_p_status.html#aad14d4d1d771539ef2f84341117fd596',1,'XRFdc_IPStatus']]],
+  ['statushandler',['StatusHandler',['../struct_x_r_fdc.html#af78d6a30ebe989c6410b8d48ef3fbf2e',1,'XRFdc']]],
+  ['stim_5fdev_5fname',['STIM_DEV_NAME',['../xrfdc__intr__example_8c.html#a60d8d36e0ab981eeca53c31ba532dc8b',1,'xrfdc_intr_example.c']]],
+  ['sysref_5fenable',['SysRef_Enable',['../struct_x_r_fdc___multi_converter___sync___config.html#ac5640826d4a6871a86e5ee9c7ada1cf4',1,'XRFdc_MultiConverter_Sync_Config']]]
+];

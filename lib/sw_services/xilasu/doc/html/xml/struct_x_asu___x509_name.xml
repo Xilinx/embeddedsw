@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___x509_name" kind="struct" prot="public">
+    <compoundname>XAsu_X509Name</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___x509_name_1a4635cbb8fe40eaa9d811f0366b118b48" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_X509Name::OrgNameLen</definition>
+        <argsstring></argsstring>
+        <name>OrgNameLen</name>
+        <briefdescription>
+<para>Length of the organization name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_name_1a7b361a81ab0a4611d5ab6098decb3b12" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_X509Name::CommonNameLen</definition>
+        <argsstring></argsstring>
+        <name>CommonNameLen</name>
+        <briefdescription>
+<para>Length of the common name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga181ca521ae2d554fecc22277c4e8d1f4" compoundref="xasu__ocp__common_8c" startline="157" endline="219">XAsu_OcpValidateUserCertCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_name_1ae519034597fba4668ce20b1b29ce2b74" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_X509Name::OrgName[XASU_X509_ORG_NAME_MAX_LEN]</definition>
+        <argsstring>[XASU_X509_ORG_NAME_MAX_LEN]</argsstring>
+        <name>OrgName</name>
+        <briefdescription>
+<para>Organization name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___x509_name_1adcfd30372be16f6cb5cf51ab02c1b884" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_X509Name::CommonName[XASU_X509_COMMON_NAME_MAX_LEN]</definition>
+        <argsstring>[XASU_X509_COMMON_NAME_MAX_LEN]</argsstring>
+        <name>CommonName</name>
+        <briefdescription>
+<para>Common name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains organization name and common name of a user X.509 certificate. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="156" bodyend="161"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___x509_name_1adcfd30372be16f6cb5cf51ab02c1b884" prot="public" virt="non-virtual"><scope>XAsu_X509Name</scope><name>CommonName</name></member>
+      <member refid="struct_x_asu___x509_name_1a7b361a81ab0a4611d5ab6098decb3b12" prot="public" virt="non-virtual"><scope>XAsu_X509Name</scope><name>CommonNameLen</name></member>
+      <member refid="struct_x_asu___x509_name_1ae519034597fba4668ce20b1b29ce2b74" prot="public" virt="non-virtual"><scope>XAsu_X509Name</scope><name>OrgName</name></member>
+      <member refid="struct_x_asu___x509_name_1a4635cbb8fe40eaa9d811f0366b118b48" prot="public" virt="non-virtual"><scope>XAsu_X509Name</scope><name>OrgNameLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

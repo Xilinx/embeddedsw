@@ -1,0 +1,825 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__2vp__p_2server_2xpuf_8c" kind="file">
+    <compoundname>versal_2vp_p/server/xpuf.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xpuf.h</includes>
+    <includes local="yes">xpuf_hw.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="versal__2vp__p_2server_2xpuf__plat_8h" local="yes">xpuf_plat.h</includes>
+    <incdepgraph>
+      <node id="172">
+        <label>xpuf_plat.h</label>
+        <link refid="versal__2vp__p_2server_2xpuf__plat_8h"/>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+      <node id="168">
+        <label>xil_io.h</label>
+      </node>
+      <node id="171">
+        <label>xil_util.h</label>
+      </node>
+      <node id="167">
+        <label>xpuf.c</label>
+        <link refid="versal_2vp_p/server/xpuf.c"/>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+      </node>
+      <node id="174">
+        <label>xil_types.h</label>
+      </node>
+      <node id="173">
+        <label>xparameters.h</label>
+      </node>
+      <node id="170">
+        <label>xpuf_hw.h</label>
+      </node>
+      <node id="169">
+        <label>xpuf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xpuf__server__apis_1ga8eda4f7307742eae0ea34465e43d2555" prot="public" static="no">
+        <name>XPUF_STATUS_WAIT_TIMEOUT</name>
+        <initializer>(1000000U)</initializer>
+        <briefdescription>
+<para>Recommended software timeout is 1 second. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__xpuf__server__apis_1ga651bbcfe2834f71fa821e1cb113a723f" compoundref="versal__2vp__p_2server_2xpuf_8c" startline="399" endline="418">XPuf_ClearPufID</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga98eee51c5759d46dd7eb4f1d61d1e5f1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPuf_WaitForPufSynWordRdy</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPuf_WaitForPufSynWordRdy</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function waits till Puf Syndrome ready bit is set. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Syndrome word is ready.</para></listitem><listitem><para>XST_FAILURE if timeout occurred. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="51" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga0ee8dc0ae8b7970ff82a59f6f9c2ab7d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPuf_WaitForPufDoneStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPuf_WaitForPufDoneStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function waits until PUF done bit is set. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful PUF Operation.</para></listitem><listitem><para>XST_FAILURE if timeout occurred. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="68" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1gadb8560f123daf7bda5dc94b3a4ece00b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XPuf_ReadIroFreq</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPuf_ReadIroFreq</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reads the IRO frequency value from register. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>8-bit value of the IRO frequency register. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="84" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga0d90b2a4c2a22aa8b860e49634759ec4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPuf_WriteIroFreq</definition>
+        <argsstring>(u32 IroFreq)</argsstring>
+        <name>XPuf_WriteIroFreq</name>
+        <param>
+          <type>u32</type>
+          <declname>IroFreq</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the IRO frequency value into register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IroFreq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRO frequency to be set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="98" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga217f01c5332a017753df1844fbb9ca47" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPuf_CapturePufID</definition>
+        <argsstring>(XPuf_Data *PufData)</argsstring>
+        <name>XPuf_CapturePufID</name>
+        <param>
+          <type>XPuf_Data *</type>
+          <declname>PufData</declname>
+        </param>
+        <briefdescription>
+<para>This function captures PUF ID generated into XPuf_Data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure which includes options to configure PUF. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="428" bodyend="436"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga9ee834b25087624c49ad8df94db668eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPuf_ValidateAccessRules</definition>
+        <argsstring>(const XPuf_Data *PufData)</argsstring>
+        <name>XPuf_ValidateAccessRules</name>
+        <param>
+          <type>const XPuf_Data *</type>
+          <declname>PufData</declname>
+        </param>
+        <briefdescription>
+<para>This function validates if secure control bits for each PUF operations are set or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure which includes options to configure PUF.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS secure control bits are not set</para></listitem><listitem><para>XPUF_ERROR_REGISTRATION_INVALID PUF registration is not allowed</para></listitem><listitem><para>XPUF_ERROR_REGENERATION_INVALID PUF regeneration is not allowed</para></listitem><listitem><para>XPUF_ERROR_REGEN_PUF_HD_INVALID PUF HD in eFUSE id invalidated</para></listitem><listitem><para>XPUF_ERROR_INVALID_PUF_OPERATION In case of invalid PUF operation</para></listitem><listitem><para>XST_FAILURE Unexpected event </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="455" bodyend="495"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga7cfe2753f4a17cead38ec9ff79d0500f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPuf_UpdateHelperData</definition>
+        <argsstring>(const XPuf_Data *PufData)</argsstring>
+        <name>XPuf_UpdateHelperData</name>
+        <param>
+          <type>const XPuf_Data *</type>
+          <declname>PufData</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the helper data for PUF regeneration. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>         For VERSAL_2VP_P, only CHash is required (no AUX data).
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On valid Read option</para></listitem><listitem><para>XPUF_ERROR_INVALID_READ_HD_INPUT On invalid Read option</para></listitem><listitem><para>XPUF_ERROR_CHASH_NOT_PROGRAMMED if PUF helper data is not provided </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Write CHASH data (PUF Helper Data) in PUF_CHASH register. No AUX data for VERSAL_2VP_P.</para><para>Write PUF Syndrome Data Address in PUF_SYN_ADDR register.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="510" bodyend="548"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1gab6898dc8580b3d6c69c6652e65790b9d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPuf_StartRegeneration</definition>
+        <argsstring>(XPuf_Data *PufData)</argsstring>
+        <name>XPuf_StartRegeneration</name>
+        <param>
+          <type>XPuf_Data *</type>
+          <declname>PufData</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers PUF Regeneration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Successful Regeneration</para></listitem><listitem><para>XPUF_ERROR_INVALID_REGENERATION_TYPE On invalid regeneration type</para></listitem><listitem><para>XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT Timeout occurred</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_KEY_NT_RDY Key ready bit not set</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_ID_NT_RDY ID ready bit is not set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="564" bodyend="611"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1gafdc6521d738e673925eef44153c38e99" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPuf_ChangeIroFreq</definition>
+        <argsstring>(u32 IroFreq, u8 *IroFreqUpdated)</argsstring>
+        <name>XPuf_ChangeIroFreq</name>
+        <param>
+          <type>u32</type>
+          <declname>IroFreq</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>IroFreqUpdated</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the IRO frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IroFreq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRO frequency to be set (0 for 320 MHz and 1 for 400 MHz) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IroFreqUpdated</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to indicate whether IRO frequency is updated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if IRO is at required frequency or updated</para></listitem><listitem><para>XPUF_IRO_FREQ_WRITE_MISMATCH if mismatch in reading or writing </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="626" bodyend="645"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1gae2607f20a8f0199c8f0eb53d0dfc9f0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_Registration</definition>
+        <argsstring>(XPuf_Data *PufData)</argsstring>
+        <name>XPuf_Registration</name>
+        <param>
+          <type>XPuf_Data *</type>
+          <declname>PufData</declname>
+        </param>
+        <briefdescription>
+<para>This functions performs PUF enrollment (registration for VERSAL_2VP_P) </para>        </briefdescription>
+        <detaileddescription>
+<para>This functions performs PUF registration.</para><para>This function performs PUF registration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure which includes options to configure PUF.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS PUF registration successful</para></listitem><listitem><para>XPUF_ERROR_INVALID_PARAM PufData is NULL</para></listitem><listitem><para>XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT Timeout occurred while waiting for PUF Syndrome data</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT Timeout occurred while waiting for PUF done bit at the time of PUF registration</para></listitem><listitem><para>XPUF_IRO_FREQ_WRITE_MISMATCH Mismatch in writing or reading IRO frequency</para></listitem><listitem><para>XST_FAILURE Unexpected event</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Helper data will be available in PufData-&gt;SyndromeData, PufData-&gt;Chash. PUF is only supported when using a nominal VCC_PMC of 0.70V and IRO frequency of 320 MHz. For VERSAL_2VP_P, no AUX data and no Global Variation Filter.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure which includes options to configure PUF.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if PUF registration successful</para></listitem><listitem><para>XPUF_ERROR_INVALID_PARAM if PufData is NULL</para></listitem><listitem><para>XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT if timeout occurred while waiting for PUF Syndrome data</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT if timeout occurred while waiting for PUF done bit at the time of PUF registration</para></listitem><listitem><para>XPUF_IRO_FREQ_WRITE_MISMATCH if mismatch in writing or reading IRO frequency</para></listitem><listitem><para>XST_FAILURE if unexpected event occurs</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Helper data will be available in PufData-&gt;SyndromeData, PufData-&gt;Chash, PufData-&gt;Aux. PUF is only supported when using a nominal VCC_PMC of 0.70V and IRO frequency of 320 MHz </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameters validation, return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.</para><para><itemizedlist>
+<listitem><para>Validate the requested PUF operation is PUF registration.</para></listitem></itemizedlist>
+</para><para>When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set to 320 MHz.</para><para>Validate if secure control bits for each PUF operations are set or not.</para><para>Update shutter value for PUF enrollment.</para><para>Update PUF Ring Oscillator Swap setting.</para><para>Trigger PUF enrollment command.</para><para>PUF helper data for VERSAL_2VP_P includes Syndrome data and CHash only (no AUX). Capturing Syndrome data word by word.</para><para>Once complete Syndrome data is captured and PUF operation is done, read CHash and PUF ID. For VERSAL_2VP_P, no AUX data is read.</para><para>If IRO frequency is updated to 320MHz then set frequency back to 400MHz.</para><para><itemizedlist>
+<listitem><para>Redundancy guard: on success, confirm the full syndrome capture completed.</para></listitem><listitem><para>Perform input parameters validation, return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Validate the requested PUF operation is PUF registration.</para></listitem><listitem><para>Check that MSB of PUF shutter value is in sync with Global variation filter option. In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH.</para></listitem><listitem><para>When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of 320 MHz for -LP devices and 400 MHz for -MP,-HP devices. If the IRO frequency at boot does not match the IRO frequency during registration, there is a potential of reduced stability which can impact the PUFs ability to regenerate properly.</para></listitem><listitem><para>Validate if secure control bits for each PUF operations are set or not.</para></listitem><listitem><para>Check GlobalVariationFilter user option. If TRUE then set GLBL_FILTER and HASH_SEL bits else, set only HASH_SEL bit in in PUF_CFG0 register.</para></listitem><listitem><para>Update PUF Configuration1 register as 4k Registration mode.</para></listitem><listitem><para>Update shutter value for PUF registration.</para></listitem><listitem><para>Update PUF Ring Oscillator Swap setting for Versal Net device, do nothing in case of Versal.</para></listitem><listitem><para>Trigger PUF registration.</para></listitem><listitem><para>PUF helper data includes Syndrome data, CHash and Auxiliary data. Capturing Syndrome data word by word.</para></listitem><listitem><para>Once complete Syndrome data is captured and PUF operation is done, read CHash, Auxiliary data and PUF ID.</para></listitem><listitem><para>If IRO frequency is updated to 320MHz then set frequency back to 400MHz and if the frequency is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH. else, return Status.</para></listitem><listitem><para>Redundancy guard: on success, confirm the full syndrome capture completed. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="144" bodyend="251"/>
+        <references refid="xpuf__defs_8h_1a9cfb7987663200093ac2af0dcf78a85d" compoundref="xpuf__defs_8h" startline="55">XPUF_4K_PUF_SYN_LEN_IN_WORDS</references>
+        <references refid="group__xpuf__apis_1ga4d7d5a3b73fb92f6f65e2a2205b74195" compoundref="spartanup_2xpuf_8c" startline="44">XPUF_AUX_MASK_VALUE</references>
+        <references refid="group__xpuf__server__apis_1ga4ab1beae9987b6ab994e4cf06c77dc1a" compoundref="versal__gen_2server_2xpuf_8c" startline="88">XPUF_AUX_SHIFT_VALUE</references>
+        <references refid="group__xpuf__apis_1ga5a9afe10c38f97cc7f9793a02463c131" compoundref="spartanup_2xpuf_8c" startline="46">XPUF_OV_MASK_VALUE</references>
+        <references refid="group__xpuf__apis_1gad16dd5805786cdbf430a04e61c961185" compoundref="spartanup_2xpuf_8c" startline="61">XPUF_PMC_GLOBAL_PUF_ID_CAPTURE</references>
+        <references refid="group__xpuf__apis_1ga195a89fe38d4e810f356aeb626bfb964" compoundref="spartanup_2xpuf_8c" startline="59">XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE</references>
+        <references refid="xpuf__defs_8h_1aed547acdacee538b3d5edb8effdabd33" compoundref="xpuf__defs_8h" startline="48">XPUF_REGISTRATION</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga2f60c4624b046d3f5c74d8cb01f8f90d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_Regeneration</definition>
+        <argsstring>(XPuf_Data *PufData)</argsstring>
+        <name>XPuf_Regeneration</name>
+        <param>
+          <type>XPuf_Data *</type>
+          <declname>PufData</declname>
+        </param>
+        <briefdescription>
+<para>This function regenerates PUF data using helper data stored in eFUSE or external memory. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function regenerates PUF data using helper data from external memory or a PUF helper-data PDI.</para><para><verbatim>    For VERSAL_2VP_P, no AUX data or Global Variation Filter.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure which includes options to configure PUF.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful PUF Regeneration</para></listitem><listitem><para>XPUF_ERROR_INVALID_PARAM if PufData is NULL</para></listitem><listitem><para>XPUF_ERROR_INVALID_REGENERATION_TYPE if selected regeneration type is invalid</para></listitem><listitem><para>XPUF_ERROR_CHASH_NOT_PROGRAMMED Helper data not provided</para></listitem><listitem><para>XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT Timeout occurred while waiting for PUF done bit</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_KEY_NT_RDY Key ready bit and ID ready bit is not set</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_ID_NT_RDY Id ready bit is not set</para></listitem><listitem><para>XPUF_IRO_FREQ_WRITE_MISMATCH Mismatch in writing or reading IRO frequency at the time of PUF regeneration</para></listitem><listitem><para>XST_FAILURE Unexpected event</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PufData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XPuf_Data structure which includes options to configure PUF.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful PUF Regeneration</para></listitem><listitem><para>XPUF_ERROR_INVALID_PARAM if PufData is NULL</para></listitem><listitem><para>XPUF_ERROR_INVALID_REGENERATION_TYPE if selected regeneration type is invalid</para></listitem><listitem><para>XPUF_ERROR_CHASH_NOT_PROGRAMMED if Helper data not provided</para></listitem><listitem><para>XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT if Timeout occurred while waiting for PUF done bit</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_KEY_NT_RDY if Key ready bit and ID ready bit is not set</para></listitem><listitem><para>XPUF_ERROR_PUF_DONE_ID_NT_RDY if Id ready bit is not set</para></listitem><listitem><para>XPUF_IRO_FREQ_WRITE_MISMATCH if mismatch in writing or reading IRO frequency at the time of PUF regeneration</para></listitem><listitem><para>XST_FAILURE if unexpected event occurs</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>PUF is only supported when using a nominal VCC_PMC of 0.70V and IRO frequency of 320 MHz </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameters validation, return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.</para><para>Check if requested PUF operation is valid.</para><para>When regenerating the PUF, the PMC internal ring oscillator (IRO) frequency must be set to 320 MHz.</para><para>Validate the access rules for PUF regeneration.</para><para>Update the helper data for PUF regeneration. For VERSAL_2VP_P, no AUX data is used.</para><para>Update Shutter value in PUF_SHUT register.</para><para>Disable SLVERR for PMC_GLOBAL during regeneration.</para><para>Update PUF Ring Oscillator Swap setting.</para><para>Trigger PUF regeneration.</para><para>Re-enable SLVERR if it was disabled.</para><para><itemizedlist>
+<listitem><para>Perform input parameters validation, return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Check if requested PUF operation is not PUF on demand regeneration or ID only regeneration. If yes, return XPUF_ERROR_INVALID_PARAM.</para></listitem><listitem><para>Check that MSB of PUF shutter value is in sync with Global variation filter option. In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH.</para></listitem><listitem><para>When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of 320 MHz for -LP devices and 400 MHz for -MP,-HP devices. If the IRO frequency at boot does not match the IRO frequency during registration, there is a potential of reduced stability which can impact the PUFs ability to regenerate properly.</para></listitem><listitem><para>Validate the access rules for PUF regeneration. If PUF_DIS or PUF_REGEN_DIS eFuse bits are set, then return XPUF_ERROR_REGENERATION_INVALID. If read from eFuse cache is selected and PUF_HD_INVLD bit is set then return XPUF_ERROR_REGEN_PUF_HD_INVALID.</para></listitem><listitem><para>Update the helper data for PUF regeneration according to the location of helper data provided by the user.</para></listitem><listitem><para>Configures the Global Variation Filter option provided by user and updates PUF Configuration0 register.</para></listitem><listitem><para>Update PUF Configuration1 register as 4k Registration mode.</para></listitem><listitem><para>Update Shutter value in PUF_SHUT register.</para></listitem><listitem><para>Checks if SLVERR is enabled for PMC_GLOBAL, then disable the SLVERR for PMC_GLOBAL before regeneration starts and enables it again once PUF regeneration is done.</para></listitem><listitem><para>Update PUF Ring Oscillator Swap setting for Versal Net device, do nothing in case of Versal.</para></listitem><listitem><para>If On demand regeneration is selected by user then trigger PUF_CMD for PUF On Demand regeneration. If ID only regeneration is selected then trigger PUF_CMD for PUF ID only regeneration. If invalid input, return XPUF_ERROR_INVALID_REGENERATION_TYPE.</para></listitem><listitem><para>Enabling the SLVERR after regeneration, if SLVERR is enabled previously in PMC_GLOBAL.</para></listitem><listitem><para>If IRO frequency is updated to 320MHz then set frequency back to 400MHz and if the frequency is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH else, Return status.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="278" bodyend="388"/>
+        <references refid="xpuf__defs_8h_1a9382543db8550e50f67432edcab2413e" compoundref="xpuf__defs_8h" startline="52">XPUF_REGEN_ID_ONLY</references>
+        <references refid="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" compoundref="xpuf__defs_8h" startline="50">XPUF_REGEN_ON_DEMAND</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__server__apis_1ga651bbcfe2834f71fa821e1cb113a723f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_ClearPufID</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPuf_ClearPufID</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function clears PUF ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if PUF ID is cleared successfully</para></listitem><listitem><para>XPUF_ERROR_PUF_ID_ZERO_TIMEOUT if time out while clearing PUF ID </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Set least significant bit in the PUF_CLEAR register.</para></listitem><listitem><para>The API waits for ID_ZERO bit to be set in PUF Status register. If ID zero bit is not set within 1 second then returns XPUF_ERROR_PUF_ID_ZERO_TIMEOUT else returns XST_SUCCESS.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c" bodystart="399" bodyend="418"/>
+        <references refid="group__xpuf__apis_1ga8eda4f7307742eae0ea34465e43d2555" compoundref="spartanup_2xpuf_8c" startline="41">XPUF_STATUS_WAIT_TIMEOUT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpuf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpuf_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpuf_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="group__xpuf__server__apis_1ga8eda4f7307742eae0ea34465e43d2555" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_STATUS_WAIT_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1000000U)</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/********************Macros<sp/>(Inline<sp/>function)<sp/>Definitions*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="51"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_WaitForPufSynWordRdy(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR<sp/>+</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_STATUS_SYNDROME_WORD_RDY,<sp/>XPUF_STATUS_SYNDROME_WORD_RDY,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xpuf__server__apis_1ga8eda4f7307742eae0ea34465e43d2555" kindref="member">XPUF_STATUS_WAIT_TIMEOUT</ref>);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_WaitForPufDoneStatus(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR<sp/>+</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),<sp/>XPUF_STATUS_PUF_DONE,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_STATUS_PUF_DONE,<sp/><ref refid="group__xpuf__server__apis_1ga8eda4f7307742eae0ea34465e43d2555" kindref="member">XPUF_STATUS_WAIT_TIMEOUT</ref>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u8<sp/>XPuf_ReadIroFreq(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_ANLG_OSC_SW_1LP_OFFSET)<sp/>&amp;<sp/>XPUF_IRO_TRIM_FUSE_SEL_BIT);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="98"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPuf_WriteIroFreq(u32<sp/>IroFreq)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_EFUSE_CTRL_BASEADDR,<sp/>XPUF_EFUSE_CTRL_WR_LOCK_OFFSET,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_EFUSE_CTRL_WR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_UtilRMW32((XPUF_EFUSE_CTRL_BASEADDR<sp/>+<sp/>XPUF_ANLG_OSC_SW_1LP_OFFSET),</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_IRO_TRIM_FUSE_SEL_BIT,<sp/>IroFreq);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_EFUSE_CTRL_BASEADDR,<sp/>XPUF_EFUSE_CTRL_WR_LOCK_OFFSET,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_EFUSE_CTRL_WR_LOCK_VAL);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPuf_CapturePufID(XPuf_Data<sp/>*PufData);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_ValidateAccessRules(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPuf_Data<sp/>*PufData);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_UpdateHelperData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPuf_Data<sp/>*PufData);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_StartRegeneration(XPuf_Data<sp/>*PufData);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_ChangeIroFreq(u32<sp/>IroFreq,<sp/>u8<sp/>*IroFreqUpdated);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="144" refid="group__xpuf__server__apis_1gae2607f20a8f0199c8f0eb53d0dfc9f0a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" kindref="member">XPuf_Registration</ref>(XPuf_Data<sp/>*PufData)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IroRestoreStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Idx<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IroFreqUpdated<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PufData<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PufData-&gt;PufOperation<sp/>!=<sp/><ref refid="xpuf__defs_8h_1aed547acdacee538b3d5edb8effdabd33" kindref="member">XPUF_REGISTRATION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPuf_IsIroFreqChangeReqd()<sp/>==<sp/>XPUF_IROFREQ_CHANGE_REQD)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ,<sp/>&amp;IroFreqUpdated);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/>XPuf_ValidateAccessRules(PufData);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,<sp/>XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufData-&gt;ShutterValue);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_SetRoSwap(PufData);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,<sp/>XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_CMD_ENROLLMENT);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>XPUF_SYN_LEN_IN_WORDS;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_WaitForPufSynWordRdy();</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufData-&gt;SyndromeData[Idx]<sp/>=<sp/>XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_WORD_OFFSET);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/><sp/>=<sp/>XPuf_WaitForPufDoneStatus();</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufData-&gt;Chash<sp/>=<sp/>XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_CapturePufID(PufData);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IroFreqUpdated<sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IroRestoreStatus<sp/>=<sp/>XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ,<sp/>&amp;IroFreqUpdated);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>IroRestoreStatus;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Idx<sp/>!=<sp/>XPUF_SYN_LEN_IN_WORDS))<sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_SYN_DATA_ERROR;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="278" refid="group__xpuf__server__apis_1ga2f60c4624b046d3f5c74d8cb01f8f90d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" kindref="member">XPuf_Regeneration</ref>(XPuf_Data<sp/>*PufData)</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IroRestoreStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GlobalCntrlVal;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reset<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IroFreqUpdated<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PufData<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PufData-&gt;PufOperation<sp/>!=<sp/><ref refid="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" kindref="member">XPUF_REGEN_ON_DEMAND</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PufData-&gt;PufOperation<sp/>!=<sp/><ref refid="xpuf__defs_8h_1a9382543db8550e50f67432edcab2413e" kindref="member">XPUF_REGEN_ID_ONLY</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPuf_IsIroFreqChangeReqd()<sp/>==<sp/>XPUF_IROFREQ_CHANGE_REQD)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ,<sp/>&amp;IroFreqUpdated);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_STATUS_CHK_GLITCH_DETECT(Status);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/>XPuf_ValidateAccessRules(PufData);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_STATUS_CHK_GLITCH_DETECT(Status);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_UpdateHelperData(PufData);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_STATUS_CHK_GLITCH_DETECT(Status);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,<sp/>XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufData-&gt;ShutterValue);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GlobalCntrlVal<sp/>=<sp/>XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((GlobalCntrlVal<sp/>&amp;<sp/>XPUF_SLVERR_ENABLE_MASK)<sp/>==<sp/>XPUF_SLVERR_ENABLE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GlobalCntrlVal<sp/>&amp;<sp/>~(XPUF_SLVERR_ENABLE_MASK));</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reset<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_SetRoSwap(PufData);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_StartRegeneration(PufData);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Reset<sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GlobalCntrlVal<sp/>=<sp/>XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GlobalCntrlVal<sp/>|<sp/>XPUF_SLVERR_ENABLE_MASK);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IroFreqUpdated<sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IroRestoreStatus<sp/>=<sp/>XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ,<sp/>&amp;IroFreqUpdated);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>IroRestoreStatus;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="399" refid="group__xpuf__server__apis_1ga651bbcfe2834f71fa821e1cb113a723f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" kindref="member">XPuf_ClearPufID</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="400"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WaitStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,<sp/>XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET,</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_CLEAR_ID);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WaitStatus<sp/>=<sp/>(int)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR<sp/>+</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),<sp/>XPUF_STATUS_ID_ZERO,</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_STATUS_ID_ZERO,<sp/><ref refid="group__xpuf__server__apis_1ga8eda4f7307742eae0ea34465e43d2555" kindref="member">XPUF_STATUS_WAIT_TIMEOUT</ref>);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WaitStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_PUF_ID_ZERO_TIMEOUT;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="428"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPuf_CapturePufID(XPuf_Data<sp/>*PufData)</highlight></codeline>
+<codeline lineno="429"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="xpuf__defs_8h_1af26b29ea65b90d142f4c9aeea7cf0d19" kindref="member">XPUF_ID_LEN_IN_WORDS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufData-&gt;PufID[Index]<sp/>=<sp/>XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET<sp/>+<sp/>(Index<sp/>*<sp/><ref refid="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" kindref="member">XPUF_WORD_LENGTH</ref>)));</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="436"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="455"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_ValidateAccessRules(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPuf_Data<sp/>*PufData)</highlight></codeline>
+<codeline lineno="456"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Operation<sp/>=<sp/>PufData-&gt;PufOperation;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufEccCtrlValue<sp/>=<sp/>XPuf_ReadReg(XPUF_EFUSE_CACHE_BASEADDR,</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PUF_ECC_PUF_CTRL_OFFSET);</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecurityCtrlVal<sp/>=<sp/>XPuf_ReadReg(XPUF_EFUSE_CACHE_BASEADDR,</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_EFUSE_CACHE_SECURITY_CONTROL);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Operation)<sp/>{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xpuf__defs_8h_1aed547acdacee538b3d5edb8effdabd33" kindref="member">XPUF_REGISTRATION</ref>:</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SecurityCtrlVal<sp/>&amp;<sp/>XPUF_PUF_DIS)<sp/>==<sp/>XPUF_PUF_DIS)<sp/>{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_REGISTRATION_INVALID;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPuf_IsRegistrationDisabled()<sp/>!=<sp/>FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_REGISTRATION_INVALID;</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" kindref="member">XPUF_REGEN_ON_DEMAND</ref>:</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xpuf__defs_8h_1a9382543db8550e50f67432edcab2413e" kindref="member">XPUF_REGEN_ID_ONLY</ref>:</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((SecurityCtrlVal<sp/>&amp;<sp/>XPUF_PUF_DIS)<sp/>==<sp/>XPUF_PUF_DIS)<sp/>||</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PufEccCtrlValue<sp/>&amp;<sp/>XPUF_PUF_REGEN_DIS)<sp/>==<sp/>XPUF_PUF_REGEN_DIS))<sp/>{</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_REGENERATION_INVALID;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((PufData-&gt;ReadOption<sp/>==<sp/><ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a0980f439bee315d71a0a9ad2ce1ab2ef" kindref="member">XPUF_READ_FROM_EFUSE_CACHE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PufEccCtrlValue<sp/>&amp;<sp/>XPUF_PUF_HD_INVLD)<sp/>==<sp/>XPUF_PUF_HD_INVLD))<sp/>{</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_REGEN_PUF_HD_INVALID;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_PUF_OPERATION;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="510"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_UpdateHelperData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPuf_Data<sp/>*PufData)</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufChash;</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PufData-&gt;ReadOption<sp/>==<sp/><ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a840cf45a2b10a58c8ea5c0790d4dda7d" kindref="member">XPUF_READ_FROM_RAM</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufChash<sp/>=<sp/>PufData-&gt;Chash;</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PufChash<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_CHASH_NOT_PROGRAMMED;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" kindref="member">XPuf_Printf</ref>(<ref refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" kindref="member">XPUF_DEBUG_GENERAL</ref>,</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;PUF<sp/>regeneration<sp/>is<sp/>not<sp/>allowed,&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;as<sp/>PUF<sp/>helper<sp/>data<sp/>is<sp/>not<sp/>provided/stored\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET,<sp/>PufChash);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET,<sp/>PufData-&gt;SyndromeAddr);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PufData-&gt;ReadOption<sp/>==<sp/><ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a0980f439bee315d71a0a9ad2ce1ab2ef" kindref="member">XPUF_READ_FROM_EFUSE_CACHE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET,<sp/>XPUF_EFUSE_SYN_ADD_INIT);</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_READ_HD_INPUT;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="564"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_StartRegeneration(XPuf_Data<sp/>*PufData)</highlight></codeline>
+<codeline lineno="565"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufStatus;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="xpuf__defs_8h_1a9382543db8550e50f67432edcab2413e" kindref="member">XPUF_REGEN_ID_ONLY</ref><sp/>==<sp/>PufData-&gt;PufOperation)<sp/>{</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,<sp/>XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_CMD_REGEN_ID_ONLY);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" kindref="member">XPUF_REGEN_ON_DEMAND</ref><sp/>==<sp/>PufData-&gt;PufOperation)<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,<sp/>XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_CMD_REGEN_ON_DEMAND);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_INVALID_REGENERATION_TYPE;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/><sp/>=<sp/>XPuf_WaitForPufDoneStatus();</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" kindref="member">XPuf_Printf</ref>(<ref refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" kindref="member">XPUF_DEBUG_GENERAL</ref>,</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Error:<sp/>Puf<sp/>Regeneration<sp/>failed!!<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT;</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"></highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PufStatus<sp/>=<sp/>XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET);</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"></highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PufStatus<sp/>&amp;<sp/>XPUF_STATUS_ID_RDY)<sp/>==<sp/>XPUF_STATUS_ID_RDY)<sp/>{</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" kindref="member">XPUF_REGEN_ON_DEMAND</ref><sp/>==<sp/>PufData-&gt;PufOperation)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PufStatus<sp/>&amp;<sp/>XPUF_STATUS_KEY_RDY)<sp/>!=</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_STATUS_KEY_RDY))<sp/>{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_PUF_DONE_KEY_NT_RDY;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_CapturePufID(PufData);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_ERROR_PUF_DONE_ID_NT_RDY;</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight></codeline>
+<codeline lineno="609"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="626"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPuf_ChangeIroFreq(u32<sp/>IroFreq,<sp/>u8<sp/>*IroFreqUpdated)</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ReadIroFreq;</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*IroFreqUpdated<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadIroFreq<sp/>=<sp/>XPuf_ReadIroFreq();</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadIroFreq<sp/>!=<sp/>IroFreq)<sp/>{</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPuf_WriteIroFreq(IroFreq);</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadIroFreq<sp/>=<sp/>XPuf_ReadIroFreq();</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadIroFreq<sp/>!=<sp/>IroFreq)<sp/>{</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPUF_IRO_FREQ_WRITE_MISMATCH;</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*IroFreqUpdated<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="643"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="645"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf.c"/>
+  </compounddef>
+</doxygen>

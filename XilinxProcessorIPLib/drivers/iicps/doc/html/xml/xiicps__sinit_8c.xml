@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiicps__sinit_8c" kind="file">
+    <compoundname>xiicps_sinit.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xiicps_8h" local="yes">xiicps.h</includes>
+    <incdepgraph>
+      <node id="269">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="267">
+        <label>xiicps.h</label>
+        <link refid="xiicps_8h"/>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="269" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
+      </node>
+      <node id="271">
+        <label>xil_io.h</label>
+      </node>
+      <node id="272">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="270">
+        <label>xiicps_hw.h</label>
+        <link refid="xiicps__hw_8h"/>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="269" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
+      </node>
+      <node id="266">
+        <label>xstatus.h</label>
+      </node>
+      <node id="268">
+        <label>xil_types.h</label>
+      </node>
+      <node id="265">
+        <label>xiicps_sinit.c</label>
+        <link refid="xiicps_sinit.c"/>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Configuration lookup function</header>
+      <description><para>Provides the function for configuration lookup, in <ref refid="xiicps__sinit_8c" kindref="compound">xiicps_sinit.c</ref>. </para></description>
+      <memberdef kind="function" id="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref> *</type>
+        <definition>XIicPs_Config * XIicPs_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XIicPs_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration by device ID or base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. The XIicPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xiicps_8h" kindref="compound">xiicps.h</ref> for the definition of <ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_sinit.c" bodystart="96" bodyend="110"/>
+        <references refid="struct_x_iic_ps___config_1a7848b4b30de2884ed99ab776ce065737" compoundref="xiicps_8h" startline="179">XIicPs_Config::Name</references>
+        <references refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" compoundref="xiicps__g_8c" startline="55">XIicPs_ConfigTable</references>
+        <referencedby refid="xiicps__intr__master__example_8c_1ae81741face753dec9295d20659c80b7e" compoundref="xiicps__intr__master__example_8c" startline="185" endline="324">IicPsMasterIntrExample</referencedby>
+        <referencedby refid="group__xiicps__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" compoundref="xiicps__polled__master__example_8c" startline="152" endline="236">IicPsMasterPolledExample</referencedby>
+        <referencedby refid="xiicps__intr__multi__master__example_8c_1ad89822fcda696e386a1877920c19147d" compoundref="xiicps__intr__multi__master__example_8c" startline="194" endline="364">IicPsMultiMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__polled__multi__master__example_8c_1a5b57ca40c957274f180dda79c1731101" compoundref="xiicps__polled__multi__master__example_8c" startline="153" endline="248">IicPsMultiMasterPolledExample</referencedby>
+        <referencedby refid="xiicps__repeated__start__example_8c_1a03067e867debb67e8cc850dad9b4491b" compoundref="xiicps__repeated__start__example_8c" startline="198" endline="325">IicPsRepeatedStartExample</referencedby>
+        <referencedby refid="xiicps__selftest__example_8c_1a7b902a14156eabb2c294c08061c5db95" compoundref="xiicps__selftest__example_8c" startline="121" endline="154">IicPsSelfTestExample</referencedby>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="183" endline="307">IicPsSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__polled__slave__example_8c_1ae871da47e30475c237ec50ba103904f3" compoundref="xiicps__polled__slave__example_8c" startline="140" endline="221">IicPsSlavePolledExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__slave__example_8c_1afe10afbb14219d41e5a17703df96090b" compoundref="xiicps__smbus__intr__slave__example_8c" startline="202" endline="283">IicPsSmbusSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__polled__slave__example_8c_1a8be3759294537d8bd8b4822d89b2971e" compoundref="xiicps__smbus__polled__slave__example_8c" startline="167" endline="225">IicPsSmbusSlavePolledExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__master__example_8c_1a17d5b2d2e2cc13f46e3fe53aa8c7e102" compoundref="xiicps__smbus__intr__master__example_8c" startline="189" endline="280">XIicPsSmbusMasterIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements the static initialization functions of the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="xiicps__sinit_8c" kindref="compound">xiicps_sinit.c</ref> file contains implementation of the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> component&apos;s static initialization functionality.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a drg/jz 01/30/10 First release
+3.00    sk     01/31/15 Modified the code according to MISRAC 2012 Compliant.
+3.18  gm     07/14/23 Added SDT support.
+3.23  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+3.23  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+3.24  tb     09/30/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiicps_8h" kindref="compound">xiicps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref><sp/>*<ref refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" kindref="member">XIicPs_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Index;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XPAR_XIICPS_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" kindref="member">XIicPs_ConfigTable</ref>[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" kindref="member">XIicPs_ConfigTable</ref>[Index];</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref><sp/>*)CfgPtr;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="96" refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref><sp/>*<ref refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" kindref="member">XIicPs_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Index;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/><ref refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" kindref="member">XIicPs_ConfigTable</ref>[Index].<ref refid="struct_x_iic_ps___config_1a7848b4b30de2884ed99ab776ce065737" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" kindref="member">XIicPs_ConfigTable</ref>[Index].BaseAddress<sp/>==<sp/>BaseAddress<sp/>||</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" kindref="member">XIicPs_ConfigTable</ref>[Index];</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="struct_x_iic_ps___config" kindref="compound">XIicPs_Config</ref><sp/>*)CfgPtr;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_sinit.c"/>
+  </compounddef>
+</doxygen>

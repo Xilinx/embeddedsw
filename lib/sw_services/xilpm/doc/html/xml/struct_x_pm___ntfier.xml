@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___ntfier" kind="struct" prot="public">
+    <compoundname>XPm_Ntfier</compoundname>
+    <includes local="no">pm_api_sys.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1aa6602b3808ae1ef17e63a387e099b18a" prot="public" static="no" mutable="no">
+        <type>void(*const</type>
+        <definition>void(*) const XPm_Ntfier::callback(struct XPm_Ntfier *const notifier)</definition>
+        <argsstring>)(struct XPm_Ntfier *const notifier)</argsstring>
+        <name>callback</name>
+        <briefdescription>
+<para>Custom callback handler to be called when the notification is received. </para>        </briefdescription>
+        <detaileddescription>
+<para>The custom handler would execute from interrupt context, it shall return quickly and must not block! (enables event-driven notifications) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a8098de9cdc342946a2ffaaec08e00d9b" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XPm_Ntfier::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+<para>Node argument (the node to receive notifications about) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xpm__versal__apis_1gab6a6925e42b7b055286e778711237148" compoundref="versal__common_2client_2pm__api__sys_8c" startline="1879" endline="1907">XPm_RegisterNotifier</referencedby>
+        <referencedby refid="group__xpm__versal__apis_1gad3c17226bc718a47d5fe2cbecc6a77f8" compoundref="versal__common_2client_2pm__api__sys_8c" startline="1923" endline="1950">XPm_UnregisterNotifier</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a4572274e8b2e20ea652159a3c1003029" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Ntfier::event</definition>
+        <argsstring></argsstring>
+        <name>event</name>
+        <briefdescription>
+<para>Event argument (the event type to receive notifications about) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xpm__versal__apis_1gab6a6925e42b7b055286e778711237148" compoundref="versal__common_2client_2pm__api__sys_8c" startline="1879" endline="1907">XPm_RegisterNotifier</referencedby>
+        <referencedby refid="group__xpm__versal__apis_1gad3c17226bc718a47d5fe2cbecc6a77f8" compoundref="versal__common_2client_2pm__api__sys_8c" startline="1923" endline="1950">XPm_UnregisterNotifier</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a398897d3e841dd42d5c107d9798e309c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Ntfier::received_event</definition>
+        <argsstring></argsstring>
+        <name>received_event</name>
+        <briefdescription>
+<para>Event received from PLM) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a65f5ba30fa8df1bdbcd1bafadc051dad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Ntfier::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>Flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xpm__versal__apis_1gab6a6925e42b7b055286e778711237148" compoundref="versal__common_2client_2pm__api__sys_8c" startline="1879" endline="1907">XPm_RegisterNotifier</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a59cbeb3c110ff6101cda4424ff6b70e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 XPm_Ntfier::oppoint</definition>
+        <argsstring></argsstring>
+        <name>oppoint</name>
+        <briefdescription>
+<para>Operating point of node in question. </para>        </briefdescription>
+        <detaileddescription>
+<para>Contains the value updated when the last event notification is received. User shall not modify this value while the notifier is registered. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a697b349894c0c3d9acad6822f5e36f84" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 XPm_Ntfier::received</definition>
+        <argsstring></argsstring>
+        <name>received</name>
+        <briefdescription>
+<para>How many times the notification has been received - to be used by application (enables polling). </para>        </briefdescription>
+        <detaileddescription>
+<para>User shall not modify this value while the notifier is registered. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a3974ce6f619d9572631d3c5b6bf4d9fd" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_pm___ntfier" kindref="compound">XPm_Ntfier</ref> *</type>
+        <definition>struct XPm_Ntfier * XPm_Ntfier::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+<para>Pointer to next notifier in linked list. </para>        </briefdescription>
+        <detaileddescription>
+<para>Must not be modified while the notifier is registered. User shall not ever modify this value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a589f3f1fd03fc3771b963332d97c559a" prot="public" static="no" mutable="no">
+        <type>enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+        <definition>enum XPmNodeId XPm_Ntfier::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+<para>Node argument (the node to receive notifications about) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___ntfier_1a453ca535ead4d2894bed132286abf1c5" prot="public" static="no" mutable="no">
+        <type>enum <ref refid="group__xpm__versal__apis_1ga808f1f36491beec6b7155dcca2420d76" kindref="member">XPmNotifyEvent</ref></type>
+        <definition>enum XPmNotifyEvent XPm_Ntfier::event</definition>
+        <argsstring></argsstring>
+        <name>event</name>
+        <briefdescription>
+<para>Event argument (the event type to receive notifications about) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XPm_Notifier - Notifier structure registered with a callback by app. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="181">
+        <label>XPm_Ntfier</label>
+        <link refid="struct_x_pm___ntfier"/>
+        <childnode refid="181" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="58" bodyend="88"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___ntfier_1aa6602b3808ae1ef17e63a387e099b18a" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>callback</name></member>
+      <member refid="struct_x_pm___ntfier_1a4572274e8b2e20ea652159a3c1003029" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>event</name></member>
+      <member refid="struct_x_pm___ntfier_1a453ca535ead4d2894bed132286abf1c5" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>event</name></member>
+      <member refid="struct_x_pm___ntfier_1a65f5ba30fa8df1bdbcd1bafadc051dad" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>flags</name></member>
+      <member refid="struct_x_pm___ntfier_1a3974ce6f619d9572631d3c5b6bf4d9fd" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>next</name></member>
+      <member refid="struct_x_pm___ntfier_1a8098de9cdc342946a2ffaaec08e00d9b" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>node</name></member>
+      <member refid="struct_x_pm___ntfier_1a589f3f1fd03fc3771b963332d97c559a" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>node</name></member>
+      <member refid="struct_x_pm___ntfier_1a59cbeb3c110ff6101cda4424ff6b70e9" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>oppoint</name></member>
+      <member refid="struct_x_pm___ntfier_1a697b349894c0c3d9acad6822f5e36f84" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>received</name></member>
+      <member refid="struct_x_pm___ntfier_1a398897d3e841dd42d5c107d9798e309c" prot="public" virt="non-virtual"><scope>XPm_Ntfier</scope><name>received_event</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

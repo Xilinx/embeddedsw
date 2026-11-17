@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__regnode_8h" kind="file">
+    <compoundname>xpm_regnode.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__regnode_8c" local="yes">xpm_regnode.c</includedby>
+    <includedby refid="xpm__access_8h" local="yes">xpm_access.h</includedby>
+    <includedby refid="xpm__runtime__alloc_8c" local="yes">xpm_runtime_alloc.c</includedby>
+    <incdepgraph>
+      <node id="3393">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3388">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3394">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3396">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3391">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3386">
+        <label>xpm_power.h</label>
+        <childnode refid="3387" relation="include">
+        </childnode>
+        <childnode refid="3389" relation="include">
+        </childnode>
+      </node>
+      <node id="3392">
+        <label>xpm_common.h</label>
+        <childnode refid="3390" relation="include">
+        </childnode>
+        <childnode refid="3393" relation="include">
+        </childnode>
+        <childnode refid="3394" relation="include">
+        </childnode>
+        <childnode refid="3395" relation="include">
+        </childnode>
+        <childnode refid="3396" relation="include">
+        </childnode>
+        <childnode refid="3387" relation="include">
+        </childnode>
+      </node>
+      <node id="3389">
+        <label>xpm_node.h</label>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3390" relation="include">
+        </childnode>
+        <childnode refid="3391" relation="include">
+        </childnode>
+        <childnode refid="3392" relation="include">
+        </childnode>
+      </node>
+      <node id="3390">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3385">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3387">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3388" relation="include">
+        </childnode>
+      </node>
+      <node id="3395">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3390" relation="include">
+        </childnode>
+      </node>
+      <node id="3384">
+        <label>xpm_regnode.h</label>
+        <link refid="xpm_regnode.h"/>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3386" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3402">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="3400">
+        <label>xpm_access.h</label>
+        <childnode refid="3401" relation="include">
+        </childnode>
+        <childnode refid="3402" relation="include">
+        </childnode>
+        <childnode refid="3403" relation="include">
+        </childnode>
+        <childnode refid="3404" relation="include">
+        </childnode>
+      </node>
+      <node id="3403">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="3398">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="3404">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="3401">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="3399">
+        <label>xpm_regnode.c</label>
+      </node>
+      <node id="3397">
+        <label>xpm_regnode.h</label>
+        <link refid="xpm_regnode.h"/>
+        <childnode refid="3398" relation="include">
+        </childnode>
+        <childnode refid="3399" relation="include">
+        </childnode>
+        <childnode refid="3400" relation="include">
+        </childnode>
+        <childnode refid="3405" relation="include">
+        </childnode>
+      </node>
+      <node id="3405">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___reg_node" prot="public">XPm_RegNode</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__regnode_8h_1a961bcbd3de2b870bb33e8124b27f7198" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref></type>
+        <definition>typedef struct XPm_RegNode XPm_RegNode</definition>
+        <argsstring></argsstring>
+        <name>XPm_RegNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__regnode_8h_1a6477d4b3968218019963ae1b1acb841f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref> *</type>
+        <definition>XPm_RegNode* XPmRegNode_GetNodes</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmRegNode_GetNodes</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Return the head of the registered RegNode list. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to the most recently registered <ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref>, or NULL when no register nodes have been initialized. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.c" bodystart="18" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__regnode_8h_1a4e3ca1447f813765b6d17c698c678588" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmRegNode_Init</definition>
+        <argsstring>(XPm_RegNode *RegNode, u32 NodeId, u32 BaseAddress, XPm_Power *Power)</argsstring>
+        <name>XPmRegNode_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref> *</type>
+          <declname>RegNode</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XPm_Power *</type>
+          <declname>Power</declname>
+        </param>
+        <briefdescription>
+<para>Initialize RegNode and add to database. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegNode</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an uninitialized <ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref> struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a Regnode </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Baseaddress of given RegNode </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Power</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power parent dependency</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.c" bodystart="37" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_REGNODE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_REGNODE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref><sp/><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="18" refid="struct_x_pm___reg_node" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref><sp/>{</highlight></codeline>
+<codeline lineno="19" refid="struct_x_pm___reg_node_1a4316f775cde2a9e8a577d6b73ce5816a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reg_node_1a4316f775cde2a9e8a577d6b73ce5816a" kindref="member">Id</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="20" refid="struct_x_pm___reg_node_1a8ab91e80e5980afab945a7ba31899ed5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reg_node_1a8ab91e80e5980afab945a7ba31899ed5" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="21" refid="struct_x_pm___reg_node_1a7f42f9506ea1391cd55cd739432c19aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___reg_node_1a7f42f9506ea1391cd55cd739432c19aa" kindref="member">Requirements</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="22" refid="struct_x_pm___reg_node_1ac810d554a4f9cc92221553cf6d40fc8e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>*<ref refid="struct_x_pm___reg_node_1ac810d554a4f9cc92221553cf6d40fc8e" kindref="member">Power</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="23" refid="struct_x_pm___reg_node_1a9e0a8174c36a0d3ba082952e1cbc7445" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref><sp/>*<ref refid="struct_x_pm___reg_node_1a9e0a8174c36a0d3ba082952e1cbc7445" kindref="member">NextRegnode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref>*<sp/>XPmRegNode_GetNodes(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmRegNode_Init(<ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref><sp/>*RegNode,<sp/>u32<sp/>NodeId,<sp/>u32<sp/>BaseAddress,<sp/>XPm_Power<sp/>*Power);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_REGNODE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h"/>
+  </compounddef>
+</doxygen>

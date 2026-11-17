@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___reqm" kind="struct" prot="public">
+    <compoundname>XPm_Reqm</compoundname>
+    <includes local="no">xpm_requirement.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a57073a77476455e3036fd3d4e83d3b57" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_Reqm::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a469da9926fb0ff37b602cb8a7e291a9c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Reqm::PreallocCaps</definition>
+        <argsstring></argsstring>
+        <name>PreallocCaps</name>
+        <briefdescription>
+<para>Flags. </para>        </briefdescription>
+        <detaileddescription>
+<para>Preallocated capabilities </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a3bbaa22b2a510e0333a9dae9de7fd199" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Reqm::AttrCaps</definition>
+        <argsstring></argsstring>
+        <name>AttrCaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1aa1fe8509a4711dce0ac02ffd148a50d5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Reqm::PreallocQoS</definition>
+        <argsstring></argsstring>
+        <name>PreallocQoS</name>
+        <briefdescription>
+<para>Other capabilities like security, coherency and virtualization. </para>        </briefdescription>
+        <detaileddescription>
+<para>This does not play any role for device state transition so it is keep as a separate variable.Preallocated QoS value </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref></type>
+        <definition>XPm_ReqmInfo XPm_Reqm::Curr</definition>
+        <argsstring></argsstring>
+        <name>Curr</name>
+        <briefdescription>
+<para>Current requirements. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref></type>
+        <definition>XPm_ReqmInfo XPm_Reqm::Next</definition>
+        <argsstring></argsstring>
+        <name>Next</name>
+        <briefdescription>
+<para>Pending requirements. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a5318cf6ee93aa4d349cf44ca6f45e573" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Reqm::IsPending</definition>
+        <argsstring></argsstring>
+        <name>IsPending</name>
+        <briefdescription>
+<para>Requirement is pending. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Reqm::Allocated</definition>
+        <argsstring></argsstring>
+        <name>Allocated</name>
+        <briefdescription>
+<para>Device has been allocated to the subsystem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1af9161986c0660e1d37282d7295e1bd8d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Reqm::SetLatReq</definition>
+        <argsstring></argsstring>
+        <name>SetLatReq</name>
+        <briefdescription>
+<para>Latency has been set from the subsystem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1a9715836095551ebd185b71dce832bc68" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+        <definition>XPm_Subsystem* XPm_Reqm::Subsystem</definition>
+        <argsstring></argsstring>
+        <name>Subsystem</name>
+        <briefdescription>
+<para>Subsystem imposing this requirement on the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reqm_1ad483b58ba7bb988d2625b132954e7845" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+        <definition>XPm_Device* XPm_Reqm::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device used by the subsystem. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The requirement class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="268">
+        <label>XPm_PendSuspCb</label>
+        <link refid="struct_x_pm___pend_susp_cb"/>
+      </node>
+      <node id="266">
+        <label>XPm_ReqmInfo</label>
+        <link refid="struct_x_pm___reqm_info"/>
+      </node>
+      <node id="267">
+        <label>XPm_Subsystem</label>
+        <link refid="struct_x_pm___subsystem"/>
+        <childnode refid="268" relation="usage">
+          <edgelabel>PendCb</edgelabel>
+        </childnode>
+      </node>
+      <node id="263">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="261" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="260">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="261" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="264" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="259">
+        <label>XPm_Reqm</label>
+        <link refid="struct_x_pm___reqm"/>
+        <childnode refid="260" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="266" relation="usage">
+          <edgelabel>Next</edgelabel>
+          <edgelabel>Curr</edgelabel>
+        </childnode>
+        <childnode refid="267" relation="usage">
+          <edgelabel>Subsystem</edgelabel>
+        </childnode>
+      </node>
+      <node id="264">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="260" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="265" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="264" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="265">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="261" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="264" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="262">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="260" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="263" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="261">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.h" bodystart="49" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>Allocated</name></member>
+      <member refid="struct_x_pm___reqm_1a3bbaa22b2a510e0333a9dae9de7fd199" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>AttrCaps</name></member>
+      <member refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>Curr</name></member>
+      <member refid="struct_x_pm___reqm_1ad483b58ba7bb988d2625b132954e7845" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>Device</name></member>
+      <member refid="struct_x_pm___reqm_1a57073a77476455e3036fd3d4e83d3b57" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>Flags</name></member>
+      <member refid="struct_x_pm___reqm_1a5318cf6ee93aa4d349cf44ca6f45e573" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>IsPending</name></member>
+      <member refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>Next</name></member>
+      <member refid="struct_x_pm___reqm_1a469da9926fb0ff37b602cb8a7e291a9c" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>PreallocCaps</name></member>
+      <member refid="struct_x_pm___reqm_1aa1fe8509a4711dce0ac02ffd148a50d5" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>PreallocQoS</name></member>
+      <member refid="struct_x_pm___reqm_1af9161986c0660e1d37282d7295e1bd8d" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>SetLatReq</name></member>
+      <member refid="struct_x_pm___reqm_1a9715836095551ebd185b71dce832bc68" prot="public" virt="non-virtual"><scope>XPm_Reqm</scope><name>Subsystem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

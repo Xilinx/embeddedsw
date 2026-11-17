@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___nd_status" kind="struct" prot="public">
+    <compoundname>XPm_NdStatus</compoundname>
+    <includes local="no">pm_api_sys.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___nd_status_1a96d0e0d63073874227c401955531911d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NdStatus::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <briefdescription>
+<para>Node power state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xpm__versal__apis_1gae9919a7d815bc0b3dea5d191333eac34" compoundref="versal__common_2client_2pm__api__sys_8c" startline="743" endline="762">XPm_GetNodeStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___nd_status_1aa13b96dc5ddf8932f13027b1064f7a21" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NdStatus::requirements</definition>
+        <argsstring></argsstring>
+        <name>requirements</name>
+        <briefdescription>
+<para>Current requirements asserted on the node (slaves only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xpm__versal__apis_1gae9919a7d815bc0b3dea5d191333eac34" compoundref="versal__common_2client_2pm__api__sys_8c" startline="743" endline="762">XPm_GetNodeStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___nd_status_1aae3dabd6cb32e8cf0751edbe91e18d83" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NdStatus::usage</definition>
+        <argsstring></argsstring>
+        <name>usage</name>
+        <briefdescription>
+<para>Usage information (which master is currently using the slave) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xpm__versal__apis_1gae9919a7d815bc0b3dea5d191333eac34" compoundref="versal__common_2client_2pm__api__sys_8c" startline="743" endline="762">XPm_GetNodeStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XPm_NodeStatus - struct containing node status information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="49" bodyend="53"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___nd_status_1aa13b96dc5ddf8932f13027b1064f7a21" prot="public" virt="non-virtual"><scope>XPm_NdStatus</scope><name>requirements</name></member>
+      <member refid="struct_x_pm___nd_status_1a96d0e0d63073874227c401955531911d" prot="public" virt="non-virtual"><scope>XPm_NdStatus</scope><name>status</name></member>
+      <member refid="struct_x_pm___nd_status_1aae3dabd6cb32e8cf0751edbe91e18d83" prot="public" virt="non-virtual"><scope>XPm_NdStatus</scope><name>usage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

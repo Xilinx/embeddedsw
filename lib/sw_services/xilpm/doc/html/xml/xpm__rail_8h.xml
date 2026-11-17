@@ -1,0 +1,704 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__rail_8h" kind="file">
+    <compoundname>xpm_rail.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xpm_rail_plat.h</includes>
+    <includedby refid="server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includedby>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="server_2xpm__npdomain_8c" local="yes">xpm_npdomain.c</includedby>
+    <includedby refid="server_2xpm__pldomain__plat_8c" local="yes">xpm_pldomain_plat.c</includedby>
+    <includedby refid="server_2xpm__psfpdomain_8c" local="yes">xpm_psfpdomain.c</includedby>
+    <includedby refid="server_2xpm__pslpdomain_8c" local="yes">xpm_pslpdomain.c</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__rail_8c" local="yes">xpm_rail.c</includedby>
+    <includedby refid="net_2server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__npdomain_8c" local="yes">xpm_npdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__pldomain__plat_8c" local="yes">xpm_pldomain_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__psfpdomain_8c" local="yes">xpm_psfpdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__pslpdomain_8c" local="yes">xpm_pslpdomain.c</includedby>
+    <includedby refid="xpm__rail__plat_8c" local="yes">xpm_rail_plat.c</includedby>
+    <incdepgraph>
+      <node id="7834">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="7832">
+        <label>xpm_rail.h</label>
+        <link refid="xpm_rail.h"/>
+        <childnode refid="7833" relation="include">
+        </childnode>
+        <childnode refid="7834" relation="include">
+        </childnode>
+      </node>
+      <node id="7833">
+        <label>xstatus.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7862">
+        <label>xpm_pldomain_plat.h</label>
+      </node>
+      <node id="7851">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="7853">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="7857">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7858" relation="include">
+        </childnode>
+        <childnode refid="7851" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+      </node>
+      <node id="7836">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="7837" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7847" relation="include">
+        </childnode>
+        <childnode refid="7849" relation="include">
+        </childnode>
+        <childnode refid="7855" relation="include">
+        </childnode>
+        <childnode refid="7857" relation="include">
+        </childnode>
+        <childnode refid="7859" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7850" relation="include">
+        </childnode>
+        <childnode refid="7858" relation="include">
+        </childnode>
+        <childnode refid="7862" relation="include">
+        </childnode>
+        <childnode refid="7852" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7863" relation="include">
+        </childnode>
+        <childnode refid="7846" relation="include">
+        </childnode>
+      </node>
+      <node id="7866">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="7891">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="7860">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="7859">
+        <label>xpm_cpmdomain.h</label>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7860" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7861" relation="include">
+        </childnode>
+        <childnode refid="7846" relation="include">
+        </childnode>
+      </node>
+      <node id="7854">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="7848">
+        <label>xpm_pmcdomain.c</label>
+      </node>
+      <node id="7849">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7842" relation="include">
+        </childnode>
+        <childnode refid="7850" relation="include">
+        </childnode>
+        <childnode refid="7851" relation="include">
+        </childnode>
+        <childnode refid="7852" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7854" relation="include">
+        </childnode>
+      </node>
+      <node id="7847">
+        <label>xpm_pmcdomain.h</label>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7848" relation="include">
+        </childnode>
+      </node>
+      <node id="7873">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="7897">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="7894">
+        <label>xpm_hnicxdomain.c</label>
+      </node>
+      <node id="7893">
+        <label>xpm_hnicxdomain.h</label>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7894" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7883">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="7895">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7883" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7846">
+        <label>xpm_reset_plat.c</label>
+      </node>
+      <node id="7858">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="7867">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="7843">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="7878">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="7835">
+        <label>xpm_rail.h</label>
+        <link refid="xpm_rail.h"/>
+        <childnode refid="7836" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7860" relation="include">
+        </childnode>
+        <childnode refid="7851" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7856" relation="include">
+        </childnode>
+        <childnode refid="7854" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+        <childnode refid="7868" relation="include">
+        </childnode>
+        <childnode refid="7892" relation="include">
+        </childnode>
+        <childnode refid="7883" relation="include">
+        </childnode>
+        <childnode refid="7901" relation="include">
+        </childnode>
+        <childnode refid="7889" relation="include">
+        </childnode>
+        <childnode refid="7885" relation="include">
+        </childnode>
+        <childnode refid="7905" relation="include">
+        </childnode>
+      </node>
+      <node id="7864">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="7863">
+        <label>xpm_repair.h</label>
+        <childnode refid="7864" relation="include">
+        </childnode>
+      </node>
+      <node id="7905">
+        <label>xpm_rail_plat.c</label>
+      </node>
+      <node id="7888">
+        <label>xpm_apucore_plat.c</label>
+      </node>
+      <node id="7871">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="7869">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="7839" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7842" relation="include">
+        </childnode>
+        <childnode refid="7844" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7870" relation="include">
+        </childnode>
+        <childnode refid="7871" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7873" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7841">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="7856">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="7838">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="7855">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7842" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7856" relation="include">
+        </childnode>
+      </node>
+      <node id="7837">
+        <label>xpm_aie.h</label>
+        <childnode refid="7838" relation="include">
+        </childnode>
+        <childnode refid="7839" relation="include">
+        </childnode>
+        <childnode refid="7840" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7843" relation="include">
+        </childnode>
+        <childnode refid="7846" relation="include">
+        </childnode>
+      </node>
+      <node id="7876">
+        <label>xpm_mem.c</label>
+      </node>
+      <node id="7896">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="7885">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="7881">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7882" relation="include">
+        </childnode>
+        <childnode refid="7870" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7883" relation="include">
+        </childnode>
+        <childnode refid="7884" relation="include">
+        </childnode>
+        <childnode refid="7885" relation="include">
+        </childnode>
+        <childnode refid="7886" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7874">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="7877">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="7900">
+        <label>xpm_pldomain.c</label>
+      </node>
+      <node id="7852">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="7899">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7860" relation="include">
+        </childnode>
+        <childnode refid="7850" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7864" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7900" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7892" relation="include">
+        </childnode>
+        <childnode refid="7901" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7904">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="7903">
+        <label>xpm_repair.h</label>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7904" relation="include">
+        </childnode>
+      </node>
+      <node id="7882">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="7880">
+        <label>xpm_pmcdomain.c</label>
+      </node>
+      <node id="7879">
+        <label>xpm_pmcdomain.h</label>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7880" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7850">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="7902">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="7842">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="7861">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="7892">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="7890">
+        <label>xpm_cpmdomain.h</label>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7891" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7892" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7889">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="7887">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="7866" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7882" relation="include">
+        </childnode>
+        <childnode refid="7870" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7888" relation="include">
+        </childnode>
+        <childnode refid="7884" relation="include">
+        </childnode>
+        <childnode refid="7889" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7884">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="7868">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="7869" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7876" relation="include">
+        </childnode>
+        <childnode refid="7877" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+        <childnode refid="7878" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+        <childnode refid="7879" relation="include">
+        </childnode>
+        <childnode refid="7881" relation="include">
+        </childnode>
+        <childnode refid="7887" relation="include">
+        </childnode>
+        <childnode refid="7890" relation="include">
+        </childnode>
+        <childnode refid="7893" relation="include">
+        </childnode>
+        <childnode refid="7895" relation="include">
+        </childnode>
+        <childnode refid="7896" relation="include">
+        </childnode>
+        <childnode refid="7897" relation="include">
+        </childnode>
+        <childnode refid="7898" relation="include">
+        </childnode>
+        <childnode refid="7902" relation="include">
+        </childnode>
+        <childnode refid="7884" relation="include">
+        </childnode>
+        <childnode refid="7903" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7844">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="7872">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="7840">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="7839">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="7838" relation="include">
+        </childnode>
+        <childnode refid="7840" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7842" relation="include">
+        </childnode>
+        <childnode refid="7843" relation="include">
+        </childnode>
+        <childnode refid="7844" relation="include">
+        </childnode>
+      </node>
+      <node id="7901">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="7898">
+        <label>xpm_pldomain_plat.h</label>
+        <childnode refid="7899" relation="include">
+        </childnode>
+      </node>
+      <node id="7870">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="7875">
+        <label>xpm_bisr.c</label>
+      </node>
+      <node id="7845">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="7886">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="7865">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__rail_8h_1af3d73759057435ccd61a98023e292928" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRail_Control</definition>
+        <argsstring>(XPm_Rail *Rail, u8 State, u8 Mode)</argsstring>
+        <name>XPmRail_Control</name>
+        <param>
+          <type>XPm_Rail *</type>
+          <declname>Rail</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>State</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_rail.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_rail.c" bodystart="491" bodyend="497"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rail_8h_1ad94d74a78aeeef70ab439b26ada303c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRail_Init</definition>
+        <argsstring>(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmRail_Init</name>
+        <param>
+          <type>XPm_Rail *</type>
+          <declname>Rail</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RailId</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+<para>Initialize rail node base class. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Rail</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an uninitialized power rail struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RailId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a Power Rail node </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments for power rail </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments for power rail</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>Args is dependent on the rail type. Passed arguments will be different for mode type and power good types. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_rail.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_rail.c" bodystart="997" bodyend="1054"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RAIL_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RAIL_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_rail_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XIICPS_0_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_1_DEVICE_ID)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_2_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_0_BASEADDR)<sp/><sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_1_BASEADDR)<sp/><sp/>||<sp/>defined<sp/>(XPAR_XIICPS_2_BASEADDR)</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">XStatus<sp/>XPmRail_Control(XPm_Rail<sp/>*Rail,<sp/>u8<sp/>State,<sp/>u8<sp/>Mode);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">XStatus<sp/>XPmRail_Init(XPm_Rail<sp/>*Rail,<sp/>u32<sp/>RailId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XIICPS_0_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_1_DEVICE_ID)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_2_DEVICE_ID)<sp/>||<sp/>defined<sp/>(XPAR_XIICPS_0_BASEADDR)<sp/><sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPAR_XIICPS_1_BASEADDR)<sp/><sp/>||<sp/>defined<sp/>(XPAR_XIICPS_2_BASEADDR)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal">XIicPs<sp/>*XPmRail_GetIicInstance(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">XStatus<sp/>I2CInitialize(XIicPs<sp/>*Iic,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ControllerID);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(RAIL_CONTROL)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>I2CIdleBusWait(XIicPs<sp/>*Iic);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">XStatus<sp/>I2CWrite(XIicPs<sp/>*Iic,<sp/>u16<sp/>SlaveAddr,<sp/>u8<sp/>*Buffer,<sp/>s32<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RAIL_CONTROL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RAIL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_rail.h"/>
+  </compounddef>
+</doxygen>

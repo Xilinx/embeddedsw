@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structaudio__dfu__if" kind="struct" prot="public">
+    <compoundname>audio_dfu_if</compoundname>
+    <includes local="no">xusb_class_audio_dfu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaudio__dfu__if_1af08f520a874573f90ae66f9a56234040" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* audio_dfu_if::virtualdisk</definition>
+        <argsstring></argsstring>
+        <name>virtualdisk</name>
+        <briefdescription>
+<para>Virtualdisk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaudio__dfu__if_1a5a9e2ffe361c9ca76d679c3b90fd5525" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 audio_dfu_if::disksize</definition>
+        <argsstring></argsstring>
+        <name>disksize</name>
+        <briefdescription>
+<para>F_dfu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaudio__dfu__if_1aa7fbeacf8b080ec9131128872c1de2fc" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structaudio__if" kindref="compound">audio_if</ref></type>
+        <definition>struct audio_if audio_dfu_if::f_audio</definition>
+        <argsstring></argsstring>
+        <name>f_audio</name>
+        <briefdescription>
+<para>Audio interface instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaudio__dfu__if_1afa4a535dbf74e53f4a42020f87b669d6" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdfu__if" kindref="compound">dfu_if</ref></type>
+        <definition>struct dfu_if audio_dfu_if::f_dfu</definition>
+        <argsstring></argsstring>
+        <name>f_dfu</name>
+        <briefdescription>
+<para>DFU interface instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a5f71c81f47255ca655c3fe4262b97b68" compoundref="xusb__ch9__audio__dfu_8c" startline="1098" endline="1140">Usb_Ch9SetupCfgDescReply</referencedby>
+        <referencedby refid="xusb__freertos__ch9__storage_8h_1a36f6da36a86aeccc3ffd45b8d20b72c2" compoundref="xusb__ch9__audio__dfu_8c" startline="1158" endline="1227">Usb_Ch9SetupStrDescReply</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Combined audio and DFU interface structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>dfu_if</label>
+        <link refid="structdfu__if"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>InstancePtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>audio_dfu_if</label>
+        <link refid="structaudio__dfu__if"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>f_dfu</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>f_audio</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Usb_DevData</label>
+        <link refid="struct_usb___dev_data"/>
+      </node>
+      <node id="8">
+        <label>audio_if</label>
+        <link refid="structaudio__if"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="153" bodyend="158"/>
+    <listofallmembers>
+      <member refid="structaudio__dfu__if_1a5a9e2ffe361c9ca76d679c3b90fd5525" prot="public" virt="non-virtual"><scope>audio_dfu_if</scope><name>disksize</name></member>
+      <member refid="structaudio__dfu__if_1aa7fbeacf8b080ec9131128872c1de2fc" prot="public" virt="non-virtual"><scope>audio_dfu_if</scope><name>f_audio</name></member>
+      <member refid="structaudio__dfu__if_1afa4a535dbf74e53f4a42020f87b669d6" prot="public" virt="non-virtual"><scope>audio_dfu_if</scope><name>f_dfu</name></member>
+      <member refid="structaudio__dfu__if_1af08f520a874573f90ae66f9a56234040" prot="public" virt="non-virtual"><scope>audio_dfu_if</scope><name>virtualdisk</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

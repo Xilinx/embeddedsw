@@ -1,0 +1,1111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspips__tpm__polled__example" kind="group">
+    <compoundname>xspips_tpm_polled_example</compoundname>
+    <title>Xspips_tpm_polled_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga89f082d0d704dbe05034332e19c41bc2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref></type>
+        <definition>XSpiPs SpiInstance</definition>
+        <argsstring></argsstring>
+        <name>SpiInstance</name>
+        <briefdescription>
+<para>SPI driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga038ae595c8422dd622c08698e271fc5e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TpmTxBuffer[XSPIPS_TPM_REQ_MAX_SIZE+XSPIPS_TPM_TX_HEAD_SIZE]</definition>
+        <argsstring>[XSPIPS_TPM_REQ_MAX_SIZE+XSPIPS_TPM_TX_HEAD_SIZE]</argsstring>
+        <name>TpmTxBuffer</name>
+        <briefdescription>
+<para>Buffer for the data sent on the SPI bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga8c77688e2d5e0fa6022dd323a15f98f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TpmRxBuffer[XSPIPS_TPM_RESP_MAX_SIZE+XSPIPS_TPM_TX_HEAD_SIZE]</definition>
+        <argsstring>[XSPIPS_TPM_RESP_MAX_SIZE+XSPIPS_TPM_TX_HEAD_SIZE]</argsstring>
+        <name>TpmRxBuffer</name>
+        <briefdescription>
+<para>Buffer for the data received on the SPI bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga8c404f3da1f0fef915f46c3f746d5ac6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TpmRespBuffer[XSPIPS_TPM_RESP_MAX_SIZE]</definition>
+        <argsstring>[XSPIPS_TPM_RESP_MAX_SIZE]</argsstring>
+        <name>TpmRespBuffer</name>
+        <briefdescription>
+<para>Buffer for the TPM command response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga9a9823dcedb63a4bee67efc6b9551286" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 tpm2_getcap[]</definition>
+        <argsstring>[]</argsstring>
+        <name>tpm2_getcap</name>
+        <initializer>= {
+	0x80, 0x01,
+	0x00, 0x00, 0x00, 0x16,
+	0x00, 0x00, 0x01, 0x7A,
+	0x00, 0x00, 0x00, 0x06,
+	0x00, 0x00, 0x01, 0x29, 0x00, 0x00, 0x00, 0x01
+}</initializer>
+        <briefdescription>
+<para>TPM2 get capability command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1gaf39f1f19229f38f80e5ff330d175f2fb" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 tpm2_selftest[]</definition>
+        <argsstring>[]</argsstring>
+        <name>tpm2_selftest</name>
+        <initializer>= {
+	0x80, 0x01,
+	0x00, 0x00, 0x00, 0x0C,
+	0x00, 0x00, 0x01, 0x43,
+	0x00, 0x00
+}</initializer>
+        <briefdescription>
+<para>TPM2 selftest command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1gadce4d4014a7a0461de51e4ec543e3720" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 tpm2_startup[]</definition>
+        <argsstring>[]</argsstring>
+        <name>tpm2_startup</name>
+        <initializer>= {
+	0x80, 0x01,
+	0x00, 0x00, 0x00, 0x0C,
+	0x00, 0x00, 0x01, 0x44,
+	0x00, 0x00
+}</initializer>
+        <briefdescription>
+<para>TPM2 startup command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga5879888b4d1a46f6ec33dc63d84230ca" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 tpm2_pcrread[]</definition>
+        <argsstring>[]</argsstring>
+        <name>tpm2_pcrread</name>
+        <initializer>= {
+	0x80, 0x01,
+	0x00, 0x00, 0x00, 0x14,
+	0x00, 0x00, 0x01, 0x7E,
+	0x00, 0x00, 0x00, 0x01,
+	0x00, 0x00,
+	0x03,
+	0x00, 0x00, 0x00
+}</initializer>
+        <briefdescription>
+<para>TPM2 PCR read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1gaa0b3e217c473ed71a37672290bd9269f" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 tpm2_pcrreset[]</definition>
+        <argsstring>[]</argsstring>
+        <name>tpm2_pcrreset</name>
+        <initializer>= {
+	0x80, 0x02,
+	0x00, 0x00, 0x00, 0x1B,
+	0x00, 0x00, 0x01, 0x3D,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00,
+	0x00, 0x09,
+	0x40, 0x00, 0x00, 0x09,
+	0x00, 0x00, 0x01, 0x00, 0x00
+}</initializer>
+        <briefdescription>
+<para>TPM2 PCR reset command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1ga65a1266be8032937434f02edd7bc445d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE+XSPIPS_TPM_SHA256_DIGEST_SIZE]</definition>
+        <argsstring>[XSPIPS_TPM_PCR_EXT_CMD_SIZE+XSPIPS_TPM_SHA256_DIGEST_SIZE]</argsstring>
+        <name>tpm2_pcrextend</name>
+        <initializer>= {
+	0x80, 0x02,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x01, 0x82,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00,
+	0x00, 0x09,
+	0x40, 0x00, 0x00, 0x09,
+	0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
+	0x00, 0x00
+}</initializer>
+        <briefdescription>
+<para>TPM2 PCR extend command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1gae914624af9c91d9fe245df5dd977fb02" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 sha1[XSPIPS_TPM_SHA1_DIGEST_SIZE]</definition>
+        <argsstring>[XSPIPS_TPM_SHA1_DIGEST_SIZE]</argsstring>
+        <name>sha1</name>
+        <initializer>= {
+	0x00, 0x01, 0x02, 0x03, 0x04, 05
+}</initializer>
+        <briefdescription>
+<para>SHA1 digest just for reference, user can set as required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__tpm__polled__example_1gaa110bd4792d1c4854a3f198c6c24ecdc" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 sha256[XSPIPS_TPM_SHA256_DIGEST_SIZE]</definition>
+        <argsstring>[XSPIPS_TPM_SHA256_DIGEST_SIZE]</argsstring>
+        <name>sha256</name>
+        <initializer>= {
+	0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF
+}</initializer>
+        <briefdescription>
+<para>SHA256 digest just for reference, user can set as required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1ga14aaa93ae5aa83badddfb375e66a7c6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsReadID</definition>
+        <argsstring>(XSpiPs *SpiPtr)</argsstring>
+        <name>SpiPsReadID</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads vendor identification information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="499" bodyend="518"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga7648ca55d44c11702204edb7a5200895" compoundref="xspips__tpm__polled__example_8c" startline="59">XSPIPS_TPM_DID_VID</references>
+        <references refid="group__xspips__tpm__polled__example_1ga13e37cf01c9bd28d558fa10387f7c10c" compoundref="xspips__tpm__polled__example_8c" startline="60">XSPIPS_TPM_RID</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1gabf6b46685d48c16faabf01f702d2cec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmStatusGet</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 *StatusPtr)</argsstring>
+        <name>SpiPsTpmStatusGet</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>StatusPtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets TPM status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">StatusPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to read status.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="533" bodyend="543"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga4716dec5f14b5036562c38568ae9df52" compoundref="xspips__tpm__polled__example_8c" startline="57">XSPIPS_TPM_STS</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1gad4fe32c1f6365d4586448ea929b5282d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmStatusSet</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 StatusVal)</argsstring>
+        <name>SpiPsTpmStatusSet</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>StatusVal</declname>
+        </param>
+        <briefdescription>
+<para>Sets the TPM status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written to status register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="556" bodyend="566"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga4716dec5f14b5036562c38568ae9df52" compoundref="xspips__tpm__polled__example_8c" startline="57">XSPIPS_TPM_STS</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1ga5859038bd418dcf96c9e3421023bb31d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmAccessGet</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 *AccessPtr)</argsstring>
+        <name>SpiPsTpmAccessGet</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Access</declname>
+          <defname>AccessPtr</defname>
+        </param>
+        <briefdescription>
+<para>Gets TPM access configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">AccessPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to get access configuration.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="579" bodyend="589"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1gad749f9228bb3e030243fc6d9230628ff" compoundref="xspips__tpm__polled__example_8c" startline="56">XSPIPS_TPM_ACCESS</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1ga3b9ebbd5db2404596e8b66443ad5bd17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmAccessSet</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 Access)</argsstring>
+        <name>SpiPsTpmAccessSet</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Access</declname>
+        </param>
+        <briefdescription>
+<para>Sets TPM access configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Access</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Access configuration value to set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="602" bodyend="612"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1gad749f9228bb3e030243fc6d9230628ff" compoundref="xspips__tpm__polled__example_8c" startline="56">XSPIPS_TPM_ACCESS</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1gaae1089233ca34dffe91aee8b4c7756fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmFifoRead</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)</argsstring>
+        <name>SpiPsTpmFifoRead</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Reads data from TPM FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer for the data read from the FIFO. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="626" bodyend="636"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga8451d0233e46e49c917fa67f286aa143" compoundref="xspips__tpm__polled__example_8c" startline="58">XSPIPS_TPM_DATA_FIFO</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1ga665e7d79cc5cfe51b6a6bd2c45fe33f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmFifoWrite</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)</argsstring>
+        <name>SpiPsTpmFifoWrite</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Writes the data to the TPM FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data pointer to be written to FIFO. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="650" bodyend="660"/>
+        <references refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga8451d0233e46e49c917fa67f286aa143" compoundref="xspips__tpm__polled__example_8c" startline="58">XSPIPS_TPM_DATA_FIFO</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmTransfer</definition>
+        <argsstring>(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf, u16 Length)</argsstring>
+        <name>SpiPsTpmTransfer</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TxBuf</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RxBuf</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>Transfers data to or from a TPM register. </para>        </briefdescription>
+        <detaileddescription>
+<para>The transfer is split into SPI transfers of up to XSPIPS_TPM_SPI_MAX_SIZE bytes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TxBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to transmit buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">RxBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to receive buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Transfer length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="679" bodyend="721"/>
+        <references refid="group__xspips__tpm__polled__example_1ga8c77688e2d5e0fa6022dd323a15f98f2" compoundref="xspips__tpm__polled__example_8c" startline="122">TpmRxBuffer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga038ae595c8422dd622c08698e271fc5e" compoundref="xspips__tpm__polled__example_8c" startline="120">TpmTxBuffer</references>
+        <references refid="group__spips__api_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1gaa44e13f4d7227e2ab3231dda01b142d0" compoundref="xspips__tpm__polled__example_8c" startline="75">XSPIPS_TPM_SPI_MAX_SIZE</references>
+        <references refid="group__xspips__tpm__polled__example_1ga782bb68532a0bbac67298cb0bc69eabf" compoundref="xspips__tpm__polled__example_8c" startline="73">XSPIPS_TPM_TX_HEAD_SIZE</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga14aaa93ae5aa83badddfb375e66a7c6e" compoundref="xspips__tpm__polled__example_8c" startline="499" endline="518">SpiPsReadID</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga5859038bd418dcf96c9e3421023bb31d" compoundref="xspips__tpm__polled__example_8c" startline="579" endline="589">SpiPsTpmAccessGet</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga3b9ebbd5db2404596e8b66443ad5bd17" compoundref="xspips__tpm__polled__example_8c" startline="602" endline="612">SpiPsTpmAccessSet</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gaae1089233ca34dffe91aee8b4c7756fe" compoundref="xspips__tpm__polled__example_8c" startline="626" endline="636">SpiPsTpmFifoRead</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga665e7d79cc5cfe51b6a6bd2c45fe33f6" compoundref="xspips__tpm__polled__example_8c" startline="650" endline="660">SpiPsTpmFifoWrite</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gabf6b46685d48c16faabf01f702d2cec8" compoundref="xspips__tpm__polled__example_8c" startline="533" endline="543">SpiPsTpmStatusGet</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gad4fe32c1f6365d4586448ea929b5282d" compoundref="xspips__tpm__polled__example_8c" startline="556" endline="566">SpiPsTpmStatusSet</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmDataTransfer</definition>
+        <argsstring>(XSpiPs *SpiPtr, u8 *TxBuf, u8 *RxBuf, u16 Txlen)</argsstring>
+        <name>SpiPsTpmDataTransfer</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TxBuf</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RxBuf</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>TxLen</declname>
+          <defname>Txlen</defname>
+        </param>
+        <briefdescription>
+<para>Sends a TPM command and reads the TPM response. </para>        </briefdescription>
+        <detaileddescription>
+<para>The command is written to the TPM data FIFO and the response is read back once the TPM reports that data is available.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPIPS driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TxBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to transmit buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">RxBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to receive buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Txlen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data transfer length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="739" bodyend="802"/>
+        <references refid="group__xspips__tpm__polled__example_1gaae1089233ca34dffe91aee8b4c7756fe" compoundref="xspips__tpm__polled__example_8c" startline="626" endline="636">SpiPsTpmFifoRead</references>
+        <references refid="group__xspips__tpm__polled__example_1ga665e7d79cc5cfe51b6a6bd2c45fe33f6" compoundref="xspips__tpm__polled__example_8c" startline="650" endline="660">SpiPsTpmFifoWrite</references>
+        <references refid="group__xspips__tpm__polled__example_1gabf6b46685d48c16faabf01f702d2cec8" compoundref="xspips__tpm__polled__example_8c" startline="533" endline="543">SpiPsTpmStatusGet</references>
+        <references refid="group__xspips__tpm__polled__example_1gad4fe32c1f6365d4586448ea929b5282d" compoundref="xspips__tpm__polled__example_8c" startline="556" endline="566">SpiPsTpmStatusSet</references>
+        <references refid="group__xspips__tpm__polled__example_1ga9eb6b99c89de60f46c4510db0298bc69" compoundref="xspips__tpm__polled__example_8c" startline="91">XSPIPS_TPM_RESP_MAX_SIZE</references>
+        <references refid="group__xspips__tpm__polled__example_1ga0f1f946ba8d225763935879171c9e3a2" compoundref="xspips__tpm__polled__example_8c" startline="74">XSPIPS_TPM_RX_HEAD_SIZE</references>
+        <references refid="group__xspips__tpm__polled__example_1gacbf22baf4c148c4cec4b65ec1b4cd154" compoundref="xspips__tpm__polled__example_8c" startline="68">XSPIPS_TPM_STS_CMD_READY</references>
+        <references refid="group__xspips__tpm__polled__example_1ga125ab691d434d5a3c934372df32799e7" compoundref="xspips__tpm__polled__example_8c" startline="70">XSPIPS_TPM_STS_DATA_AVAIL</references>
+        <references refid="group__xspips__tpm__polled__example_1ga51156793909607458bbf5924390a864d" compoundref="xspips__tpm__polled__example_8c" startline="69">XSPIPS_TPM_STS_GO</references>
+        <references refid="group__xspips__tpm__polled__example_1ga6e8b53cc8ed7483ba0585c1fb00223c7" compoundref="xspips__tpm__polled__example_8c" startline="67">XSPIPS_TPM_STS_VALID</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsTpmPolledExample</definition>
+        <argsstring>(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>SpiPsTpmPolledExample</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> device driver in polled mode with a TPM device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function sends TPM commands to the device based on user inputs and displays the response.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">SpiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Spi Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up based on DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="253" bodyend="487"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="group__xspips__tpm__polled__example_1ga14aaa93ae5aa83badddfb375e66a7c6e" compoundref="xspips__tpm__polled__example_8c" startline="499" endline="518">SpiPsReadID</references>
+        <references refid="group__xspips__tpm__polled__example_1ga5859038bd418dcf96c9e3421023bb31d" compoundref="xspips__tpm__polled__example_8c" startline="579" endline="589">SpiPsTpmAccessGet</references>
+        <references refid="group__xspips__tpm__polled__example_1ga3b9ebbd5db2404596e8b66443ad5bd17" compoundref="xspips__tpm__polled__example_8c" startline="602" endline="612">SpiPsTpmAccessSet</references>
+        <references refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</references>
+        <references refid="group__xspips__tpm__polled__example_1ga25343c67381a1273880416447b85b149" compoundref="xspips__tpm__polled__example_8c" startline="54">TPM_SPI_SELECT</references>
+        <references refid="group__xspips__tpm__polled__example_1ga8c404f3da1f0fef915f46c3f746d5ac6" compoundref="xspips__tpm__polled__example_8c" startline="124">TpmRespBuffer</references>
+        <references refid="group__spips__api_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</references>
+        <references refid="group__spips_1ga46beb1bbc0f69b94eba21c4e9495c8f9" compoundref="xspips_8h" startline="344">XSPIPS_CLK_PRESCALE_16</references>
+        <references refid="group__xspips__tpm__polled__example_1ga94d12e91c9480979fac47cebedba0875" compoundref="xspips__tpm__polled__example_8c" startline="82">XSPIPS_EXIT_CMD_LOOP</references>
+        <references refid="group__spips_1gaf0a0da0e20b70ee21a3998117785638e" compoundref="xspips_8h" startline="330">XSPIPS_FORCE_SSELECT_OPTION</references>
+        <references refid="group__spips_1gaec4120d0ba36c1bcf7b17520ea43d761" compoundref="xspips__sinit_8c" startline="94" endline="108">XSpiPs_LookupConfig</references>
+        <references refid="group__spips_1ga7e6e32f2a23f47aa9f69c6adccbd2ba3" compoundref="xspips_8h" startline="331">XSPIPS_MANUAL_START_OPTION</references>
+        <references refid="group__spips_1ga1fbe2203de88e79aa3a6c7e70e2f3436" compoundref="xspips_8h" startline="326">XSPIPS_MASTER_OPTION</references>
+        <references refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</references>
+        <references refid="group__spips_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</references>
+        <references refid="group__spips_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</references>
+        <references refid="group__spips__api_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</references>
+        <references refid="group__xspips__tpm__polled__example_1gaeeda4040ba119cb7416b3fe9d77b1631" compoundref="xspips__tpm__polled__example_8c" startline="81">XSPIPS_TPM2_CMD_PCR_EXTEND</references>
+        <references refid="group__xspips__tpm__polled__example_1ga5cf863988a318c433d14c355b2e812d9" compoundref="xspips__tpm__polled__example_8c" startline="79">XSPIPS_TPM2_CMD_PCR_READ</references>
+        <references refid="group__xspips__tpm__polled__example_1ga0a1c443e9b9cd8dfc82b40f060e92f53" compoundref="xspips__tpm__polled__example_8c" startline="80">XSPIPS_TPM2_CMD_PCR_RESET</references>
+        <references refid="group__xspips__tpm__polled__example_1ga293e70ac8e6872cf7631e2c3ac032761" compoundref="xspips__tpm__polled__example_8c" startline="77">XSPIPS_TPM2_CMD_SELFTEST</references>
+        <references refid="group__xspips__tpm__polled__example_1ga8ca3955080481085be4a50f230d9024f" compoundref="xspips__tpm__polled__example_8c" startline="78">XSPIPS_TPM2_CMD_STARTUP</references>
+        <references refid="group__xspips__tpm__polled__example_1gaba7083c86a550d154dd8e19033931fd4" compoundref="xspips__tpm__polled__example_8c" startline="63">XSPIPS_TPM_ACCESS_ACT_LOCAL</references>
+        <references refid="group__xspips__tpm__polled__example_1ga7881d95e121863284823eeef6354ad90" compoundref="xspips__tpm__polled__example_8c" startline="65">XSPIPS_TPM_ACCESS_REQ_USE</references>
+        <references refid="group__xspips__tpm__polled__example_1gadd9dd45b51b91b6991832f40c752cdef" compoundref="xspips__tpm__polled__example_8c" startline="62">XSPIPS_TPM_ACCESS_VALID</references>
+        <references refid="group__xspips__tpm__polled__example_1ga7e8895c1264163649905dbb017f4e6e6" compoundref="xspips__tpm__polled__example_8c" startline="85">XSPIPS_TPM_PCR_EXT_CMD_SIZE</references>
+        <references refid="group__xspips__tpm__polled__example_1gaab68663ae0497e2bc63bbfb730314b7c" compoundref="xspips__tpm__polled__example_8c" startline="87">XSPIPS_TPM_SHA1_DIGEST_SIZE</references>
+        <references refid="group__xspips__tpm__polled__example_1ga70fff5a8c21ba6db89a25b4fc7aaaa1c" compoundref="xspips__tpm__polled__example_8c" startline="88">XSPIPS_TPM_SHA256_DIGEST_SIZE</references>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspips__tpm__polled__example_8c" startline="205" endline="226">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__tpm__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the SPI TPM example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="205" bodyend="226"/>
+        <references refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga25343c67381a1273880416447b85b149" prot="public" static="no">
+        <name>TPM_SPI_SELECT</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>TPM slave select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gad749f9228bb3e030243fc6d9230628ff" prot="public" static="no">
+        <name>XSPIPS_TPM_ACCESS</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>TPM access register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga5859038bd418dcf96c9e3421023bb31d" compoundref="xspips__tpm__polled__example_8c" startline="579" endline="589">SpiPsTpmAccessGet</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga3b9ebbd5db2404596e8b66443ad5bd17" compoundref="xspips__tpm__polled__example_8c" startline="602" endline="612">SpiPsTpmAccessSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga4716dec5f14b5036562c38568ae9df52" prot="public" static="no">
+        <name>XSPIPS_TPM_STS</name>
+        <initializer>0x0018</initializer>
+        <briefdescription>
+<para>TPM status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gabf6b46685d48c16faabf01f702d2cec8" compoundref="xspips__tpm__polled__example_8c" startline="533" endline="543">SpiPsTpmStatusGet</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1gad4fe32c1f6365d4586448ea929b5282d" compoundref="xspips__tpm__polled__example_8c" startline="556" endline="566">SpiPsTpmStatusSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga8451d0233e46e49c917fa67f286aa143" prot="public" static="no">
+        <name>XSPIPS_TPM_DATA_FIFO</name>
+        <initializer>0x0024</initializer>
+        <briefdescription>
+<para>TPM data FIFO register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gaae1089233ca34dffe91aee8b4c7756fe" compoundref="xspips__tpm__polled__example_8c" startline="626" endline="636">SpiPsTpmFifoRead</referencedby>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga665e7d79cc5cfe51b6a6bd2c45fe33f6" compoundref="xspips__tpm__polled__example_8c" startline="650" endline="660">SpiPsTpmFifoWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga7648ca55d44c11702204edb7a5200895" prot="public" static="no">
+        <name>XSPIPS_TPM_DID_VID</name>
+        <initializer>0x0F00</initializer>
+        <briefdescription>
+<para>TPM DID/VID register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga14aaa93ae5aa83badddfb375e66a7c6e" compoundref="xspips__tpm__polled__example_8c" startline="499" endline="518">SpiPsReadID</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga13e37cf01c9bd28d558fa10387f7c10c" prot="public" static="no">
+        <name>XSPIPS_TPM_RID</name>
+        <initializer>0x0F04</initializer>
+        <briefdescription>
+<para>TPM revision ID register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1ga14aaa93ae5aa83badddfb375e66a7c6e" compoundref="xspips__tpm__polled__example_8c" startline="499" endline="518">SpiPsReadID</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gadd9dd45b51b91b6991832f40c752cdef" prot="public" static="no">
+        <name>XSPIPS_TPM_ACCESS_VALID</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Access valid bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gaba7083c86a550d154dd8e19033931fd4" prot="public" static="no">
+        <name>XSPIPS_TPM_ACCESS_ACT_LOCAL</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Active locality bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gabf4d999538e4b43acc241c0d027ab10a" prot="public" static="no">
+        <name>XSPIPS_TPM_ACCESS_REQ_PEND</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Pending request bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga7881d95e121863284823eeef6354ad90" prot="public" static="no">
+        <name>XSPIPS_TPM_ACCESS_REQ_USE</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Request use bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga6e8b53cc8ed7483ba0585c1fb00223c7" prot="public" static="no">
+        <name>XSPIPS_TPM_STS_VALID</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Status valid bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gacbf22baf4c148c4cec4b65ec1b4cd154" prot="public" static="no">
+        <name>XSPIPS_TPM_STS_CMD_READY</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Command ready bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga51156793909607458bbf5924390a864d" prot="public" static="no">
+        <name>XSPIPS_TPM_STS_GO</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>TPM go bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga125ab691d434d5a3c934372df32799e7" prot="public" static="no">
+        <name>XSPIPS_TPM_STS_DATA_AVAIL</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Data available bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga05603d3d8fde068732644ff5be018478" prot="public" static="no">
+        <name>XSPIPS_TPM_STS_DATA_EXPECT</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Data expected bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga782bb68532a0bbac67298cb0bc69eabf" prot="public" static="no">
+        <name>XSPIPS_TPM_TX_HEAD_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>SPI request header size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga0f1f946ba8d225763935879171c9e3a2" prot="public" static="no">
+        <name>XSPIPS_TPM_RX_HEAD_SIZE</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>TPM response header size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gaa44e13f4d7227e2ab3231dda01b142d0" prot="public" static="no">
+        <name>XSPIPS_TPM_SPI_MAX_SIZE</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Max bytes per SPI transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gae6c12da3b0c9e3bc49ee620bd6d78e91" compoundref="xspips__tpm__polled__example_8c" startline="679" endline="721">SpiPsTpmTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga293e70ac8e6872cf7631e2c3ac032761" prot="public" static="no">
+        <name>XSPIPS_TPM2_CMD_SELFTEST</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Selftest menu option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga8ca3955080481085be4a50f230d9024f" prot="public" static="no">
+        <name>XSPIPS_TPM2_CMD_STARTUP</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Startup menu option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga5cf863988a318c433d14c355b2e812d9" prot="public" static="no">
+        <name>XSPIPS_TPM2_CMD_PCR_READ</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>PCR read menu option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga0a1c443e9b9cd8dfc82b40f060e92f53" prot="public" static="no">
+        <name>XSPIPS_TPM2_CMD_PCR_RESET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>PCR reset menu option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gaeeda4040ba119cb7416b3fe9d77b1631" prot="public" static="no">
+        <name>XSPIPS_TPM2_CMD_PCR_EXTEND</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>PCR extend menu option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga94d12e91c9480979fac47cebedba0875" prot="public" static="no">
+        <name>XSPIPS_EXIT_CMD_LOOP</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Exit menu option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga7e8895c1264163649905dbb017f4e6e6" prot="public" static="no">
+        <name>XSPIPS_TPM_PCR_EXT_CMD_SIZE</name>
+        <initializer>33</initializer>
+        <briefdescription>
+<para>Size of the PCR extend command without the digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gaab68663ae0497e2bc63bbfb730314b7c" prot="public" static="no">
+        <name>XSPIPS_TPM_SHA1_DIGEST_SIZE</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>SHA1 digest size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga70fff5a8c21ba6db89a25b4fc7aaaa1c" prot="public" static="no">
+        <name>XSPIPS_TPM_SHA256_DIGEST_SIZE</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>SHA256 digest size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="253" endline="487">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1ga9eb6b99c89de60f46c4510db0298bc69" prot="public" static="no">
+        <name>XSPIPS_TPM_RESP_MAX_SIZE</name>
+        <initializer>4096</initializer>
+        <briefdescription>
+<para>Maximum possible TPM response size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xspips__tpm__polled__example_1gadb7d7d27c1b57f947c6fe9c9f631e98f" compoundref="xspips__tpm__polled__example_8c" startline="739" endline="802">SpiPsTpmDataTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__tpm__polled__example_1gaa19d4cc72f49d6e0b49396dd86b92deb" prot="public" static="no">
+        <name>XSPIPS_TPM_REQ_MAX_SIZE</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Maximum possible TPM request size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_tpm_polled_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

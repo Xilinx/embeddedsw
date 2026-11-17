@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___clk_topology" kind="struct" prot="public">
+    <compoundname>XPm_ClkTopology</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_1ae33bf50ae599d7bb70bfd31a08548c48" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_pm___clk_topology_node" kindref="compound">XPm_ClkTopologyNode</ref> *</type>
+        <definition>struct XPm_ClkTopologyNode* XPm_ClkTopology::Nodes</definition>
+        <argsstring></argsstring>
+        <name>Nodes</name>
+        <briefdescription>
+<para>Pointer to the array of topology nodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_1acbc8ccf3ffee08f05b018fb3943544a7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopology::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_1a3529f30d9a8d627d68d235fe7515a773" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopology::NumNodes</definition>
+        <argsstring></argsstring>
+        <name>NumNodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_1a64d9b40eabe46df4d16f7f5021f4f949" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_ClkTopology::MuxSources[MAX_MUX_PARENTS]</definition>
+        <argsstring>[MAX_MUX_PARENTS]</argsstring>
+        <name>MuxSources</name>
+        <briefdescription>
+<para>Clock index of mux sources. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="76">
+        <label>XPm_ClkTopology</label>
+        <childnode refid="77" relation="usage">
+          <edgelabel>Nodes</edgelabel>
+        </childnode>
+      </node>
+      <node id="77">
+        <label>XPm_ClkTopologyNode</label>
+        <link refid="struct_x_pm___clk_topology_node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="74" bodyend="79"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___clk_topology_1acbc8ccf3ffee08f05b018fb3943544a7" prot="public" virt="non-virtual"><scope>XPm_ClkTopology</scope><name>Id</name></member>
+      <member refid="struct_x_pm___clk_topology_1a64d9b40eabe46df4d16f7f5021f4f949" prot="public" virt="non-virtual"><scope>XPm_ClkTopology</scope><name>MuxSources</name></member>
+      <member refid="struct_x_pm___clk_topology_1ae33bf50ae599d7bb70bfd31a08548c48" prot="public" virt="non-virtual"><scope>XPm_ClkTopology</scope><name>Nodes</name></member>
+      <member refid="struct_x_pm___clk_topology_1a3529f30d9a8d627d68d235fe7515a773" prot="public" virt="non-virtual"><scope>XPm_ClkTopology</scope><name>NumNodes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp21__dsc__tu_8h" kind="file">
+    <compoundname>xdp21_dsc_tu.h</compoundname>
+    <includes refid="xdp_8h" local="yes">xdp.h</includes>
+    <includes refid="xdp21__dsc_8h" local="yes">xdp21_dsc.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xdp21__dsc__tu_8c" local="yes">xdp21_dsc_tu.c</includedby>
+    <incdepgraph>
+      <node id="98">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="101">
+        <label>xil_io.h</label>
+      </node>
+      <node id="100">
+        <label>xdp_hw.h</label>
+        <link refid="xdp__hw_8h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="96">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xstatus.h</label>
+      </node>
+      <node id="103">
+        <label>xvidc.h</label>
+      </node>
+      <node id="99">
+        <label>xil_types.h</label>
+      </node>
+      <node id="97">
+        <label>xparameters.h</label>
+      </node>
+      <node id="95">
+        <label>xdp21_dsc_tu.h</label>
+        <link refid="xdp21_dsc_tu.h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>xdp21_dsc.h</label>
+        <link refid="xdp21__dsc_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="106">
+        <label>xdp21_dsc_tu.c</label>
+      </node>
+      <node id="105">
+        <label>xdp21_dsc_tu.h</label>
+        <link refid="xdp21_dsc_tu.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XDP21_DSC_TU_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_DSC_TU_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp_8h" kindref="compound">xdp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp21__dsc_8h" kindref="compound">xdp21_dsc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XDP_USE_DSC</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#define<sp/>XDP21_DSC_TU_SIZE_BYTES<sp/><sp/><sp/>64U</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#define<sp/>XDP21_DSC_LINK_BW_FACTOR<sp/><sp/>27U</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#define<sp/>XDP21_DSC_LINK_BPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24U</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#define<sp/>XDP21_DSC_FEC_BW_NUM<sp/><sp/><sp/><sp/><sp/><sp/>1024U</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21_DSC_FEC_BW_DEN<sp/><sp/><sp/><sp/><sp/><sp/>1000U</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp_TxCalcDscMsaTu(<ref refid="struct_x_dp___main_stream_attributes" kindref="compound">XDp_TxMainStreamAttributes</ref><sp/>*MsaConfig,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDp21_DscPps<sp/>*Pps,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDp_TxSetDscStreamEnable(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDp_TxSetDscStreamPps(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PpsData);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP_USE_DSC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP21_DSC_TU_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp21_dsc_tu.h"/>
+  </compounddef>
+</doxygen>

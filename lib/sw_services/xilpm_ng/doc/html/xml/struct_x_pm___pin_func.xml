@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pin_func" kind="struct" prot="public">
+    <compoundname>XPm_PinFunc</compoundname>
+    <includes local="no">xpm_pinfunc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1a0016c280618c364195f3d2fb36eb0c0a" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XPm_PinFunc::Name[FUNC_NAME_SIZE]</definition>
+        <argsstring>[FUNC_NAME_SIZE]</argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Function name, may lack a NULL terminator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1a7824f6f08d982c3a970362186ca35322" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinFunc::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Function ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1a4c2f8ef1731012cb869e19693f0fb125" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinFunc::NumPins</definition>
+        <argsstring></argsstring>
+        <name>NumPins</name>
+        <briefdescription>
+<para>Number of pins needed for this function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinFunc::NumGroups</definition>
+        <argsstring></argsstring>
+        <name>NumGroups</name>
+        <briefdescription>
+<para>Number of groups for this function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1af47bc2dcb9596860e4b20c9c37d0a619" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_PinFunc::DevIdx</definition>
+        <argsstring></argsstring>
+        <name>DevIdx</name>
+        <briefdescription>
+<para>Device index for this function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1a4fbaa64845b097b204d767da6c0ec35b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_PinFunc::LmioRegMask</definition>
+        <argsstring></argsstring>
+        <name>LmioRegMask</name>
+        <briefdescription>
+<para>Register mask value to select this function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1a94c98d35ea6117b351fc26c6054d5c38" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_PinFunc::PmioRegMask</definition>
+        <argsstring></argsstring>
+        <name>PmioRegMask</name>
+        <briefdescription>
+<para>Register mask value to select this function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" prot="public" static="no" mutable="no">
+        <type>u16 *</type>
+        <definition>u16* XPm_PinFunc::Groups</definition>
+        <argsstring></argsstring>
+        <name>Groups</name>
+        <briefdescription>
+<para>Array of group identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Pin Function class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="27" bodyend="36"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pin_func_1af47bc2dcb9596860e4b20c9c37d0a619" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>DevIdx</name></member>
+      <member refid="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>Groups</name></member>
+      <member refid="struct_x_pm___pin_func_1a7824f6f08d982c3a970362186ca35322" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>Id</name></member>
+      <member refid="struct_x_pm___pin_func_1a4fbaa64845b097b204d767da6c0ec35b" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>LmioRegMask</name></member>
+      <member refid="struct_x_pm___pin_func_1a0016c280618c364195f3d2fb36eb0c0a" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>Name</name></member>
+      <member refid="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>NumGroups</name></member>
+      <member refid="struct_x_pm___pin_func_1a4c2f8ef1731012cb869e19693f0fb125" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>NumPins</name></member>
+      <member refid="struct_x_pm___pin_func_1a94c98d35ea6117b351fc26c6054d5c38" prot="public" virt="non-virtual"><scope>XPm_PinFunc</scope><name>PmioRegMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use usbps driver.</para><sect1 id="example_1ex1">
+<title>xusbps_ch9.c</title>
+<para>Contains an example on how to use the XUsbps driver directly. This example contains the implementation of the chapter 9 code.</para><para>For details, see <ref refid="xusbps__ch9_8c" kindref="compound">xusbps_ch9.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xusbps_ch9.h</title>
+<para>This headerfile contains definitions used in the chapter 9 code.</para><para>For details, see <ref refid="xusbps__ch9_8h" kindref="compound">xusbps_ch9.h</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xusbps_ch9_storage.c</title>
+<para>Contains an example on how to use the XUsbps driver directly. This example contains the implementation of the storage specific chapter 9 code.</para><para>For details, see <ref refid="xusbps__ch9__storage_8c" kindref="compound">xusbps_ch9_storage.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xusbps_ch9_storage.h</title>
+<para>This headerfile contains definitions used in the chapter 9 code.</para><para>For details, see <ref refid="xusbps__ch9__storage_8h" kindref="compound">xusbps_ch9_storage.h</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xusbps_class_storage.c</title>
+<para>Contains an example on how to use the XUsbps driver directly. This example contains the contains the implementation of the storage class code.</para><para>For details, see <ref refid="xusbps__class__storage_8c" kindref="compound">xusbps_class_storage.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xusbps_class_storage.h</title>
+<para>This headerfile contains definitions used in the chapter 9 code.</para><para>For details, see <ref refid="xusbps__class__storage_8h" kindref="compound">xusbps_class_storage.h</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xusbps_intr_example.c</title>
+<para>Contains an example on how to use the XUsbps driver directly. This example shows the usage of the USB driver with the USB controller in DEVICE mode.</para><para>For details, see <ref refid="xusbps__intr__example_8c" kindref="compound">xusbps_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xusb_ch9_audio.c</title>
+<para>This is the USB Audio example which contains USB Audio Class related Chapter 9 functions.</para><para>For details, see <ref refid="xusbps__ch9__audio_8c" kindref="compound">xusbps_ch9_audio.c</ref>.</para></sect1>
+<sect1 id="example_1ex9">
+<title>xusbps_ch9_audio.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes used in the USB Audio Class related Chapter 9 code.</para><para>For details, see <ref refid="xusbps__ch9__audio_8h" kindref="compound">xusbps_ch9_audio.h</ref>.</para></sect1>
+<sect1 id="example_1ex10">
+<title>xusbps_class_audio.c</title>
+<para>Contains an example on how to use the Usb driver directly. This is the USB Audio example which contains USB Audio Class related functions.</para><para>For details, see <ref refid="xusbps__class__audio_8c" kindref="compound">xusbps_class_audio.c</ref>.</para></sect1>
+<sect1 id="example_1ex11">
+<title>xusbps_class_audio.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes used in the USB Audio Class related code.</para><para>For details, see <ref refid="xusbps__class__audio_8h" kindref="compound">xusbps_class_audio.h</ref>.</para></sect1>
+<sect1 id="example_1ex12">
+<title>xusbps_audio_example.c</title>
+<para>This example contains Audio device application which provides a reference to create a new Isochronous Transfer related application.</para><para><itemizedlist>
+<listitem><para>For Audio example, UAC2 is selected by default. The constant UAC1 has to be defined to use Audio Class 1.0 device. If UAC1 is defined, the constant MICROPHONE is used to select Microphone device. Undefine MICROPHONE for UAC1 Speaker configuration. By default Microphone Specification is selected.</para></listitem><listitem><para>For Audio example, if UAC2 specification is selected, device will playback the data which is provided to it from host. Use following commands to play/record audio: Find alsa hardware info using &quot;aplay/arecord -l&quot;. Play: &quot;aplay -D hw:X,X &lt;44100Hz_STERIO_FILE&gt;.wav&quot; Record: &quot;arecord -D hw:X,X -f S16_LE -r 44100 -c 2 &lt;OUTPUT_FILE&gt;.wav&quot; If UAC1 Microphone specification is selected, device will playback the dummy data from data.h file. Use following command to record audio: &quot;arecord -D hw:X,X -f S16_LE -r 8000 -c 1 &lt;OUTPUT_FILE&gt;.wav&quot; If Speaker specification is selected then use following command to play the audio: &quot;aplay -D hw:X,X &lt;8000Hz_MONO_FILE&gt;.wav&quot;</para></listitem></itemizedlist>
+</para><para>For details, see <ref refid="xusbps__audio__example_8c" kindref="compound">xusbps_audio_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex13">
+<title>xusbps_audiodata.h</title>
+<para>This headerfile contains the dummy audio data which is to be transferred to host when UAC1 Microphone specification is selected in USB Audio example.</para><para>For details, see <ref refid="xusbps__audiodata_8h" kindref="compound">xusbps_audiodata.h</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

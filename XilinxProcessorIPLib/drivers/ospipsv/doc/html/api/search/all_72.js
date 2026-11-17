@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['read_5fcmd_5f4b',['READ_CMD_4B',['../xospipsv__flash__config_8h.html#ab607b298d853f70a8e3cccbbff8d7002',1,'xospipsv_flash_config.h']]],
+  ['read_5fcmd_5foctal_5fddr',['READ_CMD_OCTAL_DDR',['../xospipsv__flash__config_8h.html#ac24b9da5f02e7046191df6ec46da44d3',1,'xospipsv_flash_config.h']]],
+  ['read_5fcmd_5foctal_5fio_5f4b',['READ_CMD_OCTAL_IO_4B',['../xospipsv__flash__config_8h.html#a7bb0cb4960d915c70da6cbc9322c13f2',1,'xospipsv_flash_config.h']]],
+  ['read_5fcmd_5fopi_5fmx',['READ_CMD_OPI_MX',['../xospipsv__flash__config_8h.html#ad887c0dbaa3cc19591bee11485a7f6bc',1,'xospipsv_flash_config.h']]],
+  ['read_5fconfig2_5freg_5fmx',['READ_CONFIG2_REG_MX',['../xospipsv__flash__config_8h.html#a1a8b4139bea537204ee1f97356e38c30',1,'xospipsv_flash_config.h']]],
+  ['read_5fconfig_5fcmd',['READ_CONFIG_CMD',['../xospipsv__flash__config_8h.html#acb580804a74967764090e0200ec1ead7',1,'xospipsv_flash_config.h']]],
+  ['read_5fconfig_5freg',['READ_CONFIG_REG',['../xospipsv__flash__config_8h.html#a4ff6c9b1e3afba9777eeeae206d1694a',1,'xospipsv_flash_config.h']]],
+  ['read_5fconfig_5freg_5fspn',['READ_CONFIG_REG_SPN',['../xospipsv__flash__config_8h.html#ac4f6ddb56491a6b48bcc033a3fae7f95',1,'xospipsv_flash_config.h']]],
+  ['read_5fflag_5fstatus_5fcmd',['READ_FLAG_STATUS_CMD',['../xospipsv__flash__config_8h.html#aafb4cc861589451927402bce98df1b1d',1,'xospipsv_flash_config.h']]],
+  ['read_5fid',['READ_ID',['../xospipsv__flash__config_8h.html#ae90b7e8c7fe9d94c5c156a07e57fc27c',1,'xospipsv_flash_config.h']]],
+  ['read_5fstatus_5fcmd',['READ_STATUS_CMD',['../xospipsv__flash__config_8h.html#aa3ec262a3f2ab7e77412a7fdab86a011',1,'xospipsv_flash_config.h']]],
+  ['readbfrptr',['ReadBfrPtr',['../struct_x_ospi_psv___rx_tuning.html#abf1b8b2ba1741c562089f780eb126807',1,'XOspiPsv_RxTuning::ReadBfrPtr()'],['../group__xospipsv__flash__intr__example.html#gab7437db129dfe4f3b66551d27aa957b0',1,'ReadBfrPtr():&#160;xospipsv_flash_intr_example.c'],['../group__xospipsv__flash__non__blocking__read__example.html#gab7437db129dfe4f3b66551d27aa957b0',1,'ReadBfrPtr():&#160;xospipsv_flash_non_blocking_read_example.c'],['../group__xospipsv__flash__polled__example.html#gab7437db129dfe4f3b66551d27aa957b0',1,'ReadBfrPtr():&#160;xospipsv_flash_polled_example.c']]],
+  ['readbuffer',['ReadBuffer',['../group__xospipsv__flash__intr__example.html#ga9285634c7b4e2bad0120d39c4d378646',1,'ReadBuffer():&#160;xospipsv_flash_intr_example.c'],['../group__xospipsv__flash__non__blocking__read__example.html#ga9285634c7b4e2bad0120d39c4d378646',1,'ReadBuffer():&#160;xospipsv_flash_non_blocking_read_example.c'],['../group__xospipsv__flash__polled__example.html#ga9285634c7b4e2bad0120d39c4d378646',1,'ReadBuffer():&#160;xospipsv_flash_polled_example.c']]],
+  ['readcmd',['ReadCmd',['../struct_flash_info.html#ae472f6c3dc1cc141a7d8943db3cd1ac5',1,'FlashInfo']]],
+  ['recvbufferptr',['RecvBufferPtr',['../struct_x_ospi_psv.html#af9d2352cda8abe04913cfd09201e3cab',1,'XOspiPsv']]],
+  ['rxaddr64bit',['RxAddr64bit',['../struct_x_ospi_psv___msg.html#abaa1e4b4bd1883e86018d400c49d438a',1,'XOspiPsv_Msg']]],
+  ['rxbfrptr',['RxBfrPtr',['../struct_x_ospi_psv___msg.html#a584672579015305052780c6b14e5a576',1,'XOspiPsv_Msg']]],
+  ['rxbytes',['RxBytes',['../struct_x_ospi_psv.html#ab006c89c9b2e2e9e3eddef303ed06054',1,'XOspiPsv']]],
+  ['rxtuning',['RxTuning',['../struct_x_ospi_psv.html#a4216146221be743d0f024d1015f87d7b',1,'XOspiPsv']]]
+];

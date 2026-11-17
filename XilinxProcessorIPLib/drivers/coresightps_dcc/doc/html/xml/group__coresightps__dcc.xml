@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__coresightps__dcc" kind="group">
+    <compoundname>coresightps_dcc</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCoresightPs_DccSendByte</definition>
+        <argsstring>(u32 BaseAddress, u8 Data)</argsstring>
+        <name>XCoresightPs_DccSendByte</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sends a single byte using the DCC. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is blocking. It waits until the transmitter is not full, then writes the byte to the transmit register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dummy parameter to match other stdio device function prototypes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte of data to send. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="78" bodyend="99"/>
+        <references refid="group__coresightps__dcc__api_1gade67de45c061af33652b3b410ee8b915" compoundref="xcoresightpsdcc_8c" startline="60">XCORESIGHTPS_DCC_STATUS_TX</references>
+      </memberdef>
+      <memberdef kind="function" id="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XCoresightPs_DccRecvByte</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XCoresightPs_DccRecvByte</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Receives a single byte using the DCC. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is blocking. It waits until the receiver is not empty, then reads the byte from the receive register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dummy parameter to match other stdio device function prototypes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte of data received. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="115" bodyend="138"/>
+        <references refid="group__coresightps__dcc__api_1ga2ee8d807420c735c1ba17a26fc4491b0" compoundref="xcoresightpsdcc_8c" startline="59">XCORESIGHTPS_DCC_STATUS_RX</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides CoreSight Debug Communication Channel (DCC) byte I/O. </para>    </briefdescription>
+    <detaileddescription>
+<para>CoreSight driver component.</para><para>Coresight is part of the Debug Communication Channel (DCC) group. JTAG UART for ARM uses DCC. Each ARM core has its own DCC. Select an ARM target in the XSDB console before running the jtag terminal command. The CoreSight driver can direct the output stream to a log file.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date               Changes
+<hruler/>
+
+1.00  kvn    02/14/15 First release
+1.1   kvn    06/12/15 Add support for Zynq Ultrascale+ MP.
+      kvn    08/18/15 Modified Makefile according to compiler changes.
+1.3   asa    07/01/16 Made changes to ensure that the file does not compile
+                      for MB BSPs. Instead it throws up a warning. This
+                      fixes the CR#953056.
+1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
+1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
+1.14  tb     09/10/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

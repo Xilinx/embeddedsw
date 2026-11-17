@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_dme_revoke_map" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseDmeRevokeMap</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_revoke_map_1a65725b2b396690448d26a9c26c9e2034" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDmeRevokeMap::Page</definition>
+        <argsstring></argsstring>
+        <name>Page</name>
+        <briefdescription>
+<para>eFuse page select </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_revoke_map_1a2b31c2ec4f9e38d96e5d877a6b24befa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDmeRevokeMap::MaxIndex</definition>
+        <argsstring></argsstring>
+        <name>MaxIndex</name>
+        <briefdescription>
+<para>Largest valid revoke index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_revoke_map_1aaa0c58a3801297807c4dd6fef5df6b24" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_dme_revoke_entry" kindref="compound">XNvm_EfuseDmeRevokeEntry</ref> *</type>
+        <definition>const XNvm_EfuseDmeRevokeEntry* XNvm_EfuseDmeRevokeMap::Table</definition>
+        <argsstring></argsstring>
+        <name>Table</name>
+        <briefdescription>
+<para>Per-index row and column pair. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines the platform DME revoke coordinate table. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="63">
+        <label>XNvm_EfuseDmeRevokeEntry</label>
+        <link refid="struct_x_nvm___efuse_dme_revoke_entry"/>
+      </node>
+      <node id="62">
+        <label>XNvm_EfuseDmeRevokeMap</label>
+        <link refid="struct_x_nvm___efuse_dme_revoke_map"/>
+        <childnode refid="63" relation="usage">
+          <edgelabel>Table</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="340" bodyend="344"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_dme_revoke_map_1a2b31c2ec4f9e38d96e5d877a6b24befa" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeRevokeMap</scope><name>MaxIndex</name></member>
+      <member refid="struct_x_nvm___efuse_dme_revoke_map_1a65725b2b396690448d26a9c26c9e2034" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeRevokeMap</scope><name>Page</name></member>
+      <member refid="struct_x_nvm___efuse_dme_revoke_map_1aaa0c58a3801297807c4dd6fef5df6b24" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeRevokeMap</scope><name>Table</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

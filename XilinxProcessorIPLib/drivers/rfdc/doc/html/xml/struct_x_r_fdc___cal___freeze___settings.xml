@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___cal___freeze___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Cal_Freeze_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___cal___freeze___settings_1ac0d65ca14d959d62bf6b9a813d837ade" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_Cal_Freeze_Settings::CalFrozen</definition>
+        <argsstring></argsstring>
+        <name>CalFrozen</name>
+        <briefdescription>
+<para>Status indicates calibration freeze state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="602" bodyend="-1"/>
+        <referencedby refid="group___overview_1gae6e2aadc0f82e6a454d06e5e324974e5" compoundref="xrfdc__ap_8c" startline="2656" endline="2691">XRFdc_GetCalFreeze</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___cal___freeze___settings_1a52fbd1d94e5ce2640acd11eb1f7c9b68" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_Cal_Freeze_Settings::DisableFreezePin</definition>
+        <argsstring></argsstring>
+        <name>DisableFreezePin</name>
+        <briefdescription>
+<para>Disables the calibration freeze pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="603" bodyend="-1"/>
+        <referencedby refid="group___overview_1gae6e2aadc0f82e6a454d06e5e324974e5" compoundref="xrfdc__ap_8c" startline="2656" endline="2691">XRFdc_GetCalFreeze</referencedby>
+        <referencedby refid="group___overview_1gaee1e547d4a3e8316e1d5a0bc723dae72" compoundref="xrfdc__ap_8c" startline="2584" endline="2637">XRFdc_SetCalFreeze</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___cal___freeze___settings_1adcf66f1ad7b9c6a3612977e51979211d" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_Cal_Freeze_Settings::FreezeCalibration</definition>
+        <argsstring></argsstring>
+        <name>FreezeCalibration</name>
+        <briefdescription>
+<para>Setter for freezing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="604" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="604" bodyend="-1"/>
+        <referencedby refid="group___overview_1gae6e2aadc0f82e6a454d06e5e324974e5" compoundref="xrfdc__ap_8c" startline="2656" endline="2691">XRFdc_GetCalFreeze</referencedby>
+        <referencedby refid="group___overview_1gaee1e547d4a3e8316e1d5a0bc723dae72" compoundref="xrfdc__ap_8c" startline="2584" endline="2637">XRFdc_SetCalFreeze</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RFSoC Calibration freeze settings struct. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="601" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="601" bodyend="605"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___cal___freeze___settings_1ac0d65ca14d959d62bf6b9a813d837ade" prot="public" virt="non-virtual"><scope>XRFdc_Cal_Freeze_Settings</scope><name>CalFrozen</name></member>
+      <member refid="struct_x_r_fdc___cal___freeze___settings_1a52fbd1d94e5ce2640acd11eb1f7c9b68" prot="public" virt="non-virtual"><scope>XRFdc_Cal_Freeze_Settings</scope><name>DisableFreezePin</name></member>
+      <member refid="struct_x_r_fdc___cal___freeze___settings_1adcf66f1ad7b9c6a3612977e51979211d" prot="public" virt="non-virtual"><scope>XRFdc_Cal_Freeze_Settings</scope><name>FreezeCalibration</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_op_aximm_iso" kind="struct" prot="public">
+    <compoundname>XPm_AieOpAximmIso</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_op_aximm_iso_1a612dedffff2959513bd4acc569c57a2a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpAximmIso::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_aximm_iso_1ae24399c07f98d22769bb697b56757b6e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpAximmIso::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_op_aximm_iso_1a73c1973b50202abbced6c9358dd12c09" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieOpAximmIso::Traffic</definition>
+        <argsstring></argsstring>
+        <name>Traffic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h" bodystart="70" bodyend="74"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_op_aximm_iso_1ae24399c07f98d22769bb697b56757b6e" prot="public" virt="non-virtual"><scope>XPm_AieOpAximmIso</scope><name>Len</name></member>
+      <member refid="struct_x_pm___aie_op_aximm_iso_1a73c1973b50202abbced6c9358dd12c09" prot="public" virt="non-virtual"><scope>XPm_AieOpAximmIso</scope><name>Traffic</name></member>
+      <member refid="struct_x_pm___aie_op_aximm_iso_1a612dedffff2959513bd4acc569c57a2a" prot="public" virt="non-virtual"><scope>XPm_AieOpAximmIso</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

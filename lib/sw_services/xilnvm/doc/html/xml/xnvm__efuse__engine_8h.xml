@@ -1,0 +1,483 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__efuse__engine_8h" kind="file">
+    <compoundname>xnvm_efuse_engine.h</compoundname>
+    <includes refid="xnvm__efuse__common__field_8h" local="yes">xnvm_efuse_common_field.h</includes>
+    <includes refid="xnvm__efuse__common_8h" local="yes">xnvm_efuse_common.h</includes>
+    <includes refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8h" local="yes">xnvm_efuse.h</includes>
+    <includedby refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" local="yes">xnvm_efuse.c</includedby>
+    <includedby refid="xnvm__efuse__engine_8c" local="yes">xnvm_efuse_engine.c</includedby>
+    <includedby refid="xnvm__efuse__plat_8c" local="yes">xnvm_efuse_plat.c</includedby>
+    <incdepgraph>
+      <node id="557">
+        <label>xnvm_common_defs.h</label>
+        <link refid="xnvm__common__defs_8h"/>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+      </node>
+      <node id="559">
+        <label>xil_io.h</label>
+      </node>
+      <node id="553">
+        <label>xnvm_efuse_engine.h</label>
+        <link refid="xnvm_efuse_engine.h"/>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="567" relation="include">
+        </childnode>
+      </node>
+      <node id="558">
+        <label>xnvm_utils.h</label>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="556" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="567">
+        <label>xnvm_efuse.h</label>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+      </node>
+      <node id="556">
+        <label>xil_util.h</label>
+      </node>
+      <node id="564">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="566">
+        <label>xnvm_efuse_error_plat.h</label>
+      </node>
+      <node id="565">
+        <label>xnvm_efuse_error.h</label>
+        <link refid="xnvm__efuse__error_8h"/>
+        <childnode refid="566" relation="include">
+        </childnode>
+      </node>
+      <node id="561">
+        <label>xnvm_efuse_common.h</label>
+        <link refid="xnvm__efuse__common_8h"/>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="562" relation="include">
+        </childnode>
+        <childnode refid="563" relation="include">
+        </childnode>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="562">
+        <label>xstatus.h</label>
+      </node>
+      <node id="554">
+        <label>xnvm_efuse_common_field.h</label>
+        <link refid="xnvm__efuse__common__field_8h"/>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="556" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+      </node>
+      <node id="563">
+        <label>xsysmonpsv.h</label>
+      </node>
+      <node id="555">
+        <label>xil_types.h</label>
+      </node>
+      <node id="560">
+        <label>xilnvm_bsp_config.h</label>
+      </node>
+      <node id="568">
+        <label>xnvm_efuse_hw.h</label>
+      </node>
+      <node id="569">
+        <label>xnvm_efuse_plat.h</label>
+        <link refid="xnvm__efuse__plat_8h"/>
+        <childnode refid="564" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="572">
+        <label>xnvm_efuse_engine.c</label>
+        <link refid="xnvm__efuse__engine_8c"/>
+      </node>
+      <node id="570">
+        <label>xnvm_efuse_engine.h</label>
+        <link refid="xnvm_efuse_engine.h"/>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+      </node>
+      <node id="571">
+        <label>xnvm_efuse.c</label>
+        <link refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c"/>
+      </node>
+      <node id="573">
+        <label>xnvm_efuse_plat.c</label>
+        <link refid="xnvm__efuse__plat_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseEngineWriteField</definition>
+        <argsstring>(const XNvm_EfuseDevice *Dev, XNvm_EfuseFieldId FieldId, u32 EnvDisFlag, const u32 *Data, u32 NumWords)</argsstring>
+        <name>XNvm_EfuseEngineWriteField</name>
+        <param>
+          <type>const <ref refid="struct_x_nvm___efuse_device" kindref="compound">XNvm_EfuseDevice</ref> *</type>
+          <declname>Dev</declname>
+        </param>
+        <param>
+          <type><ref refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720" kindref="member">XNvm_EfuseFieldId</ref></type>
+          <declname>FieldId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumWords</declname>
+        </param>
+        <briefdescription>
+<para>Programs all bands of a field through the band engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Device table descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FieldId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Field to program. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- When TRUE, skip temperature/voltage checks. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Source data words for the field bands. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumWords</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Number of valid words in Data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Field-specific before-program or write error on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.c" bodystart="136" bodyend="187"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xnvm__efuse__server__apis_1gaa4c82666d93529495da00d27c7f52b37" compoundref="xnvm__ops_8c" startline="328" endline="436">XNvm_EfuseOpsValidateWriteField</references>
+        <references refid="struct_x_nvm___efuse_field_desc_1ac322b07878d181f2f8e98baabbd9d6de" compoundref="xnvm__efuse__common__field_8h" startline="306">XNvm_EfuseFieldDesc::ErrBeforePgm</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga4912b083ba65dccd383b7dffa558c786" compoundref="xnvm__efuse__engine_8c" startline="79" endline="98">XNvm_EfuseEngineOpen</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3a9a956a04c34687c49520e2646fefca" compoundref="spartanup_2xnvm__efuse_8h" startline="375">XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</references>
+        <references refid="struct_x_nvm___efuse_device_1a0ba75ba810c714c22b65cdc10557b464" compoundref="xnvm__efuse__common__field_8h" startline="403">XNvm_EfuseDevice::Ops</references>
+        <references refid="struct_x_nvm___efuse_device_ops_1a83ba747ac451b5a656fae307aebcfe10" compoundref="xnvm__efuse__common__field_8h" startline="387">XNvm_EfuseDeviceOps::PostProgram</references>
+        <references refid="struct_x_nvm___efuse_field_desc_1a4699214d3589ee93e09fd67be0787239" compoundref="xnvm__efuse__common__field_8h" startline="307">XNvm_EfuseFieldDesc::ErrWrite</references>
+        <references refid="group__xnvm__efuse__server__apis_1gac157dd5edf148621d24d5708177feb68" compoundref="xnvm__efuse__engine_8c" startline="110" endline="119">XNvm_EfuseEngineClose</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga475005d64d5d8d97dae539743f7793b9" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="116" endline="159">XNvm_EfuseWriteAesKey</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5093d8298f30653879f3f0f3023029bd" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="177" endline="190">XNvm_EfuseWritePpkHash</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga99b50ea3f231e5b81fd8d3e944daa3ff" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="209" endline="234">XNvm_EfuseWriteIv</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="251" endline="279">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="294" endline="298">XNvm_EfuseWriteDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="315" endline="332">XNvm_EfuseWriteRevocationID</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="348" endline="365">XNvm_EfuseWriteOffChipRevokeID</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="380" endline="385">XNvm_EfuseWriteMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="400" endline="405">XNvm_EfuseWriteSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="420" endline="425">XNvm_EfuseWriteMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="440" endline="445">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9b518b5753573d6f65ba1d15c94fce86" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="462" endline="510">XNvm_EfuseWriteFipsInfo</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="526" endline="537">XNvm_EfuseWriteUds</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c6a62d77c7a495ffaf45390f771dc65" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="554" endline="580">XNvm_EfuseWriteDmeUserKey</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga10e7c8ba2f592b3cbd00323d300c1314" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="678" endline="683">XNvm_EfuseWriteDisableInplacePlmUpdate</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="698" endline="703">XNvm_EfuseWriteBootModeDisable</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="719" endline="729">XNvm_EfuseWriteDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="744" endline="748">XNvm_EfuseWriteCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="763" endline="768">XNvm_EfuseWriteRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" compoundref="xnvm__efuse__plat_8c" startline="78" endline="100">XNvm_EfuseWritePufSecCtrl</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga3e5b32d4a7ec60464f46788458b5e67f" compoundref="xnvm__efuse__plat_8c" startline="122" endline="169">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseEnginePrgmProtectionBits</definition>
+        <argsstring>(const XNvm_EfuseDevice *Dev)</argsstring>
+        <name>XNvm_EfuseEnginePrgmProtectionBits</name>
+        <param>
+          <type>const <ref refid="struct_x_nvm___efuse_device" kindref="compound">XNvm_EfuseDevice</ref> *</type>
+          <declname>Dev</declname>
+        </param>
+        <briefdescription>
+<para>Programs protection bits when their trigger conditions match. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Device table descriptor.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success, including an explicit empty table (NO_PROTECTION flag with Protection == NULL and NumProtection == 0).</para></listitem><listitem><para>XNVM_EFUSE_ERR_INVALID_PARAM if Dev is NULL, the table pointer and count disagree, or the table is missing without NO_PROTECTION.</para></listitem><listitem><para>Protection-specific error on program failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.c" bodystart="203" bodyend="275"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="struct_x_nvm___efuse_device_1ab7b6a47cf23bb123c9782de9eba2c8a0" compoundref="xnvm__efuse__common__field_8h" startline="401">XNvm_EfuseDevice::NumProtection</references>
+        <references refid="struct_x_nvm___efuse_device_1a780eff84b2a41703a2005275ef689c82" compoundref="xnvm__efuse__common__field_8h" startline="400">XNvm_EfuseDevice::Protection</references>
+        <references refid="struct_x_nvm___efuse_device_1a7acf3edafc19d39d1941bf17961da9f7" compoundref="xnvm__efuse__common__field_8h" startline="402">XNvm_EfuseDevice::Flags</references>
+        <references refid="xnvm__efuse__common__field_8h_1ac18bc6928478c5d8732f77a39a2d5ade" compoundref="xnvm__efuse__common__field_8h" startline="76">XNVM_EFUSE_DEVICE_FLAG_NO_PROTECTION</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" compoundref="xnvm__efuse__common_8c" startline="870" endline="877">XNvm_EfuseReadProtectionBits</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1ab69f1bb95fdc22733c9b0fa3135b82ef" compoundref="xnvm__efuse__common__field_8h" startline="324">XNvm_EfuseProtEntry::ProtReadMask</references>
+        <references refid="group__xnvm__efuse__server__apis_1gad9ba1c4865a9f5c3ccaf3fc2c9e4dad9" compoundref="xnvm__efuse__common_8h" startline="127">XNVM_EFUSE_PROTECTION_BIT_CLEAR</references>
+        <references refid="group__xnvm__efuse__server__apis_1gae1424c7cb1b3b9ac2b53bf18a74cad58" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="933" endline="955">XNvm_EfusePgmAndVerifyBit</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1ad09fe248d09b4270fb94acd1129b629f" compoundref="xnvm__efuse__common__field_8h" startline="320">XNvm_EfuseProtEntry::Page</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1a3b0594f045c29eb6518ef0dd31eefb62" compoundref="xnvm__efuse__common__field_8h" startline="321">XNvm_EfuseProtEntry::ProtRow</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1a83c05b8552acfa398f78cee8582e00e4" compoundref="xnvm__efuse__common__field_8h" startline="322">XNvm_EfuseProtEntry::ProtCol0</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga9a082358f66542e6dadc3c622b552870" compoundref="spartanup_2xnvm__efuse_8h" startline="136">XNVM_EFUSE_PROGRAM_VERIFY</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1a954db2e056ced1b86b2398b71f971e2b" compoundref="xnvm__efuse__common__field_8h" startline="325">XNvm_EfuseProtEntry::ErrProt0</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1ac952bdecc58857acc3a00daa0f95fa53" compoundref="xnvm__efuse__common__field_8h" startline="323">XNvm_EfuseProtEntry::ProtCol1</references>
+        <references refid="xnvm__efuse__common__field_8h_1a30d17639f41569bf5d4c8a67f57fca65" compoundref="xnvm__efuse__common__field_8h" startline="118">XNVM_EFUSE_INVALID_COL</references>
+        <references refid="struct_x_nvm___efuse_prot_entry_1a74ee799f1dd80eebf994bf5c0e5eec29" compoundref="xnvm__efuse__common__field_8h" startline="326">XNvm_EfuseProtEntry::ErrProt1</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga1180dbb45b4f670e0e34633c8f8eec65" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="784" endline="814">XNvm_EfuseCacheLoadNPrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga4912b083ba65dccd383b7dffa558c786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseEngineOpen</definition>
+        <argsstring>(u32 EnvDisFlag)</argsstring>
+        <name>XNvm_EfuseEngineOpen</name>
+        <param>
+          <type>u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <briefdescription>
+<para>Opens the controller for programming (legacy order). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- When TRUE, skip environmental monitoring.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Environmental or setup error on failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Legacy flow: environmental checks, then unlock/setup controller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.c" bodystart="79" bodyend="98"/>
+        <references refid="group__xnvm__efuse__server__apis_1ga1e3cc93bc83d64733fffe4e471dd0b9d" compoundref="xnvm__ops_8c" startline="508" endline="513">XNvm_EfuseOpsBindHooks</references>
+        <references refid="group__xnvm__util__apis_1ga07f1dca511ab0d8e815069634ccc305c" compoundref="spartanup_2xnvm__utils_8c" startline="269" endline="314">XNvm_EfuseSetupController</references>
+        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="75">XNVM_EFUSE_MODE_PGM</references>
+        <references refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" compoundref="spartanup_2xnvm__utils_8h" startline="83">XNVM_EFUSE_MARGIN_RD</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba91e4b12e40ef1fd3a78d16279d51d2d0" compoundref="spartanup_2xnvm__efuse_8h" startline="441">XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga1180dbb45b4f670e0e34633c8f8eec65" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="784" endline="814">XNvm_EfuseCacheLoadNPrgmProtectionBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gac157dd5edf148621d24d5708177feb68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseEngineClose</definition>
+        <argsstring>(int Status)</argsstring>
+        <name>XNvm_EfuseEngineClose</name>
+        <param>
+          <type>int</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Closes the eFuse controller, preserving a prior error status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Status accumulated before close; close errors are OR&apos;d in only when Status is XST_SUCCESS.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Combined status from programming and close steps. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.c" bodystart="110" bodyend="119"/>
+        <references refid="group__xnvm__efuse__server__apis_1ga33ac3a37674033fcc101cf7290b25c49" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="827" endline="843">XNvm_EfuseCloseController</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga1180dbb45b4f670e0e34633c8f8eec65" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="784" endline="814">XNvm_EfuseCacheLoadNPrgmProtectionBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseEngineProgramBand</definition>
+        <argsstring>(const XNvm_EfuseBand *Band, const u32 *Data, u32 NumWords)</argsstring>
+        <name>XNvm_EfuseEngineProgramBand</name>
+        <param>
+          <type>const <ref refid="struct_x_nvm___efuse_band" kindref="compound">XNvm_EfuseBand</ref> *</type>
+          <declname>Band</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumWords</declname>
+        </param>
+        <briefdescription>
+<para>Programs one band of a field through the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Band</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Band descriptor to program. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Caller source data words (required for COMPUTE_PRG and DIRECT_WRITE bands; may be NULL for FIXED_DATA bands). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumWords</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Number of valid u32 words at Data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success or when the band has nothing to program.</para></listitem><listitem><para>XNVM_EFUSE_ERR_INVALID_PARAM on bad input or band flags.</para></listitem><listitem><para>Controller program error on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.c" bodystart="420" bodyend="533"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="struct_x_nvm___efuse_band_1adf3f0bafd5379641bc35d167e7bcf1fd" compoundref="xnvm__efuse__common__field_8h" startline="291">XNvm_EfuseBand::Flags</references>
+        <references refid="xnvm__efuse__common__field_8h_1ad9eb3f7ed15c38af6975b6e545144869" compoundref="xnvm__efuse__common__field_8h" startline="60">XNVM_EFUSE_BAND_MODE_MASK</references>
+        <references refid="xnvm__efuse__common__field_8h_1a256cf8081e53485a244e9fec81cf59cc" compoundref="xnvm__efuse__common__field_8h" startline="56">XNVM_EFUSE_BAND_FLAG_FIXED_DATA</references>
+        <references refid="struct_x_nvm___efuse_band_1a2c8ca13b7fd582d181d8ec01b2bc84d8" compoundref="xnvm__efuse__common__field_8h" startline="290">XNvm_EfuseBand::FixedData</references>
+        <references refid="struct_x_nvm___efuse_band_1a7cd813066a5525dc0c52709d45f99b2e" compoundref="xnvm__efuse__common__field_8h" startline="284">XNvm_EfuseBand::NumRows</references>
+        <references refid="xnvm__efuse__common__field_8h_1a0041cbb2c2344458926a40428a166363" compoundref="xnvm__efuse__common__field_8h" startline="89">XNVM_EFUSE_BAND_SINGLE_ROW_COUNT</references>
+        <references refid="struct_x_nvm___efuse_band_1ae7f17a607bc9e01519a57aa91e8dfa8c" compoundref="xnvm__efuse__common__field_8h" startline="282">XNvm_EfuseBand::ColStart</references>
+        <references refid="struct_x_nvm___efuse_band_1a67fe16051f38d3cad1306701dc704daf" compoundref="xnvm__efuse__common__field_8h" startline="283">XNvm_EfuseBand::ColEnd</references>
+        <references refid="xnvm__efuse__common__field_8h_1a9debe2c61a041ce2cc00dcd5c6132299" compoundref="xnvm__efuse__common__field_8h" startline="52">XNVM_EFUSE_BAND_FLAG_COMPUTE_PRG</references>
+        <references refid="struct_x_nvm___efuse_band_1ad49f245da84e029cdec5af16b0ccbb45" compoundref="xnvm__efuse__common__field_8h" startline="287">XNvm_EfuseBand::CacheEndOffset</references>
+        <references refid="struct_x_nvm___efuse_band_1aef4e142c7ba29ffeea744dbacae2d020" compoundref="xnvm__efuse__common__field_8h" startline="286">XNvm_EfuseBand::CacheStartOffset</references>
+        <references refid="struct_x_nvm___efuse_band_1aa1d2f070dfac4aa33be82a67203106ec" compoundref="xnvm__efuse__common__field_8h" startline="288">XNvm_EfuseBand::SrcWordOffset</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="105" endline="151">XNvm_EfuseCacheReload</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba91e4b12e40ef1fd3a78d16279d51d2d0" compoundref="spartanup_2xnvm__efuse_8h" startline="441">XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</references>
+        <references refid="struct_x_nvm___efuse_band_1abfb18313543d540518eebf925a8b14e8" compoundref="xnvm__efuse__common__field_8h" startline="289">XNvm_EfuseBand::DataMask</references>
+        <references refid="xnvm__efuse__common__field_8h_1a3fa6cdfff4270b0ad8787a1025b6957e" compoundref="xnvm__efuse__common__field_8h" startline="81">XNVM_EFUSE_BAND_DATA_MASK_ALL</references>
+        <references refid="xnvm__efuse__common__field_8h_1abc5b0e33c3b1a324658e4bd0c077b1b4" compoundref="xnvm__efuse__common__field_8h" startline="54">XNVM_EFUSE_BAND_FLAG_DIRECT_WRITE</references>
+        <references refid="struct_x_nvm___efuse_prgm_info_1abc08be527304a3abd02f49e411c2dee9" compoundref="spartanup_2xnvm__efuse_8h" startline="189">XNvm_EfusePrgmInfo::StartRow</references>
+        <references refid="struct_x_nvm___efuse_band_1ae9eae6bfa496cb0f78424560b835c98e" compoundref="xnvm__efuse__common__field_8h" startline="281">XNvm_EfuseBand::StartRow</references>
+        <references refid="struct_x_nvm___efuse_prgm_info_1afc6cc9c3e733a22e50aef708dca1607b" compoundref="spartanup_2xnvm__efuse_8h" startline="190">XNvm_EfusePrgmInfo::ColStart</references>
+        <references refid="struct_x_nvm___efuse_prgm_info_1ab4af75acb4eb6ea72944e7a099adf4bf" compoundref="spartanup_2xnvm__efuse_8h" startline="191">XNvm_EfusePrgmInfo::ColEnd</references>
+        <references refid="struct_x_nvm___efuse_prgm_info_1a257cabf7f1cf9b214c71857d8c7cc62b" compoundref="spartanup_2xnvm__efuse_8h" startline="192">XNvm_EfusePrgmInfo::NumOfRows</references>
+        <references refid="struct_x_nvm___efuse_band_1a63c8ea11023879feeaaba8d84e16d963" compoundref="xnvm__efuse__common__field_8h" startline="285">XNvm_EfuseBand::Page</references>
+        <references refid="xnvm__efuse__common__field_8h_1a1e9d06e3fb9e157f884e9548e8d0dde9" compoundref="xnvm__efuse__common__field_8h" startline="58">XNVM_EFUSE_BAND_FLAG_SKIP_VERIFY</references>
+        <references refid="struct_x_nvm___efuse_prgm_info_1aedd98d5cf2455d9977bf91b949486f5d" compoundref="spartanup_2xnvm__efuse_8h" startline="193">XNvm_EfusePrgmInfo::SkipVerify</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Band-engine APIs (server/PLM builds). </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_ENGINE_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ENGINE_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__efuse__common__field_8h" kindref="compound">xnvm_efuse_common_field.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__efuse__common_8h" kindref="compound">xnvm_efuse_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_efuse.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" kindref="member">XNvm_EfuseEngineWriteField</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_nvm___efuse_device" kindref="compound">XNvm_EfuseDevice</ref><sp/>*Dev,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__efuse__common__field_8h_1a1a8f8668ce5e78f8847e18440619b720" kindref="member">XNvm_EfuseFieldId</ref><sp/>FieldId,<sp/>u32<sp/>EnvDisFlag,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Data,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumWords);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" kindref="member">XNvm_EfuseEnginePrgmProtectionBits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_nvm___efuse_device" kindref="compound">XNvm_EfuseDevice</ref><sp/>*Dev);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga4912b083ba65dccd383b7dffa558c786" kindref="member">XNvm_EfuseEngineOpen</ref>(u32<sp/>EnvDisFlag);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gac157dd5edf148621d24d5708177feb68" kindref="member">XNvm_EfuseEngineClose</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" kindref="member">XNvm_EfuseEngineProgramBand</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_nvm___efuse_band" kindref="compound">XNvm_EfuseBand</ref><sp/>*Band,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Data,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumWords);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_ENGINE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/core/xnvm_efuse_engine.h"/>
+  </compounddef>
+</doxygen>

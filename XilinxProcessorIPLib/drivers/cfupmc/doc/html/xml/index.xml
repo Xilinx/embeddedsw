@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_cfupmc" kind="struct"><name>XCfupmc</name>
+    <member refid="struct_x_cfupmc_1a49f5364c66c7035ad93a9f555954dbeb" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_cfupmc_1a5c4a8f6fb22a71818964638dc366b74e" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_cfupmc_1aee6564c0a7c832c40052feb8099bd39c" kind="variable"><name>DeCompress</name></member>
+    <member refid="struct_x_cfupmc_1a935f0085b8fff25bc037af2fcf8b94be" kind="variable"><name>Crc32Check</name></member>
+    <member refid="struct_x_cfupmc_1afb0abc51a163523cc4b0304f47a464ad" kind="variable"><name>Crc32Val</name></member>
+    <member refid="struct_x_cfupmc_1a1fcbf71d89a3837dc78371358b6758f5" kind="variable"><name>Crc8Dis</name></member>
+  </compound>
+  <compound refid="struct_x_cfupmc___config" kind="struct"><name>XCfupmc_Config</name>
+    <member refid="struct_x_cfupmc___config_1aff79ca76131b73fa7b218da92c9480c2" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_cfupmc___config_1a49746695520bff28b5b9a454ab58dbbb" kind="variable"><name>BaseAddress</name></member>
+  </compound>
+  <compound refid="cfu__apb_8h" kind="file"><name>cfu_apb.h</name>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="xcfupmc_8c" kind="file"><name>xcfupmc.c</name>
+    <member refid="xcfupmc_8c_1a35f0ab1ef133c7a8da66e2c92c8a5efc" kind="function"><name>XCfupmc_Reset</name></member>
+    <member refid="group__cfupmc_1gae431e6d523e3367426562b426498a69b" kind="function"><name>XCfupmc_CfgInitialize</name></member>
+    <member refid="group__cfupmc_1ga292850519911e823d55c85033de72933" kind="function"><name>XCfupmc_MaskRegWrite</name></member>
+    <member refid="group__cfupmc_1gaab316a163c92406b0e5fa4f58cdab121" kind="function"><name>XCfupmc_SetGlblSigEn</name></member>
+    <member refid="group__cfupmc_1ga764c63377415499485fec8665dcb7290" kind="function"><name>XCfupmc_GlblSeqInit</name></member>
+    <member refid="group__cfupmc_1gaab8b841f14c140c5f487d62484db8743" kind="function"><name>XCfupmc_CfuErrHandler</name></member>
+    <member refid="group__cfupmc_1ga794386528397e2a781fd5761629f6b77" kind="function"><name>XCfupmc_CfiErrHandler</name></member>
+    <member refid="group__cfupmc_1gaddaced8535cbf5a88be4e24c9556495d" kind="function"><name>XCfupmc_ClearCfuIsr</name></member>
+    <member refid="group__cfupmc_1ga7e02c1a51adb392521d233962f01f58a" kind="function"><name>XCfupmc_ClearIgnoreCfiErr</name></member>
+    <member refid="group__cfupmc_1gab725f059d40cb1239f40076fdcd7db9f" kind="function"><name>XCfupmc_ExtErrorHandler</name></member>
+  </compound>
+  <compound refid="xcfupmc_8h" kind="file"><name>xcfupmc.h</name>
+    <member refid="group__cfupmc_1ga18f9fcd27c56970ee648e91e200b1445" kind="function"><name>XCfupmc_ClearIsr</name></member>
+    <member refid="group__cfupmc_1ga0360bd74e9fabd0b5f0c622469dd66dd" kind="function"><name>XCfupmc_ReadIsr</name></member>
+    <member refid="group__cfupmc_1ga7d87a247e80a5b32714a23f7c94b5028" kind="function"><name>XCfupmc_ReadStatus</name></member>
+    <member refid="group__cfupmc_1ga4693b0a6f861c685812d90e48f8862f7" kind="function"><name>XCfupmc_LookupConfig</name></member>
+    <member refid="group__cfupmc_1gae431e6d523e3367426562b426498a69b" kind="function"><name>XCfupmc_CfgInitialize</name></member>
+    <member refid="group__cfupmc_1ga99e1c013f0adcbda4fdbf3225c114f5a" kind="function"><name>XCfupmc_SelfTest</name></member>
+    <member refid="group__cfupmc_1ga292850519911e823d55c85033de72933" kind="function"><name>XCfupmc_MaskRegWrite</name></member>
+    <member refid="group__cfupmc_1gaab316a163c92406b0e5fa4f58cdab121" kind="function"><name>XCfupmc_SetGlblSigEn</name></member>
+    <member refid="group__cfupmc_1ga764c63377415499485fec8665dcb7290" kind="function"><name>XCfupmc_GlblSeqInit</name></member>
+    <member refid="group__cfupmc_1gaab8b841f14c140c5f487d62484db8743" kind="function"><name>XCfupmc_CfuErrHandler</name></member>
+    <member refid="group__cfupmc_1ga794386528397e2a781fd5761629f6b77" kind="function"><name>XCfupmc_CfiErrHandler</name></member>
+    <member refid="group__cfupmc_1gab725f059d40cb1239f40076fdcd7db9f" kind="function"><name>XCfupmc_ExtErrorHandler</name></member>
+    <member refid="group__cfupmc_1ga7e02c1a51adb392521d233962f01f58a" kind="function"><name>XCfupmc_ClearIgnoreCfiErr</name></member>
+    <member refid="group__cfupmc_1gaddaced8535cbf5a88be4e24c9556495d" kind="function"><name>XCfupmc_ClearCfuIsr</name></member>
+  </compound>
+  <compound refid="xcfupmc__g_8c" kind="file"><name>xcfupmc_g.c</name>
+    <member refid="group__cfupmc_1ga9b3d5ff6eca2ecc0287acbdad9e61bcd" kind="variable"><name>XCfupmc_ConfigTable</name></member>
+  </compound>
+  <compound refid="xcfupmc__hw_8h" kind="file"><name>xcfupmc_hw.h</name>
+    <member refid="group__cfupmc_1gaf6f65cabd0d38db838986dd4aac1213e" kind="define"><name>XCFUPMC_HW_H_</name></member>
+    <member refid="group__cfupmc_1ga31dbe90b55f6971a8c19420c3cb56ba1" kind="define"><name>XCfupmc_In32</name></member>
+    <member refid="group__cfupmc_1ga5399da44cb95e5eae706dc4305deb790" kind="define"><name>XCfupmc_Out32</name></member>
+    <member refid="group__cfupmc_1ga745e84cd54c69cbb38ee23b3e04c0b08" kind="function"><name>XCfupmc_ReadReg</name></member>
+    <member refid="group__cfupmc_1ga9f417f31b99df7263340f354374ea03a" kind="function"><name>XCfupmc_WriteReg</name></member>
+  </compound>
+  <compound refid="xcfupmc__selftest_8c" kind="file"><name>xcfupmc_selftest.c</name>
+    <member refid="group__cfupmc_1ga99e1c013f0adcbda4fdbf3225c114f5a" kind="function"><name>XCfupmc_SelfTest</name></member>
+  </compound>
+  <compound refid="xcfupmc__sinit_8c" kind="file"><name>xcfupmc_sinit.c</name>
+    <member refid="group__cfupmc_1ga9b3d5ff6eca2ecc0287acbdad9e61bcd" kind="variable"><name>XCfupmc_ConfigTable</name></member>
+    <member refid="group__cfupmc_1ga4693b0a6f861c685812d90e48f8862f7" kind="function"><name>XCfupmc_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__cfupmc" kind="group"><name>cfupmc</name>
+    <member refid="group__cfupmc_1ga9b3d5ff6eca2ecc0287acbdad9e61bcd" kind="variable"><name>XCfupmc_ConfigTable</name></member>
+    <member refid="group__cfupmc_1ga18f9fcd27c56970ee648e91e200b1445" kind="function"><name>XCfupmc_ClearIsr</name></member>
+    <member refid="group__cfupmc_1ga0360bd74e9fabd0b5f0c622469dd66dd" kind="function"><name>XCfupmc_ReadIsr</name></member>
+    <member refid="group__cfupmc_1ga7d87a247e80a5b32714a23f7c94b5028" kind="function"><name>XCfupmc_ReadStatus</name></member>
+    <member refid="group__cfupmc_1ga4693b0a6f861c685812d90e48f8862f7" kind="function"><name>XCfupmc_LookupConfig</name></member>
+    <member refid="group__cfupmc_1gae431e6d523e3367426562b426498a69b" kind="function"><name>XCfupmc_CfgInitialize</name></member>
+    <member refid="group__cfupmc_1ga99e1c013f0adcbda4fdbf3225c114f5a" kind="function"><name>XCfupmc_SelfTest</name></member>
+    <member refid="group__cfupmc_1ga292850519911e823d55c85033de72933" kind="function"><name>XCfupmc_MaskRegWrite</name></member>
+    <member refid="group__cfupmc_1gaab316a163c92406b0e5fa4f58cdab121" kind="function"><name>XCfupmc_SetGlblSigEn</name></member>
+    <member refid="group__cfupmc_1ga764c63377415499485fec8665dcb7290" kind="function"><name>XCfupmc_GlblSeqInit</name></member>
+    <member refid="group__cfupmc_1gaab8b841f14c140c5f487d62484db8743" kind="function"><name>XCfupmc_CfuErrHandler</name></member>
+    <member refid="group__cfupmc_1ga794386528397e2a781fd5761629f6b77" kind="function"><name>XCfupmc_CfiErrHandler</name></member>
+    <member refid="group__cfupmc_1gab725f059d40cb1239f40076fdcd7db9f" kind="function"><name>XCfupmc_ExtErrorHandler</name></member>
+    <member refid="group__cfupmc_1ga7e02c1a51adb392521d233962f01f58a" kind="function"><name>XCfupmc_ClearIgnoreCfiErr</name></member>
+    <member refid="group__cfupmc_1gaddaced8535cbf5a88be4e24c9556495d" kind="function"><name>XCfupmc_ClearCfuIsr</name></member>
+    <member refid="group__cfupmc_1ga745e84cd54c69cbb38ee23b3e04c0b08" kind="function"><name>XCfupmc_ReadReg</name></member>
+    <member refid="group__cfupmc_1ga9f417f31b99df7263340f354374ea03a" kind="function"><name>XCfupmc_WriteReg</name></member>
+    <member refid="group__cfupmc_1gaf6f65cabd0d38db838986dd4aac1213e" kind="define"><name>XCFUPMC_HW_H_</name></member>
+    <member refid="group__cfupmc_1ga31dbe90b55f6971a8c19420c3cb56ba1" kind="define"><name>XCfupmc_In32</name></member>
+    <member refid="group__cfupmc_1ga5399da44cb95e5eae706dc4305deb790" kind="define"><name>XCfupmc_Out32</name></member>
+  </compound>
+  <compound refid="dir_64a7b3244476f37bc10065ede31ae754" kind="dir"><name>cfupmc</name>
+  </compound>
+  <compound refid="dir_546e3c349e261ce29d5f0be93c104c16" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

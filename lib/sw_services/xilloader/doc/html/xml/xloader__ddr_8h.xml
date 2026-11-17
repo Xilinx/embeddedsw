@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__ddr_8h" kind="file">
+    <compoundname>xloader_ddr.h</compoundname>
+    <includes local="yes">xplmi_cmd.h</includes>
+    <includedby refid="xloader_8c" local="yes">xloader.c</includedby>
+    <includedby refid="xloader__cmd_8c" local="yes">xloader_cmd.c</includedby>
+    <includedby refid="xloader__ddr_8c" local="yes">xloader_ddr.c</includedby>
+    <includedby refid="xloader__prtn__load_8c" local="yes">xloader_prtn_load.c</includedby>
+    <includedby refid="server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <includedby refid="2ve__2vm_2server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <includedby refid="2vp_2server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <includedby refid="2vp__p_2server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <includedby refid="net_2server_2xloader__plat_8c" local="yes">xloader_plat.c</includedby>
+    <incdepgraph>
+      <node id="570">
+        <label>xloader_ddr.h</label>
+        <link refid="xloader_ddr.h"/>
+        <childnode refid="571" relation="include">
+        </childnode>
+      </node>
+      <node id="571">
+        <label>xplmi_cmd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="575">
+        <label>xloader_ddr.c</label>
+        <link refid="xloader__ddr_8c"/>
+      </node>
+      <node id="572">
+        <label>xloader_ddr.h</label>
+        <link refid="xloader_ddr.h"/>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="581" relation="include">
+        </childnode>
+      </node>
+      <node id="579">
+        <label>xloader_plat.c</label>
+        <link refid="2vp_2server_2xloader__plat_8c"/>
+      </node>
+      <node id="576">
+        <label>xloader_prtn_load.c</label>
+        <link refid="xloader__prtn__load_8c"/>
+      </node>
+      <node id="573">
+        <label>xloader.c</label>
+        <link refid="xloader_8c"/>
+      </node>
+      <node id="580">
+        <label>xloader_plat.c</label>
+      </node>
+      <node id="578">
+        <label>xloader_plat.c</label>
+        <link refid="2ve__2vm_2server_2xloader__plat_8c"/>
+      </node>
+      <node id="577">
+        <label>xloader_plat.c</label>
+      </node>
+      <node id="574">
+        <label>xloader_cmd.c</label>
+        <link refid="xloader__cmd_8c"/>
+      </node>
+      <node id="581">
+        <label>xloader_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__server__apis_1ga9df79c2616e31ed2a2060900a4222464" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_DdrInit</definition>
+        <argsstring>(u32 DeviceFlags)</argsstring>
+        <name>XLoader_DdrInit</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceFlags</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize for DDR init. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceFlags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Loader init prototype requires flags</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XLOADER_ERR_PM_DEV_DDR_0 on device request to DDR fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize the device request for DDR_0.</para></listitem><listitem><para>Otherwise return XLOADER_ERR_PM_DEV_DDR_0.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.c" bodystart="132" bodyend="164"/>
+        <referencedby refid="2ve__2vm_2server_2xloader__plat_8h_1ga5c26bcc51fa70b2692ec7448a69422a0" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1061" endline="1166">XLoader_DumpDdrmcRegisters</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1gaa03c18623c76cf0e2f5effddd4b15415" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_DdrCopy</definition>
+        <argsstring>(u64 SrcAddr, u64 DestAddr, u32 Length, u32 FlagsVal)</argsstring>
+        <name>XLoader_DdrCopy</name>
+        <param>
+          <type>u64</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DestAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FlagsVal</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to copy the data from DDR to destination address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of DDR </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the destination where the data needs to be copied. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the bytes to be copied </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FlagsVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>that denote blocking / non-blocking dma</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS on invalid params passed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the source address, destination address and length of the bytes. Otherwise return XLOADER_DDR_COPY_UNSUPPORTED_PARAMS.</para></listitem><listitem><para>If the flag is XPLMI_DEVICE_COPY_STATE_WAIT_DONE, then wait till the data is copied and DMA returns done.</para></listitem><listitem><para>If the flag is XPLMI_DEVICE_COPY_STATE_INITIATE, then start the dma transfer and don&apos;t wait for the done bit.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.c" bodystart="182" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1ga7a4c313af5a0caa20fa13c561ba0f04a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_DdrRelease</definition>
+        <argsstring>(void)</argsstring>
+        <name>XLoader_DdrRelease</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function releases control of DDR. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XLOADER_ERR_RELEASE_PM_DEV_DDR_0 on device release fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize the DDR_0 device release request.</para></listitem><listitem><para>Otherwise return XLOADER_ERR_RELEASE_PM_DEV_DDR_0.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.c" bodystart="238" bodyend="266"/>
+        <references refid="xloader__client_8h_1af14fcbd99f3aaf94c6ecc1f3689b8485" compoundref="xloader__client_8h" startline="106">XLOADER_PDI_SRC_DDR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1ga9870c3bf75d6cfbd669c535dd7f7a589" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_CalibDataRestore</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XLoader_CalibDataRestore</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function restores the calibration data of the warm-boot DDR memory controllers carried in the command. </para>        </briefdescription>
+        <detaileddescription>
+<para>The storage device is the primary boot device. JTAG, SMAP/SBI, PCIe and SD/eMMC raw boot skip the restore and return success. A fetch or integrity failure for one DDR MC clears its calibration skip flag so that MC cold-calibrates, and the command continues.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the command structure. Cmd-&gt;Len is the full payload, one pair per warm-boot DDR MC, and may be empty when no DDR MC requested warm boot:<itemizedlist>
+<listitem><para>Physical address of the DDR MC.</para></listitem><listitem><para>Storage offset. For QSPI/OSPI this is the flash address of the record. A CDO chunk can deliver fewer words than Cmd-&gt;Len. That chunk is accepted, and the restore runs only on the chunk that finishes the command.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error Code in case of failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.c" bodystart="719" bodyend="929"/>
+        <references refid="xloader_8h_1aa5fa23b8b411ef7f9efdffc3636b1338" compoundref="xloader_8h" startline="276">XLOADER_INVALID_ADDR</references>
+        <references refid="group__xloader__server__apis_1gaf60991670bc1598b674f3f81d3982caf" compoundref="xloader_8c" startline="2502" endline="2507">XLoader_GetPdiInstance</references>
+        <references refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a3e1453f14bab73e1ed9f02c3b86588a5" compoundref="2ve__2vm_2server_2xloader__plat_8h" startline="275">XLOADER_ERR_INVALID_PARAM</references>
+        <references refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" compoundref="xloader_8h" startline="414">XilPdi::PdiType</references>
+        <references refid="xloader_8h_1a1652b4d0eb7aed02ead9dc01a2308f01" compoundref="xloader_8h" startline="202">XLOADER_PDI_TYPE_FULL</references>
+        <references refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a80276488f576a1e202c63bbd1a9f2272" compoundref="2ve__2vm_2server_2xloader__plat_8h" startline="397">XLOADER_ERR_INVALID_PHYS_ADDR</references>
+        <references refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5ae6693f0a02bacd4ab6290c893a13fa61" compoundref="2ve__2vm_2server_2xloader__plat_8h" startline="391">XLOADER_ERR_INVALID_NVSTORAGE_ADDR</references>
+        <references refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4745b86aaaa79d2b51e005ea8f57eec1" compoundref="2ve__2vm_2server_2xloader__plat_8h" startline="394">XLOADER_ERR_INVALID_XRAM_ADDR</references>
+        <references refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a30d223b1ed8a2f0b4ba21ea1aa9ef826" compoundref="2ve__2vm_2server_2xloader__plat_8h" startline="403">XLOADER_ERR_SET_CALIB_SKIP_FLAG</references>
+        <references refid="2ve__2vm_2server_2xloader__plat_8h_1a99fb83031ce9923c84392b4e92f956b5adfcdd64b3d52639d4022317232501b1e" compoundref="2ve__2vm_2server_2xloader__plat_8h" startline="400">XLOADER_ERR_CALIBDATA_WRITE</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file which contains DDR interface declarations for the xilloader. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  kc   03/12/2019 Initial release
+1.01  kc   09/04/2019 Added support to use non blocking DMA in
+                                        DdrCopy function
+1.02  bsv  04/09/2020 Code clean up of Xilloader
+1.03  skd  07/14/2020 Added 64bit support for DDR source address
+      bsv  10/13/2020 Code clean up
+1.04  bsv  08/26/2021 Code clean up
+      dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+      pre  08/17/2026 Added DDR calibration data restore and status check APIs
+      pre  09/06/2026 Include xplmi_cmd.h for XPlmi_Cmd
+      pre  10/22/2026 DDR calibration data restore is under
+                      PLM_ENABLE_DDR_CALIB_RESTORE and is disabled by default</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#ifndef<sp/>XLOADER_DDR_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DDR_H</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga9df79c2616e31ed2a2060900a4222464" kindref="member">XLoader_DdrInit</ref>(u32<sp/>DeviceFlags);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1gaa03c18623c76cf0e2f5effddd4b15415" kindref="member">XLoader_DdrCopy</ref>(u64<sp/>SrcAddr,<sp/>u64<sp/>DestAddr,<sp/>u32<sp/>Length,<sp/>u32<sp/>FlagsVal);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga7a4c313af5a0caa20fa13c561ba0f04a" kindref="member">XLoader_DdrRelease</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga9870c3bf75d6cfbd669c535dd7f7a589" kindref="member">XLoader_CalibDataRestore</ref>(XPlmi_Cmd<sp/>*Cmd);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_ENABLE_DDR_CALIB_RESTORE</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_CheckDdrMcCalibStatus(u32<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">u32<sp/>XLoader_IsWarmBootFlagSet(u32<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_DDR_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_ddr.h"/>
+  </compounddef>
+</doxygen>

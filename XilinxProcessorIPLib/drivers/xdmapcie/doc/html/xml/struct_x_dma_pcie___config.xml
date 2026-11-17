@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_pcie___config" kind="struct" prot="public">
+    <compoundname>XDmaPcie_Config</compoundname>
+    <includes local="no">xdmapcie.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a8dd53533ea5dbdd325305f27d1a209ef" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDmaPcie_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDmaPcie_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xdmapcie_1ga557a92506060fd460154426bd8c4870c" compoundref="xdmapcie_8c" startline="128" endline="183">XDmaPcie_CfgInitialize</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1ba2488b5b13dfebf7a3df93c300d67e" compoundref="xdmapcie__intr_8c" startline="240" endline="262">XDmaPcie_ClearPendingInterrupts</referencedby>
+        <referencedby refid="group__xdmapcie_1ga8ae44f206a94bf40daea49281112b46d" compoundref="xdmapcie_8c" startline="1360" endline="1370">XDmaPcie_ClearRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1a9e71d1904e3b6bfca811f5baec640c" compoundref="xdmapcie_8c" startline="1448" endline="1458">XDmaPcie_ClearRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga3130feda681a6630a2c1d0cb77a2d868" compoundref="xdmapcie__intr_8c" startline="75" endline="90">XDmaPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__xdmapcie_1ga086244f1e8866721dbb016893814281a" compoundref="xdmapcie__intr_8c" startline="145" endline="176">XDmaPcie_DisableInterrupts</referencedby>
+        <referencedby refid="group__xdmapcie_1ga60093f2ef3dd433de9da51dadc1e46bc" compoundref="xdmapcie__intr_8c" startline="50" endline="64">XDmaPcie_EnableGlobalInterrupt</referencedby>
+        <referencedby refid="group__xdmapcie_1ga034dab86e9626ac44e222373d056f693" compoundref="xdmapcie__intr_8c" startline="103" endline="132">XDmaPcie_EnableInterrupts</referencedby>
+        <referencedby refid="group__xdmapcie_1ga83357e666376be50d018b3e0d2d07acf" compoundref="xdmapcie_8c" startline="1125" endline="1148">XDmaPcie_GetBridgeInfo</referencedby>
+        <referencedby refid="group__xdmapcie_1ga7f0db923538acc2ee66a3011f1abf32c" compoundref="xdmapcie__intr_8c" startline="187" endline="203">XDmaPcie_GetEnabledInterrupts</referencedby>
+        <referencedby refid="group__xdmapcie_1ga2c9b0cae150260c8ee67c21c3e7cd372" compoundref="xdmapcie_8c" startline="1470" endline="1490">XDmaPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__xdmapcie_1gafbcdc92c0afe5f15363ceea6dd2472be" compoundref="xdmapcie__intr_8c" startline="214" endline="230">XDmaPcie_GetPendingInterrupts</referencedby>
+        <referencedby refid="group__xdmapcie_1ga3533208a920e43d2e9442ca9b02a22a3" compoundref="xdmapcie_8c" startline="1203" endline="1215">XDmaPcie_GetPhyStatusCtrl</referencedby>
+        <referencedby refid="group__xdmapcie_1ga5f24eea699cbc956a9705034c5f12607" compoundref="xdmapcie_8c" startline="1165" endline="1192">XDmaPcie_GetRequesterId</referencedby>
+        <referencedby refid="group__xdmapcie_1gafc77bc991235ea37d13d7bd07032584e" compoundref="xdmapcie_8c" startline="1325" endline="1348">XDmaPcie_GetRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga54d41c333a761b1c8decb59c19f1ffc6" compoundref="xdmapcie_8c" startline="1394" endline="1435">XDmaPcie_GetRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga2baa98cfc13d1f4d209267e80808e3b8" compoundref="xdmapcie_8c" startline="1229" endline="1239">XDmaPcie_GetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__xdmapcie_1gac61d1050938321b594087912a2272efb" compoundref="xdmapcie_8c" startline="1041" endline="1065">XDmaPcie_GetVsecCapability</referencedby>
+        <referencedby refid="group__xdmapcie_1gacf9acbd19090d9147cdad13913354fa6" compoundref="xdmapcie_8c" startline="1084" endline="1109">XDmaPcie_GetVsecHeader</referencedby>
+        <referencedby refid="group__xdmapcie_1ga0b168437da7bb05a2cdcbc2267df272d" compoundref="xdmapcie_8c" startline="1535" endline="1546">XDmaPcie_ReadLocalConfigSpace</referencedby>
+        <referencedby refid="group__xdmapcie_1gaf399300a4c8de88e4545ec848acfbca3" compoundref="xdmapcie_8c" startline="1501" endline="1519">XDmaPcie_SetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1641602833f00b16132be700a66e2f93" compoundref="xdmapcie_8c" startline="1281" endline="1307">XDmaPcie_SetRootPortMSIBase</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1f829c82bb17dcc56648246fafa2eaa5" compoundref="xdmapcie_8c" startline="1252" endline="1263">XDmaPcie_SetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__xdmapcie_1gaeedb6585a8dcbcc40443e7b90932ad6c" compoundref="xdmapcie_8c" startline="1564" endline="1575">XDmaPcie_WriteLocalConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1aef86109e178b5192a8f3ddb6bac3208c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDmaPcie_Config::LocalBarsNum</definition>
+        <argsstring></argsstring>
+        <name>LocalBarsNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1afbfd4139360acfa0164369df56161dd2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDmaPcie_Config::IncludeBarOffsetReg</definition>
+        <argsstring></argsstring>
+        <name>IncludeBarOffsetReg</name>
+        <briefdescription>
+<para>Are BAR Offset registers built in hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xdmapcie_1ga2c9b0cae150260c8ee67c21c3e7cd372" compoundref="xdmapcie_8c" startline="1470" endline="1490">XDmaPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__xdmapcie_1gaf399300a4c8de88e4545ec848acfbca3" compoundref="xdmapcie_8c" startline="1501" endline="1519">XDmaPcie_SetLocalBusBar2PcieBar</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1ab67ad06680c60071c889da0a04852a96" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDmaPcie_Config::IncludeRootComplex</definition>
+        <argsstring></argsstring>
+        <name>IncludeRootComplex</name>
+        <briefdescription>
+<para>Is IP built as root complex. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xdmapcie_1ga8ae44f206a94bf40daea49281112b46d" compoundref="xdmapcie_8c" startline="1360" endline="1370">XDmaPcie_ClearRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1a9e71d1904e3b6bfca811f5baec640c" compoundref="xdmapcie_8c" startline="1448" endline="1458">XDmaPcie_ClearRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__xdmapcie_1gafc77bc991235ea37d13d7bd07032584e" compoundref="xdmapcie_8c" startline="1325" endline="1348">XDmaPcie_GetRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga54d41c333a761b1c8decb59c19f1ffc6" compoundref="xdmapcie_8c" startline="1394" endline="1435">XDmaPcie_GetRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__xdmapcie_1ga2baa98cfc13d1f4d209267e80808e3b8" compoundref="xdmapcie_8c" startline="1229" endline="1239">XDmaPcie_GetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__xdmapcie_1gadac6261cddb63084c8ee87518e99edef" compoundref="xdmapcie_8c" startline="1686" endline="1734">XDmaPcie_ReadRemoteConfigSpace</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1641602833f00b16132be700a66e2f93" compoundref="xdmapcie_8c" startline="1281" endline="1307">XDmaPcie_SetRootPortMSIBase</referencedby>
+        <referencedby refid="group__xdmapcie_1ga1f829c82bb17dcc56648246fafa2eaa5" compoundref="xdmapcie_8c" startline="1252" endline="1263">XDmaPcie_SetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__xdmapcie_1gaeedb6585a8dcbcc40443e7b90932ad6c" compoundref="xdmapcie_8c" startline="1564" endline="1575">XDmaPcie_WriteLocalConfigSpace</referencedby>
+        <referencedby refid="group__xdmapcie_1gad47beee6caa44ae3f91979be9cd531bf" compoundref="xdmapcie_8c" startline="1758" endline="1799">XDmaPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a512b3ab4b0576150269be5aa9c36367d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPcie_Config::IATUAddress</definition>
+        <argsstring></argsstring>
+        <name>IATUAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a42ba484bddfed2c7c40d2e82cefe2893" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDmaPcie_Config::Ecam</definition>
+        <argsstring></argsstring>
+        <name>Ecam</name>
+        <briefdescription>
+<para>IATU Region Address for versal_2ve_2vm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xdmapcie_1ga557a92506060fd460154426bd8c4870c" compoundref="xdmapcie_8c" startline="128" endline="183">XDmaPcie_CfgInitialize</referencedby>
+        <referencedby refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" compoundref="xdmapcie__caps_8c" startline="116" endline="140">XDmaPcie_GetCapability</referencedby>
+        <referencedby refid="group__xdmapcie_1gadac6261cddb63084c8ee87518e99edef" compoundref="xdmapcie_8c" startline="1686" endline="1734">XDmaPcie_ReadRemoteConfigSpace</referencedby>
+        <referencedby refid="group__xdmapcie_1gad47beee6caa44ae3f91979be9cd531bf" compoundref="xdmapcie_8c" startline="1758" endline="1799">XDmaPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a154ea2174bdb4f7e8b9ef9e11f857c4e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPcie_Config::NpMemBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>NpMemBaseAddr</name>
+        <briefdescription>
+<para>non prefetchable memory base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xdmapcie_1ga557a92506060fd460154426bd8c4870c" compoundref="xdmapcie_8c" startline="128" endline="183">XDmaPcie_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1aaaff93f64f134d510ad5c5e5a326be9b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPcie_Config::NpMemMaxAddr</definition>
+        <argsstring></argsstring>
+        <name>NpMemMaxAddr</name>
+        <briefdescription>
+<para>non prefetchable memory max base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a650a11a48e2f0cb8cb5b4b7a258d7bd3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDmaPcie_Config::PMemBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PMemBaseAddr</name>
+        <briefdescription>
+<para>prefetchable memory base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_pcie___config_1a22d5c228c7cf3895651024e470317eab" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDmaPcie_Config::PMemMaxAddr</definition>
+        <argsstring></argsstring>
+        <name>PMemMaxAddr</name>
+        <briefdescription>
+<para>prefetchable memory max base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains IP hardware configuration information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie.h" bodystart="102" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_pcie___config_1a11981cd817dda09fa8ffb1e4b6c524bd" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dma_pcie___config_1a42ba484bddfed2c7c40d2e82cefe2893" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>Ecam</name></member>
+      <member refid="struct_x_dma_pcie___config_1a512b3ab4b0576150269be5aa9c36367d" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>IATUAddress</name></member>
+      <member refid="struct_x_dma_pcie___config_1afbfd4139360acfa0164369df56161dd2" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>IncludeBarOffsetReg</name></member>
+      <member refid="struct_x_dma_pcie___config_1ab67ad06680c60071c889da0a04852a96" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>IncludeRootComplex</name></member>
+      <member refid="struct_x_dma_pcie___config_1aef86109e178b5192a8f3ddb6bac3208c" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>LocalBarsNum</name></member>
+      <member refid="struct_x_dma_pcie___config_1a8dd53533ea5dbdd325305f27d1a209ef" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>Name</name></member>
+      <member refid="struct_x_dma_pcie___config_1a154ea2174bdb4f7e8b9ef9e11f857c4e" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>NpMemBaseAddr</name></member>
+      <member refid="struct_x_dma_pcie___config_1aaaff93f64f134d510ad5c5e5a326be9b" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>NpMemMaxAddr</name></member>
+      <member refid="struct_x_dma_pcie___config_1a650a11a48e2f0cb8cb5b4b7a258d7bd3" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>PMemBaseAddr</name></member>
+      <member refid="struct_x_dma_pcie___config_1a22d5c228c7cf3895651024e470317eab" prot="public" virt="non-virtual"><scope>XDmaPcie_Config</scope><name>PMemMaxAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

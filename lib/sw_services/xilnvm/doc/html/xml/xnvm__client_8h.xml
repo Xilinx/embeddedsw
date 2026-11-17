@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__client_8h" kind="file">
+    <compoundname>xnvm_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes refid="xnvm__mailbox_8h" local="yes">xnvm_mailbox.h</includes>
+    <includes local="yes">xnvm_defs.h</includes>
+    <includedby refid="xnvm__client_8c" local="yes">xnvm_client.c</includedby>
+    <incdepgraph>
+      <node id="228">
+        <label>xil_util.h</label>
+      </node>
+      <node id="233">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="231">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="230">
+        <label>xnvm_mailbox.h</label>
+        <link refid="xnvm__mailbox_8h"/>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="229">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="226">
+        <label>xnvm_client.h</label>
+        <link refid="xnvm_client.h"/>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>xil_types.h</label>
+      </node>
+      <node id="232">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="235">
+        <label>xnvm_client.c</label>
+        <link refid="xnvm__client_8c"/>
+      </node>
+      <node id="234">
+        <label>xnvm_client.h</label>
+        <link refid="xnvm_client.h"/>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__client__apis_1ga537288ea737e98beb3a73a185fc31bbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_GetClientLibVersion</definition>
+        <argsstring>(u32 *Version)</argsstring>
+        <name>XNvm_GetClientLibVersion</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the XilNvm library version that the client is built with. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to hold the 32-bit library version, where the upper 16 bits hold the major version and the lower 16 bits hold the minor version</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the library version is read successfully</para></listitem><listitem><para>XST_INVALID_PARAM If Version is NULL </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" bodystart="59" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__client__apis_1gab77cfbb4940f3923c7b721175d46f056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_GetServerLibInfo</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo)</argsstring>
+        <name>XNvm_GetServerLibInfo</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>Xil_LibInfo *</type>
+          <declname>LibInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function sends an IPI request to get the XilNvm library version and capability bits running on the PLM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LibInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Xil_LibInfo. LibVersion and Capability are filled on success. The Version and NistStatus fields are reserved for XilNvm and must be ignored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the library information is read successfully</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem></itemizedlist>
+</para><para>Query library info via the Features command using a valid NVM api-id as the selector, so the command succeeds and the server returns the library version/capability at fixed indices.</para><para><itemizedlist>
+<listitem><para>Send request using generic API, the server returns the library version and capability bits along with the status of the command.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.c" bodystart="91" bodyend="140"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aafdebd82312f6c4f787e6d36785f0a6f" compoundref="common_2xnvm__defs_8h" startline="147">XNVM_API_FEATURES</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" compoundref="common_2xnvm__defs_8h" startline="149">XNVM_API_ID_BBRAM_ZEROIZE</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="74" endline="132">XNvm_SendRequest</references>
+        <references refid="group__xnvm__client__apis_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__client_8c" startline="37">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains declarations of the client interface functions which are common to the whole XilNvm library and are not specific to BBRAM or eFUSE. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+3.8   tus  08/10/26 Initial release with the library version query
+                    and server library information</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XNVM_CLIENT_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_CLIENT_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__mailbox_8h" kindref="compound">xnvm_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__client__apis_1ga537288ea737e98beb3a73a185fc31bbd" kindref="member">XNvm_GetClientLibVersion</ref>(u32<sp/>*Version);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__client__apis_1gab77cfbb4940f3923c7b721175d46f056" kindref="member">XNvm_GetServerLibInfo</ref>(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>Xil_LibInfo<sp/>*LibInfo);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_client.h"/>
+  </compounddef>
+</doxygen>

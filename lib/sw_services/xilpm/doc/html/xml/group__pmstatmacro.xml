@@ -1,0 +1,3470 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__pmstatmacro" kind="group">
+    <compoundname>pmstatmacro</compoundname>
+    <title>Pmstatmacro</title>
+      <sectiondef kind="user-defined">
+      <header>Power management specific return error status</header>
+      <memberdef kind="define" id="group__pmstatmacro_1ga64fdc30b6b67a7b9a834781a245263f7" prot="public" static="no">
+        <name>XST_PM_INTERNAL</name>
+        <initializer>2000L</initializer>
+        <briefdescription>
+<para>Power management specific return error status. </para>        </briefdescription>
+        <detaileddescription>
+<para>An internal error occurred while performing the requested operation </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1ga534734bfd82bbe6692d035d8d80820b6" prot="public" static="no">
+        <name>XST_PM_CONFLICT</name>
+        <initializer>2001L</initializer>
+        <briefdescription>
+<para>Conflicting requirements have been asserted when more than one processing cluster is using the same PM slave. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1ga456ddadaa8d5f6826c9c012a2fe96f0b" prot="public" static="no">
+        <name>XST_PM_NO_ACCESS</name>
+        <initializer>2002L</initializer>
+        <briefdescription>
+<para>The processing cluster does not have access to the requested node or operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1gafb0a2bacdbf11443ec68ca33be16a99c" prot="public" static="no">
+        <name>XST_PM_INVALID_NODE</name>
+        <initializer>2003L</initializer>
+        <briefdescription>
+<para>The API function does not apply to the node passed as argument. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1ga26cbc494129ff7722639e774019ae344" prot="public" static="no">
+        <name>XST_PM_DOUBLE_REQ</name>
+        <initializer>2004L</initializer>
+        <briefdescription>
+<para>A processing cluster has already been assigned access to a PM slave and has issued a duplicate request for that PM slave. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1ga6962c3107d9b629dc0c433d7542cce97" prot="public" static="no">
+        <name>XST_PM_ABORT_SUSPEND</name>
+        <initializer>2005L</initializer>
+        <briefdescription>
+<para>The target processing cluster has aborted suspend. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1ga5f3780fb1897a26cba8a54ffbfdb9822" prot="public" static="no">
+        <name>XST_PM_TIMEOUT</name>
+        <initializer>2006L</initializer>
+        <briefdescription>
+<para>A timeout occurred while performing the requested operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmstatmacro_1ga25980bcb6df7d50860a9f3ef05764db0" prot="public" static="no">
+        <name>XST_PM_NODE_USED</name>
+        <initializer>2007L</initializer>
+        <briefdescription>
+<para>Slave request cannot be granted since node is non-shareable and used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__pmstatmacro_1ga47fef02b092b4323635421a97a594583" prot="public" static="no">
+        <name>XPmBootStatus</name>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ac784387567e3da25e67a3143ca70a3f5" prot="public">
+          <name>PM_INITIAL_BOOT</name>
+          <briefdescription>
+<para>boot is a fresh system startup </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ab39c2f94409cc7e5027c4a3ee9e0e10d" prot="public">
+          <name>PM_RESUME</name>
+          <briefdescription>
+<para>boot is a resume </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583af981dd988c5d764e7577e22eca6462bd" prot="public">
+          <name>PM_BOOT_ERROR</name>
+          <briefdescription>
+<para>error, boot cause cannot be identified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ac784387567e3da25e67a3143ca70a3f5" prot="public">
+          <name>PM_INITIAL_BOOT</name>
+          <briefdescription>
+<para>boot is a fresh system startup </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ab39c2f94409cc7e5027c4a3ee9e0e10d" prot="public">
+          <name>PM_RESUME</name>
+          <briefdescription>
+<para>boot is a resume </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583af981dd988c5d764e7577e22eca6462bd" prot="public">
+          <name>PM_BOOT_ERROR</name>
+          <briefdescription>
+<para>error, boot cause cannot be identified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ac784387567e3da25e67a3143ca70a3f5" prot="public">
+          <name>PM_INITIAL_BOOT</name>
+          <briefdescription>
+<para>boot is a fresh system startup </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ab39c2f94409cc7e5027c4a3ee9e0e10d" prot="public">
+          <name>PM_RESUME</name>
+          <briefdescription>
+<para>boot is a resume </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583af981dd988c5d764e7577e22eca6462bd" prot="public">
+          <name>PM_BOOT_ERROR</name>
+          <briefdescription>
+<para>error, boot cause cannot be identified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ac784387567e3da25e67a3143ca70a3f5" prot="public">
+          <name>PM_INITIAL_BOOT</name>
+          <briefdescription>
+<para>boot is a fresh system startup </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583ab39c2f94409cc7e5027c4a3ee9e0e10d" prot="public">
+          <name>PM_RESUME</name>
+          <briefdescription>
+<para>boot is a resume </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga47fef02b092b4323635421a97a594583af981dd988c5d764e7577e22eca6462bd" prot="public">
+          <name>PM_BOOT_ERROR</name>
+          <briefdescription>
+<para>error, boot cause cannot be identified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Boot Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="296" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1gaee462106fb1c81c8a04be66eb37a2966" prot="public" static="no">
+        <name>XPmResetAction</name>
+        <enumvalue id="group__pmstatmacro_1ggaee462106fb1c81c8a04be66eb37a2966a5fa50cf43cf5550f92278e0f56e968f1" prot="public">
+          <name>XILPM_RESET_ACTION_RELEASE</name>
+          <briefdescription>
+<para>Reset action release. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaee462106fb1c81c8a04be66eb37a2966a2a272805f53246b01befe12076aa0e75" prot="public">
+          <name>XILPM_RESET_ACTION_ASSERT</name>
+          <briefdescription>
+<para>Reset action assert. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaee462106fb1c81c8a04be66eb37a2966a9bbe0032159d0e7ca0ad32c91fcd2ed8" prot="public">
+          <name>XILPM_RESET_ACTION_PULSE</name>
+          <briefdescription>
+<para>Reset action pulse. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Reset Action types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="305" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga4ef40921de68bce2c0be43c241b40450" prot="public" static="no">
+        <name>XPmReset</name>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a695607ca03a2e5fc994c5c88f80bca92" prot="public">
+          <name>XILPM_RESET_PCIE_CFG</name>
+          <initializer>= 1000</initializer>
+          <briefdescription>
+<para>Reset ID PCIE_CFG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450abbb97dc7d98dd007b7efbc0d41c36c42" prot="public">
+          <name>XILPM_RESET_PCIE_BRIDGE</name>
+          <briefdescription>
+<para>Reset ID PCIE_BRIDGE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ac74dac4ef7622b3409fb0631f2be8b65" prot="public">
+          <name>XILPM_RESET_PCIE_CTRL</name>
+          <briefdescription>
+<para>Reset ID PCIE_CTRL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aab5af97fe5e7fd6ea482b9c90d0f43ea" prot="public">
+          <name>XILPM_RESET_DP</name>
+          <briefdescription>
+<para>Reset ID DP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a7ee34d61a82ae8392e6317b9f99b5077" prot="public">
+          <name>XILPM_RESET_SWDT_CRF</name>
+          <briefdescription>
+<para>Reset ID SWDT_CRF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a801242a39eff2cab3e70452ee7487b9d" prot="public">
+          <name>XILPM_RESET_AFI_FM5</name>
+          <briefdescription>
+<para>Reset ID AFI_FM5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8ceb736432e4f49ca9f615fe52dd0d76" prot="public">
+          <name>XILPM_RESET_AFI_FM4</name>
+          <briefdescription>
+<para>Reset ID AFI_FM4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a30ac3de92fe9a1e12743910bf5ac3d4d" prot="public">
+          <name>XILPM_RESET_AFI_FM3</name>
+          <briefdescription>
+<para>Reset ID AFI_FM3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a92d88313ccb6c3b59f2f3cd84e746edb" prot="public">
+          <name>XILPM_RESET_AFI_FM2</name>
+          <briefdescription>
+<para>Reset ID AFI_FM2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aa9c3b6627ba316c12cded67a41a5ee6b" prot="public">
+          <name>XILPM_RESET_AFI_FM1</name>
+          <briefdescription>
+<para>Reset ID AFI_FM1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a162db26788208c4cfb5d6938ccfdb38f" prot="public">
+          <name>XILPM_RESET_AFI_FM0</name>
+          <briefdescription>
+<para>Reset ID AFI_FM0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ae066b3cd1be768689853bb17d7c51150" prot="public">
+          <name>XILPM_RESET_GDMA</name>
+          <briefdescription>
+<para>Reset ID GDMA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a5d6609af7932e2fe28b4f99a7e0885cf" prot="public">
+          <name>XILPM_RESET_GPU_PP1</name>
+          <briefdescription>
+<para>Reset ID GPU_PP1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450afc64fb2bcf62aedf12052d3a616d105f" prot="public">
+          <name>XILPM_RESET_GPU_PP0</name>
+          <briefdescription>
+<para>Reset ID GPU_PP0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a30d96a4de71269c03b84f3a91fda1413" prot="public">
+          <name>XILPM_RESET_GPU</name>
+          <briefdescription>
+<para>Reset ID GPU. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a45905d0794daaa962e15cc79dc36896e" prot="public">
+          <name>XILPM_RESET_GT</name>
+          <briefdescription>
+<para>Reset ID GT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a2339466f1298d26190bbc725a4ac3601" prot="public">
+          <name>XILPM_RESET_SATA</name>
+          <briefdescription>
+<para>Reset ID SATA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450af24ef8a1a93bd4883617890cc7c6aa52" prot="public">
+          <name>XILPM_RESET_ACPU3_PWRON</name>
+          <briefdescription>
+<para>Reset ID ACPU3_PWRON. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ae22ff89c72d969abf697914e55035dc4" prot="public">
+          <name>XILPM_RESET_ACPU2_PWRON</name>
+          <briefdescription>
+<para>Reset ID ACPU2_PWRON. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8bb73c8bd2bd572ce422d34151c43b1b" prot="public">
+          <name>XILPM_RESET_ACPU1_PWRON</name>
+          <briefdescription>
+<para>Reset ID ACPU1_PWRON. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ab83137dd441de43d26c20d4dde527214" prot="public">
+          <name>XILPM_RESET_ACPU0_PWRON</name>
+          <briefdescription>
+<para>Reset ID ACPU0_PWRON. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aee5d528b7c8baf8b1c3319aaf01c5565" prot="public">
+          <name>XILPM_RESET_APU_L2</name>
+          <briefdescription>
+<para>Reset ID APU_L2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ad2102d833dcd6c0579101c21bf4ee838" prot="public">
+          <name>XILPM_RESET_ACPU3</name>
+          <briefdescription>
+<para>Reset ID ACPU3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a63c76db44ab54654649f23e09921c8a2" prot="public">
+          <name>XILPM_RESET_ACPU2</name>
+          <briefdescription>
+<para>Reset ID ACPU2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a1ae17cc40e075ee3eeea7acf514c18e8" prot="public">
+          <name>XILPM_RESET_ACPU1</name>
+          <briefdescription>
+<para>Reset ID ACPU1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450afc6d4d83cb9c919711de4d798e343a8c" prot="public">
+          <name>XILPM_RESET_ACPU0</name>
+          <briefdescription>
+<para>Reset ID ACPU0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a6d1d3e9368b9382897fb72d345869361" prot="public">
+          <name>XILPM_RESET_DDR</name>
+          <briefdescription>
+<para>Reset ID DDR. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8d097c35850cd4de3af867c2e636ea2c" prot="public">
+          <name>XILPM_RESET_APM_FPD</name>
+          <briefdescription>
+<para>Reset ID APM_FPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aca76e53704854d4dd24a7a9fe81c1c43" prot="public">
+          <name>XILPM_RESET_SOFT</name>
+          <briefdescription>
+<para>Reset ID SOFT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a0313ad8353a134d8d09ece4bafe3e702" prot="public">
+          <name>XILPM_RESET_GEM0</name>
+          <briefdescription>
+<para>Reset ID GEM0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a0f5929a3a62e858edf89857eef214e6b" prot="public">
+          <name>XILPM_RESET_GEM1</name>
+          <briefdescription>
+<para>Reset ID GEM1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a4752e6bd2ca98871387982fff4423726" prot="public">
+          <name>XILPM_RESET_GEM2</name>
+          <briefdescription>
+<para>Reset ID GEM2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450afacf5aff1e6d9907a2ee69106f8c2fd9" prot="public">
+          <name>XILPM_RESET_GEM3</name>
+          <briefdescription>
+<para>Reset ID GEM3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a68d2651ca49c30f32a926a68705d2c9c" prot="public">
+          <name>XILPM_RESET_QSPI</name>
+          <briefdescription>
+<para>Reset ID QSPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a350a806e141c1a1cee28156f6df18359" prot="public">
+          <name>XILPM_RESET_UART0</name>
+          <briefdescription>
+<para>Reset ID UART0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ae7fa953537c4d9833875c73bf8b92f6c" prot="public">
+          <name>XILPM_RESET_UART1</name>
+          <briefdescription>
+<para>Reset ID UART1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a5bfa791a4d79015e9b74da6bf973e600" prot="public">
+          <name>XILPM_RESET_SPI0</name>
+          <briefdescription>
+<para>Reset ID SPI0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ad0ba25d1fc543c31b53be5e4ee8e7a40" prot="public">
+          <name>XILPM_RESET_SPI1</name>
+          <briefdescription>
+<para>Reset ID SPI1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a49296da940dbc70ddd02bf8bcf33dae3" prot="public">
+          <name>XILPM_RESET_SDIO0</name>
+          <briefdescription>
+<para>Reset ID SDIO0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a1b31c443047a7a21cfd731511d6ca58c" prot="public">
+          <name>XILPM_RESET_SDIO1</name>
+          <briefdescription>
+<para>Reset ID SDIO1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aafb21f75c54d142d9418a736c23f6f43" prot="public">
+          <name>XILPM_RESET_CAN0</name>
+          <briefdescription>
+<para>Reset ID CAN0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a6d7c1fc105041baa14eec5cbf73e3178" prot="public">
+          <name>XILPM_RESET_CAN1</name>
+          <briefdescription>
+<para>Reset ID CAN1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a7717f1115973806ff6e05d627bc19901" prot="public">
+          <name>XILPM_RESET_I2C0</name>
+          <briefdescription>
+<para>Reset ID I2C0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a165802f7c98ee636685d79c5531c01b8" prot="public">
+          <name>XILPM_RESET_I2C1</name>
+          <briefdescription>
+<para>Reset ID I2C1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a99dae6864b11f1c805a5555925142191" prot="public">
+          <name>XILPM_RESET_TTC0</name>
+          <briefdescription>
+<para>Reset ID TTC0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a3b2871f7c1ae0091413f8827076b2be2" prot="public">
+          <name>XILPM_RESET_TTC1</name>
+          <briefdescription>
+<para>Reset ID TTC1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450af2ad78adc6cb2f4fc43b8aaa2279262a" prot="public">
+          <name>XILPM_RESET_TTC2</name>
+          <briefdescription>
+<para>Reset ID TTC2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8bb26cec54fa1ae31c7f8d2cca1c9c75" prot="public">
+          <name>XILPM_RESET_TTC3</name>
+          <briefdescription>
+<para>Reset ID TTC3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ac3dee1655fd2eadc5e2ae695e48b6e4e" prot="public">
+          <name>XILPM_RESET_SWDT_CRL</name>
+          <briefdescription>
+<para>Reset ID SWDT_CRL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ac5a5bab461205753958f75211ef8004e" prot="public">
+          <name>XILPM_RESET_NAND</name>
+          <briefdescription>
+<para>Reset ID NAND. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a1c0b9012368aca8f6ce66449ab13dd67" prot="public">
+          <name>XILPM_RESET_ADMA</name>
+          <briefdescription>
+<para>Reset ID ADMA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a5122000d1a2a3d841b19a3362e7403aa" prot="public">
+          <name>XILPM_RESET_GPIO</name>
+          <briefdescription>
+<para>Reset ID GPIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a1b455aa062052db8297a20bcc58080b9" prot="public">
+          <name>XILPM_RESET_IOU_CC</name>
+          <briefdescription>
+<para>Reset ID IOU_CC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450af993a35fcae3fbd28ece1ff4b807af0a" prot="public">
+          <name>XILPM_RESET_TIMESTAMP</name>
+          <briefdescription>
+<para>Reset ID TIMESTAMP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a9d330164710cc093e0b022264eea75c9" prot="public">
+          <name>XILPM_RESET_RPU_R50</name>
+          <briefdescription>
+<para>Reset ID RPU_R50. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ac5462c75d59a2158a18e6fafc82f27c0" prot="public">
+          <name>XILPM_RESET_RPU_R51</name>
+          <briefdescription>
+<para>Reset ID RPU_R51. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aefc43adb0a57d7a84789e2614e43037c" prot="public">
+          <name>XILPM_RESET_RPU_AMBA</name>
+          <briefdescription>
+<para>Reset ID RPU_AMBA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aef6d4216c67595ee277efed375b5d25d" prot="public">
+          <name>XILPM_RESET_OCM</name>
+          <briefdescription>
+<para>Reset ID OCM. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8225e9c48785315abafa04859a469d3b" prot="public">
+          <name>XILPM_RESET_RPU_PGE</name>
+          <briefdescription>
+<para>Reset ID RPU_PGE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aa903c2981cb6abf4f0f7bf4f10f785b2" prot="public">
+          <name>XILPM_RESET_USB0_CORERESET</name>
+          <briefdescription>
+<para>Reset ID USB0_CORERESE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a89b41113b800a2835c38f7ece4ef4ce2" prot="public">
+          <name>XILPM_RESET_USB1_CORERESET</name>
+          <briefdescription>
+<para>Reset ID USB1_CORERESE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a6ba089bbf7740386c6ad6c09c8f0f7dd" prot="public">
+          <name>XILPM_RESET_USB0_HIBERRESET</name>
+          <briefdescription>
+<para>Reset ID USB0_HIBERRES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450af1ce0b358b25d6e576c36f497e8485dd" prot="public">
+          <name>XILPM_RESET_USB1_HIBERRESET</name>
+          <briefdescription>
+<para>Reset ID USB1_HIBERRES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a06f19d8d46e271e0e525dc036cd6bee2" prot="public">
+          <name>XILPM_RESET_USB0_APB</name>
+          <briefdescription>
+<para>Reset ID USB0_APB. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450af6c881d993b679bdbb932f3b5eed9b6a" prot="public">
+          <name>XILPM_RESET_USB1_APB</name>
+          <briefdescription>
+<para>Reset ID USB1_APB. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a1bf127f9219d7145175f858fe7025784" prot="public">
+          <name>XILPM_RESET_IPI</name>
+          <briefdescription>
+<para>Reset ID IPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a97df2db3635bba1defd03d1074b3b8dc" prot="public">
+          <name>XILPM_RESET_APM_LPD</name>
+          <briefdescription>
+<para>Reset ID APM_LPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a0910bb3cec3c5c430407a2e2119e9fc4" prot="public">
+          <name>XILPM_RESET_RTC</name>
+          <briefdescription>
+<para>Reset ID RTC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a4c6e8897626dabea223146713df1be7b" prot="public">
+          <name>XILPM_RESET_SYSMON</name>
+          <briefdescription>
+<para>Reset ID SYSMON. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aab51612883da16e1be59e027e444234e" prot="public">
+          <name>XILPM_RESET_AFI_FM6</name>
+          <briefdescription>
+<para>Reset ID AFI_FM6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a55cfb503d3947ac0b284956ef8756587" prot="public">
+          <name>XILPM_RESET_LPD_SWDT</name>
+          <briefdescription>
+<para>Reset ID LPD_SWDT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a0575e8263b81ef4c31adbbcc2a388e08" prot="public">
+          <name>XILPM_RESET_FPD</name>
+          <briefdescription>
+<para>Reset ID FPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a34c326bad78ae4ec12b37f352f76ba8f" prot="public">
+          <name>XILPM_RESET_RPU_DBG1</name>
+          <briefdescription>
+<para>Reset ID RPU_DBG1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a80645efa9fe292bdc17b38ef166adc5b" prot="public">
+          <name>XILPM_RESET_RPU_DBG0</name>
+          <briefdescription>
+<para>Reset ID RPU_DBG0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450abd38579daad383354fdd8d716e7bf5ee" prot="public">
+          <name>XILPM_RESET_DBG_LPD</name>
+          <briefdescription>
+<para>Reset ID DBG_LPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ae1fa3ed29a35d5f690c5521929b81708" prot="public">
+          <name>XILPM_RESET_DBG_FPD</name>
+          <briefdescription>
+<para>Reset ID DBG_FPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a42fb598478b75e26b529df2d8bf341a4" prot="public">
+          <name>XILPM_RESET_APLL</name>
+          <briefdescription>
+<para>Reset ID APLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ab82ba35a0f3d86a68abae57b78c95089" prot="public">
+          <name>XILPM_RESET_DPLL</name>
+          <briefdescription>
+<para>Reset ID DPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a6b425bb93842c1fb8c8309b678bec185" prot="public">
+          <name>XILPM_RESET_VPLL</name>
+          <briefdescription>
+<para>Reset ID VPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a2950e6ada5b616e6071312ac48b8393f" prot="public">
+          <name>XILPM_RESET_IOPLL</name>
+          <briefdescription>
+<para>Reset ID IOPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aa270bfb4a28c4ed08c0fe411dcf6c064" prot="public">
+          <name>XILPM_RESET_RPLL</name>
+          <briefdescription>
+<para>Reset ID RPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ab5864a0c6118b2158dd9308f9c2d430e" prot="public">
+          <name>XILPM_RESET_GPO3_PL_0</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a69cee3f92073edcadf24bf67bb952b9f" prot="public">
+          <name>XILPM_RESET_GPO3_PL_1</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a6477a0963d2bf97a1ef5c28f54ee2705" prot="public">
+          <name>XILPM_RESET_GPO3_PL_2</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a49c75cf997cea4e651b58f1afa15bd49" prot="public">
+          <name>XILPM_RESET_GPO3_PL_3</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a89e5bcf31779b1b2387a647b842d6edb" prot="public">
+          <name>XILPM_RESET_GPO3_PL_4</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ae6999b45aad42df4c29b6fae1886c1ef" prot="public">
+          <name>XILPM_RESET_GPO3_PL_5</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8490808a1fdee98c30d0a04644d148c1" prot="public">
+          <name>XILPM_RESET_GPO3_PL_6</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aa79f487f72e050eda8fe8b32b2aaa963" prot="public">
+          <name>XILPM_RESET_GPO3_PL_7</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_7. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a29dc597323f9b68b22be8b1c29cd7c6e" prot="public">
+          <name>XILPM_RESET_GPO3_PL_8</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_8. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450acacdfdbb0309c2773987752ac8b031cc" prot="public">
+          <name>XILPM_RESET_GPO3_PL_9</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_9. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a5588c741508d10df06386f64f3da16f2" prot="public">
+          <name>XILPM_RESET_GPO3_PL_10</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_10. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a76ae04634be4121b5c4f092418b31844" prot="public">
+          <name>XILPM_RESET_GPO3_PL_11</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_11. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a3912cd567ff4ba326ac233d740638868" prot="public">
+          <name>XILPM_RESET_GPO3_PL_12</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_12. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a889f19613fa5e0b94468d99b93a25ff6" prot="public">
+          <name>XILPM_RESET_GPO3_PL_13</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_13. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a454d2de212367265bf8ada6d3151c99b" prot="public">
+          <name>XILPM_RESET_GPO3_PL_14</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_14. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a5ef49b6de0d6beba168869adf80ae0c2" prot="public">
+          <name>XILPM_RESET_GPO3_PL_15</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_15. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a5cdbe14eaae6bd34c252dd7487a45bca" prot="public">
+          <name>XILPM_RESET_GPO3_PL_16</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_16. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a1214a9b5902ffd698f86800eccfe8433" prot="public">
+          <name>XILPM_RESET_GPO3_PL_17</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_17. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450afbb64cc6f256f0345c1621fb42b4d76a" prot="public">
+          <name>XILPM_RESET_GPO3_PL_18</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_18. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a52925cef2d3fd41582a91b338b282441" prot="public">
+          <name>XILPM_RESET_GPO3_PL_19</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_19. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8630c4fec964ee2251fc0874ef10e67c" prot="public">
+          <name>XILPM_RESET_GPO3_PL_20</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_20. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a0a052c09620e431ea2c56e9b8a815d49" prot="public">
+          <name>XILPM_RESET_GPO3_PL_21</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_21. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a659efc7fc068827f8b0e3a5febb6341e" prot="public">
+          <name>XILPM_RESET_GPO3_PL_22</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_22. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aa669948e07fc1f4d0ab3a5953bb7dd8c" prot="public">
+          <name>XILPM_RESET_GPO3_PL_23</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_23. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a8c4c91a1ef7bb3126ad5921ff9cff5f3" prot="public">
+          <name>XILPM_RESET_GPO3_PL_24</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_24. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aafc1931af08922f63b676b689c32e0c1" prot="public">
+          <name>XILPM_RESET_GPO3_PL_25</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_25. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aadcb70609e8062cd6c7049f0602ba8b9" prot="public">
+          <name>XILPM_RESET_GPO3_PL_26</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_26. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ad8d5f2f63c6a4f988763aa7167ea15f5" prot="public">
+          <name>XILPM_RESET_GPO3_PL_27</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_27. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a82a963e0ce24c59a0e6d59faaa452dd3" prot="public">
+          <name>XILPM_RESET_GPO3_PL_28</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_28. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450addfe1e96c6ce1ff83889e2d496d6112c" prot="public">
+          <name>XILPM_RESET_GPO3_PL_29</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_29. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ad55099db2ac5638503e0a85cf90e5461" prot="public">
+          <name>XILPM_RESET_GPO3_PL_30</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_30. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450ab9270920a7ea225251c936b9d50ac555" prot="public">
+          <name>XILPM_RESET_GPO3_PL_31</name>
+          <briefdescription>
+<para>Reset ID GPO3_PL_31. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a080d2c1bca7b697762d4bdc0e19c87b4" prot="public">
+          <name>XILPM_RESET_RPU_LS</name>
+          <briefdescription>
+<para>Reset ID RPU_LS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a6674686caaf03adec0cf8d3558476990" prot="public">
+          <name>XILPM_RESET_PS_ONLY</name>
+          <briefdescription>
+<para>Reset ID PS_ONLY. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a985caa70dcf6bfb226463a8a36ce790d" prot="public">
+          <name>XILPM_RESET_PL</name>
+          <briefdescription>
+<para>Reset ID PL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450afc7c7c77e2708d331b2beef0aae693ca" prot="public">
+          <name>XILPM_RESET_GPIO5_EMIO_92</name>
+          <briefdescription>
+<para>Reset ID GPIO5_EMIO_92. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450aab6e2f217415adf0bbef5d291881be13" prot="public">
+          <name>XILPM_RESET_GPIO5_EMIO_93</name>
+          <briefdescription>
+<para>Reset ID GPIO5_EMIO_93. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450a7bdae967ff35711ae7fbb9bb6ab84f83" prot="public">
+          <name>XILPM_RESET_GPIO5_EMIO_94</name>
+          <briefdescription>
+<para>Reset ID GPIO5_EMIO_94. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga4ef40921de68bce2c0be43c241b40450af718894d0dcb1c3a9e6bb10ed74d0866" prot="public">
+          <name>XILPM_RESET_GPIO5_EMIO_95</name>
+          <briefdescription>
+<para>Reset ID GPIO5_EMIO_95. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Reset Line IDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="314" bodyend="435"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga808f1f36491beec6b7155dcca2420d76" prot="public" static="no">
+        <name>XPmNotifyEvent</name>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a838e3292c743a3ec576c6dc8e170e49d" prot="public">
+          <name>EVENT_STATE_CHANGE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>State change event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a67ad835f39313b8212b124a89efec60d" prot="public">
+          <name>EVENT_ZERO_USERS</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Zero user event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a903246ab818bbc1ca4c82c8c3a03b5ab" prot="public">
+          <name>EVENT_CPU_IDLE_FORCE_PWRDWN</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>CPU idle event during force power down. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a838e3292c743a3ec576c6dc8e170e49d" prot="public">
+          <name>EVENT_STATE_CHANGE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>State change event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a67ad835f39313b8212b124a89efec60d" prot="public">
+          <name>EVENT_ZERO_USERS</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Zero user event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a903246ab818bbc1ca4c82c8c3a03b5ab" prot="public">
+          <name>EVENT_CPU_IDLE_FORCE_PWRDWN</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>CPU idle event during force power down. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a838e3292c743a3ec576c6dc8e170e49d" prot="public">
+          <name>EVENT_STATE_CHANGE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>State change event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a67ad835f39313b8212b124a89efec60d" prot="public">
+          <name>EVENT_ZERO_USERS</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Zero user event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a903246ab818bbc1ca4c82c8c3a03b5ab" prot="public">
+          <name>EVENT_CPU_IDLE_FORCE_PWRDWN</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>CPU idle event during force power down. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a838e3292c743a3ec576c6dc8e170e49d" prot="public">
+          <name>EVENT_STATE_CHANGE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>State change event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga808f1f36491beec6b7155dcca2420d76a67ad835f39313b8212b124a89efec60d" prot="public">
+          <name>EVENT_ZERO_USERS</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Zero user event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Notify Events Enum. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="440" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga416d80c09fcb2e95c1542e02d218dd6f" prot="public" static="no">
+        <name>XPmClock</name>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fad1a55b14d32b4ee41f6c284c457cbc34" prot="public">
+          <name>PM_CLOCK_IOPLL</name>
+          <briefdescription>
+<para>Clock ID IOPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa8d87ab8844d6036e00a971c1f740d70e" prot="public">
+          <name>PM_CLOCK_RPLL</name>
+          <briefdescription>
+<para>Clock ID RPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa283b1ed7b05d1a6ede9d98163fb53935" prot="public">
+          <name>PM_CLOCK_APLL</name>
+          <briefdescription>
+<para>Clock ID APLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6fceafa32f392fb8dd662d7dadc6da1a" prot="public">
+          <name>PM_CLOCK_DPLL</name>
+          <briefdescription>
+<para>Clock ID DPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faca2bb27eb749846e5a8981c63fe67467" prot="public">
+          <name>PM_CLOCK_VPLL</name>
+          <briefdescription>
+<para>Clock ID VPLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fad7296b3fd53585b74b46f4f1f2a22ef5" prot="public">
+          <name>PM_CLOCK_IOPLL_TO_FPD</name>
+          <briefdescription>
+<para>Clock ID IOPLL_TO_FPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa0795d9f203ef77c53d7c0187f289c190" prot="public">
+          <name>PM_CLOCK_RPLL_TO_FPD</name>
+          <briefdescription>
+<para>Clock ID RPLL_TO_FPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa97ac81073069c4f99789b1b0e9a74f74" prot="public">
+          <name>PM_CLOCK_APLL_TO_LPD</name>
+          <briefdescription>
+<para>Clock ID APLL_TO_LPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6facb402f3b3c6a75f98aa8b9ed3ba7177f" prot="public">
+          <name>PM_CLOCK_DPLL_TO_LPD</name>
+          <briefdescription>
+<para>Clock ID DPLL_TO_LPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf09f09f54829f23c4c7c8cf53abeb452" prot="public">
+          <name>PM_CLOCK_VPLL_TO_LPD</name>
+          <briefdescription>
+<para>Clock ID VPLL_TO_LPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fafe6a646028ab279aa995882b4b23760a" prot="public">
+          <name>PM_CLOCK_ACPU</name>
+          <briefdescription>
+<para>Clock ID ACPU. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab67bb219dcc8471bfbab70741b472956" prot="public">
+          <name>PM_CLOCK_ACPU_HALF</name>
+          <briefdescription>
+<para>Clock ID ACPU_HALF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa9a033320da04f0501451f82b417df142" prot="public">
+          <name>PM_CLOCK_DBG_FPD</name>
+          <briefdescription>
+<para>Clock ID DBG_FPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa50caee67910b3196811ba3da5f5aaafb" prot="public">
+          <name>PM_CLOCK_DBG_LPD</name>
+          <briefdescription>
+<para>Clock ID DBG_LPD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7b6e929f70221930c65fc4e01b84b3a8" prot="public">
+          <name>PM_CLOCK_DBG_TRACE</name>
+          <briefdescription>
+<para>Clock ID DBG_TRACE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa53f9c9ca3a57e87335edfe0372cd1582" prot="public">
+          <name>PM_CLOCK_DBG_TSTMP</name>
+          <briefdescription>
+<para>Clock ID DBG_TSTMP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa16e6e71d5328ca9e264f6b76131bd8f6" prot="public">
+          <name>PM_CLOCK_DP_VIDEO_REF</name>
+          <briefdescription>
+<para>Clock ID DP_VIDEO_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa25be99996065d2e4fc6de31d11f881dd" prot="public">
+          <name>PM_CLOCK_DP_AUDIO_REF</name>
+          <briefdescription>
+<para>Clock ID DP_AUDIO_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa63e44b007c8f3241853343135f38baa1" prot="public">
+          <name>PM_CLOCK_DP_STC_REF</name>
+          <briefdescription>
+<para>Clock ID DP_STC_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa86c5a4fe40b9d5e88a9f854e61e21ae2" prot="public">
+          <name>PM_CLOCK_GDMA_REF</name>
+          <briefdescription>
+<para>Clock ID GDMA_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa83bd0b065a4e09895e0604259b0a0c9" prot="public">
+          <name>PM_CLOCK_DPDMA_REF</name>
+          <briefdescription>
+<para>Clock ID DPDMA_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa30419399f8a536b7624ea166f682493" prot="public">
+          <name>PM_CLOCK_DDR_REF</name>
+          <briefdescription>
+<para>Clock ID DDR_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa38f953fb18fafc1dee55197873361739" prot="public">
+          <name>PM_CLOCK_SATA_REF</name>
+          <briefdescription>
+<para>Clock ID SATA_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa5b64fbe65e523995c2f1d7aedda71e8e" prot="public">
+          <name>PM_CLOCK_PCIE_REF</name>
+          <briefdescription>
+<para>Clock ID PCIE_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa4a87fbf836cbfa516923e3118fd6c6b4" prot="public">
+          <name>PM_CLOCK_GPU_REF</name>
+          <briefdescription>
+<para>Clock ID GPU_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa925857151efcc8e6465d9d252fe4f008" prot="public">
+          <name>PM_CLOCK_GPU_PP0_REF</name>
+          <briefdescription>
+<para>Clock ID GPU_PP0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa52e41425fba501aa0dffe481aa6d7fd4" prot="public">
+          <name>PM_CLOCK_GPU_PP1_REF</name>
+          <briefdescription>
+<para>Clock ID GPU_PP1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab7c885b3ff7345ce35ee5120a83e1911" prot="public">
+          <name>PM_CLOCK_TOPSW_MAIN</name>
+          <briefdescription>
+<para>Clock ID TOPSW_MAIN. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa66b74323bfea5e82ca25a3d4c369c016" prot="public">
+          <name>PM_CLOCK_TOPSW_LSBUS</name>
+          <briefdescription>
+<para>Clock ID TOPSW_LSBUS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faebbd1fad6b82c1211ee2d114ea2c1be6" prot="public">
+          <name>PM_CLOCK_GTGREF0_REF</name>
+          <briefdescription>
+<para>Clock ID GTGREF0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa4c798c21cd3e87727c06579c8d0b978" prot="public">
+          <name>PM_CLOCK_LPD_SWITCH</name>
+          <briefdescription>
+<para>Clock ID LPD_SWITCH. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa5321cc2d2460b3af276e1c05ea6be668" prot="public">
+          <name>PM_CLOCK_LPD_LSBUS</name>
+          <briefdescription>
+<para>Clock ID LPD_LSBUS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fafb1e8a26da35b0dd0993e77d93c0ea5b" prot="public">
+          <name>PM_CLOCK_USB0_BUS_REF</name>
+          <briefdescription>
+<para>Clock ID USB0_BUS_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fabaf73ab7652ac9fbfdac8b38a43576af" prot="public">
+          <name>PM_CLOCK_USB1_BUS_REF</name>
+          <briefdescription>
+<para>Clock ID USB1_BUS_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faedbd36feb80f7ce2b3670a7c9880639b" prot="public">
+          <name>PM_CLOCK_USB3_DUAL_REF</name>
+          <briefdescription>
+<para>Clock ID USB3_DUAL_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa9fe5451297329d981623e993016c3270" prot="public">
+          <name>PM_CLOCK_USB0</name>
+          <briefdescription>
+<para>Clock ID USB0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa965e9fd093991fe0e972447176c28a5f" prot="public">
+          <name>PM_CLOCK_USB1</name>
+          <briefdescription>
+<para>Clock ID USB1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7e5af118d28d1d510dbb34d67a03426d" prot="public">
+          <name>PM_CLOCK_CPU_R5</name>
+          <briefdescription>
+<para>Clock ID CPU_R5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa8276c7d01a43cf7e4552ea3e82655fe8" prot="public">
+          <name>PM_CLOCK_CPU_R5_CORE</name>
+          <briefdescription>
+<para>Clock ID CPU_R5_CORE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa0ada18ea3818b185449c17aa80a865eb" prot="public">
+          <name>PM_CLOCK_CSU_SPB</name>
+          <briefdescription>
+<para>Clock ID CSU_SPB. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa2b780f80858edb83df3d7cc8f9a8b2d1" prot="public">
+          <name>PM_CLOCK_CSU_PLL</name>
+          <briefdescription>
+<para>Clock ID CSU_PLL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa97033e2c77667d5f96b9de9f1f3041e4" prot="public">
+          <name>PM_CLOCK_PCAP</name>
+          <briefdescription>
+<para>Clock ID PCAP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fad8e53392847d8070cf106cbae13d75e4" prot="public">
+          <name>PM_CLOCK_IOU_SWITCH</name>
+          <briefdescription>
+<para>Clock ID IOU_SWITCH. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa1ccde5108b7fa60f7490f830c749a1b9" prot="public">
+          <name>PM_CLOCK_GEM_TSU_REF</name>
+          <briefdescription>
+<para>Clock ID GEM_TSU_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa9f0e124e614e8a4a4ebc28533c01c1b5" prot="public">
+          <name>PM_CLOCK_GEM_TSU</name>
+          <briefdescription>
+<para>Clock ID GEM_TSU. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7542fe11b01cf0dcff0619453b6d0ee4" prot="public">
+          <name>PM_CLOCK_GEM0_TX</name>
+          <briefdescription>
+<para>Clock ID GEM0_TX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa100780f467735514f3062346e1272156" prot="public">
+          <name>PM_CLOCK_GEM1_TX</name>
+          <briefdescription>
+<para>Clock ID GEM1_TX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7446f9a5a46818dc63bfeb2a2d7e89bd" prot="public">
+          <name>PM_CLOCK_GEM2_TX</name>
+          <briefdescription>
+<para>Clock ID GEM2_TX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa9d3086e6516c38bc1434e9332637e7ec" prot="public">
+          <name>PM_CLOCK_GEM3_TX</name>
+          <briefdescription>
+<para>Clock ID GEM3_TX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa4cd34c89d6c6e32d9f55d7118f4acad" prot="public">
+          <name>PM_CLOCK_GEM0_RX</name>
+          <briefdescription>
+<para>Clock ID GEM0_RX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fada9ebda4bec4d314a1878ea77e94f45c" prot="public">
+          <name>PM_CLOCK_GEM1_RX</name>
+          <briefdescription>
+<para>Clock ID GEM1_RX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa55d63e8ffb217888fdde01068c88f96d" prot="public">
+          <name>PM_CLOCK_GEM2_RX</name>
+          <briefdescription>
+<para>Clock ID GEM2_RX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa65ccf0c1ecbb6a4694ded546ce39b849" prot="public">
+          <name>PM_CLOCK_GEM3_RX</name>
+          <briefdescription>
+<para>Clock ID GEM3_RX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab40014faf1560d31cb97590bfe321e8c" prot="public">
+          <name>PM_CLOCK_QSPI_REF</name>
+          <briefdescription>
+<para>Clock ID QSPI_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa1442e4da489e2d844cc531883d6856a" prot="public">
+          <name>PM_CLOCK_SDIO0_REF</name>
+          <briefdescription>
+<para>Clock ID SDIO0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa37b76c23ce5b1a71311dd2799414cbca" prot="public">
+          <name>PM_CLOCK_SDIO1_REF</name>
+          <briefdescription>
+<para>Clock ID SDIO1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fad83fd6526308a0dff77bc1ac24c20849" prot="public">
+          <name>PM_CLOCK_UART0_REF</name>
+          <briefdescription>
+<para>Clock ID UART0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa700128026c2644efe7d9b463dbeb91a2" prot="public">
+          <name>PM_CLOCK_UART1_REF</name>
+          <briefdescription>
+<para>Clock ID UART1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf22590a5dd855126d34e3e2d79a1af18" prot="public">
+          <name>PM_CLOCK_SPI0_REF</name>
+          <briefdescription>
+<para>Clock ID SPI0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa2bfa4aa1452c0b1bfd151fd4849f84ab" prot="public">
+          <name>PM_CLOCK_SPI1_REF</name>
+          <briefdescription>
+<para>Clock ID SPI1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa970e7f536052197947425789de7afce" prot="public">
+          <name>PM_CLOCK_NAND_REF</name>
+          <briefdescription>
+<para>Clock ID NAND_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa148e45ba320645734c43ed8e2e1f6db5" prot="public">
+          <name>PM_CLOCK_I2C0_REF</name>
+          <briefdescription>
+<para>Clock ID I2C0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fae181855f2a0418a182226f6021191464" prot="public">
+          <name>PM_CLOCK_I2C1_REF</name>
+          <briefdescription>
+<para>Clock ID I2C1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa57e107dc9e8d08d45a0d91f4ba20fd45" prot="public">
+          <name>PM_CLOCK_CAN0_REF</name>
+          <briefdescription>
+<para>Clock ID CAN0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab27d59e0422a7cb962525f8089ab6a1f" prot="public">
+          <name>PM_CLOCK_CAN1_REF</name>
+          <briefdescription>
+<para>Clock ID CAN1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa0f24b3a57988a8701ac6420417ae5f58" prot="public">
+          <name>PM_CLOCK_CAN0</name>
+          <briefdescription>
+<para>Clock ID CAN0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7e44cdda84297ae1afd2b6cbcf6d97b0" prot="public">
+          <name>PM_CLOCK_CAN1</name>
+          <briefdescription>
+<para>Clock ID CAN1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa85c97d37118464dafc129b73a5367f79" prot="public">
+          <name>PM_CLOCK_DLL_REF</name>
+          <briefdescription>
+<para>Clock ID DLL_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa4b29ff23cd0c7f0ed901395f06f36de7" prot="public">
+          <name>PM_CLOCK_ADMA_REF</name>
+          <briefdescription>
+<para>Clock ID ADMA_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa89ca6f9b4d68c42fac8da0b357e0ce88" prot="public">
+          <name>PM_CLOCK_TIMESTAMP_REF</name>
+          <briefdescription>
+<para>Clock ID TIMESTAMP_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa0500202802de413ab063aea710cd17b4" prot="public">
+          <name>PM_CLOCK_AMS_REF</name>
+          <briefdescription>
+<para>Clock ID AMS_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa57d772fb594df010e4e7c7f0dfd93556" prot="public">
+          <name>PM_CLOCK_PL0_REF</name>
+          <briefdescription>
+<para>Clock ID PL0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa99c50124962c253e95a48f450f3c0061" prot="public">
+          <name>PM_CLOCK_PL1_REF</name>
+          <briefdescription>
+<para>Clock ID PL1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa405147ba5e8cf4b2f4130706ae7d0cb7" prot="public">
+          <name>PM_CLOCK_PL2_REF</name>
+          <briefdescription>
+<para>Clock ID PL2_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa553a78d99e0dfdcd4d16572f72afb65a" prot="public">
+          <name>PM_CLOCK_PL3_REF</name>
+          <briefdescription>
+<para>Clock ID PL3_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6face239550bf364dcab63200a480c20ca5" prot="public">
+          <name>PM_CLOCK_WDT</name>
+          <briefdescription>
+<para>Clock ID WDT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3c0b4c832b9c43fcf2895dca561559cb" prot="public">
+          <name>PM_CLOCK_IOPLL_INT</name>
+          <briefdescription>
+<para>Clock ID IOPLL_INT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faba278429c8d3aea20395afe0fc849280" prot="public">
+          <name>PM_CLOCK_IOPLL_PRE_SRC</name>
+          <briefdescription>
+<para>Clock ID IOPLL_PRE_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6facf12ddac8a47c495c5f8c5c703963615" prot="public">
+          <name>PM_CLOCK_IOPLL_HALF</name>
+          <briefdescription>
+<para>Clock ID IOPLL_HALF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6aca62d7167ac9e18610727cb5856a52" prot="public">
+          <name>PM_CLOCK_IOPLL_INT_MUX</name>
+          <briefdescription>
+<para>Clock ID IOPLL_INT_MUX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fac40d04726e01663f2439a378c64b91fd" prot="public">
+          <name>PM_CLOCK_IOPLL_POST_SRC</name>
+          <briefdescription>
+<para>Clock ID IOPLL_POST_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fabde527c2c485774355ea1602c7d366d7" prot="public">
+          <name>PM_CLOCK_RPLL_INT</name>
+          <briefdescription>
+<para>Clock ID RPLL_INT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa1f9e8bc0c9ee6cb54814a0309656c02b" prot="public">
+          <name>PM_CLOCK_RPLL_PRE_SRC</name>
+          <briefdescription>
+<para>Clock ID RPLL_PRE_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fae0ec6bbcd6810e1774e3be5ae90bfd3a" prot="public">
+          <name>PM_CLOCK_RPLL_HALF</name>
+          <briefdescription>
+<para>Clock ID RPLL_HALF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa6c37e860daf380902304b34d3e8c9e0" prot="public">
+          <name>PM_CLOCK_RPLL_INT_MUX</name>
+          <briefdescription>
+<para>Clock ID RPLL_INT_MUX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6f22092f07907ea4154f2497ad978673" prot="public">
+          <name>PM_CLOCK_RPLL_POST_SRC</name>
+          <briefdescription>
+<para>Clock ID RPLL_POST_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa35a64758f296a0f125659a88ca59a5f0" prot="public">
+          <name>PM_CLOCK_APLL_INT</name>
+          <briefdescription>
+<para>Clock ID APLL_INT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa8fe15979199b2ec1806ba9e0102de6ba" prot="public">
+          <name>PM_CLOCK_APLL_PRE_SRC</name>
+          <briefdescription>
+<para>Clock ID APLL_PRE_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fae86bae3e90a56154070a0e95ef55d317" prot="public">
+          <name>PM_CLOCK_APLL_HALF</name>
+          <briefdescription>
+<para>Clock ID APLL_HALF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa927c06387c5bed5d65fc79af05ee2887" prot="public">
+          <name>PM_CLOCK_APLL_INT_MUX</name>
+          <briefdescription>
+<para>Clock ID APLL_INT_MUX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab170437980529541f0f614e9b92cfd34" prot="public">
+          <name>PM_CLOCK_APLL_POST_SRC</name>
+          <briefdescription>
+<para>Clock ID APLL_POST_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fafc678e85d4602e1f54166c3b36b1aaa9" prot="public">
+          <name>PM_CLOCK_DPLL_INT</name>
+          <briefdescription>
+<para>Clock ID DPLL_INT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa134d71cf6773764f76744075e130b853" prot="public">
+          <name>PM_CLOCK_DPLL_PRE_SRC</name>
+          <briefdescription>
+<para>Clock ID DPLL_PRE_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fad68f919c6236168b4d2c6d11b40978fe" prot="public">
+          <name>PM_CLOCK_DPLL_HALF</name>
+          <briefdescription>
+<para>Clock ID DPLL_HALF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa84b73d50bd6ee5048eb021b596c6de90" prot="public">
+          <name>PM_CLOCK_DPLL_INT_MUX</name>
+          <briefdescription>
+<para>Clock ID DPLL_INT_MUX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa94f4323629417563c256523a68a97ed5" prot="public">
+          <name>PM_CLOCK_DPLL_POST_SRC</name>
+          <briefdescription>
+<para>Clock ID DPLL_POST_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa06b34b03f5be45b3f882e4112a6dfc1e" prot="public">
+          <name>PM_CLOCK_VPLL_INT</name>
+          <briefdescription>
+<para>Clock ID VPLL_INT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa70945bed02be8d0b7361177fef42d326" prot="public">
+          <name>PM_CLOCK_VPLL_PRE_SRC</name>
+          <briefdescription>
+<para>Clock ID VPLL_PRE_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa95627710184551ecb22f7351113bd706" prot="public">
+          <name>PM_CLOCK_VPLL_HALF</name>
+          <briefdescription>
+<para>Clock ID VPLL_HALF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7ef9e7d7c14fb521cd745c5f0e2b25ca" prot="public">
+          <name>PM_CLOCK_VPLL_INT_MUX</name>
+          <briefdescription>
+<para>Clock ID VPLL_INT_MUX. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa534d22a89676375a39de0171c8bc7227" prot="public">
+          <name>PM_CLOCK_VPLL_POST_SRC</name>
+          <briefdescription>
+<para>Clock ID VPLL_POST_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa6d0682f723daa846385189b8dd0c3c0" prot="public">
+          <name>PM_CLOCK_CAN0_MIO</name>
+          <briefdescription>
+<para>Clock ID CAN0_MIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa8b50a216c66aca5c88649f99b81c298f" prot="public">
+          <name>PM_CLOCK_CAN1_MIO</name>
+          <briefdescription>
+<para>Clock ID CAN1_MIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa714d7c1b23543678c5a91241a951f4e3" prot="public">
+          <name>PM_CLOCK_ACPU_FULL</name>
+          <briefdescription>
+<para>Clock ID ACPU_FULL. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa523b9ffeb3eaeea703ec0d7ff1823a54" prot="public">
+          <name>PM_CLOCK_GEM0_REF</name>
+          <briefdescription>
+<para>Clock ID GEM0_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa196300375bfeac55e2203fe1b84aae33" prot="public">
+          <name>PM_CLOCK_GEM1_REF</name>
+          <briefdescription>
+<para>Clock ID GEM1_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab0fdee40cc8da47567a75c9b5670d233" prot="public">
+          <name>PM_CLOCK_GEM2_REF</name>
+          <briefdescription>
+<para>Clock ID GEM2_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa240f2502824e7eb639bab29ef9fdfe99" prot="public">
+          <name>PM_CLOCK_GEM3_REF</name>
+          <briefdescription>
+<para>Clock ID GEM3_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa994ebc988730cdc4ac0fffcb95cef28a" prot="public">
+          <name>PM_CLOCK_GEM0_REF_UNGATED</name>
+          <briefdescription>
+<para>Clock ID GEM0_REF_UNGATED. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa09095528b4be3e916708dbc503b02e52" prot="public">
+          <name>PM_CLOCK_GEM1_REF_UNGATED</name>
+          <briefdescription>
+<para>Clock ID GEM1_REF_UNGATED. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6a3b9b3f90ac895acbf7e0431534230a" prot="public">
+          <name>PM_CLOCK_GEM2_REF_UNGATED</name>
+          <briefdescription>
+<para>Clock ID GEM2_REF_UNGATED. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fac2bf6f169155a723b42e41a5e194d60e" prot="public">
+          <name>PM_CLOCK_GEM3_REF_UNGATED</name>
+          <briefdescription>
+<para>Clock ID GEM3_REF_UNGATED. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fabee84f5c44a73d16c75308d0e336ee7c" prot="public">
+          <name>PM_CLOCK_EXT_PSS_REF</name>
+          <briefdescription>
+<para>Clock ID EXT_PSS_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa85ee81489df105abb8c0bfe9aaa79389" prot="public">
+          <name>PM_CLOCK_EXT_VIDEO</name>
+          <briefdescription>
+<para>Clock ID EXT_VIDEO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fae3614e7284bf2d51057a53eb5b84d7b3" prot="public">
+          <name>PM_CLOCK_EXT_PSS_ALT_REF</name>
+          <briefdescription>
+<para>Clock ID EXT_PSS_ALT_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa9ac14658e7957e39c300b066fa3dfa10" prot="public">
+          <name>PM_CLOCK_EXT_AUX_REF</name>
+          <briefdescription>
+<para>Clock ID EXT_AUX_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa40e1551df5f3410e7eae93d690c05753" prot="public">
+          <name>PM_CLOCK_EXT_GT_CRX_REF</name>
+          <briefdescription>
+<para>Clock ID EXT_GT_CRX_REF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa98dc9f80b237eff4eb65211a42d6ec77" prot="public">
+          <name>PM_CLOCK_EXT_SWDT0</name>
+          <briefdescription>
+<para>Clock ID EXT_SWDT0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa102fc8eb1ea749e28bf05698ea596b58" prot="public">
+          <name>PM_CLOCK_EXT_SWDT1</name>
+          <briefdescription>
+<para>Clock ID EXT_SWDT1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf93107dfdbf994e02a57506d902df6a6" prot="public">
+          <name>PM_CLOCK_EXT_GEM0_TX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM0_TX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf91078e0c1033f34262f687e7bb20771" prot="public">
+          <name>PM_CLOCK_EXT_GEM1_TX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM1_TX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa2feb8c54494ab58ce5711967fcf3e5fb" prot="public">
+          <name>PM_CLOCK_EXT_GEM2_TX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM2_TX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fae95b1f8082c05590392797b764e61fdb" prot="public">
+          <name>PM_CLOCK_EXT_GEM3_TX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM3_TX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faedbd23f84f25c8c5d029bd755fac9b79" prot="public">
+          <name>PM_CLOCK_EXT_GEM0_RX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM0_RX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6facf220d7a3e74b194268ee473a761db72" prot="public">
+          <name>PM_CLOCK_EXT_GEM1_RX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM1_RX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa86e806090bd4af822c8e7cd0c4e2e70f" prot="public">
+          <name>PM_CLOCK_EXT_GEM2_RX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM2_RX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa879cebd69a25f070d3be2073f926c93d" prot="public">
+          <name>PM_CLOCK_EXT_GEM3_RX_EMIO</name>
+          <briefdescription>
+<para>Clock ID EXT_GEM3_RX_EMIO. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3702cc59e188efc135229f4d42b58f9e" prot="public">
+          <name>PM_CLOCK_EXT_MIO50_OR_MIO51</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO50_OR_MIO51. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa184869f3fbfa7a92d8c856317307bda7" prot="public">
+          <name>PM_CLOCK_EXT_MIO0</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa413ea30b6c5383ce4320b9d4702b20e" prot="public">
+          <name>PM_CLOCK_EXT_MIO1</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa612c36fe01926b16c3be3ed4cf631978" prot="public">
+          <name>PM_CLOCK_EXT_MIO2</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa0dc2c745712acd89d1205efb192e66c" prot="public">
+          <name>PM_CLOCK_EXT_MIO3</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa1b267603301f898977fd1596170ed3d1" prot="public">
+          <name>PM_CLOCK_EXT_MIO4</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fab6f816dc659c2b95db20defe3c410a19" prot="public">
+          <name>PM_CLOCK_EXT_MIO5</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7c2aeb3f517552d0fcd4468f4a99648d" prot="public">
+          <name>PM_CLOCK_EXT_MIO6</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa0e84a932c46210e2ebca4d4d81872d69" prot="public">
+          <name>PM_CLOCK_EXT_MIO7</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO7. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa22773ce9a0d26bbbc03715b6377030f" prot="public">
+          <name>PM_CLOCK_EXT_MIO8</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO8. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fabed10199db5ed261499b0792f57b2e79" prot="public">
+          <name>PM_CLOCK_EXT_MIO9</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO9. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa549d287d2a5b06133a5666adf6270679" prot="public">
+          <name>PM_CLOCK_EXT_MIO10</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO10. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faebc9d5a28bef5c1b91335d04e0635641" prot="public">
+          <name>PM_CLOCK_EXT_MIO11</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO11. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf07b5272c4083503022dac0029bbb9a7" prot="public">
+          <name>PM_CLOCK_EXT_MIO12</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO12. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fac5df5cf3d4e1ab95d53b7cfb47fc3b37" prot="public">
+          <name>PM_CLOCK_EXT_MIO13</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO13. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa19d4026dd476c9cf36e3455fcbccf898" prot="public">
+          <name>PM_CLOCK_EXT_MIO14</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO14. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa37be0b6515c84578e8e786072dc702d2" prot="public">
+          <name>PM_CLOCK_EXT_MIO15</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO15. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa547b7a03968205a6c4171b2f18e8e864" prot="public">
+          <name>PM_CLOCK_EXT_MIO16</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO16. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa68de3e151c7823611ff1d498003c0b79" prot="public">
+          <name>PM_CLOCK_EXT_MIO17</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO17. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa1650403205e674763cf2b0cea756fd31" prot="public">
+          <name>PM_CLOCK_EXT_MIO18</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO18. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa1aa50620355a91dc311e7c17849edd1f" prot="public">
+          <name>PM_CLOCK_EXT_MIO19</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO19. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6a6d4ca87c2018d22b04bc711ebba1f5" prot="public">
+          <name>PM_CLOCK_EXT_MIO20</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO20. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fadc0246a9df41bed9517dd26bfc2ca830" prot="public">
+          <name>PM_CLOCK_EXT_MIO21</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO21. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf418d41f8df741ce06e9d5b3ac3f1b12" prot="public">
+          <name>PM_CLOCK_EXT_MIO22</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO22. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa816490f4ee31bc4a43c2138ac5848b18" prot="public">
+          <name>PM_CLOCK_EXT_MIO23</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO23. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa29a3801f8cdd87685adaf9ce6f7dcfa4" prot="public">
+          <name>PM_CLOCK_EXT_MIO24</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO24. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa324721370ed9e6c0122df339618abb52" prot="public">
+          <name>PM_CLOCK_EXT_MIO25</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO25. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7ce93d69c79e0fb815148afbaa6248ac" prot="public">
+          <name>PM_CLOCK_EXT_MIO26</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO26. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa02e025dcc82990b8b9159b9846855bb8" prot="public">
+          <name>PM_CLOCK_EXT_MIO27</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO27. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf918b5389d8a37ca642886e792aca892" prot="public">
+          <name>PM_CLOCK_EXT_MIO28</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO28. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa831f3a5b08859e6038e9afaadc2c2cbe" prot="public">
+          <name>PM_CLOCK_EXT_MIO29</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO29. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fafe5961948e07f63814039c74351c3d62" prot="public">
+          <name>PM_CLOCK_EXT_MIO30</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO30. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa75c85cc21af1dd2735326a01352b9e66" prot="public">
+          <name>PM_CLOCK_EXT_MIO31</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO31. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fafade0e37871ee08399c72a7594313fda" prot="public">
+          <name>PM_CLOCK_EXT_MIO32</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO32. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa448629f5e72ee5a2df1d43f8c3678d17" prot="public">
+          <name>PM_CLOCK_EXT_MIO33</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO33. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faefb93bf3c9135f1e6cf594c4440f035e" prot="public">
+          <name>PM_CLOCK_EXT_MIO34</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO34. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6848513990dcc7b6925e47d4c9806557" prot="public">
+          <name>PM_CLOCK_EXT_MIO35</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO35. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa536c09e7af8f93aabbbb7ba5ceb6842d" prot="public">
+          <name>PM_CLOCK_EXT_MIO36</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO36. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf664325fcb7196b596a18a750980277c" prot="public">
+          <name>PM_CLOCK_EXT_MIO37</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO37. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa5cc567bdc80e7605772fea882657f678" prot="public">
+          <name>PM_CLOCK_EXT_MIO38</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO38. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa6b4b4c4bbefe28fda05d5fb85d0c21f9" prot="public">
+          <name>PM_CLOCK_EXT_MIO39</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO39. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa150ce862a2d38a338c7d9512162cdfe8" prot="public">
+          <name>PM_CLOCK_EXT_MIO40</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO40. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa8c52a078d6ed2f2490c51aed04a2e23" prot="public">
+          <name>PM_CLOCK_EXT_MIO41</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO41. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fac03b80e007607ef507bbd0c6821e83e4" prot="public">
+          <name>PM_CLOCK_EXT_MIO42</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO42. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf5173aa986aefe2e5f81a450e897fad2" prot="public">
+          <name>PM_CLOCK_EXT_MIO43</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO43. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fabbfa4cdb1cce1485dbd39f39ee63e893" prot="public">
+          <name>PM_CLOCK_EXT_MIO44</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO44. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa0460ae1ba26d97456b821cfc274793c8" prot="public">
+          <name>PM_CLOCK_EXT_MIO45</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO45. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fac5bc0039c374ed1f0bbc5359a30123a8" prot="public">
+          <name>PM_CLOCK_EXT_MIO46</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO46. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa62061afa4ed2056eac9c838bcc996a46" prot="public">
+          <name>PM_CLOCK_EXT_MIO47</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO47. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa791679478aa6a6abe4f7d36e4b667a24" prot="public">
+          <name>PM_CLOCK_EXT_MIO48</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO48. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6facc44eefda08ec3ba7287ff27a882334d" prot="public">
+          <name>PM_CLOCK_EXT_MIO49</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO49. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faf60916ce7e808aa7647bcc04c47ccd59" prot="public">
+          <name>PM_CLOCK_EXT_MIO50</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO50. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa709f679fe33b96de64cbd547c2fb8e85" prot="public">
+          <name>PM_CLOCK_EXT_MIO51</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO51. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3d6c4d3d6cc229cdafee194e55392ce0" prot="public">
+          <name>PM_CLOCK_EXT_MIO52</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO52. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faadde8d5b801ac91b7ea07af3e38ef35e" prot="public">
+          <name>PM_CLOCK_EXT_MIO53</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO53. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa5bc7892a6c867777a5a2807bce4dca58" prot="public">
+          <name>PM_CLOCK_EXT_MIO54</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO54. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa20b75ba2c53001c69d5fb482ebefe18a" prot="public">
+          <name>PM_CLOCK_EXT_MIO55</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO55. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fafce01fc4db8fe256d1bfd2888bb8b3de" prot="public">
+          <name>PM_CLOCK_EXT_MIO56</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO56. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa554fa57c93742337016c26f9bbed3d16" prot="public">
+          <name>PM_CLOCK_EXT_MIO57</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO57. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3f646b56ee3e68eb8c906cb6ef06ec4e" prot="public">
+          <name>PM_CLOCK_EXT_MIO58</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO58. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faabe5d58663a4a20c8fe30f4e088f0908" prot="public">
+          <name>PM_CLOCK_EXT_MIO59</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO59. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faefb99895f62334fa8b1618ad3332f53a" prot="public">
+          <name>PM_CLOCK_EXT_MIO60</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO60. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa19a8108f89190d7af18964f37ac5fb76" prot="public">
+          <name>PM_CLOCK_EXT_MIO61</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO61. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fadf8c725f2f52d8140aec5c7803af3840" prot="public">
+          <name>PM_CLOCK_EXT_MIO62</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO62. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa05481ccfb73d652398437d04ea99b40c" prot="public">
+          <name>PM_CLOCK_EXT_MIO63</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO63. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa5cf6e506045a870dd42f1dbde57c373d" prot="public">
+          <name>PM_CLOCK_EXT_MIO64</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO64. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3d1fed097b0daf0711506e92fb9b0041" prot="public">
+          <name>PM_CLOCK_EXT_MIO65</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO65. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa4ba46eedb25a153339f1cea6a5d439e6" prot="public">
+          <name>PM_CLOCK_EXT_MIO66</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO66. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa4731a5613f700986558775b9288f103f" prot="public">
+          <name>PM_CLOCK_EXT_MIO67</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO67. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fac1bb40444991f629f2182feee769889b" prot="public">
+          <name>PM_CLOCK_EXT_MIO68</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO68. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3739a9ed3d6106f2276880693e6bacfd" prot="public">
+          <name>PM_CLOCK_EXT_MIO69</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO69. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3986172d2109946efbe87122b13449ee" prot="public">
+          <name>PM_CLOCK_EXT_MIO70</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO70. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faa3758cc3d2bd394a6656dd3b9fdb1041" prot="public">
+          <name>PM_CLOCK_EXT_MIO71</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO71. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa1c03ea1dd4197b348b38135df4720b85" prot="public">
+          <name>PM_CLOCK_EXT_MIO72</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO72. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7b36131e4834073fd2c246fc9c44ec47" prot="public">
+          <name>PM_CLOCK_EXT_MIO73</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO73. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6faabb51b39b7093335127a141b1efea37f" prot="public">
+          <name>PM_CLOCK_EXT_MIO74</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO74. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa086401cf2b6079e08309ca4d194d62d2" prot="public">
+          <name>PM_CLOCK_EXT_MIO75</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO75. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa7ed7d815c131184a66dfa84510ba371f" prot="public">
+          <name>PM_CLOCK_EXT_MIO76</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO76. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga416d80c09fcb2e95c1542e02d218dd6fa3aa16bccc105d28debca761c107e152a" prot="public">
+          <name>PM_CLOCK_EXT_MIO77</name>
+          <briefdescription>
+<para>Clock ID EXT_MIO77. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM Clock IDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="448" bodyend="655"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga430d6202f460cbf398ad39d641318f66" prot="public" static="no">
+        <name>XPmPllParam</name>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66a12e9dd2f7ba46af8b5dff0a43173f0d5" prot="public">
+          <name>PM_PLL_PARAM_ID_DIV2</name>
+          <briefdescription>
+<para>PLL param ID DIV2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66aa1ff3ed63719e9bc5bf1b7581d5f67a3" prot="public">
+          <name>PM_PLL_PARAM_ID_FBDIV</name>
+          <briefdescription>
+<para>PLL param ID FBDIV. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66a2f06f82426345c2e57091dcf4e301b93" prot="public">
+          <name>PM_PLL_PARAM_ID_DATA</name>
+          <briefdescription>
+<para>PLL param ID DATA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66a5afc123d3d0307aa00b66201b3c39587" prot="public">
+          <name>PM_PLL_PARAM_ID_PRE_SRC</name>
+          <briefdescription>
+<para>PLL param ID PRE_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66a23311e59ba2ef8bcbfa740bf2aea7bcc" prot="public">
+          <name>PM_PLL_PARAM_ID_POST_SRC</name>
+          <briefdescription>
+<para>PLL param ID POST_SRC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66aa9c7de756e9b595e64613a8dbc73d14f" prot="public">
+          <name>PM_PLL_PARAM_ID_LOCK_DLY</name>
+          <briefdescription>
+<para>PLL param ID LOCK_DLY. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66ab5a9b53e037e09357663607bbd36c083" prot="public">
+          <name>PM_PLL_PARAM_ID_LOCK_CNT</name>
+          <briefdescription>
+<para>PLL param ID LOCK_CNT. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66af2580a4195978a1e98f3920261b0de34" prot="public">
+          <name>PM_PLL_PARAM_ID_LFHF</name>
+          <briefdescription>
+<para>PLL param ID LFHF. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66a8dcaa36a5c1f0991f216fd560eb757b4" prot="public">
+          <name>PM_PLL_PARAM_ID_CP</name>
+          <briefdescription>
+<para>PLL param ID CP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga430d6202f460cbf398ad39d641318f66a90cebeaccf5267c42b1b27f89942d1e3" prot="public">
+          <name>PM_PLL_PARAM_ID_RES</name>
+          <briefdescription>
+<para>PLL param ID RES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PLL parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="660" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="660" bodyend="671"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga2f5384860b765e60bd215326870fc548" prot="public" static="no">
+        <name>XPmPllMode</name>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a22d31e018f6b2d1b864d3f306249ca5a" prot="public">
+          <name>PM_PLL_MODE_INTEGER</name>
+          <initializer>= (0U)</initializer>
+          <briefdescription>
+<para>PLL mode integer. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a403fd506cb8fbf6f70450c659cc71ef4" prot="public">
+          <name>PM_PLL_MODE_FRACTIONAL</name>
+          <initializer>= (1U)</initializer>
+          <briefdescription>
+<para>PLL mode fractional. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548ad3ee0695b14475cbe300e4d62be5bf06" prot="public">
+          <name>PM_PLL_MODE_RESET</name>
+          <initializer>= (2U)</initializer>
+          <briefdescription>
+<para>PLL mode reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a22d31e018f6b2d1b864d3f306249ca5a" prot="public">
+          <name>PM_PLL_MODE_INTEGER</name>
+          <initializer>= (0U)</initializer>
+          <briefdescription>
+<para>PLL mode integer. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a403fd506cb8fbf6f70450c659cc71ef4" prot="public">
+          <name>PM_PLL_MODE_FRACTIONAL</name>
+          <initializer>= (1U)</initializer>
+          <briefdescription>
+<para>PLL mode fractional. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548ad3ee0695b14475cbe300e4d62be5bf06" prot="public">
+          <name>PM_PLL_MODE_RESET</name>
+          <initializer>= (2U)</initializer>
+          <briefdescription>
+<para>PLL mode reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a22d31e018f6b2d1b864d3f306249ca5a" prot="public">
+          <name>PM_PLL_MODE_INTEGER</name>
+          <initializer>= (0U)</initializer>
+          <briefdescription>
+<para>PLL mode integer. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a403fd506cb8fbf6f70450c659cc71ef4" prot="public">
+          <name>PM_PLL_MODE_FRACTIONAL</name>
+          <initializer>= (1U)</initializer>
+          <briefdescription>
+<para>PLL mode fractional. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548ad3ee0695b14475cbe300e4d62be5bf06" prot="public">
+          <name>PM_PLL_MODE_RESET</name>
+          <initializer>= (2U)</initializer>
+          <briefdescription>
+<para>PLL mode reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548ad3ee0695b14475cbe300e4d62be5bf06" prot="public">
+          <name>PM_PLL_MODE_RESET</name>
+          <briefdescription>
+<para>PLL mode reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a22d31e018f6b2d1b864d3f306249ca5a" prot="public">
+          <name>PM_PLL_MODE_INTEGER</name>
+          <briefdescription>
+<para>PLL mode integer. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga2f5384860b765e60bd215326870fc548a403fd506cb8fbf6f70450c659cc71ef4" prot="public">
+          <name>PM_PLL_MODE_FRACTIONAL</name>
+          <briefdescription>
+<para>PLL mode fractional. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PLL Modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="676" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="676" bodyend="680"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1gaef150387836882fd43fa286a5ad7c617" prot="public" static="no">
+        <name>XPmPinFn</name>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a1751824cd347f708c89916842e45859a" prot="public">
+          <name>PINCTRL_FUNC_CAN0</name>
+          <briefdescription>
+<para>Pin Function CAN0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a3392d194f6dadf766691ce46f804756a" prot="public">
+          <name>PINCTRL_FUNC_CAN1</name>
+          <briefdescription>
+<para>Pin Function CAN1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a8619a1e008078e072429495f04c77e0b" prot="public">
+          <name>PINCTRL_FUNC_ETHERNET0</name>
+          <briefdescription>
+<para>Pin Function ETHERNET0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a9d466a11298c5391e781dbd695563027" prot="public">
+          <name>PINCTRL_FUNC_ETHERNET1</name>
+          <briefdescription>
+<para>Pin Function ETHERNET1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a6058c5fc79b15f0b395edfc6d0073f26" prot="public">
+          <name>PINCTRL_FUNC_ETHERNET2</name>
+          <briefdescription>
+<para>Pin Function ETHERNET2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a641a916258ec3fe901d5c21768d37020" prot="public">
+          <name>PINCTRL_FUNC_ETHERNET3</name>
+          <briefdescription>
+<para>Pin Function ETHERNET3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617af6a4ad88e265c5dca52303b5e6c12784" prot="public">
+          <name>PINCTRL_FUNC_GEMTSU0</name>
+          <briefdescription>
+<para>Pin Function GEMTSU0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a0c7d0d5f4fc3acffa61915766b125bfd" prot="public">
+          <name>PINCTRL_FUNC_GPIO0</name>
+          <briefdescription>
+<para>Pin Function GPIO0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a57fcdc590962b8b9c90c337d6b771928" prot="public">
+          <name>PINCTRL_FUNC_I2C0</name>
+          <briefdescription>
+<para>Pin Function I2C0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617adcfb7f6edde40e8f16f45bc4ff3526a3" prot="public">
+          <name>PINCTRL_FUNC_I2C1</name>
+          <briefdescription>
+<para>Pin Function I2C1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a1ee3791d117f324b852331963fd28ed1" prot="public">
+          <name>PINCTRL_FUNC_MDIO0</name>
+          <briefdescription>
+<para>Pin Function MDIO0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a9a057e2fc2670dfb68101d45bbdc0c1d" prot="public">
+          <name>PINCTRL_FUNC_MDIO1</name>
+          <briefdescription>
+<para>Pin Function MDIO1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617ac3ab2eaa766d013301d34211f1bf822f" prot="public">
+          <name>PINCTRL_FUNC_MDIO2</name>
+          <briefdescription>
+<para>Pin Function MDIO2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617af3b673195b1712d6bceaf12b0a31b966" prot="public">
+          <name>PINCTRL_FUNC_MDIO3</name>
+          <briefdescription>
+<para>Pin Function MDIO3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a6f78a8dbeda52fa5d25b49e2c7299309" prot="public">
+          <name>PINCTRL_FUNC_QSPI0</name>
+          <briefdescription>
+<para>Pin Function QSPI0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a5357a301ebc70bfa06617b0670298232" prot="public">
+          <name>PINCTRL_FUNC_QSPI_FBCLK</name>
+          <briefdescription>
+<para>Pin Function QSPI_FBCLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617aa6a4b5605c886c4244a5275aadc062cc" prot="public">
+          <name>PINCTRL_FUNC_QSPI_SS</name>
+          <briefdescription>
+<para>Pin Function QSPI_SS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a29ccaa34eaa99ff3fd7b6dc232f03e6f" prot="public">
+          <name>PINCTRL_FUNC_SPI0</name>
+          <briefdescription>
+<para>Pin Function SPI0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617aabe0e1ce7fcdde6e25fa76bc3f275d0d" prot="public">
+          <name>PINCTRL_FUNC_SPI1</name>
+          <briefdescription>
+<para>Pin Function SPI1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a95330ebe79f53d148796e295e91ba7cf" prot="public">
+          <name>PINCTRL_FUNC_SPI0_SS</name>
+          <briefdescription>
+<para>Pin Function SPI0_SS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a9568712ec21255740cadc08d4da4aadf" prot="public">
+          <name>PINCTRL_FUNC_SPI1_SS</name>
+          <briefdescription>
+<para>Pin Function SPI1_SS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a18eb5e5e737f136aeb7f223d7273b65a" prot="public">
+          <name>PINCTRL_FUNC_SDIO0</name>
+          <briefdescription>
+<para>Pin Function SDIO0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a9a7e44bbf09600358aa6c964b68e71b1" prot="public">
+          <name>PINCTRL_FUNC_SDIO0_PC</name>
+          <briefdescription>
+<para>Pin Function SDIO0_PC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617afa47f8d8cd89fb2d66a1979e9424c8c5" prot="public">
+          <name>PINCTRL_FUNC_SDIO0_CD</name>
+          <briefdescription>
+<para>Pin Function SDIO0_CD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617addd7bc39a2a09e4e92e103b1eb23a75d" prot="public">
+          <name>PINCTRL_FUNC_SDIO0_WP</name>
+          <briefdescription>
+<para>Pin Function SDIO0_WP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617adc685d4228ea649c9cb5e4bef24cb649" prot="public">
+          <name>PINCTRL_FUNC_SDIO1</name>
+          <briefdescription>
+<para>Pin Function SDIO1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617af28778a89232db539262ecdec8d38773" prot="public">
+          <name>PINCTRL_FUNC_SDIO1_PC</name>
+          <briefdescription>
+<para>Pin Function SDIO1_PC. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a1bb54f6f9b52fd110b37bd4baa68c586" prot="public">
+          <name>PINCTRL_FUNC_SDIO1_CD</name>
+          <briefdescription>
+<para>Pin Function SDIO1_CD. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a71446b6d48e554645c2f38e015694ed3" prot="public">
+          <name>PINCTRL_FUNC_SDIO1_WP</name>
+          <briefdescription>
+<para>Pin Function SDIO1_WP. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a1cee897dea433d9554d0539e789aa684" prot="public">
+          <name>PINCTRL_FUNC_NAND0</name>
+          <briefdescription>
+<para>Pin Function NAND0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a8dc0149357dc14f4c50ef03f8743f8f2" prot="public">
+          <name>PINCTRL_FUNC_NAND0_CE</name>
+          <briefdescription>
+<para>Pin Function NAND0_CE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617ac8a74baa01dade8959d3afdfa6a19209" prot="public">
+          <name>PINCTRL_FUNC_NAND0_RB</name>
+          <briefdescription>
+<para>Pin Function NAND0_RB. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617afb4d6d333a59a4b4eaa7f2941c72f99e" prot="public">
+          <name>PINCTRL_FUNC_NAND0_DQS</name>
+          <briefdescription>
+<para>Pin Function NAND0_DQS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a914cc155d11b881c9c678659467de6e7" prot="public">
+          <name>PINCTRL_FUNC_TTC0_CLK</name>
+          <briefdescription>
+<para>Pin Function TTC0_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a9854502ff155ff0547e6e7412ad2ce6a" prot="public">
+          <name>PINCTRL_FUNC_TTC0_WAV</name>
+          <briefdescription>
+<para>Pin Function TTC0_WAV. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a541a3361d0f4f3fd1b4b08bd287a9e7a" prot="public">
+          <name>PINCTRL_FUNC_TTC1_CLK</name>
+          <briefdescription>
+<para>Pin Function TTC1_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a34b91c99359f93ac0e8b7e9b84cbf554" prot="public">
+          <name>PINCTRL_FUNC_TTC1_WAV</name>
+          <briefdescription>
+<para>Pin Function TTC1_WAV. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a96fc3d3be3117557fd9f4db46fb22c83" prot="public">
+          <name>PINCTRL_FUNC_TTC2_CLK</name>
+          <briefdescription>
+<para>Pin Function TTC2_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617ad7d2180f42652df496836e934dc7e45b" prot="public">
+          <name>PINCTRL_FUNC_TTC2_WAV</name>
+          <briefdescription>
+<para>Pin Function TTC2_WAV. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a68e316bfb4595161a936c3fc6d4d6331" prot="public">
+          <name>PINCTRL_FUNC_TTC3_CLK</name>
+          <briefdescription>
+<para>Pin Function TTC3_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a79c9be0ce8b77cbe197c7825e9f881cc" prot="public">
+          <name>PINCTRL_FUNC_TTC3_WAV</name>
+          <briefdescription>
+<para>Pin Function TTC3_WAV. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a29214a97cd25eb1d087697241db5626b" prot="public">
+          <name>PINCTRL_FUNC_UART0</name>
+          <briefdescription>
+<para>Pin Function UART0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a315c32a2871c930421d49ca3cb8c4fce" prot="public">
+          <name>PINCTRL_FUNC_UART1</name>
+          <briefdescription>
+<para>Pin Function UART1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a3e72bb13043e1fd79d0d49706dab9234" prot="public">
+          <name>PINCTRL_FUNC_USB0</name>
+          <briefdescription>
+<para>Pin Function USB0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617ad6776cc0f20630054bc56135790ca002" prot="public">
+          <name>PINCTRL_FUNC_USB1</name>
+          <briefdescription>
+<para>Pin Function USB1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a3dd2a8761f15528f8ef40fd577f58364" prot="public">
+          <name>PINCTRL_FUNC_SWDT0_CLK</name>
+          <briefdescription>
+<para>Pin Function SWDT0_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a73a6a4be01fd4fff73512f7138efbe19" prot="public">
+          <name>PINCTRL_FUNC_SWDT0_RST</name>
+          <briefdescription>
+<para>Pin Function SWDT0_RST. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617ae9951b175553ba9287f1c9c5cf8c6ec3" prot="public">
+          <name>PINCTRL_FUNC_SWDT1_CLK</name>
+          <briefdescription>
+<para>Pin Function SWDT1_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a1d81c158af85b688b081b781814a5ef2" prot="public">
+          <name>PINCTRL_FUNC_SWDT1_RST</name>
+          <briefdescription>
+<para>Pin Function SWDT1_RST. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617addbcac8b5308c28563f84e1cdeedccb6" prot="public">
+          <name>PINCTRL_FUNC_PMU0</name>
+          <briefdescription>
+<para>Pin Function PMU0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617aa26627bb9b266b93fad1a2ba2a58f1df" prot="public">
+          <name>PINCTRL_FUNC_PCIE0</name>
+          <briefdescription>
+<para>Pin Function PCIE0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a906e7d7ceb20894a808a35011a338470" prot="public">
+          <name>PINCTRL_FUNC_CSU0</name>
+          <briefdescription>
+<para>Pin Function CSU0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a49052ad89ca1f0b22c46c5a5c196af9d" prot="public">
+          <name>PINCTRL_FUNC_DPAUX0</name>
+          <briefdescription>
+<para>Pin Function DPAUX0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617adaf03f2b215c7688c566dfa7a42a0da7" prot="public">
+          <name>PINCTRL_FUNC_PJTAG0</name>
+          <briefdescription>
+<para>Pin Function PJTAG0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a84175f8a0e6dc5cbdc1c1da879870961" prot="public">
+          <name>PINCTRL_FUNC_TRACE0</name>
+          <briefdescription>
+<para>Pin Function TRACE0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a5b57cefb49e30a94fa6b5b9c14499565" prot="public">
+          <name>PINCTRL_FUNC_TRACE0_CLK</name>
+          <briefdescription>
+<para>Pin Function TRACE0_CLK. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggaef150387836882fd43fa286a5ad7c617a4063d066ec470d004a4aa0490036780c" prot="public">
+          <name>PINCTRL_FUNC_TESTSCAN0</name>
+          <briefdescription>
+<para>Pin Function TESTSCAN0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Pin Function IDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="685" bodyend="743"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga8f3fba595dd4298a4eb4f4501c7e09d1" prot="public" static="no">
+        <name>XPmPinParam</name>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1a0b2d88d0d17407b8d64a4d60c00f5615" prot="public">
+          <name>PINCTRL_CONFIG_SLEW_RATE</name>
+          <briefdescription>
+<para>Pin config slew rate. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1ad74e7a0affd1956361359bfe2fbe8ce0" prot="public">
+          <name>PINCTRL_CONFIG_BIAS_STATUS</name>
+          <briefdescription>
+<para>Pin config bias status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1a8b88d3e4059fe68a72a2466ece35cf3a" prot="public">
+          <name>PINCTRL_CONFIG_PULL_CTRL</name>
+          <briefdescription>
+<para>Pin config pull control. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1ae353626ea717da85c195b82faab25257" prot="public">
+          <name>PINCTRL_CONFIG_SCHMITT_CMOS</name>
+          <briefdescription>
+<para>Pin config schmitt CMOS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1a50e8b1125f3ff2115de1828c5baf571a" prot="public">
+          <name>PINCTRL_CONFIG_DRIVE_STRENGTH</name>
+          <briefdescription>
+<para>Pin config drive strength. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1abf67e3d19da53054694163575ea6c950" prot="public">
+          <name>PINCTRL_CONFIG_VOLTAGE_STATUS</name>
+          <briefdescription>
+<para>Pin config voltage status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga8f3fba595dd4298a4eb4f4501c7e09d1ac98ee9367dbf9d4432318f443cf07209" prot="public">
+          <name>PINCTRL_CONFIG_MIO_TRI_STATE</name>
+          <briefdescription>
+<para>Pin config tri state for MIO pins. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PIN Control Parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="748" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="748" bodyend="756"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1gac35d219636af79057a5562290278b6c2" prot="public" static="no">
+        <name>pm_feature_id</name>
+        <enumvalue id="group__pmstatmacro_1ggac35d219636af79057a5562290278b6c2a8bf2987bf1e2503a5902f9375b2d588d" prot="public">
+          <name>XPM_FEATURE_INVALID</name>
+          <briefdescription>
+<para>Invalid ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggac35d219636af79057a5562290278b6c2ac99bfe04cf6bb83743e267bebfc266f3" prot="public">
+          <name>XPM_FEATURE_OVERTEMP_STATUS</name>
+          <briefdescription>
+<para>Over temperature status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggac35d219636af79057a5562290278b6c2a8ea1268e62f0be1fd911d4233d341b11" prot="public">
+          <name>XPM_FEATURE_OVERTEMP_VALUE</name>
+          <briefdescription>
+<para>Over temperature limit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggac35d219636af79057a5562290278b6c2aac2847039ba89f5417bf78d307097e4d" prot="public">
+          <name>XPM_FEATURE_EXTWDT_STATUS</name>
+          <briefdescription>
+<para>External watchdog status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggac35d219636af79057a5562290278b6c2a00a44c2c794355c66cac4e16a32eab0a" prot="public">
+          <name>XPM_FEATURE_EXTWDT_VALUE</name>
+          <briefdescription>
+<para>External watchdog interval. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>IOCTL IDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="809" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="809" bodyend="815"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1gad8b6526b1af384e85589d9ae73a98a38" prot="public" static="no">
+        <name>XPm_SdConfigType</name>
+        <enumvalue id="group__pmstatmacro_1ggad8b6526b1af384e85589d9ae73a98a38ab14dc5efb80dcfb02ca01e954fd6b733" prot="public">
+          <name>SD_CONFIG_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid SD config. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggad8b6526b1af384e85589d9ae73a98a38a9fdcc25780f24d7bb5fba68966467bbc" prot="public">
+          <name>SD_CONFIG_EMMC_SEL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>To set SD_EMMC_SEL in CTRL_REG_SD and SD_SLOTTYPE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggad8b6526b1af384e85589d9ae73a98a38a9abf11a36a727bab9f17041c2088db00" prot="public">
+          <name>SD_CONFIG_BASECLK</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>To set SD_BASECLK in SD_CONFIG_REG1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggad8b6526b1af384e85589d9ae73a98a38adc766ce37acead0c225d94ef617cd1b3" prot="public">
+          <name>SD_CONFIG_8BIT</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>To set SD_8BIT in SD_CONFIG_REG2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggad8b6526b1af384e85589d9ae73a98a38aba3bfd4528c8613290b44090a5fb326d" prot="public">
+          <name>SD_CONFIG_FIXED</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>To set fixed config registers. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Config types for SD configs at run time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="820" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="820" bodyend="826"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1gab7e314f47cef0e9267e68522df67f598" prot="public" static="no">
+        <name>XPm_GemConfigType</name>
+        <enumvalue id="group__pmstatmacro_1ggab7e314f47cef0e9267e68522df67f598a3f8946b7ee8d9cad978b8858eea2dc9d" prot="public">
+          <name>GEM_CONFIG_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid GEM config. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggab7e314f47cef0e9267e68522df67f598a5b75a2bce75386fda9ac13c2dae0e298" prot="public">
+          <name>GEM_CONFIG_SGMII_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>To set GEM_SGMII_MODE in GEM_CLK_CTRL register. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1ggab7e314f47cef0e9267e68522df67f598af3fa9e92c05a884afae065b33f8ed86d" prot="public">
+          <name>GEM_CONFIG_FIXED</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>To set fixed config registers. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Config types for GEM configs at run time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="831" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="831" bodyend="835"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga0efb88f5f0135da5c45fcb6c9317e59d" prot="public" static="no">
+        <name>XPm_UsbConfigType</name>
+        <enumvalue id="group__pmstatmacro_1gga0efb88f5f0135da5c45fcb6c9317e59dae31d40783110663ef2f3e158bb306b0c" prot="public">
+          <name>USB_CONFIG_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid USB config. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga0efb88f5f0135da5c45fcb6c9317e59dad72284518eed72747def05bc61b3b81b" prot="public">
+          <name>USB_CONFIG_FIXED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>To set fixed config registers. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="838" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="838" bodyend="841"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__pmstatmacro_1ga66306e899a697b122554a7e2eec51085" prot="public" static="no">
+        <name>XPm_QueryId</name>
+        <enumvalue id="group__pmstatmacro_1gga66306e899a697b122554a7e2eec51085a5f8d0962b4b0a18b77800b586a2d3f17" prot="public">
+          <name>XPM_QID_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga66306e899a697b122554a7e2eec51085af6b9e23c642b250021c4a260b99913c7" prot="public">
+          <name>XPM_QID_GET_NODE_NAME</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+<para>Get node name. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__pmstatmacro_1gga66306e899a697b122554a7e2eec51085a0a9e51d104bb5d725360f7dbcd46cbfe" prot="public">
+          <name>XPM_QID_GET_NODE_COUNT</name>
+          <initializer>= 17</initializer>
+          <briefdescription>
+<para>Get node count. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PM QUERY IDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" line="846" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h" bodystart="846" bodyend="851"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

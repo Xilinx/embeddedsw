@@ -1,0 +1,488 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xloader__plat__secure_8c" kind="file">
+    <compoundname>server/xloader_plat_secure.c</compoundname>
+    <includes local="yes">xplmi_config.h</includes>
+    <includes refid="xloader__secure_8h" local="yes">xloader_secure.h</includes>
+    <includes local="yes">xilpdi.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xplmi_status.h</includes>
+    <includes refid="server_2xloader__plat__secure_8h" local="yes">xloader_plat_secure.h</includes>
+    <incdepgraph>
+      <node id="1300">
+        <label>xplmi_util.h</label>
+      </node>
+      <node id="1297">
+        <label>xsecure_rsa.h</label>
+      </node>
+      <node id="1283">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1305">
+        <label>xplmi.h</label>
+      </node>
+      <node id="1284">
+        <label>xloader_auth_enc.h</label>
+        <link refid="xloader__auth__enc_8h"/>
+        <childnode refid="1285" relation="include">
+        </childnode>
+        <childnode refid="1296" relation="include">
+        </childnode>
+        <childnode refid="1286" relation="include">
+        </childnode>
+        <childnode refid="1297" relation="include">
+        </childnode>
+        <childnode refid="1298" relation="include">
+        </childnode>
+        <childnode refid="1299" relation="include">
+        </childnode>
+        <childnode refid="1300" relation="include">
+        </childnode>
+        <childnode refid="1301" relation="include">
+        </childnode>
+        <childnode refid="1294" relation="include">
+        </childnode>
+        <childnode refid="1302" relation="include">
+        </childnode>
+        <childnode refid="1303" relation="include">
+        </childnode>
+        <childnode refid="1304" relation="include">
+        </childnode>
+      </node>
+      <node id="1290">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="1304">
+        <label>xloader_plat_secure.h</label>
+      </node>
+      <node id="1289">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="1296">
+        <label>xsecure_sha_common.h</label>
+      </node>
+      <node id="1301">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1288">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1286">
+        <label>xilpdi.h</label>
+      </node>
+      <node id="1282">
+        <label>xloader_secure.h</label>
+        <link refid="xloader__secure_8h"/>
+        <childnode refid="1283" relation="include">
+        </childnode>
+        <childnode refid="1284" relation="include">
+        </childnode>
+        <childnode refid="1285" relation="include">
+        </childnode>
+        <childnode refid="1300" relation="include">
+        </childnode>
+        <childnode refid="1301" relation="include">
+        </childnode>
+        <childnode refid="1294" relation="include">
+        </childnode>
+      </node>
+      <node id="1295">
+        <label>xsecure_init.h</label>
+      </node>
+      <node id="1291">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1292" relation="include">
+        </childnode>
+        <childnode refid="1293" relation="include">
+        </childnode>
+      </node>
+      <node id="1299">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1302">
+        <label>xplmi_tamper.h</label>
+      </node>
+      <node id="1281">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1298">
+        <label>xsecure_rsa_pss.h</label>
+      </node>
+      <node id="1293">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1285">
+        <label>xloader.h</label>
+        <link refid="xloader_8h"/>
+        <childnode refid="1286" relation="include">
+        </childnode>
+        <childnode refid="1287" relation="include">
+        </childnode>
+        <childnode refid="1288" relation="include">
+        </childnode>
+        <childnode refid="1289" relation="include">
+        </childnode>
+        <childnode refid="1290" relation="include">
+        </childnode>
+        <childnode refid="1291" relation="include">
+        </childnode>
+        <childnode refid="1294" relation="include">
+        </childnode>
+        <childnode refid="1295" relation="include">
+        </childnode>
+      </node>
+      <node id="1308">
+        <label>xsecure_mgf.h</label>
+      </node>
+      <node id="1292">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1280">
+        <label>xloader_plat_secure.c</label>
+        <link refid="server/xloader_plat_secure.c"/>
+        <childnode refid="1281" relation="include">
+        </childnode>
+        <childnode refid="1282" relation="include">
+        </childnode>
+        <childnode refid="1286" relation="include">
+        </childnode>
+        <childnode refid="1305" relation="include">
+        </childnode>
+        <childnode refid="1287" relation="include">
+        </childnode>
+        <childnode refid="1306" relation="include">
+        </childnode>
+      </node>
+      <node id="1306">
+        <label>xloader_plat_secure.h</label>
+        <childnode refid="1286" relation="include">
+        </childnode>
+        <childnode refid="1281" relation="include">
+        </childnode>
+        <childnode refid="1307" relation="include">
+        </childnode>
+        <childnode refid="1308" relation="include">
+        </childnode>
+      </node>
+      <node id="1294">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="1307">
+        <label>xsecure_kat.h</label>
+      </node>
+      <node id="1287">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="1303">
+        <label>xpuf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLoader_GetKekSrc</definition>
+        <argsstring>(void)</argsstring>
+        <name>XLoader_GetKekSrc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function updates KEK red key availability status from boot header. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Decryption Key source status. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="82" bodyend="107"/>
+        <references refid="xloader__auth__enc_8h_1ade3004565717199ee57abec59c1fb18c" compoundref="xloader__auth__enc_8h" startline="191">XLOADER_BBRAM_BLK_KEY</references>
+        <references refid="xloader__auth__enc_8h_1ade4d767281c0bfc8f13986d55dba83fa" compoundref="xloader__auth__enc_8h" startline="289">XLOADER_BBRAM_RED_KEY</references>
+        <references refid="xloader__auth__enc_8h_1a58356b659336e4b427c4970be82d3ac1" compoundref="xloader__auth__enc_8h" startline="193">XLOADER_BH_BLK_KEY</references>
+        <references refid="xloader__auth__enc_8h_1ab6ee28a571ba641e995ca7b765968cc5" compoundref="xloader__auth__enc_8h" startline="291">XLOADER_BHDR_RED_KEY</references>
+        <references refid="xloader__auth__enc_8h_1a1c3ef02f873ab336be986fce84fd0cbe" compoundref="xloader__auth__enc_8h" startline="187">XLOADER_EFUSE_BLK_KEY</references>
+        <references refid="xloader__auth__enc_8h_1a9c389c98f746e41bfb5e14b5abf4a76d" compoundref="xloader__auth__enc_8h" startline="293">XLOADER_EFUSE_RED_KEY</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_AesObfusKeySelect</definition>
+        <argsstring>(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)</argsstring>
+        <name>XLoader_AesObfusKeySelect</name>
+        <param>
+          <type>u32</type>
+          <declname>PdiKeySrc</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DecKeyMask</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>KeySrcPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides Obfuscated Aes Key source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiKeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Key source given in Pdi </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecKeyMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current DecKeyMask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the calculated KeySrc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiKeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Key source given in Pdi </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecKeyMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current DecKeyMask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the calculated KeySrc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success and error code on failure</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiKeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Key source given in Pdi. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecKeyMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current DecKeyMask. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the calculated KeySrc.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="121" bodyend="129"/>
+        <references refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" compoundref="server_2xloader__plat__secure_8h" startline="113">XLOADER_SEC_AES_KEK_DEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_CheckSecureStateAuth</definition>
+        <argsstring>(volatile u32 *AHWRoT)</argsstring>
+        <name>XLoader_CheckSecureStateAuth</name>
+        <param>
+          <type>volatile u32 *</type>
+          <declname>AHWRoT</declname>
+        </param>
+        <briefdescription>
+<para>This function checks Secure State for Authentication. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AHWRoT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer to store Secure state for authentication</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED if PPK is programmed and boot header authentication is enabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AHWRoT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer to store Secure state for authentication</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success. </para><simplesectsep/><para>XLOADER_ERR_GLITCH_DETECTED if glitch is detected.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AHWRoT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer to store Secure state for authentication.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED if PPK is programmed and boot header authentication is enabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AHWRoT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store Secure state for authentication.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_ERR_GLITCH_DETECTED if glitch is detected. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT.</para></listitem><listitem><para>If BHDR authentication is enabled, then Secure State of boot is emulated A-HWRoT.</para></listitem></itemizedlist>
+</para><para>If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT</para><para>If PPK hash is not programmed in eFUSEs and PLM is authenticated then Secure State of boot is emulated A-HWRoT</para><para><itemizedlist>
+<listitem><para>If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT.</para></listitem><listitem><para>If BHDR authentication is enabled, then Secure State of boot is emulated A-HWRoT.</para></listitem><listitem><para>If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT.</para></listitem><listitem><para>If PPK hash is not programmed in eFUSEs and PLM is authenticated then Secure State of boot is emulated A-HWRoT.</para></listitem></itemizedlist>
+</para><para>If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT</para><para>If PPK hash is not programmed in eFUSEs and PLM is authenticated then Secure State of boot is emulated A-HWRoT</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="143" bodyend="190"/>
+        <references refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" compoundref="xloader__secure_8c" startline="968" endline="997">XLoader_CheckNonZeroPpk</references>
+        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1136" endline="1217">XLoader_SetSecureState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__secure_8h" kindref="compound">xloader_secure.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilpdi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_status.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xloader_plat_secure.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="82" refid="group__xloader__apis_1gac8bc92d0322ebe706e0642274395c092" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kindref="member">XLoader_GetKekSrc</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>DecKeySrc<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_BootHdr<sp/>*BootHdrPtr<sp/>=<sp/>(XilPdi_BootHdr<sp/>*)(UINTPTR)XIH_BH_PRAM_ADDR;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Identifying<sp/>KEK&apos;s<sp/>corresponding<sp/>RED<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;key<sp/>availability<sp/>status\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(BootHdrPtr-&gt;EncStatus)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xloader__auth__enc_8h_1a58356b659336e4b427c4970be82d3ac1" kindref="member">XLOADER_BH_BLK_KEY</ref>:</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DecKeySrc<sp/>=<sp/><ref refid="xloader__auth__enc_8h_1ab6ee28a571ba641e995ca7b765968cc5" kindref="member">XLOADER_BHDR_RED_KEY</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xloader__auth__enc_8h_1ade3004565717199ee57abec59c1fb18c" kindref="member">XLOADER_BBRAM_BLK_KEY</ref>:</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DecKeySrc<sp/>=<sp/><ref refid="xloader__auth__enc_8h_1ade4d767281c0bfc8f13986d55dba83fa" kindref="member">XLOADER_BBRAM_RED_KEY</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="xloader__auth__enc_8h_1a1c3ef02f873ab336be986fce84fd0cbe" kindref="member">XLOADER_EFUSE_BLK_KEY</ref>:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DecKeySrc<sp/>=<sp/><ref refid="xloader__auth__enc_8h_1a9c389c98f746e41bfb5e14b5abf4a76d" kindref="member">XLOADER_EFUSE_RED_KEY</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>No<sp/>KEK<sp/>is<sp/>available<sp/>for<sp/>PLM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;KEK<sp/>red<sp/>key<sp/>available<sp/>after<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;for<sp/>PLM<sp/>%x\n\r&quot;</highlight><highlight class="normal">,<sp/>DecKeySrc);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>DecKeySrc;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="121" refid="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kindref="member">XLoader_AesObfusKeySelect</ref>(u32<sp/>PdiKeySrc,<sp/>u32<sp/>DecKeyMask,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*KeySrcPtr)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PdiKeySrc;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)KeySrcPtr;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)DecKeyMask;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Obfuscated<sp/>Key<sp/>is<sp/>not<sp/>supported<sp/>in<sp/>Versal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XLoader_UpdateMinorErr(<ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" kindref="member">XLOADER_SEC_AES_KEK_DEC</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="comment">/*<sp/>END<sp/>OF<sp/>PLM_SECURE_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143" refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" kindref="member">XLoader_CheckSecureStateAuth</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32*<sp/>AHWRoT)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>IsBhdrAuth;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>IsBhdrAuthTmp;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/><ref refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" kindref="member">XLoader_CheckNonZeroPpk</ref>);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsBhdrAuth<sp/>=<sp/>((XPlmi_In32(XIH_BH_PRAM_ADDR<sp/>+<sp/>XIH_BH_IMG_ATTRB_OFFSET)<sp/>&amp;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_BH_IMG_ATTRB_BH_AUTH_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsBhdrAuthTmp<sp/>=<sp/>((XPlmi_In32(XIH_BH_PRAM_ADDR<sp/>+<sp/>XIH_BH_IMG_ATTRB_OFFSET)<sp/>&amp;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_BH_IMG_ATTRB_BH_AUTH_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>||<sp/>(StatusTmp<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsBhdrAuth<sp/>==<sp/>XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)<sp/>||</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IsBhdrAuthTmp<sp/>==<sp/>XIH_BH_IMG_ATTRB_BH_AUTH_VALUE))<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED,<sp/>XIL_SIGNED_ZERO);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*AHWRoT<sp/>=<sp/>XPLMI_RTCFG_SECURESTATE_AHWROT;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;State<sp/>of<sp/>Boot(Authentication):&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>Asymmetric<sp/>HWRoT\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsBhdrAuth<sp/>==<sp/>XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)<sp/>||</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IsBhdrAuthTmp<sp/>==<sp/>XIH_BH_IMG_ATTRB_BH_AUTH_VALUE))<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*AHWRoT<sp/>=<sp/>XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;State<sp/>of<sp/>Boot(Authentication):&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>Emulated<sp/>Asymmetric<sp/>HWRoT\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*AHWRoT<sp/>=<sp/>XPLMI_RTCFG_SECURESTATE_NONSECURE;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c"/>
+  </compounddef>
+</doxygen>

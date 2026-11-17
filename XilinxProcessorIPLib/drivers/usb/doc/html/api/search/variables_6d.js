@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['manufacturer',['Manufacturer',['../xusb__cp9_8c.html#a58563e9bd150a409f7a2125d278193fd',1,'Manufacturer():&#160;xusb_keyboard.h'],['../xusb__keyboard_8h.html#a58563e9bd150a409f7a2125d278193fd',1,'Manufacturer():&#160;xusb_keyboard.h'],['../xusb__microphone_8h.html#a58563e9bd150a409f7a2125d278193fd',1,'Manufacturer():&#160;xusb_microphone.h'],['../xusb__mouse_8h.html#a58563e9bd150a409f7a2125d278193fd',1,'Manufacturer():&#160;xusb_mouse.h'],['../xusb__storage_8h.html#a58563e9bd150a409f7a2125d278193fd',1,'Manufacturer():&#160;xusb_storage.h']]],
+  ['maxcontrolsize',['MaxControlSize',['../xusb__cp9_8c.html#a0014b91940ed2f067400662f504bb379',1,'MaxControlSize():&#160;xusb_cp9.c'],['../xusb__keyboard_8h.html#a0014b91940ed2f067400662f504bb379',1,'MaxControlSize():&#160;xusb_cp9.c'],['../xusb__microphone_8h.html#a0014b91940ed2f067400662f504bb379',1,'MaxControlSize():&#160;xusb_cp9.c'],['../xusb__mouse_8h.html#a0014b91940ed2f067400662f504bb379',1,'MaxControlSize():&#160;xusb_cp9.c'],['../xusb__storage_8h.html#a0014b91940ed2f067400662f504bb379',1,'MaxControlSize():&#160;xusb_cp9.c']]],
+  ['maxnumblocks',['maxnumblocks',['../struct_c_a_p_a_c_i_t_y___l_i_s_t.html#a1488e6a908839d1d32dabc35960777a3',1,'CAPACITY_LIST']]],
+  ['mb0',['mb0',['../struct_s_c_s_i___m_o_d_e_s_e_n_s_e___c_d_b.html#abcfa50bfbb41390becc9aede2f377f79',1,'SCSI_MODESENSE_CDB::mb0()'],['../struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e.html#ac2496f7bf32f7851694ff35ca0085811',1,'SCSI_MEDIA_REMOVAL_TYPE::mb0()']]],
+  ['mb0_5f1',['mb0_1',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a7163e7d43854f6de43e25e35e8e4fb26',1,'MODESENSE_FD::mb0_1()'],['../struct_m_o_d_e_s_e_n_s_e___r_b_a_c.html#ae0ea2d72eb7f39eebeac21d72df0f6a0',1,'MODESENSE_RBAC::mb0_1()'],['../struct_m_o_d_e_s_e_n_s_e___t_p.html#a14b8f321b5566e83957550147127edb1',1,'MODESENSE_TP::mb0_1()']]],
+  ['mb0_5f2',['mb0_2',['../struct_s_c_s_i___m_o_d_e_s_e_n_s_e___c_d_b.html#a2689c7882e790494da2bc66d27ae85b0',1,'SCSI_MODESENSE_CDB::mb0_2()'],['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a359d09c3239b8644f6499453c409e3d3',1,'MODESENSE_FD::mb0_2()'],['../struct_m_o_d_e_s_e_n_s_e___r_b_a_c.html#a85ebecd2be250de4471ab228799a9e09',1,'MODESENSE_RBAC::mb0_2()'],['../struct_m_o_d_e_s_e_n_s_e___t_p.html#a19df1066be586734edf1f731cec031ab',1,'MODESENSE_TP::mb0_2()']]],
+  ['mb0_5f3',['mb0_3',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a28b04ad1c87f14ab5ace2c88e9857c58',1,'MODESENSE_FD']]],
+  ['mb1',['mb1',['../struct_i_n_q_u_i_r_y.html#a07430b4d1c435aef4c1e5b86fc1b2198',1,'INQUIRY']]],
+  ['mb1c',['mb1c',['../struct_m_o_d_e_s_e_n_s_e___t_p.html#a571841c0f0019bd61061acc7d0b8cbec',1,'MODESENSE_TP']]],
+  ['mb1f',['mb1f',['../struct_i_n_q_u_i_r_y.html#a844bcfed30c117abaa77b5e975e6efde',1,'INQUIRY']]],
+  ['mbd8',['mbd8',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a73079a292e12ad2189924d9782ce86b1',1,'MODESENSE_FD']]],
+  ['mbz',['mbz',['../struct_i_n_q_u_i_r_y.html#a35605480e7c0fa9b0e9187c437248b4b',1,'INQUIRY']]],
+  ['medium_5frotation_5frate',['medium_rotation_rate',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a423b03b5455ed4e8fa6792a6eb85d3a9',1,'MODESENSE_FD']]],
+  ['medium_5ftype_5fcode',['medium_type_code',['../struct_m_o_d_e_s_e_n_s_e___m_p_l.html#a5ce8fac4dae2b713ddaf6a51a0612c08',1,'MODESENSE_MPL']]],
+  ['message',['Message',['../xusb__keyboard_8h.html#a6c7723edabfccda4cd924c243b5b8734',1,'xusb_keyboard.h']]],
+  ['mode_5fdata_5flength',['mode_data_length',['../struct_m_o_d_e_s_e_n_s_e___m_p_l.html#a69ba202e1f8dfe1992311d2df507ba56',1,'MODESENSE_MPL']]],
+  ['motor_5foff_5fdelay',['motor_off_delay',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a215298bcee5f92fcca3dcbc4044e5b83',1,'MODESENSE_FD']]],
+  ['motor_5fon_5fdelay',['motor_on_delay',['../struct_m_o_d_e_s_e_n_s_e___f_d.html#a82e6037cc3adcb587dafa63eff0522e4',1,'MODESENSE_FD']]],
+  ['mpl',['mpl',['../struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___s_h_o_r_t.html#aecc604df3b1e17a25ea27c1d2813e30a',1,'MODE_SENSE_REPLY_SHORT::mpl()'],['../struct_m_o_d_e___s_e_n_s_e___r_e_p_l_y___a_l_l.html#a557291bbabe3be8910287230c61ade95',1,'MODE_SENSE_REPLY_ALL::mpl()']]]
+];

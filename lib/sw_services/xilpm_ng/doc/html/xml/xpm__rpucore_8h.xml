@@ -1,0 +1,584 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__rpucore_8h" kind="file">
+    <compoundname>xpm_rpucore.h</compoundname>
+    <includes refid="xpm__core_8h" local="yes">xpm_core.h</includes>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__core_8c" local="yes">xpm_core.c</includedby>
+    <includedby refid="xpm__device_8c" local="yes">xpm_device.c</includedby>
+    <includedby refid="xpm__mem__tcm_8c" local="yes">xpm_mem_tcm.c</includedby>
+    <includedby refid="xpm__rpucore_8c" local="yes">xpm_rpucore.c</includedby>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__runtime__core_8c" local="yes">xpm_runtime_core.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <includedby refid="xpm__runtime__rpucore_8c" local="yes">xpm_runtime_rpucore.c</includedby>
+    <incdepgraph>
+      <node id="4176">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4181">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4177">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4179">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4174">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4183">
+        <label>xpm_clock.h</label>
+        <childnode refid="4175" relation="include">
+        </childnode>
+        <childnode refid="4171" relation="include">
+        </childnode>
+        <childnode refid="4182" relation="include">
+        </childnode>
+      </node>
+      <node id="4182">
+        <label>xpm_power.h</label>
+        <childnode refid="4180" relation="include">
+        </childnode>
+        <childnode refid="4171" relation="include">
+        </childnode>
+      </node>
+      <node id="4175">
+        <label>xpm_common.h</label>
+        <childnode refid="4173" relation="include">
+        </childnode>
+        <childnode refid="4176" relation="include">
+        </childnode>
+        <childnode refid="4177" relation="include">
+        </childnode>
+        <childnode refid="4178" relation="include">
+        </childnode>
+        <childnode refid="4179" relation="include">
+        </childnode>
+        <childnode refid="4180" relation="include">
+        </childnode>
+      </node>
+      <node id="4171">
+        <label>xpm_node.h</label>
+        <childnode refid="4172" relation="include">
+        </childnode>
+        <childnode refid="4173" relation="include">
+        </childnode>
+        <childnode refid="4174" relation="include">
+        </childnode>
+        <childnode refid="4175" relation="include">
+        </childnode>
+      </node>
+      <node id="4173">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4168">
+        <label>xpm_rpucore.h</label>
+        <link refid="xpm_rpucore.h"/>
+        <childnode refid="4169" relation="include">
+        </childnode>
+      </node>
+      <node id="4185">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="4169">
+        <label>xpm_core.h</label>
+        <childnode refid="4170" relation="include">
+        </childnode>
+        <childnode refid="4185" relation="include">
+        </childnode>
+      </node>
+      <node id="4172">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4180">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4172" relation="include">
+        </childnode>
+        <childnode refid="4181" relation="include">
+        </childnode>
+      </node>
+      <node id="4170">
+        <label>xpm_device.h</label>
+        <childnode refid="4171" relation="include">
+        </childnode>
+        <childnode refid="4182" relation="include">
+        </childnode>
+        <childnode refid="4183" relation="include">
+        </childnode>
+        <childnode refid="4184" relation="include">
+        </childnode>
+      </node>
+      <node id="4184">
+        <label>xpm_reset.h</label>
+        <childnode refid="4171" relation="include">
+        </childnode>
+        <childnode refid="4175" relation="include">
+        </childnode>
+      </node>
+      <node id="4178">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4173" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4195">
+        <label>xpm_runtime_rpucore.c</label>
+      </node>
+      <node id="4190">
+        <label>xpm_mem_tcm.c</label>
+      </node>
+      <node id="4192">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="4187">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="4194">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="4193">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="4191">
+        <label>xpm_rpucore.c</label>
+      </node>
+      <node id="4186">
+        <label>xpm_rpucore.h</label>
+        <link refid="xpm_rpucore.h"/>
+        <childnode refid="4187" relation="include">
+        </childnode>
+        <childnode refid="4188" relation="include">
+        </childnode>
+        <childnode refid="4189" relation="include">
+        </childnode>
+        <childnode refid="4190" relation="include">
+        </childnode>
+        <childnode refid="4191" relation="include">
+        </childnode>
+        <childnode refid="4192" relation="include">
+        </childnode>
+        <childnode refid="4193" relation="include">
+        </childnode>
+        <childnode refid="4194" relation="include">
+        </childnode>
+        <childnode refid="4195" relation="include">
+        </childnode>
+      </node>
+      <node id="4188">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="4189">
+        <label>xpm_device.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___rpu_core" prot="public">XPm_RpuCore</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__rpucore_8h_1a818eead4c2ba460f490c54205074eaaa" prot="public" static="no">
+        <name>XPM_CLUSTER_CFG_OFFSET</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="14" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1a4d3651c39e5ab4a5b9366293a1b7555c" prot="public" static="no">
+        <name>XPM_RPU_SLSPLIT_MASK</name>
+        <initializer>BIT32(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1a49fa75a6d828e46a6d00eb596e8b6ede" prot="public" static="no">
+        <name>XPM_CORE_CFG0_OFFSET</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1a90d2665d95932f3a31eb3e9b11477d43" prot="public" static="no">
+        <name>XPM_RPU_TCMBOOT_MASK</name>
+        <initializer>BIT32(4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1a2bfde94bf0357fdd6e76acbfa23c178a" prot="public" static="no">
+        <name>XPM_CORE_VECTABLE_OFFSET</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1a9ce45532dd86e8090bdac0e7e8f957a7" prot="public" static="no">
+        <name>XPM_RPU_VECTABLE_ALIGN</name>
+        <initializer>(0x20U)</initializer>
+        <briefdescription>
+<para>RPU vector-table alignment: CORE_x_VECTABLE [4:0] reserved -&gt; 32-byte aligned. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1ad7efc26ea00139d527550095e157c1dc" prot="public" static="no">
+        <name>XPM_RPU_CPUHALT_MASK</name>
+        <initializer>BIT(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1aa1b1342752c2bf82f61d5ce6cd813331" prot="public" static="no">
+        <name>XPM_RPU_CORE_HALT</name>
+        <param><defname>ResumeCfg</defname></param>
+        <initializer>PmRmw32(ResumeCfg, XPM_RPU_CPUHALT_MASK,\
+							XPM_RPU_CPUHALT_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__rpucore_8h_1a6992761c5d4c8db780fbb1fea71f58c1" prot="public" static="no">
+        <name>XPM_RPU_CORE_RUN</name>
+        <param><defname>ResumeCfg</defname></param>
+        <initializer>PmRmw32(ResumeCfg, XPM_RPU_CPUHALT_MASK,\
+							~XPM_RPU_CPUHALT_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__rpucore_8h_1a4c24c32fa5bbf9fcff2e41830d887db9" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___rpu_core" kindref="compound">XPm_RpuCore</ref></type>
+        <definition>typedef struct XPm_RpuCore XPm_RpuCore</definition>
+        <argsstring></argsstring>
+        <name>XPm_RpuCore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__rpucore_8h_1a57896175717f5f55a985d0b9c84de05b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRpuCore_Init</definition>
+        <argsstring>(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAddress, XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)</argsstring>
+        <name>XPmRpuCore_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___rpu_core" kindref="compound">XPm_RpuCore</ref> *</type>
+          <declname>RpuCore</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Ipi</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XPm_Power *</type>
+          <declname>Power</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+          <declname>Clock</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Reset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="66" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1ad5551187f8ecdc907a862d6694380dd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RpuGetOperMode</definition>
+        <argsstring>(const u32 DeviceId, u32 *Mode)</argsstring>
+        <name>XPm_RpuGetOperMode</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="84" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1a52ea173b7631705bf1a21576a4a4f6af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_RpuSetOperMode</definition>
+        <argsstring>(const u32 DeviceId, const u32 Mode)</argsstring>
+        <name>XPm_RpuSetOperMode</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="108" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1a83247b6dec2a14a03f8f6235bf1c32ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRpuCore_ResetAndHalt</definition>
+        <argsstring>(u32 CoreId)</argsstring>
+        <name>XPmRpuCore_ResetAndHalt</name>
+        <param>
+          <type>u32</type>
+          <declname>CoreId</declname>
+        </param>
+        <briefdescription>
+<para>Assert all resets for an RPU core and place the core in halt state. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Retrieves and validates the RPU core, sets every reset field linked
+    through its reset handles, and writes the core&apos;s resume
+    configuration to halt execution.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CoreId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of the RPU core to reset and halt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when all reset fields are asserted and the core is halted; XST_INVALID_PARAM when a registered node is not an RPU core; or XST_FAILURE when the core or one of its reset nodes is absent. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="463" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1ab81311d3f756c95ec1a94bc73eeb6856" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmRpuCore_SetTcmBoot</definition>
+        <argsstring>(const u32 DeviceId, const u8 TcmBootFlag)</argsstring>
+        <name>XPmRpuCore_SetTcmBoot</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>const u8</type>
+          <declname>TcmBootFlag</declname>
+        </param>
+        <briefdescription>
+<para>Returns the RPU core node IDs for the given device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Returns the RPU core node IDs for the given device.</para><para><verbatim>    Looks up the RPU core by device ID. When TCM boot is requested, it
+    resets and halts the core, releases its reset, and then sets the
+    TCMBOOT field. Otherwise, it clears the TCMBOOT field directly.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of the RPU core to configure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TcmBootFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Set to 1U to enable TCM boot; any other value disables TCM boot.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. If the core lookup or a reset operation fails, the function returns without modifying the TCMBOOT field. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="307" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1ab10e7e12d5901e91bfa41f913d1956a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRpuCore_ReleaseReset</definition>
+        <argsstring>(u32 CoreId)</argsstring>
+        <name>XPmRpuCore_ReleaseReset</name>
+        <param>
+          <type>u32</type>
+          <declname>CoreId</declname>
+        </param>
+        <briefdescription>
+<para>Release all reset controls attached to an RPU core. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    Retrieves and validates the RPU core, then clears every reset field
+    linked through its reset handles.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CoreId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of the RPU core to release from reset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS when all reset fields are cleared; XST_INVALID_PARAM when a registered node is not an RPU core; or XST_FAILURE when the core or one of its reset nodes is absent. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="504" bodyend="530"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1aaa53ea52b84565be959b51f64bb64835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRpuCore_WakeUp</definition>
+        <argsstring>(XPm_Core *Core, u32 SetAddress, u64 Address)</argsstring>
+        <name>XPmRpuCore_WakeUp</name>
+        <param>
+          <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref> *</type>
+          <declname>Core</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SetAddress</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="32" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__rpucore_8h_1a849e8d51fb614d16f2ed58084e94d1db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRpuCore_PwrDwn</definition>
+        <argsstring>(XPm_Core *Core)</argsstring>
+        <name>XPmRpuCore_PwrDwn</name>
+        <param>
+          <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref> *</type>
+          <declname>Core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.c" bodystart="50" bodyend="63"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RPUCORE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RPUCORE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLUSTER_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RPU_SLSPLIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT32(0)</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CORE_CFG0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RPU_TCMBOOT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT32(4)</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CORE_VECTABLE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#define<sp/>XPM_RPU_VECTABLE_ALIGN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RPU_CPUHALT_MASK<sp/><sp/><sp/><sp/>BIT(0)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RPU_CORE_HALT(ResumeCfg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(ResumeCfg,<sp/>XPM_RPU_CPUHALT_MASK,\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RPU_CPUHALT_MASK)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RPU_CORE_RUN(ResumeCfg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmRmw32(ResumeCfg,<sp/>XPM_RPU_CPUHALT_MASK,\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~XPM_RPU_CPUHALT_MASK)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___rpu_core" kindref="compound">XPm_RpuCore</ref><sp/><ref refid="struct_x_pm___rpu_core" kindref="compound">XPm_RpuCore</ref>;</highlight></codeline>
+<codeline lineno="30" refid="struct_x_pm___rpu_core" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___rpu_core" kindref="compound">XPm_RpuCore</ref><sp/>{</highlight></codeline>
+<codeline lineno="31" refid="struct_x_pm___rpu_core_1ae0e3ca0e76c558408eb97acd23a64b1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref><sp/><ref refid="struct_x_pm___rpu_core_1ae0e3ca0e76c558408eb97acd23a64b1c" kindref="member">Core</ref>;<sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ResumeCfg;</highlight></codeline>
+<codeline lineno="33" refid="struct_x_pm___rpu_core_1a3008945481ee5e11db03a8eb2dd4a429" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___rpu_core_1a3008945481ee5e11db03a8eb2dd4a429" kindref="member">RpuBaseAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="34" refid="struct_x_pm___rpu_core_1a0e6748575fcb9f9b888e30dcd32e1a87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___rpu_core_1a0e6748575fcb9f9b888e30dcd32e1a87" kindref="member">ClusterBaseAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PcilIsr;<sp/></highlight><highlight class="comment">/*pcil<sp/>isr<sp/>register*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">XStatus<sp/>XPmRpuCore_Init(<ref refid="struct_x_pm___rpu_core" kindref="compound">XPm_RpuCore</ref><sp/>*RpuCore,<sp/>u32<sp/>Id,<sp/>u32<sp/>Ipi,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*BaseAddress,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>*Power,<sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>*Clock,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Reset);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">XStatus<sp/>XPm_RpuGetOperMode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/>u32<sp/>*Mode);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">XStatus<sp/>XPm_RpuSetOperMode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Mode);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">XStatus<sp/>XPmRpuCore_ResetAndHalt(u32<sp/>CoreId);</highlight></codeline>
+<codeline lineno="48"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmRpuCore_SetTcmBoot(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>TcmBootFlag);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">XStatus<sp/>XPmRpuCore_ReleaseReset(u32<sp/>CoreId);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">XStatus<sp/>XPmRpuCore_WakeUp(<ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref><sp/>*Core,<sp/>u32<sp/>SetAddress,<sp/>u64<sp/>Address);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">XStatus<sp/>XPmRpuCore_PwrDwn(<ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref><sp/>*Core);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RPUCORE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h"/>
+  </compounddef>
+</doxygen>

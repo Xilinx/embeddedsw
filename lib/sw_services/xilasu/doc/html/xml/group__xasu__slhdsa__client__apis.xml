@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__slhdsa__client__apis" kind="group">
+    <compoundname>xasu_slhdsa_client_apis</compoundname>
+    <title>SLH-DSA Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__slhdsa__client__apis_1ga45384778f3af32738cd271cd20ded544" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_SlhdsaSign</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_SlhdsaSignParams *SlhdsaParamPtr)</argsstring>
+        <name>XAsu_SlhdsaSign</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___slhdsa_sign_params" kindref="compound">XAsu_SlhdsaSignParams</ref> *</type>
+          <declname>SlhdsaParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to sign a message using an SLH-DSA secret key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. SecureFlag must be XASU_CMD_SECURE. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlhdsaParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___slhdsa_sign_params" kindref="compound">XAsu_SlhdsaSignParams</ref> structure which holds the SLH-DSA signature generation parameters. SignMode defaults to XASU_SLHDSA_SIGN_MODE_HEDGED, which draws the randomizer from the TRNG on ASUFW.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Signing takes seconds to tens of seconds, so the caller must keep every buffer valid until the callback reports completion. CtxLen must match the value used during verification. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate SLH-DSA signature generation parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_slhdsa.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_slhdsa.c" bodystart="72" bodyend="109"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gaa41edfbf167bd90b0ead37b10c5f5ba9" compoundref="xasu__def_8h" startline="70">XASU_MODULE_SLHDSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaca88920e3eaea18cf5a7b05a5e396517" compoundref="xasu__slhdsainfo_8h" startline="78">XASU_SLHDSA_SIGN_CMD_ID</references>
+        <references refid="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" compoundref="xasu__slhdsa__common_8c" startline="291" endline="384">XAsu_SlhdsaValidateSignParams</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__apis_1gacacd407a2fb969d654685dd6babc3c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_SlhdsaSignVerify</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_SlhdsaSignVerifyParams *SlhdsaParamPtr)</argsstring>
+        <name>XAsu_SlhdsaSignVerify</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___slhdsa_sign_verify_params" kindref="compound">XAsu_SlhdsaSignVerifyParams</ref> *</type>
+          <declname>SlhdsaParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to verify an SLH-DSA signature over the provided message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlhdsaParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___slhdsa_sign_verify_params" kindref="compound">XAsu_SlhdsaSignVerifyParams</ref> structure which holds the SLH-DSA signature verification parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Success here only means the request was queued; the verdict arrives as XASU_SLHDSA_SIGNATURE_VERIFIED in AdditionalStatus via the callback. CtxLen and CtxAddr must match the values used when the signature was created. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate SLH-DSA signature verification parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_slhdsa.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_slhdsa.c" bodystart="132" bodyend="170"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gaa41edfbf167bd90b0ead37b10c5f5ba9" compoundref="xasu__def_8h" startline="70">XASU_MODULE_SLHDSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga3766bc61f41633b1577c37c26e033960" compoundref="xasu__slhdsainfo_8h" startline="79">XASU_SLHDSA_SIGN_VERIFY_CMD_ID</references>
+        <references refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__apis_1ga3e3a8767c979843238633f4da70c6321" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_SlhdsaKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_SlhdsaKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to run the SLH-DSA Known Answer Test, which verifies one ACVP SLH-DSA-SHAKE-128s signature (pure mode, empty context). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_slhdsa.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_slhdsa.c" bodystart="187" bodyend="215"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="52">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gaa41edfbf167bd90b0ead37b10c5f5ba9" compoundref="xasu__def_8h" startline="70">XASU_MODULE_SLHDSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga73cb953c058a6218ebf5bd298faa281c" compoundref="xasu__slhdsainfo_8h" startline="80">XASU_SLHDSA_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

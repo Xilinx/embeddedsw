@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_ecdsa_key" kind="struct" prot="public">
+    <compoundname>EcdsaKey</compoundname>
+    <includes local="no">Ecdsa.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_ecdsa_key_1a785b4dfd4b30089f549e8b04850edbad" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * EcdsaKey::Qx</definition>
+        <argsstring></argsstring>
+        <name>Qx</name>
+        <briefdescription>
+<para>Public key curve point x. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="35" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="327" endline="417">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="120" endline="205">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="491" endline="564">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="633" endline="750">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_key_1aab1f97a43adcb25fbd08c0e2c0f2da03" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * EcdsaKey::Qy</definition>
+        <argsstring></argsstring>
+        <name>Qy</name>
+        <briefdescription>
+<para>Public key curve point y. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="36" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="327" endline="417">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="120" endline="205">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="491" endline="564">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="633" endline="750">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold ECDSA public key curve points. </para>    </briefdescription>
+    <detaileddescription>
+<para>ECDSA public key.</para><para>ECDSA public key structure. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="34" bodyend="37"/>
+    <listofallmembers>
+      <member refid="struct_ecdsa_key_1a785b4dfd4b30089f549e8b04850edbad" prot="public" virt="non-virtual"><scope>EcdsaKey</scope><name>Qx</name></member>
+      <member refid="struct_ecdsa_key_1aab1f97a43adcb25fbd08c0e2c0f2da03" prot="public" virt="non-virtual"><scope>EcdsaKey</scope><name>Qy</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ecc_key_object" kind="struct" prot="public">
+    <compoundname>XAsu_EccKeyObject</compoundname>
+    <includes local="no">xasu_eccinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_object_1a90332b73852c71bf7e81d3a613b504f4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EccKeyObject::KeyAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyAddr</name>
+        <briefdescription>
+<para>Address of the key data (private or public); 0 when the key is taken from the key vault via KeyId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="102" endline="237">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_object_1a02196f5aadc4a8e9a43a6e2d767306c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EccKeyObject::KeyId</definition>
+        <argsstring></argsstring>
+        <name>KeyId</name>
+        <briefdescription>
+<para>Key identifier from key management (used if KeyAddr == 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="102" endline="237">main</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_object_1ac7340774e8e250d8d2712cc5eaad1690" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EccKeyObject::KeyLen</definition>
+        <argsstring></argsstring>
+        <name>KeyLen</name>
+        <briefdescription>
+<para>Length of the key in bytes (curve length); must be 0 when KeyAddr is 0, as the firmware takes the length of a vault sourced key from the stored metadata. </para>        </briefdescription>
+        <detaileddescription>
+<para>A non-zero length with a zero address is rejected as an invalid parameter. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="102" endline="237">main</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_object_1aca3d4f92c45add7b6161211b42c8d69d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EccKeyObject::CurveType</definition>
+        <argsstring></argsstring>
+        <name>CurveType</name>
+        <briefdescription>
+<para>Type of curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="102" endline="237">main</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_object_1abc7e68ef5af8f1f15652dc9f45b822ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EccKeyObject::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Common key object structure used by all ECC operations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="117" bodyend="127"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ecc_key_object_1aca3d4f92c45add7b6161211b42c8d69d" prot="public" virt="non-virtual"><scope>XAsu_EccKeyObject</scope><name>CurveType</name></member>
+      <member refid="struct_x_asu___ecc_key_object_1a90332b73852c71bf7e81d3a613b504f4" prot="public" virt="non-virtual"><scope>XAsu_EccKeyObject</scope><name>KeyAddr</name></member>
+      <member refid="struct_x_asu___ecc_key_object_1a02196f5aadc4a8e9a43a6e2d767306c0" prot="public" virt="non-virtual"><scope>XAsu_EccKeyObject</scope><name>KeyId</name></member>
+      <member refid="struct_x_asu___ecc_key_object_1ac7340774e8e250d8d2712cc5eaad1690" prot="public" virt="non-virtual"><scope>XAsu_EccKeyObject</scope><name>KeyLen</name></member>
+      <member refid="struct_x_asu___ecc_key_object_1abc7e68ef5af8f1f15652dc9f45b822ce" prot="public" virt="non-virtual"><scope>XAsu_EccKeyObject</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

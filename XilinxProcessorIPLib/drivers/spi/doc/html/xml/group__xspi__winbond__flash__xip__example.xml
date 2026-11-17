@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspi__winbond__flash__xip__example" kind="group">
+    <compoundname>xspi_winbond_flash_xip_example</compoundname>
+    <title>Xspi_winbond_flash_xip_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspi__winbond__flash__xip__example_1ga9b8eff14a764717b110daede88fd5fb8" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref></type>
+        <definition>XSpi SpiInstance</definition>
+        <argsstring></argsstring>
+        <name>SpiInstance</name>
+        <briefdescription>
+<para>The instance of the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_winbond_flash_xip_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_winbond_flash_xip_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspi__winbond__flash__xip__example_1ga14e73a908f15bcd319e9838bd4023fb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiXipExample</definition>
+        <argsstring>(XSpi *SpiInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>SpiXipExample</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>SpiInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Reads data from Flash memory in the way any memory is accessed. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the function is to illustrate how to use SPI device in XIP Mode.</para><para>The function reads data from Flash in the same way any other memory is accessed</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">SpiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of Spi component. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI configuration is not found, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up by DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_winbond_flash_xip_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_winbond_flash_xip_example.c" bodystart="136" bodyend="168"/>
+        <references refid="struct_x_spi___config_1a495ec19a4ab441ea59a0e220f0728dd9" compoundref="xspi_8h" startline="406">XSpi_Config::BaseAddress</references>
+        <references refid="struct_x_spi_1afcb2a94604b619e207e5590328c3531e" compoundref="xspi_8h" startline="455">XSpi::FlashBaseAddr</references>
+        <references refid="group__spi__api_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</references>
+        <references refid="group__spi_1ga89a706debf1603a19b95d8e556f04f68" compoundref="xspi__sinit_8c" startline="93" endline="107">XSpi_LookupConfig</references>
+        <referencedby refid="group__xspi__winbond__flash__xip__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__winbond__flash__xip__example_8c" startline="86" endline="105">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__winbond__flash__xip__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the Spi XIP example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_winbond_flash_xip_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_winbond_flash_xip_example.c" bodystart="86" bodyend="105"/>
+        <references refid="group__xspi__winbond__flash__xip__example_1ga14e73a908f15bcd319e9838bd4023fb5" compoundref="xspi__winbond__flash__xip__example_8c" startline="136" endline="168">SpiXipExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

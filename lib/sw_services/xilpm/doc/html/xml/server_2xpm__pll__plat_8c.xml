@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__pll__plat_8c" kind="file">
+    <compoundname>server/xpm_pll_plat.c</compoundname>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="server_2xpm__pll__plat_8h" local="yes">xpm_pll_plat.h</includes>
+    <includes refid="xpm__psm_8h" local="yes">xpm_psm.h</includes>
+    <includes refid="server_2xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <incdepgraph>
+      <node id="6039">
+        <label>xpm_api.h</label>
+        <childnode refid="6026" relation="include">
+        </childnode>
+        <childnode refid="6019" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+        <childnode refid="6021" relation="include">
+        </childnode>
+        <childnode refid="6040" relation="include">
+        </childnode>
+        <childnode refid="6041" relation="include">
+        </childnode>
+      </node>
+      <node id="6045">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="6026" relation="include">
+        </childnode>
+        <childnode refid="6019" relation="include">
+        </childnode>
+        <childnode refid="6046" relation="include">
+        </childnode>
+      </node>
+      <node id="6017">
+        <label>xpm_clock.h</label>
+        <childnode refid="6018" relation="include">
+        </childnode>
+        <childnode refid="6024" relation="include">
+        </childnode>
+        <childnode refid="6025" relation="include">
+        </childnode>
+        <childnode refid="6028" relation="include">
+        </childnode>
+      </node>
+      <node id="6024">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="6049">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="6020">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6025">
+        <label>xpm_node.h</label>
+        <childnode refid="6026" relation="include">
+        </childnode>
+        <childnode refid="6019" relation="include">
+        </childnode>
+        <childnode refid="6027" relation="include">
+        </childnode>
+        <childnode refid="6018" relation="include">
+        </childnode>
+      </node>
+      <node id="6034">
+        <label>xpm_core.h</label>
+        <childnode refid="6035" relation="include">
+        </childnode>
+        <childnode refid="6036" relation="include">
+        </childnode>
+        <childnode refid="6045" relation="include">
+        </childnode>
+      </node>
+      <node id="6021">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="6037">
+        <label>xpm_reset.h</label>
+        <childnode refid="6025" relation="include">
+        </childnode>
+        <childnode refid="6018" relation="include">
+        </childnode>
+        <childnode refid="6038" relation="include">
+        </childnode>
+        <childnode refid="6043" relation="include">
+        </childnode>
+      </node>
+      <node id="6046">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="6047">
+        <label>xpm_psm_plat.h</label>
+      </node>
+      <node id="6015">
+        <label>xil_util.h</label>
+      </node>
+      <node id="6033">
+        <label>xpm_psm.h</label>
+        <childnode refid="6034" relation="include">
+        </childnode>
+        <childnode refid="6047" relation="include">
+        </childnode>
+      </node>
+      <node id="6022">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="6038">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="6039" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+        <childnode refid="6019" relation="include">
+        </childnode>
+        <childnode refid="6042" relation="include">
+        </childnode>
+      </node>
+      <node id="6030">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="6029">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="6042">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="6044">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="6028">
+        <label>xpm_power.h</label>
+        <childnode refid="6029" relation="include">
+        </childnode>
+        <childnode refid="6025" relation="include">
+        </childnode>
+        <childnode refid="6030" relation="include">
+        </childnode>
+        <childnode refid="6031" relation="include">
+        </childnode>
+      </node>
+      <node id="6043">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="6035">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="6014">
+        <label>xpm_pll_plat.c</label>
+        <link refid="server/xpm_pll_plat.c"/>
+        <childnode refid="6015" relation="include">
+        </childnode>
+        <childnode refid="6016" relation="include">
+        </childnode>
+        <childnode refid="6033" relation="include">
+        </childnode>
+        <childnode refid="6048" relation="include">
+        </childnode>
+      </node>
+      <node id="6016">
+        <label>xpm_pll_plat.h</label>
+        <childnode refid="6017" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+        <childnode refid="6032" relation="include">
+        </childnode>
+      </node>
+      <node id="6019">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6018">
+        <label>xpm_common.h</label>
+        <childnode refid="6019" relation="include">
+        </childnode>
+        <childnode refid="6020" relation="include">
+        </childnode>
+        <childnode refid="6015" relation="include">
+        </childnode>
+        <childnode refid="6021" relation="include">
+        </childnode>
+        <childnode refid="6022" relation="include">
+        </childnode>
+        <childnode refid="6023" relation="include">
+        </childnode>
+      </node>
+      <node id="6027">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="6040">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="6026">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6023">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="6031">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="6041">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="6048">
+        <label>xpm_regs.h</label>
+        <childnode refid="6049" relation="include">
+        </childnode>
+        <childnode refid="6031" relation="include">
+        </childnode>
+      </node>
+      <node id="6036">
+        <label>xpm_device.h</label>
+        <childnode refid="6025" relation="include">
+        </childnode>
+        <childnode refid="6028" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+        <childnode refid="6037" relation="include">
+        </childnode>
+        <childnode refid="6044" relation="include">
+        </childnode>
+      </node>
+      <node id="6032">
+        <label>xpm_pll.h</label>
+        <childnode refid="6017" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__pll__plat_8c_1a89be4de275675abd94f2353197ef2ffa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_PllClearLockError</definition>
+        <argsstring>(const XPm_PllClockNode *Pll)</argsstring>
+        <name>XPm_PllClearLockError</name>
+        <param>
+          <type>const XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pll_plat.c" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pll_plat.c" bodystart="12" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__pll__plat_8c_1a30602b3e8b8a4b9e3dadb6709d7a2ef1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmClockPll_PlatReset</definition>
+        <argsstring>(const XPm_PllClockNode *Pll)</argsstring>
+        <name>XPmClockPll_PlatReset</name>
+        <param>
+          <type>const XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pll_plat.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pll_plat.c" bodystart="28" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pll_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_PllClearLockError(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PllClockNode*<sp/>Pll)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___psm" kindref="compound">XPm_Psm</ref><sp/>*Psm<sp/>=<sp/>(<ref refid="struct_x_pm___psm" kindref="compound">XPm_Psm</ref><sp/>*)XPmDevice_GetById(PM_DEV_PSM_PROC);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Psm)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PM_CLK_APU_PLL<sp/>==<sp/>Pll-&gt;ClkNode.Node.Id)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Write32(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref><sp/>+<sp/>PSM_ERR1_STATUS_OFFSET,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PSM_ERR1_STATUS_APLL_LOCK_MASK);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PM_CLK_RPU_PLL<sp/>==<sp/>Pll-&gt;ClkNode.Node.Id)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Write32(Psm-&gt;<ref refid="struct_x_pm___psm_1a440f649cb356fa2d9dbe12f4e8f4fa80" kindref="member">PsmGlobalBaseAddr</ref><sp/>+<sp/>PSM_ERR1_STATUS_OFFSET,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PSM_ERR1_STATUS_RPLL_LOCK_MASK);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Required<sp/>due<sp/>to<sp/>MISRA<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmClockPll_PlatReset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PllClockNode<sp/>*Pll)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ControlReg<sp/>=<sp/>Pll-&gt;ClkNode.Node.BaseAddress;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PlatformVersion<sp/>=<sp/>XPm_GetPlatformVersion();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PLATFORM_VERSION_SILICON<sp/>==<sp/>XPm_GetPlatform())<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)PLATFORM_VERSION_SILICON_ES1<sp/>!=<sp/>PlatformVersion))<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>value<sp/>of<sp/>the<sp/>CRX.XPLL_REG3.CP_RES_H<sp/>must<sp/>be<sp/>set</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>0x1<sp/>while<sp/>the<sp/>PLL<sp/>is<sp/>in<sp/>reset<sp/>for<sp/>ES2<sp/>and<sp/>forward</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)XPM_NODEIDX_CLK_PMC_PLL<sp/>==</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NODEINDEX(Pll-&gt;ClkNode.Node.Id))<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>((ControlReg<sp/>&amp;<sp/>(0xFFFFFF00U))<sp/>+</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PPLL_REG3_OFFSET);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>((ControlReg<sp/>&amp;<sp/>(0xFFFFFF00U))<sp/>+</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Pll-&gt;Topology-&gt;PllReg3Offset));</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_RMW32(Reg,<sp/>BITNMASK(PLL_REG3_CP_RES_H_SHIFT,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PLL_REG3_CP_RES_H_WIDTH),</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1UL<sp/>&lt;&lt;<sp/>PLL_REG3_CP_RES_H_SHIFT);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pll_plat.c"/>
+  </compounddef>
+</doxygen>

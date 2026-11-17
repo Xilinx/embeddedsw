@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__feature__check_8h" kind="file">
+    <compoundname>xpm_feature_check.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xpm__feature__check_8c" local="yes">xpm_feature_check.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="1552">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1551">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1550">
+        <label>xpm_feature_check.h</label>
+        <link refid="xpm_feature_check.h"/>
+        <childnode refid="1551" relation="include">
+        </childnode>
+        <childnode refid="1552" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1555">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="1554">
+        <label>xpm_feature_check.c</label>
+      </node>
+      <node id="1553">
+        <label>xpm_feature_check.h</label>
+        <link refid="xpm_feature_check.h"/>
+        <childnode refid="1554" relation="include">
+        </childnode>
+        <childnode refid="1555" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__feature__check_8h_1ac390876f08d3478b9f5077c59dda961b" prot="public" static="no">
+        <name>PM_QUERY_FEATURE_BITMASK</name>
+        <initializer>( \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_NAME) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_TOPOLOGY) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_MUXSOURCES) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_ATTRIBUTES) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_NUM_PINS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_FUNCTION_NAME) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_PIN_GROUPS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_NUM_CLOCKS) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PLD_GET_PARENT) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_PINCTRL_GET_ATTRIBUTES) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_GET_NODE_NAME) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_GET_NODE_COUNT) | \
+	(1ULL &lt;&lt; (u64)XPM_QID_GET_VID_POWER_STATE))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.h" line="13" column="20" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__feature__check_8h_1abd3f37a2038c4a986cbd266b82a36af2" prot="public" static="no">
+        <name>PM_IOCTL_FEATURE_BITMASK</name>
+        <initializer>( \
+	(1ULL &lt;&lt; (u64)IOCTL_GET_APU_OPER_MODE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_APU_OPER_MODE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_GET_RPU_OPER_MODE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_RPU_OPER_MODE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_RPU_BOOT_ADDR_CONFIG) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_TAPDELAY_BYPASS) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SD_DLL_RESET) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_SD_TAPDELAY) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_PLL_FRAC_MODE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_GET_PLL_FRAC_MODE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_PLL_FRAC_DATA) | \
+	(1ULL &lt;&lt; (u64)IOCTL_GET_PLL_FRAC_DATA) | \
+	(1ULL &lt;&lt; (u64)IOCTL_OSPI_MUX_SELECT) | \
+	(1ULL &lt;&lt; (u64)IOCTL_USB_SET_STATE) | \
+	(1ULL &lt;&lt; (u64)IOCTL_GET_LAST_RESET_REASON) | \
+	(1ULL &lt;&lt; (u64)IOCTL_PREPARE_DDR_SHUTDOWN) | \
+	(1ULL &lt;&lt; (u64)IOCTL_READ_REG) | \
+	(1ULL &lt;&lt; (u64)IOCTL_MASK_WRITE_REG) | \
+	(1ULL &lt;&lt; (u64)IOCTL_AIE2PS_OPS) | \
+	(1ULL &lt;&lt; (u64)IOCTL_SET_AIE_CLK_DIV))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__feature__check_8h_1a85a5809235d863341fe150bbe5819aa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_FeatureCheck</definition>
+        <argsstring>(u32 ApiId, u32 *Version)</argsstring>
+        <name>XPm_FeatureCheck</name>
+        <param>
+          <type>u32</type>
+          <declname>ApiId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>This function returns supported version of the given API. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ApiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>API ID to check </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to array of 4 words<itemizedlist>
+<listitem><para>version[0] - EEMI API version number</para></listitem><listitem><para>version[1] - lower 32-bit bitmask of IOCTL or QUERY ID</para></listitem><listitem><para>version[2] - upper 32-bit bitmask of IOCTL or Query ID</para></listitem><listitem><para>Only PM_FEATURE_CHECK version 2 supports 64-bit bitmask</para></listitem><listitem><para>i.e. version[1] and version[2] </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_NO_FEATURE.</para></simplesect>
+<simplesect kind="note"><para>Remove CDO-only commands from versioning as it is for internal use only, so no need to consider for versioning. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.c" bodystart="29" bodyend="149"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_FEATURE_CHECK_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_FEATURE_CHECK_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_QUERY_FEATURE_BITMASK<sp/>(<sp/>\</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_NAME)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_TOPOLOGY)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_MUXSOURCES)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_ATTRIBUTES)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_NUM_PINS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_FUNCTION_NAME)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_PIN_GROUPS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_NUM_CLOCKS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_CLOCK_GET_MAX_DIVISOR)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PLD_GET_PARENT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_PINCTRL_GET_ATTRIBUTES)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_GET_NODE_NAME)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_GET_NODE_COUNT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)XPM_QID_GET_VID_POWER_STATE))</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PM_IOCTL_FEATURE_BITMASK<sp/>(<sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_GET_APU_OPER_MODE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_APU_OPER_MODE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_GET_RPU_OPER_MODE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_RPU_OPER_MODE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_RPU_BOOT_ADDR_CONFIG)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_TAPDELAY_BYPASS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SD_DLL_RESET)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_SD_TAPDELAY)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_PLL_FRAC_MODE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_GET_PLL_FRAC_MODE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_PLL_FRAC_DATA)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_GET_PLL_FRAC_DATA)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_OSPI_MUX_SELECT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_USB_SET_STATE)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_GET_LAST_RESET_REASON)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_PREPARE_DDR_SHUTDOWN)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_READ_REG)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_MASK_WRITE_REG)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_AIE2PS_OPS)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1ULL<sp/>&lt;&lt;<sp/>(u64)IOCTL_SET_AIE_CLK_DIV))</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>XPm_FeatureCheck(u32<sp/>ApiId,<sp/>u32<sp/>*Version);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_FEATURE_CHECK_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_feature_check.h"/>
+  </compounddef>
+</doxygen>

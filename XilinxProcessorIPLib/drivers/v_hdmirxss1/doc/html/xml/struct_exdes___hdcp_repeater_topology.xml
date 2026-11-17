@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_exdes___hdcp_repeater_topology" kind="struct" prot="public">
+    <compoundname>Exdes_HdcpRepeaterTopology</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1ae12432f6c14d79f0edb1583158d473ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Exdes_HdcpRepeaterTopology::DeviceCnt</definition>
+        <argsstring></argsstring>
+        <name>DeviceCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1af9b1ead3c9c43b9782134928348d136c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Exdes_HdcpRepeaterTopology::Depth</definition>
+        <argsstring></argsstring>
+        <name>Depth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1a198abde851932f95bdfcefe6eb274822" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Exdes_HdcpRepeaterTopology::DeviceList[EXDES_HDCP_MAX_DEVICE_CNT_HDCP14][EXDES_HDCP_DEVICE_ID_SIZE]</definition>
+        <argsstring>[EXDES_HDCP_MAX_DEVICE_CNT_HDCP14][EXDES_HDCP_DEVICE_ID_SIZE]</argsstring>
+        <name>DeviceList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1a23f35daa3aeb61e6ae792b5e3326e9eb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Exdes_HdcpRepeaterTopology::MaxDevsExceeded</definition>
+        <argsstring></argsstring>
+        <name>MaxDevsExceeded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1a54baaa853b79fc5b1e401c36ef3f6bde" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Exdes_HdcpRepeaterTopology::MaxCascadeExceeded</definition>
+        <argsstring></argsstring>
+        <name>MaxCascadeExceeded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1a61903117094972af722ff091a28c5bfb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Exdes_HdcpRepeaterTopology::Hdcp2LegacyDeviceDownstream</definition>
+        <argsstring></argsstring>
+        <name>Hdcp2LegacyDeviceDownstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1ac9fd96717f98a9c8355dbb52d527412f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Exdes_HdcpRepeaterTopology::Hdcp1DeviceDownstream</definition>
+        <argsstring></argsstring>
+        <name>Hdcp1DeviceDownstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_exdes___hdcp_repeater_topology_1a409814670212e87f6c442d5529190c3a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Exdes_HdcpRepeaterTopology::Valid</definition>
+        <argsstring></argsstring>
+        <name>Valid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c" bodystart="63" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_exdes___hdcp_repeater_topology_1af9b1ead3c9c43b9782134928348d136c" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>Depth</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1ae12432f6c14d79f0edb1583158d473ed" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>DeviceCnt</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1a198abde851932f95bdfcefe6eb274822" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>DeviceList</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1ac9fd96717f98a9c8355dbb52d527412f" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>Hdcp1DeviceDownstream</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1a61903117094972af722ff091a28c5bfb" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>Hdcp2LegacyDeviceDownstream</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1a54baaa853b79fc5b1e401c36ef3f6bde" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>MaxCascadeExceeded</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1a23f35daa3aeb61e6ae792b5e3326e9eb" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>MaxDevsExceeded</name></member>
+      <member refid="struct_exdes___hdcp_repeater_topology_1a409814670212e87f6c442d5529190c3a" prot="public" virt="non-virtual"><scope>Exdes_HdcpRepeaterTopology</scope><name>Valid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

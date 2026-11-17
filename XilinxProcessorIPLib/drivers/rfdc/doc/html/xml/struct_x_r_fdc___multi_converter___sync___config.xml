@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___multi_converter___sync___config" kind="struct" prot="public">
+    <compoundname>XRFdc_MultiConverter_Sync_Config</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1a54406fbb2fe6102ffb3c4236fb432c74" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_MultiConverter_Sync_Config::RefTile</definition>
+        <argsstring></argsstring>
+        <name>RefTile</name>
+        <briefdescription>
+<para>Reference tile for synchronization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="485" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaccab0c774a971a73089115245cfe1865" compoundref="xrfdc__mts_8c" startline="1245" endline="1286">XRFdc_MultiConverter_Init</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1aa3e61b2889a55420e0172f5eef439a39" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_MultiConverter_Sync_Config::Tiles</definition>
+        <argsstring></argsstring>
+        <name>Tiles</name>
+        <briefdescription>
+<para>Bit mask of tiles to synchronize. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="486" bodyend="-1"/>
+        <referencedby refid="xrfdc__mts__example_8c_1ad715e4bd581993df1ad8add6b078331b" compoundref="xrfdc__mts__example_8c" startline="129" endline="225">RFdcMTS_Example</referencedby>
+        <referencedby refid="group___overview_1ga547044facc23aa8502473e5f2b1c4cc4" compoundref="xrfdc__mts_8c" startline="1198" endline="1225">XRFdc_MTS_Sysref_Config</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1a5e2a0a0e5c2f4d2af723fee409f9239b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MultiConverter_Sync_Config::Target_Latency</definition>
+        <argsstring></argsstring>
+        <name>Target_Latency</name>
+        <briefdescription>
+<para>Target latency for synchronization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="487" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaccab0c774a971a73089115245cfe1865" compoundref="xrfdc__mts_8c" startline="1245" endline="1286">XRFdc_MultiConverter_Init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1af5f6aacfc36cba7c15845d70a5e822fb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MultiConverter_Sync_Config::Offset[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Offset</name>
+        <briefdescription>
+<para>Measured offset per tile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="488" bodyend="-1"/>
+        <referencedby refid="xrfdc__mts__example_8c_1ad715e4bd581993df1ad8add6b078331b" compoundref="xrfdc__mts__example_8c" startline="129" endline="225">RFdcMTS_Example</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1ab1095ea1186a68e2cd95f66d05d9778d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MultiConverter_Sync_Config::Latency[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Latency</name>
+        <briefdescription>
+<para>Measured latency per tile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="489" bodyend="-1"/>
+        <referencedby refid="xrfdc__mts__example_8c_1ad715e4bd581993df1ad8add6b078331b" compoundref="xrfdc__mts__example_8c" startline="129" endline="225">RFdcMTS_Example</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1a23cd0d67f0ee5dc31f89a85ff8ab2900" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MultiConverter_Sync_Config::Marker_Delay</definition>
+        <argsstring></argsstring>
+        <name>Marker_Delay</name>
+        <briefdescription>
+<para>Marker delay applied during synchronization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="490" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaccab0c774a971a73089115245cfe1865" compoundref="xrfdc__mts_8c" startline="1245" endline="1286">XRFdc_MultiConverter_Init</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1ac5640826d4a6871a86e5ee9c7ada1cf4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MultiConverter_Sync_Config::SysRef_Enable</definition>
+        <argsstring></argsstring>
+        <name>SysRef_Enable</name>
+        <briefdescription>
+<para><verbatim>                 Enables SYSREF capture during
+</verbatim> synchronization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="491" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaccab0c774a971a73089115245cfe1865" compoundref="xrfdc__mts_8c" startline="1245" endline="1286">XRFdc_MultiConverter_Init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1a3d9ef0568e1500099c7ff314e67c6f8b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___m_t_s___d_t_c___settings" kindref="compound">XRFdc_MTS_DTC_Settings</ref></type>
+        <definition>XRFdc_MTS_DTC_Settings XRFdc_MultiConverter_Sync_Config::DTC_Set_PLL</definition>
+        <argsstring></argsstring>
+        <name>DTC_Set_PLL</name>
+        <briefdescription>
+<para>PLL DTC scan settings. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="493" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaccab0c774a971a73089115245cfe1865" compoundref="xrfdc__mts_8c" startline="1245" endline="1286">XRFdc_MultiConverter_Init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___multi_converter___sync___config_1ab2557e5590bc8dfdb92855d3378c5153" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___m_t_s___d_t_c___settings" kindref="compound">XRFdc_MTS_DTC_Settings</ref></type>
+        <definition>XRFdc_MTS_DTC_Settings XRFdc_MultiConverter_Sync_Config::DTC_Set_T1</definition>
+        <argsstring></argsstring>
+        <name>DTC_Set_T1</name>
+        <briefdescription>
+<para>T1 DTC scan settings. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="494" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaccab0c774a971a73089115245cfe1865" compoundref="xrfdc__mts_8c" startline="1245" endline="1286">XRFdc_MultiConverter_Init</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MTS Sync Settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="109">
+        <label>XRFdc_MTS_DTC_Settings</label>
+        <link refid="struct_x_r_fdc___m_t_s___d_t_c___settings"/>
+      </node>
+      <node id="108">
+        <label>XRFdc_MultiConverter_Sync_Config</label>
+        <link refid="struct_x_r_fdc___multi_converter___sync___config"/>
+        <childnode refid="109" relation="usage">
+          <edgelabel>DTC_Set_T1</edgelabel>
+          <edgelabel>DTC_Set_PLL</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="484" bodyend="495"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1a3d9ef0568e1500099c7ff314e67c6f8b" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>DTC_Set_PLL</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1ab2557e5590bc8dfdb92855d3378c5153" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>DTC_Set_T1</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1ab1095ea1186a68e2cd95f66d05d9778d" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>Latency</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1a23cd0d67f0ee5dc31f89a85ff8ab2900" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>Marker_Delay</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1af5f6aacfc36cba7c15845d70a5e822fb" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>Offset</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1a54406fbb2fe6102ffb3c4236fb432c74" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>RefTile</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1ac5640826d4a6871a86e5ee9c7ada1cf4" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>SysRef_Enable</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1a5e2a0a0e5c2f4d2af723fee409f9239b" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>Target_Latency</name></member>
+      <member refid="struct_x_r_fdc___multi_converter___sync___config_1aa3e61b2889a55420e0172f5eef439a39" prot="public" virt="non-virtual"><scope>XRFdc_MultiConverter_Sync_Config</scope><name>Tiles</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

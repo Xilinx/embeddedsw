@@ -1,0 +1,1276 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__defs_8h" kind="file">
+    <compoundname>xloader_defs.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xloader__mailbox_8h" local="yes">xloader_mailbox.h</includedby>
+    <includedby refid="xloader__client_8h" local="yes">xloader_client.h</includedby>
+    <includedby refid="xloader_8h" local="yes">xloader.h</includedby>
+    <includedby refid="xloader__cfi_8c" local="yes">xloader_cfi.c</includedby>
+    <includedby refid="xloader__cmd_8c" local="yes">xloader_cmd.c</includedby>
+    <includedby refid="versal__2ve__2vm_2client_2xloader__plat__client_8c" local="yes">xloader_plat_client.c</includedby>
+    <includedby refid="versal__2vp_2client_2xloader__plat__client_8c" local="yes">xloader_plat_client.c</includedby>
+    <includedby refid="versal__2vp__p_2client_2xloader__plat__client_8c" local="yes">xloader_plat_client.c</includedby>
+    <includedby refid="versal__net_2client_2xloader__plat__client_8c" local="yes">xloader_plat_client.c</includedby>
+    <includedby refid="xilloader__add__pdi__to__image__store__client__example_8c" local="yes">xilloader_add_pdi_to_image_store_client_example.c</includedby>
+    <includedby refid="xilloader__cfi__selective__readback__example_8c" local="yes">xilloader_cfi_selective_readback_example.c</includedby>
+    <includedby refid="xilloader__configure__jtag__status__client__example_8c" local="yes">xilloader_configure_jtag_status_client_example.c</includedby>
+    <includedby refid="xilloader__extract__metaheader__client__example_8c" local="yes">xilloader_extract_metaheader_client_example.c</includedby>
+    <includedby refid="xilloader__get__atf__handoff__params__client__example_8c" local="yes">xilloader_get_atf_handoff_params_client_example.c</includedby>
+    <includedby refid="xilloader__get__image__info__client__example_8c" local="yes">xilloader_get_image_info_client_example.c</includedby>
+    <includedby refid="xilloader__get__image__info__list__client__example_8c" local="yes">xilloader_get_image_info_list_client_example.c</includedby>
+    <includedby refid="xilloader__image__store__pdi__client__example_8c" local="yes">xilloader_image_store_pdi_client_example.c</includedby>
+    <includedby refid="xilloader__load__image__client__example_8c" local="yes">xilloader_load_image_client_example.c</includedby>
+    <includedby refid="xilloader__load__pdi__client__example_8c" local="yes">xilloader_load_pdi_client_example.c</includedby>
+    <includedby refid="xilloader__read__ddr__crypto__perf__counters__client__example_8c" local="yes">xilloader_read_ddr_crypto_perf_counters_client_example.c</includedby>
+    <includedby refid="xilloader__remove__pdi__from__image__store__client__example_8c" local="yes">xilloader_remove_pdi_from_image_store_client_example.c</includedby>
+    <includedby refid="xilloader__set__ddr__addr__restart__image__client__example_8c" local="yes">xilloader_set_ddr_addr_restart_image_client_example.c</includedby>
+    <includedby refid="xilloader__update__multiboot__client__example_8c" local="yes">xilloader_update_multiboot_client_example.c</includedby>
+    <incdepgraph>
+      <node id="599">
+        <label>xloader_defs.h</label>
+        <link refid="xloader_defs.h"/>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+      </node>
+      <node id="601">
+        <label>xil_types.h</label>
+      </node>
+      <node id="600">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="614">
+        <label>xilloader_image_store_pdi_client_example.c</label>
+        <link refid="xilloader__image__store__pdi__client__example_8c"/>
+      </node>
+      <node id="648">
+        <label>xloader_plat_secure.c</label>
+      </node>
+      <node id="622">
+        <label>xloader_generic.c</label>
+        <link refid="xloader__generic_8c"/>
+      </node>
+      <node id="670">
+        <label>xloader_plat_secure.h</label>
+        <childnode refid="648" relation="include">
+        </childnode>
+      </node>
+      <node id="621">
+        <label>xloader_generic.h</label>
+        <link refid="xloader__generic_8h"/>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+      </node>
+      <node id="662">
+        <label>xloader_ddr.c</label>
+        <link refid="xloader__ddr_8c"/>
+      </node>
+      <node id="613">
+        <label>xilloader_glitch_detector_example.c</label>
+        <link refid="xilloader__glitch__detector__example_8c"/>
+      </node>
+      <node id="652">
+        <label>xloader_plat.c</label>
+        <link refid="2vp_2server_2xloader__plat_8c"/>
+      </node>
+      <node id="658">
+        <label>xloader_plat.h</label>
+        <link refid="2vp_2server_2xloader__plat_8h"/>
+        <childnode refid="652" relation="include">
+        </childnode>
+      </node>
+      <node id="642">
+        <label>xloader_prtn_load.c</label>
+        <link refid="xloader__prtn__load_8c"/>
+      </node>
+      <node id="664">
+        <label>xloader_ddr_init.c</label>
+        <link refid="xloader__ddr__init_8c"/>
+      </node>
+      <node id="635">
+        <label>xloader.c</label>
+        <link refid="xloader_8c"/>
+      </node>
+      <node id="669">
+        <label>xloader_ufs.c</label>
+        <link refid="xloader__ufs_8c"/>
+      </node>
+      <node id="624">
+        <label>xloader_mailbox.c</label>
+        <link refid="xloader__mailbox_8c"/>
+      </node>
+      <node id="615">
+        <label>xilloader_load_image_client_example.c</label>
+        <link refid="xilloader__load__image__client__example_8c"/>
+      </node>
+      <node id="665">
+        <label>xloader_ospi.c</label>
+        <link refid="xloader__ospi_8c"/>
+      </node>
+      <node id="603">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+      </node>
+      <node id="638">
+        <label>xloader_auth_enc.c</label>
+        <link refid="xloader__auth__enc_8c"/>
+      </node>
+      <node id="636">
+        <label>xloader_auth_enc.h</label>
+        <link refid="xloader__auth__enc_8h"/>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="660" relation="include">
+        </childnode>
+      </node>
+      <node id="620">
+        <label>xilloader_validate_pdi_auth_example.c</label>
+        <link refid="xilloader__validate__pdi__auth__example_8c"/>
+      </node>
+      <node id="661">
+        <label>xloader_cfi.c</label>
+        <link refid="xloader__cfi_8c"/>
+      </node>
+      <node id="649">
+        <label>xloader_plat_secure.c</label>
+      </node>
+      <node id="653">
+        <label>xloader_plat.c</label>
+      </node>
+      <node id="671">
+        <label>xloader_plat_secure.h</label>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+      </node>
+      <node id="659">
+        <label>xloader_plat.h</label>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+      </node>
+      <node id="605">
+        <label>xloader_client.c</label>
+        <link refid="xloader__client_8c"/>
+      </node>
+      <node id="604">
+        <label>xloader_client.h</label>
+        <link refid="xloader__client_8h"/>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="607" relation="include">
+        </childnode>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="612" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+      </node>
+      <node id="629">
+        <label>xloader_plat_client.c</label>
+        <link refid="versal__2vp__p_2client_2xloader__plat__client_8c"/>
+      </node>
+      <node id="628">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal__2vp__p_2client_2xloader__plat__client_8h"/>
+        <childnode refid="629" relation="include">
+        </childnode>
+      </node>
+      <node id="631">
+        <label>xloader_plat_client.c</label>
+      </node>
+      <node id="630">
+        <label>xloader_plat_client.h</label>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="641">
+        <label>xloader_ppk.c</label>
+        <link refid="xloader__ppk_8c"/>
+      </node>
+      <node id="666">
+        <label>xloader_qspi.c</label>
+        <link refid="xloader__qspi_8c"/>
+      </node>
+      <node id="612">
+        <label>xilloader_get_opt_data_example.c</label>
+        <link refid="xilloader__get__opt__data__example_8c"/>
+      </node>
+      <node id="643">
+        <label>xloader_secure.c</label>
+        <link refid="xloader__secure_8c"/>
+      </node>
+      <node id="637">
+        <label>xloader_secure.h</label>
+        <link refid="xloader__secure_8h"/>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="644" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+      </node>
+      <node id="619">
+        <label>xilloader_update_multiboot_client_example.c</label>
+        <link refid="xilloader__update__multiboot__client__example_8c"/>
+      </node>
+      <node id="645">
+        <label>xloader_plat.c</label>
+        <link refid="2ve__2vm_2server_2xloader__plat_8c"/>
+      </node>
+      <node id="602">
+        <label>xloader_defs.h</label>
+        <link refid="xloader_defs.h"/>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="607" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+      </node>
+      <node id="657">
+        <label>xloader_plat.h</label>
+        <link refid="2ve__2vm_2server_2xloader__plat_8h"/>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+      </node>
+      <node id="616">
+        <label>xilloader_load_pdi_client_example.c</label>
+        <link refid="xilloader__load__pdi__client__example_8c"/>
+      </node>
+      <node id="656">
+        <label>xloader_plat.c</label>
+      </node>
+      <node id="655">
+        <label>xloader_plat.h</label>
+        <childnode refid="656" relation="include">
+        </childnode>
+      </node>
+      <node id="607">
+        <label>xilloader_cfi_selective_readback_example.c</label>
+        <link refid="xilloader__cfi__selective__readback__example_8c"/>
+      </node>
+      <node id="646">
+        <label>xloader_plat_secure.c</label>
+      </node>
+      <node id="668">
+        <label>xloader_plat_secure.h</label>
+        <childnode refid="646" relation="include">
+        </childnode>
+      </node>
+      <node id="640">
+        <label>xloader_intr.c</label>
+        <link refid="xloader__intr_8c"/>
+      </node>
+      <node id="623">
+        <label>xloader_plat_client.c</label>
+      </node>
+      <node id="625">
+        <label>xloader_plat_client.h</label>
+        <childnode refid="623" relation="include">
+        </childnode>
+      </node>
+      <node id="634">
+        <label>xloader.h</label>
+        <link refid="xloader_8h"/>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="666" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="656" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
+        <childnode refid="669" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="670" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="660" relation="include">
+        </childnode>
+        <childnode refid="671" relation="include">
+        </childnode>
+      </node>
+      <node id="627">
+        <label>xloader_plat_client.c</label>
+        <link refid="versal__2vp_2client_2xloader__plat__client_8c"/>
+      </node>
+      <node id="626">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal__2vp_2client_2xloader__plat__client_8h"/>
+        <childnode refid="627" relation="include">
+        </childnode>
+      </node>
+      <node id="663">
+        <label>xloader_sbi.c</label>
+        <link refid="xloader__sbi_8c"/>
+      </node>
+      <node id="617">
+        <label>xilloader_remove_pdi_from_image_store_client_example.c</label>
+      </node>
+      <node id="608">
+        <label>xilloader_extract_metaheader_client_example.c</label>
+        <link refid="xilloader__extract__metaheader__client__example_8c"/>
+      </node>
+      <node id="632">
+        <label>xilloader_configure_jtag_status_client_example.c</label>
+        <link refid="xilloader__configure__jtag__status__client__example_8c"/>
+      </node>
+      <node id="639">
+        <label>xloader_cmd.c</label>
+        <link refid="xloader__cmd_8c"/>
+      </node>
+      <node id="667">
+        <label>xloader_sd.c</label>
+        <link refid="xloader__sd_8c"/>
+      </node>
+      <node id="651">
+        <label>xloader_kat.c</label>
+        <link refid="xloader__kat_8c"/>
+      </node>
+      <node id="650">
+        <label>xloader_kat.h</label>
+        <link refid="xloader__kat_8h"/>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+      </node>
+      <node id="654">
+        <label>xloader_plat.c</label>
+      </node>
+      <node id="660">
+        <label>xloader_plat.h</label>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+      </node>
+      <node id="610">
+        <label>xilloader_get_image_info_client_example.c</label>
+        <link refid="xilloader__get__image__info__client__example_8c"/>
+      </node>
+      <node id="644">
+        <label>xloader_plat_secure.c</label>
+      </node>
+      <node id="606">
+        <label>xilloader_add_pdi_to_image_store_client_example.c</label>
+      </node>
+      <node id="611">
+        <label>xilloader_get_image_info_list_client_example.c</label>
+        <link refid="xilloader__get__image__info__list__client__example_8c"/>
+      </node>
+      <node id="609">
+        <label>xilloader_get_atf_handoff_params_client_example.c</label>
+        <link refid="xilloader__get__atf__handoff__params__client__example_8c"/>
+      </node>
+      <node id="618">
+        <label>xilloader_set_ddr_addr_restart_image_client_example.c</label>
+        <link refid="xilloader__set__ddr__addr__restart__image__client__example_8c"/>
+      </node>
+      <node id="647">
+        <label>xloader_plat_secure.c</label>
+        <link refid="2vp_2server_2xloader__plat__secure_8c"/>
+      </node>
+      <node id="633">
+        <label>xilloader_read_ddr_crypto_perf_counters_client_example.c</label>
+        <link refid="xilloader__read__ddr__crypto__perf__counters__client__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_loader___image_info" prot="public">XLoader_ImageInfo</innerclass>
+    <innerclass refid="struct_x_loader___optional_data_info" prot="public">XLoader_OptionalDataInfo</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Payload arguments for Extract Metaheader command</header>
+      <memberdef kind="define" id="xloader__defs_8h_1aea56ec395886aca1052f6af34142e59a" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>&lt; Indices for payload arguments in Extract Metaheader command </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1aa6f14c412350880a1ccb30ede78bb488" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_PDI_ID_INDEX</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a156d4001fd016d3155f9c69bd36fed6d" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a0c2e2e2edc230f441cefbe072981ac3b" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a950a4bf4a2c2d7342a5818b68268c1f2" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ab950814845f3a21d66f30cc5f7dacae8" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1afc74ea5722cf308275312aa07d8ca5c6" prot="public" static="no">
+        <name>XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xloader__defs_8h_1a2cba8e0a9b99925554321969f123b755" prot="public" static="no">
+        <name>XLOADER_CMD_ID_FEATURES</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>command id for features </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga1b0f922a669106f6a1c6d0df014e5221" compoundref="xloader__client_8c" startline="588" endline="634">XLoader_GetServerLibInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a8099a890fe7caae377dca7aed1b52f25" prot="public" static="no">
+        <name>XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>command id for load subsystem pdi </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="80" endline="102">XLoader_LoadPartialPdi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a0069db58c58ff5355cb8bf0e0d0390c1" prot="public" static="no">
+        <name>XLOADER_CMD_ID_LOAD_DDRCPY_IMG</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>command id for DDR copy image </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" compoundref="xloader__client_8c" startline="117" endline="129">XLoader_LoadImage</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a65cddc7649a2371b0ef26022cd9569aa" prot="public" static="no">
+        <name>XLOADER_CMD_ID_GET_IMAGE_INFO</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>command id for get Image info </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="145" endline="170">XLoader_GetImageInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1abfe39798619d41ff5d6f0cd5cfb0a93f" prot="public" static="no">
+        <name>XLOADER_CMD_ID_SET_IMAGE_INFO</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>command id for set Image info </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ac25ddbc76c0198a2b15781bd07046a48" prot="public" static="no">
+        <name>XLOADER_CMD_ID_GET_IMAGE_INFO_LIST</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>command id for get Image info list </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="186" endline="220">XLoader_GetImageInfoList</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" prot="public" static="no">
+        <name>XLOADER_CMD_ID_EXTRACT_METAHEADER</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>command id for Extract meta header </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" compoundref="xloader__client_8c" startline="236" endline="252">XLoader_ExtractMetaheader</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ac642eee2102dad4d103415d33a2555ef" prot="public" static="no">
+        <name>XLOADER_CMD_ID_RESERVED</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Reserved command id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a8e2aa430151c9d076afe93c3d469474e" prot="public" static="no">
+        <name>XLOADER_CMD_ID_UPDATE_MULTIBOOT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>command id for update Multiboot </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" compoundref="xloader__client_8c" startline="269" endline="283">XLoader_UpdateMultiboot</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1abb1ea6d731c2660afd18539f084c1c0d" prot="public" static="no">
+        <name>XLOADER_CMD_ID_ADD_IMAGESTORE_PDI</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>command id for add Imagestore pdi </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="299" endline="313">XLoader_AddImageStorePdi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a08ab6030bc9495dd34115fda44b32487" prot="public" static="no">
+        <name>XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>command id for remove Imagestore pdi </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" compoundref="xloader__client_8c" startline="327" endline="339">XLoader_RemoveImageStorePdi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ac47b1de83196aaa4ad120472deb2d9fc" prot="public" static="no">
+        <name>XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>command id for get ATF handoff parameters </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="355" endline="378">XLoader_GetATFHandOffParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a01cc2b3426ec16af47f9baaf7758adc8" prot="public" static="no">
+        <name>XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>command id for Cframe data clear check </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a2e2553aedeaef724906efb2bfb80d21e" prot="public" static="no">
+        <name>XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>command id for write Imagestore pdi </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1aea387e976d038867ece679f4524f266f" prot="public" static="no">
+        <name>XLOADER_CMD_ID_CONFIG_JTAG_STATE</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>command id for config jtag state </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="304" endline="329">XLoader_ConfigureJtagState</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1aba5da2a1b431a83403a932becc341775" prot="public" static="no">
+        <name>XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>command id for read DDR crypto counters </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a344f5a7d03754227dcd155e53446e192" prot="public" static="no">
+        <name>XLOADER_CMD_ID_I2C_HANDSHAKE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>command id for I2C handshake </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a9ee68374f4b17a023334b2ebd25a5077" prot="public" static="no">
+        <name>XLOADER_CMD_ID_DATA_AUTH</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>API ID for Data authentication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a54d872b87e11572aa56efe1aa586240e" prot="public" static="no">
+        <name>XLOADER_CFI_SEL_READBACK_ID</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>command id for CFI selective readback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gaed8ea42231382fe5a5a155bd327b15ff" compoundref="xloader__cfi_8c" startline="425" endline="524">XLoader_CfiSelectiveRead</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="393" endline="422">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1abb3dbcb76972041c70447f40745052f0" prot="public" static="no">
+        <name>XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID</name>
+        <initializer>(19U)</initializer>
+        <briefdescription>
+<para>command id for setting DDR address to restart image from DDR </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gad2ea291a5214f42c54ab14c0a394bbaa" compoundref="xloader__client_8c" startline="519" endline="541">XLoader_SetDdrAddrForRestartImage</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a6781626f4cd510b61bb82d7d104dee6c" prot="public" static="no">
+        <name>XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>command id for glitch detector config </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga3b72ed1bce0c661b7082f291e11fde08" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="1288" endline="1340">XLoader_ConfigureGlitchDetector</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a916bc048b27810685fb062cdc9def9df" prot="public" static="no">
+        <name>XLOADER_CMD_ID_CALIBDATA_RESTORE</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>command id for DDR calibration data restore </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ade0996ff5dc3acb83ddf9787911738dd" prot="public" static="no">
+        <name>XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>command id for get tlbin partition load address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gadfeef36c1fee845ec54f39c8ce9c18c6" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="1358" endline="1381">XLoader_GetTlbinLoadAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1acf8f803d138a9c88fc766505351c4fa8" prot="public" static="no">
+        <name>XLOADER_HEADER_LEN_1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Header length 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ad72876693f09db2dd0707ff1d3f28b98" prot="public" static="no">
+        <name>XLOADER_HEADER_LEN_2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Header length 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a43e61a389f49a2de1be36dc46ffc04df" prot="public" static="no">
+        <name>XLOADER_HEADER_LEN_3</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Header length 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ae85125b3f3c98a6269c2a986ed345326" prot="public" static="no">
+        <name>XLOADER_HEADER_LEN_4</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Header length 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1af182ecc3a0566c40e45e67ea19e39e06" prot="public" static="no">
+        <name>XLOADER_HEADER_LEN_5</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Header length 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ac4f713ab0f0e33d1a11290869da9a793" prot="public" static="no">
+        <name>XLOADER_HEADER_LEN_6</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Header length 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1abd3e6b81339122b2fc4ecad981f1a9cd" prot="public" static="no">
+        <name>XLOADER_ADDR_HIGH_SHIFT</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shift value to get higher 32 bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ae6a2be2a534dfe2bac3f3575d37d6436" prot="public" static="no">
+        <name>XLOADER_GET_OPT_DATA_FLAG</name>
+        <initializer>(0x80U)</initializer>
+        <briefdescription>
+<para>Flag to indicate that Extract Metaheader request is to extract optional data only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2551" endline="2704">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ae8c1f05045478ffe7ef4be0401aa762d" prot="public" static="no">
+        <name>XLOADER_IDCODE_BYPASS_FLAG</name>
+        <initializer>(0x100U)</initializer>
+        <briefdescription>
+<para>Flag to bypass IDcode check during Extract Metaheader. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a9849c69818df75599877328a2c15c297" prot="public" static="no">
+        <name>XLOADER_DATA_ID_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Shift to get data ID from the payload of Extract metaheader command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1ab56cdbed933158c3c55c888b846697e5" prot="public" static="no">
+        <name>XLOADER_DEBUG</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Enable debug prints in XLoader when set to 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="114" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1a9573907a95c55d62457f4518c4c12614" prot="public" static="no">
+        <name>XLOADER_DEBUG_GENERAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>General flag to enable debug prints in XLoader when set to 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="123" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="940" endline="1005">XLoader_ValidatePdiAuth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xloader__defs_8h_1aa3a03f1321ef0a65dcb897a996c89293" prot="public" static="no">
+        <name>XLoader_Client_Printf</name>
+        <param><defname>DebugType</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}</initializer>
+        <briefdescription>
+<para>Print debug messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="125" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="940" endline="1005">XLoader_ValidatePdiAuth</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xilloader API IDs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  dd   01/09/24 Initial release
+      har  03/05/24 Fixed doxygen warnings
+      pre  08/22/24 Added XLOADER_CFI_SEL_READBACK_ID
+      pre  10/26/24 Made XLOADER_CMD_ID_LOAD_READBACK_PDI command ID as reserved
+2.4   gnr  02/06/26 Removed conditional inclusion for XLOADER_CMD_ID_DATA_AUTH
+2.5   ng   07/09/26 Added XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID command id
+      ng   08/22/26 Added macros for glitch detector configuration
+      pre  08/12/26 Added XLOADER_CMD_ID_CALIBDATA_RESTORE command id
+      ng   09/09/26 Added XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR command id
+                    for versal_2ve_2vm
+      aa   09/15/26 Added XLOADER_IDCODE_BYPASS_FLAG macro</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifndef<sp/>XLOADER_DEFS_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DEFS_H</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Loader<sp/>command<sp/>Ids<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="xloader__defs_8h_1a2cba8e0a9b99925554321969f123b755" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_FEATURES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="xloader__defs_8h_1a8099a890fe7caae377dca7aed1b52f25" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="xloader__defs_8h_1a0069db58c58ff5355cb8bf0e0d0390c1" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_LOAD_DDRCPY_IMG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="xloader__defs_8h_1a65cddc7649a2371b0ef26022cd9569aa" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_GET_IMAGE_INFO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="xloader__defs_8h_1abfe39798619d41ff5d6f0cd5cfb0a93f" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_SET_IMAGE_INFO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="xloader__defs_8h_1ac25ddbc76c0198a2b15781bd07046a48" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_GET_IMAGE_INFO_LIST<sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_EXTRACT_METAHEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="xloader__defs_8h_1ac642eee2102dad4d103415d33a2555ef" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_RESERVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="xloader__defs_8h_1a8e2aa430151c9d076afe93c3d469474e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_UPDATE_MULTIBOOT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="xloader__defs_8h_1abb1ea6d731c2660afd18539f084c1c0d" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_ADD_IMAGESTORE_PDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="xloader__defs_8h_1a08ab6030bc9495dd34115fda44b32487" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI<sp/><sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="xloader__defs_8h_1ac47b1de83196aaa4ad120472deb2d9fc" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS<sp/><sp/><sp/>(11U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="xloader__defs_8h_1a01cc2b3426ec16af47f9baaf7758adc8" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK<sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xloader__defs_8h_1a2e2553aedeaef724906efb2bfb80d21e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI<sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="xloader__defs_8h_1aea387e976d038867ece679f4524f266f" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_CONFIG_JTAG_STATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="xloader__defs_8h_1aba5da2a1b431a83403a932becc341775" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS<sp/>(15U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="xloader__defs_8h_1a344f5a7d03754227dcd155e53446e192" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_I2C_HANDSHAKE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="xloader__defs_8h_1a9ee68374f4b17a023334b2ebd25a5077" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_DATA_AUTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="xloader__defs_8h_1a54d872b87e11572aa56efe1aa586240e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CFI_SEL_READBACK_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="xloader__defs_8h_1abb3dbcb76972041c70447f40745052f0" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID<sp/>(19U)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR<sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="xloader__defs_8h_1a6781626f4cd510b61bb82d7d104dee6c" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_CALIBDATA_RESTORE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21U)<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR<sp/>(22U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="xloader__defs_8h_1ade0996ff5dc3acb83ddf9787911738dd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_HEADER_LEN_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XLOADER_HEADER_LEN_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="82" refid="xloader__defs_8h_1acf8f803d138a9c88fc766505351c4fa8" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_HEADER_LEN_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="83" refid="xloader__defs_8h_1ad72876693f09db2dd0707ff1d3f28b98" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_HEADER_LEN_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="84" refid="xloader__defs_8h_1a43e61a389f49a2de1be36dc46ffc04df" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_HEADER_LEN_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="85" refid="xloader__defs_8h_1ae85125b3f3c98a6269c2a986ed345326" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_HEADER_LEN_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX<sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_PDI_ID_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="94" refid="xloader__defs_8h_1aea56ec395886aca1052f6af34142e59a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX<sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX<sp/>(2U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX<sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX<sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX<sp/>(5U)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XLOADER_ADDR_HIGH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XLOADER_GET_OPT_DATA_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80U)</highlight></codeline>
+<codeline lineno="103" refid="xloader__defs_8h_1abd3e6b81339122b2fc4ecad981f1a9cd" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="xloader__defs_8h_1ae6a2be2a534dfe2bac3f3575d37d6436" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_IDCODE_BYPASS_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100U)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106" refid="xloader__defs_8h_1ae8c1f05045478ffe7ef4be0401aa762d" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_DATA_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"><sp/>#define<sp/>XLOADER_DEBUG<sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#if<sp/>(XLOADER_DEBUG)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DEBUG_GENERAL<sp/>(1U)</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_DEBUG_GENERAL<sp/>(0U)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125" refid="xloader__defs_8h_1a9573907a95c55d62457f4518c4c12614" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLoader_Client_Printf(DebugType,<sp/>...)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((DebugType)<sp/>==<sp/>1U)<sp/>{xil_printf<sp/>(__VA_ARGS__);}<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="xloader__defs_8h_1aa3a03f1321ef0a65dcb897a996c89293" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_GD_TYPE_PMC_GD0<sp/>=<sp/>1U,<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_GD_TYPE_PMC_GD1<sp/>=<sp/>2U,<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_GD_TYPE_ASU_GD<sp/>=<sp/>3U,<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_GD_TYPE_LPD_GD0<sp/>=<sp/>4U,<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_GD_TYPE_LPD_GD1<sp/>=<sp/>5U,<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}<sp/>XLoader_GdType;<sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XLOADER_GD_TYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XLOADER_GD_WIDTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XLOADER_GD_REFVOL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XLOADER_GD_FIELD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XLOADER_GD_CFG_MIN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XLOADER_GD_CFG_MAX_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XLOADER_GD_USER_REG_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XLOADER_GD_NUM0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XLOADER_GD_NUM1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/>*<sp/>Maximum<sp/>values<sp/>of<sp/>the<sp/>calibration<sp/>fields.<sp/>These<sp/>are<sp/>field<sp/>widths,<sp/>not</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/>*<sp/>detector<sp/>properties:<sp/>the<sp/>PMC,<sp/>ASU<sp/>and<sp/>LPD<sp/>detectors<sp/>all<sp/>take<sp/>a<sp/>5-bit<sp/>depth,</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/>*<sp/>a<sp/>4-bit<sp/>width<sp/>and<sp/>a<sp/>4-bit<sp/>reference<sp/>voltage,<sp/>so<sp/>all<sp/>three<sp/>configure<sp/>paths</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/>*<sp/>share<sp/>these<sp/>bounds.<sp/>Should<sp/>a<sp/>future<sp/>device<sp/>diverge,<sp/>split<sp/>them<sp/>deliberately.</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1FU)<sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XLOADER_GD_WIDTH_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0FU)<sp/></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#define<sp/>XLOADER_GD_REFVOL_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0FU)<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/>*<sp/>PMC<sp/>GD_FUSE_CTRL<sp/>packing.</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/>*<sp/>Common<sp/>to<sp/>all<sp/>platforms<sp/>since<sp/>the<sp/>PMC<sp/>GD_FUSE_CTRL<sp/>registers<sp/>are<sp/>present</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/>*<sp/>on<sp/>every<sp/>Versal<sp/>variant.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_REFVOL_3LSBITS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07U)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_3LSBITS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07U)</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_REFVOL_MSBIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08U)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_2MSBITS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x18U)</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_REFVOL_MSBIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_REFVOL_3LSBITS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_2MSBITS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_2MSBITS_RSHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_DEPTH_3LSBITS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_WIDTH_BITS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_GD_WIDTH_BITS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0FU)</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XLOADER_GD_FUSE_CTRL_RMW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_GD_USER_REG_VAL<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XLOADER_GD_DEPTH_2MSBITS_MASK)<sp/>&lt;&lt;<sp/>XLOADER_GD_DEPTH_2MSBITS_SHIFT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XLOADER_GD_WIDTH_BITS_MASK)<sp/>&lt;&lt;<sp/>XLOADER_GD_WIDTH_BITS_SHIFT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XLOADER_GD_REFVOL_3LSBITS_MASK)<sp/>&lt;&lt;<sp/>XLOADER_GD_REFVOL_3LSBITS_SHIFT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XLOADER_GD_REFVOL_MSBIT_MASK)<sp/>&lt;&lt;<sp/>XLOADER_GD_REFVOL_MSBIT_SHIFT)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XLOADER_GD_DEPTH_3LSBITS_MASK)<sp/>&lt;&lt;<sp/>XLOADER_GD_DEPTH_3LSBITS_SHIFT))</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImgID;<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UID;<sp/></highlight></codeline>
+<codeline lineno="198" refid="struct_x_loader___image_info" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PUID;<sp/></highlight></codeline>
+<codeline lineno="199" refid="struct_x_loader___image_info_1aa4c8bf28a4fead4fde475250a08697c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FuncID;<sp/></highlight></codeline>
+<codeline lineno="200" refid="struct_x_loader___image_info_1a24424adf798e7660c138eda532397b7d" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_loader___image_info" kindref="compound">XLoader_ImageInfo</ref>;<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiSrc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiAddrLow;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_x_loader___optional_data_info" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiAddrHigh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_x_loader___optional_data_info_1a0092f8adfca951f360f264297732acff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_loader___optional_data_info" kindref="compound">XLoader_OptionalDataInfo</ref>;</highlight></codeline>
+<codeline lineno="212" refid="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="struct_x_loader___optional_data_info_1a5083a680af3e731db8af73f2722ebaa7" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h"/>
+  </compounddef>
+</doxygen>

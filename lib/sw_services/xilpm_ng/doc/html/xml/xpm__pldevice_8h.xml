@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pldevice_8h" kind="file">
+    <compoundname>xpm_pldevice.h</compoundname>
+    <includes refid="xpm__mem_8h" local="yes">xpm_mem.h</includes>
+    <includes refid="xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includes>
+    <includedby refid="xpm__aiedevice_8h" local="yes">xpm_aiedevice.h</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__device_8c" local="yes">xpm_device.c</includedby>
+    <includedby refid="xpm__pldevice_8c" local="yes">xpm_pldevice.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="2603">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="2600" relation="include">
+        </childnode>
+        <childnode refid="2604" relation="include">
+        </childnode>
+      </node>
+      <node id="2594">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2599">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="2595">
+        <label>xil_util.h</label>
+      </node>
+      <node id="2597">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="2592">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="2601">
+        <label>xpm_clock.h</label>
+        <childnode refid="2593" relation="include">
+        </childnode>
+        <childnode refid="2589" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+      </node>
+      <node id="2604">
+        <label>xpm_rail.h</label>
+        <childnode refid="2591" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+        <childnode refid="2605" relation="include">
+        </childnode>
+      </node>
+      <node id="2600">
+        <label>xpm_power.h</label>
+        <childnode refid="2598" relation="include">
+        </childnode>
+        <childnode refid="2589" relation="include">
+        </childnode>
+      </node>
+      <node id="2593">
+        <label>xpm_common.h</label>
+        <childnode refid="2591" relation="include">
+        </childnode>
+        <childnode refid="2594" relation="include">
+        </childnode>
+        <childnode refid="2595" relation="include">
+        </childnode>
+        <childnode refid="2596" relation="include">
+        </childnode>
+        <childnode refid="2597" relation="include">
+        </childnode>
+        <childnode refid="2598" relation="include">
+        </childnode>
+      </node>
+      <node id="2587">
+        <label>xpm_mem.h</label>
+        <childnode refid="2588" relation="include">
+        </childnode>
+      </node>
+      <node id="2589">
+        <label>xpm_node.h</label>
+        <childnode refid="2590" relation="include">
+        </childnode>
+        <childnode refid="2591" relation="include">
+        </childnode>
+        <childnode refid="2592" relation="include">
+        </childnode>
+        <childnode refid="2593" relation="include">
+        </childnode>
+      </node>
+      <node id="2591">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2586">
+        <label>xpm_pldevice.h</label>
+        <link refid="xpm_pldevice.h"/>
+        <childnode refid="2587" relation="include">
+        </childnode>
+        <childnode refid="2603" relation="include">
+        </childnode>
+      </node>
+      <node id="2590">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2598">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="2590" relation="include">
+        </childnode>
+        <childnode refid="2599" relation="include">
+        </childnode>
+      </node>
+      <node id="2605">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="2588">
+        <label>xpm_device.h</label>
+        <childnode refid="2589" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+        <childnode refid="2601" relation="include">
+        </childnode>
+        <childnode refid="2602" relation="include">
+        </childnode>
+      </node>
+      <node id="2602">
+        <label>xpm_reset.h</label>
+        <childnode refid="2589" relation="include">
+        </childnode>
+        <childnode refid="2593" relation="include">
+        </childnode>
+      </node>
+      <node id="2596">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="2591" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2612">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="2609">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="2617">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="2614">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="2615">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="2608">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="2607">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="2608" relation="include">
+        </childnode>
+        <childnode refid="2609" relation="include">
+        </childnode>
+        <childnode refid="2610" relation="include">
+        </childnode>
+        <childnode refid="2611" relation="include">
+        </childnode>
+        <childnode refid="2612" relation="include">
+        </childnode>
+        <childnode refid="2615" relation="include">
+        </childnode>
+        <childnode refid="2613" relation="include">
+        </childnode>
+        <childnode refid="2614" relation="include">
+        </childnode>
+      </node>
+      <node id="2616">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="2606">
+        <label>xpm_pldevice.h</label>
+        <link refid="xpm_pldevice.h"/>
+        <childnode refid="2607" relation="include">
+        </childnode>
+        <childnode refid="2609" relation="include">
+        </childnode>
+        <childnode refid="2610" relation="include">
+        </childnode>
+        <childnode refid="2616" relation="include">
+        </childnode>
+        <childnode refid="2617" relation="include">
+        </childnode>
+      </node>
+      <node id="2613">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="2611">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="2612" relation="include">
+        </childnode>
+        <childnode refid="2613" relation="include">
+        </childnode>
+        <childnode refid="2614" relation="include">
+        </childnode>
+      </node>
+      <node id="2610">
+        <label>xpm_device.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___pl_device_node" prot="public">XPm_PlDeviceNode</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__pldevice_8h_1a7823944cb28e766c4b6959787aa3ac17" prot="public" static="no">
+        <name>MAX_NOC_CLOCK_ARRAY_SIZE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__pldevice_8h_1a95f15201388bd0d052c1d81319923832" prot="public" static="no">
+        <type>struct XPm_PlDeviceNode</type>
+        <definition>typedef struct XPm_PlDeviceNode XPm_PlDevice</definition>
+        <argsstring></argsstring>
+        <name>XPm_PlDevice</name>
+        <briefdescription>
+<para>PLD node class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pldevice_8h_1a322a940625ed3f14a2618a48d106897d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDevice_Init</definition>
+        <argsstring>(XPm_PlDevice *PlDevice, u32 PldId, u32 BaseAddress, XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)</argsstring>
+        <name>XPmPlDevice_Init</name>
+        <param>
+          <type>XPm_PlDevice *</type>
+          <declname>PlDevice</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PldId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XPm_Power *</type>
+          <declname>Power</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+          <declname>Clock</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Reset</declname>
+        </param>
+        <briefdescription>
+<para>Initialize PLDevice node base class. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlDevice</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an uninitialized PlDevice struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PldId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a PlDevice node </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Baseaddress that is passed from topology </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Power</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Power Node dependency. Will no longer be used when PlDevice topology is activated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Clock</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clocks that PlDevice is dependent on. No longer in use as it&apos;s managed by CDO </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Reset</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PlDevice reset dependency. No longer in use as it&apos;s managed by CDO</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="709" bodyend="739"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1a37c9839ad09933ba8f258dc7a16df251" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDevice_GetParent</definition>
+        <argsstring>(u32 NodeId, u32 *Resp)</argsstring>
+        <name>XPmPlDevice_GetParent</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Resp</declname>
+        </param>
+        <briefdescription>
+<para>Get PLD parent for an AIE/PLD Device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a device node </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resp</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="753" bodyend="787"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1abfe925d8f90d800121590b65677c32cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDevice_IsValidPld</definition>
+        <argsstring>(const XPm_PlDevice *PlDevice)</argsstring>
+        <name>XPmPlDevice_IsValidPld</name>
+        <param>
+          <type>const XPm_PlDevice *</type>
+          <declname>PlDevice</declname>
+        </param>
+        <briefdescription>
+<para>Check if a certain PLD Device is a valid device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Qualification for a device to be called valid is:<itemizedlist>
+<listitem><para>Should have a structure allocated</para></listitem><listitem><para>Should have a valid existing parent (to prevent broken trees, as only 1 tree can exist). Exception is for PLD_0 because it&apos;s the root of the tree</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlDevice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PlDevice whose validity needs to be checked</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XStatus Returns XST_SUCCESS or print appropriate error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="163" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1a6ab2a0b60ddaa0ae066b680608c609da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmPlDevice_ReleaseAieDevice</definition>
+        <argsstring>(XPm_PlDevice *PlDevice)</argsstring>
+        <name>XPmPlDevice_ReleaseAieDevice</name>
+        <param>
+          <type>XPm_PlDevice *</type>
+          <declname>PlDevice</declname>
+        </param>
+        <briefdescription>
+<para>Releases the AIE device linked to the given PL device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlDevice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the PL device whose AIE device is released</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1a1dfcbe27e063ed7e61f09b92bc2e3fc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmPlDevice_GetAieParent</definition>
+        <argsstring>(const XPm_Device *Device, const XPm_PlDevice **OutParent)</argsstring>
+        <name>XPmPlDevice_GetAieParent</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>const XPm_PlDevice **</type>
+          <declname>OutParent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1af4bd7839414198cfd032ea86fb4160f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDevice_InitStart</definition>
+        <argsstring>(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmPlDevice_InitStart</name>
+        <param>
+          <type>XPm_PlDevice *</type>
+          <declname>PlDevice</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+<para>Start Node initialization for PlDevice. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlDevice</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PlDevice pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments for PlDevice </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments for PlDevice</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>Arguments consist of Power Domain Node Ids that PlDevice depends on </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set the desired power domain dependency bitmask WfPowerBitMask is cleared and then set based on the arguments present in Args[]<itemizedlist>
+<listitem><para>NOC Power Domain : BitMask [0]</para></listitem><listitem><para>PL Power Domain : BitMask [1]</para></listitem><listitem><para>AIE Power Domain : BitMask [2]</para></listitem></itemizedlist>
+</para><para>Power Management for PLD device elements:<itemizedlist>
+<listitem><para>Power Domain Dependency management based on WfPowerBitMask<itemizedlist>
+<listitem><para>Parent power-up events for domains (if parent exists)</para></listitem><listitem><para>Self power-up events for domains</para></listitem><listitem><para>UseCount Management</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para>PL Init Start indicates that a new RM or static image has been re/loaded. We must get rid of any existing child nodes if at all there are any, since new topology can be formed with those</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="367" bodyend="441"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1aa1e371db38155d9ea4ccc06a068b2d66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDevice_InitFinish</definition>
+        <argsstring>(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmPlDevice_InitFinish</name>
+        <param>
+          <type>XPm_PlDevice *</type>
+          <declname>PlDevice</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+<para>Finish Node initialization for PlDevice. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlDevice</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PlDevice pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments for PlDevice </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments for PlDevice</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>Arguments consist of Power Domain Node Ids that PlDevice depends on </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>InitFinish should only be executed if device is currently in initializing state This is needed to maintain device state machine transitions:<itemizedlist>
+<listitem><para>UNUSED -&gt; INITIALIZING -&gt; RUNNING OR</para></listitem><listitem><para>UNUSED -&gt; INITIALIZING -&gt; UNUSED (if no power domains are specified)</para></listitem></itemizedlist>
+</para><para>Set the desired power domain dependency bitmask WfPowerBitMask is cleared and then set based on the arguments present in Args[]<itemizedlist>
+<listitem><para>NOC Power Domain : BitMask [0]</para></listitem><listitem><para>PL Power Domain : BitMask [1]</para></listitem><listitem><para>AIE Power Domain : BitMask [2]</para></listitem></itemizedlist>
+</para><para>Case1: If no power domains are specified, release all the DDRMCx links to PLD, set state to UNUSED and perform Power Down management on power domains</para><para>Case2: If one or more power domains are specified, set state to RUNNING and perform Power Down management on the absent power domains</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="456" bodyend="550"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1af9316d709cf4a9eaf1b81ca5d5769187" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPlDevice_MemCtrlrMap</definition>
+        <argsstring>(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmPlDevice_MemCtrlrMap</name>
+        <param>
+          <type>XPm_PlDevice *</type>
+          <declname>PlDevice</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+<para>DDRMC mapping/annotation for PlDevice. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlDevice</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PlDevice pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Arguments for PlDevice </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments for PlDevice</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>This command is used to annotate the DDRMC device nodes defined by topology with additional user specified information. A two way link is established between a PLD and DDRMC device. Each DDRMC device links to exactly one PLD, however each PLD can link to one or more DDRMC devices. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="568" bodyend="687"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pldevice_8h_1a0447bfb69c89a4211c9aaa9efe7eec2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmPlDevice_SetSemCallback</definition>
+        <argsstring>(void(*Handler)(u32 DeviceId))</argsstring>
+        <name>XPmPlDevice_SetSemCallback</name>
+        <param>
+          <type>void(*)(u32 DeviceId)</type>
+          <declname>Handler</declname>
+        </param>
+        <briefdescription>
+<para>Set XilSEM callback handler to clear the PLD node descriptors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XilSEM callback handler. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="83" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PLDEVICE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PLDEVICE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_mem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_powerdomain.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_NOC_CLOCK_ARRAY_SIZE<sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="21"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PlDeviceNode<sp/>XPm_PlDevice;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PlDeviceNode<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>Device;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PowerBitMask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>WfPowerBitMask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MemCtrlrCount;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NocClockEnablement[MAX_NOC_CLOCK_ARRAY_SIZE];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PlDevice<sp/>*Parent;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PlDevice<sp/>*NextPeer;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_PlDevice<sp/>*Child;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_MemCtrlrDevice<sp/>*MemCtrlr[MAX_PLAT_DDRMC_COUNT];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_AieDeviceNode<sp/>*AieDevice;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">XStatus<sp/>XPmPlDevice_Init(XPm_PlDevice<sp/>*PlDevice,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PldId,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>*Power,<sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>*Clock,<sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Reset);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">XStatus<sp/>XPmPlDevice_GetParent(u32<sp/>NodeId,<sp/>u32<sp/>*Resp);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">XStatus<sp/>XPmPlDevice_IsValidPld(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PlDevice<sp/>*PlDevice);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmPlDevice_ReleaseAieDevice(XPm_PlDevice<sp/>*PlDevice);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmPlDevice_GetAieParent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref>*<sp/>Device,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PlDevice<sp/>**OutParent);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PLD<sp/>Operations<sp/>Functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">XStatus<sp/>XPmPlDevice_InitStart(XPm_PlDevice<sp/>*PlDevice,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">XStatus<sp/>XPmPlDevice_InitFinish(XPm_PlDevice<sp/>*PlDevice,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">XStatus<sp/>XPmPlDevice_MemCtrlrMap(XPm_PlDevice<sp/>*PlDevice,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmPlDevice_SetSemCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*Handler)(u32<sp/>DeviceId));</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PLDEVICE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h"/>
+  </compounddef>
+</doxygen>

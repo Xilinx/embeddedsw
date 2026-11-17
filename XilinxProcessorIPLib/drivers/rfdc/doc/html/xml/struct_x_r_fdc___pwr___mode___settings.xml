@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___pwr___mode___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Pwr_Mode_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___pwr___mode___settings_1a5b8b7065c922d8ca1384470d2104884e" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_Pwr_Mode_Settings::DisableIPControl</definition>
+        <argsstring></argsstring>
+        <name>DisableIPControl</name>
+        <briefdescription>
+<para>Disables IP RTS control of the power mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="586" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga988457a61856845ec98129b9d83076c4" compoundref="xrfdc_8c" startline="1928" endline="1966">XRFdc_GetPwrMode</referencedby>
+        <referencedby refid="group___overview_1gad428455c40bba3ac0b3b7d15ff6b726f" compoundref="xrfdc_8c" startline="1846" endline="1909">XRFdc_SetPwrMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___pwr___mode___settings_1aa4bda9cac34d2491e1259043a98b608b" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_Pwr_Mode_Settings::PwrMode</definition>
+        <argsstring></argsstring>
+        <name>PwrMode</name>
+        <briefdescription>
+<para>The power mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="587" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga988457a61856845ec98129b9d83076c4" compoundref="xrfdc_8c" startline="1928" endline="1966">XRFdc_GetPwrMode</referencedby>
+        <referencedby refid="group___overview_1gad428455c40bba3ac0b3b7d15ff6b726f" compoundref="xrfdc_8c" startline="1846" endline="1909">XRFdc_SetPwrMode</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RFSoC Power Mode settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="585" bodyend="588"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___pwr___mode___settings_1a5b8b7065c922d8ca1384470d2104884e" prot="public" virt="non-virtual"><scope>XRFdc_Pwr_Mode_Settings</scope><name>DisableIPControl</name></member>
+      <member refid="struct_x_r_fdc___pwr___mode___settings_1aa4bda9cac34d2491e1259043a98b608b" prot="public" virt="non-virtual"><scope>XRFdc_Pwr_Mode_Settings</scope><name>PwrMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

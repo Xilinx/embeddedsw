@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use canps driver.</para><sect1 id="example_1ex1">
+<title>xcanps_intr_example.c</title>
+<para>Contains an example on how to use the XCanps driver directly. This example shows the usage of driver in interrupt mode.</para><para>For details, see <ref refid="xcanps__intr__example_8c" kindref="compound">xcanps_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xcanps_polled_example.c</title>
+<para>Contains an example on how to use the XCanps driver directly. This example shows the usage of driver in polled mode.</para><para>For details, see <ref refid="xcanps__polled__example_8c" kindref="compound">xcanps_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xcanps_watermark_intr_example.c</title>
+<para>Contains an example on how to use the XCanps driver directly. This example shows the usage of driver in interrupt mode using the Rx Watermark Interrupt.</para><para>For details, see <ref refid="xcanps__watermark__intr__example_8c" kindref="compound">xcanps_watermark_intr_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

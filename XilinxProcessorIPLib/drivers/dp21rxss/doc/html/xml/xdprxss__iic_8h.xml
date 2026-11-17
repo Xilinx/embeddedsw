@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdprxss__iic_8h" kind="file">
+    <compoundname>xdprxss_iic.h</compoundname>
+    <includedby refid="xdprxss__iic_8c" local="yes">xdprxss_iic.c</includedby>
+    <includedby refid="xdprxss_8h" local="yes">xdprxss.h</includedby>
+    <invincdepgraph>
+      <node id="1610">
+        <label>xdprxss_selftest.c</label>
+        <link refid="xdprxss__selftest_8c"/>
+      </node>
+      <node id="1629">
+        <label>tx.c</label>
+      </node>
+      <node id="1612">
+        <label>main.h</label>
+        <childnode refid="1613" relation="include">
+        </childnode>
+        <childnode refid="1614" relation="include">
+        </childnode>
+        <childnode refid="1615" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1617" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+      </node>
+      <node id="1616">
+        <label>si570.c</label>
+      </node>
+      <node id="1618">
+        <label>xdprxss_dp21_pt.c</label>
+        <link refid="xdprxss__dp21__pt_8c"/>
+      </node>
+      <node id="1613">
+        <label>menus.c</label>
+      </node>
+      <node id="1602">
+        <label>xdprxss_iic.c</label>
+        <link refid="xdprxss__iic_8c"/>
+      </node>
+      <node id="1601">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss_iic.h"/>
+        <childnode refid="1602" relation="include">
+        </childnode>
+        <childnode refid="1603" relation="include">
+        </childnode>
+      </node>
+      <node id="1637">
+        <label>passthrough.c</label>
+      </node>
+      <node id="1608">
+        <label>xdprxss_g.c</label>
+      </node>
+      <node id="1614">
+        <label>passthrough.c</label>
+      </node>
+      <node id="1640">
+        <label>xdprxss_dp21_pt_mst.c</label>
+      </node>
+      <node id="1630">
+        <label>xdprxss_dp21_pt_hdcp.c</label>
+        <link refid="xdprxss__dp21__pt__hdcp_8c"/>
+      </node>
+      <node id="1604">
+        <label>xdprxss.c</label>
+        <link refid="xdprxss_8c"/>
+      </node>
+      <node id="1603">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="1604" relation="include">
+        </childnode>
+        <childnode refid="1605" relation="include">
+        </childnode>
+        <childnode refid="1606" relation="include">
+        </childnode>
+        <childnode refid="1608" relation="include">
+        </childnode>
+        <childnode refid="1609" relation="include">
+        </childnode>
+        <childnode refid="1610" relation="include">
+        </childnode>
+        <childnode refid="1611" relation="include">
+        </childnode>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+        <childnode refid="1621" relation="include">
+        </childnode>
+        <childnode refid="1633" relation="include">
+        </childnode>
+        <childnode refid="1634" relation="include">
+        </childnode>
+        <childnode refid="1635" relation="include">
+        </childnode>
+        <childnode refid="1642" relation="include">
+        </childnode>
+        <childnode refid="1643" relation="include">
+        </childnode>
+      </node>
+      <node id="1628">
+        <label>si570.c</label>
+      </node>
+      <node id="1625">
+        <label>menus.c</label>
+      </node>
+      <node id="1619">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="1626">
+        <label>passthrough.c</label>
+      </node>
+      <node id="1611">
+        <label>xdprxss_sinit.c</label>
+        <link refid="xdprxss__sinit_8c"/>
+      </node>
+      <node id="1641">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="1635">
+        <label>main.h</label>
+        <childnode refid="1636" relation="include">
+        </childnode>
+        <childnode refid="1637" relation="include">
+        </childnode>
+        <childnode refid="1638" relation="include">
+        </childnode>
+        <childnode refid="1639" relation="include">
+        </childnode>
+        <childnode refid="1640" relation="include">
+        </childnode>
+        <childnode refid="1641" relation="include">
+        </childnode>
+      </node>
+      <node id="1632">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="1624">
+        <label>keys.c</label>
+      </node>
+      <node id="1615">
+        <label>rx.c</label>
+      </node>
+      <node id="1620">
+        <label>rx.h</label>
+        <childnode refid="1614" relation="include">
+        </childnode>
+        <childnode refid="1615" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+      </node>
+      <node id="1609">
+        <label>xdprxss_intr.c</label>
+        <link refid="xdprxss__intr_8c"/>
+      </node>
+      <node id="1638">
+        <label>rx.c</label>
+      </node>
+      <node id="1642">
+        <label>rx.h</label>
+        <childnode refid="1637" relation="include">
+        </childnode>
+        <childnode refid="1638" relation="include">
+        </childnode>
+        <childnode refid="1640" relation="include">
+        </childnode>
+      </node>
+      <node id="1643">
+        <label>xdprxss_dp21_rx.c</label>
+        <link refid="xdprxss__dp21__rx_8c"/>
+      </node>
+      <node id="1617">
+        <label>tx.c</label>
+      </node>
+      <node id="1605">
+        <label>xdprxss_dbg.c</label>
+        <link refid="xdprxss__dbg_8c"/>
+      </node>
+      <node id="1622">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="1639">
+        <label>tx.c</label>
+      </node>
+      <node id="1623">
+        <label>keymgmt_loader.c</label>
+        <link refid="keymgmt__loader_8c"/>
+      </node>
+      <node id="1621">
+        <label>main.h</label>
+        <childnode refid="1622" relation="include">
+        </childnode>
+        <childnode refid="1623" relation="include">
+        </childnode>
+        <childnode refid="1624" relation="include">
+        </childnode>
+        <childnode refid="1625" relation="include">
+        </childnode>
+        <childnode refid="1626" relation="include">
+        </childnode>
+        <childnode refid="1627" relation="include">
+        </childnode>
+        <childnode refid="1628" relation="include">
+        </childnode>
+        <childnode refid="1629" relation="include">
+        </childnode>
+        <childnode refid="1630" relation="include">
+        </childnode>
+        <childnode refid="1631" relation="include">
+        </childnode>
+        <childnode refid="1632" relation="include">
+        </childnode>
+      </node>
+      <node id="1627">
+        <label>rx.c</label>
+      </node>
+      <node id="1633">
+        <label>rx.h</label>
+        <childnode refid="1626" relation="include">
+        </childnode>
+        <childnode refid="1627" relation="include">
+        </childnode>
+        <childnode refid="1630" relation="include">
+        </childnode>
+      </node>
+      <node id="1631">
+        <label>xhdcp22_example.c</label>
+      </node>
+      <node id="1636">
+        <label>menus.c</label>
+      </node>
+      <node id="1634">
+        <label>xhdcp22_example.h</label>
+        <childnode refid="1631" relation="include">
+        </childnode>
+      </node>
+      <node id="1607">
+        <label>xdprxss_dsc_fec.c</label>
+        <link refid="xdprxss__dsc__fec_8c"/>
+      </node>
+      <node id="1606">
+        <label>xdprxss_dsc_fec.h</label>
+        <link refid="xdprxss__dsc__fec_8h"/>
+        <childnode refid="1607" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdprxss__iic_8h_1a68e406263c906dff384f00e91e83ac14" prot="public" static="no">
+        <name>XDPRXSS_IIC_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/iic/xdprxss_iic.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/iic/xdprxss_iic.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file for Xilinx DisplayPort Receiver Subsystem sub-core, is IIC. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 05/18/15 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XDPRXSS_IIC_H_</highlight></codeline>
+<codeline lineno="24" refid="xdprxss__iic_8h_1a68e406263c906dff384f00e91e83ac14" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_IIC_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XIIC_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XIICPS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/iic/xdprxss_iic.h"/>
+  </compounddef>
+</doxygen>

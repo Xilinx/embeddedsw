@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>cpu_cortexa53</title>
+    <detaileddescription>
+<para>dummy file MODIFICATION HISTORY:Ver Who Date Changes <hruler/>
+ 1.4 ms 04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID parameter of cpu_cortexa53 in xparameters.h </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

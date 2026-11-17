@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___mlkem_encaps_derand_params" kind="struct" prot="public">
+    <compoundname>XAsu_MlkemEncapsDerandParams</compoundname>
+    <includes local="no">xasu_mlkeminfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref></type>
+        <definition>XAsu_MlkemEncapsDecapsParams XAsu_MlkemEncapsDerandParams::EncapsParams</definition>
+        <argsstring></argsstring>
+        <name>EncapsParams</name>
+        <briefdescription>
+<para>Encapsulation parameters, as the encapsulation command takes them. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MlkemEncapsDerandParams::SeedAddr</definition>
+        <argsstring></argsstring>
+        <name>SeedAddr</name>
+        <briefdescription>
+<para>Address of the message m to encapsulate with; must be non-zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MlkemEncapsDerandParams::SeedLen</definition>
+        <argsstring></argsstring>
+        <name>SeedLen</name>
+        <briefdescription>
+<para>Length of the message m in bytes; must equal XASU_MLKEM_ENCAPS_SEED_LEN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mlkem_encaps_derand_params_1ac8d8dcdc18dfedc7d7325bfcae56d684" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MlkemEncapsDerandParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved to pad the structure to 64 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the parameters of the derandomized encapsulation command, which exists for algorithm validation only (see XASU_MLKEM_ENCAPS_DERAND_CMD_ID). </para>    </briefdescription>
+    <detaileddescription>
+<para>It carries the ordinary encapsulation parameters plus the message m to encapsulate with, laid out the same way <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> appends a seed to the parameters it shares. The encapsulation key must be supplied through EncapsParams.KeyAddr: the key vault is not available to this command, so EncapsParams.KeyId must be zero. Unlike key generation, a zero SeedAddr is not a request to draw from the TRNG but an error, since supplying m is this command&apos;s only purpose. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="119">
+        <label>XAsu_MlkemEncapsDecapsParams</label>
+        <link refid="struct_x_asu___mlkem_encaps_decaps_params"/>
+      </node>
+      <node id="118">
+        <label>XAsu_MlkemEncapsDerandParams</label>
+        <link refid="struct_x_asu___mlkem_encaps_derand_params"/>
+        <childnode refid="119" relation="usage">
+          <edgelabel>EncapsParams</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkeminfo.h" bodystart="127" bodyend="135"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDerandParams</scope><name>EncapsParams</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_derand_params_1ac8d8dcdc18dfedc7d7325bfcae56d684" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDerandParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDerandParams</scope><name>SeedAddr</name></member>
+      <member refid="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" prot="public" virt="non-virtual"><scope>XAsu_MlkemEncapsDerandParams</scope><name>SeedLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

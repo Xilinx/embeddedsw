@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>sdi_common</title>
+    <detaileddescription>
+<para>Contains common utility functions that are typically used by SDI IP drivers and applications.<simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   jsr  07/17/17 Initial release.
+1.1   jsr  10/05/18 Moved 3GB specific video modes timing
+                        parameters from video common library
+                to SDI common driver
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1649 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__reset_8h" kind="file">
+    <compoundname>xpm_reset.h</compoundname>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes local="yes">xpm_reset_plat.h</includes>
+    <includedby refid="server_2xpm__powerdomain_8h" local="yes">xpm_powerdomain.h</includedby>
+    <includedby refid="server_2xpm__device__plat_8h" local="yes">xpm_device_plat.h</includedby>
+    <includedby refid="server_2xpm__npdomain_8c" local="yes">xpm_npdomain.c</includedby>
+    <includedby refid="server_2xpm__pldomain__plat_8c" local="yes">xpm_pldomain_plat.c</includedby>
+    <includedby refid="server_2xpm__pslpdomain_8c" local="yes">xpm_pslpdomain.c</includedby>
+    <includedby refid="server_2xpm__reset__plat_8c" local="yes">xpm_reset_plat.c</includedby>
+    <includedby refid="xpm__subsystem__plat_8c" local="yes">xpm_subsystem_plat.c</includedby>
+    <includedby refid="xpm__device_8h" local="yes">xpm_device.h</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__reset_8c" local="yes">xpm_reset.c</includedby>
+    <includedby refid="xpm__subsystem_8c" local="yes">xpm_subsystem.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__device__plat_8h" local="yes">xpm_device_plat.h</includedby>
+    <includedby refid="net_2server_2xpm__reset__plat_8c" local="yes">xpm_reset_plat.c</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="8681">
+        <label>xpm_api.h</label>
+        <childnode refid="8671" relation="include">
+        </childnode>
+        <childnode refid="8672" relation="include">
+        </childnode>
+        <childnode refid="8682" relation="include">
+        </childnode>
+        <childnode refid="8677" relation="include">
+        </childnode>
+        <childnode refid="8683" relation="include">
+        </childnode>
+        <childnode refid="8684" relation="include">
+        </childnode>
+      </node>
+      <node id="8675">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8670">
+        <label>xpm_node.h</label>
+        <childnode refid="8671" relation="include">
+        </childnode>
+        <childnode refid="8672" relation="include">
+        </childnode>
+        <childnode refid="8673" relation="include">
+        </childnode>
+        <childnode refid="8674" relation="include">
+        </childnode>
+      </node>
+      <node id="8677">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8669">
+        <label>xpm_reset.h</label>
+        <link refid="xpm_reset.h"/>
+        <childnode refid="8670" relation="include">
+        </childnode>
+        <childnode refid="8674" relation="include">
+        </childnode>
+        <childnode refid="8680" relation="include">
+        </childnode>
+        <childnode refid="8686" relation="include">
+        </childnode>
+      </node>
+      <node id="8676">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8678">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8680">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8681" relation="include">
+        </childnode>
+        <childnode refid="8682" relation="include">
+        </childnode>
+        <childnode refid="8672" relation="include">
+        </childnode>
+        <childnode refid="8685" relation="include">
+        </childnode>
+      </node>
+      <node id="8682">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8685">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8686">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8672">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8674">
+        <label>xpm_common.h</label>
+        <childnode refid="8672" relation="include">
+        </childnode>
+        <childnode refid="8675" relation="include">
+        </childnode>
+        <childnode refid="8676" relation="include">
+        </childnode>
+        <childnode refid="8677" relation="include">
+        </childnode>
+        <childnode refid="8678" relation="include">
+        </childnode>
+        <childnode refid="8679" relation="include">
+        </childnode>
+      </node>
+      <node id="8673">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8683">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8671">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8679">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8684">
+        <label>xplmi_ipi.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8714">
+        <label>xpm_pldomain_plat.h</label>
+      </node>
+      <node id="8703">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="8705">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="8709">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8710" relation="include">
+        </childnode>
+        <childnode refid="8703" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+      </node>
+      <node id="8688">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="8689" relation="include">
+        </childnode>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8699" relation="include">
+        </childnode>
+        <childnode refid="8701" relation="include">
+        </childnode>
+        <childnode refid="8707" relation="include">
+        </childnode>
+        <childnode refid="8709" relation="include">
+        </childnode>
+        <childnode refid="8711" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8702" relation="include">
+        </childnode>
+        <childnode refid="8710" relation="include">
+        </childnode>
+        <childnode refid="8714" relation="include">
+        </childnode>
+        <childnode refid="8704" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8715" relation="include">
+        </childnode>
+        <childnode refid="8698" relation="include">
+        </childnode>
+      </node>
+      <node id="8731">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="8792">
+        <label>xpm_regulator.c</label>
+      </node>
+      <node id="8791">
+        <label>xpm_regulator.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8744" relation="include">
+        </childnode>
+        <childnode refid="8792" relation="include">
+        </childnode>
+        <childnode refid="8793" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8762">
+        <label>xpm_psm_plat.c</label>
+      </node>
+      <node id="8755">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="8712">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="8794">
+        <label>xpm_clock.c</label>
+      </node>
+      <node id="8711">
+        <label>xpm_cpmdomain.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8712" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8713" relation="include">
+        </childnode>
+        <childnode refid="8698" relation="include">
+        </childnode>
+      </node>
+      <node id="8706">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="8767">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="8700">
+        <label>xpm_pmcdomain.c</label>
+      </node>
+      <node id="8701">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8702" relation="include">
+        </childnode>
+        <childnode refid="8703" relation="include">
+        </childnode>
+        <childnode refid="8704" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8706" relation="include">
+        </childnode>
+      </node>
+      <node id="8699">
+        <label>xpm_pmcdomain.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8700" relation="include">
+        </childnode>
+      </node>
+      <node id="8774">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="8733">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="8725">
+        <label>xpm_core.h</label>
+        <childnode refid="8726" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8727" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8713" relation="include">
+        </childnode>
+        <childnode refid="8728" relation="include">
+        </childnode>
+        <childnode refid="8729" relation="include">
+        </childnode>
+        <childnode refid="8738" relation="include">
+        </childnode>
+        <childnode refid="8749" relation="include">
+        </childnode>
+        <childnode refid="8764" relation="include">
+        </childnode>
+        <childnode refid="8733" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8767" relation="include">
+        </childnode>
+        <childnode refid="8755" relation="include">
+        </childnode>
+        <childnode refid="8768" relation="include">
+        </childnode>
+        <childnode refid="8769" relation="include">
+        </childnode>
+        <childnode refid="8757" relation="include">
+        </childnode>
+        <childnode refid="8761" relation="include">
+        </childnode>
+        <childnode refid="8770" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8734">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="8788">
+        <label>xpm_pinfunc.c</label>
+      </node>
+      <node id="8781">
+        <label>xpm_pinfunc.h</label>
+        <childnode refid="8782" relation="include">
+        </childnode>
+        <childnode refid="8783" relation="include">
+        </childnode>
+        <childnode refid="8784" relation="include">
+        </childnode>
+        <childnode refid="8788" relation="include">
+        </childnode>
+        <childnode refid="8789" relation="include">
+        </childnode>
+        <childnode refid="8790" relation="include">
+        </childnode>
+      </node>
+      <node id="8766">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="8743">
+        <label>xpm_pmc.c</label>
+      </node>
+      <node id="8738">
+        <label>xpm_pmc.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8695" relation="include">
+        </childnode>
+        <childnode refid="8703" relation="include">
+        </childnode>
+        <childnode refid="8718" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8698" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8739" relation="include">
+        </childnode>
+        <childnode refid="8740" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8742" relation="include">
+        </childnode>
+        <childnode refid="8734" relation="include">
+        </childnode>
+        <childnode refid="8743" relation="include">
+        </childnode>
+        <childnode refid="8744" relation="include">
+        </childnode>
+        <childnode refid="8745" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8746" relation="include">
+        </childnode>
+        <childnode refid="8747" relation="include">
+        </childnode>
+        <childnode refid="8748" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8800">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="8698">
+        <label>xpm_reset_plat.c</label>
+      </node>
+      <node id="8759">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="8785">
+        <label>xpm_pin_plat.c</label>
+      </node>
+      <node id="8782">
+        <label>xpm_pin_plat.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+      </node>
+      <node id="8719">
+        <label>xpm_subsystem_plat.c</label>
+      </node>
+      <node id="8710">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="8721">
+        <label>xpm_mem_plat.h</label>
+      </node>
+      <node id="8757">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="8744">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="8695">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="8745">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="8716">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="8687">
+        <label>xpm_reset.h</label>
+        <link refid="xpm_reset.h"/>
+        <childnode refid="8688" relation="include">
+        </childnode>
+        <childnode refid="8717" relation="include">
+        </childnode>
+        <childnode refid="8703" relation="include">
+        </childnode>
+        <childnode refid="8718" relation="include">
+        </childnode>
+        <childnode refid="8706" relation="include">
+        </childnode>
+        <childnode refid="8698" relation="include">
+        </childnode>
+        <childnode refid="8719" relation="include">
+        </childnode>
+        <childnode refid="8720" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8745" relation="include">
+        </childnode>
+        <childnode refid="8768" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8805" relation="include">
+        </childnode>
+        <childnode refid="8797" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8715">
+        <label>xpm_repair.h</label>
+        <childnode refid="8716" relation="include">
+        </childnode>
+      </node>
+      <node id="8796">
+        <label>xpm_device_idle.c</label>
+      </node>
+      <node id="8795">
+        <label>xpm_device_idle.h</label>
+        <childnode refid="8698" relation="include">
+        </childnode>
+        <childnode refid="8719" relation="include">
+        </childnode>
+        <childnode refid="8796" relation="include">
+        </childnode>
+        <childnode refid="8768" relation="include">
+        </childnode>
+        <childnode refid="8797" relation="include">
+        </childnode>
+      </node>
+      <node id="8793">
+        <label>xpm_rail_plat.c</label>
+      </node>
+      <node id="8736">
+        <label>xpm_apucore_plat.c</label>
+      </node>
+      <node id="8769">
+        <label>xpm_apucore_plat.h</label>
+        <childnode refid="8729" relation="include">
+        </childnode>
+      </node>
+      <node id="8754">
+        <label>xpm_psm.c</label>
+      </node>
+      <node id="8749">
+        <label>xpm_psm.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8727" relation="include">
+        </childnode>
+        <childnode refid="8702" relation="include">
+        </childnode>
+        <childnode refid="8750" relation="include">
+        </childnode>
+        <childnode refid="8704" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8708" relation="include">
+        </childnode>
+        <childnode refid="8713" relation="include">
+        </childnode>
+        <childnode refid="8751" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8733" relation="include">
+        </childnode>
+        <childnode refid="8734" relation="include">
+        </childnode>
+        <childnode refid="8752" relation="include">
+        </childnode>
+        <childnode refid="8753" relation="include">
+        </childnode>
+        <childnode refid="8754" relation="include">
+        </childnode>
+        <childnode refid="8755" relation="include">
+        </childnode>
+        <childnode refid="8756" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8757" relation="include">
+        </childnode>
+        <childnode refid="8758" relation="include">
+        </childnode>
+        <childnode refid="8759" relation="include">
+        </childnode>
+        <childnode refid="8760" relation="include">
+        </childnode>
+        <childnode refid="8748" relation="include">
+        </childnode>
+        <childnode refid="8761" relation="include">
+        </childnode>
+        <childnode refid="8762" relation="include">
+        </childnode>
+        <childnode refid="8763" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8773">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="8772">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="8691" relation="include">
+        </childnode>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8696" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8773" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8774" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8787">
+        <label>xpm_pin_plat.c</label>
+      </node>
+      <node id="8789">
+        <label>xpm_pin_plat.h</label>
+        <childnode refid="8784" relation="include">
+        </childnode>
+      </node>
+      <node id="8768">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="8693">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="8708">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="8690">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="8783">
+        <label>xpm_pinfunc_plat.c</label>
+      </node>
+      <node id="8742">
+        <label>xpm_gic_proxy.c</label>
+      </node>
+      <node id="8707">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8708" relation="include">
+        </childnode>
+      </node>
+      <node id="8689">
+        <label>xpm_aie.h</label>
+        <childnode refid="8690" relation="include">
+        </childnode>
+        <childnode refid="8691" relation="include">
+        </childnode>
+        <childnode refid="8692" relation="include">
+        </childnode>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8695" relation="include">
+        </childnode>
+        <childnode refid="8698" relation="include">
+        </childnode>
+      </node>
+      <node id="8780">
+        <label>xpm_gic_proxy.h</label>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8742" relation="include">
+        </childnode>
+        <childnode refid="8777" relation="include">
+        </childnode>
+      </node>
+      <node id="8775">
+        <label>xpm_mem.c</label>
+      </node>
+      <node id="8771">
+        <label>xpm_mem.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8710" relation="include">
+        </childnode>
+        <childnode refid="8703" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8772" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8775" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8766" relation="include">
+        </childnode>
+      </node>
+      <node id="8758">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="8802">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="8797">
+        <label>xpm_reset_plat.c</label>
+      </node>
+      <node id="8798">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="8737">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="8732">
+        <label>xpm_apucore.c</label>
+      </node>
+      <node id="8729">
+        <label>xpm_apucore.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8730" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8732" relation="include">
+        </childnode>
+        <childnode refid="8733" relation="include">
+        </childnode>
+        <childnode refid="8734" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8736" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8753">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="8730">
+        <label>xpm_apucore_plat.c</label>
+      </node>
+      <node id="8726">
+        <label>xpm_apucore_plat.h</label>
+      </node>
+      <node id="8722">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="8750">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="8704">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="8777">
+        <label>xpm_periph.c</label>
+      </node>
+      <node id="8779">
+        <label>xpm_periph.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8780" relation="include">
+        </childnode>
+        <childnode refid="8777" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8778">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="8803">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="8776">
+        <label>xpm_requirement.h</label>
+        <childnode refid="8692" relation="include">
+        </childnode>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8695" relation="include">
+        </childnode>
+        <childnode refid="8713" relation="include">
+        </childnode>
+        <childnode refid="8719" relation="include">
+        </childnode>
+        <childnode refid="8771" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8733" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8734" relation="include">
+        </childnode>
+        <childnode refid="8777" relation="include">
+        </childnode>
+        <childnode refid="8773" relation="include">
+        </childnode>
+        <childnode refid="8753" relation="include">
+        </childnode>
+        <childnode refid="8755" relation="include">
+        </childnode>
+        <childnode refid="8778" relation="include">
+        </childnode>
+        <childnode refid="8768" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8746" relation="include">
+        </childnode>
+        <childnode refid="8761" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8740">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="8727">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="8723">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="8761">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="8702">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="8760">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="8790">
+        <label>xpm_pinfunc_plat.c</label>
+      </node>
+      <node id="8694">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="8713">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="8751">
+        <label>xpm_psm_plat.c</label>
+      </node>
+      <node id="8717">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="8799">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="8801">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="8724">
+        <label>xpm_ams_trim.c</label>
+      </node>
+      <node id="8786">
+        <label>xpm_pin.c</label>
+      </node>
+      <node id="8784">
+        <label>xpm_pin.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8785" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8786" relation="include">
+        </childnode>
+        <childnode refid="8768" relation="include">
+        </childnode>
+        <childnode refid="8787" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8748">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="8765">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="8696">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="8728">
+        <label>xpm_rpucore_plat.h</label>
+      </node>
+      <node id="8756">
+        <label>xpm_rpucore.c</label>
+      </node>
+      <node id="8764">
+        <label>xpm_rpucore.h</label>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8695" relation="include">
+        </childnode>
+        <childnode refid="8710" relation="include">
+        </childnode>
+        <childnode refid="8704" relation="include">
+        </childnode>
+        <childnode refid="8765" relation="include">
+        </childnode>
+        <childnode refid="8719" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8734" relation="include">
+        </childnode>
+        <childnode refid="8756" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8757" relation="include">
+        </childnode>
+        <childnode refid="8766" relation="include">
+        </childnode>
+        <childnode refid="8763" relation="include">
+        </childnode>
+        <childnode refid="8737" relation="include">
+        </childnode>
+      </node>
+      <node id="8735">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="8692">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="8691">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="8690" relation="include">
+        </childnode>
+        <childnode refid="8692" relation="include">
+        </childnode>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8695" relation="include">
+        </childnode>
+        <childnode refid="8696" relation="include">
+        </childnode>
+      </node>
+      <node id="8747">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="8804">
+        <label>xpm_requirement_plat.h</label>
+        <childnode refid="8776" relation="include">
+        </childnode>
+      </node>
+      <node id="8741">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="8720">
+        <label>xpm_device.h</label>
+        <childnode refid="8689" relation="include">
+        </childnode>
+        <childnode refid="8690" relation="include">
+        </childnode>
+        <childnode refid="8693" relation="include">
+        </childnode>
+        <childnode refid="8697" relation="include">
+        </childnode>
+        <childnode refid="8712" relation="include">
+        </childnode>
+        <childnode refid="8694" relation="include">
+        </childnode>
+        <childnode refid="8702" relation="include">
+        </childnode>
+        <childnode refid="8695" relation="include">
+        </childnode>
+        <childnode refid="8710" relation="include">
+        </childnode>
+        <childnode refid="8721" relation="include">
+        </childnode>
+        <childnode refid="8703" relation="include">
+        </childnode>
+        <childnode refid="8718" relation="include">
+        </childnode>
+        <childnode refid="8705" relation="include">
+        </childnode>
+        <childnode refid="8708" relation="include">
+        </childnode>
+        <childnode refid="8706" relation="include">
+        </childnode>
+        <childnode refid="8713" relation="include">
+        </childnode>
+        <childnode refid="8716" relation="include">
+        </childnode>
+        <childnode refid="8722" relation="include">
+        </childnode>
+        <childnode refid="8698" relation="include">
+        </childnode>
+        <childnode refid="8719" relation="include">
+        </childnode>
+        <childnode refid="8723" relation="include">
+        </childnode>
+        <childnode refid="8724" relation="include">
+        </childnode>
+        <childnode refid="8725" relation="include">
+        </childnode>
+        <childnode refid="8731" relation="include">
+        </childnode>
+        <childnode refid="8771" relation="include">
+        </childnode>
+        <childnode refid="8776" relation="include">
+        </childnode>
+        <childnode refid="8779" relation="include">
+        </childnode>
+        <childnode refid="8781" relation="include">
+        </childnode>
+        <childnode refid="8784" relation="include">
+        </childnode>
+        <childnode refid="8791" relation="include">
+        </childnode>
+        <childnode refid="8739" relation="include">
+        </childnode>
+        <childnode refid="8794" relation="include">
+        </childnode>
+        <childnode refid="8741" relation="include">
+        </childnode>
+        <childnode refid="8795" relation="include">
+        </childnode>
+        <childnode refid="8742" relation="include">
+        </childnode>
+        <childnode refid="8734" relation="include">
+        </childnode>
+        <childnode refid="8775" relation="include">
+        </childnode>
+        <childnode refid="8755" relation="include">
+        </childnode>
+        <childnode refid="8745" relation="include">
+        </childnode>
+        <childnode refid="8768" relation="include">
+        </childnode>
+        <childnode refid="8735" relation="include">
+        </childnode>
+        <childnode refid="8798" relation="include">
+        </childnode>
+        <childnode refid="8799" relation="include">
+        </childnode>
+        <childnode refid="8746" relation="include">
+        </childnode>
+        <childnode refid="8758" relation="include">
+        </childnode>
+        <childnode refid="8766" relation="include">
+        </childnode>
+        <childnode refid="8800" relation="include">
+        </childnode>
+        <childnode refid="8774" relation="include">
+        </childnode>
+        <childnode refid="8748" relation="include">
+        </childnode>
+        <childnode refid="8801" relation="include">
+        </childnode>
+        <childnode refid="8802" relation="include">
+        </childnode>
+        <childnode refid="8793" relation="include">
+        </childnode>
+        <childnode refid="8803" relation="include">
+        </childnode>
+        <childnode refid="8804" relation="include">
+        </childnode>
+        <childnode refid="8797" relation="include">
+        </childnode>
+      </node>
+      <node id="8739">
+        <label>xpm_bisr.c</label>
+      </node>
+      <node id="8746">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="8805">
+        <label>xpm_device_plat.h</label>
+        <childnode refid="8720" relation="include">
+        </childnode>
+      </node>
+      <node id="8697">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="8763">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="8770">
+        <label>xpm_rpucore_plat.h</label>
+        <childnode refid="8764" relation="include">
+        </childnode>
+      </node>
+      <node id="8752">
+        <label>xpm_pll.c</label>
+      </node>
+      <node id="8718">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm_reset_ops" prot="public">XPmResetOps</innerclass>
+    <innerclass refid="struct_x_pm___reset_handle" prot="public">XPm_ResetHandle</innerclass>
+    <innerclass refid="struct_x_pm___reset_node" prot="public">XPm_ResetNode</innerclass>
+    <innerclass refid="struct_reset_custom_ops" prot="public">ResetCustomOps</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__reset_8h_1a5f5afb4798463d8cd3a9f3a6cb6b1a9f" prot="public" static="no">
+        <name>MAX_RESET_PARENTS</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__reset_8h_1a35968fb8bfb3878d2d9231fe4082ef92" prot="public" static="no">
+        <name>MAX_RESETS</name>
+        <initializer>XPM_NODEIDX_RST_MAX</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__reset_8h_1a58f82340f8ff4a951c241d02c0a45ef8" prot="public" static="no">
+        <name>XPM_RST_STATE_DEASSERTED</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__reset_8h_1a67c62cc6990e89bc3fc2175980b56aa6" prot="public" static="no">
+        <name>XPM_RST_STATE_ASSERTED</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__reset_8h_1a8e1a85b016a743f6c9043d4202835bc5" prot="public" static="no">
+        <name>XPM_RST_STATE_INVALID</name>
+        <initializer>0xFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__reset_8h_1aab011732f13361516eede86fe7ef033f" prot="public" static="no">
+        <name>RESET_PERM_SHIFT_NS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__reset_8h_1a3fa844121f9ce29a248f13797d80f799" prot="public" static="no">
+        <name>RESET_PERM_SHIFT_S</name>
+        <initializer>(0U + MAX_NUM_SUBSYSTEMS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__reset_8h_1adc738b67f5c479dbd0d3ce583a178db1" prot="public" static="no">
+        <name>XPm_ResetType</name>
+        <enumvalue id="xpm__reset_8h_1adc738b67f5c479dbd0d3ce583a178db1a1ce3df609831719beff9b8aec552b079" prot="public">
+          <name>XPM_RSTTYPE_POR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__reset_8h_1adc738b67f5c479dbd0d3ce583a178db1a783036eced3ad1a303585d4506192ecc" prot="public">
+          <name>XPM_RSTTYPE_SYS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__reset_8h_1adc738b67f5c479dbd0d3ce583a178db1a5d2d156fae478b26832b7f0245e18307" prot="public">
+          <name>XPM_RSTTYPE_PERIPH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__reset_8h_1adc738b67f5c479dbd0d3ce583a178db1a7cffc4372a5b5569dad10c82250b8255" prot="public">
+          <name>XPM_RSTTYPE_DBG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__reset_8h_1ae80876334ff0cb2c82a40df2645cec37" prot="public" static="no">
+        <name>XPm_ResetOpsType</name>
+        <enumvalue id="xpm__reset_8h_1ae80876334ff0cb2c82a40df2645cec37a4ba21b9ec2f1d9da2f170f86ce335633" prot="public">
+          <name>XPM_RSTOPS_GENRERIC</name>
+          <initializer>=1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__reset_8h_1ae80876334ff0cb2c82a40df2645cec37ad7faa24af1e832ef04ebd0983cc3e2df" prot="public">
+          <name>XPM_RSTOPS_CUSTOM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__reset_8h_1ae80876334ff0cb2c82a40df2645cec37adc75519bb0cd0b55a574c46e5c325f34" prot="public">
+          <name>XPM_RSTOPS_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="34" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__reset_8h_1a1f59cec25a0148867ef03861cf39618c" prot="public" static="no">
+        <type>enum <ref refid="group__xpm__versal__apis_1gae940f386920cde96cbbfa94f5d11444a" kindref="member">XPmResetActions</ref></type>
+        <definition>typedef enum XPmResetActions XPm_ResetActions</definition>
+        <argsstring></argsstring>
+        <name>XPm_ResetActions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__reset_8h_1a832f0736b92004170c450184d9d738b4" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref></type>
+        <definition>typedef struct XPm_ResetNode XPm_ResetNode</definition>
+        <argsstring></argsstring>
+        <name>XPm_ResetNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__reset_8h_1a3a5084369deaa1f2e3cb376cd805569e" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref></type>
+        <definition>typedef struct XPm_ResetHandle XPm_ResetHandle</definition>
+        <argsstring></argsstring>
+        <name>XPm_ResetHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__reset_8h_1a59ca0f35d6ef93c0cd52fbf0ce505276" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm_reset_ops" kindref="compound">XPmResetOps</ref></type>
+        <definition>typedef struct XPmResetOps  XPm_ResetOps</definition>
+        <argsstring></argsstring>
+        <name>XPm_ResetOps</name>
+        <briefdescription>
+<para>xPmResetOps - Reset operations  Assert or release reset line  Get current status of reset line </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="52" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__reset_8h_1a4a41a5a46e4ee8fe4694ac3c4e3a8ade" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 UserAssertPsSrst</definition>
+        <argsstring></argsstring>
+        <name>UserAssertPsSrst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__reset_8h_1ab391b29951b2d1a2e9b4699e3381fd74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AddNode</definition>
+        <argsstring>(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, const u32 *Parents)</argsstring>
+        <name>XPmReset_AddNode</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ControlReg</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Shift</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Width</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ResetType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>NumParents</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Parents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="112" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a0ae4fe5be94ae35f1a0fbd1e1665e932" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+        <definition>XPm_ResetNode* XPmReset_GetById</definition>
+        <argsstring>(u32 ResetId)</argsstring>
+        <name>XPmReset_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="160" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1afb7d8767fcf4c5f269e9750cdca6ab37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AssertbyId</definition>
+        <argsstring>(u32 ResetId, const u32 Action)</argsstring>
+        <name>XPmReset_AssertbyId</name>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Action</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="295" bodyend="307"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a603fa69cc0d08890f443d782c863794d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_CheckPermissions</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem, u32 ResetId)</argsstring>
+        <name>XPmReset_CheckPermissions</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="437" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a8aaff21f80f1596c4ed1536fca7027a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_SystemReset</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmReset_SystemReset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="473" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a6394fea96bf560fe773aa30f1a679074" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_IsPermissionReset</definition>
+        <argsstring>(const u32 ResetId)</argsstring>
+        <name>XPmReset_IsPermissionReset</name>
+        <param>
+          <type>const u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="341" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a86016768b6dc7bd9943c50f36cf8580d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AddPermForGlobalResets</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmReset_AddPermForGlobalResets</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="362" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a74da6b06e83d12914de56e4a5c91e220" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_IsOperationAllowed</definition>
+        <argsstring>(const u32 SubsystemId, const XPm_ResetNode *Rst, const u32 CmdType)</argsstring>
+        <name>XPmReset_IsOperationAllowed</name>
+        <param>
+          <type>const u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Rst</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="383" bodyend="406"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a6947d7924105e9046bec53db3c95369f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AddPermission</definition>
+        <argsstring>(XPm_ResetNode *Rst, const XPm_Subsystem *Subsystem, const u32 Operations)</argsstring>
+        <name>XPmReset_AddPermission</name>
+        <param>
+          <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Rst</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Operations</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="408" bodyend="435"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__reset_8h_1a545db29ff79019386d924e7ac56971cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmReset_MakeCustom</definition>
+        <argsstring>(u32 ResetId)</argsstring>
+        <name>XPmReset_MakeCustom</name>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c" bodystart="103" bodyend="110"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RESET_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RESET_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_reset_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_RESET_PARENTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>UserAssertPsSrst;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>All<sp/>reset<sp/>types<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTTYPE_POR,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTTYPE_SYS,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTTYPE_PERIPH,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTTYPE_DBG,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}XPm_ResetType;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>All<sp/>reset<sp/>Ops<sp/>types<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTOPS_GENRERIC=1,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTOPS_CUSTOM,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_RSTOPS_MAX,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}XPm_ResetOpsType;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group__xpm__versal__apis_1gae940f386920cde96cbbfa94f5d11444a" kindref="member">XPmResetActions</ref><sp/>XPm_ResetActions;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref><sp/><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="struct_x_pm_reset_ops" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm_reset_ops" kindref="compound">XPmResetOps</ref><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>SetState)(<ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Action);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GetState)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}<sp/><ref refid="struct_x_pm_reset_ops" kindref="compound">XPm_ResetOps</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="struct_x_pm___reset_handle" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref><sp/>{</highlight></codeline>
+<codeline lineno="59" refid="struct_x_pm___reset_handle_1a1f0181ab76508e2523affa41a432853d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*<ref refid="struct_x_pm___reset_handle_1a1f0181ab76508e2523affa41a432853d" kindref="member">Reset</ref>;<sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_pm___reset_handle_1a66f4d308091dd68481ded7a24b29ec18" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___device_node" kindref="compound">XPm_DeviceNode</ref><sp/>*<ref refid="struct_x_pm___reset_handle_1a66f4d308091dd68481ded7a24b29ec18" kindref="member">Device</ref>;<sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_pm___reset_handle_1a36873536c1315c2c65a394739f7de11f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref><sp/>*<ref refid="struct_x_pm___reset_handle_1a36873536c1315c2c65a394739f7de11f" kindref="member">NextReset</ref>;<sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_pm___reset_handle_1af877085df79803d2c415b6c5efd9ba0e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref><sp/>*<ref refid="struct_x_pm___reset_handle_1af877085df79803d2c415b6c5efd9ba0e" kindref="member">NextDevice</ref>;<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="struct_x_pm___reset_node" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>Node;</highlight></codeline>
+<codeline lineno="70" refid="struct_x_pm___reset_node_1ae7517370e5032f9610112caf914235ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___reset_node_1ae7517370e5032f9610112caf914235ae" kindref="member">Parents</ref>[MAX_RESET_PARENTS];<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Shift;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Width;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SAVE_REGION(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AllowedSubsystems;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm_reset_ops" kindref="compound">XPm_ResetOps</ref><sp/>*Ops;</highlight></codeline>
+<codeline lineno="77" refid="struct_x_pm___reset_node_1a0180f2efe530bd870daca875f7f4d024" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref><sp/>*<ref refid="struct_x_pm___reset_node_1a0180f2efe530bd870daca875f7f4d024" kindref="member">RstHandles</ref>;<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ResetCustomOps<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ResetIdx;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ActionAssert)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ActionRelease)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ActionPulse)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GetStatus)(void);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_RESETS<sp/><sp/><sp/><sp/><sp/><sp/>XPM_NODEIDX_RST_MAX</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_RST_STATE_DEASSERTED<sp/>0U</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RST_STATE_ASSERTED<sp/>1U</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RST_STATE_INVALID<sp/>0xFFU</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_PERM_SHIFT_NS<sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RESET_PERM_SHIFT_S<sp/><sp/><sp/><sp/><sp/><sp/>(0U<sp/>+<sp/>MAX_NUM_SUBSYSTEMS)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">XStatus<sp/>XPmReset_AddNode(u32<sp/>Id,<sp/>u32<sp/>ControlReg,<sp/>u8<sp/>Shift,<sp/>u8<sp/>Width,<sp/>u8<sp/>ResetType,<sp/>u8<sp/>NumParents,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>Parents);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref>*<sp/>XPmReset_GetById(u32<sp/>ResetId);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">XStatus<sp/>XPmReset_AssertbyId(u32<sp/>ResetId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Action);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">XStatus<sp/>XPmReset_CheckPermissions(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>ResetId);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">XStatus<sp/>XPmReset_SystemReset(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">XStatus<sp/>XPmReset_IsPermissionReset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ResetId);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">XStatus<sp/>XPmReset_AddPermForGlobalResets(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">XStatus<sp/>XPmReset_IsOperationAllowed(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>SubsystemId,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">XStatus<sp/>XPmReset_AddPermission(<ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Operations);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmReset_MakeCustom(u32<sp/>ResetId);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RESET_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h"/>
+  </compounddef>
+</doxygen>

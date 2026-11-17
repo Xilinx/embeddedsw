@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xilpki</title>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who   Date      Changes
+<hruler/>
+
+1.0   Nava  12/05/22  Initial Release
+2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
+2.0   Nava  08/02/23  Added a new API XPki_GetVersion() to access the library
+                 version info.
+2.0   Nava  09/06/23  Updated the XPki_GetVersion() API prototype to inline with
+                      other secure library version info API&apos;s.
+2.0   Nava  09/07/23  Fixed issues with IRQ signal.
+2.0   Nava  09/11/23  Fixed doxygen warnings.
+2.1   Nava  12/27/23  Updated the XPki_DeQueueData() API to return the proper error
+                      status for CopyEcdsa* operations.
+2.4   Arvd  02/04/26  Fixed codespell errors.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

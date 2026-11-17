@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__pll_8h" kind="file">
+    <compoundname>xpm_runtime_pll.h</compoundname>
+    <includes refid="xpm__clock_8h" local="yes">xpm_clock.h</includes>
+    <includes refid="xpm__defs_8h" local="yes">xpm_defs.h</includes>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <includedby refid="xpm__runtime__clock_8c" local="yes">xpm_runtime_clock.c</includedby>
+    <includedby refid="xpm__runtime__pll_8c" local="yes">xpm_runtime_pll.c</includedby>
+    <incdepgraph>
+      <node id="4941">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4947">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="4942">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4944">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4949">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4938">
+        <label>xpm_clock.h</label>
+        <childnode refid="4939" relation="include">
+        </childnode>
+        <childnode refid="4948" relation="include">
+        </childnode>
+        <childnode refid="4950" relation="include">
+        </childnode>
+      </node>
+      <node id="4950">
+        <label>xpm_power.h</label>
+        <childnode refid="4945" relation="include">
+        </childnode>
+        <childnode refid="4948" relation="include">
+        </childnode>
+      </node>
+      <node id="4939">
+        <label>xpm_common.h</label>
+        <childnode refid="4940" relation="include">
+        </childnode>
+        <childnode refid="4941" relation="include">
+        </childnode>
+        <childnode refid="4942" relation="include">
+        </childnode>
+        <childnode refid="4943" relation="include">
+        </childnode>
+        <childnode refid="4944" relation="include">
+        </childnode>
+        <childnode refid="4945" relation="include">
+        </childnode>
+      </node>
+      <node id="4948">
+        <label>xpm_node.h</label>
+        <childnode refid="4946" relation="include">
+        </childnode>
+        <childnode refid="4940" relation="include">
+        </childnode>
+        <childnode refid="4949" relation="include">
+        </childnode>
+        <childnode refid="4939" relation="include">
+        </childnode>
+      </node>
+      <node id="4940">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4946">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4945">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="4946" relation="include">
+        </childnode>
+        <childnode refid="4947" relation="include">
+        </childnode>
+      </node>
+      <node id="4943">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="4940" relation="include">
+        </childnode>
+      </node>
+      <node id="4937">
+        <label>xpm_runtime_pll.h</label>
+        <link refid="xpm_runtime_pll.h"/>
+        <childnode refid="4938" relation="include">
+        </childnode>
+        <childnode refid="4945" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4952">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="4953">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="4954">
+        <label>xpm_runtime_pll.c</label>
+      </node>
+      <node id="4951">
+        <label>xpm_runtime_pll.h</label>
+        <link refid="xpm_runtime_pll.h"/>
+        <childnode refid="4952" relation="include">
+        </childnode>
+        <childnode refid="4953" relation="include">
+        </childnode>
+        <childnode refid="4954" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__runtime__pll_8h_1aac95d2df5593684eac6faf857398d5d6" prot="public" static="no">
+        <name>FRAC_DIV</name>
+        <initializer>(0x10000U)</initializer>
+        <briefdescription>
+<para>Fractional divisor (2^16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__pll_8h_1a8a4dec92da804abe3b2a43cd5871f0b7" prot="public" static="no">
+        <name>PLL_FBDIV_MIN</name>
+        <initializer>25U</initializer>
+        <briefdescription>
+<para>Minimum feedback divider value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__pll_8h_1a93378056fe9f9c47c138c2112d99e291" prot="public" static="no">
+        <name>PLL_FBDIV_MAX</name>
+        <initializer>125U</initializer>
+        <briefdescription>
+<para>Maximum feedback divider value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__pll_8h_1a19dd596d6b71a8df46a45846deb2ee02" prot="public" static="no">
+        <name>PLL_VCO_MIN</name>
+        <initializer>1500000000U</initializer>
+        <briefdescription>
+<para>Minimum VCO frequency (1.5 GHz) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__pll_8h_1afbb98f67c7d1c9efa33b17f9070a1e45" prot="public" static="no">
+        <name>PLL_VCO_MAX</name>
+        <initializer>3000000000U</initializer>
+        <briefdescription>
+<para>Maximum VCO frequency (3.0 GHz) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__pll_8h_1acb59b3f36caa919625f077f0b5bd3678" prot="public" static="no">
+        <name>PLL_NUM_DIVIDERS</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Number of PLL output dividers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__runtime__pll_8h_1a41ee22069bec09dfe2099471d5eb2127" prot="public" static="no">
+        <type>struct XPm_PllClockNode</type>
+        <definition>typedef struct XPm_PllClockNode XPm_PllClockNode</definition>
+        <argsstring></argsstring>
+        <name>XPm_PllClockNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__pll_8h_1ad0cad1bb038005201cf1eb284908ec1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_SetMode</definition>
+        <argsstring>(XPm_PllClockNode *Pll, u32 Mode)</argsstring>
+        <name>XPmClockPll_SetMode</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.c" bodystart="17" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__pll_8h_1affec60848fe8b64ccbb25650556306a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_GetMode</definition>
+        <argsstring>(XPm_PllClockNode *Pll, u32 *Mode)</argsstring>
+        <name>XPmClockPll_GetMode</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.c" bodystart="50" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__pll_8h_1a1683a0c422495f97422cf590a64ec061" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_SetParam</definition>
+        <argsstring>(XPm_PllClockNode *Pll, u32 Param, u32 Value)</argsstring>
+        <name>XPmClockPll_SetParam</name>
+        <param>
+          <type>XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Param</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.c" bodystart="82" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__pll_8h_1a37707cc478f57dd9e05419e83b027cc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_GetParam</definition>
+        <argsstring>(const XPm_PllClockNode *Pll, u32 Param, u32 *Val)</argsstring>
+        <name>XPmClockPll_GetParam</name>
+        <param>
+          <type>const XPm_PllClockNode *</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Param</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.c" bodystart="153" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__pll_8h_1a3100756b65f9a1a6e8c1443952a70f31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_QueryMuxSources</definition>
+        <argsstring>(u32 Id, u32 Index, u32 *Resp)</argsstring>
+        <name>XPmClockPll_QueryMuxSources</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Index</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Resp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.c" bodystart="208" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__pll_8h_1ad8042b9af836a83ceba4a7f837bc846a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClockPll_GetWakeupLatency</definition>
+        <argsstring>(const u32 Id, u32 *Latency)</argsstring>
+        <name>XPmClockPll_GetWakeupLatency</name>
+        <param>
+          <type>const u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Latency</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.c" bodystart="236" bodyend="264"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RUNTIME_PLL_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RUNTIME_PLL_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_clock.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpm__defs_8h" kindref="compound">xpm_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PllClockNode<sp/>XPm_PllClockNode;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">XStatus<sp/>XPmClockPll_SetMode(XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>Mode);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">XStatus<sp/>XPmClockPll_GetMode(XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>*Mode);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">XStatus<sp/>XPmClockPll_SetParam(XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>Param,u32<sp/>Value);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">XStatus<sp/>XPmClockPll_GetParam(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PllClockNode<sp/>*Pll,<sp/>u32<sp/>Param,u32<sp/>*Val);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">XStatus<sp/>XPmClockPll_QueryMuxSources(u32<sp/>Id,<sp/>u32<sp/>Index,<sp/>u32<sp/>*Resp);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">XStatus<sp/>XPmClockPll_GetWakeupLatency(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Id,<sp/>u32<sp/>*Latency);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PLL<sp/>fractional<sp/>mode<sp/>constants<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRAC_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10000U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#define<sp/>PLL_FBDIV_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#define<sp/>PLL_FBDIV_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>125U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#define<sp/>PLL_VCO_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1500000000U<sp/><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#define<sp/>PLL_VCO_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3000000000U<sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Valid<sp/>divider<sp/>values<sp/>for<sp/>PLL<sp/>output<sp/>divider<sp/>clocks<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLL_NUM_DIVIDERS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RUNTIME_PLL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h"/>
+  </compounddef>
+</doxygen>

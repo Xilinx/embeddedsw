@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xuartlite__intr__tapp__example" kind="group">
+    <compoundname>xuartlite_intr_tapp_example</compoundname>
+    <title>Xuartlite_intr_tapp_example</title>
+      <sectiondef kind="user-defined">
+      <header>Device parameters</header>
+      <description><para>The following constants map to the XPAR parameters created in the xparameters.h file.</para><para>They are defined here so that all needed parameters can be changed in one place. </para></description>
+      <memberdef kind="define" id="group__xuartlite__intr__tapp__example_1ga8057ce36f09ce80a6f8121ebc556e43b" prot="public" static="no">
+        <name>XUARTLITE_BASEADDRESS</name>
+        <initializer>XPAR_XUARTLITE_0_BASEADDR</initializer>
+        <briefdescription>
+<para>UartLite base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__tapp__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xuartlite__intr__tapp__example_8c" startline="182" endline="205">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Buffer size</header>
+      <memberdef kind="define" id="group__xuartlite__intr__tapp__example_1ga0b71e527200033092ab1ebd5c0c077ed" prot="public" static="no">
+        <name>TEST_BUFFER_SIZE</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Length of the send buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Device driver instances</header>
+      <description><para>The instances to support the device drivers are global such that they are initialized to zero each time the program runs. </para></description>
+      <memberdef kind="variable" id="group__xuartlite__intr__tapp__example_1ga13edb5e2fae637576072cd76a8478038" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref></type>
+        <definition>XUartLite UartLiteInst</definition>
+        <argsstring></argsstring>
+        <name>UartLiteInst</name>
+        <briefdescription>
+<para>The instance of the UartLite Device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Shared example variables</header>
+      <description><para>The following variables are shared between non-interrupt processing and interrupt processing such that they must be global.</para><para>The counter determines when the entire buffer has been sent. </para></description>
+      <memberdef kind="variable" id="group__xuartlite__intr__tapp__example_1ga21a34b7f8d09398f53237562bd1f579b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SendBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>Buffer for transmitting data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xuartlite__intr__tapp__example_1ga9c1146f8b94870b530001e0f08cb491e" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalSentCount</definition>
+        <argsstring></argsstring>
+        <name>TotalSentCount</name>
+        <briefdescription>
+<para>Counter for total bytes sent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xuartlite__intr__tapp__example_1ga8079702e33795e4de685d18352796beb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int UartLiteIntrExample</definition>
+        <argsstring>(XUartLite *UartLiteInstPtr, UINTPTR BaseAddress)</argsstring>
+        <name>UartLiteIntrExample</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>UartLiteInstancePtr</declname>
+          <defname>UartLiteInstPtr</defname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Performs a minimal test on the UartLite device and driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is a design example that illustrates how to use the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> component.</para><para>This function sends data through the UartLite.</para><para>This function uses the interrupt driver mode of the UartLite. The calls to the UartLite driver in the interrupt handlers, should only use the non-blocking calls.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">UartLiteInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of UartLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<itemizedlist>
+<listitem><para>This function contains an infinite loop such that if interrupts are not working it may never return. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartlite__intr__tapp__example_1gac4270b510beff5a7979f28a9dc2c7b7b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void UartLiteSendHandler</definition>
+        <argsstring>(void *CallBackRef, unsigned int EventData)</argsstring>
+        <name>UartLiteSendHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>EventData</declname>
+        </param>
+        <briefdescription>
+<para>Handles the send complete interrupt event. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called from an interrupt context such that the amount of processing performed should be minimized. It is called when the transmit FIFO of the UartLite is empty and more data can be sent through the UartLite.</para><para>This handler provides an example of how to handle data for the UartLite, but is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference from the driver. In this case it is the instance pointer for the UartLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes sent or received for sent and receive events. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="360" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartlite__intr__tapp__example_1ga87540985624fee0720853ba09d2d7d7f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void UartLiteRecvHandler</definition>
+        <argsstring>(void *CallBackRef, unsigned int EventData)</argsstring>
+        <name>UartLiteRecvHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>EventData</declname>
+        </param>
+        <briefdescription>
+<para>Handles the receive data interrupt event. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called from an interrupt context such that the amount of processing performed should be minimized. It is called when any data is present in the receive FIFO of the UartLite such that the data can be retrieved from the UartLite. The amount of data present in the FIFO is not known when this function is called.</para><para>This handler provides an example of how to handle data for the UartLite, but is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference from the driver, in this case it is the instance pointer for the UartLite driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes sent or received for sent and receive events. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="386" bodyend="390"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xuartlite__intr__tapp__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the UartLite interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/examples/xuartlite_intr_tapp_example.c" bodystart="182" bodyend="205"/>
+        <references refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</references>
+        <references refid="group__xuartlite__intr__tapp__example_1ga8057ce36f09ce80a6f8121ebc556e43b" compoundref="xuartlite__intr__tapp__example_8c" startline="88">XUARTLITE_BASEADDRESS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

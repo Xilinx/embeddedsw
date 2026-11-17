@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_dc___resolution_preset" kind="struct" prot="public">
+    <compoundname>XDpDc_ResolutionPreset</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_dc___resolution_preset_1ab87ca337233f354982d4d1cff3191b00" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpDc_ResolutionPreset::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_dc___resolution_preset_1a7b5f400f50d3ea4b93dcaff860fd20d6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpDc_ResolutionPreset::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_dc___resolution_preset_1abf0680848b4b71dfe2f87ec9038a3ce3" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* XDpDc_ResolutionPreset::label</definition>
+        <argsstring></argsstring>
+        <name>label</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="212" bodyend="216"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_dc___resolution_preset_1a7b5f400f50d3ea4b93dcaff860fd20d6" prot="public" virt="non-virtual"><scope>XDpDc_ResolutionPreset</scope><name>height</name></member>
+      <member refid="struct_x_dp_dc___resolution_preset_1abf0680848b4b71dfe2f87ec9038a3ce3" prot="public" virt="non-virtual"><scope>XDpDc_ResolutionPreset</scope><name>label</name></member>
+      <member refid="struct_x_dp_dc___resolution_preset_1ab87ca337233f354982d4d1cff3191b00" prot="public" virt="non-virtual"><scope>XDpDc_ResolutionPreset</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

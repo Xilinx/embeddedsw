@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structpm__init__suspend" kind="struct" prot="public">
+    <compoundname>pm_init_suspend</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpm__init__suspend_1a6e638c7e212ddd0eaf57f0588e1e8ae4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 pm_init_suspend::received</definition>
+        <argsstring></argsstring>
+        <name>received</name>
+        <briefdescription>
+<para>Has init suspend callback been received/handled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__init__suspend_1acd3373e50fe6eeb80dafbf34ec379540" prot="public" static="no" mutable="no">
+        <type>enum <ref refid="group__xpm__versal__apis_1gaa81d4506684eb977e60c84981bdbc385" kindref="member">XPmSuspendReason</ref></type>
+        <definition>enum XPmSuspendReason pm_init_suspend::reason</definition>
+        <argsstring></argsstring>
+        <name>reason</name>
+        <briefdescription>
+<para>Reason of initializing suspend. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__init__suspend_1ae21a611426eb2a55bc13343296f2d63b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 pm_init_suspend::latency</definition>
+        <argsstring></argsstring>
+        <name>latency</name>
+        <briefdescription>
+<para>Maximum allowed latency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__init__suspend_1a3637cd31d91d10c21d24aa5d15776a1e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 pm_init_suspend::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+<para>Targeted sleep/suspend state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__init__suspend_1a4a52f7a49acd6e3f79e7c6f723295b0b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 pm_init_suspend::timeout</definition>
+        <argsstring></argsstring>
+        <name>timeout</name>
+        <briefdescription>
+<para>Period of time the client has to response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__init__suspend_1a68e019ebbfc5769c2bd1ecc6b781537a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>volatile bool pm_init_suspend::received</definition>
+        <argsstring></argsstring>
+        <name>received</name>
+        <briefdescription>
+<para>Has init suspend callback been received/handled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="28" bodyend="34"/>
+    <listofallmembers>
+      <member refid="structpm__init__suspend_1ae21a611426eb2a55bc13343296f2d63b" prot="public" virt="non-virtual"><scope>pm_init_suspend</scope><name>latency</name></member>
+      <member refid="structpm__init__suspend_1acd3373e50fe6eeb80dafbf34ec379540" prot="public" virt="non-virtual"><scope>pm_init_suspend</scope><name>reason</name></member>
+      <member refid="structpm__init__suspend_1a6e638c7e212ddd0eaf57f0588e1e8ae4" prot="public" virt="non-virtual"><scope>pm_init_suspend</scope><name>received</name></member>
+      <member refid="structpm__init__suspend_1a68e019ebbfc5769c2bd1ecc6b781537a" prot="public" virt="non-virtual"><scope>pm_init_suspend</scope><name>received</name></member>
+      <member refid="structpm__init__suspend_1a3637cd31d91d10c21d24aa5d15776a1e" prot="public" virt="non-virtual"><scope>pm_init_suspend</scope><name>state</name></member>
+      <member refid="structpm__init__suspend_1a4a52f7a49acd6e3f79e7c6f723295b0b" prot="public" virt="non-virtual"><scope>pm_init_suspend</scope><name>timeout</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

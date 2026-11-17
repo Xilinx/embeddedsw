@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['virtflash',['VirtFlash',['../xusb__audio__dfu__example_8c.html#ac1e6226fb63d8dfb57aec3e2edde7351',1,'VirtFlash():&#160;xusb_audio_dfu_example.c'],['../xusb__class__dfu_8c.html#a599cd912c03e24b67ab71e55eafcdc8a',1,'VirtFlash():&#160;xusb_audio_dfu_example.c'],['../xusb__class__storage_8c.html#a599cd912c03e24b67ab71e55eafcdc8a',1,'VirtFlash():&#160;xusb_audio_dfu_example.c'],['../xusb__freertos__audio__example_8c.html#ae78e42683927b23c3ebdaae4a5d13879',1,'VirtFlash():&#160;xusb_freertos_audio_example.c'],['../xusb__freertos__dfu__example_8c.html#ae78e42683927b23c3ebdaae4a5d13879',1,'VirtFlash():&#160;xusb_freertos_dfu_example.c']]],
+  ['virtflashwritepointer',['VirtFlashWritePointer',['../xusb__class__storage_8c.html#aa25bbc00aa8ab0d6e5913617923b04a7',1,'VirtFlashWritePointer():&#160;xusb_intr_example.c'],['../xusb__intr__example_8c.html#aa25bbc00aa8ab0d6e5913617923b04a7',1,'VirtFlashWritePointer():&#160;xusb_intr_example.c'],['../xusb__poll__example_8c.html#aa25bbc00aa8ab0d6e5913617923b04a7',1,'VirtFlashWritePointer():&#160;xusb_poll_example.c']]],
+  ['virtualdisk',['virtualdisk',['../structaudio__dfu__if.html#af08f520a874573f90ae66f9a56234040',1,'audio_dfu_if::virtualdisk()'],['../structaudio__dev.html#ad75322a26f3a527336523dba507e940b',1,'audio_dev::virtualdisk()']]]
+];

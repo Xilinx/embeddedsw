@@ -1,0 +1,808 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2zynqmp_2xsecure__sha3alginfo_8h" kind="file">
+    <compoundname>server/zynqmp/xsecure_sha3alginfo.h</compoundname>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includedby refid="zynqmp_2xsecure__sha_8h" local="yes">xsecure_sha.h</includedby>
+    <incdepgraph>
+      <node id="4194">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="4193">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="4192">
+        <label>xsecure_sha3alginfo.h</label>
+        <link refid="server/zynqmp/xsecure_sha3alginfo.h"/>
+        <childnode refid="4193" relation="include">
+        </childnode>
+        <childnode refid="4194" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4234">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure__rsa__ipihandler_8c"/>
+      </node>
+      <node id="4277">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp_2xsecure__cmd_8c"/>
+      </node>
+      <node id="4252">
+        <label>xilsecure_spartan_ultrascale_plus_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartan__ultrascale__plus__lms__hss__server__example_8c"/>
+      </node>
+      <node id="4213">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="4209">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8h"/>
+        <childnode refid="4210" relation="include">
+        </childnode>
+        <childnode refid="4213" relation="include">
+        </childnode>
+        <childnode refid="4212" relation="include">
+        </childnode>
+      </node>
+      <node id="4273">
+        <label>xsecure_plat.c</label>
+        <link refid="spartanup_2xsecure__plat_8c"/>
+      </node>
+      <node id="4224">
+        <label>xsecure_resourcehandling.c</label>
+        <link refid="xsecure__resourcehandling_8c"/>
+      </node>
+      <node id="4226">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="4223">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="4221" relation="include">
+        </childnode>
+        <childnode refid="4200" relation="include">
+        </childnode>
+        <childnode refid="4224" relation="include">
+        </childnode>
+        <childnode refid="4225" relation="include">
+        </childnode>
+        <childnode refid="4226" relation="include">
+        </childnode>
+        <childnode refid="4227" relation="include">
+        </childnode>
+        <childnode refid="4228" relation="include">
+        </childnode>
+        <childnode refid="4229" relation="include">
+        </childnode>
+        <childnode refid="4230" relation="include">
+        </childnode>
+        <childnode refid="4206" relation="include">
+        </childnode>
+        <childnode refid="4231" relation="include">
+        </childnode>
+        <childnode refid="4212" relation="include">
+        </childnode>
+      </node>
+      <node id="4284">
+        <label>xilsecure_spartan_ultrascale_plus_sha_server_example.c</label>
+        <link refid="xilsecure__spartan__ultrascale__plus__sha__server__example_8c"/>
+      </node>
+      <node id="4281">
+        <label>xilsecure_rsa_example.c</label>
+        <link refid="xilsecure__rsa__example_8c"/>
+      </node>
+      <node id="4286">
+        <label>xilsecure_versal_sha_server_example.c</label>
+        <link refid="xilsecure__versal__sha__server__example_8c"/>
+      </node>
+      <node id="4267">
+        <label>xsecure_slhdsa_hash.c</label>
+        <link refid="xsecure__slhdsa__hash_8c"/>
+      </node>
+      <node id="4266">
+        <label>xsecure_slhdsa_hash.h</label>
+        <link refid="xsecure__slhdsa__hash_8h"/>
+        <childnode refid="4261" relation="include">
+        </childnode>
+        <childnode refid="4262" relation="include">
+        </childnode>
+        <childnode refid="4267" relation="include">
+        </childnode>
+        <childnode refid="4265" relation="include">
+        </childnode>
+        <childnode refid="4263" relation="include">
+        </childnode>
+        <childnode refid="4268" relation="include">
+        </childnode>
+      </node>
+      <node id="4233">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="4249">
+        <label>xsecure_lms.c</label>
+        <link refid="xsecure__lms_8c"/>
+      </node>
+      <node id="4248">
+        <label>xsecure_lms.h</label>
+        <link refid="xsecure__lms_8h"/>
+        <childnode refid="4249" relation="include">
+        </childnode>
+        <childnode refid="4250" relation="include">
+        </childnode>
+        <childnode refid="4253" relation="include">
+        </childnode>
+      </node>
+      <node id="4197">
+        <label>xsecure_core.c</label>
+        <link refid="xsecure__core_8c"/>
+      </node>
+      <node id="4258">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="4218">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="4214">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="4200" relation="include">
+        </childnode>
+        <childnode refid="4215" relation="include">
+        </childnode>
+        <childnode refid="4216" relation="include">
+        </childnode>
+        <childnode refid="4217" relation="include">
+        </childnode>
+        <childnode refid="4218" relation="include">
+        </childnode>
+        <childnode refid="4219" relation="include">
+        </childnode>
+      </node>
+      <node id="4211">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="4236">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="4212">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4210">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="4211" relation="include">
+        </childnode>
+        <childnode refid="4212" relation="include">
+        </childnode>
+      </node>
+      <node id="4222">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure__init_8c"/>
+      </node>
+      <node id="4220">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="4221" relation="include">
+        </childnode>
+        <childnode refid="4200" relation="include">
+        </childnode>
+        <childnode refid="4215" relation="include">
+        </childnode>
+        <childnode refid="4201" relation="include">
+        </childnode>
+        <childnode refid="4222" relation="include">
+        </childnode>
+        <childnode refid="4223" relation="include">
+        </childnode>
+        <childnode refid="4225" relation="include">
+        </childnode>
+        <childnode refid="4232" relation="include">
+        </childnode>
+        <childnode refid="4233" relation="include">
+        </childnode>
+        <childnode refid="4226" relation="include">
+        </childnode>
+        <childnode refid="4227" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4228" relation="include">
+        </childnode>
+        <childnode refid="4229" relation="include">
+        </childnode>
+        <childnode refid="4230" relation="include">
+        </childnode>
+        <childnode refid="4235" relation="include">
+        </childnode>
+        <childnode refid="4236" relation="include">
+        </childnode>
+        <childnode refid="4237" relation="include">
+        </childnode>
+        <childnode refid="4238" relation="include">
+        </childnode>
+        <childnode refid="4206" relation="include">
+        </childnode>
+        <childnode refid="4239" relation="include">
+        </childnode>
+        <childnode refid="4240" relation="include">
+        </childnode>
+        <childnode refid="4231" relation="include">
+        </childnode>
+        <childnode refid="4241" relation="include">
+        </childnode>
+        <childnode refid="4212" relation="include">
+        </childnode>
+        <childnode refid="4219" relation="include">
+        </childnode>
+      </node>
+      <node id="4254">
+        <label>xsecure_lms_ots.c</label>
+        <link refid="xsecure__lms__ots_8c"/>
+      </node>
+      <node id="4247">
+        <label>xsecure_lms_ots.h</label>
+        <link refid="xsecure__lms__ots_8h"/>
+        <childnode refid="4248" relation="include">
+        </childnode>
+        <childnode refid="4250" relation="include">
+        </childnode>
+        <childnode refid="4254" relation="include">
+        </childnode>
+      </node>
+      <node id="4231">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4276">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="4277" relation="include">
+        </childnode>
+        <childnode refid="4231" relation="include">
+        </childnode>
+      </node>
+      <node id="4265">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
+      </node>
+      <node id="4264">
+        <label>xsecure_slhdsa_ht.h</label>
+        <link refid="xsecure__slhdsa__ht_8h"/>
+        <childnode refid="4261" relation="include">
+        </childnode>
+        <childnode refid="4265" relation="include">
+        </childnode>
+      </node>
+      <node id="4246">
+        <label>xsecure_rsa_pss.c</label>
+        <link refid="xsecure__rsa__pss_8c"/>
+      </node>
+      <node id="4253">
+        <label>xsecure_lms_hss.h</label>
+        <link refid="xsecure__lms__hss_8h"/>
+        <childnode refid="4250" relation="include">
+        </childnode>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4213" relation="include">
+        </childnode>
+        <childnode refid="4252" relation="include">
+        </childnode>
+      </node>
+      <node id="4255">
+        <label>xsecure_rsa_pss.h</label>
+        <link refid="xsecure__rsa__pss_8h"/>
+        <childnode refid="4256" relation="include">
+        </childnode>
+        <childnode refid="4246" relation="include">
+        </childnode>
+      </node>
+      <node id="4279">
+        <label>xsecure.c</label>
+        <link refid="xsecure_8c"/>
+      </node>
+      <node id="4278">
+        <label>xsecure.h</label>
+        <link refid="xsecure_8h"/>
+        <childnode refid="4279" relation="include">
+        </childnode>
+      </node>
+      <node id="4205">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="4227">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="4229">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="4261">
+        <label>xsecure_slhdsa.c</label>
+        <link refid="xsecure__slhdsa_8c"/>
+      </node>
+      <node id="4230">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="4269">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure__slhdsa_8h"/>
+        <childnode refid="4261" relation="include">
+        </childnode>
+        <childnode refid="4230" relation="include">
+        </childnode>
+      </node>
+      <node id="4239">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="4199">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure__kat_8c"/>
+      </node>
+      <node id="4198">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="4199" relation="include">
+        </childnode>
+        <childnode refid="4200" relation="include">
+        </childnode>
+        <childnode refid="4201" relation="include">
+        </childnode>
+        <childnode refid="4202" relation="include">
+        </childnode>
+        <childnode refid="4203" relation="include">
+        </childnode>
+        <childnode refid="4208" relation="include">
+        </childnode>
+        <childnode refid="4209" relation="include">
+        </childnode>
+        <childnode refid="4214" relation="include">
+        </childnode>
+      </node>
+      <node id="4217">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="4263">
+        <label>xsecure_slhdsa_wots.c</label>
+        <link refid="xsecure__slhdsa__wots_8c"/>
+      </node>
+      <node id="4272">
+        <label>xsecure_slhdsa_wots.h</label>
+        <link refid="xsecure__slhdsa__wots_8h"/>
+        <childnode refid="4263" relation="include">
+        </childnode>
+        <childnode refid="4268" relation="include">
+        </childnode>
+      </node>
+      <node id="4237">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="4225">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="4240">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="4251">
+        <label>xsecure_lms_core.c</label>
+        <link refid="xsecure__lms__core_8c"/>
+      </node>
+      <node id="4250">
+        <label>xsecure_lms_core.h</label>
+        <link refid="xsecure__lms__core_8h"/>
+        <childnode refid="4251" relation="include">
+        </childnode>
+        <childnode refid="4227" relation="include">
+        </childnode>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4213" relation="include">
+        </childnode>
+        <childnode refid="4252" relation="include">
+        </childnode>
+      </node>
+      <node id="4206">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4204">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="4205" relation="include">
+        </childnode>
+        <childnode refid="4206" relation="include">
+        </childnode>
+      </node>
+      <node id="4257">
+        <label>xsecure_rsa.c</label>
+        <link refid="core_2rsa_2xsecure__rsa_8c"/>
+      </node>
+      <node id="4256">
+        <label>xsecure_rsa.h</label>
+        <link refid="core_2rsa_2xsecure__rsa_8h"/>
+        <childnode refid="4257" relation="include">
+        </childnode>
+        <childnode refid="4258" relation="include">
+        </childnode>
+        <childnode refid="4234" relation="include">
+        </childnode>
+        <childnode refid="4246" relation="include">
+        </childnode>
+      </node>
+      <node id="4201">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="4262">
+        <label>xsecure_slhdsa_fors.c</label>
+        <link refid="xsecure__slhdsa__fors_8c"/>
+      </node>
+      <node id="4260">
+        <label>xsecure_slhdsa_fors.h</label>
+        <link refid="xsecure__slhdsa__fors_8h"/>
+        <childnode refid="4261" relation="include">
+        </childnode>
+        <childnode refid="4262" relation="include">
+        </childnode>
+        <childnode refid="4263" relation="include">
+        </childnode>
+      </node>
+      <node id="4241">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8c"/>
+      </node>
+      <node id="4200">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="4228">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="4243">
+        <label>xsecure_mgf.c</label>
+        <link refid="xsecure__mgf_8c"/>
+      </node>
+      <node id="4242">
+        <label>xsecure_mgf.h</label>
+        <link refid="xsecure__mgf_8h"/>
+        <childnode refid="4243" relation="include">
+        </childnode>
+        <childnode refid="4244" relation="include">
+        </childnode>
+        <childnode refid="4246" relation="include">
+        </childnode>
+      </node>
+      <node id="4282">
+        <label>xilsecure_rsa_generic_example.c</label>
+        <link refid="xilsecure__rsa__generic__example_8c"/>
+      </node>
+      <node id="4208">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="4275">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2vp_2xsecure__plat__kat_8h"/>
+        <childnode refid="4276" relation="include">
+        </childnode>
+        <childnode refid="4208" relation="include">
+        </childnode>
+        <childnode refid="4231" relation="include">
+        </childnode>
+      </node>
+      <node id="4195">
+        <label>xsecure_sha3alginfo.h</label>
+        <link refid="server/zynqmp/xsecure_sha3alginfo.h"/>
+        <childnode refid="4196" relation="include">
+        </childnode>
+      </node>
+      <node id="4268">
+        <label>xsecure_slhdsa_xmss.c</label>
+        <link refid="xsecure__slhdsa__xmss_8c"/>
+      </node>
+      <node id="4270">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure__slhdsa__xmss_8h"/>
+        <childnode refid="4265" relation="include">
+        </childnode>
+        <childnode refid="4268" relation="include">
+        </childnode>
+      </node>
+      <node id="4283">
+        <label>xilsecure_sha_example.c</label>
+        <link refid="xilsecure__sha__example_8c"/>
+      </node>
+      <node id="4232">
+        <label>xsecure_kdf.c</label>
+        <link refid="xsecure__kdf_8c"/>
+      </node>
+      <node id="4274">
+        <label>xsecure_plat.c</label>
+        <link refid="versal_2xsecure__plat_8c"/>
+      </node>
+      <node id="4216">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="4244">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="4233" relation="include">
+        </childnode>
+        <childnode refid="4216" relation="include">
+        </childnode>
+        <childnode refid="4214" relation="include">
+        </childnode>
+        <childnode refid="4245" relation="include">
+        </childnode>
+      </node>
+      <node id="4238">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8c"/>
+      </node>
+      <node id="4235">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsv_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="4221">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="4207">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="4203">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8h"/>
+        <childnode refid="4204" relation="include">
+        </childnode>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4206" relation="include">
+        </childnode>
+      </node>
+      <node id="4215">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="4271">
+        <label>xsecure_slhdsa_instance.c</label>
+        <link refid="xsecure__slhdsa__instance_8c"/>
+      </node>
+      <node id="4259">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4260" relation="include">
+        </childnode>
+        <childnode refid="4264" relation="include">
+        </childnode>
+        <childnode refid="4266" relation="include">
+        </childnode>
+        <childnode refid="4269" relation="include">
+        </childnode>
+        <childnode refid="4270" relation="include">
+        </childnode>
+        <childnode refid="4271" relation="include">
+        </childnode>
+        <childnode refid="4272" relation="include">
+        </childnode>
+      </node>
+      <node id="4245">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="4219">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4202">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure__plat__kat_8c"/>
+      </node>
+      <node id="4285">
+        <label>xilsecure_versal_rsa_server_example.c</label>
+        <link refid="xilsecure__versal__rsa__server__example_8c"/>
+      </node>
+      <node id="4280">
+        <label>xsecure_sha.c</label>
+        <link refid="zynqmp_2xsecure__sha_8c"/>
+      </node>
+      <node id="4196">
+        <label>xsecure_sha.h</label>
+        <link refid="zynqmp_2xsecure__sha_8h"/>
+        <childnode refid="4197" relation="include">
+        </childnode>
+        <childnode refid="4198" relation="include">
+        </childnode>
+        <childnode refid="4220" relation="include">
+        </childnode>
+        <childnode refid="4242" relation="include">
+        </childnode>
+        <childnode refid="4243" relation="include">
+        </childnode>
+        <childnode refid="4216" relation="include">
+        </childnode>
+        <childnode refid="4247" relation="include">
+        </childnode>
+        <childnode refid="4251" relation="include">
+        </childnode>
+        <childnode refid="4250" relation="include">
+        </childnode>
+        <childnode refid="4227" relation="include">
+        </childnode>
+        <childnode refid="4254" relation="include">
+        </childnode>
+        <childnode refid="4255" relation="include">
+        </childnode>
+        <childnode refid="4259" relation="include">
+        </childnode>
+        <childnode refid="4261" relation="include">
+        </childnode>
+        <childnode refid="4267" relation="include">
+        </childnode>
+        <childnode refid="4273" relation="include">
+        </childnode>
+        <childnode refid="4274" relation="include">
+        </childnode>
+        <childnode refid="4238" relation="include">
+        </childnode>
+        <childnode refid="4207" relation="include">
+        </childnode>
+        <childnode refid="4275" relation="include">
+        </childnode>
+        <childnode refid="4239" relation="include">
+        </childnode>
+        <childnode refid="4208" relation="include">
+        </childnode>
+        <childnode refid="4241" relation="include">
+        </childnode>
+        <childnode refid="4213" relation="include">
+        </childnode>
+        <childnode refid="4217" relation="include">
+        </childnode>
+        <childnode refid="4278" relation="include">
+        </childnode>
+        <childnode refid="4280" relation="include">
+        </childnode>
+        <childnode refid="4281" relation="include">
+        </childnode>
+        <childnode refid="4282" relation="include">
+        </childnode>
+        <childnode refid="4283" relation="include">
+        </childnode>
+        <childnode refid="4252" relation="include">
+        </childnode>
+        <childnode refid="4284" relation="include">
+        </childnode>
+        <childnode refid="4285" relation="include">
+        </childnode>
+        <childnode refid="4286" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2zynqmp_2xsecure__sha3alginfo_8h_1a7d0b4966e979c5c16107c0221ef4c8fc" prot="public" static="no">
+        <name>XSECURE_SHA3_MAJOR_VERSION</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Major version of SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2zynqmp_2xsecure__sha3alginfo_8h_1ab98fa935374fd36c430c7af65516904a" prot="public" static="no">
+        <name>XSECURE_SHA3_MINOR_VERSION</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Minor version of SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2zynqmp_2xsecure__sha3alginfo_8h_1a70cce23a26ff16b221bd03e4fe421627" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSECURE_ALWAYS_INLINE void</type>
+        <definition>static XSECURE_ALWAYS_INLINE void XSecure_Sha3GetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_Sha3GetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the SHA3 crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h" bodystart="55" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.2   mmd     07/04/23 Initial Release
+      vss       09/21/23 Fixed doxygen warnings
+5.3   mb      04/01/24 Updated minor version
+5.5   vss     04/25/25 Updated minor version
+5.7   mb      04/28/26 Updated minor version to 6.1
+5.8   ank     09/24/26 Updated minor version to 6.2</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SHA3ALGINFO_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA3ALGINFO_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="server_2zynqmp_2xsecure__sha3alginfo_8h_1a7d0b4966e979c5c16107c0221ef4c8fc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_MAJOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/></highlight></codeline>
+<codeline lineno="41" refid="server_2zynqmp_2xsecure__sha3alginfo_8h_1ab98fa935374fd36c430c7af65516904a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_MINOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="55"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XSECURE_ALWAYS_INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__client__apis_1ga402a6283ed6c173c79304887072f0fbe" kindref="member">XSecure_Sha3GetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;Version<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="server_2zynqmp_2xsecure__sha3alginfo_8h_1a7d0b4966e979c5c16107c0221ef4c8fc" kindref="member">XSECURE_SHA3_MAJOR_VERSION</ref>,<sp/><ref refid="server_2zynqmp_2xsecure__sha3alginfo_8h_1ab98fa935374fd36c430c7af65516904a" kindref="member">XSECURE_SHA3_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SHA3ALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h"/>
+  </compounddef>
+</doxygen>

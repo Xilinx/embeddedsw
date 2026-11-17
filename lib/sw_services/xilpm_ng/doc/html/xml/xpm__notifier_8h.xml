@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__notifier_8h" kind="file">
+    <compoundname>xpm_notifier.h</compoundname>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes refid="xpm__notifier__plat_8h" local="yes">xpm_notifier_plat.h</includes>
+    <includedby refid="xpm__runtime__subsys_8c" local="yes">xpm_runtime_subsys.c</includedby>
+    <includedby refid="xpm__notifier_8c" local="yes">xpm_notifier.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="2325">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2317">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="2326">
+        <label>xil_util.h</label>
+      </node>
+      <node id="2327">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="2313">
+        <label>xpm_api.h</label>
+        <childnode refid="2314" relation="include">
+        </childnode>
+        <childnode refid="2315" relation="include">
+        </childnode>
+        <childnode refid="2316" relation="include">
+        </childnode>
+        <childnode refid="2318" relation="include">
+        </childnode>
+        <childnode refid="2319" relation="include">
+        </childnode>
+        <childnode refid="2320" relation="include">
+        </childnode>
+      </node>
+      <node id="2323">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="2329">
+        <label>xpm_clock.h</label>
+        <childnode refid="2324" relation="include">
+        </childnode>
+        <childnode refid="2322" relation="include">
+        </childnode>
+        <childnode refid="2328" relation="include">
+        </childnode>
+      </node>
+      <node id="2311">
+        <label>xpm_notifier.h</label>
+        <link refid="xpm_notifier.h"/>
+        <childnode refid="2312" relation="include">
+        </childnode>
+        <childnode refid="2337" relation="include">
+        </childnode>
+      </node>
+      <node id="2328">
+        <label>xpm_power.h</label>
+        <childnode refid="2316" relation="include">
+        </childnode>
+        <childnode refid="2322" relation="include">
+        </childnode>
+      </node>
+      <node id="2333">
+        <label>xpm_alloc.h</label>
+        <childnode refid="2314" relation="include">
+        </childnode>
+        <childnode refid="2315" relation="include">
+        </childnode>
+      </node>
+      <node id="2334">
+        <label>xpm_requirement.h</label>
+        <childnode refid="2321" relation="include">
+        </childnode>
+        <childnode refid="2312" relation="include">
+        </childnode>
+        <childnode refid="2335" relation="include">
+        </childnode>
+      </node>
+      <node id="2324">
+        <label>xpm_common.h</label>
+        <childnode refid="2315" relation="include">
+        </childnode>
+        <childnode refid="2325" relation="include">
+        </childnode>
+        <childnode refid="2326" relation="include">
+        </childnode>
+        <childnode refid="2318" relation="include">
+        </childnode>
+        <childnode refid="2327" relation="include">
+        </childnode>
+        <childnode refid="2316" relation="include">
+        </childnode>
+      </node>
+      <node id="2320">
+        <label>xpm_mem.h</label>
+        <childnode refid="2321" relation="include">
+        </childnode>
+      </node>
+      <node id="2322">
+        <label>xpm_node.h</label>
+        <childnode refid="2314" relation="include">
+        </childnode>
+        <childnode refid="2315" relation="include">
+        </childnode>
+        <childnode refid="2323" relation="include">
+        </childnode>
+        <childnode refid="2324" relation="include">
+        </childnode>
+      </node>
+      <node id="2315">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2314">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2336">
+        <label>xpm_fsm.h</label>
+        <childnode refid="2314" relation="include">
+        </childnode>
+        <childnode refid="2315" relation="include">
+        </childnode>
+        <childnode refid="2321" relation="include">
+        </childnode>
+      </node>
+      <node id="2337">
+        <label>xpm_notifier_plat.h</label>
+        <childnode refid="2314" relation="include">
+        </childnode>
+      </node>
+      <node id="2316">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="2314" relation="include">
+        </childnode>
+        <childnode refid="2317" relation="include">
+        </childnode>
+      </node>
+      <node id="2331">
+        <label>xpm_list.h</label>
+        <childnode refid="2332" relation="include">
+        </childnode>
+      </node>
+      <node id="2335">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="2314" relation="include">
+        </childnode>
+      </node>
+      <node id="2312">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="2313" relation="include">
+        </childnode>
+        <childnode refid="2316" relation="include">
+        </childnode>
+        <childnode refid="2315" relation="include">
+        </childnode>
+        <childnode refid="2331" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2336" relation="include">
+        </childnode>
+      </node>
+      <node id="2321">
+        <label>xpm_device.h</label>
+        <childnode refid="2322" relation="include">
+        </childnode>
+        <childnode refid="2328" relation="include">
+        </childnode>
+        <childnode refid="2329" relation="include">
+        </childnode>
+        <childnode refid="2330" relation="include">
+        </childnode>
+      </node>
+      <node id="2330">
+        <label>xpm_reset.h</label>
+        <childnode refid="2322" relation="include">
+        </childnode>
+        <childnode refid="2324" relation="include">
+        </childnode>
+      </node>
+      <node id="2319">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="2318">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="2315" relation="include">
+        </childnode>
+      </node>
+      <node id="2332">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="2333" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2341">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="2340">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="2338">
+        <label>xpm_notifier.h</label>
+        <link refid="xpm_notifier.h"/>
+        <childnode refid="2339" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+        <childnode refid="2341" relation="include">
+        </childnode>
+      </node>
+      <node id="2339">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__notifier_8h_1a359bfd1449c786b86b8ecab5a793c093" prot="public" static="no">
+        <name>PM_ALL_NOTIFIER</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Special NodeId used to unregister all notifiers of a subsystem at once. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__notifier_8h_1acfa55f565b6a874dcb27e2cd25eeb79a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_Register</definition>
+        <argsstring>(XPm_Subsystem *const Subsystem, const u32 NodeId, const u32 Event, const u32 Wake, const u32 IpiMask)</argsstring>
+        <name>XPmNotifier_Register</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *const</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Wake</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <briefdescription>
+<para>Register the notifier for given subsystem, NodeId and event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem to be notified </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId related to event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event to be notified about </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Wake</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag specifying whether the subsystem should be woken upon event notification</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c" bodystart="95" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a9e8e9e482cac0a7914da4aba9b0d66f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_Unregister</definition>
+        <argsstring>(XPm_Subsystem *const Subsystem, const u32 NodeId, const u32 Event)</argsstring>
+        <name>XPmNotifier_Unregister</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *const</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>Unregister the notifier for given subsystem, NodeId and event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem which was registered for notification </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId related to event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Notification event</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c" bodystart="583" bodyend="647"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a6307df8a3fa0d11f6edeee3567a233b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_UnregisterAll</definition>
+        <argsstring>(const XPm_Subsystem *const Subsystem)</argsstring>
+        <name>XPmNotifier_UnregisterAll</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *const</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>This function unregisters all notifiers of the given subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem for which notifiers to be unregistered</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c" bodystart="659" bodyend="683"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a4b27b09a8b1ca92761d7b5652cfadd52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmNotifier_Event</definition>
+        <argsstring>(const u32 NodeId, const u32 Event)</argsstring>
+        <name>XPmNotifier_Event</name>
+        <param>
+          <type>const u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers the notification if enabled for current NodeId and current event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId for which event is occurred </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c" bodystart="796" bodyend="867"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1ae48bd3550b78a7badf06ebafcb4ba29d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_RestoreEmActions</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmNotifier_RestoreEmActions</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Re-register custom error actions for all EVENT-class notifiers. </para>        </briefdescription>
+        <detaileddescription>
+<para>After an in-place PLM update, XPlmi_ReconfigErrActions() clears all custom error actions. This function must be called during post-update init to restore the XPmNotifier_Event handler for every EVENT-class entry that was preserved in PmNotifiers[] across the update.</para><para><simplesect kind="return"><para>XST_SUCCESS if all restores succeeded; otherwise the first error code returned by XPlmi_EmSetAction(). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c" bodystart="698" bodyend="727"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__notifier_8h_1a02467ad75537523a0115cc407aa4fd4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmNotifier_IsRegistered</definition>
+        <argsstring>(u32 SubsystemId, u32 NodeId, u32 Mask)</argsstring>
+        <name>XPmNotifier_IsRegistered</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Check whether the caller has registered notifiers covering EVERY requested event-mask bit for the given subsystem and node. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used by GET_EVENT_STATUS_REGS as the permission gate: the requested Mask must be a subset of the bits registered by the caller for {NodeId}, otherwise a caller registered for one bit could read/clear another bit via an OR&apos;d mask.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem Id of the caller </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event/error node id (e.g. PMC_ERR1) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested event mask (all bits must be registered)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if every requested bit is registered; XPM_PM_NO_ACCESS otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c" bodystart="746" bodyend="783"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_NOTIFIER_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_NOTIFIER_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_notifier_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor">#define<sp/>PM_ALL_NOTIFIER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">XStatus<sp/>XPmNotifier_Register(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Subsystem,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>NodeId,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Wake,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>IpiMask);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">XStatus<sp/>XPmNotifier_Unregister(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Subsystem,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>NodeId,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">XStatus<sp/>XPmNotifier_UnregisterAll(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Subsystem);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmNotifier_Event(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>NodeId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">XStatus<sp/>XPmNotifier_RestoreEmActions(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">XStatus<sp/>XPmNotifier_IsRegistered(u32<sp/>SubsystemId,<sp/>u32<sp/>NodeId,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_NOTIFIER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h"/>
+  </compounddef>
+</doxygen>

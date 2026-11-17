@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['xrfclk',['Xrfclk',['../group__xrfclk.html',1,'']]],
+  ['xrfclk_2ec',['xrfclk.c',['../xrfclk_8c.html',1,'']]],
+  ['xrfclk_2eh',['xrfclk.h',['../xrfclk_8h.html',1,'']]],
+  ['xrfclk_5fclose',['XRFClk_Close',['../group___overview.html#ga355749ea0ace53f613f5225eda186a55',1,'XRFClk_Close(void):&#160;xrfclk.c'],['../group__xrfclk.html#ga15b874b3001ca5c28a1d53ec32b62ef4',1,'XRFClk_Close():&#160;xrfclk.c']]],
+  ['xrfclk_5fconfigoutputdividerandmuxonlmk',['XRFClk_ConfigOutputDividerAndMUXOnLMK',['../group___overview.html#ga91a0033a744f217741b6bf0125914407',1,'XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV, u32 DCLKoutX_MUX, u32 SDCLKoutY_MUX, u32 SYSREF_DIV):&#160;xrfclk.c'],['../group__xrfclk.html#ga91a0033a744f217741b6bf0125914407',1,'XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV, u32 DCLKoutX_MUX, u32 SDCLKoutY_MUX, u32 SYSREF_DIV):&#160;xrfclk.c']]],
+  ['xrfclk_5fcontroloutputportlmk',['XRFClk_ControlOutputPortLMK',['../group___overview.html#gafcd7bee4fa0f626f4d5ae3db8c8adea7',1,'XRFClk_ControlOutputPortLMK(u32 PortId, u32 State):&#160;xrfclk.c'],['../group__xrfclk.html#gaa084685a70d719dd933f735cb350fb95',1,'XRFClk_ControlOutputPortLMK(u32 PortId, u32 state):&#160;xrfclk.c']]],
+  ['xrfclk_5fgetconfigfromonechip',['XRFClk_GetConfigFromOneChip',['../group___overview.html#gadb22b9c390457253f2bfdf773791d270',1,'XRFClk_GetConfigFromOneChip(u32 ChipId, u32 *CfgData):&#160;xrfclk.c'],['../group__xrfclk.html#ga330f1f2804693e7a787ace303ba9a584',1,'XRFClk_GetConfigFromOneChip(u32 ChipId, u32 *cfgData):&#160;xrfclk.c']]],
+  ['xrfclk_5finit',['XRFClk_Init',['../group___overview.html#ga5a7296352a6f5ff2b511184ee95f496b',1,'XRFClk_Init(int GpioId):&#160;xrfclk.c'],['../group__xrfclk.html#ga5a7296352a6f5ff2b511184ee95f496b',1,'XRFClk_Init(int GpioId):&#160;xrfclk.c']]],
+  ['xrfclk_5flmk_5fconf',['Xrfclk_LMK_conf',['../group__xrfclk___l_m_k__conf.html',1,'']]],
+  ['xrfclk_5flmk_5fconf_2eh',['xrfclk_LMK_conf.h',['../xrfclk___l_m_k__conf_8h.html',1,'']]],
+  ['xrfclk_5flmx_5fconf_2eh',['xrfclk_LMX_conf.h',['../xrfclk___l_m_x__conf_8h.html',1,'']]],
+  ['xrfclk_5flmx_5fconf_5fv1_5f2',['Xrfclk_LMX_conf_v1_2',['../group__xrfclk___l_m_x__conf__v1__2.html',1,'']]],
+  ['xrfclk_5freadreg',['XRFClk_ReadReg',['../group___overview.html#gaa23f2bf94b86f37357a00a9a2f11f468',1,'XRFClk_ReadReg(u32 ChipId, u32 *d):&#160;xrfclk.c'],['../group__xrfclk.html#gad22f0b428656960235f5be3e47e4e26e',1,'XRFClk_ReadReg(u32 ChipId, u32 *Data):&#160;xrfclk.c']]],
+  ['xrfclk_5fresetchip',['XRFClk_ResetChip',['../group___overview.html#gae0b716c787b95513649b2fcba33b3b95',1,'XRFClk_ResetChip(u32 ChipId):&#160;xrfclk.c'],['../group__xrfclk.html#gae0b716c787b95513649b2fcba33b3b95',1,'XRFClk_ResetChip(u32 ChipId):&#160;xrfclk.c']]],
+  ['xrfclk_5fsetconfigonallchipsfromconfigid',['XRFClk_SetConfigOnAllChipsFromConfigId',['../group___overview.html#ga7820c4fffaa739e2c61e0ad2442e38d2',1,'XRFClk_SetConfigOnAllChipsFromConfigId(u32 ConfigId_LMK, u32 ConfigId_1, u32 ConfigId_2):&#160;xrfclk.c'],['../group__xrfclk.html#ga70661f1623b48f8230135120ab764eca',1,'XRFClk_SetConfigOnAllChipsFromConfigId(u32 ConfigId_LMK, u32 ConfigId_RF1, u32 ConfigId_RF2):&#160;xrfclk.c']]],
+  ['xrfclk_5fsetconfigononechip',['XRFClk_SetConfigOnOneChip',['../group___overview.html#ga094020b0514371f05b8848e1454f0345',1,'XRFClk_SetConfigOnOneChip(u32 ChipId, u32 *CfgData, u32 Len):&#160;xrfclk.c'],['../group__xrfclk.html#gaf97229ea09f7cf0d46fb4c1ee6f2f700',1,'XRFClk_SetConfigOnOneChip(u32 ChipId, u32 *cfgData, u32 len):&#160;xrfclk.c']]],
+  ['xrfclk_5fsetconfigononechipfromconfigid',['XRFClk_SetConfigOnOneChipFromConfigId',['../group___overview.html#ga64c1af6644e83e169033afab6abcf344',1,'XRFClk_SetConfigOnOneChipFromConfigId(u32 ChipId, u32 ConfigId):&#160;xrfclk.c'],['../group__xrfclk.html#ga64c1af6644e83e169033afab6abcf344',1,'XRFClk_SetConfigOnOneChipFromConfigId(u32 ChipId, u32 ConfigId):&#160;xrfclk.c']]],
+  ['xrfclk_5fwritereg',['XRFClk_WriteReg',['../group___overview.html#ga02dab3acd290a218e441d08199454338',1,'XRFClk_WriteReg(u32 ChipId, u32 d):&#160;xrfclk.c'],['../group__xrfclk.html#ga918d6c7ecaab240659423c70b3b02057',1,'XRFClk_WriteReg(u32 ChipId, u32 Data):&#160;xrfclk.c']]]
+];

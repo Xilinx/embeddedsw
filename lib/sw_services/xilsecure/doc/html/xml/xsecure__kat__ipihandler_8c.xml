@@ -1,0 +1,453 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__kat__ipihandler_8c" kind="file">
+    <compoundname>xsecure_kat_ipihandler.c</compoundname>
+    <includes local="yes">xplmi_dma.h</includes>
+    <includes refid="xsecure__kat_8h" local="yes">xsecure_kat.h</includes>
+    <includes local="yes">xsecure_plat_kat.h</includes>
+    <includes refid="xsecure__kat__ipihandler_8h" local="yes">xsecure_kat_ipihandler.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xsecure_error.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includes refid="xsecure__init_8h" local="yes">xsecure_init.h</includes>
+    <includes refid="xsecure__resourcehandling_8h" local="yes">xsecure_resourcehandling.h</includes>
+    <incdepgraph>
+      <node id="1852">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+      </node>
+      <node id="1848">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure__elliptic_8h"/>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+      </node>
+      <node id="1865">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1855">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="1847">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1854">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1861">
+        <label>xplmi.h</label>
+      </node>
+      <node id="1851">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="1843">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="1858">
+        <label>xsecure_plat_kat.h</label>
+      </node>
+      <node id="1866">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure__sha__common_8h"/>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+      </node>
+      <node id="1870">
+        <label>xplmi_scheduler.h</label>
+      </node>
+      <node id="1863">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+      </node>
+      <node id="1868">
+        <label>xsecure_sss.h</label>
+      </node>
+      <node id="1857">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1860">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="1846">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1844">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+      </node>
+      <node id="1872">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1869">
+        <label>xsecure_sha_hw.h</label>
+      </node>
+      <node id="1850">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1852" relation="include">
+        </childnode>
+      </node>
+      <node id="1856">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1849">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1842">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure_kat_ipihandler.c"/>
+        <childnode refid="1843" relation="include">
+        </childnode>
+        <childnode refid="1844" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1865" relation="include">
+        </childnode>
+      </node>
+      <node id="1859">
+        <label>xsecure_kat_ipihandler.h</label>
+        <link refid="xsecure__kat__ipihandler_8h"/>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1852" relation="include">
+        </childnode>
+      </node>
+      <node id="1867">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="1845">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1862">
+        <label>xsecure_error.h</label>
+      </node>
+      <node id="1853">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1871">
+        <label>xsecure_sha_ipihandler.h</label>
+      </node>
+      <node id="1864">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1gad9ec77c4fec10569b2d392629de6b50b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_UpdateKatMask</definition>
+        <argsstring>(volatile int Status, u32 KatMask)</argsstring>
+        <name>XSecure_UpdateKatMask</name>
+        <param>
+          <type>volatile int</type>
+          <declname>Status</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the KAT mask based on the KAT status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the status returned by the KAT API </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the KAT mask to set or clear </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat_ipihandler.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat_ipihandler.c" bodystart="189" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_KatIpiHandler</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_KatIpiHandler</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function calls respective IPI handler based on the API_ID and updates the RTCA KAT mask after the KAT runs. </para>        </briefdescription>
+        <detaileddescription>
+<para>Event-handling failures do not change the previous KAT bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the handler execution is successful</para></listitem><listitem><para>XST_INVALID_PARAM - If Cmd is NULL or invalid API ID is received.</para></listitem><listitem><para>XST_FAILURE - If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_AesDecryptKat</para></listitem><listitem><para>XSecure_AesDecryptCmKat</para></listitem><listitem><para>XSecure_AesEncryptKat</para></listitem><listitem><para>XSecure_RsaPublicEncryptKat</para></listitem><listitem><para>XSecure_RsaPrivateDecryptKat</para></listitem><listitem><para>XSecure_EllipticVerifySignKat</para></listitem><listitem><para>XSecure_EllipticSignGenerateKat</para></listitem><listitem><para>XSecure_Sha3Kat</para></listitem><listitem><para>SHA IPI event handling </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat_ipihandler.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat_ipihandler.c" bodystart="71" bodyend="179"/>
+        <references refid="group__xsecure__kat__client__apis_1ga406813136028273d32d55dc2dd9f91c7" compoundref="xsecure__katclient_8c" startline="104" endline="130">XSecure_AesDecryptCmKat</references>
+        <references refid="group__xsecure__kat__client__apis_1ga1eb14922f650174090f0fdca7345a517" compoundref="xsecure__katclient_8c" startline="62" endline="88">XSecure_AesDecryptKat</references>
+        <references refid="group__xsecure__kat__client__apis_1gaff0e846438561c899db7c1ce4b00817c" compoundref="xsecure__katclient_8c" startline="276" endline="302">XSecure_AesEncryptKat</references>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" compoundref="xsecure__plat__defs_8h" startline="90">XSECURE_API_AES_DECRYPT_CM_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" compoundref="xsecure__plat__defs_8h" startline="89">XSECURE_API_AES_DECRYPT_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" compoundref="xsecure__plat__defs_8h" startline="94">XSECURE_API_AES_ENCRYPT_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" compoundref="xsecure__plat__defs_8h" startline="96">XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" compoundref="xsecure__plat__defs_8h" startline="92">XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" compoundref="xsecure__plat__defs_8h" startline="95">XSECURE_API_RSA_PRIVATE_DEC_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" compoundref="xsecure__plat__defs_8h" startline="91">XSECURE_API_RSA_PUB_ENC_KAT</references>
+        <references refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" compoundref="xsecure__plat__defs_8h" startline="93">XSECURE_API_SHA3_KAT</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1gaec6e0642a5377d68c66bc54fb39ad161" compoundref="xsecure__defs_8h" startline="137">XSecure_EllipticCrvClass</references>
+        <references refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</references>
+        <references refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="222" endline="227">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="193" endline="196">XSecure_GetSha3Instance</references>
+        <references refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="459" endline="494">XSecure_IpiEventHandling</references>
+        <references refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="426" endline="443">XSecure_MakeResFree</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
+        <references refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</references>
+        <references refid="group__xsecure__kat__server__apis_1gac4ab51058f2ef18bcb5a1aedf95b83d8" compoundref="xsecure__kat_8c" startline="1110" endline="1157">XSecure_RsaPublicEncryptKat</references>
+        <references refid="group__xsecure__kat__client__apis_1ga0743d577968e560b692122ab03e22d35" compoundref="xsecure__katclient_8c" startline="186" endline="212">XSecure_Sha3Kat</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="58" endline="100">XSecure_KatPlatIpiHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Xilsecure KAT IPI handlers implementation. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+<hruler/>
+
+1.00  kpt  07/15/2022 Initial release
+1.01  kpt  12/13/2022 Added Trng initialization in XSecure_EllipticSignGenKat
+1.02  ng   05/10/2023 Removed XSecure_PerformKatOperation and implemented
+                      redundant call for XPlmi_ClearKatMask
+5.2   ng   07/13/2023 Added SDT support
+      yog  08/07/2023 Removed trng init call in XSecure_EllipticSignGenKat API
+                      since trng is being initialised in server API&apos;s
+5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
+        kal  07/24/2024 Code refactoring for versal_2ve_2vm
+      vss  10/23/2024 Removed AES duplicate code
+      pre  03/02/2025 Implemented task based event notification functionality for AES &amp;
+                      SHA IPI events
+5.8   tbk  09/02/2026 Modify handling of KAT mask update to XSecure_KatIpiHandler via
+                      XSecure_UpdateKatMask helper and call KAT APIs directly</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_dma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__kat_8h" kindref="compound">xsecure_kat.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat_kat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__kat__ipihandler_8h" kindref="compound">xsecure_kat_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_error.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__init_8h" kindref="compound">xsecure_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__resourcehandling_8h" kindref="compound">xsecure_resourcehandling.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_UpdateKatMask(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status,<sp/>u32<sp/>KatMask);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="71" refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" kindref="member">XSecure_KatIpiHandler</ref>(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Pload<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ApiId;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>KatMask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha3<sp/>*XSecureSha3InstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" kindref="member">XSECURE_SHA_0_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Aes<sp/>*AesInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" kindref="member">XSecure_GetAesInstance</ref>();</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Cmd<sp/>==<sp/>NULL)<sp/>||<sp/>(Cmd-&gt;Payload<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload<sp/>=<sp/>Cmd-&gt;Payload;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApiId<sp/>=<sp/>Pload[0U]<sp/>&amp;<sp/><ref refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" kindref="member">XSECURE_API_ID_MASK</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ApiId<sp/>==<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" kindref="member">XSECURE_API_AES_DECRYPT_KAT</ref>)<sp/>||<sp/>(ApiId<sp/>==<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" kindref="member">XSECURE_API_AES_ENCRYPT_KAT</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ApiId<sp/>==<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" kindref="member">XSECURE_API_AES_DECRYPT_CM_KAT</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" kindref="member">XSecure_IpiEventHandling</ref>(Cmd,<sp/>XPLMI_AES_CORE);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(ApiId)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(XSECURE_API_AES_DECRYPT_KAT):</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_AES_DEC_KAT_MASK;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__client__apis_1ga1eb14922f650174090f0fdca7345a517" kindref="member">XSecure_AesDecryptKat</ref>(AesInstPtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(XSECURE_API_AES_DECRYPT_CM_KAT):</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_AES_CMKAT_MASK;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__client__apis_1ga406813136028273d32d55dc2dd9f91c7" kindref="member">XSecure_AesDecryptCmKat</ref>(AesInstPtr);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(XSECURE_API_AES_ENCRYPT_KAT):</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_AES_ENC_KAT_MASK;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__client__apis_1gaff0e846438561c899db7c1ce4b00817c" kindref="member">XSecure_AesEncryptKat</ref>(AesInstPtr);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" kindref="member">XSECURE_API_RSA_PUB_ENC_KAT</ref>):</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_RSA_KAT_MASK;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gac4ab51058f2ef18bcb5a1aedf95b83d8" kindref="member">XSecure_RsaPublicEncryptKat</ref>();</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" kindref="member">XSECURE_API_RSA_PRIVATE_DEC_KAT</ref>):</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" kindref="member">XSecure_RsaPrivateDecryptKat</ref>();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" kindref="member">XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</ref>):</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" kindref="member">XSecure_EllipticVerifySignKat</ref>((<ref refid="group__xsecure__common__apis_1gaec6e0642a5377d68c66bc54fb39ad161" kindref="member">XSecure_EllipticCrvClass</ref>)Pload[1U]);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" kindref="member">XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</ref>):</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" kindref="member">XSecure_EllipticSignGenerateKat</ref>((<ref refid="group__xsecure__common__apis_1gaec6e0642a5377d68c66bc54fb39ad161" kindref="member">XSecure_EllipticCrvClass</ref>)Pload[1U]);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" kindref="member">XSECURE_API_SHA3_KAT</ref>):</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" kindref="member">XSecure_IpiEventHandling</ref>(Cmd,<sp/>XPLMI_SHA3_CORE);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KatMask<sp/>=<sp/>XPLMI_SECURE_SHA3_KAT_MASK;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__client__apis_1ga0743d577968e560b692122ab03e22d35" kindref="member">XSecure_Sha3Kat</ref>(XSecureSha3InstPtr);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;CMD:<sp/>INVALID<sp/>PARAM\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_REDUNDANT_IMPL(XSecure_UpdateKatMask,<sp/>Status,<sp/>KatMask);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(AesInstPtr-&gt;AesState<sp/>==<sp/>XSECURE_AES_INITIALIZED)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" kindref="member">XSecure_MakeResFree</ref>(XPLMI_AES_CORE);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XSecureSha3InstPtr-&gt;ShaState<sp/>==<sp/><ref refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" kindref="member">XSECURE_SHA_INITIALIZED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" kindref="member">XSecure_MakeResFree</ref>(XPLMI_SHA3_CORE);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_UpdateKatMask(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status,<sp/>u32<sp/>KatMask)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>Status;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask,<sp/>KatMask);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(StatusTmp<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_SetKatMask(KatMask);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/>}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat_ipihandler.c"/>
+  </compounddef>
+</doxygen>

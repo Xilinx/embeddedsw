@@ -1,0 +1,572 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__runtime__reset_8h" kind="file">
+    <compoundname>xpm_runtime_reset.h</compoundname>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes refid="xpm__reset_8h" local="yes">xpm_reset.h</includes>
+    <includedby refid="xpm__runtime__subsys_8c" local="yes">xpm_runtime_subsys.c</includedby>
+    <includedby refid="xpm__runtime__alloc_8c" local="yes">xpm_runtime_alloc.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <includedby refid="xpm__runtime__core_8c" local="yes">xpm_runtime_core.c</includedby>
+    <includedby refid="xpm__runtime__device_8c" local="yes">xpm_runtime_device.c</includedby>
+    <includedby refid="xpm__runtime__eemi_8c" local="yes">xpm_runtime_eemi.c</includedby>
+    <includedby refid="xpm__runtime__reset_8c" local="yes">xpm_runtime_reset.c</includedby>
+    <incdepgraph>
+      <node id="5051">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5056">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="5052">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5054">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5058">
+        <label>xpm_api.h</label>
+        <childnode refid="5047" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+        <childnode refid="5055" relation="include">
+        </childnode>
+        <childnode refid="5053" relation="include">
+        </childnode>
+        <childnode refid="5059" relation="include">
+        </childnode>
+        <childnode refid="5060" relation="include">
+        </childnode>
+      </node>
+      <node id="5049">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5063">
+        <label>xpm_clock.h</label>
+        <childnode refid="5050" relation="include">
+        </childnode>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5062" relation="include">
+        </childnode>
+      </node>
+      <node id="5062">
+        <label>xpm_power.h</label>
+        <childnode refid="5055" relation="include">
+        </childnode>
+        <childnode refid="5046" relation="include">
+        </childnode>
+      </node>
+      <node id="5045">
+        <label>xpm_runtime_reset.h</label>
+        <link refid="xpm_runtime_reset.h"/>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5050" relation="include">
+        </childnode>
+        <childnode refid="5057" relation="include">
+        </childnode>
+        <childnode refid="5064" relation="include">
+        </childnode>
+      </node>
+      <node id="5067">
+        <label>xpm_alloc.h</label>
+        <childnode refid="5047" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+      </node>
+      <node id="5068">
+        <label>xpm_requirement.h</label>
+        <childnode refid="5061" relation="include">
+        </childnode>
+        <childnode refid="5057" relation="include">
+        </childnode>
+        <childnode refid="5069" relation="include">
+        </childnode>
+      </node>
+      <node id="5050">
+        <label>xpm_common.h</label>
+        <childnode refid="5048" relation="include">
+        </childnode>
+        <childnode refid="5051" relation="include">
+        </childnode>
+        <childnode refid="5052" relation="include">
+        </childnode>
+        <childnode refid="5053" relation="include">
+        </childnode>
+        <childnode refid="5054" relation="include">
+        </childnode>
+        <childnode refid="5055" relation="include">
+        </childnode>
+      </node>
+      <node id="5060">
+        <label>xpm_mem.h</label>
+        <childnode refid="5061" relation="include">
+        </childnode>
+      </node>
+      <node id="5046">
+        <label>xpm_node.h</label>
+        <childnode refid="5047" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+        <childnode refid="5049" relation="include">
+        </childnode>
+        <childnode refid="5050" relation="include">
+        </childnode>
+      </node>
+      <node id="5048">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5047">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5070">
+        <label>xpm_fsm.h</label>
+        <childnode refid="5047" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+        <childnode refid="5061" relation="include">
+        </childnode>
+      </node>
+      <node id="5055">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="5047" relation="include">
+        </childnode>
+        <childnode refid="5056" relation="include">
+        </childnode>
+      </node>
+      <node id="5065">
+        <label>xpm_list.h</label>
+        <childnode refid="5066" relation="include">
+        </childnode>
+      </node>
+      <node id="5069">
+        <label>xpm_requirement_info.h</label>
+        <childnode refid="5047" relation="include">
+        </childnode>
+      </node>
+      <node id="5057">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="5058" relation="include">
+        </childnode>
+        <childnode refid="5055" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+        <childnode refid="5065" relation="include">
+        </childnode>
+        <childnode refid="5068" relation="include">
+        </childnode>
+        <childnode refid="5070" relation="include">
+        </childnode>
+      </node>
+      <node id="5061">
+        <label>xpm_device.h</label>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5062" relation="include">
+        </childnode>
+        <childnode refid="5063" relation="include">
+        </childnode>
+        <childnode refid="5064" relation="include">
+        </childnode>
+      </node>
+      <node id="5064">
+        <label>xpm_reset.h</label>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5050" relation="include">
+        </childnode>
+      </node>
+      <node id="5059">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="5053">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="5048" relation="include">
+        </childnode>
+      </node>
+      <node id="5066">
+        <label>xpm_runtime_alloc.h</label>
+        <childnode refid="5067" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5074">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="5076">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="5075">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="5078">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="5071">
+        <label>xpm_runtime_reset.h</label>
+        <link refid="xpm_runtime_reset.h"/>
+        <childnode refid="5072" relation="include">
+        </childnode>
+        <childnode refid="5073" relation="include">
+        </childnode>
+        <childnode refid="5074" relation="include">
+        </childnode>
+        <childnode refid="5075" relation="include">
+        </childnode>
+        <childnode refid="5076" relation="include">
+        </childnode>
+        <childnode refid="5077" relation="include">
+        </childnode>
+        <childnode refid="5078" relation="include">
+        </childnode>
+      </node>
+      <node id="5072">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="5077">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="5073">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm_runtime___reset" prot="public">XPmRuntime_Reset</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__runtime__reset_8h_1aab011732f13361516eede86fe7ef033f" prot="public" static="no">
+        <name>RESET_PERM_SHIFT_NS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__runtime__reset_8h_1a3fa844121f9ce29a248f13797d80f799" prot="public" static="no">
+        <name>RESET_PERM_SHIFT_S</name>
+        <initializer>(0U + MAX_NUM_SUBSYSTEMS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__runtime__reset_8h_1a69d4ba3cb732f1d6c474a037c05a9404" prot="public" static="no">
+        <type>struct XPmRuntime_Reset</type>
+        <definition>typedef struct XPmRuntime_Reset XPmRuntime_Reset</definition>
+        <argsstring></argsstring>
+        <name>XPmRuntime_Reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1ae563c807db034ecd5f9e34ceed88dee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CREATE_LIST</definition>
+        <argsstring>(XPmRuntime_Reset)</argsstring>
+        <name>CREATE_LIST</name>
+        <param>
+          <type>XPmRuntime_Reset</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="21" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1afb7d8767fcf4c5f269e9750cdca6ab37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AssertbyId</definition>
+        <argsstring>(u32 ResetId, const u32 Action)</argsstring>
+        <name>XPmReset_AssertbyId</name>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Action</declname>
+        </param>
+        <briefdescription>
+<para>Perform a reset action on the reset node identified by ResetId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ResetId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node ID of the reset to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Action</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reset action to apply (assert, de-assert or pulse)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="250" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a8869c5a840fb8d1b160172706c27e634" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_GetStateById</definition>
+        <argsstring>(u32 ResetId, u32 *OutState)</argsstring>
+        <name>XPmReset_GetStateById</name>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>OutState</declname>
+        </param>
+        <briefdescription>
+<para>Read the hardware assertion state of a reset node. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ResetId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reset node ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Required non-NULL pointer to receive 1 when all reset bits are asserted, or 0 otherwise</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, or XST_INVALID_PARAM when the reset node does not exist </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="278" bodyend="298"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a603fa69cc0d08890f443d782c863794d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_CheckPermissions</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem, u32 ResetId)</argsstring>
+        <name>XPmReset_CheckPermissions</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="379" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a8aaff21f80f1596c4ed1536fca7027a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_SystemReset</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmReset_SystemReset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="447" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a6394fea96bf560fe773aa30f1a679074" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_IsPermissionReset</definition>
+        <argsstring>(const u32 ResetId)</argsstring>
+        <name>XPmReset_IsPermissionReset</name>
+        <param>
+          <type>const u32</type>
+          <declname>ResetId</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the given reset may be operated on. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ResetId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reset node ID to check</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if permitted, error code otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="306" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a86016768b6dc7bd9943c50f36cf8580d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AddPermForGlobalResets</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem)</argsstring>
+        <name>XPmReset_AddPermForGlobalResets</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <briefdescription>
+<para>Grant the subsystem secure and non-secure permission for every reset in the global permission-reset list. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem to be given the reset permissions</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="359" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a74da6b06e83d12914de56e4a5c91e220" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_IsOperationAllowed</definition>
+        <argsstring>(const u32 SubsystemId, const XPm_ResetNode *Rst, const u32 CmdType)</argsstring>
+        <name>XPmReset_IsOperationAllowed</name>
+        <param>
+          <type>const u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Rst</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="415" bodyend="446"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__runtime__reset_8h_1a6947d7924105e9046bec53db3c95369f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmReset_AddPermission</definition>
+        <argsstring>(XPm_ResetNode *Rst, const XPm_Subsystem *Subsystem, const u32 Operations)</argsstring>
+        <name>XPmReset_AddPermission</name>
+        <param>
+          <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+          <declname>Rst</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Operations</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c" bodystart="322" bodyend="349"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_RUNTIME_RESET_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_RUNTIME_RESET_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_reset.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESET_PERM_SHIFT_NS<sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RESET_PERM_SHIFT_S<sp/><sp/><sp/><sp/><sp/><sp/>(0U<sp/>+<sp/>MAX_NUM_SUBSYSTEMS)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmRuntime_Reset<sp/>XPmRuntime_Reset;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">CREATE_LIST(XPmRuntime_Reset);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPmRuntime_Reset<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Device;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AllowedSubsystems;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">XStatus<sp/>XPmReset_AssertbyId(u32<sp/>ResetId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Action);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">XStatus<sp/>XPmReset_GetStateById(u32<sp/>ResetId,<sp/>u32<sp/>*OutState);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">XStatus<sp/>XPmReset_CheckPermissions(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>ResetId);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">XStatus<sp/>XPmReset_SystemReset(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">XStatus<sp/>XPmReset_IsPermissionReset(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ResetId);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">XStatus<sp/>XPmReset_AddPermForGlobalResets(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/>XStatus<sp/>XPmReset_IsOperationAllowed(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>SubsystemId,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/>XStatus<sp/>XPmReset_AddPermission(<ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref><sp/>*Rst,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Operations);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_RUNTIME_RESET_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.h"/>
+  </compounddef>
+</doxygen>

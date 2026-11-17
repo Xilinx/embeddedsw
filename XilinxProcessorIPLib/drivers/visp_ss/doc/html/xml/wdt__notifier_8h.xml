@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="wdt__notifier_8h" kind="file">
+    <compoundname>wdt_notifier.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="wdt__notifier_8c" local="yes">wdt_notifier.c</includedby>
+    <includedby refid="xvisp__ss__example_8c" local="yes">xvisp_ss_example.c</includedby>
+    <incdepgraph>
+      <node id="12363">
+        <label>xstatus.h</label>
+      </node>
+      <node id="12362">
+        <label>wdt_notifier.h</label>
+        <link refid="wdt_notifier.h"/>
+        <childnode refid="12363" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="12366">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="12365">
+        <label>wdt_notifier.c</label>
+      </node>
+      <node id="12364">
+        <label>wdt_notifier.h</label>
+        <link refid="wdt_notifier.h"/>
+        <childnode refid="12365" relation="include">
+        </childnode>
+        <childnode refid="12366" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="wdt__notifier_8h_1a14540724921865d1ddd49dc25efb1787" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus WdtNotifier_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>WdtNotifier_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.c" bodystart="172" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="wdt__notifier_8h_1a7e88e2432d796859f8bb5a21d765fdff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WdtNotifier_Deinit</definition>
+        <argsstring>(void)</argsstring>
+        <name>WdtNotifier_Deinit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.c" bodystart="304" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="wdt__notifier_8h_1ad96ffb6ef9fb3e14239e7cb220d734fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int WdtSendTest</definition>
+        <argsstring>(void)</argsstring>
+        <name>WdtSendTest</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Send the WDT test command to the RPU. </para>        </briefdescription>
+        <detaileddescription>
+<para>Mirrors the Linux visp_mbox_wdt_send_test() flow, but uses the bare-metal mailbox Send_Command() path (same format as SetATM / INIT_FIRMWARE). The payload carries the instance id followed by the number of seconds the RPU should keep petting its WWDT before deliberately stopping, which lets the APU-side notifier observe the resulting WWDT0 expiry.</para><para><simplesect kind="return"><para>RET_SUCCESS on success, error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.c" bodystart="255" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="wdt__notifier_8h_1a84508f6e066d7ac050d84fd4c538f9d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void WdtNotifier_PrintStats</definition>
+        <argsstring>(void)</argsstring>
+        <name>WdtNotifier_PrintStats</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Print current WDT notifier debug/validation counters and state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.c" bodystart="159" bodyend="170"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>APU<sp/>bare-metal:<sp/>receive<sp/>LPX<sp/>WWDT0<sp/>expiry<sp/>notification<sp/>via<sp/>PLM<sp/>IPI.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Uses<sp/>XPm_RegisterNotifier<sp/>with<sp/>an<sp/>EVENT-class<sp/>node<sp/>over<sp/>the<sp/>VISP<sp/>mailbox</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>IPI5<sp/>path<sp/>used<sp/>by<sp/>the<sp/>APU-side<sp/>application<sp/>in<sp/>this<sp/>driver<sp/>tree.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>WDT_NOTIFIER_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>WDT_NOTIFIER_H</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">XStatus<sp/>WdtNotifier_Init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WdtNotifier_Deinit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Send<sp/>the<sp/>WDT<sp/>test<sp/>command<sp/>to<sp/>the<sp/>RPU<sp/>(bare-metal<sp/>mailbox<sp/>path).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>WdtSendTest(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Print<sp/>debug/validation<sp/>counters<sp/>(IPI<sp/>IRQs,<sp/>PM_NOTIFY_CB,<sp/>WWDT0<sp/>expiries).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WdtNotifier_PrintStats(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/wdt_notifier.h"/>
+  </compounddef>
+</doxygen>

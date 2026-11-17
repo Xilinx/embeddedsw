@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__mlkem__client__apis" kind="group">
+    <compoundname>xasu_mlkem_client_apis</compoundname>
+    <title>ML-KEM Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga73b1f809f2527aeb77ed904a05321033" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemEncapsulate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_MlkemEncapsDecapsParams *MlkemParamPtr)</argsstring>
+        <name>XAsu_MlkemEncapsulate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> *</type>
+          <declname>MlkemParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM encapsulation using the provided encapsulation (public) key, producing a ciphertext and a shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MlkemParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> structure which holds the ML-KEM encapsulation parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate ML-KEM encapsulation parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="61" bodyend="99"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga00f994b389e6128c323612b67c086244" compoundref="xasu__mlkeminfo_8h" startline="47">XASU_MLKEM_ENCAPS_CMD_ID</references>
+        <references refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga97590390a73ef98d4f689ec13904be9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemEncapsulateDerand</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_MlkemEncapsDerandParams *MlkemParamPtr)</argsstring>
+        <name>XAsu_MlkemEncapsulateDerand</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> *</type>
+          <declname>MlkemParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM encapsulation with the message m supplied by the caller instead of drawn from the TRNG, so that the ACVP encapsulation vectors can be driven through the module. </para>        </briefdescription>
+        <detaileddescription>
+<para>FIPS 203 requires an approved ML-KEM.Encaps to draw m from an approved RBG, so only an ASUFW built with CAVP support serves this command; any other build rejects it as an invalid command. The encapsulation key must be passed by address, as the key vault is not available to this command.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MlkemParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> structure which holds the ML-KEM encapsulation parameters and the message m.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate ML-KEM encapsulation parameters and the supplied message m.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="123" bodyend="161"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga76010a282b099a2fa3dd20ed8586bff2" compoundref="xasu__mlkeminfo_8h" startline="58">XASU_MLKEM_ENCAPS_DERAND_CMD_ID</references>
+        <references refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga009b4223afa377d6baad06b99a43c326" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemDecapsulate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_MlkemEncapsDecapsParams *MlkemParamPtr)</argsstring>
+        <name>XAsu_MlkemDecapsulate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> *</type>
+          <declname>MlkemParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM decapsulation using the provided decapsulation (secret) key and ciphertext, producing a shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MlkemParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> structure which holds the ML-KEM decapsulation parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Per FIPS 203, a ciphertext that does not match the decapsulation key yields a pseudorandom shared secret rather than an error, so that decapsulation gives an attacker no way to test ciphertexts. A successful decapsulation therefore does not mean the ciphertext was genuine. Callers must establish that through key confirmation on the derived shared secret, never by expecting a failure here. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate ML-KEM decapsulation parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="186" bodyend="224"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gacb98abdca05a8444d1e9a0d08f1bc225" compoundref="xasu__mlkeminfo_8h" startline="48">XASU_MLKEM_DECAPS_CMD_ID</references>
+        <references refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga34f74d822a703aa70ebc3e9c86747366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_MlkemKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to run the ML-KEM Known Answer Test, which encapsulates to and then decapsulates with a fixed NIST ACVP ML-KEM-512 vector on ASUFW and checks that the shared secrets match. </para>        </briefdescription>
+        <detaileddescription>
+<para>Key generation is not part of it: it carries its own pairwise consistency test instead.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="243" bodyend="271"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="52">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gae3d7c69ecafc8fcc40cd62198d529444" compoundref="xasu__mlkeminfo_8h" startline="49">XASU_MLKEM_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

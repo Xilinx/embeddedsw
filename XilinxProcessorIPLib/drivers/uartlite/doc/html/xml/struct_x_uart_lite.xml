@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_lite" kind="struct" prot="public">
+    <compoundname>XUartLite</compoundname>
+    <includes local="no">xuartlite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_lite_1a0278b1063cd5e106e8f01a70d2033552" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref></type>
+        <definition>XUartLite_Stats XUartLite::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Component statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="96" endline="112">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="65" endline="86">XUartLite_GetStats</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="561" endline="628">XUartLite_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="462" endline="528">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1a08ccbc82a65cff09837a71aa320eda30" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartLite::RegBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>RegBaseAddress</name>
+        <briefdescription>
+<para>Base address of registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" compoundref="xuartlite__intr_8c" startline="262" endline="274">XUartLite_DisableInterrupt</referencedby>
+        <referencedby refid="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" compoundref="xuartlite__intr_8c" startline="289" endline="301">XUartLite_EnableInterrupt</referencedby>
+        <referencedby refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="647" endline="658">XUartLite_GetSR</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="561" endline="628">XUartLite_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" compoundref="xuartlite_8c" startline="286" endline="335">XUartLite_Recv</referencedby>
+        <referencedby refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" compoundref="xuartlite_8c" startline="349" endline="373">XUartLite_ResetFifos</referencedby>
+        <referencedby refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" compoundref="xuartlite_8c" startline="200" endline="249">XUartLite_Send</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="462" endline="528">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1ad69736dd05545bcc20417637f4f19c21" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="96" endline="112">XUartLite_ClearStats</referencedby>
+        <referencedby refid="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" compoundref="xuartlite__intr_8c" startline="262" endline="274">XUartLite_DisableInterrupt</referencedby>
+        <referencedby refid="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" compoundref="xuartlite__intr_8c" startline="289" endline="301">XUartLite_EnableInterrupt</referencedby>
+        <referencedby refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" compoundref="xuartlite__stats_8c" startline="65" endline="86">XUartLite_GetStats</referencedby>
+        <referencedby refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" compoundref="xuartlite_8c" startline="286" endline="335">XUartLite_Recv</referencedby>
+        <referencedby refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" compoundref="xuartlite_8c" startline="349" endline="373">XUartLite_ResetFifos</referencedby>
+        <referencedby refid="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" compoundref="xuartlite__selftest_8c" startline="80" endline="114">XUartLite_SelfTest</referencedby>
+        <referencedby refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" compoundref="xuartlite_8c" startline="200" endline="249">XUartLite_Send</referencedby>
+        <referencedby refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" compoundref="xuartlite__intr_8c" startline="79" endline="92">XUartLite_SetRecvHandler</referencedby>
+        <referencedby refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" compoundref="xuartlite__intr_8c" startline="112" endline="125">XUartLite_SetSendHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_lite___buffer" kindref="compound">XUartLite_Buffer</ref></type>
+        <definition>XUartLite_Buffer XUartLite::SendBuffer</definition>
+        <argsstring></argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>Transmit buffer descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" compoundref="xuartlite__intr_8c" startline="141" endline="162">XUartLite_InterruptHandler</referencedby>
+        <referencedby refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" compoundref="xuartlite_8c" startline="200" endline="249">XUartLite_Send</referencedby>
+        <referencedby refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="462" endline="528">XUartLite_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_lite___buffer" kindref="compound">XUartLite_Buffer</ref></type>
+        <definition>XUartLite_Buffer XUartLite::ReceiveBuffer</definition>
+        <argsstring></argsstring>
+        <name>ReceiveBuffer</name>
+        <briefdescription>
+<para>Receive buffer descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="561" endline="628">XUartLite_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" compoundref="xuartlite_8c" startline="286" endline="335">XUartLite_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref></type>
+        <definition>XUartLite_Handler XUartLite::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+<para>Receive interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" compoundref="xuartlite__intr_8c" startline="79" endline="92">XUartLite_SetRecvHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1ab174da82712959f718ee725216a85bc1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XUartLite::RecvCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>RecvCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for recv handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" compoundref="xuartlite__intr_8c" startline="79" endline="92">XUartLite_SetRecvHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref></type>
+        <definition>XUartLite_Handler XUartLite::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+<para>Send interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="121" endline="165">XUartLite_CfgInitialize</referencedby>
+        <referencedby refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" compoundref="xuartlite__intr_8c" startline="112" endline="125">XUartLite_SetSendHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite_1a4fbf0298a548fd9c5ac1024a9e2c8f70" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XUartLite::SendCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>SendCallBackRef</name>
+        <briefdescription>
+<para>Callback ref for send handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" compoundref="xuartlite__intr_8c" startline="112" endline="125">XUartLite_SetSendHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data for the UART Lite. </para>    </briefdescription>
+    <detaileddescription>
+<para>Allocate a variable of this type for every UART Lite device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XUartLite_Stats</label>
+        <link refid="struct_x_uart_lite___stats"/>
+      </node>
+      <node id="3">
+        <label>XUartLite_Buffer</label>
+        <link refid="struct_x_uart_lite___buffer"/>
+      </node>
+      <node id="1">
+        <label>XUartLite</label>
+        <link refid="struct_x_uart_lite"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>SendBuffer</edgelabel>
+          <edgelabel>ReceiveBuffer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="227" bodyend="239"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_lite_1ad69736dd05545bcc20417637f4f19c21" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>IsReady</name></member>
+      <member refid="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>ReceiveBuffer</name></member>
+      <member refid="struct_x_uart_lite_1ab174da82712959f718ee725216a85bc1" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>RecvCallBackRef</name></member>
+      <member refid="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_uart_lite_1a08ccbc82a65cff09837a71aa320eda30" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>RegBaseAddress</name></member>
+      <member refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>SendBuffer</name></member>
+      <member refid="struct_x_uart_lite_1a4fbf0298a548fd9c5ac1024a9e2c8f70" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>SendCallBackRef</name></member>
+      <member refid="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>SendHandler</name></member>
+      <member refid="struct_x_uart_lite_1a0278b1063cd5e106e8f01a70d2033552" prot="public" virt="non-virtual"><scope>XUartLite</scope><name>Stats</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

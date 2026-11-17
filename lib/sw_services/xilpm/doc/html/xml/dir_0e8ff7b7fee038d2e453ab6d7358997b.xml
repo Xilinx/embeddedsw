@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0e8ff7b7fee038d2e453ab6d7358997b" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="versal_2client_2pm__client_8c">versal/client/pm_client.c</innerfile>
+    <innerfile refid="versal_2client_2pm__client_8h">versal/client/pm_client.h</innerfile>
+    <innerfile refid="versal_2client_2pm__defs_8h">versal/client/pm_defs.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal/client/"/>
+  </compounddef>
+</doxygen>

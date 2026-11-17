@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___i_p_status" kind="struct" prot="public">
+    <compoundname>XRFdc_IPStatus</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___i_p_status_1a434338abbfe9bab7f854cefdfa60bd83" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___tile_status" kindref="compound">XRFdc_TileStatus</ref></type>
+        <definition>XRFdc_TileStatus XRFdc_IPStatus::DACTileStatus[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>DACTileStatus</name>
+        <briefdescription>
+<para>Status of each DAC tile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="623" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___i_p_status_1a2185105d19be9512b2c5a54c1e6123f9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___tile_status" kindref="compound">XRFdc_TileStatus</ref></type>
+        <definition>XRFdc_TileStatus XRFdc_IPStatus::ADCTileStatus[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>ADCTileStatus</name>
+        <briefdescription>
+<para>Status of each ADC tile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="624" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___i_p_status_1aad14d4d1d771539ef2f84341117fd596" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
+        <definition>u32 XRFdc_IPStatus::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>Overall IP state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RFSoC Data converter IP status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="100">
+        <label>XRFdc_TileStatus</label>
+        <link refid="struct_x_r_fdc___tile_status"/>
+      </node>
+      <node id="99">
+        <label>XRFdc_IPStatus</label>
+        <link refid="struct_x_r_fdc___i_p_status"/>
+        <childnode refid="100" relation="usage">
+          <edgelabel>DACTileStatus</edgelabel>
+          <edgelabel>ADCTileStatus</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="622" bodyend="626"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___i_p_status_1a2185105d19be9512b2c5a54c1e6123f9" prot="public" virt="non-virtual"><scope>XRFdc_IPStatus</scope><name>ADCTileStatus</name></member>
+      <member refid="struct_x_r_fdc___i_p_status_1a434338abbfe9bab7f854cefdfa60bd83" prot="public" virt="non-virtual"><scope>XRFdc_IPStatus</scope><name>DACTileStatus</name></member>
+      <member refid="struct_x_r_fdc___i_p_status_1aad14d4d1d771539ef2f84341117fd596" prot="public" virt="non-virtual"><scope>XRFdc_IPStatus</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

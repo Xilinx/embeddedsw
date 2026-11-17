@@ -1,0 +1,782 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartns550__intr__example_8c" kind="file">
+    <compoundname>xuartns550_intr_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xuartns550_8h" local="yes">xuartns550.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="91">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="94">
+        <label>xil_io.h</label>
+      </node>
+      <node id="89">
+        <label>xuartns550.h</label>
+        <link refid="xuartns550_8h"/>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+      <node id="96">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="92">
+        <label>xstatus.h</label>
+      </node>
+      <node id="93">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550__l_8h"/>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="90">
+        <label>xil_types.h</label>
+      </node>
+      <node id="88">
+        <label>xparameters.h</label>
+      </node>
+      <node id="87">
+        <label>xuartns550_intr_example.c</label>
+        <link refid="xuartns550_intr_example.c"/>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Device parameters</header>
+      <description><para>The following constants map to the XPAR parameters created in the xparameters.h file.</para><para>They are defined here such that a user can easily change all the needed parameters in one place. </para></description>
+      <memberdef kind="define" id="xuartns550__intr__example_8c_1ac9565031659897863ae69977e7021556" prot="public" static="no">
+        <name>XUARTNS550_BASEADDRESS</name>
+        <initializer>XPAR_XUARTNS550_0_BASEADDR</initializer>
+        <briefdescription>
+<para>UART base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="93" bodyend="-1"/>
+        <referencedby refid="xuartns550__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xuartns550__intr__example_8c" startline="189" endline="212">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Data buffers</header>
+      <description><para>The following buffers are used in this example to send and receive data with the UART. </para></description>
+      <memberdef kind="variable" id="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SendBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+<para>Buffer for Transmitting Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="163" bodyend="-1"/>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="256" endline="398">UartNs550IntrExample</referencedby>
+        <referencedby refid="xuartns550__polled__example_8c_1a7c4c6161e43a4f7d84845cab7c612b4a" compoundref="xuartns550__polled__example_8c" startline="172" endline="261">UartNs550PolledExample</referencedby>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="145" endline="197">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 RecvBuffer[TEST_BUFFER_SIZE]</definition>
+        <argsstring>[TEST_BUFFER_SIZE]</argsstring>
+        <name>RecvBuffer</name>
+        <briefdescription>
+<para>Buffer for Receiving Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="164" bodyend="-1"/>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="256" endline="398">UartNs550IntrExample</referencedby>
+        <referencedby refid="xuartns550__polled__example_8c_1a7c4c6161e43a4f7d84845cab7c612b4a" compoundref="xuartns550__polled__example_8c" startline="172" endline="261">UartNs550PolledExample</referencedby>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="145" endline="197">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transfer counters</header>
+      <description><para>The following counters are used to determine when the entire buffer has been sent and received. </para></description>
+      <memberdef kind="variable" id="xuartns550__intr__example_8c_1a91504b2b83f558d49de403298d4ea9c3" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalReceivedCount</definition>
+        <argsstring></argsstring>
+        <name>TotalReceivedCount</name>
+        <briefdescription>
+<para>Total bytes received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xuartns550__intr__example_8c_1a9c1146f8b94870b530001e0f08cb491e" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalSentCount</definition>
+        <argsstring></argsstring>
+        <name>TotalSentCount</name>
+        <briefdescription>
+<para>Total bytes sent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xuartns550__intr__example_8c_1ab30b3314ed122ef745133ccaac0a62ed" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TotalErrorCount</definition>
+        <argsstring></argsstring>
+        <name>TotalErrorCount</name>
+        <briefdescription>
+<para>Total error count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" prot="public" static="no">
+        <name>TEST_BUFFER_SIZE</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Length of the send and receive buffers. </para>        </briefdescription>
+        <detaileddescription>
+<para>The following constant controls the length of the buffers to be sent and received with the UART. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="104" bodyend="-1"/>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="256" endline="398">UartNs550IntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xuartns550__intr__example_8c_1ac9d3d00553431391ec5272c9b2ccc106" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref></type>
+        <definition>XUartNs550 UartNs550Instance</definition>
+        <argsstring></argsstring>
+        <name>UartNs550Instance</name>
+        <briefdescription>
+<para>Instance of the UART Device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int UartNs550IntrExample</definition>
+        <argsstring>(XUartNs550 *UartInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>UartNs550IntrExample</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>UartInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Performs a minimal interrupt-mode test on the UartNs550 device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is a design example that tests the device and driver.</para><para>This function illustrates how to use the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> component.</para><para>This function transmits data and expects to receive the same data through the UART using the local loopback of the hardware.</para><para>This function uses interrupt driver mode of the UART.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">UartInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the UART . </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<itemizedlist>
+<listitem><para>This function contains an infinite loop such that if interrupts are not working it may never return. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="256" bodyend="398"/>
+        <references refid="struct_x_uart_ns550___config_1a1ba011ce4ae71fa08741281f9b19710d" compoundref="xuartns550_8h" startline="342">XUartNs550_Config::IntrId</references>
+        <references refid="struct_x_uart_ns550___config_1a388cf489eb04e7d10e139e6b290b440e" compoundref="xuartns550_8h" startline="344">XUartNs550_Config::IntrParent</references>
+        <references refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" compoundref="xuartns550__intr__example_8c" startline="164">RecvBuffer</references>
+        <references refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" compoundref="xuartns550__intr__example_8c" startline="163">SendBuffer</references>
+        <references refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" compoundref="xuartns550__intr__example_8c" startline="104">TEST_BUFFER_SIZE</references>
+        <references refid="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" compoundref="xuartns550__intr__example_8c" startline="418" endline="453">UartNs550IntrHandler</references>
+        <references refid="group__uartns550_1ga120797e7b4fc719c827c4378e387efe4" compoundref="xuartns550__options_8c" startline="106" endline="146">XUartNs550_GetOptions</references>
+        <references refid="group__uartns550_1ga442492dcbff076f40f1fca0f571621c9" compoundref="xuartns550__sinit_8c" startline="147" endline="173">XUartNs550_Initialize</references>
+        <references refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" compoundref="xuartns550__intr_8c" startline="142" endline="163">XUartNs550_InterruptHandler</references>
+        <references refid="group__uartns550_1ga6121a7c3b5ad2899eb7fa058df9201d2" compoundref="xuartns550__sinit_8c" startline="94" endline="108">XUartNs550_LookupConfig</references>
+        <references refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="318" endline="362">XUartNs550_Recv</references>
+        <references refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="88" endline="173">XUartNs550_SelfTest</references>
+        <references refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="236" endline="283">XUartNs550_Send</references>
+        <references refid="group__uartns550_1gadf7c4826f92d5e8fd70763f4448a360d" compoundref="xuartns550__intr_8c" startline="112" endline="126">XUartNs550_SetHandler</references>
+        <references refid="group__uartns550_1gac2270082fbb7d7b2c32bd9208dae5be3" compoundref="xuartns550__options_8c" startline="170" endline="224">XUartNs550_SetOptions</references>
+        <references refid="group__uartns550_1ga616329329f125e69b957d98d23c0c80d" compoundref="xuartns550_8h" startline="198">XUN_OPTION_DATA_INTR</references>
+        <references refid="group__uartns550_1ga9bd45da1706d1d6cfc0f22d4fca46100" compoundref="xuartns550_8h" startline="200">XUN_OPTION_FIFOS_ENABLE</references>
+        <references refid="group__uartns550_1gaaf47eddf3f91b4dfea5fa70849ccf094" compoundref="xuartns550_8h" startline="197">XUN_OPTION_LOOPBACK</references>
+        <referencedby refid="xuartns550__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xuartns550__intr__example_8c" startline="189" endline="212">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UartNs550IntrHandler</definition>
+        <argsstring>(void *CallBackRef, u32 Event, unsigned int EventData)</argsstring>
+        <name>UartNs550IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>EventData</declname>
+        </param>
+        <briefdescription>
+<para>Handles data events from the UartNs550. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context such that the amount of processing performed should be minimized.</para><para>This handler provides an example of how to handle data for the UART and is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference from the driver, in this case it is the instance pointer for the UART driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specific kind of event that has occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EventData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes sent or received for sent and receive events. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="418" bodyend="453"/>
+        <references refid="group__uartns550_1gab5c78c74113daef4f74aefbc57e92b3a" compoundref="xuartns550__options_8c" startline="350" endline="371">XUartNs550_GetLastErrors</references>
+        <references refid="group__uartns550_1gabc9845fc2ec5078c1beea2b1e1f8458c" compoundref="xuartns550_8h" startline="268">XUN_EVENT_RECV_DATA</references>
+        <references refid="group__uartns550_1ga658d137ce80d2dba58593fdc9266eded" compoundref="xuartns550_8h" startline="271">XUN_EVENT_RECV_ERROR</references>
+        <references refid="group__uartns550_1gadcf08384f79c532d7476ef470eeef32a" compoundref="xuartns550_8h" startline="269">XUN_EVENT_RECV_TIMEOUT</references>
+        <references refid="group__uartns550_1ga935c9a27e790c469337b884f42db9266" compoundref="xuartns550_8h" startline="270">XUN_EVENT_SENT_DATA</references>
+        <referencedby refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="256" endline="398">UartNs550IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xuartns550__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the UartNs550 interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c" bodystart="189" bodyend="212"/>
+        <references refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" compoundref="xuartns550__intr__example_8c" startline="256" endline="398">UartNs550IntrExample</references>
+        <references refid="xuartns550__intr__example_8c_1ac9565031659897863ae69977e7021556" compoundref="xuartns550__intr__example_8c" startline="93">XUARTNS550_BASEADDRESS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Demonstrates <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> driver usage in interrupt mode. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains a design example using the UART 16450/16550 driver (<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref>) and hardware device using interrupt mode.</para><para><simplesect kind="note"><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para></simplesect>
+Ver Who Date Changes <hruler/>
+ 1.00b jhl 02/13/02 First release 1.00b sv 06/08/05 Minor changes to comply to Doxygen and coding guidelines 1.01a sv 05/08/06 Minor changes for supporting Test App Interrupt examples 2.00a ktn 10/20/09 Updated to use HAL processor APIs and minor modifications as per coding guidelines. 2.01a ssb 01/11/01 Updated the example to be used with the SCUGIC in Zynq. 3.2 adk 15/10/14 Clear the global counters.If multiple instance of ip is present in the h/w design without clearing these counters will result undefined behaviour for the second ip instance while running the peripheral tests. 3.4 ms 01/23/17 Added xil_printf statement in main function to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings are available in all examples. This is a fix for CR-965028. 3.6 rna 01/06/20 Clean up options at end to get Success/Failure strings 3.9 gm 07/09/23 Added SDT support. 3.14 vlt 12/18/25 Update Doxygen comments to include SDT flow details. 3.15 vn 07/30/26 Fix Doxygen warnings 3.15 vn 09/09/26 Align Doxygen comments with AMD standards  </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550_8h" kindref="compound">xuartns550.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>UART_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_UARTNS550_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>UART_IRPT_INTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_UARTNS550_0_VEC_ID</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>UART_IRPT_INTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_UARTNS550_0_VEC_ID</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_INTC_0_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93" refid="xuartns550__intr__example_8c_1ac9565031659897863ae69977e7021556" refkind="member"><highlight class="preprocessor">#define<sp/>XUARTNS550_BASEADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XUARTNS550_0_BASEADDR</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TESTAPP_GEN<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" refkind="member"><highlight class="preprocessor">#define<sp/>TEST_BUFFER_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>100</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc<sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>INTC_HANDLER<sp/><sp/><sp/><sp/>XIntc_InterruptHandler</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>INTC_HANDLER<sp/><sp/><sp/><sp/>XScuGic_InterruptHandler</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_INTC_0_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kindref="member">UartNs550IntrExample</ref>(INTC<sp/>*IntcInstancePtr,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartInstancePtr,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UartDeviceId,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kindref="member">UartNs550IntrExample</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartInstancePtr,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" kindref="member">UartNs550IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Event,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EventData);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>UartNs550SetupIntrSystem(INTC<sp/>*IntcInstancePtr,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartInstancePtr,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UartNs550DisableIntrSystem(INTC<sp/>*IntcInstancePtr,<sp/>u16<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="150" refid="xuartns550__intr__example_8c_1ac9d3d00553431391ec5272c9b2ccc106" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/><ref refid="xuartns550__intr__example_8c_1ac9d3d00553431391ec5272c9b2ccc106" kindref="member">UartNs550Instance</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal">INTC<sp/>IntcInstance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163" refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" refkind="member"><highlight class="normal">u8<sp/><ref refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kindref="member">SendBuffer</ref>[<ref refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kindref="member">TEST_BUFFER_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" refkind="member"><highlight class="normal">u8<sp/><ref refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kindref="member">RecvBuffer</ref>[<ref refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kindref="member">TEST_BUFFER_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TotalReceivedCount;<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TotalSentCount;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TotalErrorCount;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="189" refid="xuartns550__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xuartns550__hello__world__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>UartNs550<sp/>Interrupt<sp/>example.</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kindref="member">UartNs550IntrExample</ref>(&amp;IntcInstance,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;UartNs550Instance,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UART_DEVICE_ID,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UART_IRPT_INTR);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kindref="member">UartNs550IntrExample</ref>(&amp;UartNs550Instance,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xuartns550__intr__example_8c_1ac9565031659897863ae69977e7021556" kindref="member">XUARTNS550_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Uartns550<sp/>interrupt<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Uartns550<sp/>interrupt<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kindref="member">UartNs550IntrExample</ref>(INTC<sp/>*IntcInstancePtr,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartInstancePtr,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UartDeviceId,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UartIntrId)</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="256" refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kindref="member">UartNs550IntrExample</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartInstancePtr,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Options;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BadByteCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550___config" kindref="compound">XUartNs550_Config</ref><sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>UART<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use.</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__uartns550_1ga442492dcbff076f40f1fca0f571621c9" kindref="member">XUartNs550_Initialize</ref>(UartInstancePtr,<sp/>UartDeviceId);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group__uartns550_1ga6121a7c3b5ad2899eb7fa058df9201d2" kindref="member">XUartNs550_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__uartns550_1ga442492dcbff076f40f1fca0f571621c9" kindref="member">XUartNs550_Initialize</ref>(UartInstancePtr,<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>a<sp/>self-test<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>hardware<sp/>was<sp/>built<sp/>correctly.</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" kindref="member">XUartNs550_SelfTest</ref>(UartInstancePtr);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Connect<sp/>the<sp/>UART<sp/>to<sp/>the<sp/>interrupt<sp/>subsystem<sp/>such<sp/>that<sp/>interrupts<sp/>can</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>occur.<sp/>This<sp/>function<sp/>is<sp/>application<sp/>specific.</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>UartNs550SetupIntrSystem(IntcInstancePtr,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartInstancePtr,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(UartInstancePtr,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;<ref refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" kindref="member">XUartNs550_InterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_uart_ns550___config_1a1ba011ce4ae71fa08741281f9b19710d" kindref="member">IntrId</ref>,<sp/>CfgPtr-&gt;<ref refid="struct_x_uart_ns550___config_1a388cf489eb04e7d10e139e6b290b440e" kindref="member">IntrParent</ref>,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="308"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>handlers<sp/>for<sp/>the<sp/>UART<sp/>that<sp/>will<sp/>be<sp/>called<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>context<sp/>when<sp/>data<sp/>has<sp/>been<sp/>sent<sp/>and<sp/>received,<sp/>specify<sp/>a</highlight></codeline>
+<codeline lineno="310"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>pointer<sp/>to<sp/>the<sp/>UART<sp/>driver<sp/>instance<sp/>as<sp/>the<sp/>callback<sp/>reference<sp/>so</highlight></codeline>
+<codeline lineno="311"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>handlers<sp/>are<sp/>able<sp/>to<sp/>access<sp/>the<sp/>instance<sp/>data.</highlight></codeline>
+<codeline lineno="312"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gadf7c4826f92d5e8fd70763f4448a360d" kindref="member">XUartNs550_SetHandler</ref>(UartInstancePtr,<sp/><ref refid="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" kindref="member">UartNs550IntrHandler</ref>,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartInstancePtr);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="317"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupt<sp/>of<sp/>the<sp/>UART<sp/>so<sp/>interrupts<sp/>will<sp/>occur,<sp/>setup</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>a<sp/>local<sp/>loopback<sp/>so<sp/>data<sp/>that<sp/>is<sp/>sent<sp/>will<sp/>be<sp/>received,<sp/>and<sp/>keep<sp/>the</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>FIFOs<sp/>enabled.</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Options<sp/>=<sp/><ref refid="group__uartns550_1ga616329329f125e69b957d98d23c0c80d" kindref="member">XUN_OPTION_DATA_INTR</ref><sp/>|<sp/><ref refid="group__uartns550_1gaaf47eddf3f91b4dfea5fa70849ccf094" kindref="member">XUN_OPTION_LOOPBACK</ref><sp/>|</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga9bd45da1706d1d6cfc0f22d4fca46100" kindref="member">XUN_OPTION_FIFOS_ENABLE</ref>;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gac2270082fbb7d7b2c32bd9208dae5be3" kindref="member">XUartNs550_SetOptions</ref>(UartInstancePtr,<sp/>Options);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>send<sp/>buffer<sp/>bytes<sp/>with<sp/>a<sp/>pattern<sp/>to<sp/>send<sp/>and<sp/>the</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>receive<sp/>buffer<sp/>bytes<sp/>to<sp/>zero<sp/>to<sp/>allow<sp/>the<sp/>receive<sp/>data<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>verified.</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kindref="member">TEST_BUFFER_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kindref="member">SendBuffer</ref>[Index]<sp/>=<sp/>Index<sp/>+<sp/></highlight><highlight class="charliteral">&apos;A&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kindref="member">RecvBuffer</ref>[Index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="337"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>receiving<sp/>data<sp/>before<sp/>sending<sp/>it<sp/>since<sp/>there<sp/>is<sp/>a<sp/>loopback,</highlight></codeline>
+<codeline lineno="338"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ignoring<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>received<sp/>as<sp/>the<sp/>return<sp/>value<sp/>since<sp/>we</highlight></codeline>
+<codeline lineno="339"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>know<sp/>it<sp/>will<sp/>be<sp/>zero<sp/>and<sp/>we<sp/>are<sp/>using<sp/>interrupt<sp/>mode.</highlight></codeline>
+<codeline lineno="340"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" kindref="member">XUartNs550_Recv</ref>(UartInstancePtr,<sp/><ref refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kindref="member">RecvBuffer</ref>,<sp/>TEST_BUFFER_SIZE);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>the<sp/>buffer<sp/>using<sp/>the<sp/>UART<sp/>and<sp/>ignore<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>sent</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>as<sp/>the<sp/>return<sp/>value<sp/>since<sp/>we<sp/>are<sp/>using<sp/>it<sp/>in<sp/>interrupt<sp/>mode.</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" kindref="member">XUartNs550_Send</ref>(UartInstancePtr,<sp/><ref refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kindref="member">SendBuffer</ref>,<sp/>TEST_BUFFER_SIZE);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>for<sp/>the<sp/>entire<sp/>buffer<sp/>to<sp/>be<sp/>received,<sp/>letting<sp/>the<sp/>interrupt</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>processing<sp/>work<sp/>in<sp/>the<sp/>background,<sp/>this<sp/>function<sp/>may<sp/>get<sp/>locked</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>up<sp/>in<sp/>this<sp/>loop<sp/>if<sp/>the<sp/>interrupts<sp/>are<sp/>not<sp/>working<sp/>correctly.</highlight></codeline>
+<codeline lineno="353"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((TotalReceivedCount<sp/>!=<sp/>TEST_BUFFER_SIZE)<sp/>||</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TotalSentCount<sp/>!=<sp/>TEST_BUFFER_SIZE))<sp/>{</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="359"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>the<sp/>entire<sp/>receive<sp/>buffer<sp/>was<sp/>successfully<sp/>received.</highlight></codeline>
+<codeline lineno="360"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kindref="member">TEST_BUFFER_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kindref="member">RecvBuffer</ref>[Index]<sp/>!=<sp/><ref refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kindref="member">SendBuffer</ref>[Index])<sp/>{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BadByteCount++;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="368"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>UartNs550<sp/>interrupt.</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartNs550DisableIntrSystem(IntcInstancePtr,<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDisconnectInterruptCntrl(CfgPtr-&gt;<ref refid="struct_x_uart_ns550___config_1a1ba011ce4ae71fa08741281f9b19710d" kindref="member">IntrId</ref>,<sp/>CfgPtr-&gt;<ref refid="struct_x_uart_ns550___config_1a388cf489eb04e7d10e139e6b290b440e" kindref="member">IntrParent</ref>);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="378"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>any<sp/>bytes<sp/>were<sp/>not<sp/>correct,<sp/>return<sp/>an<sp/>error.</highlight></codeline>
+<codeline lineno="379"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BadByteCount<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>counters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalErrorCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalReceivedCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalSentCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="390"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clean<sp/>up<sp/>the<sp/>options</highlight></codeline>
+<codeline lineno="391"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Options<sp/>=<sp/><ref refid="group__uartns550_1ga120797e7b4fc719c827c4378e387efe4" kindref="member">XUartNs550_GetOptions</ref>(UartInstancePtr);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Options<sp/>=<sp/>Options<sp/>&amp;<sp/>~(<ref refid="group__uartns550_1ga616329329f125e69b957d98d23c0c80d" kindref="member">XUN_OPTION_DATA_INTR</ref><sp/>|<sp/><ref refid="group__uartns550_1gaaf47eddf3f91b4dfea5fa70849ccf094" kindref="member">XUN_OPTION_LOOPBACK</ref><sp/>|</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga9bd45da1706d1d6cfc0f22d4fca46100" kindref="member">XUN_OPTION_FIFOS_ENABLE</ref>);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gac2270082fbb7d7b2c32bd9208dae5be3" kindref="member">XUartNs550_SetOptions</ref>(UartInstancePtr,<sp/>Options);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="418" refid="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" kindref="member">UartNs550IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Event,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EventData)</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartNs550Ptr<sp/>=<sp/>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*)CallBackRef;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="423"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>of<sp/>the<sp/>data<sp/>has<sp/>been<sp/>sent.</highlight></codeline>
+<codeline lineno="424"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Event<sp/>==<sp/><ref refid="group__uartns550_1ga935c9a27e790c469337b884f42db9266" kindref="member">XUN_EVENT_SENT_DATA</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalSentCount<sp/>=<sp/>EventData;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="430"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>of<sp/>the<sp/>data<sp/>has<sp/>been<sp/>received.</highlight></codeline>
+<codeline lineno="431"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Event<sp/>==<sp/><ref refid="group__uartns550_1gabc9845fc2ec5078c1beea2b1e1f8458c" kindref="member">XUN_EVENT_RECV_DATA</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalReceivedCount<sp/>=<sp/>EventData;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="437"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Data<sp/>was<sp/>received,<sp/>but<sp/>not<sp/>the<sp/>expected<sp/>number<sp/>of<sp/>bytes,<sp/>a</highlight></codeline>
+<codeline lineno="438"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>timeout<sp/>just<sp/>indicates<sp/>the<sp/>data<sp/>stopped<sp/>for<sp/>4<sp/>character<sp/>times.</highlight></codeline>
+<codeline lineno="439"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Event<sp/>==<sp/><ref refid="group__uartns550_1gadcf08384f79c532d7476ef470eeef32a" kindref="member">XUN_EVENT_RECV_TIMEOUT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalReceivedCount<sp/>=<sp/>EventData;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="445"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Data<sp/>was<sp/>received<sp/>with<sp/>an<sp/>error,<sp/>keep<sp/>the<sp/>data<sp/>but<sp/>determine</highlight></codeline>
+<codeline lineno="446"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>what<sp/>kind<sp/>of<sp/>errors<sp/>occurred.</highlight></codeline>
+<codeline lineno="447"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Event<sp/>==<sp/><ref refid="group__uartns550_1ga658d137ce80d2dba58593fdc9266eded" kindref="member">XUN_EVENT_RECV_ERROR</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalReceivedCount<sp/>=<sp/>EventData;</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalErrorCount++;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gab5c78c74113daef4f74aefbc57e92b3a" kindref="member">XUartNs550_GetLastErrors</ref>(UartNs550Ptr);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="453"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="478"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>UartNs550SetupIntrSystem(INTC<sp/>*IntcInstancePtr,</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*UartInstancePtr,</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UartIntrId)</highlight></codeline>
+<codeline lineno="481"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="484"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="485"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="486"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready</highlight></codeline>
+<codeline lineno="487"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>use.</highlight></codeline>
+<codeline lineno="488"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Initialize(IntcInstancePtr,<sp/>INTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TESTAPP_GEN<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="494"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="496"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Connect<sp/>a<sp/>device<sp/>driver<sp/>handler<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an<sp/>interrupt</highlight></codeline>
+<codeline lineno="497"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>for<sp/>the<sp/>device<sp/>occurs,<sp/>the<sp/>device<sp/>driver<sp/>handler<sp/>performs<sp/>the</highlight></codeline>
+<codeline lineno="498"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>specific<sp/>interrupt<sp/>processing<sp/>for<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="499"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Connect(IntcInstancePtr,<sp/>UartIntrId,</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" kindref="member">XUartNs550_InterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)UartInstancePtr);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="508"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="509"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>interrupt<sp/>controller<sp/>such<sp/>that<sp/>interrupts<sp/>are<sp/>enabled<sp/>for</highlight></codeline>
+<codeline lineno="510"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>all<sp/>devices<sp/>that<sp/>cause<sp/>interrupts,<sp/>specific<sp/>real<sp/>mode<sp/>so<sp/>that</highlight></codeline>
+<codeline lineno="511"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>UART<sp/>can<sp/>cause<sp/>interrupts<sp/>through<sp/>the<sp/>interrupt<sp/>controller.</highlight></codeline>
+<codeline lineno="512"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Start(IntcInstancePtr,<sp/>XIN_REAL_MODE);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TESTAPP_GEN<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="518"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="520"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupt<sp/>for<sp/>the<sp/>UartNs550.</highlight></codeline>
+<codeline lineno="521"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Enable(IntcInstancePtr,<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="525"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="526"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Config<sp/>*IntcConfig;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="529"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready<sp/>to</highlight></codeline>
+<codeline lineno="530"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>use.</highlight></codeline>
+<codeline lineno="531"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig<sp/>=<sp/>XScuGic_LookupConfig(INTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>IntcConfig)<sp/>{</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_CfgInitialize(IntcInstancePtr,<sp/>IntcConfig,</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig-&gt;CpuBaseAddress);</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TESTAPP_GEN<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="543"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_SetPriorityTriggerType(IntcInstancePtr,<sp/>UartIntrId,</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0,<sp/>0x3);</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="548"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Connect<sp/>the<sp/>interrupt<sp/>handler<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an</highlight></codeline>
+<codeline lineno="549"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>occurs<sp/>for<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="550"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_Connect(IntcInstancePtr,<sp/>UartIntrId,</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XUartNs550_InterruptHandler,</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartInstancePtr);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="559"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupt<sp/>for<sp/>the<sp/>Timer<sp/>device.</highlight></codeline>
+<codeline lineno="560"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(IntcInstancePtr,<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_INTC_0_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="563"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="565"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="567"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>exception<sp/>table.</highlight></codeline>
+<codeline lineno="568"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="572"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Register<sp/>the<sp/>interrupt<sp/>controller<sp/>handler<sp/>with<sp/>the<sp/>exception<sp/>table.</highlight></codeline>
+<codeline lineno="573"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)INTC_HANDLER,</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcInstancePtr);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="579"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>exceptions.</highlight></codeline>
+<codeline lineno="580"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>TESTAPP_GEN<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="584"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="602"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UartNs550DisableIntrSystem(INTC<sp/>*IntcInstancePtr,<sp/>u16<sp/>UartIntrId)</highlight></codeline>
+<codeline lineno="603"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="606"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disconnect<sp/>and<sp/>disable<sp/>the<sp/>interrupt<sp/>for<sp/>the<sp/>UartNs550<sp/>device.</highlight></codeline>
+<codeline lineno="607"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="609"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Disconnect(IntcInstancePtr,<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="611"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Disable(IntcInstancePtr,<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Disconnect(IntcInstancePtr,<sp/>UartIntrId);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight></codeline>
+<codeline lineno="614"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="615"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/examples/xuartns550_intr_example.c"/>
+  </compounddef>
+</doxygen>

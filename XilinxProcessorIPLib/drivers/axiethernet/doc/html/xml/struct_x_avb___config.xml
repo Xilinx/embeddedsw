@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___config" kind="struct" prot="public">
+    <compoundname>XAvb_Config</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___config_1a7ad0d29a0a15fb4d3214c2e42e9af553" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_Config::DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+<para>Unique ID of device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="161" endline="287">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="276" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="161" endline="287">main</referencedby>
+        <referencedby refid="group__axiethernet_1ga5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="615" endline="651">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="group__axiethernet_1ga5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="175" endline="360">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="group__axiethernet_1gaf8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="80" endline="118">XAvb_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="139" endline="232">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1328" endline="1420">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="68" endline="121">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gaaefe66ad0ca9e6af05129765cca4c3df" compoundref="xavb__ptp__packets_8c" startline="932" endline="965">XAvb_IsRxFramePTP</referencedby>
+        <referencedby refid="group__axiethernet_1gaeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="327" endline="354">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="group__axiethernet_1ga989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="478" endline="535">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="369" endline="462">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="434" endline="578">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
+        <referencedby refid="group__axiethernet_1ga2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="552" endline="592">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="group__axiethernet_1ga63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="610" endline="795">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1ga2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="811" endline="914">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="678" endline="690">XAvb_SetupRxFilterControlMatchMode</referencedby>
+        <referencedby refid="group__axiethernet_1ga4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="611" endline="628">XAvb_SetupRxFilterControlPcp</referencedby>
+        <referencedby refid="group__axiethernet_1gafb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="646" endline="663">XAvb_SetupRxFilterControlVid</referencedby>
+        <referencedby refid="group__axiethernet_1ga42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1567" endline="1688">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="438" endline="611">XAvb_UpdateRtcIncrement</referencedby>
+        <referencedby refid="group__axiethernet_1gafcb3695de30c54e17e3c3e0a461ab0eb" compoundref="xavb__ptp__packets_8c" startline="298" endline="312">XAvb_WaitOnTxPtpQueue</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="274" bodyend="277"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" prot="public" virt="non-virtual"><scope>XAvb_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_avb___config_1a7ad0d29a0a15fb4d3214c2e42e9af553" prot="public" virt="non-virtual"><scope>XAvb_Config</scope><name>DeviceId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

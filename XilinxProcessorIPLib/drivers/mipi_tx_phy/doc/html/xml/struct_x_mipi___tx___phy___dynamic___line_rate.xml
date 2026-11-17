@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___tx___phy___dynamic___line_rate" kind="struct" prot="public">
+    <compoundname>XMipi_Tx_Phy_Dynamic_LineRate</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___dynamic___line_rate_1a706b8879d4c9c23002bd8343a2879692" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Dynamic_LineRate::LineRateLb</definition>
+        <argsstring></argsstring>
+        <name>LineRateLb</name>
+        <briefdescription>
+<para>Lower bound in Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___dynamic___line_rate_1a7ca1e07b79a96ef4b8561f84cddd8cac" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Dynamic_LineRate::LineRateUb</definition>
+        <argsstring></argsstring>
+        <name>LineRateUb</name>
+        <briefdescription>
+<para>Upper bound in Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___dynamic___line_rate_1ad81d20ec3bd0a63159072f9c7795a3b5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Dynamic_LineRate::PllVals[XMIPI_TX_PHY_PLL_NUM_REGS]</definition>
+        <argsstring>[XMIPI_TX_PHY_PLL_NUM_REGS]</argsstring>
+        <name>PllVals</name>
+        <briefdescription>
+<para>Raw PLL register values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The dynamic line rate bucket structure for mipi_tx_phy. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each bucket defines a line rate range (lower and upper bound in Mbps) and the corresponding raw PLL register values to program the X5PLL for that range. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" bodystart="95" bodyend="99"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___tx___phy___dynamic___line_rate_1a706b8879d4c9c23002bd8343a2879692" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Dynamic_LineRate</scope><name>LineRateLb</name></member>
+      <member refid="struct_x_mipi___tx___phy___dynamic___line_rate_1a7ca1e07b79a96ef4b8561f84cddd8cac" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Dynamic_LineRate</scope><name>LineRateUb</name></member>
+      <member refid="struct_x_mipi___tx___phy___dynamic___line_rate_1ad81d20ec3bd0a63159072f9c7795a3b5" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Dynamic_LineRate</scope><name>PllVals</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pm_pin_group" kind="struct" prot="public">
+    <compoundname>PmPinGroup</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pm_pin_group_1afa3b612b797ef3d043c2e2bee9d4d0b3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 PmPinGroup::GroupCount</definition>
+        <argsstring></argsstring>
+        <name>GroupCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pm_pin_group_1a53a179014e1048457b43ffdab3119946" prot="public" static="no" mutable="no">
+        <type>u16 *</type>
+        <definition>u16* PmPinGroup::GroupList</definition>
+        <argsstring></argsstring>
+        <name>GroupList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h" bodystart="21" bodyend="24"/>
+    <listofallmembers>
+      <member refid="struct_pm_pin_group_1afa3b612b797ef3d043c2e2bee9d4d0b3" prot="public" virt="non-virtual"><scope>PmPinGroup</scope><name>GroupCount</name></member>
+      <member refid="struct_pm_pin_group_1a53a179014e1048457b43ffdab3119946" prot="public" virt="non-virtual"><scope>PmPinGroup</scope><name>GroupList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

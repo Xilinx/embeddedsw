@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structvdma__handle" kind="struct" prot="public">
+    <compoundname>vdma_handle</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvdma__handle_1a6d6db2ba08244f67dab75f47b3a1e56d" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::device_id</definition>
+        <argsstring></argsstring>
+        <name>device_id</name>
+        <briefdescription>
+<para>Device ID of the VDMA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a5270231da0e796e84eb8752cf6abaacf" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::init_done</definition>
+        <argsstring></argsstring>
+        <name>init_done</name>
+        <briefdescription>
+<para>Tracks whether initialization is complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a1c41d59125352fd0912b3bb79c6b3b03" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+        <definition>XAxiVdma* vdma_handle::InstancePtr</definition>
+        <argsstring></argsstring>
+        <name>InstancePtr</name>
+        <briefdescription>
+<para>Pointer to the <ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1ac4103e88f9e34b155cc74e61638cd527" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_vdma___dma_setup" kindref="compound">XAxiVdma_DmaSetup</ref></type>
+        <definition>XAxiVdma_DmaSetup vdma_handle::ReadCfg</definition>
+        <argsstring></argsstring>
+        <name>ReadCfg</name>
+        <briefdescription>
+<para>Read channel DMA setup. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a5367e744dbd6c1ead513f41221155dff" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axi_vdma___dma_setup" kindref="compound">XAxiVdma_DmaSetup</ref></type>
+        <definition>XAxiVdma_DmaSetup vdma_handle::WriteCfg</definition>
+        <argsstring></argsstring>
+        <name>WriteCfg</name>
+        <briefdescription>
+<para>Write channel DMA setup. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1aaaaf6327deb16be58051dd8b828e3e48" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::hsize</definition>
+        <argsstring></argsstring>
+        <name>hsize</name>
+        <briefdescription>
+<para>Horizontal size of the frame in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a4a281304da0ecfc271473288d87c6aad" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::vsize</definition>
+        <argsstring></argsstring>
+        <name>vsize</name>
+        <briefdescription>
+<para>Vertical size of the frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a643157a8050aff195c8e6a986576faa7" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::buffer_address</definition>
+        <argsstring></argsstring>
+        <name>buffer_address</name>
+        <briefdescription>
+<para>Buffer address for VDMA read and write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a6046f272250a0c00373980ec4fb25c28" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::enable_frm_cnt_intr</definition>
+        <argsstring></argsstring>
+        <name>enable_frm_cnt_intr</name>
+        <briefdescription>
+<para>Enables frame-count interrupt when set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1abc2ec8a7f98140c127c02e382e3d71d4" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::number_of_frame_count</definition>
+        <argsstring></argsstring>
+        <name>number_of_frame_count</name>
+        <briefdescription>
+<para>Frame count that triggers the interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds VDMA instance context for the high-level API. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XAxiVdma_ChannelCallBack</label>
+        <link refid="struct_x_axi_vdma___channel_call_back"/>
+      </node>
+      <node id="1">
+        <label>vdma_handle</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ReadCfg</edgelabel>
+          <edgelabel>WriteCfg</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>InstancePtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XAxiVdma_DmaSetup</label>
+        <link refid="struct_x_axi_vdma___dma_setup"/>
+      </node>
+      <node id="3">
+        <label>XAxiVdma</label>
+        <link refid="struct_x_axi_vdma"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ReadCallBack</edgelabel>
+          <edgelabel>WriteCallBack</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="39" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structvdma__handle_1a643157a8050aff195c8e6a986576faa7" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>buffer_address</name></member>
+      <member refid="structvdma__handle_1a6d6db2ba08244f67dab75f47b3a1e56d" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>device_id</name></member>
+      <member refid="structvdma__handle_1a6046f272250a0c00373980ec4fb25c28" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>enable_frm_cnt_intr</name></member>
+      <member refid="structvdma__handle_1aaaaf6327deb16be58051dd8b828e3e48" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>hsize</name></member>
+      <member refid="structvdma__handle_1a5270231da0e796e84eb8752cf6abaacf" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>init_done</name></member>
+      <member refid="structvdma__handle_1a1c41d59125352fd0912b3bb79c6b3b03" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>InstancePtr</name></member>
+      <member refid="structvdma__handle_1abc2ec8a7f98140c127c02e382e3d71d4" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>number_of_frame_count</name></member>
+      <member refid="structvdma__handle_1ac4103e88f9e34b155cc74e61638cd527" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>ReadCfg</name></member>
+      <member refid="structvdma__handle_1a4a281304da0ecfc271473288d87c6aad" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>vsize</name></member>
+      <member refid="structvdma__handle_1a5367e744dbd6c1ead513f41221155dff" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>WriteCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___c_o_n_f_i_g" kind="struct" prot="public">
+    <compoundname>USB_CONFIG</compoundname>
+    <includes local="no">xusbps_ch9_audio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a246a92b9820b9a28a0dcdbb9dc4f5018" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___s_t_d___c_f_g___d_e_s_c" kindref="compound">USB_STD_CFG_DESC</ref></type>
+        <definition>USB_STD_CFG_DESC USB_CONFIG::stdCfg</definition>
+        <argsstring></argsstring>
+        <name>stdCfg</name>
+        <briefdescription>
+<para>Standard configuration descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1acfa4cf32ddadffc97ed64c6ffd0fd858" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___s_t_d___i_f___d_e_s_c" kindref="compound">USB_STD_IF_DESC</ref></type>
+        <definition>USB_STD_IF_DESC USB_CONFIG::ifCfg</definition>
+        <argsstring></argsstring>
+        <name>ifCfg</name>
+        <briefdescription>
+<para>Standard interface descriptor (control interface). </para>        </briefdescription>
+        <detaileddescription>
+<para>Standard mass-storage interface descriptor.</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1ab057a68f84648d4d33701c66a28c81f1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c" kindref="compound">UAC1_AC_HEADER_DESC</ref></type>
+        <definition>UAC1_AC_HEADER_DESC USB_CONFIG::adIfHdCfg</definition>
+        <argsstring></argsstring>
+        <name>adIfHdCfg</name>
+        <briefdescription>
+<para>UAC1 AC interface header descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1afe7c8875e4e148ad72bee241252a7664" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c" kindref="compound">UAC1_INPUT_TERMINAL_DESC</ref></type>
+        <definition>UAC1_INPUT_TERMINAL_DESC USB_CONFIG::ipTermCfg</definition>
+        <argsstring></argsstring>
+        <name>ipTermCfg</name>
+        <briefdescription>
+<para>UAC1 input terminal descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a450780266fcf6a587a4e6ea27785ff34" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c" kindref="compound">UAC1_FEATURE_UNIT_DESC</ref></type>
+        <definition>UAC1_FEATURE_UNIT_DESC USB_CONFIG::featureUnitDesc</definition>
+        <argsstring></argsstring>
+        <name>featureUnitDesc</name>
+        <briefdescription>
+<para>UAC1 feature unit descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1af949c75b3c8e90c194355297b570a7b4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c" kindref="compound">UAC1_OUTPUT_TERMINAL_DESC</ref></type>
+        <definition>UAC1_OUTPUT_TERMINAL_DESC USB_CONFIG::opTermCfg0</definition>
+        <argsstring></argsstring>
+        <name>opTermCfg0</name>
+        <briefdescription>
+<para>UAC1 output terminal descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a63176b94839147c541468129916d26ac" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___s_t_d___i_f___d_e_s_c" kindref="compound">USB_STD_IF_DESC</ref></type>
+        <definition>USB_STD_IF_DESC USB_CONFIG::altIfCfg</definition>
+        <argsstring></argsstring>
+        <name>altIfCfg</name>
+        <briefdescription>
+<para>Alternate setting interface descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1ad49dca41d3f6f70c5773272122df8169" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___s_t_d___i_f___d_e_s_c" kindref="compound">USB_STD_IF_DESC</ref></type>
+        <definition>USB_STD_IF_DESC USB_CONFIG::ifCfg1</definition>
+        <argsstring></argsstring>
+        <name>ifCfg1</name>
+        <briefdescription>
+<para>Standard interface descriptor (streaming interface). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a2bcfa3446659a33f8ae92c5e3095554e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___a_s___h_e_a_d_e_r___d_e_s_c" kindref="compound">UAC1_AS_HEADER_DESC</ref></type>
+        <definition>UAC1_AS_HEADER_DESC USB_CONFIG::audifCfg</definition>
+        <argsstring></argsstring>
+        <name>audifCfg</name>
+        <briefdescription>
+<para>UAC1 AS header descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a479e333b339cbf8c36f5d93ba25c6a0f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c" kindref="compound">UAC1_FORMAT_TYPE_I_DESC</ref></type>
+        <definition>UAC1_FORMAT_TYPE_I_DESC USB_CONFIG::typeICfg</definition>
+        <argsstring></argsstring>
+        <name>typeICfg</name>
+        <briefdescription>
+<para>UAC1 Type I format descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a9320b65d30705064f410dd7c250e27f6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___e_p___d_e_s_c" kindref="compound">USB_EP_DESC</ref></type>
+        <definition>USB_EP_DESC USB_CONFIG::audEpCfg</definition>
+        <argsstring></argsstring>
+        <name>audEpCfg</name>
+        <briefdescription>
+<para>USB endpoint descriptor for audio data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1ad4b55965a06e84b0f86f290279a2c09d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c" kindref="compound">UAC1_ISO_EP_DESC</ref></type>
+        <definition>UAC1_ISO_EP_DESC USB_CONFIG::audDataEpCfg</definition>
+        <argsstring></argsstring>
+        <name>audDataEpCfg</name>
+        <briefdescription>
+<para>UAC1 isochronous endpoint descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1a7182b2a4bd55e3adb68f83e8b9c0381a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___s_t_d___e_p___d_e_s_c" kindref="compound">USB_STD_EP_DESC</ref></type>
+        <definition>USB_STD_EP_DESC USB_CONFIG::epCfg1</definition>
+        <argsstring></argsstring>
+        <name>epCfg1</name>
+        <briefdescription>
+<para>First bulk endpoint configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.c" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_o_n_f_i_g_1aa14ca8705f83e64868752f247d5eca01" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_u_s_b___s_t_d___e_p___d_e_s_c" kindref="compound">USB_STD_EP_DESC</ref></type>
+        <definition>USB_STD_EP_DESC USB_CONFIG::epCfg2</definition>
+        <argsstring></argsstring>
+        <name>epCfg2</name>
+        <briefdescription>
+<para>Second bulk endpoint configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Combined USB full configuration descriptor structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="27">
+        <label>USB_CONFIG</label>
+        <link refid="struct_u_s_b___c_o_n_f_i_g"/>
+        <childnode refid="28" relation="usage">
+          <edgelabel>epCfg1</edgelabel>
+          <edgelabel>epCfg2</edgelabel>
+        </childnode>
+        <childnode refid="29" relation="usage">
+          <edgelabel>stdCfg</edgelabel>
+        </childnode>
+        <childnode refid="30" relation="usage">
+          <edgelabel>audEpCfg</edgelabel>
+        </childnode>
+        <childnode refid="31" relation="usage">
+          <edgelabel>typeICfg</edgelabel>
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>opTermCfg0</edgelabel>
+        </childnode>
+        <childnode refid="33" relation="usage">
+          <edgelabel>adIfHdCfg</edgelabel>
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>altIfCfg</edgelabel>
+          <edgelabel>ifCfg</edgelabel>
+          <edgelabel>ifCfg1</edgelabel>
+        </childnode>
+        <childnode refid="35" relation="usage">
+          <edgelabel>featureUnitDesc</edgelabel>
+        </childnode>
+        <childnode refid="36" relation="usage">
+          <edgelabel>audifCfg</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>ipTermCfg</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>audDataEpCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="38">
+        <label>UAC1_ISO_EP_DESC</label>
+        <link refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c"/>
+      </node>
+      <node id="31">
+        <label>UAC1_FORMAT_TYPE_I_DESC</label>
+        <link refid="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c"/>
+      </node>
+      <node id="36">
+        <label>UAC1_AS_HEADER_DESC</label>
+        <link refid="struct_u_a_c1___a_s___h_e_a_d_e_r___d_e_s_c"/>
+      </node>
+      <node id="33">
+        <label>UAC1_AC_HEADER_DESC</label>
+        <link refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c"/>
+      </node>
+      <node id="35">
+        <label>UAC1_FEATURE_UNIT_DESC</label>
+        <link refid="struct_u_a_c1___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c"/>
+      </node>
+      <node id="37">
+        <label>UAC1_INPUT_TERMINAL_DESC</label>
+        <link refid="struct_u_a_c1___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c"/>
+      </node>
+      <node id="34">
+        <label>USB_STD_IF_DESC</label>
+        <link refid="struct_u_s_b___s_t_d___i_f___d_e_s_c"/>
+      </node>
+      <node id="29">
+        <label>USB_STD_CFG_DESC</label>
+        <link refid="struct_u_s_b___s_t_d___c_f_g___d_e_s_c"/>
+      </node>
+      <node id="32">
+        <label>UAC1_OUTPUT_TERMINAL_DESC</label>
+        <link refid="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c"/>
+      </node>
+      <node id="30">
+        <label>USB_EP_DESC</label>
+        <link refid="struct_u_s_b___e_p___d_e_s_c"/>
+      </node>
+      <node id="28">
+        <label>USB_STD_EP_DESC</label>
+        <link refid="struct_u_s_b___s_t_d___e_p___d_e_s_c"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="433" bodyend="449"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1ab057a68f84648d4d33701c66a28c81f1" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>adIfHdCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a63176b94839147c541468129916d26ac" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>altIfCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1ad4b55965a06e84b0f86f290279a2c09d" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>audDataEpCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a9320b65d30705064f410dd7c250e27f6" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>audEpCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a2bcfa3446659a33f8ae92c5e3095554e" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>audifCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a7182b2a4bd55e3adb68f83e8b9c0381a" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>epCfg1</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1aa14ca8705f83e64868752f247d5eca01" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>epCfg2</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a450780266fcf6a587a4e6ea27785ff34" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>featureUnitDesc</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1acfa4cf32ddadffc97ed64c6ffd0fd858" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>ifCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1ad49dca41d3f6f70c5773272122df8169" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>ifCfg1</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1afe7c8875e4e148ad72bee241252a7664" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>ipTermCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1af949c75b3c8e90c194355297b570a7b4" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>opTermCfg0</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a246a92b9820b9a28a0dcdbb9dc4f5018" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>stdCfg</name></member>
+      <member refid="struct_u_s_b___c_o_n_f_i_g_1a479e333b339cbf8c36f5d93ba25c6a0f" prot="public" virt="non-virtual"><scope>USB_CONFIG</scope><name>typeICfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

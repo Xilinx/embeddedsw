@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___app_cfg" kind="struct" prot="public">
+    <compoundname>XCert_AppCfg</compoundname>
+    <includes local="no">xcert_genx509cert.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1aeb99596976a98ec1ebc96ae0c3427bc2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_AppCfg::IsSelfSigned</definition>
+        <argsstring></argsstring>
+        <name>IsSelfSigned</name>
+        <briefdescription>
+<para>Flag to check if self-signed certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a00e802e538ea05f91fe41aa8e194717d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_AppCfg::IsCsr</definition>
+        <argsstring></argsstring>
+        <name>IsCsr</name>
+        <briefdescription>
+<para>Flag to check if Certificate Signing Request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a3faddb321a497f5de652eadcd22ed4c2" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_AppCfg::SubjectPublicKey</definition>
+        <argsstring></argsstring>
+        <name>SubjectPublicKey</name>
+        <briefdescription>
+<para>Subject Public Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a8b81f19353a0b2983622a03519c8ebba" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_AppCfg::IssuerPrvtKey</definition>
+        <argsstring></argsstring>
+        <name>IssuerPrvtKey</name>
+        <briefdescription>
+<para>Issuer Private Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1adb135f8506ec104a58a9daf862e52b48" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_AppCfg::IssuerPublicKey</definition>
+        <argsstring></argsstring>
+        <name>IssuerPublicKey</name>
+        <briefdescription>
+<para>Issuer Public Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a929f9708123c6b9aa0ef113d75916e4e" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_AppCfg::FwHash</definition>
+        <argsstring></argsstring>
+        <name>FwHash</name>
+        <briefdescription>
+<para>Firmware Hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a64654e83261108e4db9edd323fd8f97e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cert___dme_response" kindref="compound">XCert_DmeResponse</ref> *</type>
+        <definition>XCert_DmeResponse* XCert_AppCfg::DmeResp</definition>
+        <argsstring></argsstring>
+        <name>DmeResp</name>
+        <briefdescription>
+<para>DME configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a740bf4c99d9fdee917588f398ee4cb02" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XCert_AppCfg::FwVersion</definition>
+        <argsstring></argsstring>
+        <name>FwVersion</name>
+        <briefdescription>
+<para>Version of application for which hash is provided. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___app_cfg_1a3db7e4c67f418c732dee0f45b3679cbf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_AppCfg::FwVersionLen</definition>
+        <argsstring></argsstring>
+        <name>FwVersionLen</name>
+        <briefdescription>
+<para>Length of version of application for which hash is provided. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the information required in the request to generate the X.509 certificate. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XCert_DmeChallenge</label>
+        <link refid="struct_x_cert___dme_challenge"/>
+      </node>
+      <node id="1">
+        <label>XCert_AppCfg</label>
+        <link refid="struct_x_cert___app_cfg"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>DmeResp</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XCert_DmeResponse</label>
+        <link refid="struct_x_cert___dme_response"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Dme</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="166" bodyend="176"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___app_cfg_1a64654e83261108e4db9edd323fd8f97e" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>DmeResp</name></member>
+      <member refid="struct_x_cert___app_cfg_1a929f9708123c6b9aa0ef113d75916e4e" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>FwHash</name></member>
+      <member refid="struct_x_cert___app_cfg_1a740bf4c99d9fdee917588f398ee4cb02" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>FwVersion</name></member>
+      <member refid="struct_x_cert___app_cfg_1a3db7e4c67f418c732dee0f45b3679cbf" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>FwVersionLen</name></member>
+      <member refid="struct_x_cert___app_cfg_1a00e802e538ea05f91fe41aa8e194717d" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>IsCsr</name></member>
+      <member refid="struct_x_cert___app_cfg_1aeb99596976a98ec1ebc96ae0c3427bc2" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>IsSelfSigned</name></member>
+      <member refid="struct_x_cert___app_cfg_1a8b81f19353a0b2983622a03519c8ebba" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>IssuerPrvtKey</name></member>
+      <member refid="struct_x_cert___app_cfg_1adb135f8506ec104a58a9daf862e52b48" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>IssuerPublicKey</name></member>
+      <member refid="struct_x_cert___app_cfg_1a3faddb321a497f5de652eadcd22ed4c2" prot="public" virt="non-virtual"><scope>XCert_AppCfg</scope><name>SubjectPublicKey</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

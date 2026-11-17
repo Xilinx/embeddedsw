@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__device__plat_8c" kind="file">
+    <compoundname>net/server/xpm_device_plat.c</compoundname>
+    <includes refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includes>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes refid="xpm__pmc_8h" local="yes">xpm_pmc.h</includes>
+    <incdepgraph>
+      <node id="3460">
+        <label>xpm_api.h</label>
+        <childnode refid="3443" relation="include">
+        </childnode>
+        <childnode refid="3444" relation="include">
+        </childnode>
+        <childnode refid="3453" relation="include">
+        </childnode>
+        <childnode refid="3449" relation="include">
+        </childnode>
+        <childnode refid="3461" relation="include">
+        </childnode>
+        <childnode refid="3462" relation="include">
+        </childnode>
+      </node>
+      <node id="3470">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="3443" relation="include">
+        </childnode>
+        <childnode refid="3444" relation="include">
+        </childnode>
+        <childnode refid="3471" relation="include">
+        </childnode>
+      </node>
+      <node id="3456">
+        <label>xpm_clock.h</label>
+        <childnode refid="3446" relation="include">
+        </childnode>
+        <childnode refid="3457" relation="include">
+        </childnode>
+        <childnode refid="3442" relation="include">
+        </childnode>
+        <childnode refid="3452" relation="include">
+        </childnode>
+      </node>
+      <node id="3457">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="3466">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="3447">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3442">
+        <label>xpm_node.h</label>
+        <childnode refid="3443" relation="include">
+        </childnode>
+        <childnode refid="3444" relation="include">
+        </childnode>
+        <childnode refid="3445" relation="include">
+        </childnode>
+        <childnode refid="3446" relation="include">
+        </childnode>
+      </node>
+      <node id="3468">
+        <label>xpm_core.h</label>
+        <childnode refid="3469" relation="include">
+        </childnode>
+        <childnode refid="3441" relation="include">
+        </childnode>
+        <childnode refid="3470" relation="include">
+        </childnode>
+      </node>
+      <node id="3449">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="3467">
+        <label>xpm_pmc.h</label>
+        <childnode refid="3468" relation="include">
+        </childnode>
+      </node>
+      <node id="3458">
+        <label>xpm_reset.h</label>
+        <childnode refid="3442" relation="include">
+        </childnode>
+        <childnode refid="3446" relation="include">
+        </childnode>
+        <childnode refid="3459" relation="include">
+        </childnode>
+        <childnode refid="3464" relation="include">
+        </childnode>
+      </node>
+      <node id="3471">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="3448">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3450">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3459">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="3460" relation="include">
+        </childnode>
+        <childnode refid="3453" relation="include">
+        </childnode>
+        <childnode refid="3444" relation="include">
+        </childnode>
+        <childnode refid="3463" relation="include">
+        </childnode>
+      </node>
+      <node id="3454">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="3453">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="3463">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="3465">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="3452">
+        <label>xpm_power.h</label>
+        <childnode refid="3453" relation="include">
+        </childnode>
+        <childnode refid="3442" relation="include">
+        </childnode>
+        <childnode refid="3454" relation="include">
+        </childnode>
+        <childnode refid="3455" relation="include">
+        </childnode>
+      </node>
+      <node id="3464">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="3469">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="3440">
+        <label>xpm_requirement.h</label>
+        <childnode refid="3441" relation="include">
+        </childnode>
+        <childnode refid="3459" relation="include">
+        </childnode>
+        <childnode refid="3466" relation="include">
+        </childnode>
+      </node>
+      <node id="3444">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3446">
+        <label>xpm_common.h</label>
+        <childnode refid="3444" relation="include">
+        </childnode>
+        <childnode refid="3447" relation="include">
+        </childnode>
+        <childnode refid="3448" relation="include">
+        </childnode>
+        <childnode refid="3449" relation="include">
+        </childnode>
+        <childnode refid="3450" relation="include">
+        </childnode>
+        <childnode refid="3451" relation="include">
+        </childnode>
+      </node>
+      <node id="3445">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3461">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="3443">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3451">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="3455">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="3462">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="3441">
+        <label>xpm_device.h</label>
+        <childnode refid="3442" relation="include">
+        </childnode>
+        <childnode refid="3452" relation="include">
+        </childnode>
+        <childnode refid="3456" relation="include">
+        </childnode>
+        <childnode refid="3458" relation="include">
+        </childnode>
+        <childnode refid="3465" relation="include">
+        </childnode>
+      </node>
+      <node id="3439">
+        <label>xpm_device_plat.c</label>
+        <link refid="net/server/xpm_device_plat.c"/>
+        <childnode refid="3440" relation="include">
+        </childnode>
+        <childnode refid="3441" relation="include">
+        </childnode>
+        <childnode refid="3467" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xpm__device__plat_8c_1a99c154ea1d0f801d394231b3f7c61820" prot="public" static="no">
+        <name>SD_DLL_DIV_MAP_RESET_VAL</name>
+        <initializer>(0x50505050U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__device__plat_8c_1a9e15be5be2d9ff236e888a227c22b3c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus ResetSdDllRegs</definition>
+        <argsstring>(const XPm_Device *Device)</argsstring>
+        <name>ResetSdDllRegs</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c" bodystart="12" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__device__plat_8c_1a184c2433dfa8494e6177cd80064a3d00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDevice_SdResetWorkaround</definition>
+        <argsstring>(const XPm_Device *Device)</argsstring>
+        <name>XPmDevice_SdResetWorkaround</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c" bodystart="45" bodyend="61"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SD_DLL_DIV_MAP_RESET_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x50505050U)</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>ResetSdDllRegs(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*Pmc<sp/>=<sp/>(<ref refid="struct_x_pm___pmc" kindref="compound">XPm_Pmc</ref><sp/>*)XPmDevice_GetById(PM_DEV_PMC_PROC);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Pmc)<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPM_INVALID_DEVICEID;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>Pmc-&gt;<ref refid="struct_x_pm___pmc_1ad38226d3084f1d2aa4ee33e78955ec33" kindref="member">PmcIouSlcrBaseAddr</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PM_DEV_SDIO_0<sp/>==<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SD_DLL_DIV_MAP_RESET_VAL);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmIn32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SD_DLL_DIV_MAP_RESET_VAL);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmOut32(BaseAddress<sp/>+<sp/>PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">XStatus<sp/>XPmDevice_SdResetWorkaround(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>As<sp/>per<sp/>EDT-1054057<sp/>SD/eMMC<sp/>DLL<sp/>modes<sp/>are<sp/>failing<sp/>after</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>SD<sp/>controller<sp/>reset.<sp/>Reset<sp/>SD_DLL_MAP<sp/>registers<sp/>after</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>reset<sp/>release<sp/>as<sp/>a<sp/>workaround.</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>SDIO1<sp/>is<sp/>EMMC<sp/>and<sp/>there<sp/>is<sp/>no<sp/>DLL_RESET<sp/>for<sp/>SDIO1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PM_DEV_SDIO_0<sp/>==<sp/>Device-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>ResetSdDllRegs(Device);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_device_plat.c"/>
+  </compounddef>
+</doxygen>

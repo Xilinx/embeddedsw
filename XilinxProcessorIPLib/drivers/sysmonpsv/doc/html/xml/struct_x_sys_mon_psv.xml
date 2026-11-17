@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sys_mon_psv" kind="struct" prot="public">
+    <compoundname>XSysMonPsv</compoundname>
+    <includes local="no">xsysmonpsv_driver.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_sys_mon_psv___config" kindref="compound">XSysMonPsv_Config</ref></type>
+        <definition>XSysMonPsv_Config XSysMonPsv::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Device configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1ga6aec1b9759a733a3efa72ccc9a872006" compoundref="xsysmonpsv_8c" startline="85" endline="114">XSysMonPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga6b989c85810f2390a4731ff676240825" compoundref="xsysmonpsv__common_8c" startline="330" endline="360">XSysMonPsv_ClearAlarm</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gae768764267b169d51b366abe2c67e6ad" compoundref="xsysmonpsv__services_8c" startline="106" endline="132">XSysMonPsv_DisableVoltageEvents</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga3348ae2305bb3210bfb33f4e0e8b2916" compoundref="xsysmonpsv_8c" startline="1404" endline="1429">XSysMonPsv_EnableSupplyAverage</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga27ee2cbf4e86a5e66f8ed744187a805f" compoundref="xsysmonpsv__services_8c" startline="64" endline="92">XSysMonPsv_EnableVoltageEvents</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga6fddf588f4735de4c0ec9264e5caefe5" compoundref="xsysmonpsv_8c" startline="604" endline="634">XSysMonPsv_IsAlarmCondition</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga988ca4d7c214731f9965743cf77a639a" compoundref="xsysmonpsv__common_8c" startline="290" endline="316">XSysMonPsv_IsAlarmPresent</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga1a8a2b14e79ab454da94587abe7a9264" compoundref="xsysmonpsv_8c" startline="559" endline="588">XSysMonPsv_IsNewData</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gaac931f4f5a2f878aff7e5fa181e59ec1" compoundref="xsysmonpsv_8c" startline="771" endline="796">XSysMonPsv_ReadAlarmConfig</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gaf4320c775170d738c09e9514f8ed0578" compoundref="xsysmonpsv__direct_8c" startline="55" endline="60">XSysMonPsv_ReadReg32</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gad9a7e5df580de9e887d2a32e63506af6" compoundref="xsysmonpsv_8c" startline="1123" endline="1145">XSysMonPsv_ReadSupplyProcessed</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gadae2aa6363d44df1bd536d34b057e005" compoundref="xsysmonpsv_8c" startline="1160" endline="1181">XSysMonPsv_ReadSupplyRaw</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga1a10fe00c1976a5bcbc37735c215f459" compoundref="xsysmonpsv_8c" startline="477" endline="502">XSysMonPsv_ReadSupplyThreshold</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gae7ecf0eb6d26336afedb0202fa16f2ed" compoundref="xsysmonpsv_8c" startline="517" endline="543">XSysMonPsv_ReadSupplyValue</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga8efd8eda79de2a197d32b0479452d172" compoundref="xsysmonpsv_8c" startline="814" endline="843">XSysMonPsv_SetAlarmConfig</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga77add816aad89432fc3b4f87f7671133" compoundref="xsysmonpsv__intr_8c" startline="221" endline="250">XSysMonPsv_SetNewDataIntSrc</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga78e37e43c6d1606da22b65dc0e3d9973" compoundref="xsysmonpsv_8c" startline="686" endline="707">XSysMonPsv_SetSupplyLowerThreshold</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga9dca84e2abf699d1a1a0d76acb073045" compoundref="xsysmonpsv_8c" startline="649" endline="670">XSysMonPsv_SetSupplyUpperThreshold</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga6198b0ca31176e635868334bd2ccaba2" compoundref="xsysmonpsv__common_8c" startline="126" endline="139">XSysMonPsv_SupplyOffset</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gadde53ad4ac2dfe9a1bdc4a62bb7dd1a2" compoundref="xsysmonpsv__common_8c" startline="153" endline="171">XSysMonPsv_SupplyThreshOffset</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga858045476b6a6087db4ca972b571177b" compoundref="xsysmonpsv__direct_8c" startline="71" endline="77">XSysMonPsv_WriteReg32</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon_psv_1afc8dbd1c93e2f311970d45e465c66770" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSysMonPsv::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Is the device ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__sysmonpsv__api_1ga6aec1b9759a733a3efa72ccc9a872006" compoundref="xsysmonpsv_8c" startline="85" endline="114">XSysMonPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga9f2a84fb9f82598f93afc703d3428794" compoundref="xsysmonpsv__intr_8c" startline="200" endline="208">XSysMonPsv_IntrClear</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gac5de90395d396c7106b2d4c1290fed3c" compoundref="xsysmonpsv__intr_8c" startline="145" endline="160">XSysMonPsv_IntrDisable</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gaf215e9abbe11273d3dd56283fed78093" compoundref="xsysmonpsv__intr_8c" startline="81" endline="96">XSysMonPsv_IntrEnable</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1gaf4ecf364c69e54ddaadd4b7d2706fcf8" compoundref="xsysmonpsv__intr_8c" startline="113" endline="130">XSysMonPsv_IntrGetEnabled</referencedby>
+        <referencedby refid="group__sysmonpsv__api_1ga7af4abdb0829809ed0a356cfcbefd7d5" compoundref="xsysmonpsv__intr_8c" startline="176" endline="187">XSysMonPsv_IntrGetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds the <ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>Allocate a variable of this type for the SYSMON device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XSysMonPsv</label>
+        <link refid="struct_x_sys_mon_psv"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XSysMonPsv_Config</label>
+        <link refid="struct_x_sys_mon_psv___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="115" bodyend="135"/>
+    <listofallmembers>
+      <member refid="struct_x_sys_mon_psv_1addcacffd66e527f65d6bfd53bcb44605" prot="public" virt="non-virtual"><scope>XSysMonPsv</scope><name>Config</name></member>
+      <member refid="struct_x_sys_mon_psv_1afc8dbd1c93e2f311970d45e465c66770" prot="public" virt="non-virtual"><scope>XSysMonPsv</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

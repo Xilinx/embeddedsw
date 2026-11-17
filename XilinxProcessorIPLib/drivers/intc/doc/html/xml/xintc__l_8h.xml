@@ -1,0 +1,969 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xintc__l_8h" kind="file">
+    <compoundname>xintc_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includedby refid="xintc_8h" local="yes">xintc.h</includedby>
+    <includedby refid="xintc_8c" local="yes">xintc.c</includedby>
+    <includedby refid="xintc__low__level__example_8c" local="yes">xintc_low_level_example.c</includedby>
+    <incdepgraph>
+      <node id="96">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="98">
+        <label>xil_io.h</label>
+      </node>
+      <node id="97">
+        <label>xstatus.h</label>
+      </node>
+      <node id="99">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="95">
+        <label>xil_types.h</label>
+      </node>
+      <node id="94">
+        <label>xintc_l.h</label>
+        <link refid="xintc_l.h"/>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="106">
+        <label>xintc_g.c</label>
+        <link refid="xintc__g_8c"/>
+      </node>
+      <node id="105">
+        <label>xintc_selftest.c</label>
+        <link refid="xintc__selftest_8c"/>
+      </node>
+      <node id="102">
+        <label>xintc.c</label>
+        <link refid="xintc_8c"/>
+      </node>
+      <node id="101">
+        <label>xintc.h</label>
+        <link refid="xintc_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>xintc_tapp_example.c</label>
+        <link refid="xintc__tapp__example_8c"/>
+      </node>
+      <node id="108">
+        <label>xintc_options.c</label>
+        <link refid="xintc__options_8c"/>
+      </node>
+      <node id="103">
+        <label>xintc_i.h</label>
+        <link refid="xintc__i_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>xintc_intr.c</label>
+        <link refid="xintc__intr_8c"/>
+      </node>
+      <node id="104">
+        <label>xintc_l.c</label>
+        <link refid="xintc__l_8c"/>
+      </node>
+      <node id="100">
+        <label>xintc_l.h</label>
+        <link refid="xintc_l.h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>xintc_example.c</label>
+        <link refid="xintc__example_8c"/>
+      </node>
+      <node id="110">
+        <label>xintc_low_level_example.c</label>
+        <link refid="xintc__low__level__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_intc___vector_table_entry" prot="public">XIntc_VectorTableEntry</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__intc_1ga2591750e740c97fb30372d7fd6fba9ca" prot="public" static="no">
+        <name>XINTC_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+<para>Include guard to prevent multiple inclusions of <ref refid="xintc__l_8h" kindref="compound">xintc_l.h</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga06a568b99545df04b6d14da3b04f1da0" prot="public" static="no">
+        <name>XPAR_XINTC_USE_DCR_BRIDGE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Set to 1 if Intc device uses a DCR bus bridge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga4c1ce88ba61c2e42054faaef40539556" prot="public" static="no">
+        <name>XIN_ISR_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="72" endline="143">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="166" endline="233">XIntc_SimulateIntr</referencedby>
+        <referencedby refid="group__intc_1ga7eb4ea6d2f66a5b3ca32b12ec68bc151" compoundref="xintc_8c" startline="1502" endline="1536">XIntc_TriggerSwIntr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga35c8f39e63012c1745df6faa39fc7335" prot="public" static="no">
+        <name>XIN_IPR_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Pending Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" prot="public" static="no">
+        <name>XIN_IER_OFFSET</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="840" endline="886">XIntc_Disable</referencedby>
+        <referencedby refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" compoundref="xintc_8c" startline="678" endline="736">XIntc_Disconnect</referencedby>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="753" endline="822">XIntc_Enable</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gaf12b5f9e19d0d544e8df96699db615bd" prot="public" static="no">
+        <name>XIN_IAR_OFFSET</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Acknowledge Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__intc_1ga8604653ac3a24bbb49c5fecb6a9ebfc7" compoundref="xintc_8c" startline="903" endline="942">XIntc_Acknowledge</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="72" endline="143">XIntc_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gae3d1be1c28564014eba1e6a7da5f870c" prot="public" static="no">
+        <name>XIN_SIE_OFFSET</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Offset of the Set Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga1f88cc0f7e4c0fec39f68d4926537461" prot="public" static="no">
+        <name>XIN_CIE_OFFSET</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Offset of the Clear Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga4704ae1ae4388d4b0187bb2ee79849d1" prot="public" static="no">
+        <name>XIN_IVR_OFFSET</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Vector Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga1286cdd3996f53dfe62703e6cd949b14" prot="public" static="no">
+        <name>XIN_MER_OFFSET</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>Offset of the Master Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="72" endline="143">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="166" endline="233">XIntc_SimulateIntr</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="517" endline="572">XIntc_Start</referencedby>
+        <referencedby refid="group__intc_1gafabb05cf2e5b62031524a33d1f88f405" compoundref="xintc_8c" startline="584" endline="599">XIntc_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga2dc06911d25b46e1ddad8e2938f95b4c" prot="public" static="no">
+        <name>XIN_IMR_OFFSET</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Mode Register (fast interrupt only). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="172" endline="321">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gac92a6982a2d3a0f70a310c6912392765" prot="public" static="no">
+        <name>XIN_ILR_OFFSET</name>
+        <initializer>36</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Level Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="172" endline="321">XIntc_DeviceInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gab675a4446c4ab809551ea73ad2ca962d" prot="public" static="no">
+        <name>XIN_IVAR_OFFSET</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Vector Address Register (Interrupt 0, fast interrupt only). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga331c817bd749ed8d875a48280c36f2b2" prot="public" static="no">
+        <name>XIN_IVEAR_OFFSET</name>
+        <initializer>0x200</initializer>
+        <briefdescription>
+<para>Offset of the Interrupt Vector Extended Address Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gaa03735b19bf625b8868dd3633554addf" prot="public" static="no">
+        <name>XIN_INT_MASTER_ENABLE_MASK</name>
+        <initializer>0x1UL</initializer>
+        <briefdescription>
+<para>Master interrupt enable mask; enables all interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="517" endline="572">XIntc_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga399d5f29c768070adc3ac98c54c6634d" prot="public" static="no">
+        <name>XIN_INT_HARDWARE_ENABLE_MASK</name>
+        <initializer>0x2UL</initializer>
+        <briefdescription>
+<para>Hardware interrupt enable mask; once set cannot be cleared. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="72" endline="143">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="166" endline="233">XIntc_SimulateIntr</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="517" endline="572">XIntc_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga0254df2003fdd1434617b0477224f748" prot="public" static="no">
+        <name>XIntc_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Read a 32-bit value from an interrupt controller register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="172" endline="321">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="840" endline="886">XIntc_Disable</referencedby>
+        <referencedby refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" compoundref="xintc_8c" startline="678" endline="736">XIntc_Disconnect</referencedby>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="753" endline="822">XIntc_Enable</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="72" endline="143">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="166" endline="233">XIntc_SimulateIntr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gac245f85f403876d4e23cf5e24439a66a" prot="public" static="no">
+        <name>XIntc_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Write a 32-bit value to an interrupt controller register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1ga8604653ac3a24bbb49c5fecb6a9ebfc7" compoundref="xintc_8c" startline="903" endline="942">XIntc_Acknowledge</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="840" endline="886">XIntc_Disable</referencedby>
+        <referencedby refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" compoundref="xintc_8c" startline="678" endline="736">XIntc_Disconnect</referencedby>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="753" endline="822">XIntc_Enable</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="72" endline="143">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="166" endline="233">XIntc_SimulateIntr</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="517" endline="572">XIntc_Start</referencedby>
+        <referencedby refid="group__intc_1gafabb05cf2e5b62031524a33d1f88f405" compoundref="xintc_8c" startline="584" endline="599">XIntc_Stop</referencedby>
+        <referencedby refid="group__intc_1ga7eb4ea6d2f66a5b3ca32b12ec68bc151" compoundref="xintc_8c" startline="1502" endline="1536">XIntc_TriggerSwIntr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gab970178f5ba9efc175efeaf4f0d0d028" prot="public" static="no">
+        <name>XIntc_Out64</name>
+        <initializer>Xil_Out64</initializer>
+        <briefdescription>
+<para>Write a 64-bit value to an interrupt controller register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1058" endline="1139">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="338" endline="485">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="482" endline="571">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1161" endline="1297">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gaf2aeec4bbc6e0c5ca2268e5d7c7dd5ce" prot="public" static="no">
+        <name>XIntc_MasterEnable</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" kindref="member">XIntc_Out32</ref>((BaseAddress) + <ref refid="group__intc_1ga1286cdd3996f53dfe62703e6cd949b14" kindref="member">XIN_MER_OFFSET</ref>, \
+		    <ref refid="group__intc_1gaa03735b19bf625b8868dd3633554addf" kindref="member">XIN_INT_MASTER_ENABLE_MASK</ref> | <ref refid="group__intc_1ga399d5f29c768070adc3ac98c54c6634d" kindref="member">XIN_INT_HARDWARE_ENABLE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Enable all interrupts in the Master Enable register of the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>The interrupt controller defaults to all interrupts disabled from reset such that this macro must be used to enable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__intc_1gaf2aeec4bbc6e0c5ca2268e5d7c7dd5ce" kindref="member">XIntc_MasterEnable(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga93be82188a607b0a13a13a96c5787bb6" prot="public" static="no">
+        <name>XIntc_MasterDisable</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" kindref="member">XIntc_Out32</ref>((BaseAddress) + <ref refid="group__intc_1ga1286cdd3996f53dfe62703e6cd949b14" kindref="member">XIN_MER_OFFSET</ref>, 0)</initializer>
+        <briefdescription>
+<para>Disable all interrupts in the Master Enable register of the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__intc_1ga93be82188a607b0a13a13a96c5787bb6" kindref="member">XIntc_MasterDisable(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gad35ec3b9b658f26d989b19783954683e" prot="public" static="no">
+        <name>XIntc_EnableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>EnableMask</defname></param>
+        <initializer><ref refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" kindref="member">XIntc_Out32</ref>((BaseAddress) + <ref refid="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" kindref="member">XIN_IER_OFFSET</ref>, (EnableMask))</initializer>
+        <briefdescription>
+<para>Enable specific interrupt(s) in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EnableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the enable register. Each bit of the mask corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Only the bits which are set in the mask will enable interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__intc_1gad35ec3b9b658f26d989b19783954683e" kindref="member">XIntc_EnableIntr(u32 BaseAddress, u32 EnableMask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga5df77bd3561a105f1d6b1837762db956" prot="public" static="no">
+        <name>XIntc_DisableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>DisableMask</defname></param>
+        <initializer><ref refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" kindref="member">XIntc_Out32</ref>((BaseAddress) + <ref refid="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" kindref="member">XIN_IER_OFFSET</ref>, ~(DisableMask))</initializer>
+        <briefdescription>
+<para>Disable specific interrupt(s) in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DisableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the enable register. Each bit of the mask corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Only the bits which are set in the mask will disable interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__intc_1ga5df77bd3561a105f1d6b1837762db956" kindref="member">XIntc_DisableIntr(u32 BaseAddress, u32 DisableMask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga4f699042980f8453713171959183fc49" prot="public" static="no">
+        <name>XIntc_AckIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>AckMask</defname></param>
+        <initializer><ref refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" kindref="member">XIntc_Out32</ref>((BaseAddress) + <ref refid="group__intc_1gaf12b5f9e19d0d544e8df96699db615bd" kindref="member">XIN_IAR_OFFSET</ref>, (AckMask))</initializer>
+        <briefdescription>
+<para>Acknowledge specific interrupt(s) in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AckMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the acknowledge register. Each bit of the mask corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Only the bits which are set in the mask will acknowledge interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__intc_1ga4f699042980f8453713171959183fc49" kindref="member">XIntc_AckIntr(u32 BaseAddress, u32 AckMask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="172" endline="321">XIntc_DeviceInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" prot="public" static="no">
+        <name>XIntc_GetIntrStatus</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>(<ref refid="group__intc_1ga0254df2003fdd1434617b0477224f748" kindref="member">XIntc_In32</ref>((BaseAddress) + <ref refid="group__intc_1ga4c1ce88ba61c2e42054faaef40539556" kindref="member">XIN_ISR_OFFSET</ref>) &amp; \
+	 <ref refid="group__intc_1ga0254df2003fdd1434617b0477224f748" kindref="member">XIntc_In32</ref>((BaseAddress) + <ref refid="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" kindref="member">XIN_IER_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>Get the interrupt status from the interrupt controller which indicates which interrupts are active and enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit contents of the interrupt status register. Each bit corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Bits which are set indicate an active interrupt which is also enabled.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" kindref="member">XIntc_GetIntrStatus(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="267" bodyend="-1"/>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="172" endline="321">XIntc_DeviceInterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__intc_1gab333e5826535071fe60f13b70b6e56dd" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XFastInterruptHandler)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>XFastInterruptHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__intc_1gabf91e27eb2cc036f84df2e15d14343a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_LowLevelInterruptHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIntc_LowLevelInterruptHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Low-level interrupt handler for the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler is connected to the processor exception handling code and dispatches interrupts to registered interrupt service routines. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="283" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_DeviceInterruptHandler</definition>
+        <argsstring>(void *DeviceId)</argsstring>
+        <name>XIntc_DeviceInterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>Serves as the primary interrupt handler for the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to the interrupt source such that is called when an interrupt of the interrupt controller is active. It will resolve which interrupts are active and enabled and call the appropriate interrupt handler. It uses the AckBeforeService flag in the configuration data to determine when to acknowledge the interrupt. Highest priority interrupts are serviced first. This function assumes that an interrupt vector table has been previously initialized.It does not verify that entries in the table are valid before calling an interrupt handler. In Cascade mode this function calls XIntc_CascadeHandler to handle interrupts of Master and Slave controllers. This functions also handles interrupts nesting by saving and restoring link register of Microblaze and Interrupt Level register of interrupt controller properly. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the zero-based device ID defined in xparameters.h of the interrupting interrupt controller. It is used as a direct index into the configuration data, which contains the vector table for the interrupt controller. Note that even though the argument is a void pointer, the value is not a pointer but the actual device ID. The void pointer type is necessary to meet the XInterruptHandler typedef for interrupt handlers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>For nested interrupts, this function saves microblaze r14 register on entry and restores on exit. This is required since compiler does not support nesting. This function enables Microblaze interrupts after blocking further interrupts from the current interrupt number and interrupts below current interrupt priority by writing to Interrupt Level Register of INTC on entry. On exit, it disables microblaze interrupts and restores ILR register default value(0xFFFFFFFF)back. It is recommended to increase STACK_SIZE in linker script for nested interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="172" bodyend="321"/>
+        <references refid="struct_x_intc___config_1a172cd1cd58904502d6f3cec734db1d6b" compoundref="xintc_8h" startline="316">XIntc_Config::AckBeforeService</references>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="315">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc___config_1ac894d2be382d08d83821c1672615d4d4" compoundref="xintc_8h" startline="318">XIntc_Config::FastIntr</references>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="331">XIntc_Config::HandlerTable</references>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="325">XIntc_Config::IntcType</references>
+        <references refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="443" endline="462">LookupConfigByBaseAddress</references>
+        <references refid="struct_x_intc___config_1a6e2fc4f937193eb9e665a2e66af97db2" compoundref="xintc_8h" startline="320">XIntc_Config::NumberofIntrs</references>
+        <references refid="struct_x_intc___config_1a85d5d557aa6619757848d754ca096552" compoundref="xintc_8h" startline="332">XIntc_Config::NumberofSwIntrs</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="322">XIntc_Config::Options</references>
+        <references refid="group__intc_1gac92a6982a2d3a0f70a310c6912392765" compoundref="xintc__l_8h" startline="122">XIN_ILR_OFFSET</references>
+        <references refid="group__intc_1ga2dc06911d25b46e1ddad8e2938f95b4c" compoundref="xintc__l_8h" startline="121">XIN_IMR_OFFSET</references>
+        <references refid="group__intc_1ga6787fa567536384f6133b8ce90cf22f1" compoundref="xintc_8h" startline="271">XIN_INTC_NOCASCADE</references>
+        <references refid="group__intc_1gaf4bce8e2035f391b702686e49c66c839" compoundref="xintc_8h" startline="252">XIN_SVC_SGL_ISR_OPTION</references>
+        <references refid="group__intc_1ga4f699042980f8453713171959183fc49" compoundref="xintc__l_8h" startline="247">XIntc_AckIntr</references>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="71">XIntc_ConfigTable</references>
+        <references refid="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" compoundref="xintc__l_8h" startline="267">XIntc_GetIntrStatus</references>
+        <references refid="group__intc_1ga0254df2003fdd1434617b0477224f748" compoundref="xintc__l_8h" startline="157">XIntc_In32</references>
+        <referencedby refid="xintc__tapp__example_8c_1a61cc1c8516478304c6968a45716fef8d" compoundref="xintc__tapp__example_8c" startline="199" endline="251">IntcInterruptSetup</referencedby>
+        <referencedby refid="xintc__low__level__example_8c_1a0838d944ebf56cbdfce4d481eab585e8" compoundref="xintc__low__level__example_8c" startline="257" endline="302">SetupInterruptSystem</referencedby>
+        <referencedby refid="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" compoundref="xintc__intr_8c" startline="132" endline="148">XIntc_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaf090e932e35ede6c8cffe76e785de835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_SetIntrSvcOption</definition>
+        <argsstring>(UINTPTR BaseAddress, int Option)</argsstring>
+        <name>XIntc_SetIntrSvcOption</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Option</declname>
+        </param>
+        <briefdescription>
+<para>Set the interrupt service option, which can configure the driver so that it services only a single interrupt at a time when an interrupt occurs, or services all pending interrupts when an interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default behavior when using the driver interface given in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> file is to service only a single interrupt, whereas the default behavior when using the driver interface given in this file is to service all outstanding interrupts when an interrupt occurs. In Cascade mode same Option is set to Slave controllers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique identifier for a device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Option</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is XIN_SVC_SGL_ISR_OPTION if you want only a single interrupt serviced when an interrupt occurs, or XIN_SVC_ALL_ISRS_OPTION if you want all pending interrupts serviced when an interrupt occurs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Note that this function has no effect if the input base address is invalid. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="343" bodyend="368"/>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="325">XIntc_Config::IntcType</references>
+        <references refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="443" endline="462">LookupConfigByBaseAddress</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="322">XIntc_Config::Options</references>
+        <references refid="group__intc_1ga6787fa567536384f6133b8ce90cf22f1" compoundref="xintc_8h" startline="271">XIN_INTC_NOCASCADE</references>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="71">XIntc_ConfigTable</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="1005" endline="1028">XIntc_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_RegisterHandler</definition>
+        <argsstring>(UINTPTR BaseAddress, int InterruptId, XInterruptHandler Handler, void *CallBackRef)</argsstring>
+        <name>XIntc_RegisterHandler</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>InterruptId</declname>
+        </param>
+        <param>
+          <type>XInterruptHandler</type>
+          <declname>Handler</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Register a handler function for a specific interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The vector table of the interrupt controller is updated, overwriting any previous handler. The handler function will be called when an interrupt occurs for the given interrupt ID.</para><para>This function can also be used to remove a handler from the vector table by passing in the XIntc_DefaultHandler() as the handler and NULL as the callback reference. In Cascade mode Interrupt Id is used to set Handler for corresponding Slave Controller</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the interrupt controller whose vector table will be modified. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">InterruptId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID to be associated with the input handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the function pointer that will be added to the vector table for the given interrupt ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the argument that will be passed to the new handler function when it is called. This is user-specific.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This function has no effect if the input base address is invalid. Following fields in <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> impacts interrupt handling,<orderedlist>
+<listitem><para>AckBeforeService: If 1, primary interrupt handler acks interrupt before servicing it, else it would ack interrupt after servicing it (after calling interrupt ID specific handler)</para></listitem><listitem><para>Options: XIN_SVC_SGL_ISR_OPTION - primary interrupt handler services the highest priority pending interrupt and return XIN_SVC_ALL_ISRS_OPTION - primary interrupt handler services all of the pending interrupts and then return </para></listitem></orderedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="406" bodyend="428"/>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="331">XIntc_Config::HandlerTable</references>
+        <references refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="443" endline="462">LookupConfigByBaseAddress</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="1005" endline="1028">XIntc_LookupConfig</references>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="167" endline="247">IntcLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_RegisterFastHandler</definition>
+        <argsstring>(UINTPTR BaseAddress, u8 Id, XFastInterruptHandler FastHandler)</argsstring>
+        <name>XIntc_RegisterFastHandler</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>XFastInterruptHandler</type>
+          <declname>FastHandler</declname>
+        </param>
+        <briefdescription>
+<para>Register a fast handler function for a specific interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The handler function will be called when an interrupt occurs for the given interrupt ID. In Cascade mode Interrupt Id is used to set Handler for corresponding Slave Controller</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the interrupt controller whose vector table will be modified. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID to be associated with the input handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FastHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the function pointer that will be called when interrupt occurs</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Note that this function has no effect if the input base address is invalid. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; Get the Enabled Interrupts </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="482" bodyend="571"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="315">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc___config_1a630c8585f41eea348ae0d6d134b0ad8f" compoundref="xintc_8h" startline="321">XIntc_Config::VectorAddrWidth</references>
+        <references refid="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" compoundref="xintc__l_8h" startline="115">XIN_IER_OFFSET</references>
+        <references refid="group__intc_1ga2dc06911d25b46e1ddad8e2938f95b4c" compoundref="xintc__l_8h" startline="121">XIN_IMR_OFFSET</references>
+        <references refid="group__intc_1gab675a4446c4ab809551ea73ad2ca962d" compoundref="xintc__l_8h" startline="123">XIN_IVAR_OFFSET</references>
+        <references refid="group__intc_1ga331c817bd749ed8d875a48280c36f2b2" compoundref="xintc__l_8h" startline="124">XIN_IVEAR_OFFSET</references>
+        <references refid="group__intc_1ga0254df2003fdd1434617b0477224f748" compoundref="xintc__l_8h" startline="157">XIntc_In32</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="1005" endline="1028">XIntc_LookupConfig</references>
+        <references refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" compoundref="xintc__l_8h" startline="158">XIntc_Out32</references>
+        <references refid="group__intc_1gab970178f5ba9efc175efeaf4f0d0d028" compoundref="xintc__l_8h" startline="159">XIntc_Out64</references>
+        <references refid="group__intc_1ga9d6cfdfe9914f029b5a88d014400188e" compoundref="xintc_8h" startline="283">XINTC_STANDARD_VECTOR_ADDRESS_WIDTH</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#ifndef<sp/>XINTC_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__intc_1ga2591750e740c97fb30372d7fd6fba9ca" refkind="member"><highlight class="preprocessor">#define<sp/>XINTC_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/>XPAR_XINTC_USE_DCR_BRIDGE<sp/>has<sp/>to<sp/>be<sp/>set<sp/>to<sp/>1<sp/>if<sp/>the<sp/>Intc<sp/>device<sp/>will<sp/>be</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*<sp/>accessed<sp/>through<sp/>a<sp/>DCR<sp/>bus<sp/>connected<sp/>to<sp/>a<sp/>bridge.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="group__intc_1ga06a568b99545df04b6d14da3b04f1da0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XINTC_USE_DCR_BRIDGE<sp/>0<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#if<sp/>((defined<sp/>(XPAR_XINTC_USE_DCR)<sp/>&amp;&amp;<sp/>XPAR_XINTC_USE_DCR<sp/>!=<sp/>0)<sp/>||<sp/>(XPAR_XINTC_USE_DCR_BRIDGE<sp/>!=<sp/>0))</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xio_dcr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>define<sp/>the<sp/>offsets<sp/>from<sp/>the<sp/>base<sp/>address<sp/>for<sp/>all<sp/>the<sp/>registers<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>interrupt<sp/>controller,<sp/>some<sp/>registers<sp/>may<sp/>be<sp/>optional<sp/>in<sp/>the<sp/>hardware<sp/>device</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>((defined<sp/>(XPAR_XINTC_USE_DCR)<sp/>&amp;&amp;<sp/>XPAR_XINTC_USE_DCR<sp/>!=<sp/>0)<sp/>||<sp/>(XPAR_XINTC_USE_DCR_BRIDGE<sp/>!=<sp/>0))</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIN_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XIN_IPR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Pending<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_IAR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Acknowledge<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_SIE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_CIE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_IVR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Vector<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_MER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Master<sp/>Enable<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_IMR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Mode<sp/>Register<sp/>,<sp/>this<sp/>is<sp/>present</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>only<sp/>for<sp/>Fast<sp/>Interrupt<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_IVAR_OFFSET<sp/><sp/><sp/><sp/><sp/>64<sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Vector<sp/>Address<sp/>Register</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Interrupt<sp/>0<sp/>Offset,<sp/>this<sp/>is<sp/>present</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only<sp/>for<sp/>Fast<sp/>Interrupt<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>((XPAR_XINTC_USE_DCR<sp/>!=<sp/>0)<sp/>||<sp/>(XPAR_XINTC_USE_DCR_BRIDGE<sp/>!=<sp/>0))<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="group__intc_1ga4c1ce88ba61c2e42054faaef40539556" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIN_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="group__intc_1ga35c8f39e63012c1745df6faa39fc7335" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IPR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="group__intc_1gaf12b5f9e19d0d544e8df96699db615bd" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IAR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="group__intc_1gae3d1be1c28564014eba1e6a7da5f870c" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_SIE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="group__intc_1ga1f88cc0f7e4c0fec39f68d4926537461" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_CIE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="group__intc_1ga4704ae1ae4388d4b0187bb2ee79849d1" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IVR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="group__intc_1ga1286cdd3996f53dfe62703e6cd949b14" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_MER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>28<sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="group__intc_1ga2dc06911d25b46e1ddad8e2938f95b4c" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IMR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>32<sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="group__intc_1gac92a6982a2d3a0f70a310c6912392765" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_ILR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>36<sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="group__intc_1gab675a4446c4ab809551ea73ad2ca962d" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IVAR_OFFSET<sp/><sp/><sp/><sp/><sp/>0x100<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="group__intc_1ga331c817bd749ed8d875a48280c36f2b2" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_IVEAR_OFFSET<sp/><sp/><sp/><sp/>0x200<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>((XPAR_XINTC_USE_DCR<sp/>!=<sp/>0)<sp/>||<sp/>(XPAR_XINTC_USE_DCR_BRIDGE<sp/>!=<sp/>0))<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Bit<sp/>definitions<sp/>for<sp/>the<sp/>bits<sp/>of<sp/>the<sp/>MER<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="group__intc_1gaa03735b19bf625b8868dd3633554addf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIN_INT_MASTER_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x1UL<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group__intc_1ga399d5f29c768070adc3ac98c54c6634d" refkind="member"><highlight class="preprocessor">#define<sp/>XIN_INT_HARDWARE_ENABLE_MASK<sp/><sp/><sp/><sp/>0x2UL<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>data<sp/>type<sp/>defines<sp/>each<sp/>entry<sp/>in<sp/>an<sp/>interrupt<sp/>vector<sp/>table.</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/>*<sp/>The<sp/>callback<sp/>reference<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>interrupting<sp/>device</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/>*<sp/>for<sp/>the<sp/>driver<sp/>interface<sp/>given<sp/>in<sp/>this<sp/>file<sp/>and<sp/>an<sp/>instance<sp/>pointer<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/>*<sp/>driver<sp/>interface<sp/>given<sp/>in<sp/>xintc.h<sp/>file.</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XInterruptHandler<sp/>Handler;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/>XIntc_VectorTableEntry;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XFastInterruptHandler)<sp/>(void);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/>*<sp/>Define<sp/>the<sp/>appropriate<sp/>I/O<sp/>access<sp/>method<sp/>to<sp/>memory<sp/>mapped<sp/>I/O<sp/>or<sp/>DCR.</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>((defined<sp/>(XPAR_XINTC_USE_DCR)<sp/>&amp;&amp;<sp/>XPAR_XINTC_USE_DCR<sp/>!=<sp/>0)<sp/>||<sp/>(XPAR_XINTC_USE_DCR_BRIDGE<sp/>!=<sp/>0))</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIntc_In32<sp/><sp/>XIo_DcrIn<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XIntc_Out32<sp/>XIo_DcrOut<sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="group__intc_1ga0254df2003fdd1434617b0477224f748" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIntc_In32<sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__intc_1gac245f85f403876d4e23cf5e24439a66a" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_Out32<sp/>Xil_Out32<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__intc_1gab970178f5ba9efc175efeaf4f0d0d028" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_Out64<sp/>Xil_Out64<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="176" refid="group__intc_1gaf2aeec4bbc6e0c5ca2268e5d7c7dd5ce" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_MasterEnable(BaseAddress)<sp/>\</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Out32((BaseAddress)<sp/>+<sp/>XIN_MER_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIN_INT_MASTER_ENABLE_MASK<sp/>|<sp/>XIN_INT_HARDWARE_ENABLE_MASK)</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="192" refid="group__intc_1ga93be82188a607b0a13a13a96c5787bb6" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_MasterDisable(BaseAddress)<sp/>\</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Out32((BaseAddress)<sp/>+<sp/>XIN_MER_OFFSET,<sp/>0)</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="210" refid="group__intc_1gad35ec3b9b658f26d989b19783954683e" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_EnableIntr(BaseAddress,<sp/>EnableMask)<sp/>\</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Out32((BaseAddress)<sp/>+<sp/>XIN_IER_OFFSET,<sp/>(EnableMask))</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="228" refid="group__intc_1ga5df77bd3561a105f1d6b1837762db956" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_DisableIntr(BaseAddress,<sp/>DisableMask)<sp/>\</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Out32((BaseAddress)<sp/>+<sp/>XIN_IER_OFFSET,<sp/>~(DisableMask))</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="247" refid="group__intc_1ga4f699042980f8453713171959183fc49" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_AckIntr(BaseAddress,<sp/>AckMask)<sp/>\</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Out32((BaseAddress)<sp/>+<sp/>XIN_IAR_OFFSET,<sp/>(AckMask))</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="267" refid="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" refkind="member"><highlight class="preprocessor">#define<sp/>XIntc_GetIntrStatus(BaseAddress)<sp/>\</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XIntc_In32((BaseAddress)<sp/>+<sp/>XIN_ISR_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_In32((BaseAddress)<sp/>+<sp/>XIN_IER_OFFSET))</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="274"><highlight class="comment"><sp/>*<sp/>Interrupt<sp/>controller<sp/>handlers,<sp/>to<sp/>be<sp/>connected<sp/>to<sp/>processor<sp/>exception</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/>*<sp/>handling<sp/>code.</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="283"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__intc_1gabf91e27eb2cc036f84df2e15d14343a8" kindref="member">XIntc_LowLevelInterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*DeviceId);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Various<sp/>configuration<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" kindref="member">XIntc_SetIntrSvcOption</ref>(UINTPTR<sp/>BaseAddress,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Option);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" kindref="member">XIntc_RegisterHandler</ref>(UINTPTR<sp/>BaseAddress,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>InterruptId,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XInterruptHandler<sp/>Handler,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" kindref="member">XIntc_RegisterFastHandler</ref>(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>Id,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFastInterruptHandler<sp/>FastHandler);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h"/>
+  </compounddef>
+</doxygen>

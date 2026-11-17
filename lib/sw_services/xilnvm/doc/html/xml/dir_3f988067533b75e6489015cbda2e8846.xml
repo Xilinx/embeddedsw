@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3f988067533b75e6489015cbda2e8846" kind="dir">
+    <compoundname>versal_net</compoundname>
+    <innerfile refid="xnvm__efuse__plat_8c">xnvm_efuse_plat.c</innerfile>
+    <innerfile refid="xnvm__efuse__plat_8h">xnvm_efuse_plat.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/versal_net/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspips__slave__polled__example" kind="group">
+    <compoundname>xspips_slave_polled_example</compoundname>
+    <title>Xspips_slave_polled_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspips__slave__polled__example_1ga89f082d0d704dbe05034332e19c41bc2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref></type>
+        <definition>XSpiPs SpiInstance</definition>
+        <argsstring></argsstring>
+        <name>SpiInstance</name>
+        <briefdescription>
+<para>SPI driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__slave__polled__example_1ga7b08676f1598f0540428243a3ea4c887" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[MAX_DATA]</definition>
+        <argsstring>[MAX_DATA]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Data received from the master. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__slave__polled__example_1gaae19535e6e0c87f0a0386a2b25602b69" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[MAX_DATA]</definition>
+        <argsstring>[MAX_DATA]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Data to send to the master. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsSlavePolledExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>SpiPsSlavePolledExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> device driver in Slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function reads data from a SPI Master and echoes it back to the Master.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if not successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up based on DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="161" bodyend="201"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="group__xspips__slave__polled__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" compoundref="xspips__slave__polled__example_8c" startline="72">MAX_DATA</references>
+        <references refid="group__xspips__eeprom__intr__example_1ga5faf644bedc2f77c4dc8631d5a5a0482" compoundref="xspips__eeprom__intr__example_8c" startline="198">ReadBuffer</references>
+        <references refid="group__xspips__slave__polled__example_1gad922278cd1812d8a566d5b9da390681f" compoundref="xspips__slave__polled__example_8c" startline="74">UNIQUE_VALUE</references>
+        <references refid="group__xspips__eeprom__intr__example_1gaaf9b16ecdabdeade00c3e9616cd7e560" compoundref="xspips__eeprom__intr__example_8c" startline="199">WriteBuffer</references>
+        <references refid="group__spips__api_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</references>
+        <references refid="group__spips_1gaec4120d0ba36c1bcf7b17520ea43d761" compoundref="xspips__sinit_8c" startline="94" endline="108">XSpiPs_LookupConfig</references>
+        <references refid="group__spips__api_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</references>
+        <referencedby refid="group__xspips__slave__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspips__slave__polled__example_8c" startline="113" endline="134">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__slave__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the SPI Slave Example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="113" bodyend="134"/>
+        <references refid="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="161" endline="201">SpiPsSlavePolledExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspips__slave__polled__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" prot="public" static="no">
+        <name>MAX_DATA</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Max data size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="161" endline="201">SpiPsSlavePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__slave__polled__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0xAA</initializer>
+        <briefdescription>
+<para>Unique test data value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_slave_polled_example.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xspips__slave__polled__example_1ga49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="161" endline="201">SpiPsSlavePolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

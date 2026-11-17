@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pm_pll_context" kind="struct" prot="public">
+    <compoundname>PmPllContext</compoundname>
+    <includes local="no">xpm_pll.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pm_pll_context_1a82e4958dc757d8de6c8de8b5591f5e97" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PmPllContext::Ctrl</definition>
+        <argsstring></argsstring>
+        <name>Ctrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pm_pll_context_1a5f910a06e48dabd16b0d9644f788a0bb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PmPllContext::Cfg</definition>
+        <argsstring></argsstring>
+        <name>Cfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pm_pll_context_1acb6f92b9890f87d98b8e0953901af16d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 PmPllContext::Frac</definition>
+        <argsstring></argsstring>
+        <name>Frac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pm_pll_context_1a86ed1b85f6b767e79c11c3f89b3db974" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 PmPllContext::Flag</definition>
+        <argsstring></argsstring>
+        <name>Flag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_pm_pll_context" kindref="compound">PmPllContext</ref> - Structure for saving context of PLL registers. </para>    </briefdescription>
+    <detaileddescription>
+<para><verbatim>         Contains variable to store default content of:
+</verbatim>  Control register  Configuration register  Fractional control register  Indicates context saved or not</para><para>Note: context of the PLL is saved when PM framework suspends a PLL (when no node requires PLL to be locked). </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h" bodystart="48" bodyend="53"/>
+    <listofallmembers>
+      <member refid="struct_pm_pll_context_1a5f910a06e48dabd16b0d9644f788a0bb" prot="public" virt="non-virtual"><scope>PmPllContext</scope><name>Cfg</name></member>
+      <member refid="struct_pm_pll_context_1a82e4958dc757d8de6c8de8b5591f5e97" prot="public" virt="non-virtual"><scope>PmPllContext</scope><name>Ctrl</name></member>
+      <member refid="struct_pm_pll_context_1a86ed1b85f6b767e79c11c3f89b3db974" prot="public" virt="non-virtual"><scope>PmPllContext</scope><name>Flag</name></member>
+      <member refid="struct_pm_pll_context_1acb6f92b9890f87d98b8e0953901af16d" prot="public" virt="non-virtual"><scope>PmPllContext</scope><name>Frac</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1737 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdsi2rx__hw_8h" kind="file">
+    <compoundname>xdsi2rx_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xdsi2rx_8h" local="yes">xdsi2rx.h</includedby>
+    <includedby refid="xdsi2rx__intr_8c" local="yes">xdsi2rx_intr.c</includedby>
+    <incdepgraph>
+      <node id="42">
+        <label>xil_io.h</label>
+      </node>
+      <node id="41">
+        <label>xdsi2rx_hw.h</label>
+        <link refid="xdsi2rx_hw.h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="48">
+        <label>xdsi2rx_selftest.c</label>
+        <link refid="xdsi2rx__selftest_8c"/>
+      </node>
+      <node id="46">
+        <label>xdsi2rx_g.c</label>
+      </node>
+      <node id="49">
+        <label>xdsi2rx_sinit.c</label>
+        <link refid="xdsi2rx__sinit_8c"/>
+      </node>
+      <node id="50">
+        <label>xdsi2_example_selftest.c</label>
+      </node>
+      <node id="43">
+        <label>xdsi2rx_hw.h</label>
+        <link refid="xdsi2rx_hw.h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xdsi2rx_intr.c</label>
+        <link refid="xdsi2rx__intr_8c"/>
+      </node>
+      <node id="45">
+        <label>xdsi2rx.c</label>
+        <link refid="xdsi2rx_8c"/>
+      </node>
+      <node id="44">
+        <label>xdsi2rx.h</label>
+        <link refid="xdsi2rx_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Device registers</header>
+      <description><para>Register sets of MIPI DSI Rx </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1ga414878c04061bbb96896259e36fb1334" prot="public" static="no">
+        <name>XDSI2RX_CCR_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Core Configuration Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__dsi2rx_1ga9633779add7d621518de100c3361bb41" compoundref="xdsi2rx__selftest_8c" startline="62" endline="80">XDsi2Rx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga55212a0ff76d2548a051de7bd1276f6d" prot="public" static="no">
+        <name>XDSI2RX_PCR_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Protocol Configuration Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" compoundref="xdsi2rx_8c" startline="153" endline="166">XDsi2Rx_DefaultConfigure</referencedby>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="216" endline="230">XDsi2Rx_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3c5b887e5239e7aef366dd7e8c2acba0" prot="public" static="no">
+        <name>XDSI2RX_VER_OFFSET</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Version Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gafb4823dc1bca449c1456390a9b845e3f" prot="public" static="no">
+        <name>XDSI2RX_GIER_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Global Interrupt Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga184c7a9684a513f3a00d31e5f443ca25" prot="public" static="no">
+        <name>XDSI2RX_ISR_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga5a585ebcf96d1e33deb3d007c0d76d53" prot="public" static="no">
+        <name>XDSI2RX_IER_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gad853a581637eb442c83b22d68ec48cdb" prot="public" static="no">
+        <name>XDSI2RX_GSPR_OFFSET</name>
+        <initializer>0x00000030</initializer>
+        <briefdescription>
+<para>Generic Short Packet Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga5af3f37be42279e87b6868008a3e8bf7" prot="public" static="no">
+        <name>XDSI2RX_DCR_OFFSET</name>
+        <initializer>0x00000034</initializer>
+        <briefdescription>
+<para>Debug Counter register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Core configuration register masks and shifts</header>
+      <description><para>This register is used for the enabling/disabling and resetting the core of DSI Rx Controller </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1ga4ac0cb6795213365f1a6734e71da5e8b" prot="public" static="no">
+        <name>XDSI2RX_CCR_INIT_DONE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Init Done bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga075d5385c99ffa756f513112a49c5e34" prot="public" static="no">
+        <name>XDSI2RX_CCR_CRREADY_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Controller Ready bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gad3ab4ea50f348f204419f936f06be367" prot="public" static="no">
+        <name>XDSI2RX_CCR_SOFTRESET_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Soft Reset core bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga16cf3380173e61542d797f0b9c4a883a" prot="public" static="no">
+        <name>XDSI2RX_CCR_COREENB_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Enable/Disable core Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__dsi2rx_1ga9633779add7d621518de100c3361bb41" compoundref="xdsi2rx__selftest_8c" startline="62" endline="80">XDsi2Rx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga057e1f6a0df07c8d2564e02980a8129a" prot="public" static="no">
+        <name>XDSI2RX_CCR_INIT_DONE_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Shift for Init Done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga466c00e191c9b6d1a37b96affce82fc2" prot="public" static="no">
+        <name>XDSI2RX_CCR_CRREADY_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Shift for Controller Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3747700a3b2b794227a22c35ea4c6d4f" prot="public" static="no">
+        <name>XDSI2RX_CCR_SOFTRESET_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Shift for Soft reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga1aa2477d51817223016084e383df9a27" prot="public" static="no">
+        <name>XDSI2RX_CCR_COREENB_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift for Core Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__dsi2rx_1ga9633779add7d621518de100c3361bb41" compoundref="xdsi2rx__selftest_8c" startline="62" endline="80">XDsi2Rx_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and shifts of Protocol control register</header>
+      <description><para>for DSI RX IP.</para><para>This register reports the number of lanes configured during core generation and number of lanes actively used. </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1ga9870549ee3345403daeaaa997142261e" prot="public" static="no">
+        <name>XDSI2RX_PCR_MAXLANES_MASK</name>
+        <initializer>0x000C0000</initializer>
+        <briefdescription>
+<para>MAX LANES Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga7c6e3e70b7c7524a0d2a51ae4a575f5f" prot="public" static="no">
+        <name>XDSI2RX_PCR_ERRDATA_TYPE_MASK</name>
+        <initializer>0x0003F000</initializer>
+        <briefdescription>
+<para>ERROR DATA TYPE Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga6a8dd1b0f98f46dc9028ba4ccb649d00" prot="public" static="no">
+        <name>XDSI2RX_PCR_PIXELFORMAT_MASK</name>
+        <initializer>0x000007E0</initializer>
+        <briefdescription>
+<para>Pixel Format Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" prot="public" static="no">
+        <name>XDSI2RX_PCR_PIXELMODE_MASK</name>
+        <initializer>0x0000001C</initializer>
+        <briefdescription>
+<para>Video mode Type Bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" compoundref="xdsi2rx_8c" startline="153" endline="166">XDsi2Rx_DefaultConfigure</referencedby>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="216" endline="230">XDsi2Rx_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gae0aa5c26e2446dc6fb317e743208fbb6" prot="public" static="no">
+        <name>XDSI2RX_PCR_MAXLANES_SHIFT</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Shift MAX LANES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga0c1f2af9dfd2fe88c647809fb05d785c" prot="public" static="no">
+        <name>XDSI2RX_PCR_ERRDATA_TYPE_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Shift for ERROR DATA Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaa4b35b3c0a58a27948e4ac6e46ff9dff" prot="public" static="no">
+        <name>XDSI2RX_PCR_PIXELFORMAT_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Shift for PIXEL FORMAT Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga388004b3a3814f7596c94d9295d4eafe" prot="public" static="no">
+        <name>XDSI2RX_PCR_PIXELMODE_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Shift for Pixel mode 1, 2, 4 PPC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad2aafbf53090a3e04a8c1fcac80c54e2" compoundref="xdsi2rx_8c" startline="153" endline="166">XDsi2Rx_DefaultConfigure</referencedby>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="216" endline="230">XDsi2Rx_GetConfigParams</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XDSI2RX_GIER_OFFSET register</header>
+      <description><para>This register contains the global interrupt enable bit. </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1gabe544be1bfb393e47163d51e4bfe94de" prot="public" static="no">
+        <name>XDSI2RX_GIER_GIE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaf343104c2385cabdfa7938243f006a2d" prot="public" static="no">
+        <name>XDSI2RX_GIER_GIE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift bits for Global Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga10e76ad4fa7201fda09f2d705a9d4b8f" prot="public" static="no">
+        <name>XDSI2RX_GIER_ENABLE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Enable the Global Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga2ec87e155f4bb1b5d46c98bdc0343d94" prot="public" static="no">
+        <name>XDSI2RX_GIER_DISABLE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Disable the Global Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XDSI2RX_ISR_OFFSET register</header>
+      <description><para>This register contains the interrupt status. </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1gaedc99af62992e942ed32d16c24752d2d" prot="public" static="no">
+        <name>XDSI2RX_ISR_FRAME_START_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>FRAME START detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga7d2ced20f59d573409591ccddf2c6ea3" prot="public" static="no">
+        <name>XDSI2RX_ISR_WC_CORRUPTION_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Word count corruption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga6fc2d91ccc714556224eec023cd2f4ef" prot="public" static="no">
+        <name>XDSI2RX_ISR_INCORRECT_LANE_CONFIG_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Incorrect lane configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga80064fc82d9a791eb0e6a65c61e4e6ad" prot="public" static="no">
+        <name>XDSI2RX_ISR_GSP_FIFO_FULL_ERR_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Generic short packet FIFO FULL error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gab3e132ec5e3a02379298de3220618f39" prot="public" static="no">
+        <name>XDSI2RX_ISR_GSP_FIFO_NE_ERR_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>Generic short packet not empty error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga1aed1ae319e4b302138b80e31573d579" prot="public" static="no">
+        <name>XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>STREAM FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gab22cc11137a09af78925b09f2b78fc45" prot="public" static="no">
+        <name>XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>LM async FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga5a344bb91a5cc6631f087c289092ef83" prot="public" static="no">
+        <name>XDSI2RX_ISR_STOP_STATE_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>STOP STATE Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gacfedade42e00cd8a7cf483ad0e688d01" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE4_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>SOT error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gabc817519aa103b7592c3c96fcc362e4a" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>SOT sync error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaf5976e6aecc68a2d13b3fb272e27b297" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE3_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>SOT error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga397c1350e231bbdca43be2bba7d5d5c3" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>SOT sync error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga8f13ff794c556b4069b4b283b0243b65" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE2_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>SOT error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gafce1b3f9e9fb4d51cbbc616da66cbb71" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>SOT sync error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga970932ce2dd6145ee6724e03fdfa6119" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE1_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>SOT error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga2500c4f4a2cd208ec876fa02dd40da3f" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>SOT sync error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga1b871ae996bbbfacf11d388f3ca9d236" prot="public" static="no">
+        <name>XDSI2RX_ISR_ECC2_BIT_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>SHIFT for ECC2 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gadeb94980adf411476f5f34abba33076d" prot="public" static="no">
+        <name>XDSI2RX_ISR_ECC1_BIT_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>SHIFT for ECC1 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3cd6bd99df5a5bd42dd6bec777deb6a5" prot="public" static="no">
+        <name>XDSI2RX_ISR_CRC_ERR_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Shift for CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga8e67f32c9ccefad300ee0a37a7ad0f4d" prot="public" static="no">
+        <name>XDSI2RX_ISR_UN_DATA_TYPE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Shift for Unsupported Data Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga1343ef412ef22cf5ccc96e0b158dcd8e" prot="public" static="no">
+        <name>XDSI2RX_ISR_ALLINTR_MASK</name>
+        <initializer>0x003F5FFF</initializer>
+        <briefdescription>
+<para>Mask of all defined interrupt status bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gafbfac26df76af7938ba6f4c5a3d567b8" prot="public" static="no">
+        <name>XDSI2RX_ISR_FRAME_START_SHIFT</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>FRAME START detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga4cbda551f535ecfdc1cb1b94fa28f884" prot="public" static="no">
+        <name>XDSI2RX_ISR_WC_CORRUPTION_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Word count corruption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaa6c7b51bf9353cc4d14dccfedd091f39" prot="public" static="no">
+        <name>XDSI2RX_ISR_INCORRECT_LANE_CONFIG_SHIFT</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Incorrect lane configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3c3dbfb943f0dbd28d240c068f8c92d9" prot="public" static="no">
+        <name>XDSI2RX_ISR_GSP_FIFO_FULL_ERR_SHIFT</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Generic short packet FIFO FULL error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gac8dfda2f64fef160889330cd9a78fc65" prot="public" static="no">
+        <name>XDSI2RX_ISR_GSP_FIFO_NE_ERR_SHIFT</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Generic short packet not empty error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga4807d33367400a742d6dbd52929fbc7d" prot="public" static="no">
+        <name>XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>STREAM FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gacc35786b30c77b81e5ea8523ece1a707" prot="public" static="no">
+        <name>XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_SHIFT</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>LM FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga5c13d54346b33cf88ebcf59a1d2159ad" prot="public" static="no">
+        <name>XDSI2RX_ISR_STOP_STATE_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>STOP STATE Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gab6e74831d48d8cc60fdc20f53ab3fe97" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE4_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>SOT error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3e82fb95a064b2552663f9d48a80d7aa" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>SOT sync error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga7ab6411eb91a41018b3a51c7171a1bbc" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE3_SHIFT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>SOT error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga012adaf39b527975094b39f83a2b3187" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>SOT sync error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaa348099de13ea073543d5ac281e00c11" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE2_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>SOT error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga9237dcedfe95e811199bfdb0d1a6f041" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>SOT sync error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaef80edefb382c0abdba5807e68ae4d1c" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_ERR_LANE1_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>SOT error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga9c787e36acffb2b6ee7a1503159197c3" prot="public" static="no">
+        <name>XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>SOT sync error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga562e548acd4107281d6aedaad961b4f3" prot="public" static="no">
+        <name>XDSI2RX_ISR_ECC2_BIT_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>SHIFT for ECC2 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga345a988c3d3f150e630db757c4e4a06a" prot="public" static="no">
+        <name>XDSI2RX_ISR_ECC1_BIT_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>SHIFT for ECC1 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gac9fcec711343ade828df93aa1e4bc9b4" prot="public" static="no">
+        <name>XDSI2RX_ISR_CRC_ERR_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Shift for CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga9472276e3bffa7cf6b0a35bad1dc8547" prot="public" static="no">
+        <name>XDSI2RX_ISR_UN_DATA_TYPE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift for Unsupported Data Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XDSI2RX_IER_OFFSET register</header>
+      <description><para>This register contains the interrupt enable masks </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1ga0d40720c2f182cac22e34e89391d0adf" prot="public" static="no">
+        <name>XDSI2RX_IER_FRAME_START_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>FRAME START detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga27929ebcc8db90dbbe3b58f08a1ddbe1" prot="public" static="no">
+        <name>XDSI2RX_IER_WC_CORRUPTION_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Word count corruption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaac5349a838fdca09c8212a247a9c39c9" prot="public" static="no">
+        <name>XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Incorrect lane configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga355484ed4c1eaa6be6979e280dbf997e" prot="public" static="no">
+        <name>XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Generic short packet FIFO FULL error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga8c8556f6983ad2b68aba77e4c035642e" prot="public" static="no">
+        <name>XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>Generic short packet not empty error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaabe767966d898c6c4527b4292d4fa3a5" prot="public" static="no">
+        <name>XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>STREAM FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gad1ea138d5e3a76fef5ac73fda6e31d61" prot="public" static="no">
+        <name>XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>LM async FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3d3dcb5de43bc52613d5cfd7bd6f9ffc" prot="public" static="no">
+        <name>XDSI2RX_IER_STOP_STATE_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>STOP STATE Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga62e8b52d38696cc55161cbaede8fc1c4" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE4_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>SOT error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga2f5affb2e4109fe9d72b0e38c467fed2" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>SOT sync error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gacca32dab9742b885249685de14eb3d33" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE3_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>SOT error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga29bc9bf2b3daa916b0c5097159dd6b84" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>SOT sync error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gafe4108c56b1bcabb030373000603b354" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE2_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>SOT error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="278" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga9a641714fd0be79108406b5f45449a39" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>SOT sync error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga19da08b4e2af79e98193311133df77cf" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE1_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>SOT error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga3687fc6548880588287f3f71b4e88cbf" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>SOT sync error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga22621de5ddd6b00f6bf2c0573feec1c3" prot="public" static="no">
+        <name>XDSI2RX_IER_ECC2_BIT_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>SHIFT for ECC2 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="232" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga2aad504ea3c4d8490ecc4eeff7304223" prot="public" static="no">
+        <name>XDSI2RX_IER_ECC1_BIT_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>SHIFT for ECC1 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga948a8546d784b2b4ff00b898986959d7" prot="public" static="no">
+        <name>XDSI2RX_IER_CRC_ERR_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Shift for CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="296" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaf3ed5d37971744d0b9e56dade2692459" prot="public" static="no">
+        <name>XDSI2RX_IER_UN_DATA_TYPE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Shift for Unsupported Data Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="299" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga54b30c41e3c917badd1eba84e3644fa9" compoundref="xdsi2rx__intr_8c" startline="351" endline="520">XDsi2Rx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga9d5f6ca0c9340a9ad4841f67ba468c32" prot="public" static="no">
+        <name>XDSI2RX_IER_ALLINTR_MASK</name>
+        <initializer>0x003F5FFF</initializer>
+        <briefdescription>
+<para>Mask of all defined interrupt enable bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga6bca141c9dba1cc9f3fa86f05d049486" compoundref="xdsi2rx__intr_8c" startline="154" endline="164">XDsi2Rx_InterruptClear</referencedby>
+        <referencedby refid="group__dsi_1ga6b1fdbb4e464f81ccdf0e823d44293ce" compoundref="xdsi2rx__intr_8c" startline="82" endline="91">XDsi2Rx_InterruptDisable</referencedby>
+        <referencedby refid="group__dsi_1gaffaee65e23167d38fd3ae1107126a334" compoundref="xdsi2rx__intr_8c" startline="59" endline="69">XDsi2Rx_InterruptEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga45b50615f41c5b8ba4395a8554b8e225" prot="public" static="no">
+        <name>XDSI2RX_IER_FRAME_START_SHIFT</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>FRAME START detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga45e3c57cfb7f6ad980491849f6d7bd94" prot="public" static="no">
+        <name>XDSI2RX_IER_WC_CORRUPTION_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Word count corruption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga08e11ab98975706fa1173103f64a8460" prot="public" static="no">
+        <name>XDSI2RX_IER_INCORRECT_LANE_CONFIG_SHIFT</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Incorrect lane configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga05d075e8795534bb45e231b6c278c546" prot="public" static="no">
+        <name>XDSI2RX_IER_GSP_FIFO_FULL_ERR_SHIFT</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Generic short packet FIFO FULL error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaf319dd517dea09d53c2c988e63168281" prot="public" static="no">
+        <name>XDSI2RX_IER_GSP_FIFO_NE_ERR_SHIFT</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Generic short packet not empty error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga5beec902f292ccccaec38573a28a3812" prot="public" static="no">
+        <name>XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>STREAM FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaa45b195e08f9c32badc4c6c4b70310d2" prot="public" static="no">
+        <name>XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_SHIFT</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>LM FIFO full error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga24efb31a3bb14aaf11862c32e12c944e" prot="public" static="no">
+        <name>XDSI2RX_IER_STOP_STATE_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>STOP STATE Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gac7b1cbceddae4fb1dffb05c38d40ce2f" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE4_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>SOT error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gab29361462e10cb4ca25ae466d86839f1" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE4_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>SOT sync error lane4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gab4ff461f066a9117781e706b1568d02a" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE3_SHIFT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>SOT error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaa3475da8a334180a068171f212d5a330" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE3_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>SOT sync error lane3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga9051fe29413d0d6c2405c94436f7f83c" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE2_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>SOT error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga2a7c01037aa486114c2cbf8f4b8bc7f6" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE2_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>SOT sync error lane2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga33de517703c3c30fcf7062b8e18f2fc9" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_ERR_LANE1_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>SOT error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gab16488bb8b4c6357039439eb344ad19a" prot="public" static="no">
+        <name>XDSI2RX_IER_SOT_SYNC_ERR_LANE1_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>SOT sync error lane1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga431849e0b63965faff63ab8df8f1c54c" prot="public" static="no">
+        <name>XDSI2RX_IER_ECC2_BIT_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>SHIFT for ECC2 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga22c976df0a782642dc57a67ee979e36b" prot="public" static="no">
+        <name>XDSI2RX_IER_ECC1_BIT_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>SHIFT for ECC1 bit error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga4e74f101dfbe10fdeea900142864eb6d" prot="public" static="no">
+        <name>XDSI2RX_IER_CRC_ERR_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Shift for CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga7e228a3f2f37eaf0874d06981a2ddc86" prot="public" static="no">
+        <name>XDSI2RX_IER_UN_DATA_TYPE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift for Unsupported Data Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XDSI2RX_GSPR_OFFSET register</header>
+      <description><para>This register contains the generic short packet command . </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1gaa5c446efcf8e59103414cfbfd098fcfd" prot="public" static="no">
+        <name>XDSI2RX_GSPR_DATA_MASK</name>
+        <initializer>0x00FFFF00</initializer>
+        <briefdescription>
+<para>Mask for Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaf207cea9b036e6046012cf13eb116a55" prot="public" static="no">
+        <name>XDSI2RX_GSPR_VC_MASK</name>
+        <initializer>0x000000C0</initializer>
+        <briefdescription>
+<para>Mask for VC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga4385808dde136ee5db4a9fd81707ceb1" prot="public" static="no">
+        <name>XDSI2RX_GSPR_DATA_TYPE_MASK</name>
+        <initializer>0x0000003F</initializer>
+        <briefdescription>
+<para>Mask for Data Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga08990918281ae1abee704ad8b0c90165" prot="public" static="no">
+        <name>XDSI2RX_GSPR_DATA_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Shift for Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga6584c8df5dcba15a55e0856ef009e407" prot="public" static="no">
+        <name>XDSI2RX_GSPR_VC_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Shift for VC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga989eaa20e2e028ce0dd18524b7349e22" prot="public" static="no">
+        <name>XDSI2RX_GSPR_DATA_TYPE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift for DATA Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XDSI2RX_DCR_OFFSET register</header>
+      <description><para>This register contains the generic short packet command . </para></description>
+      <memberdef kind="define" id="group__dsi2rx_1ga6081b12d13a7681c78592f26e826fbeb" prot="public" static="no">
+        <name>XDSI2RX_DCR_FRM_RCVD_MASK</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>mask for frames RCVD </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga8a33d3379ef30a6f325b47a1965d8b84" prot="public" static="no">
+        <name>XDSI2RX_DCR_HLINE_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>mask for H LINES </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1gaa1a8be09751e982c055a8dcaa1ee4d11" prot="public" static="no">
+        <name>XDSI2RX_DCR_FRM_RCVD_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Shift no of frames RCVD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dsi2rx_1ga2657804192a1924388fe56bad323651f" prot="public" static="no">
+        <name>XDSI2RX_DCR_HLINE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift for horizontal lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dsi2rx_1ga4fdfe872fe490e9d0980ed86e132ba52" prot="public" static="no">
+        <name>XDSI2RX_MAX_LANES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Max Lanes supported by DSI2RX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dsi2rx_1ga7ba58d753aa6b2de88f5f8fd3d0fdd2a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset)</argsstring>
+        <name>XDsi2Rx_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Inline function to read DSI2RX controller register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of DSI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value of the register.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="393" bodyend="396"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi2rx_1gabb9fb3b5b8c42255668a1dcf30a2bdcd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XDsi2Rx_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Inline Function to write to DSI2RX controller register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of DSI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="411" bodyend="414"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>XDSI2RX_HW_H_<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDSI2RX_HW_H_</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Register<sp/>accesses<sp/>are<sp/>32-bit.</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="42" refid="group__dsi2rx_1ga414878c04061bbb96896259e36fb1334" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>XDSI2RX_VER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group__dsi2rx_1gafb4823dc1bca449c1456390a9b845e3f" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000024<sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000028<sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000030<sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__dsi2rx_1ga184c7a9684a513f3a00d31e5f443ca25" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000034<sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_INIT_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_CRREADY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_SOFTRESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__dsi2rx_1ga075d5385c99ffa756f513112a49c5e34" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_COREENB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__dsi2rx_1gad3ab4ea50f348f204419f936f06be367" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_INIT_DONE_SHIFT<sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_CRREADY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__dsi2rx_1ga16cf3380173e61542d797f0b9c4a883a" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_SOFTRESET_SHIFT<sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_COREENB_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group__dsi2rx_1ga466c00e191c9b6d1a37b96affce82fc2" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_MAXLANES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000C0000<sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_ERRDATA_TYPE_MASK<sp/><sp/><sp/>0x0003F000<sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELFORMAT_MASK<sp/><sp/><sp/><sp/>0x000007E0<sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000001C<sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_MAXLANES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>18<sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__dsi2rx_1ga9870549ee3345403daeaaa997142261e" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_ERRDATA_TYPE_SHIFT<sp/><sp/>12<sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELFORMAT_SHIFT<sp/><sp/><sp/>5<sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELMODE_SHIFT<sp/><sp/><sp/><sp/><sp/>2<sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="group__dsi2rx_1gac026498cc6e7484ba08feed79b2d434e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109" refid="group__dsi2rx_1ga0c1f2af9dfd2fe88c647809fb05d785c" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_GIE_MASK<sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_GIE_SHIFT<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_ENABLE<sp/><sp/><sp/>1<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_DISABLE<sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_FRAME_START_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_WC_CORRUPTION_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00100000<sp/></highlight></codeline>
+<codeline lineno="126" refid="group__dsi2rx_1gabe544be1bfb393e47163d51e4bfe94de" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_INCORRECT_LANE_CONFIG_MASK<sp/><sp/><sp/>0x00080000<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_FULL_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_NE_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="132" refid="group__dsi2rx_1ga2ec87e155f4bb1b5d46c98bdc0343d94" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STOP_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="142" refid="group__dsi2rx_1ga7d2ced20f59d573409591ccddf2c6ea3" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="148" refid="group__dsi2rx_1ga80064fc82d9a791eb0e6a65c61e4e6ad" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="154" refid="group__dsi2rx_1ga1aed1ae319e4b302138b80e31573d579" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC2_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC1_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_CRC_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="group__dsi2rx_1ga5a344bb91a5cc6631f087c289092ef83" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_UN_DATA_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="163" refid="group__dsi2rx_1gacfedade42e00cd8a7cf483ad0e688d01" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x003F5FFF<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_FRAME_START_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21<sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_WC_CORRUPTION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/></highlight></codeline>
+<codeline lineno="169" refid="group__dsi2rx_1gaf5976e6aecc68a2d13b3fb272e27b297" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_INCORRECT_LANE_CONFIG_SHIFT<sp/><sp/>19<sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_FULL_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>18<sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_NE_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/></highlight></codeline>
+<codeline lineno="175" refid="group__dsi2rx_1ga8f13ff794c556b4069b4b283b0243b65" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>16<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>14<sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STOP_STATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/></highlight></codeline>
+<codeline lineno="178" refid="group__dsi2rx_1gafce1b3f9e9fb4d51cbbc616da66cbb71" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/>10<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/></highlight></codeline>
+<codeline lineno="181" refid="group__dsi2rx_1ga970932ce2dd6145ee6724e03fdfa6119" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/>8<sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/>6<sp/></highlight></codeline>
+<codeline lineno="184" refid="group__dsi2rx_1ga2500c4f4a2cd208ec876fa02dd40da3f" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/>4<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC2_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/></highlight></codeline>
+<codeline lineno="187" refid="group__dsi2rx_1ga1b871ae996bbbfacf11d388f3ca9d236" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC1_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_CRC_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="group__dsi2rx_1gadeb94980adf411476f5f34abba33076d" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_UN_DATA_TYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="group__dsi2rx_1ga3cd6bd99df5a5bd42dd6bec777deb6a5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="200" refid="group__dsi2rx_1ga1343ef412ef22cf5ccc96e0b158dcd8e" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_FRAME_START_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_WC_CORRUPTION_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00100000<sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK<sp/><sp/><sp/>0x00080000<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="207" refid="group__dsi2rx_1ga4cbda551f535ecfdc1cb1b94fa28f884" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="211" refid="group__dsi2rx_1ga3c3dbfb943f0dbd28d240c068f8c92d9" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STOP_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="217" refid="group__dsi2rx_1ga4807d33367400a742d6dbd52929fbc7d" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="219" refid="group__dsi2rx_1ga5c13d54346b33cf88ebcf59a1d2159ad" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="221" refid="group__dsi2rx_1ga3e82fb95a064b2552663f9d48a80d7aa" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="223" refid="group__dsi2rx_1ga012adaf39b527975094b39f83a2b3187" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="225" refid="group__dsi2rx_1ga9237dcedfe95e811199bfdb0d1a6f041" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="227" refid="group__dsi2rx_1ga9c787e36acffb2b6ee7a1503159197c3" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="229" refid="group__dsi2rx_1ga345a988c3d3f150e630db757c4e4a06a" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC2_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="233" refid="group__dsi2rx_1ga9472276e3bffa7cf6b0a35bad1dc8547" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC1_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_CRC_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_UN_DATA_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x003F5FFF<sp/></highlight></codeline>
+<codeline lineno="244" refid="group__dsi2rx_1ga0d40720c2f182cac22e34e89391d0adf" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_FRAME_START_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21<sp/></highlight></codeline>
+<codeline lineno="245" refid="group__dsi2rx_1ga27929ebcc8db90dbbe3b58f08a1ddbe1" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_WC_CORRUPTION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/></highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_INCORRECT_LANE_CONFIG_SHIFT<sp/><sp/>19<sp/></highlight></codeline>
+<codeline lineno="248" refid="group__dsi2rx_1gaac5349a838fdca09c8212a247a9c39c9" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_FULL_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>18<sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_NE_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>16<sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>14<sp/></highlight></codeline>
+<codeline lineno="254" refid="group__dsi2rx_1ga8c8556f6983ad2b68aba77e4c035642e" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STOP_STATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/>10<sp/></highlight></codeline>
+<codeline lineno="257" refid="group__dsi2rx_1gaabe767966d898c6c4527b4292d4fa3a5" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/></highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/>8<sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/></highlight></codeline>
+<codeline lineno="260" refid="group__dsi2rx_1gad1ea138d5e3a76fef5ac73fda6e31d61" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/>6<sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/>4<sp/></highlight></codeline>
+<codeline lineno="263" refid="group__dsi2rx_1ga3d3dcb5de43bc52613d5cfd7bd6f9ffc" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC2_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC1_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_CRC_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_UN_DATA_TYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_MASK<sp/><sp/>0x00FFFF00<sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_VC_MASK<sp/><sp/><sp/><sp/>0x000000C0<sp/></highlight></codeline>
+<codeline lineno="281" refid="group__dsi2rx_1ga9a641714fd0be79108406b5f45449a39" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_TYPE_MASK<sp/>0x0000003F<sp/></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_SHIFT<sp/>8<sp/></highlight></codeline>
+<codeline lineno="284" refid="group__dsi2rx_1ga19da08b4e2af79e98193311133df77cf" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_VC_SHIFT<sp/><sp/><sp/>6<sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_TYPE_SHIFT<sp/>0<sp/></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="296" refid="group__dsi2rx_1ga948a8546d784b2b4ff00b898986959d7" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_FRM_RCVD_MASK<sp/>0xFFFF0000<sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_HLINE_MASK<sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="299" refid="group__dsi2rx_1gaf3ed5d37971744d0b9e56dade2692459" refkind="member"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_FRM_RCVD_SHIFT<sp/>16<sp/></highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_HLINE_SHIFT<sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="303" refid="group__dsi2rx_1ga9d5f6ca0c9340a9ad4841f67ba468c32" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDSI2RX_MAX_LANES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309" refid="group__dsi2rx_1ga45b50615f41c5b8ba4395a8554b8e225" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************Function<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310" refid="group__dsi2rx_1ga45e3c57cfb7f6ad980491849f6d7bd94" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311" refid="group__dsi2rx_1ga08e11ab98975706fa1173103f64a8460" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="323" refid="group__dsi2rx_1gac7b1cbceddae4fb1dffb05c38d40ce2f" refkind="member"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XDsi2Rx_ReadReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="324" refid="group__dsi2rx_1gab29361462e10cb4ca25ae466d86839f1" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325" refid="group__dsi2rx_1gab4ff461f066a9117781e706b1568d02a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Xil_In32(BaseAddress<sp/>+<sp/>(u32)RegOffset));</highlight></codeline>
+<codeline lineno="326" refid="group__dsi2rx_1gaa3475da8a334180a068171f212d5a330" refkind="member"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="327" refid="group__dsi2rx_1ga9051fe29413d0d6c2405c94436f7f83c" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328" refid="group__dsi2rx_1ga2a7c01037aa486114c2cbf8f4b8bc7f6" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="341"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDsi2Rx_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>(u32)RegOffset,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="349" refid="group__dsi2rx_1gaa5c446efcf8e59103414cfbfd098fcfd" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350" refid="group__dsi2rx_1gaf207cea9b036e6046012cf13eb116a55" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="351" refid="group__dsi2rx_1ga4385808dde136ee5db4a9fd81707ceb1" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h"/>
+  </compounddef>
+</doxygen>

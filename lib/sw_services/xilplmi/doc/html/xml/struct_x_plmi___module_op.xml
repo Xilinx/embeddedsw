@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___module_op" kind="struct" prot="public">
+    <compoundname>XPlmi_ModuleOp</compoundname>
+    <includes local="no">xplmi_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___module_op_1a4baa7278454adff6d34bd165eb010d38" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_ModuleOp::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>Operation information mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaadab5133cb40cbaa1113c26036ca0e3" compoundref="xplmi__update_8c" startline="620" endline="775">XPlmi_PlmUpdate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure holds the module operation information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.2/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="340" bodyend="342"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___module_op_1a4baa7278454adff6d34bd165eb010d38" prot="public" virt="non-virtual"><scope>XPlmi_ModuleOp</scope><name>Mode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

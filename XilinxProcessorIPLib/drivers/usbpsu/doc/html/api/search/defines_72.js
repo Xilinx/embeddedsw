@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['ramblocks',['RAMBLOCKS',['../xusb__freertos__audio__example_8c.html#a2017db239ba3a65f9ede9e7a873057ee',1,'xusb_freertos_audio_example.c']]],
+  ['ramdisksectors',['RAMDISKSECTORS',['../xusb__freertos__audio__example_8c.html#a58070a01669124f3f6692703b2b7db7f',1,'xusb_freertos_audio_example.c']]],
+  ['record_5fstart',['RECORD_START',['../xusb__freertos__ch9__composite_8h.html#aed22abbdf1b0c9bc125e04fdf3aad76d',1,'RECORD_START():&#160;xusb_freertos_ch9_composite.h'],['../xusb__freertos__class__audio_8h.html#aed22abbdf1b0c9bc125e04fdf3aad76d',1,'RECORD_START():&#160;xusb_freertos_class_audio.h']]],
+  ['record_5fstop',['RECORD_STOP',['../xusb__freertos__ch9__composite_8h.html#a1fb2854ebfa867ab704b3bc469a4097c',1,'RECORD_STOP():&#160;xusb_freertos_ch9_composite.h'],['../xusb__freertos__class__audio_8h.html#a1fb2854ebfa867ab704b3bc469a4097c',1,'RECORD_STOP():&#160;xusb_freertos_class_audio.h']]],
+  ['report_5fdesc_5flength',['REPORT_DESC_LENGTH',['../xusb__class__composite_8h.html#aa0e73b2bc790091a019e93c278af1bed',1,'REPORT_DESC_LENGTH():&#160;xusb_class_composite.h'],['../xusb__freertos__class__composite_8h.html#aa0e73b2bc790091a019e93c278af1bed',1,'REPORT_DESC_LENGTH():&#160;xusb_freertos_class_composite.h'],['../xusb__freertos__class__keyboard_8h.html#aa0e73b2bc790091a019e93c278af1bed',1,'REPORT_DESC_LENGTH():&#160;xusb_freertos_class_keyboard.h']]],
+  ['report_5flength',['REPORT_LENGTH',['../xusb__class__composite_8h.html#ab38b55a211d3339a35c466c588f0aabc',1,'REPORT_LENGTH():&#160;xusb_class_composite.h'],['../xusb__freertos__class__composite_8h.html#ab38b55a211d3339a35c466c588f0aabc',1,'REPORT_LENGTH():&#160;xusb_freertos_class_composite.h'],['../xusb__freertos__class__keyboard_8h.html#ab38b55a211d3339a35c466c588f0aabc',1,'REPORT_LENGTH():&#160;xusb_freertos_class_keyboard.h']]]
+];

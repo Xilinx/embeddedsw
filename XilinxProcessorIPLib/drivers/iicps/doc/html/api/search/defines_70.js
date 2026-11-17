@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['page_5fsize',['PAGE_SIZE',['../xiicps__repeated__start__example_8c.html#a7d467c1d283fdfa1f2081ba1e0d01b6e',1,'xiicps_repeated_start_example.c']]],
+  ['page_5fsize_5f16',['PAGE_SIZE_16',['../xiicps__eeprom__intr__example_8c.html#ab02f969160ea7d9fb10585a0c76dfb2c',1,'PAGE_SIZE_16():&#160;xiicps_eeprom_intr_example.c'],['../xiicps__eeprom__polled__example_8c.html#ab02f969160ea7d9fb10585a0c76dfb2c',1,'PAGE_SIZE_16():&#160;xiicps_eeprom_polled_example.c'],['../xiicps__repeated__start__example_8c.html#ab02f969160ea7d9fb10585a0c76dfb2c',1,'PAGE_SIZE_16():&#160;xiicps_repeated_start_example.c']]],
+  ['page_5fsize_5f32',['PAGE_SIZE_32',['../xiicps__eeprom__intr__example_8c.html#a3ca349d87dc7e5625f9d4ac98e0863dd',1,'PAGE_SIZE_32():&#160;xiicps_eeprom_intr_example.c'],['../xiicps__eeprom__polled__example_8c.html#a3ca349d87dc7e5625f9d4ac98e0863dd',1,'PAGE_SIZE_32():&#160;xiicps_eeprom_polled_example.c'],['../xiicps__repeated__start__example_8c.html#a3ca349d87dc7e5625f9d4ac98e0863dd',1,'PAGE_SIZE_32():&#160;xiicps_repeated_start_example.c']]],
+  ['page_5fsize_5f64',['PAGE_SIZE_64',['../xiicps__eeprom__intr__example_8c.html#a7af37e61ba165b5b6efedb92324f40b4',1,'PAGE_SIZE_64():&#160;xiicps_eeprom_intr_example.c'],['../xiicps__eeprom__polled__example_8c.html#a7af37e61ba165b5b6efedb92324f40b4',1,'PAGE_SIZE_64():&#160;xiicps_eeprom_polled_example.c'],['../xiicps__repeated__start__example_8c.html#a7af37e61ba165b5b6efedb92324f40b4',1,'PAGE_SIZE_64():&#160;xiicps_repeated_start_example.c']]]
+];
